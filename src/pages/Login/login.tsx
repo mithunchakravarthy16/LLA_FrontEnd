@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getUserLogin } from "../../redux/actions/loginActions";
 import useStyles from "./styles";
+import EnergyManagementContainer from "components/EnergyManagementContainer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -84,7 +85,8 @@ const Login = () => {
 
   return (
     <>
-    Login
+    
+    <EnergyManagementContainer/>
     </>
   );
 };
