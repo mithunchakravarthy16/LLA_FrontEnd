@@ -14,11 +14,12 @@ const VIOT_Routes = () => {
         {/** Protected Routes */}
         <Route path="/" element={<ProtectedRoutes />}>
           <Route path="/" element={<Navigate replace to="login" />} />
+          <Route path="/parking" element={<Parking />} />
+          <Route path="/dashboard" element={<DashBoard />} />
         </Route>
 
         {/** Public Routes */}
         <Route path="/login" element={<Login />} />
-        <Route path="/parking" element={<Parking />} />
         {/** Permission denied route */}
         <Route path="/denied" element={<div>No permission</div>} />
       </Routes>

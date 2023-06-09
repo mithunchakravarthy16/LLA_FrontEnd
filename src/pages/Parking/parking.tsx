@@ -59,13 +59,13 @@ const Parking = () => {
           </Grid>
         </Grid>
         <Grid container className={parkingBottomMainSection}>
-          <Grid item xs={2.92} className={parkingBottomSection}>
+          <Grid item xs={2.9} className={parkingBottomSection}>
             <ParkingScreen4 />
           </Grid>
           <Grid item xs={6} className={parkingBottomSection2}>
             <ParkingScreen5 />
           </Grid>
-          <Grid item xs={2.92} className={parkingBottomSection}>
+          <Grid item xs={2.9} className={parkingBottomSection}>
             <ParkingScreen6 />
           </Grid>
         </Grid>
