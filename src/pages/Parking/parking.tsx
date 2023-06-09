@@ -41,7 +41,7 @@ const Parking = () => {
     parkingBottomMainSection,
     parkingTopSection,
     parkingBottomSection,
-    parkingBottomSection2,
+    parkingBottomInnerSection,
   } = useStyles(appTheme);
 
   return (
@@ -59,14 +59,20 @@ const Parking = () => {
           </Grid>
         </Grid>
         <Grid container className={parkingBottomMainSection}>
-          <Grid item xs={2.9} className={parkingBottomSection}>
-            <ParkingScreen4 />
+          <Grid item xs={3} className={parkingBottomSection}>
+            <div className={parkingBottomInnerSection}>
+              <ParkingScreen4 />
+            </div>
           </Grid>
-          <Grid item xs={6} className={parkingBottomSection2}>
-            <ParkingScreen5 />
+          <Grid item xs={6} className={parkingBottomSection}>
+            <div className={parkingBottomInnerSection}>
+              <ParkingScreen5 />
+            </div>
           </Grid>
-          <Grid item xs={2.9} className={parkingBottomSection}>
-            <ParkingScreen6 />
+          <Grid item xs={3} className={parkingBottomSection}>
+            <div className={parkingBottomInnerSection}>
+              <ParkingScreen6 />
+            </div>
           </Grid>
         </Grid>
       </Grid>

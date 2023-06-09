@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: `'Nunito Sans', sans-serif !important`,
+    background: "#1d2c4d",
     height: "100vh",
   }),
   parkingTopMainSection: (props: any) => ({
@@ -18,17 +19,18 @@ const useStyles = makeStyles({
     height: "calc(100vh - 35%)",
     color: "white",
     opacity: 1,
-    background: "#1d2c4d",
-    padding: "10px",
+    // padding: "10px",
   }),
   parkingBottomSection: (props: any) => ({
-    padding: "1vh",
-    background: "#1b1b1b",
+    padding: "5px",
+    // background: "#1b1b1b",
   }),
-  parkingBottomSection2: (props: any) => ({
+
+  parkingBottomInnerSection: (props: any) => ({
     background: "#1b1b1b",
-    padding: "1vh",
-    margin: "0px 10px !important",
+    padding: "5px",
+    height: "98%",
+    // margin: "0px 10px !important",
   }),
 });
 export default useStyles;
