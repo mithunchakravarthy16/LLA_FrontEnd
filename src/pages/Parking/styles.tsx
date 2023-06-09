@@ -11,9 +11,10 @@ const useStyles = makeStyles({
     color: "white",
     background: "#1b1b1b",
     opacity: 1,
+    zIndex: 1,
   }),
   parkingTopSection: (props: any) => ({
-    padding: "1vh",
+    // padding: "1vh",
   }),
   parkingBottomMainSection: (props: any) => ({
     height: "calc(100vh - 35%)",
