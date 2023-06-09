@@ -126,7 +126,7 @@ const useStyles = makeStyles(() => ({
       fontWeight: " 500",
       fontSize: "16px",
       lineHeight: "24px",
-      color: props?.palette?.login?.welcomeContent,
+      color: "white",
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 1,
@@ -145,7 +145,7 @@ const useStyles = makeStyles(() => ({
       fontWeight: " 500",
       fontSize: "16px",
       lineHeight: "24px",
-      color: props?.palette?.login?.welcomeContent,
+      color: "white",
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 1,

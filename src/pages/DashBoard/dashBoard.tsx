@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import theme from "../../theme/theme";
 import useTranslation from "../../localization/translations";
 import Grid from "@mui/material/Grid";
-import useStyles from "./styles";
+import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
 
+import useStyles from "./styles";
 
 const DashBoard = () => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -14,7 +15,6 @@ const DashBoard = () => {
   );
   const dispatch = useDispatch();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
- 
 
   // useEffect(() => {
   //   switch (selectedTheme) {
@@ -36,16 +36,25 @@ const DashBoard = () => {
   //   }
   // }, [selectedTheme]);
 
-
-
-
   const navigate = useNavigate();
 
+  const { rootContainer } = useStyles(appTheme);
 
+  const handleLogout = () => {
+    let payload = { logout: true };
+    localStorage.removeItem("user");
+    localStorage.clear();
+    dispatch(getUserLogout(payload));
+    dispatch(setUserLogin({}));
+    navigate("/login");
+  };
 
   return (
     <>
-     Dashboard
+      <div className={rootContainer}>
+        <div>Dashboard</div>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </>
   );
 };
