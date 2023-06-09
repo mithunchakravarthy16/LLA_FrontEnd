@@ -52,7 +52,7 @@ let colorCodes = {
   colorGreenThree: "#68F73A",
   colorOrange: "#EC7F51",
   colorRed: "#EA4E4F",
-  rgbaOne: "rgba(0, 0, 0, 0.05)",
+  rgbaOne: "rgba(0, 0, 0, 0.5)",
   rgbaTwo: "rgb(201 214 250 / 20%)",
   rgbaThree: "rgb(216 216 216 / 20%)",
   rgbaFour: "rgb(48 46 46 / 50%)",
