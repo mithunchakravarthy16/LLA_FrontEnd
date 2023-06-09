@@ -27,6 +27,9 @@ const Login = () => {
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
   // useEffect(() => {
   //   switch (selectedTheme) {
   //     case "red":
@@ -47,9 +50,7 @@ const Login = () => {
   //   }
   // }, [selectedTheme]);
 
-  const {
-   
-  } = useStyles(appTheme);
+  const {} = useStyles(appTheme);
 
   useEffect(() => {
     if (user && user?.email) {
@@ -82,11 +83,15 @@ const Login = () => {
     },
   });
 
-  return (
-    <>
-    Login
-    </>
-  );
+  const handleUserName = (e: any) => {
+    setUserName(e.target.value);
+  };
+
+  const handlePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  return <>Login</>;
 };
 
 export default Login;
