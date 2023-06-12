@@ -6,7 +6,7 @@ import theme from "../../theme/theme";
 import useTranslation from "../../localization/translations";
 import Grid from "@mui/material/Grid";
 import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
-
+import Map from "components/Map";
 import useStyles from "./styles";
 
 const DashBoard = () => {
@@ -52,8 +52,11 @@ const DashBoard = () => {
   return (
     <>
       <div className={rootContainer}>
-        <div>Dashboard</div>
-        <button onClick={handleLogout}>Logout</button>
+        <div>
+          Left Panel<button onClick={handleLogout}>Logout</button>
+        </div>
+
+        <Map />
       </div>
     </>
   );

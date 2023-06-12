@@ -7,6 +7,7 @@ import ParkingScreen3 from "components/ParkingScreen3";
 import ParkingScreen4 from "components/ParkingScreen4";
 import ParkingScreen5 from "components/ParkingScreen5";
 import ParkingScreen6 from "components/ParkingScreen6";
+import parking from "mockdata/parking";
 import useStyles from "./styles";
 
 const Parking = () => {
@@ -49,13 +50,13 @@ const Parking = () => {
       <Grid container className={rootContainer}>
         <Grid container className={parkingTopMainSection}>
           <Grid item xs={4} className={parkingTopSection}>
-            <ParkingScreen1 />
+            <ParkingScreen1 data={parking} />
           </Grid>
           <Grid item xs={4} className={parkingTopSection}>
-            <ParkingScreen2 />
+            <ParkingScreen2 data={parking} />
           </Grid>
           <Grid item xs={4} className={parkingTopSection}>
-            <ParkingScreen3 />
+            <ParkingScreen3 data={parking} />
           </Grid>
         </Grid>
         <Grid container className={parkingBottomMainSection}>
