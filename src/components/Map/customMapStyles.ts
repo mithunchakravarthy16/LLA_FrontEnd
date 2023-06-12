@@ -1,10 +1,12 @@
+import appData from "data/appData";
+
 const customMapStyles = [
   {
     featureType: "all",
     elementType: "geometry",
     stylers: [
       {
-        color: "#0B151F",
+        color: appData?.googleMapColor?.mapBgColor,
       },
     ],
   },
@@ -22,7 +24,7 @@ const customMapStyles = [
         weight: "1.39",
       },
       {
-        color: "#566278",
+        color: appData?.googleMapColor?.textColor,
       },
     ],
   },
@@ -40,7 +42,7 @@ const customMapStyles = [
         visibility: "on",
       },
       {
-        color: "#566278",
+        color: appData?.googleMapColor?.textColor,
       },
     ],
   },
@@ -106,7 +108,7 @@ const customMapStyles = [
     elementType: "geometry.fill",
     stylers: [
       {
-        color: "#131D27",
+        color: appData?.googleMapColor?.roadColor,
       },
     ],
   },
@@ -130,8 +132,11 @@ const customMapStyles = [
     featureType: "water",
     elementType: "all",
     stylers: [
+      // {
+      //   lightness: 20,
+      // },
       {
-        lightness: -5,
+        color: appData?.googleMapColor?.riverColor,
       },
     ],
   },
@@ -171,7 +176,7 @@ const customMapStyles = [
     elementType: "labels.icon",
     stylers: [
       {
-        visibility: "on",
+        visibility: "off",
       },
     ],
   },
@@ -198,7 +203,7 @@ const customMapStyles = [
     elementType: "labels.icon",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
