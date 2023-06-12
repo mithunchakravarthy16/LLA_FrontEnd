@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
 import Map from "components/Map";
 import useStyles from "./styles";
+import DashboardContainer from "components/DashboardContainer";
 
 const DashBoard = () => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -40,23 +41,21 @@ const DashBoard = () => {
 
   const { rootContainer } = useStyles(appTheme);
 
-  const handleLogout = () => {
-    let payload = { logout: true };
-    localStorage.removeItem("user");
-    localStorage.clear();
-    dispatch(getUserLogout(payload));
-    dispatch(setUserLogin({}));
-    navigate("/login");
+  const [selectedViewDetailsData, setSelectedViewDetailsData] = useState<any>();
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+  const [geofenceFloorMapEnable, setGeofenceFloorMapEnable] =
+    useState<boolean>(false);
+
+  const handleviewDetails = (selectedData: any) => {
+    setSelectedViewDetailsData(selectedData);
+    setShowInfoDialogue(true);
+    setGeofenceFloorMapEnable(true);
   };
 
   return (
     <>
-      <div className={rootContainer}>
-        <div>
-          Left Panel<button onClick={handleLogout}>Logout</button>
-        </div>
-
-        <Map />
+      <div>
+        <DashboardContainer handleviewDetails={handleviewDetails} />
       </div>
     </>
   );
