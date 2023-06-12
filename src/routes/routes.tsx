@@ -4,6 +4,7 @@ import ProtectedRoutes from "./protectedRoutes";
 import Login from "../pages/Login";
 import DashBoard from "../pages/DashBoard";
 import Parking from "../pages/Parking";
+import Shuttles from "pages/Shuttles";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -16,6 +17,7 @@ const VIOT_Routes = () => {
           <Route path="/" element={<Navigate replace to="login" />} />
           <Route path="/parking" element={<Parking />} />
           <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/shuttles" element={<Shuttles />} />
         </Route>
 
         {/** Public Routes */}
