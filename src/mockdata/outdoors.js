@@ -26,7 +26,7 @@ const energyManagment = {
 		  totalCount: "40",
 		  list: [
 			{
-			  category: "energyManagement",
+			  category: "outdoors",
 			  id: "evt-01",
 			  title: "Parked at Building N",
 			  observbation: "",
@@ -43,7 +43,7 @@ const energyManagment = {
 		  totalCount: "39",
 		  list: [
 			{
-				category: "energyManagement",
+				category: "outdoors",
 				id: "ict-01",
 				title: "Parked at Building N",
 				observbation: "",
@@ -60,7 +60,7 @@ const energyManagment = {
 		  totalCount: "35",
 		  list: [
 			{
-				category: "energyManagement",
+				category: "outdoors",
 				id: "opr-01",
 				title: "Parked at Building N",
 				observbation: "",
