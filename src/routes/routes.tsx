@@ -1,6 +1,6 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ProtectedRoutes from "./protectedRoutes";
+import MainLayout from "pages/MainLayout";
 import Login from "../pages/Login";
 import DashBoard from "../pages/DashBoard";
 import Parking from "../pages/Parking";
@@ -8,25 +8,46 @@ import Shuttles from "pages/Shuttles";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
-
-  return (
-    <>
-      <Routes>
-        {/** Protected Routes */}
-        <Route path="/" element={<ProtectedRoutes />}>
-          <Route path="/" element={<Navigate replace to="login" />} />
-          <Route path="/parking" element={<Parking />} />
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/shuttles" element={<Shuttles />} />
-        </Route>
-
-        {/** Public Routes */}
-        <Route path="/login" element={<Login />} />
-        {/** Permission denied route */}
-        <Route path="/denied" element={<div>No permission</div>} />
-      </Routes>
-    </>
-  );
+  return useRoutes([
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/",
+      element: <Navigate replace to="login" />,
+    },
+    {
+      path: "/",
+      element: user?.userName ? (
+        <MainLayout />
+      ) : (
+        <Navigate replace to="login" />
+      ),
+      children: [
+        {
+          path: "dashboard",
+          element: <DashBoard />,
+        },
+        {
+          path: "parking",
+          element: <Parking />,
+        },
+        {
+          path: "shuttles",
+          element: <Shuttles />,
+        },
+        // {
+        //   path: "settings",
+        //   element: <Settings />,
+        // },
+      ],
+    },
+    {
+      path: "*",
+      element: <div>No Route Found</div>,
+    },
+  ]);
 };
 
 export default VIOT_Routes;
