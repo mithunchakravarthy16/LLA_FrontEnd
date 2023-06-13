@@ -36,7 +36,8 @@ const MainLayout = () => {
   }, []);
 
   return (
-    <div
+    <div>
+      <div
       style={{
         display: "flex",
         minHeight: "100%",
@@ -56,12 +57,15 @@ const MainLayout = () => {
           >
             <Outlet />
           </div>
+          
         </>
       ) : (
         <div className={loaderStyle}>
           {/* <img width={60} height={60} src={LoaderGif} /> */}
         </div>
       )}
+    </div>
+   
     </div>
   );
 };

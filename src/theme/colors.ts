@@ -1,4 +1,7 @@
 let colorCodes = {
+  orangeOne: '#3b5270',
+  darkGreyBlueOne: '#db560a',
+  darkGreyBlueTwo: '#152232',
   colorWhite: "#ffffff",
   colorBlack: "#000000",
   lightGrey1: "#fdfdff",
