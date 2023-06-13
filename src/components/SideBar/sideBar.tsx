@@ -45,7 +45,7 @@ const SideBar = (props: SideBarProps) => {
     menuIconList,
     menuIconListActive,
     customTooltip,
-    avatharSection
+    avatharSection,
   } = useStyles(appTheme);
   const navigate = useNavigate();
 
@@ -57,9 +57,9 @@ const SideBar = (props: SideBarProps) => {
     setActivePage(
       location?.pathname === "/dashboard"
         ? 0
-        : location?.pathname === "/menu"
+        : location?.pathname === "/parking"
         ? 1
-        : location?.pathname === "/analytics" //location?.pathname === "/settings"
+        : location?.pathname === "/shuttles" //location?.pathname === "/settings"
         ? 2
         : 3
     );
@@ -87,16 +87,16 @@ const SideBar = (props: SideBarProps) => {
           {array?.map((item: any) => {
             return (
               <div
-                  className={
-                    activePage === item.id ? menuIconListActive : menuIconList
-                  }
-                  onClick={(event) =>
-                    handleClick(event, item.id, item.path, item?.title)
-                  }
-                >
-                  {/* <img src={item.image} /> */}
-                  <HomeIcon />
-                </div>
+                className={
+                  activePage === item.id ? menuIconListActive : menuIconList
+                }
+                onClick={(event) =>
+                  handleClick(event, item.id, item.path, item?.title)
+                }
+              >
+                {/* <img src={item.image} /> */}
+                <HomeIcon />
+              </div>
             );
           })}
         </div>
