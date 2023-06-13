@@ -12,8 +12,8 @@ const containerStyle = {
 };
 
 const defaultCenter = {
-  lat: 39.75255380818962,
-  lng: -105.00241034678636,
+  lat: 39.75055380818962,
+  lng: -105.00000034678636,
 };
 
 const Map: React.FC<any> = (props) => {
@@ -26,7 +26,7 @@ const Map: React.FC<any> = (props) => {
   const { googleMapStyle } = useStyles(appTheme);
 
   const [map, setMap] = useState<any>(null);
-  const [zoomValue, setZoomValue] = useState<number>(16);
+  const [zoomValue, setZoomValue] = useState<number>(15);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
