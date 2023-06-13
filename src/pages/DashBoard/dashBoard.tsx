@@ -7,6 +7,7 @@ import useTranslation from "../../localization/translations";
 import Grid from "@mui/material/Grid";
 import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
 import Map from "components/Map";
+import SideBar from "components/SideBar";
 import useStyles from "./styles";
 import DashboardContainer from "components/DashboardContainer";
 
@@ -54,8 +55,11 @@ const DashBoard = () => {
 
   return (
     <>
-      <div>
-        <DashboardContainer handleviewDetails={handleviewDetails} />
+      <div className={rootContainer}>
+        <Map />
+        {/* <div>
+          <DashboardContainer handleviewDetails={handleviewDetails} />
+        </div> */}
       </div>
     </>
   );
