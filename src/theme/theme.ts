@@ -23,7 +23,15 @@ let theme = {
         textColor: colorCodes.lightGrey2,
         boxShadow: colorCodes.rgbaOne,
       },
+      sidebar:{
+        menuActiveColor: colorCodes.orangeOne,
+        menuColor:colorCodes.darkGreyBlueOne,
+        sidebarBg:colorCodes.darkGreyBlueTwo,
+        avatharColor: colorCodes.colorWhite
+
+      },
     },
+    
     spacing: 5,
     typography: { fontFamily: "Arial" },
   },
@@ -48,7 +56,15 @@ let theme = {
         textColor: colorCodes.lightGrey2,
         boxShadow: colorCodes.rgbaOne,
       },
+      sidebar:{
+        menuActiveColor: colorCodes.orangeOne,
+        menuColor:colorCodes.darkGreyBlueOne,
+        sidebarBg:colorCodes.darkGreyBlueTwo,
+        avatharColor: colorCodes.colorWhite
+
+      },
     },
+    
     spacing: 5,
     typography: { fontFamily: "Arial" },
   },
@@ -73,7 +89,14 @@ let theme = {
         textColor: colorCodes.lightGrey2,
         boxShadow: colorCodes.rgbaOne,
       },
+      sidebar:{
+        menuActiveColor: colorCodes.orangeOne,
+        menuColor:colorCodes.darkGreyBlueOne,
+        sidebarBg:colorCodes.darkGreyBlueTwo,
+        avatharColor: colorCodes.colorWhite
+      },
     },
+    
     spacing: 5,
     typography: { fontFamily: "Arial" },
   },

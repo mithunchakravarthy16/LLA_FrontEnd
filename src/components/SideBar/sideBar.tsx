@@ -45,6 +45,7 @@ const SideBar = (props: SideBarProps) => {
     menuIconList,
     menuIconListActive,
     customTooltip,
+    avatharSection
   } = useStyles(appTheme);
   const navigate = useNavigate();
 
@@ -75,18 +76,17 @@ const SideBar = (props: SideBarProps) => {
   const padding = [2];
 
   return (
-    <Box component={"nav"} sx={{ flexShrink: 0, width: "104px" }}>
+    <Box component={"nav"} sx={{ flexShrink: 0, width: "90px" }}>
       <Drawer
         open
         variant="permanent"
-        PaperProps={{ sx: { width: 100, bgcolor: "blue" } }}
+        PaperProps={{ sx: { width: 90, bgcolor: "blue" } }}
         className={sideNavigation}
       >
         <div className={menuIconSection}>
           {array?.map((item: any) => {
             return (
-              <Tooltip title={item?.title} placement={"right"}>
-                <div
+              <div
                   className={
                     activePage === item.id ? menuIconListActive : menuIconList
                   }
@@ -97,9 +97,11 @@ const SideBar = (props: SideBarProps) => {
                   {/* <img src={item.image} /> */}
                   <HomeIcon />
                 </div>
-              </Tooltip>
             );
           })}
+        </div>
+        <div className={avatharSection}>
+          <div>MR</div>
         </div>
       </Drawer>
     </Box>

@@ -23,7 +23,7 @@ const Map: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const { googleMapStyle } = useStyles(appTheme);
+  const { googleMapStyle, footerSection } = useStyles(appTheme);
 
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>(15);
@@ -57,6 +57,7 @@ const Map: React.FC<any> = (props) => {
           mapContainerClassName={googleMapStyle}
         ></GoogleMap>
       )}
+       <div className={footerSection}><p>Powered by © Copyright 2023, All Rights Reserved </p></div>
     </>
   );
 };
