@@ -49,13 +49,13 @@ const Parking = () => {
     <>
       <Grid container className={rootContainer}>
         <Grid container className={parkingTopMainSection}>
-          <Grid item xs={4} className={parkingTopSection}>
+          <Grid item xs={4} sm={4} md={4} lg={4} xl={4} className={parkingTopSection}>
             <ParkingScreen1 data={parking} />
           </Grid>
-          <Grid item xs={4} className={parkingTopSection}>
+          <Grid item xs={4} sm={4} md={4} lg={4} xl={4} className={parkingTopSection}>
             <ParkingScreen2 data={parking} />
           </Grid>
-          <Grid item xs={4} className={parkingTopSection}>
+          <Grid item xs={4} sm={4} md={4} lg={4} xl={4} className={parkingTopSection}>
             <ParkingScreen3 data={parking} />
           </Grid>
         </Grid>
