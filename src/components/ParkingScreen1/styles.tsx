@@ -1,4 +1,5 @@
 import { makeStyles } from "@mui/styles";
+import muiTheme from "theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
@@ -21,6 +22,11 @@ const useStyles = makeStyles({
     width: "25%",
     padding: "15px 15px",
     justifyContent: "space-between",
+    fontSize: 16,
+    lineHeight: '21px',
+    [muiTheme.breakpoints.down(1543)]: {
+      fontSize: 12
+    }
   }),
   rightBottomSection: (props: any) => ({
     display: "flex",
@@ -29,6 +35,11 @@ const useStyles = makeStyles({
     width: "62%",
     padding: "18px 18px",
     justifyContent: "space-between",
+    fontSize: 16,
+    lineHeight: '21px',
+    [muiTheme.breakpoints.down(1543)]: {
+      fontSize: 12
+    }
   }),
   leftBottomValueTitle: (props: any) => ({
     //  padding: "19px 12px"
