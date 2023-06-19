@@ -1,11 +1,10 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-  root: (props: any) => ({
-  }),
+  root: (props: any) => ({}),
   sideNavigation: (props: any) => ({
     "& .MuiDrawer-paper": {
-      background:props?.palette?.sidebar?.sidebarBg,
+      background: props?.palette?.sidebar?.sidebarBg,
       borderRight: "0 !important",
       borderRadius: "0px",
       padding: "22px 2px",
@@ -15,15 +14,15 @@ const useStyles = makeStyles({
       height: "calc(100vh - 44px)",
     },
   }),
-  avatharSection: (props:any) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  avatharSection: (props: any) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     background: props?.palette?.sidebar?.menuColor,
-    borderRadius: '50px',
-    width: '50px',
-    height: '50px',
-    color: 'white',
+    borderRadius: "50px",
+    width: "50px",
+    height: "50px",
+    color: "white",
   }),
   menuLogoSection: () => ({
     marginBottom: 46,
@@ -33,7 +32,7 @@ const useStyles = makeStyles({
   }),
   menuIconSection: () => ({
     flex: 1,
-    marginTop: 150
+    marginTop: 150,
   }),
   menuIconList: (props: any) => ({
     cursor: "pointer",
@@ -43,10 +42,9 @@ const useStyles = makeStyles({
     display: " flex",
     alignItems: "center",
     justifyContent: "center",
-    '& .MuiSvgIcon-root': {
-      color:props?.palette?.sidebar?.menuActiveColor,
-    }
-   
+    "& .MuiSvgIcon-root": {
+      color: props?.palette?.sidebar?.menuActiveColor,
+    },
   }),
   menuIconListActive: (props: any) => ({
     cursor: "pointer",
@@ -56,11 +54,11 @@ const useStyles = makeStyles({
     display: " flex",
     alignItems: "center",
     justifyContent: "center",
-    '& .MuiSvgIcon-root': {
+    "& .MuiSvgIcon-root": {
       border: `1px solid ${props?.palette?.sidebar?.menuColor}`,
-      padding: '10px',
-      borderRadius:' 10px',
-      color:props?.palette?.sidebar?.menuColor,
+      padding: "10px",
+      borderRadius: " 10px",
+      color: props?.palette?.sidebar?.menuColor,
     },
     "&::after": {
       content: `''`,
@@ -70,8 +68,8 @@ const useStyles = makeStyles({
       right: "-12px",
       top: "23px",
       backgroundColor: props?.palette?.sidebar?.menuColor,
-      borderTopLeftRadius: '6px',
-      borderBottomLeftRadius: '6px',
+      borderTopLeftRadius: "6px",
+      borderBottomLeftRadius: "6px",
       zIndex: "-1",
     },
   }),
