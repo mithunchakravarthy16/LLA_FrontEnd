@@ -4,7 +4,7 @@ const useStyles = makeStyles({
   root: (props: any) => ({}),
   sideNavigation: (props: any) => ({
     "& .MuiDrawer-paper": {
-      background: props?.palette?.sidebar?.sidebarBg,
+      background: "#142231",
       borderRight: "0 !important",
       borderRadius: "0px",
       padding: "22px 2px",
@@ -18,11 +18,11 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: props?.palette?.sidebar?.menuColor,
+    background: "#485A6B",
     borderRadius: "50px",
     width: "50px",
     height: "50px",
-    color: props?.palette?.sidebar?.avatharColor,
+    color: "white",
   }),
   menuLogoSection: () => ({
     marginBottom: 46,

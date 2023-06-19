@@ -1,8 +1,18 @@
 import { useState, useEffect } from "react";
-import { Box, Drawer, Tooltip } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import theme from "../../theme/theme";
+import Tooltip from "elements/Tooltip";
+import LogoIcon from "../../assets/logo.svg";
+import HomeIcon from "../../assets/Home.svg";
+import HomeActiveIcon from "../../assets/HomeActive.svg";
+import GridViewIcon from "../../assets/Grid-View_Inactive.svg";
+import GridViewActiveIcon from "../../assets/GridViewActive.svg";
+import BirdsViewIcon from "../../assets/Bird_View.svg";
+import BirdsViewActiveIcon from "../../assets/Birds Eye-ViewActive.svg";
+import SettingsIcon from "../../assets/settings.svg";
+import SettingsActiveIcon from "../../assets/SettingsActive.svg";
+import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
 interface SideBarProps {}
@@ -17,11 +27,46 @@ const SideBar = (props: SideBarProps) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [activePage, setActivePage] = useState<number>();
 
+  const { homeText, gridsViewText, birdsViewText, settingsText } =
+    useTranslation();
+
   const array = [
-    { image: HomeIcon, id: 0, path: "/dashboard", title: "Dashboard" },
-    { image: HomeIcon, id: 1, path: "/parking", title: "Parking" },
-    { image: HomeIcon, id: 2, path: "/shuttles", title: "Shuttles" },
-    { image: HomeIcon, id: 3, path: "/settings", title: "Settings" },
+    {
+      image:
+        activePage === 0 && location?.pathname === "/home"
+          ? HomeActiveIcon
+          : HomeIcon,
+      id: 0,
+      path: "/home",
+      title: homeText,
+    },
+    {
+      image:
+        activePage === 1 && location?.pathname === "/parking"
+          ? GridViewActiveIcon
+          : GridViewIcon,
+      id: 1,
+      path: "/parking",
+      title: gridsViewText,
+    },
+    {
+      image:
+        activePage === 2 && location?.pathname === "/birdsView"
+          ? BirdsViewActiveIcon
+          : BirdsViewIcon,
+      id: 2,
+      path: "/birdsView",
+      title: birdsViewText,
+    },
+    {
+      image:
+        activePage === 3 && location?.pathname === "/settings"
+          ? SettingsActiveIcon
+          : SettingsIcon,
+      id: 3,
+      path: "/settings",
+      title: settingsText,
+    },
   ];
 
   useEffect(() => {
@@ -55,11 +100,11 @@ const SideBar = (props: SideBarProps) => {
 
   useEffect(() => {
     setActivePage(
-      location?.pathname === "/dashboard"
+      location?.pathname === "/home"
         ? 0
         : location?.pathname === "/parking"
         ? 1
-        : location?.pathname === "/shuttles" //location?.pathname === "/settings"
+        : location?.pathname === "/birdsView" //location?.pathname === "/settings"
         ? 2
         : 3
     );
@@ -83,21 +128,31 @@ const SideBar = (props: SideBarProps) => {
         PaperProps={{ sx: { width: 90, bgcolor: "blue" } }}
         className={sideNavigation}
       >
+        <div>
+          <img src={LogoIcon} width={"60px"} />
+        </div>
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
             return (
-              <div
-                key={index}
-                className={
-                  activePage === item.id ? menuIconListActive : menuIconList
-                }
-                onClick={(event) =>
-                  handleClick(event, item.id, item.path, item?.title)
-                }
+              <Tooltip
+                tooltipValue={item?.title}
+                placement={"right"}
+                offset={tooltipOfset}
+                fontSize={fontSize}
+                padding={padding}
               >
-                {/* <img src={item.image} /> */}
-                <HomeIcon />
-              </div>
+                <div
+                  className={
+                    activePage === item.id ? menuIconListActive : menuIconList
+                  }
+                  onClick={(event) =>
+                    handleClick(event, item.id, item.path, item?.title)
+                  }
+                  key={index}
+                >
+                  <img src={item.image} width={"35px"} />
+                </div>
+              </Tooltip>
             );
           })}
         </div>
