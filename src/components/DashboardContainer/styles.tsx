@@ -2,66 +2,29 @@ import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
-  containerStyle: (props: any) => ({
-    width: "100%",
-    height: "calc(100vh - 84px)",
-  }),
-
   dashboardRightPanelStyle: (props: any) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
   }),
-  infoIconContainer: (props: any) => ({
+  notificationIconSection: (props: any) => ({
     position: "absolute",
-    bottom: 20,
-    width: "35%",
-    display: "flex",
-    background:
-      props?.palette?.dashboardLeftPanel?.listExpansionBackgroundColor,
-    opacity: 0.8,
-    borderRadius: "5px",
-    // justifyContent: "space-between",
-    backdropFilter: "blur(15px)",
-    padding: "25px 0px 25px 25px",
+    top: "30px",
+    right: "30px",
+    cursor: "pointer",
   }),
-  dashboardMapContainer: (props: any) => ({
-    width: "100%",
-    position: "relative",
-  }),
-  infoIconMainStyle: (props: any) => ({
-    width: "100%",
-  }),
-  infoIconValue: (props: any) => ({
-    color: props?.palette?.dashboardLeftPanel?.infoIconValueColor,
-    fontSize: "36px",
-    fontWeight: "600",
-    [muiTheme.breakpoints.down(1538)]: {
-      fontSize: "24px !important",
-    },
-    [muiTheme.breakpoints.down(1025)]: {
-      fontSize: "20px !important",
-    },
-  }),
-  infoIconTitle: (props: any) => ({
-    display: "flex",
-    alignItems: "center",
-    color: props?.palette?.dashboardLeftPanel?.cardTextColor,
-    fontSize: "15px",
-    fontWeight: 600,
-    [muiTheme.breakpoints.down(1538)]: {
-      fontSize: "12px !important",
-    },
-    [muiTheme.breakpoints.down(1025)]: {
-      fontSize: "10px !important",
-    },
-  }),
-  circleColor: (props: any) => ({
-    width: "10px",
-    height: "10px",
-    borderRadius: "10px",
-    marginRight: 5,
+  notificationPanelSection: (props: any) => ({
+    position: "absolute",
+    right: "30px",
+    background: "rgba(9, 17, 22, 0.9)",
+    height: "calc(100vh - 180px)",
+    top: "106px",
+    boxShadow: "0px 0px 20px 5px rgba(133, 130, 130, 0.2)",
+    backdropFilter: "blur(17px)",
+    borderRadius: "30px",
+    color: "white",
+    width: "380px",
   }),
 });
 export default useStyles;

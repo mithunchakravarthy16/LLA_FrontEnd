@@ -1,10 +1,14 @@
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
-import Grid from "@mui/material/Grid";
 import theme from "../../theme/theme";
+import NotificationPanel from "components/NotificationPanel";
+import {
+  formatttedDashboardNotification,
+  formatttedDashboardNotificationCount,
+} from "../../utils/utils";
+import NotificationIcon from "../../assets/notificationIcon.svg";
+import dashboardList from "mockdata/dashboardNotification";
 import useStyles from "./styles";
-
-import DashboardLeftPanel from "components/DashboardLeftPanel";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -17,6 +21,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -31,23 +37,58 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         break;
     }
   }, [selectedTheme]);
-  const { dashboardMapContainer, dashboardRightPanelStyle } =
-    useStyles(appTheme);
+  const {
+    dashboardRightPanelStyle,
+    notificationIconSection,
+    notificationPanelSection,
+  } = useStyles(appTheme);
+
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+
+  const onHandleBellIcon = () => {
+    setNotificationPanelActive(!notificationPanelActive);
+  };
+
+  const [dashboardData, setDashboardData] = useState<any>(
+    formatttedDashboardNotification(dashboardList?.dashboard, tabIndex)
+  );
+
+  const [notificationCount, setNotificationCount] = useState<any>(
+    formatttedDashboardNotificationCount(dashboardList?.dashboard)
+  );
+
+  useEffect(() => {
+    setDashboardData(
+      formatttedDashboardNotification(dashboardList?.dashboard, tabIndex)
+    );
+  }, [tabIndex]);
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={12} sm={12} md={1} lg={1} xl={1}>
-          <DashboardLeftPanel />
-        </Grid>
-        <Grid item xs={12} sm={12} md={11} lg={11} xl={11}>
-          <div className={dashboardRightPanelStyle}>
-            <div className={dashboardMapContainer}>
-              <Map />
-            </div>
-          </div>
-        </Grid>
-      </Grid>
+      <div className={dashboardRightPanelStyle}>
+        <Map />
+      </div>
+      <img
+        src={NotificationIcon}
+        alt="Notificaion Icon"
+        width={50}
+        onClick={onHandleBellIcon}
+        className={notificationIconSection}
+      />
+      {notificationPanelActive && (
+        <div className={notificationPanelSection}>
+          <NotificationPanel
+            setNotificationPanelActive={setNotificationPanelActive}
+            dashboardData={dashboardData}
+            tabIndex={tabIndex}
+            setTabIndex={setTabIndex}
+            notificationCount={notificationCount}
+            selectedNotification={selectedNotification}
+            setSelectedNotification={setSelectedNotification}
+          />
+        </div>
+      )}
     </>
   );
 };

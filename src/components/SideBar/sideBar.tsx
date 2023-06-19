@@ -84,9 +84,10 @@ const SideBar = (props: SideBarProps) => {
         className={sideNavigation}
       >
         <div className={menuIconSection}>
-          {array?.map((item: any) => {
+          {array?.map((item: any, index: number) => {
             return (
               <div
+                key={index}
                 className={
                   activePage === item.id ? menuIconListActive : menuIconList
                 }
