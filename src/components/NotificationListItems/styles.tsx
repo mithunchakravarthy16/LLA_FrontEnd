@@ -3,18 +3,18 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({}),
   collapsedListItems: (props: any) => ({
-    background: "#142231",
+    background: props?.palette?.notification?.listItemBg,
     padding: "13px",
     borderRadius: "10px",
-    border: "2px solid #5662784a",
+    border: `2px solid ${props?.palette?.notification?.listItemBorder}`,
     marginBottom: "15px",
     cursor: "pointer",
   }),
   expandedListItems: (props: any) => ({
-    background: "#142231",
+    background: props?.palette?.notification?.listItemBg,
     padding: "13px",
     borderRadius: "10px",
-    border: "2px solid #5662784a",
+    border: `2px solid ${props?.palette?.notification?.listItemBorder}`,
     marginBottom: "15px",
     cursor: "pointer",
   }),

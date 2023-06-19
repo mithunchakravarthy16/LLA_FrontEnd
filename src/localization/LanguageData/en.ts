@@ -21,4 +21,8 @@ export default {
   gridsViewText: "Grid View",
   birdsViewText: "Birds View",
   settingsText: "Settings",
+  notificationText: "Notifications",
+  eventText: "Events",
+  incidentText: "Incidents",
+  oprAlertText: "Opr.Alerts",
 };

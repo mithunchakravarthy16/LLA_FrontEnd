@@ -63,7 +63,7 @@ const NotificationListItems = (props: any) => {
   return (
     <>
       <div className={rootContainer} onClick={() => handleExpandListItem(id)}>
-        {selectedNotification === id ? (
+        {/* {selectedNotification === id ? (
           <div className={expandedListItems}>
             <div className={listItemTitle}>{title}</div>
             <div className={expandedListItemRow2}>
@@ -76,15 +76,15 @@ const NotificationListItems = (props: any) => {
               <div className={timeStampStyle}>{timeStamp}</div>
             </div>
           </div>
-        ) : (
-          <div className={collapsedListItems}>
-            <div className={listItemTitle}>{title}</div>
-            <div className={collapsedlistItemRow2}>
-              <div className={listItemSubTitle}>{area}</div>
-              <div className={timeStampStyle}>{timeStamp}</div>
-            </div>
+        ) : ( */}
+        <div className={collapsedListItems}>
+          <div className={listItemTitle}>{title}</div>
+          <div className={collapsedlistItemRow2}>
+            <div className={listItemSubTitle}>{area}</div>
+            <div className={timeStampStyle}>{timeStamp}</div>
           </div>
-        )}
+        </div>
+        {/* )} */}
       </div>
     </>
   );

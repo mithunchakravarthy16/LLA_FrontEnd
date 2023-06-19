@@ -46,30 +46,30 @@ const useStyles = makeStyles({
       "&:first-child": {
         marginRight: "0 !important",
         minWidth: "64px !important",
-        color: `#5B5B5B !important`,
+        color: `${props?.palette?.notification?.tabTextColor} !important`,
       },
       "&:first-child.Mui-selected": {
-        color: `#6CA145 !important`,
+        color: `${props?.palette?.notification?.eventColor} !important`,
       },
       "&:nth-child(2)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
-        color: `#5B5B5B !important`,
+        color: `${props?.palette?.notification?.tabTextColor} !important`,
       },
       "&:nth-child(2).Mui-selected": {
-        color: ` #E63433 !important`,
+        color: `${props?.palette?.notification?.incidentColor} !important`,
       },
       "&:nth-child(3)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
-        color: `#5B5B5B !important`,
+        color: `${props?.palette?.notification?.tabTextColor} !important`,
       },
       "&:nth-child(3).Mui-selected": {
-        color: `#EEAB26 !important`,
+        color: `${props?.palette?.notification?.oprAlertColor} !important`,
       },
     },
     "& .MuiTabs-root .MuiTabs-indicator": {
-      background: "#5B5B5B",
+      background: `${props?.palette?.notification?.tabTextColor}`,
       height: "5px",
       "&:nth-child(2).Mui-selected": {
         background: ` #E63433 !important`,

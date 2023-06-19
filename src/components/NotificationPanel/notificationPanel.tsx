@@ -4,6 +4,8 @@ import NotificationListItems from "components/NotificationListItems";
 import SearchIcon from "../../assets/searchIcon.svg";
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
+import useTranslation from "localization/translations";
+
 import useStyles from "./styles";
 
 const NotificationPanel = (props: any) => {
@@ -22,25 +24,19 @@ const NotificationPanel = (props: any) => {
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  //   useEffect(() => {
-  //     switch (selectedTheme) {
-  //       case "red":
-  //         setAppTheme(theme?.redTheme);
-  //         break;
-  //       case "green":
-  //         setAppTheme(theme?.greenTheme);
-  //         break;
-  //       case "yellow":
-  //         setAppTheme(theme?.yellowTheme);
-  //         break;
-  //       case "default":
-  //         setAppTheme(theme?.defaultTheme);
-  //         break;
-  //       default:
-  //         setAppTheme(theme?.defaultTheme);
-  //         break;
-  //     }
-  //   }, [selectedTheme]);
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
 
   const {
     notificationTitle,
@@ -53,23 +49,25 @@ const NotificationPanel = (props: any) => {
     tabSection,
   } = useStyles(appTheme);
 
+  const { notificationText, eventText, incidentText, oprAlertText } =
+    useTranslation();
   const handleNotificationCloseIcon = () => {
     setNotificationPanelActive(false);
   };
 
   const tabsList = [
     {
-      name: "EVENTS",
+      name: eventText,
       val: 0,
       count: notificationCount && notificationCount[0],
     },
     {
-      name: "INCIDENTS",
+      name: incidentText,
       val: 1,
       count: notificationCount && notificationCount[1],
     },
     {
-      name: "OPR.ALERTS",
+      name: oprAlertText,
       val: 1,
       count: notificationCount && notificationCount[2],
     },
@@ -86,14 +84,13 @@ const NotificationPanel = (props: any) => {
 
   const handleExpandListItem = (id: any) => {
     setSelectedNotification(selectedNotification === id ? "" : id);
-    console.log("id123", id);
   };
 
   return (
     <>
       <div className={notificationRootContainer}>
         <div className={notificationHeader}>
-          <div className={notificationTitle}>Notifications</div>
+          <div className={notificationTitle}>{notificationText}</div>
           <div className={notificationIconSection}>
             <img
               className={notificationSearchIcon}

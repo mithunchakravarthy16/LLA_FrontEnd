@@ -42,11 +42,11 @@ const SideBar = (props: SideBarProps) => {
     },
     {
       image:
-        activePage === 1 && location?.pathname === "/parking"
+        activePage === 1 && location?.pathname === "/gridView"
           ? GridViewActiveIcon
           : GridViewIcon,
       id: 1,
-      path: "/parking",
+      path: "/gridView",
       title: gridsViewText,
     },
     {

@@ -17,10 +17,10 @@ const useStyles = makeStyles({
   notificationPanelSection: (props: any) => ({
     position: "absolute",
     right: "30px",
-    background: "rgba(9, 17, 22, 0.9)",
+    background: props?.palette?.notification?.notificationBg,
     height: "calc(100vh - 180px)",
     top: "106px",
-    boxShadow: "0px 0px 20px 5px rgba(133, 130, 130, 0.2)",
+    boxShadow: `0px 0px 20px 5px ${props?.palette?.notification?.notificationBoxShadow}`,
     backdropFilter: "blur(17px)",
     borderRadius: "30px",
     color: "white",

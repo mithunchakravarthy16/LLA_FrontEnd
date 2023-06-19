@@ -1,6 +1,6 @@
 let colorCodes = {
   orangeOne: "#3b5270",
-  orangeTwo: '#FF7A00',
+  orangeTwo: "#FF7A00",
   darkGreyBlueOne: "#db560a",
   darkGreyBlueTwo: "#152232",
   colorWhite: "#ffffff",
@@ -13,6 +13,19 @@ let colorCodes = {
   lightGrey14: "#ebebeb",
   rgbaOne: "rgba(31, 44, 57, 0.6)",
   darkGrey8: "#272C36",
-  linearBackgroundOne: "linear-gradient(90.93deg, #0C1928 8.67%, rgba(255, 255, 255, 0) 99.86%)",
+  linearBackgroundOne:
+    "linear-gradient(90.93deg, #0C1928 8.67%, rgba(255, 255, 255, 0) 99.86%)",
+  darkBlue: "#0B151F",
+  lightGrey1: "#131D27",
+  darkGrey: "#566278",
+  blueBlack: "#020308",
+  linearGradientBackground: "rgba(9, 17, 22, 0.9)",
+  linearGradientTwo: "rgba(133, 130, 130, 0.2)",
+  darkBlueShade: "#142231",
+  blueGreyShade: "#5662784a",
+  greenColor: "#6CA145",
+  redColor: "#E63433",
+  orangeColor: "#D26901",
+  greyColor: "#5B5B5B",
 };
 export default colorCodes;

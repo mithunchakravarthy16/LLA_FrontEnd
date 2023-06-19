@@ -44,6 +44,7 @@ const Map: React.FC<any> = (props) => {
       fullscreenControl: false,
       zoomControl: false,
       streetViewControl: false,
+      disableDefaultUI: false,
     };
   };
 
