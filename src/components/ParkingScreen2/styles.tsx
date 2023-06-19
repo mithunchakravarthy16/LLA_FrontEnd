@@ -1,4 +1,6 @@
 import { makeStyles } from "@mui/styles";
+import muiTheme from "theme/muiTheme";
+
 
 const useStyles = makeStyles({
   parkingScreen2Container: (props: any) => ({
@@ -18,6 +20,11 @@ const useStyles = makeStyles({
     border: "1px solid #968b8b",
     // padding: "12px",
     borderRadius: "5px",
+    fontSize: 16,
+    lineHeight: '21px',
+    [muiTheme.breakpoints.down(1543)]: {
+      fontSize: 12
+    }
   }),
   rightBottomSection: (props: any) => ({
     display: "flex",
@@ -26,6 +33,11 @@ const useStyles = makeStyles({
     width: "100%",
     padding: "18px 18px",
     justifyContent: "space-between",
+    fontSize: 16,
+    lineHeight: '21px',
+    [muiTheme.breakpoints.down(1543)]: {
+      fontSize: 12
+    }
   }),
   leftBottomValueTitle: (props: any) => ({}),
   leftBottomTitle: (props: any) => ({}),

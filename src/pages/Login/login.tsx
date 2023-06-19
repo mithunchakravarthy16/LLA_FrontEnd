@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import theme from "../../theme/theme";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import llaLogo from "../../assets/images/lla-logo.svg";
 import loginBorder from "../../assets/login-border.svg";
 import virtualIOTLogo from "../../assets/Iot-logo.svg";
 import { OutlinedInput } from "@mui/material";
@@ -74,6 +75,8 @@ const Login = () => {
     formikErrorClass,
     outlineInputField,
     incorrectCredential,
+    llaLogoSection,
+    formSection
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -132,76 +135,84 @@ const Login = () => {
             xl={12}
             className={loginBannerSection}
           >
-            <div className={loginFormSection}>
-              <Grid item xs={12} className={innerForm}>
-                <Box>
-                  <form onSubmit={formik.handleSubmit}>
-                    <div className={welcomeSection}>
-                      <h2 className={formTitle}>Liberty Latin America</h2>
-                      <p className={welcomeContent}>Login to your account</p>
-                      {inCorrectCredentials && (
-                        <div className={incorrectCredential}>
-                          Incorrect User Credentials
-                        </div>
-                      )}
-                    </div>
+            <div>
+              <div className={formSection}>
+              <div className={llaLogoSection}>
+                <img src={llaLogo} />
+              </div>
+              <h2 className={formTitle}>Smart Lab Tech</h2>
+              </div>
+              <div className={loginFormSection}>
+                <Grid item xs={12} className={innerForm}>
+                  <Box>
+                    <form onSubmit={formik.handleSubmit}>
+                      <div className={welcomeSection}>
+                        <p className={welcomeContent}>Sign In</p>
+                        {inCorrectCredentials && (
+                          <div className={incorrectCredential}>
+                            Incorrect User Credentials
+                          </div>
+                        )}
+                      </div>
 
-                    <div>
-                      <p className={inputTitle}>{yourEmail}</p>
-                      <div className={outlineInputField}>
-                        <OutlinedInput
-                          className={inputField}
-                          fullWidth
-                          placeholder="Enter Username"
-                          type="text"
-                          name="userid"
-                          value={formik.values.userid}
-                          onChange={formik.handleChange}
-                        />
-                        {formik.errors.userid && formik.touched.userid && (
-                          <p className={formikErrorClass}>
-                            {formik.errors.userid}
-                          </p>
-                        )}
+                      <div>
+                        <p className={inputTitle}>{yourEmail}</p>
+                        <div className={outlineInputField}>
+                          <OutlinedInput
+                            className={inputField}
+                            fullWidth
+                            placeholder="Enter Username"
+                            type="text"
+                            name="userid"
+                            value={formik.values.userid}
+                            onChange={formik.handleChange}
+                          />
+                          {formik.errors.userid && formik.touched.userid && (
+                            <p className={formikErrorClass}>
+                              {formik.errors.userid}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <p className={inputTitle}>{passwordTItle}</p>
-                      <div className={outlineInputField}>
-                        <OutlinedInput
-                          className={inputFieldPassword}
-                          fullWidth
-                          placeholder="&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;"
-                          type="password"
-                          name="password"
-                          value={formik.values.password}
-                          onChange={formik.handleChange}
-                        />
-                        {formik.errors.password && formik.touched.password && (
-                          <p className={formikErrorClass}>
-                            {formik.errors.password}
-                          </p>
-                        )}
+                      <div>
+                        <p className={inputTitle}>{passwordTItle}</p>
+                        <div className={outlineInputField}>
+                          <OutlinedInput
+                            className={inputFieldPassword}
+                            fullWidth
+                            placeholder="&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;"
+                            type="password"
+                            name="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                          />
+                          {formik.errors.password &&
+                            formik.touched.password && (
+                              <p className={formikErrorClass}>
+                                {formik.errors.password}
+                              </p>
+                            )}
+                        </div>
                       </div>
-                    </div>
-                    {/* <div className={radioButtonSection}>
+                      {/* <div className={radioButtonSection}>
                       <FormControlLabel
                         value="rememberMe"
                         control={<Radio />}
                         label="Remember me"
                       />
                     </div> */}
-                    <div className={loginButton}>
-                      <Button variant="contained" fullWidth type="submit">
-                        {loginNowButton}
-                      </Button>
-                    </div>
-                  </form>
-                </Box>
-              </Grid>
-              {/* <p className={copyRights}>
+                      <div className={loginButton}>
+                        <Button variant="contained" fullWidth type="submit">
+                          {loginNowButton}
+                        </Button>
+                      </div>
+                    </form>
+                  </Box>
+                </Grid>
+                {/* <p className={copyRights}>
                 {copyRightTitle} <span>{contactSupport}</span>
               </p> */}
+              </div>
             </div>
           </Grid>
         </Grid>
