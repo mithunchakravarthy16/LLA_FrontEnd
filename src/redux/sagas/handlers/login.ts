@@ -6,6 +6,7 @@ import userList from "mockdata/login";
 
 export function* handleLogin(action: any): any {
   try {
+    const response = userList;
     if (action && action.payload && action.payload.logout) {
       yield put(setUserLogin({}));
     } else if (action && action.payload && action.payload.language) {
@@ -13,7 +14,6 @@ export function* handleLogin(action: any): any {
     } else {
       const { fetchLogin } = fetchAPIServices;
       // const response = yield fetchLogin(loginApi, action.payload);
-      const response = userList;
       if (response) {
         yield put(setUserLogin(response));
       } else {

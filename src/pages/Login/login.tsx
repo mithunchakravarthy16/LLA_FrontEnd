@@ -97,15 +97,13 @@ const Login = () => {
         .required("Please Enter username"),
       password: Yup.string()
         .min(2, "Mininum 2 characters")
-        .max(15, "Maximum 15 characters")
+        .max(20, "Maximum 20 characters")
         .required("Please Enter password"),
     }),
     onSubmit: (values) => {
       if (
-        ((values?.userid).toLowerCase() === "natalie.portman@gmail.com" &&
-          values?.password === "Natalie@1234") ||
-        ((values?.userid).toLowerCase() === "mikeross@mets.com" &&
-          values?.password === "Mr@2023#")
+        (values?.userid).toLowerCase() === "zyteradmin" &&
+        values?.password === "zyteradmin@2023#"
       ) {
         let payload = {
           userName: values.userid,
@@ -142,7 +140,7 @@ const Login = () => {
                 <Box>
                   <form onSubmit={formik.handleSubmit}>
                     <div className={welcomeSection}>
-                      <h2 className={formTitle}>Zyter Video Wall Demo</h2>
+                      <h2 className={formTitle}>Liberty Latin America</h2>
                       <p className={welcomeContent}>Login to your account</p>
                       {inCorrectCredentials && (
                         <div className={incorrectCredential}>
