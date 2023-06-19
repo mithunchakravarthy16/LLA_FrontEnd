@@ -29,12 +29,12 @@ const SideBar = (props: SideBarProps) => {
   const array = [
     {
       image:
-        activePage === 0 && location?.pathname === "/dashboard"
+        activePage === 0 && location?.pathname === "/home"
           ? HomeActiveIcon
           : HomeIcon,
       id: 0,
-      path: "/dashboard",
-      title: "Dashboard",
+      path: "/home",
+      title: "Home",
     },
     {
       image:
@@ -96,7 +96,7 @@ const SideBar = (props: SideBarProps) => {
 
   useEffect(() => {
     setActivePage(
-      location?.pathname === "/dashboard"
+      location?.pathname === "/home"
         ? 0
         : location?.pathname === "/parking"
         ? 1

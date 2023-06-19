@@ -27,7 +27,7 @@ const VIOT_Routes = () => {
       ),
       children: [
         {
-          path: "dashboard",
+          path: "home",
           element: <DashBoard />,
         },
         {
