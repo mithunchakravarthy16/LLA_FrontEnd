@@ -3,6 +3,8 @@ import { Outlet } from "react-router";
 import SideBar from "../../components/SideBar";
 // import LoaderGif from "../../assets/Header/loaderGif.gif";
 import theme from "../../theme/theme";
+import FooterIcon from "../../assets/footer.svg";
+import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
 const MainLayout = () => {
@@ -25,7 +27,10 @@ const MainLayout = () => {
     }
   }, [selectedTheme]);
 
-  const { loaderStyle } = useStyles(appTheme);
+  const { loaderStyle, footerSection, footerContent } = useStyles(appTheme);
+
+  const { poweredByText, allRightsReservedText, titleText, subTitleText } =
+    useTranslation();
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -38,34 +43,41 @@ const MainLayout = () => {
   return (
     <div>
       <div
-      style={{
-        display: "flex",
-        minHeight: "100%",
-        overflow: "hidden",
-      }}
-    >
-      {isLoaded ? (
-        <>
-          <SideBar />
-          <div
-            style={{
-              flexGrow: 1,
-              overflow: "auto",
-              minHeight: "100%",
-              // paddingTop: "80px",
-            }}
-          >
-            <Outlet />
+        style={{
+          display: "flex",
+          minHeight: "100%",
+          overflow: "hidden",
+        }}
+      >
+        {isLoaded ? (
+          <>
+            <SideBar />
+            <div
+              style={{
+                flexGrow: 1,
+                overflow: "auto",
+                minHeight: "100%",
+              }}
+            >
+              <Outlet />
+            </div>
+            <div className={footerSection}>
+              <div className={footerContent}>
+                {poweredByText} <img src={FooterIcon} width={"25px"} /> |
+                <div style={{ padding: "0 8px" }}>
+                  <p>{titleText}</p>
+                  <p>{subTitleText}</p>
+                </div>
+                | © 2023 | {allRightsReservedText}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className={loaderStyle}>
+            {/* <img width={60} height={60} src={LoaderGif} /> */}
           </div>
-          
-        </>
-      ) : (
-        <div className={loaderStyle}>
-          {/* <img width={60} height={60} src={LoaderGif} /> */}
-        </div>
-      )}
-    </div>
-   
+        )}
+      </div>
     </div>
   );
 };

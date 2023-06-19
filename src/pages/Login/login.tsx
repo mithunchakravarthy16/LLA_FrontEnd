@@ -28,8 +28,6 @@ const Login = () => {
     yourEmail,
     passwordTItle,
     loginNowButton,
-    copyRightTitle,
-    contactSupport,
   } = useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
