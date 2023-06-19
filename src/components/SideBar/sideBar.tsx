@@ -42,11 +42,11 @@ const SideBar = (props: SideBarProps) => {
     },
     {
       image:
-        activePage === 1 && location?.pathname === "/parking"
+        activePage === 1 && location?.pathname === "/gridView"
           ? GridViewActiveIcon
           : GridViewIcon,
       id: 1,
-      path: "/parking",
+      path: "/gridView",
       title: gridsViewText,
     },
     {
@@ -132,7 +132,7 @@ const SideBar = (props: SideBarProps) => {
           <img src={LogoIcon} width={"60px"} />
         </div>
         <div className={menuIconSection}>
-          {array?.map((item: any) => {
+          {array?.map((item: any, index: number) => {
             return (
               <Tooltip
                 tooltipValue={item?.title}
@@ -148,6 +148,7 @@ const SideBar = (props: SideBarProps) => {
                   onClick={(event) =>
                     handleClick(event, item.id, item.path, item?.title)
                   }
+                  key={index}
                 >
                   <img src={item.image} width={"35px"} />
                 </div>

@@ -40,8 +40,11 @@ const Map: React.FC<any> = (props) => {
     return {
       ...defaultMapOptions,
       mapTypeControl: false,
-      rotateControl: true,
+      rotateControl: false,
       fullscreenControl: false,
+      zoomControl: false,
+      streetViewControl: false,
+      disableDefaultUI: false,
     };
   };
 

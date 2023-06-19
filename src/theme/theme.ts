@@ -13,13 +13,29 @@ let theme = {
         textColor: colorCodes.lightGrey2,
         boxShadow: colorCodes.rgbaOne,
         inputTitle: colorCodes.orangeTwo,
-        loginBg: colorCodes.linearBackgroundOne
+        loginBg: colorCodes.linearBackgroundOne,
       },
       sidebar: {
         menuActiveColor: colorCodes.orangeOne,
         menuColor: colorCodes.darkGreyBlueOne,
         sidebarBg: colorCodes.darkGreyBlueTwo,
         avatharColor: colorCodes.colorWhite,
+      },
+      googleMap: {
+        mapBgColor: colorCodes.darkBlue,
+        roadColor: colorCodes.lightGrey1,
+        textColor: colorCodes.darkGrey,
+        riverColor: colorCodes.blueBlack,
+      },
+      notification: {
+        notificationBg: colorCodes?.linearGradientBackground,
+        notificationBoxShadow: colorCodes?.linearGradientTwo,
+        listItemBg: colorCodes?.darkBlueShade,
+
+        eventColor: colorCodes?.greenColor,
+        incidentColor: colorCodes?.redColor,
+        oprAlertColor: colorCodes?.orangeColor,
+        tabTextColor: colorCodes?.greyColor,
       },
     },
 
@@ -37,13 +53,29 @@ let theme = {
         textColor: colorCodes.lightGrey2,
         boxShadow: colorCodes.rgbaOne,
         inputTitle: colorCodes.orangeTwo,
-        loginBg: colorCodes.linearBackgroundOne
+        loginBg: colorCodes.linearBackgroundOne,
       },
       sidebar: {
         menuActiveColor: colorCodes.orangeOne,
         menuColor: colorCodes.darkGreyBlueOne,
         sidebarBg: colorCodes.darkGreyBlueTwo,
         avatharColor: colorCodes.colorWhite,
+      },
+      googleMap: {
+        mapBgColor: colorCodes.darkBlue,
+        roadColor: colorCodes.lightGrey1,
+        textColor: colorCodes.darkGrey,
+        riverColor: colorCodes.blueBlack,
+      },
+      notification: {
+        notificationBg: colorCodes?.linearGradientBackground,
+        notificationBoxShadow: colorCodes?.linearGradientTwo,
+        listItemBg: colorCodes?.darkBlueShade,
+        listItemBorder: colorCodes?.blueGreyShade,
+        eventColor: colorCodes?.greenColor,
+        incidentColor: colorCodes?.redColor,
+        oprAlertColor: colorCodes?.orangeColor,
+        tabTextColor: colorCodes?.greyColor,
       },
     },
 
@@ -61,13 +93,29 @@ let theme = {
         textColor: colorCodes.lightGrey2,
         boxShadow: colorCodes.rgbaOne,
         inputTitle: colorCodes.orangeTwo,
-        loginBg: colorCodes.linearBackgroundOne
+        loginBg: colorCodes.linearBackgroundOne,
       },
       sidebar: {
         menuActiveColor: colorCodes.orangeOne,
         menuColor: colorCodes.darkGreyBlueOne,
         sidebarBg: colorCodes.darkGreyBlueTwo,
         avatharColor: colorCodes.colorWhite,
+      },
+      googleMap: {
+        mapBgColor: colorCodes.darkBlue,
+        roadColor: colorCodes.lightGrey1,
+        textColor: colorCodes.darkGrey,
+        riverColor: colorCodes.blueBlack,
+      },
+      notification: {
+        notificationBg: colorCodes?.linearGradientBackground,
+        notificationBoxShadow: colorCodes?.linearGradientTwo,
+        listItemBg: colorCodes?.darkBlueShade,
+
+        eventColor: colorCodes?.greenColor,
+        incidentColor: colorCodes?.redColor,
+        oprAlertColor: colorCodes?.orangeColor,
+        tabTextColor: colorCodes?.greyColor,
       },
     },
 

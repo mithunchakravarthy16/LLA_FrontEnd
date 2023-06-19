@@ -34,17 +34,17 @@ const useStyles = makeStyles({
       },
   }),
   footerSection: (props: any) => ({
-    background: 'black',
+    background: "black",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    position: 'fixed',
+    position: "fixed",
     bottom: 0,
-    zIndex:' 1111111',
-    width: '100%',
-    height: '50px',
-    color: '#8d8d8d',
-    fontSize: 14
+    // zIndex:' 1111111',
+    width: "100%",
+    height: "50px",
+    color: "#8d8d8d",
+    fontSize: 14,
   }),
 });
 export default useStyles;

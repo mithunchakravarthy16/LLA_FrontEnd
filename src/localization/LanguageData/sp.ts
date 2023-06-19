@@ -20,4 +20,8 @@ export default {
   gridsViewText: "Vista a griglia",
   birdsViewText: "Vista degli uccelli",
   settingsText: "Impostazioni",
+  notificationText: "Notificación",
+  eventText: "Eventos",
+  incidentText: "Incidentes",
+  oprAlertText: "Opr.Alertas",
 };

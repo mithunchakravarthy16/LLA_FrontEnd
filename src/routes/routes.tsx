@@ -31,8 +31,8 @@ const VIOT_Routes = () => {
           element: <DashBoard />,
         },
         {
-          path: "parking",
-          element: <Parking />,
+          path: "gridView",
+          // element: <Parking />,
         },
         {
           path: "birdsView",
