@@ -17,4 +17,8 @@ export default {
   allRightsReservedText: "Tutti i diritti riservati",
   titleText: "Sension",
   subTitleText: "IoT accelerato",
+  homeText: "Casa",
+  gridsViewText: "Vista a griglia",
+  birdsViewText: "Vista degli uccelli",
+  settingsText: "Impostazioni",
 };

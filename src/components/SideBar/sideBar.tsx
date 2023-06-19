@@ -12,6 +12,7 @@ import BirdsViewIcon from "../../assets/Bird_View.svg";
 import BirdsViewActiveIcon from "../../assets/Birds Eye-ViewActive.svg";
 import SettingsIcon from "../../assets/settings.svg";
 import SettingsActiveIcon from "../../assets/SettingsActive.svg";
+import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
 interface SideBarProps {}
@@ -26,6 +27,9 @@ const SideBar = (props: SideBarProps) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [activePage, setActivePage] = useState<number>();
 
+  const { homeText, gridsViewText, birdsViewText, settingsText } =
+    useTranslation();
+
   const array = [
     {
       image:
@@ -34,7 +38,7 @@ const SideBar = (props: SideBarProps) => {
           : HomeIcon,
       id: 0,
       path: "/home",
-      title: "Home",
+      title: homeText,
     },
     {
       image:
@@ -43,7 +47,7 @@ const SideBar = (props: SideBarProps) => {
           : GridViewIcon,
       id: 1,
       path: "/parking",
-      title: "Grid View",
+      title: gridsViewText,
     },
     {
       image:
@@ -52,7 +56,7 @@ const SideBar = (props: SideBarProps) => {
           : BirdsViewIcon,
       id: 2,
       path: "/birdsView",
-      title: "BirdsView",
+      title: birdsViewText,
     },
     {
       image:
@@ -61,7 +65,7 @@ const SideBar = (props: SideBarProps) => {
           : SettingsIcon,
       id: 3,
       path: "/settings",
-      title: "Settings",
+      title: settingsText,
     },
   ];
 
