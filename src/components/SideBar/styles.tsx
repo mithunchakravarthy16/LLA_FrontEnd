@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     borderRadius: "50px",
     width: "50px",
     height: "50px",
-    color: "white",
+    color: props?.palette?.sidebar?.avatharColor,
   }),
   menuLogoSection: () => ({
     marginBottom: 46,
