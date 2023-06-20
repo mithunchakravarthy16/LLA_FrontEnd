@@ -102,7 +102,7 @@ const SideBar = (props: SideBarProps) => {
     setActivePage(
       location?.pathname === "/home"
         ? 0
-        : location?.pathname === "/parking"
+        : location?.pathname === "/gridView"
         ? 1
         : location?.pathname === "/birdsView" //location?.pathname === "/settings"
         ? 2
