@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
-      columnGap: "41px",
+      columnGap: "69px",
     },
 
     "& .MuiButtonBase-root": {
@@ -47,6 +47,12 @@ const useStyles = makeStyles({
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        "& span": {
+          color: `${props?.palette?.notification?.tabListCountColor} !important`,
+          "&:first-child.Mui-selected": {
+            background: `${props?.palette?.notification?.eventColor} !important`,
+          },
+        },
       },
       "&:first-child.Mui-selected": {
         color: `${props?.palette?.notification?.eventColor} !important`,
@@ -55,6 +61,9 @@ const useStyles = makeStyles({
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        "& span": {
+          color: `${props?.palette?.notification?.tabListCountColor} !important`,
+        },
       },
       "&:nth-child(2).Mui-selected": {
         color: `${props?.palette?.notification?.incidentColor} !important`,
@@ -63,13 +72,21 @@ const useStyles = makeStyles({
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        "& span": {
+          color: `${props?.palette?.notification?.tabListCountColor} !important`,
+        },
       },
       "&:nth-child(3).Mui-selected": {
         color: `${props?.palette?.notification?.oprAlertColor} !important`,
       },
     },
     "& .MuiTabs-root .MuiTabs-indicator": {
-      background: props?.tabIndex === 0 ? `${props?.palette?.notification?.eventColor} !important` : props?.tabIndex === 1 ? `${props?.palette?.notification?.incidentColor} !important` : `${props?.palette?.notification?.oprAlertColor} !important`,
+      background:
+        props?.tabIndex === 0
+          ? `${props?.palette?.notification?.eventColor} !important`
+          : props?.tabIndex === 1
+          ? `${props?.palette?.notification?.incidentColor} !important`
+          : `${props?.palette?.notification?.oprAlertColor} !important`,
       height: "5px",
     },
   }),
