@@ -47,7 +47,7 @@ const NotificationPanel = (props: any) => {
     notificationCloseIcon,
     customNotificationTabs,
     tabSection,
-  } = useStyles(appTheme);
+  } = useStyles({...appTheme, tabIndex : tabIndex});
 
   const { notificationText, eventText, incidentText, oprAlertText } =
     useTranslation();

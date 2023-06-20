@@ -69,11 +69,8 @@ const useStyles = makeStyles({
       },
     },
     "& .MuiTabs-root .MuiTabs-indicator": {
-      background: `${props?.palette?.notification?.tabTextColor}`,
+      background: props?.tabIndex === 0 ? `${props?.palette?.notification?.eventColor} !important` : props?.tabIndex === 1 ? `${props?.palette?.notification?.incidentColor} !important` : `${props?.palette?.notification?.oprAlertColor} !important`,
       height: "5px",
-      "&:nth-child(2).Mui-selected": {
-        background: ` #E63433 !important`,
-      },
     },
   }),
   tabSection: (props: any) => ({
