@@ -20,6 +20,7 @@ const NotificationListItems = (props: any) => {
     },
     handleExpandListItem,
     selectedNotification,
+    refs,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -62,7 +63,11 @@ const NotificationListItems = (props: any) => {
 
   return (
     <>
-      <div className={rootContainer} onClick={() => handleExpandListItem(id)}>
+      <div
+        className={rootContainer}
+        onClick={() => handleExpandListItem(id)}
+        ref={refs && refs[id]}
+      >
         {selectedNotification === id ? (
           <div className={expandedListItems}>
             <div className={listItemTitle}>{title}</div>
