@@ -9,11 +9,14 @@ const useStyles = makeStyles({
     letterSpacing: "0.10em",
     fontWeight: 700,
     fontSize: 22,
+    width: "77%",
   }),
   notificationHeader: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    height: "50px",
+    width: "100%",
   }),
   notificationIconSection: (props: any) => ({}),
   notificationSearchIcon: (props: any) => ({
@@ -92,6 +95,23 @@ const useStyles = makeStyles({
   }),
   tabSection: (props: any) => ({
     margin: "15px 0px",
+  }),
+  searchClass: (props: any) => ({
+    border: `1px solid ${props?.palette?.notification?.listItemBorder}`,
+    background: props?.palette?.notification?.listItemBg,
+    color: props?.palette?.notification?.lightGrey3,
+    borderRadius: 6,
+    height: "48px",
+    "& .MuiIconButton-root": {
+      marginRight: 7,
+    },
+    "& .MuiInputBase-input": {
+      padding: "14px 6px",
+    },
+  }),
+  notificationListItemSection: (props: any) => ({
+    height: "calc(100vh - 365px)",
+    overflowY: "scroll",
   }),
 });
 export default useStyles;

@@ -25,6 +25,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -45,11 +48,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     notificationPanelSection,
   } = useStyles(appTheme);
 
-  const [notificationPanelActive, setNotificationPanelActive] =
-    useState<boolean>(false);
-
   const onHandleBellIcon = () => {
-    setNotificationPanelActive(!notificationPanelActive);
+    setNotificationPanelActive(true);
   };
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
@@ -69,6 +69,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     Object.assign({}, item, dashboardArray[i])
   );
 
+  const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
+  );
+
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(dashboardDataList, tabIndex)
   );
@@ -79,6 +83,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   useEffect(() => {
     setDashboardData(
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    );
+    setSearchValue(
       formatttedDashboardNotification(dashboardDataList, tabIndex)
     );
   }, [tabIndex]);
@@ -107,6 +114,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             notificationCount={notificationCount}
             selectedNotification={selectedNotification}
             setSelectedNotification={setSelectedNotification}
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
           />
         </div>
       )}

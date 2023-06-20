@@ -25,4 +25,6 @@ export default {
   eventText: "Eventi",
   incidentText: "Incidenti",
   oprAlertText: "Opr.Avvisi",
+  searchText: "Ricerca",
+  noResultFound: "Nessun Risultato Trovato",
 };
