@@ -28,6 +28,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -90,15 +91,23 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     );
   }, [tabIndex]);
 
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(dashboardDataList)
+    );
+  }, [dashboardDataList]);
+
   return (
     <>
       <div className={dashboardRightPanelStyle}>
         <Map
-          markers={dashboardList?.dashboard}
+          markers={dashboardDataList}
           setNotificationPanelActive={setNotificationPanelActive}
           setSelectedNotification={setSelectedNotification}
           marker={selectedNotification}
           setTabIndex={setTabIndex}
+          currentMarker={currentMarker}
+          setCurrentMarker={setCurrentMarker}
         />
       </div>
       <img
@@ -124,6 +133,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             setSearchOpen={setSearchOpen}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
+            setCurrentMarker={setCurrentMarker}
           />
         </div>
       )}

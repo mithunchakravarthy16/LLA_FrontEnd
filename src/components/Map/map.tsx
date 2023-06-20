@@ -45,6 +45,8 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification,
     marker,
     setTabIndex,
+    currentMarker,
+    setCurrentMarker,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -55,7 +57,6 @@ const Map: React.FC<any> = (props) => {
 
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>(15);
-  const [currentMarker, setCurrentMarker] = useState<any>();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
