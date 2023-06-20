@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -9,11 +11,14 @@ const useStyles = makeStyles({
     letterSpacing: "0.10em",
     fontWeight: 700,
     fontSize: 22,
+    width: "77%",
   }),
   notificationHeader: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    height: "50px",
+    width: "100%",
   }),
   notificationIconSection: (props: any) => ({}),
   notificationSearchIcon: (props: any) => ({
@@ -27,7 +32,8 @@ const useStyles = makeStyles({
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
-      columnGap: "41px",
+      columnGap: "69px",
+      textTransform: 'uppercase',
     },
 
     "& .MuiButtonBase-root": {
@@ -40,44 +46,108 @@ const useStyles = makeStyles({
     "& .MuiTab-root": {
       fontSize: "16px !important",
       fontWeight: "600 !important",
-      lineHeight: "24px !important",
+      lineHeight: "30px !important",
       fontFamily: "Poppins",
       marginBottom: 10,
       "&:first-child": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
-      },
-      "&:first-child.Mui-selected": {
-        color: `${props?.palette?.notification?.eventColor} !important`,
+        "& .count": {
+          width: 56,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: "#5B5B5B",
+          borderRadius: "30px",
+          color: "#B7B6B6",
+          marginBottom: 6,
+        },
+        "&.Mui-selected": {
+          color: `${props?.palette?.notification?.eventColor} !important`,
+          "& .count": {
+            background: `${props?.palette?.notification?.eventColor} !important`,
+            color: `${props?.palette?.notification?.listTextColor} !important`,
+          },
+        },
       },
       "&:nth-child(2)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        "& .count": {
+          width: 56,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: "#5B5B5B",
+          borderRadius: "30px",
+          color: "#B7B6B6",
+          marginBottom: 6,
+        },
       },
-      "&:nth-child(2).Mui-selected": {
+      "&.Mui-selected": {
         color: `${props?.palette?.notification?.incidentColor} !important`,
+        "& .count": {
+          background: `${props?.palette?.notification?.incidentColor} !important`,
+          color: `${props?.palette?.notification?.listTextColor} !important`,
+        },
       },
       "&:nth-child(3)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
-      },
-      "&:nth-child(3).Mui-selected": {
-        color: `${props?.palette?.notification?.oprAlertColor} !important`,
+        "& .count": {
+          width: 56,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: "#5B5B5B",
+          borderRadius: "30px",
+          color: "#B7B6B6",
+          marginBottom: 6,
+        },
+        "&.Mui-selected": {
+          color: `${props?.palette?.notification?.oprAlertColor} !important`,
+          "& .count": {
+            background: `${props?.palette?.notification?.oprAlertColor} !important`,
+            color: `${props?.palette?.notification?.listTextColor} !important`,
+          },
+        },
       },
     },
     "& .MuiTabs-root .MuiTabs-indicator": {
-      background: `${props?.palette?.notification?.tabTextColor}`,
-      height: "5px",
-      "&:nth-child(2).Mui-selected": {
-        background: ` #E63433 !important`,
-      },
+      background:
+        props?.tabIndex === 0
+          ? `${props?.palette?.notification?.eventColor} !important`
+          : props?.tabIndex === 1
+          ? `${props?.palette?.notification?.incidentColor} !important`
+          : `${props?.palette?.notification?.oprAlertColor} !important`,
+      height: "6px",
+      borderRadius: 6,
+      textTransform: 'uppercase'
     },
   }),
   tabSection: (props: any) => ({
     margin: "15px 0px",
+    borderBottom:' 1px solid rgb(255 255 255 / 50%)'
+  }),
+  searchClass: (props: any) => ({
+    border: `1px solid ${props?.palette?.notification?.listItemBorder}`,
+    background: props?.palette?.notification?.listItemBg,
+    color: props?.palette?.notification?.lightGrey3,
+    borderRadius: 6,
+    height: "48px",
+    "& .MuiIconButton-root": {
+      marginRight: 7,
+    },
+    "& .MuiInputBase-input": {
+      padding: "14px 6px",
+    },
+  }),
+  notificationListItemSection: (props: any) => ({
+    height: "calc(100vh - 365px)",
+    overflowY: "scroll",
   }),
 });
 export default useStyles;

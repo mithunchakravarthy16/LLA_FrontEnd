@@ -31,11 +31,14 @@ let theme = {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
         listItemBg: colorCodes?.darkBlueShade,
-
+        listItemBorder: colorCodes?.blueGreyShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
         tabTextColor: colorCodes?.greyColor,
+        takeActionButtonColor: colorCodes?.orangeShadeRed,
+        listTextColor: colorCodes?.colorWhite,
+        tabListCountColor: colorCodes?.greyColor2,
       },
     },
 
@@ -76,6 +79,9 @@ let theme = {
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
         tabTextColor: colorCodes?.greyColor,
+        takeActionButtonColor: colorCodes?.orangeShadeRed,
+        listTextColor: colorCodes?.colorWhite,
+        tabListCountColor: colorCodes?.greyColor2,
       },
     },
 
@@ -111,11 +117,14 @@ let theme = {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
         listItemBg: colorCodes?.darkBlueShade,
-
+        listItemBorder: colorCodes?.blueGreyShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
         tabTextColor: colorCodes?.greyColor,
+        takeActionButtonColor: colorCodes?.orangeShadeRed,
+        listTextColor: colorCodes?.colorWhite,
+        tabListCountColor: colorCodes?.greyColor2,
       },
     },
 

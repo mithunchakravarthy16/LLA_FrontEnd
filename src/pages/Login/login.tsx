@@ -21,10 +21,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    virtualTrackerIoT,
-    loginDescription,
-    welcomBack,
-    signInTitle,
     yourEmail,
     passwordTItle,
     loginNowButton,
@@ -137,10 +133,10 @@ const Login = () => {
           >
             <div>
               <div className={formSection}>
-                <div className={llaLogoSection}>
-                  <img src={llaLogo} />
-                </div>
-                <h2 className={formTitle}>Smart Lab Tech</h2>
+              <div className={llaLogoSection}>
+                <img src={llaLogo} />
+              </div>
+              <h2 className={formTitle}>Smart Lab Tech</h2>
               </div>
               <div className={loginFormSection}>
                 <Grid item xs={12} className={innerForm}>
