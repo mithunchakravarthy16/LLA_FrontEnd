@@ -28,7 +28,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const { listCount } = useStyles(appTheme);
+  const { listCount, tabLabel, labelCountStyle } = useStyles(appTheme);
 
   const [value, setValue] = useState<any>();
 
@@ -55,9 +55,9 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                 key={index}
                 value={pageName === "sendConfig" ? item?.val : index}
                 label={
-                  <div>
-                    <div>
-                      <p className={listCount}>{item?.count}</p>
+                  <div className={tabLabel}>
+                    <div className={listCount}>
+                      <span className={labelCountStyle}>{item?.count}</span>
                     </div>
                     <div>{item?.name}</div>
                   </div>

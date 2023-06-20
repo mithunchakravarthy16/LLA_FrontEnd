@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
   }),
   listItemTitle: (props: any) => ({
-    fontSize: 21,
+    fontSize: 20,
     fontWeight: 700,
     letterSpacing: "0.5px",
     marginBottom: 12,
@@ -31,9 +31,9 @@ const useStyles = makeStyles({
   listItemSubTitle: (props: any) => ({
     fontStyle: "italic",
     fontWeight: 400,
-    fontSize: 16,
+    fontSize: 15,
   }),
-  timeStampStyle: (props: any) => ({ fontWeight: 400, fontSize: 14 }),
+  timeStampStyle: (props: any) => ({ fontWeight: 400, fontSize: 13 }),
   expandedListItemRow2: (props: any) => ({
     fontSize: 14,
     fontWeight: 400,

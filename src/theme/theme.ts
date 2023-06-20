@@ -38,6 +38,7 @@ let theme = {
         tabTextColor: colorCodes?.greyColor,
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
+        tabListCountColor: colorCodes?.greyColor2,
       },
     },
 
@@ -80,6 +81,7 @@ let theme = {
         tabTextColor: colorCodes?.greyColor,
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
+        tabListCountColor: colorCodes?.greyColor2,
       },
     },
 
@@ -122,6 +124,7 @@ let theme = {
         tabTextColor: colorCodes?.greyColor,
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
+        tabListCountColor: colorCodes?.greyColor2,
       },
     },
 
