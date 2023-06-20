@@ -10,7 +10,6 @@ import {
 import customMapStyles from "./customMapStyles";
 import theme from "../../theme/theme";
 import appData from "../../data/appData";
-import MarkerInfoWindow from "../../elements/InfoWindow";
 import NotificationListItems from "components/NotificationListItems";
 import ParkingEventIcon from "../../assets/markers/Parking-green.svg";
 import ParkingIncidentIcon from "../../assets/markers/Parking-red.svg";
@@ -40,7 +39,13 @@ const defaultCenter = {
 };
 
 const Map: React.FC<any> = (props) => {
-  const { markers } = props;
+  const {
+    markers,
+    setNotificationPanelActive,
+    setSelectedNotification,
+    marker,
+    setTabIndex,
+  } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -56,6 +61,10 @@ const Map: React.FC<any> = (props) => {
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
     libraries: ["places", "drawing"],
   });
+
+  useEffect(() => {
+    setCurrentMarker(marker);
+  }, [marker]);
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
@@ -128,7 +137,20 @@ const Map: React.FC<any> = (props) => {
     }
   };
 
+  const getTabIndex = (type: string) => {
+    switch (type) {
+      case "event":
+        return 0;
+      case "incident":
+        return 1;
+      case "oprAlert":
+        return 2;
+    }
+  };
+
   const toggleInfoWindow = (markerId: string, type: string, location: any) => {
+    setNotificationPanelActive(true);
+    setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
       if (prev && prev === markerId) {
         map?.panTo(defaultCenter);
@@ -138,6 +160,18 @@ const Map: React.FC<any> = (props) => {
         return markerId;
       }
     });
+    setSelectedNotification((prev: any) => {
+      return prev && prev == markerId ? "" : markerId;
+    });
+  };
+
+  const handleMarkerClose = () => {
+    setSelectedNotification("");
+    map?.panTo(defaultCenter);
+  };
+
+  const handleExpandListItem = () => {
+    setSelectedNotification("");
   };
 
   return (
@@ -160,7 +194,7 @@ const Map: React.FC<any> = (props) => {
                   onClick={() => {
                     toggleInfoWindow(
                       singleMarker.id,
-                      singleMarker.type,
+                      singleMarker.notificationCategory,
                       singleMarker?.location
                     );
                   }}
@@ -180,8 +214,12 @@ const Map: React.FC<any> = (props) => {
                     position={singleMarker?.location}
                     options={{ pixelOffset: new google.maps.Size(0, -20) }}
                   >
-                    {/* <MarkerInfoWindow /> */}
-                    <NotificationListItems data={singleMarker} />
+                    <NotificationListItems
+                      data={singleMarker}
+                      pageName={"markerCallout"}
+                      handleMarkerClose={handleMarkerClose}
+                      handleExpandListItem={handleExpandListItem}
+                    />
                   </InfoWindowF>
                 )}
               </>
