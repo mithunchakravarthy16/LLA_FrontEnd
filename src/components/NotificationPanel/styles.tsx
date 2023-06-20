@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
-      columnGap: "41px",
+      columnGap: "69px",
     },
 
     "& .MuiButtonBase-root": {

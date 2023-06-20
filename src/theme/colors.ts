@@ -27,5 +27,6 @@ let colorCodes = {
   redColor: "#E63433",
   orangeColor: "#D26901",
   greyColor: "#5B5B5B",
+  orangeShadeRed: "#CD5209",
 };
 export default colorCodes;

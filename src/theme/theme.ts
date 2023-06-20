@@ -36,6 +36,8 @@ let theme = {
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
         tabTextColor: colorCodes?.greyColor,
+        takeActionButtonColor: colorCodes?.orangeShadeRed,
+        listTextColor: colorCodes?.colorWhite,
       },
     },
 
@@ -76,6 +78,8 @@ let theme = {
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
         tabTextColor: colorCodes?.greyColor,
+        takeActionButtonColor: colorCodes?.orangeShadeRed,
+        listTextColor: colorCodes?.colorWhite,
       },
     },
 
@@ -116,6 +120,8 @@ let theme = {
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
         tabTextColor: colorCodes?.greyColor,
+        takeActionButtonColor: colorCodes?.orangeShadeRed,
+        listTextColor: colorCodes?.colorWhite,
       },
     },
 

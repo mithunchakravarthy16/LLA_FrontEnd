@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import Button from "elements/Button";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 
@@ -62,28 +63,35 @@ const NotificationListItems = (props: any) => {
   return (
     <>
       <div className={rootContainer} onClick={() => handleExpandListItem(id)}>
-        {/* {selectedNotification === id ? (
+        {selectedNotification === id ? (
           <div className={expandedListItems}>
             <div className={listItemTitle}>{title}</div>
             <div className={expandedListItemRow2}>
-              {category === "parking" ? `Vehicle LPN : ${entity}` : `${entity}`}{" "}
-              | {venue}
+              {category === "parking"
+                ? `Vehicle LPN : ${entity} | `
+                : `${entity}`}{" "}
+              {venue}
             </div>
             <div className={expandedListItemRow3}>{area}</div>
             <div className={expandedListItemRow4}>
-              <div className={buttonStyle}>Take Action</div>
+              <div className={buttonStyle}>
+                {" "}
+                <Button variant="contained" handleClick={() => null}>
+                  Take Action
+                </Button>
+              </div>
               <div className={timeStampStyle}>{currentTimeStamp}</div>
             </div>
           </div>
-        ) : ( */}
-        <div className={collapsedListItems}>
-          <div className={listItemTitle}>{title}</div>
-          <div className={collapsedlistItemRow2}>
-            <div className={listItemSubTitle}>{area}</div>
-            <div className={timeStampStyle}>{currentTimeStamp}</div>
+        ) : (
+          <div className={collapsedListItems}>
+            <div className={listItemTitle}>{title}</div>
+            <div className={collapsedlistItemRow2}>
+              <div className={listItemSubTitle}>{area}</div>
+              <div className={timeStampStyle}>{currentTimeStamp}</div>
+            </div>
           </div>
-        </div>
-        {/* )} */}
+        )}
       </div>
     </>
   );
