@@ -42,16 +42,17 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     width: "1016px !important",
     padding: "80px",
+    margin: '0 auto',
     [muiTheme.breakpoints.down(3073)]: {
-      maxWidth: "550px !important",
+      maxWidth: "460px !important",
       padding: "60px 40px ",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      maxWidth: "550px !important",
+      maxWidth: "460px !important",
       padding: "40px ",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      maxWidth: "550px !important",
+      maxWidth: "460px !important",
       padding: "32px 20px ",
     },
     "&::before": {
