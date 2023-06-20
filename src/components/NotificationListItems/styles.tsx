@@ -1,9 +1,11 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-  rootContainer: (props: any) => ({}),
+  rootContainer: (props: any) => ({
+    minWidth: props?.pageName === "markerCallout" ? "400px" : "380px",
+  }),
   collapsedListItems: (props: any) => ({
-    background: props?.palette?.notification?.listItemBg,
+    background: props?.palette?.notification?.listItemBg, //rgba(7, 48, 77, 0.8)
     padding: "13px",
     borderRadius: "10px",
     border: `2px solid ${props?.palette?.notification?.listItemBorder}`,
@@ -14,7 +16,10 @@ const useStyles = makeStyles({
     background: props?.palette?.notification?.listItemBg,
     padding: "13px",
     borderRadius: "10px",
-    border: `2px solid ${props?.palette?.notification?.listItemBorder}`,
+    border:
+      props?.pageName === "markerCallout"
+        ? "none"
+        : `2px solid ${props?.palette?.notification?.listItemBorder}`,
     marginBottom: props?.pageName === "markerCallout" ? 0 : "15px",
     cursor: "pointer",
   }),
@@ -31,7 +36,7 @@ const useStyles = makeStyles({
   listItemSubTitle: (props: any) => ({
     fontStyle: "italic",
     fontWeight: 400,
-    fontSize: 15,
+    fontSize: 14,
   }),
   timeStampStyle: (props: any) => ({ fontWeight: 400, fontSize: 13 }),
   expandedListItemRow2: (props: any) => ({

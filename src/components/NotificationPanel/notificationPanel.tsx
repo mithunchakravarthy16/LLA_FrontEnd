@@ -22,6 +22,7 @@ const NotificationPanel = (props: any) => {
     setSearchOpen,
     searchValue,
     setSearchValue,
+    setCurrentMarker,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -71,23 +72,35 @@ const NotificationPanel = (props: any) => {
     setNotificationPanelActive(false);
     setSearchOpen(false);
     setTabIndex(1);
+    setCurrentMarker("");
+    setSelectedNotification("");
+    setSearchValue(dashboardData);
   };
 
   const tabsList = [
     {
       name: eventText,
       val: 0,
-      count: notificationCount && notificationCount[0],
+      count:
+        searchOpen && tabIndex === 0
+          ? searchValue?.length
+          : notificationCount && notificationCount[0],
     },
     {
       name: incidentText,
       val: 1,
-      count: notificationCount && notificationCount[1],
+      count:
+        searchOpen && tabIndex === 1
+          ? searchValue?.length
+          : notificationCount && notificationCount[1],
     },
     {
       name: oprAlertText,
       val: 1,
-      count: notificationCount && notificationCount[2],
+      count:
+        searchOpen && tabIndex === 2
+          ? searchValue?.length
+          : notificationCount && notificationCount[2],
     },
   ];
 

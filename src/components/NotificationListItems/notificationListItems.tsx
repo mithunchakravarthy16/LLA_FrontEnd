@@ -18,6 +18,8 @@ const NotificationListItems = (props: any) => {
       category,
       notificationCategory,
       currentTimeStamp,
+      equipment,
+      subTitle,
     },
     handleExpandListItem,
     selectedNotification,
@@ -86,12 +88,14 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
             )}
             <div className={expandedListItemRow2}>
-              {category === "parking"
-                ? `Vehicle LPN : ${entity} | `
-                : `${entity}`}{" "}
-              {venue}
+              {category === "parking" ? `Vehicle LPN : ${entity}` : `${entity}`}{" "}
             </div>
-            <div className={expandedListItemRow3}>{area}</div>
+            <div className={expandedListItemRow3}>
+              {equipment && `${equipment} | `}
+              {subTitle ? subTitle : area}
+            </div>
+            {venue && <div className={expandedListItemRow3}>{venue}</div>}
+
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>
                 <Button variant="contained" handleClick={() => null}>
@@ -105,7 +109,10 @@ const NotificationListItems = (props: any) => {
           <div className={collapsedListItems}>
             <div className={listItemTitle}>{title}</div>
             <div className={collapsedlistItemRow2}>
-              <div className={listItemSubTitle}>{area}</div>
+              <div className={listItemSubTitle}>
+                {equipment && `${equipment} | `}
+                {subTitle ? subTitle : area}
+              </div>
               <div className={timeStampStyle}>{currentTimeStamp}</div>
             </div>
           </div>
