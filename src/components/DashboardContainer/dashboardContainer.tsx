@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import theme from "../../theme/theme";
+import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedDashboardNotification,
@@ -50,18 +51,35 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
+  const dashboardArray = dashboardList?.dashboard;
+  let currentTimeStampValue;
+  let timeArrayNew: any = [];
+  for (let i = 0; i < dashboardArray?.length; i++) {
+    currentTimeStampValue = moment()
+      .subtract({
+        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
+        minutes: i + 59,
+        seconds: i + 49,
+      })
+      .format("MM-DD-YYYY | h:mm A");
+    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
+  }
+
+  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
+    Object.assign({}, item, dashboardArray[i])
+  );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardList?.dashboard, tabIndex)
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
   );
 
   const [notificationCount, setNotificationCount] = useState<any>(
-    formatttedDashboardNotificationCount(dashboardList?.dashboard)
+    formatttedDashboardNotificationCount(dashboardDataList)
   );
 
   useEffect(() => {
     setDashboardData(
-      formatttedDashboardNotification(dashboardList?.dashboard, tabIndex)
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
     );
   }, [tabIndex]);
 

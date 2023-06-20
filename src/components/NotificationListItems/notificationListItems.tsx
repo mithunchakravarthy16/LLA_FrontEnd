@@ -15,6 +15,7 @@ const NotificationListItems = (props: any) => {
       venue,
       category,
       notificationCategory,
+      currentTimeStamp,
     },
     handleExpandListItem,
     selectedNotification,
@@ -71,7 +72,7 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItemRow3}>{area}</div>
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>Take Action</div>
-              <div className={timeStampStyle}>{timeStamp}</div>
+              <div className={timeStampStyle}>{currentTimeStamp}</div>
             </div>
           </div>
         ) : ( */}
@@ -79,7 +80,7 @@ const NotificationListItems = (props: any) => {
           <div className={listItemTitle}>{title}</div>
           <div className={collapsedlistItemRow2}>
             <div className={listItemSubTitle}>{area}</div>
-            <div className={timeStampStyle}>{timeStamp}</div>
+            <div className={timeStampStyle}>{currentTimeStamp}</div>
           </div>
         </div>
         {/* )} */}
