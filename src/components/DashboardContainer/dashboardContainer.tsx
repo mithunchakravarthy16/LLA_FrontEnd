@@ -93,7 +93,13 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   return (
     <>
       <div className={dashboardRightPanelStyle}>
-        <Map />
+        <Map
+          markers={dashboardList?.dashboard}
+          setNotificationPanelActive={setNotificationPanelActive}
+          setSelectedNotification={setSelectedNotification}
+          marker={selectedNotification}
+          setTabIndex={setTabIndex}
+        />
       </div>
       <img
         src={
