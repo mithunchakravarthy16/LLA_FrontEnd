@@ -67,7 +67,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   return (
     <>
       <div className={dashboardRightPanelStyle}>
-        <Map />
+        <Map markers={dashboardList?.dashboard} />
       </div>
       <img
         src={NotificationIcon}
