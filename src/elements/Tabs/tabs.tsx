@@ -57,7 +57,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                 label={
                   <div className={tabLabel}>
                     <div className={listCount}>
-                      <span className={labelCountStyle}>{item?.count}</span>
+                      <div className="count">{item?.count}</div>
                     </div>
                     <div>{item?.name}</div>
                   </div>

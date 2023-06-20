@@ -2,14 +2,21 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   root: (props: any) => ({ background: "transparent" }),
-
-  listCount: (props: any) => ({}),
-  tabLabel: (props: any) => ({}),
+  tabLabel: (props: any) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontFamily: 'HelveticaNeue-Regular',
+    fontSize: 12
+  }),
   labelCountStyle: (props: any) => ({
     padding: "0px 15px",
     background: props?.palette?.notification?.tabTextColor,
     borderRadius: "11px",
-    // color: props?.palette?.notification?.tabListCountColor,
   }),
+  listCount: (props:any) => ({
+
+  })
 });
 export default useStyles;
