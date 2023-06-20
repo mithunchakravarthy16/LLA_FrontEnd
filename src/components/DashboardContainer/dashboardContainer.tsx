@@ -1,10 +1,16 @@
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
-import Grid from "@mui/material/Grid";
 import theme from "../../theme/theme";
+import moment from "moment";
+import NotificationPanel from "components/NotificationPanel";
+import {
+  formatttedDashboardNotification,
+  formatttedDashboardNotificationCount,
+} from "../../utils/utils";
+import NotificationActiveIcon from "../../assets/NotificationActive.svg";
+import NotificationIcon from "../../assets/notificationIcon.svg";
+import dashboardList from "mockdata/dashboardNotification";
 import useStyles from "./styles";
-
-import DashboardLeftPanel from "components/DashboardLeftPanel";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -17,6 +23,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -31,23 +42,85 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         break;
     }
   }, [selectedTheme]);
-  const { dashboardMapContainer, dashboardRightPanelStyle } =
-    useStyles(appTheme);
+  const {
+    dashboardRightPanelStyle,
+    notificationIconSection,
+    notificationPanelSection,
+  } = useStyles(appTheme);
+
+  const onHandleBellIcon = () => {
+    setNotificationPanelActive(true);
+  };
+  const dashboardArray = dashboardList?.dashboard;
+  let currentTimeStampValue;
+  let timeArrayNew: any = [];
+  for (let i = 0; i < dashboardArray?.length; i++) {
+    currentTimeStampValue = moment()
+      .subtract({
+        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
+        minutes: i + 59,
+        seconds: i + 49,
+      })
+      .format("MM-DD-YYYY | h:mm A");
+    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
+  }
+
+  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
+    Object.assign({}, item, dashboardArray[i])
+  );
+
+  const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
+  );
+
+  const [dashboardData, setDashboardData] = useState<any>(
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
+  );
+
+  const [notificationCount, setNotificationCount] = useState<any>(
+    formatttedDashboardNotificationCount(dashboardDataList)
+  );
+
+  useEffect(() => {
+    setDashboardData(
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    );
+    setSearchValue(
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    );
+  }, [tabIndex]);
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={12} sm={12} md={1} lg={1} xl={1}>
-          <DashboardLeftPanel />
-        </Grid>
-        <Grid item xs={12} sm={12} md={11} lg={11} xl={11}>
-          <div className={dashboardRightPanelStyle}>
-            <div className={dashboardMapContainer}>
-              <Map />
-            </div>
-          </div>
-        </Grid>
-      </Grid>
+      <div className={dashboardRightPanelStyle}>
+        <Map />
+      </div>
+      <img
+        src={
+          notificationPanelActive ? NotificationActiveIcon : NotificationIcon
+        }
+        alt="Notificaion Icon"
+        width={50}
+        onClick={onHandleBellIcon}
+        className={notificationIconSection}
+      />
+      {notificationPanelActive && (
+        <div className={notificationPanelSection}>
+          <NotificationPanel
+            setNotificationPanelActive={setNotificationPanelActive}
+            dashboardData={dashboardData}
+            tabIndex={tabIndex}
+            setTabIndex={setTabIndex}
+            notificationCount={notificationCount}
+            selectedNotification={selectedNotification}
+            setSelectedNotification={setSelectedNotification}
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        </div>
+      )}
     </>
   );
 };

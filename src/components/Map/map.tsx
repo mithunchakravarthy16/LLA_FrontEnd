@@ -39,9 +39,12 @@ const Map: React.FC<any> = (props) => {
     };
     return {
       ...defaultMapOptions,
-      mapTypeControl: true,
-      rotateControl: true,
+      mapTypeControl: false,
+      rotateControl: false,
       fullscreenControl: false,
+      zoomControl: false,
+      streetViewControl: false,
+      disableDefaultUI: false,
     };
   };
 
@@ -57,7 +60,7 @@ const Map: React.FC<any> = (props) => {
           mapContainerClassName={googleMapStyle}
         ></GoogleMap>
       )}
-       <div className={footerSection}><p>Powered by © Copyright 2023, All Rights Reserved </p></div>
+      {/* <div className={footerSection}><p>Powered by © Copyright 2023, All Rights Reserved </p></div> */}
     </>
   );
 };

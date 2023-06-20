@@ -56,10 +56,9 @@ const DashBoard = () => {
   return (
     <>
       <div className={rootContainer}>
-        <Map />
-        {/* <div>
-          <DashboardContainer handleviewDetails={handleviewDetails} />
-        </div> */}
+        {/* <Map /> */}
+
+        <DashboardContainer handleviewDetails={handleviewDetails} />
       </div>
     </>
   );
