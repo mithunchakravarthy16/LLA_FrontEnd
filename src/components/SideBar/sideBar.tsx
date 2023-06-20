@@ -150,7 +150,7 @@ const SideBar = (props: SideBarProps) => {
                   }
                   key={index}
                 >
-                  <img src={item.image} width={"35px"} />
+                  <img src={item.image}  />
                 </div>
               </Tooltip>
             );
