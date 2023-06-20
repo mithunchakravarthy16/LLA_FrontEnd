@@ -188,10 +188,10 @@ const EnergyManagementCharts: React.FC<any> = (props) => {
         xAxis: {
           visible: isVisible,
           categories: xAxisNewValue,
-          tickInterval: 3,
+          tickInterval: 5,
           crosshair: {
             enabled: isCrosshair,
-            width:  isCrosshair ? 1 : 0,
+            width: isCrosshair ? 1 : 0,
             color: isCrosshair ? "#35DABF" : "transparent",
             dashStyle: "ShortDash",
             snap: isCrosshair,
