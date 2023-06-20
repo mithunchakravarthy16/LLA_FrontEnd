@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Button from "elements/Button";
 import theme from "../../theme/theme";
+import CloseIcon from "../../assets/markers/closeIcon.svg";
 import useStyles from "./styles";
 
 const NotificationListItems = (props: any) => {
@@ -21,6 +22,8 @@ const NotificationListItems = (props: any) => {
     handleExpandListItem,
     selectedNotification,
     refs,
+    pageName,
+    handleMarkerClose,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -59,7 +62,9 @@ const NotificationListItems = (props: any) => {
     expandedListItemRow3,
     expandedListItemRow4,
     buttonStyle,
-  } = useStyles(appTheme);
+    markerCloseIcon,
+    listItemCallout,
+  } = useStyles({ ...appTheme, pageName: pageName });
 
   return (
     <>
@@ -68,9 +73,18 @@ const NotificationListItems = (props: any) => {
         onClick={() => handleExpandListItem(id)}
         ref={refs && refs[id]}
       >
-        {selectedNotification === id ? (
+        {selectedNotification === id || pageName === "markerCallout" ? (
           <div className={expandedListItems}>
-            <div className={listItemTitle}>{title}</div>
+            {pageName === "markerCallout" ? (
+              <div className={listItemCallout}>
+                <div className={listItemTitle}>{title}</div>
+                <div className={markerCloseIcon} onClick={handleMarkerClose}>
+                  <img src={CloseIcon} width={"20px"} />
+                </div>
+              </div>
+            ) : (
+              <div className={listItemTitle}>{title}</div>
+            )}
             <div className={expandedListItemRow2}>
               {category === "parking"
                 ? `Vehicle LPN : ${entity} | `
@@ -80,7 +94,6 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItemRow3}>{area}</div>
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>
-                {" "}
                 <Button variant="contained" handleClick={() => null}>
                   Take Action
                 </Button>

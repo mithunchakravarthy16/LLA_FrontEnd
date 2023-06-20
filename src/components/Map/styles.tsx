@@ -10,23 +10,28 @@ const useStyles = makeStyles({
     "& .gm-style-iw-d": {
       overflow: "auto !important",
     },
-
-    "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
-      background: `${props?.palette?.dashboardList?.markerInfoWindowBg} !important`, //markerInfoWindowBg
+    "& .gm-style .gm-style-iw-c": {
+      left: "0 !important",
     },
-
+    "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
+      background: `#1D2D38 !important`, //markerInfoWindowBg
+    },
+    "& .gm-style-iw-t": {
+      bottom: "66px !important",
+    },
     "& .gm-style-iw-t > div > button": {
       display: "none !important",
     },
 
     "& .gm-style-iw": {
-      background: `${props?.palette?.dashboardList?.markerInfoWindowBg} !important`,
-      borderRadius: "8px",
-      boxShadow: `0 2px 7px 1px ${props?.palette?.dashboardList?.lightShadeGray1}`,
+      background: `#1D2D38 !important`,
+      borderRadius: "15px",
+      // boxShadow: `0 2px 7px 1px ${props?.palette?.dashboardList?.lightShadeGray1}`,
       fontSize: "13px",
       fontWeight: 300,
       padding: "0px !important",
       fontFamily: `'Nunito Sans', sans-serif !important`,
+      color: "#FFFFFF !important",
     },
     "& .gm-style .gm-style-cc a, .gm-style .gm-style-cc button, .gm-style .gm-style-cc span":
       {

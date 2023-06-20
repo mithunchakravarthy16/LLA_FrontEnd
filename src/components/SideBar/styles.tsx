@@ -45,6 +45,9 @@ const useStyles = makeStyles({
     "& .MuiSvgIcon-root": {
       color: props?.palette?.sidebar?.menuActiveColor,
     },
+    '& img': {
+      width: 35
+    }
   }),
   menuIconListActive: (props: any) => ({
     cursor: "pointer",
@@ -54,6 +57,9 @@ const useStyles = makeStyles({
     display: " flex",
     alignItems: "center",
     justifyContent: "center",
+    '& img': {
+      width: 56
+    },
     "& .MuiSvgIcon-root": {
       border: `1px solid ${props?.palette?.sidebar?.menuColor}`,
       padding: "10px",

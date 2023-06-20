@@ -16,7 +16,7 @@ import * as Yup from "yup";
 import { getUserLogin } from "../../redux/actions/loginActions";
 import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
-import EnergyManagementContainer from "components/EnergyManagementContainer";
+import Footer from "components/Footer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -214,6 +214,7 @@ const Login = () => {
           </Grid>
         </Grid>
       </div>
+      <Footer />
     </>
   );
 };
