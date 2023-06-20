@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     padding: "13px",
     borderRadius: "10px",
     border: `2px solid ${props?.palette?.notification?.listItemBorder}`,
-    marginBottom: "15px",
+    marginBottom: props?.pageName === "markerCallout" ? 0 : "15px",
     cursor: "pointer",
   }),
   listItemTitle: (props: any) => ({
@@ -52,5 +52,15 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
   }),
   buttonStyle: (props: any) => ({}),
+  markerCloseIcon: (props: any) => ({
+    margin: "4px 0px 0px 0px",
+    fontSize: 13,
+    fontFamily: `'Nunito Sans', sans-serif !important`,
+    padding: "0px 0px 0px 15px",
+  }),
+  listItemCallout: (props: any) => ({
+    display: "flex",
+    justifyContent: "space-between",
+  }),
 });
 export default useStyles;

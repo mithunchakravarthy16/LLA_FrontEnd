@@ -6,6 +6,7 @@ import DashBoard from "../pages/DashBoard";
 import Parking from "../pages/Parking";
 import BirdsView from "pages/BirdsView";
 import Settings from "pages/Settings";
+import GridView from "pages/GridView";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -32,7 +33,7 @@ const VIOT_Routes = () => {
         },
         {
           path: "gridView",
-          // element: <Parking />,
+          element:  <GridView />,
         },
         {
           path: "birdsView",

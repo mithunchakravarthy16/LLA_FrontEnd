@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(
@@ -27,6 +29,39 @@ const useStyles = makeStyles(
       display: "flex",
       alignItems: "center",
     }),
+    footerIconStyle: (props: any) => ({
+      padding: "0 16px",
+      "& img": {
+        width: 140,
+      },
+    }),
+    copyrights: (props: any) => ({
+      position: "relative",
+      marginLeft: 12,
+      "&::before": {
+        top: "4px",
+        left: "-12px",
+        width: "2px",
+        height: "10px",
+        content: `''`,
+        position: "absolute",
+        background: "white",
+        zIndex: "-1",
+      },
+      "&::after": {
+        top: "4px",
+        right: "-10px",
+        width: "2px",
+        height: "10px",
+        content: `''`,
+        position: "absolute",
+        background: "white",
+        zIndex: "-1",
+      },
+    }),
+    allRights: (props:any) => ({
+marginLeft: 24
+    })
   },
   { index: 1 }
 );
