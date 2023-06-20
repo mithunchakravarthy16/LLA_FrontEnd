@@ -76,13 +76,13 @@ const Login = () => {
     outlineInputField,
     incorrectCredential,
     llaLogoSection,
-    formSection
+    formSection,
   } = useStyles(appTheme);
 
   useEffect(() => {
     if (user && user?.userName) {
       localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
-      navigate("/dashboard");
+      navigate("/home");
     }
   }, [user]);
 
@@ -137,10 +137,10 @@ const Login = () => {
           >
             <div>
               <div className={formSection}>
-              <div className={llaLogoSection}>
-                <img src={llaLogo} />
-              </div>
-              <h2 className={formTitle}>Smart Lab Tech</h2>
+                <div className={llaLogoSection}>
+                  <img src={llaLogo} />
+                </div>
+                <h2 className={formTitle}>Smart Lab Tech</h2>
               </div>
               <div className={loginFormSection}>
                 <Grid item xs={12} className={innerForm}>
