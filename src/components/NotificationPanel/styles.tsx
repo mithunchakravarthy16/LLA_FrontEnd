@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -31,6 +33,7 @@ const useStyles = makeStyles({
       display: "flex",
       flexDirection: "row",
       columnGap: "69px",
+      textTransform: 'uppercase',
     },
 
     "& .MuiButtonBase-root": {
@@ -43,44 +46,74 @@ const useStyles = makeStyles({
     "& .MuiTab-root": {
       fontSize: "16px !important",
       fontWeight: "600 !important",
-      lineHeight: "24px !important",
+      lineHeight: "30px !important",
       fontFamily: "Poppins",
       marginBottom: 10,
       "&:first-child": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
-        "& span": {
-          color: `${props?.palette?.notification?.tabListCountColor} !important`,
-          "&:first-child.Mui-selected": {
+        "& .count": {
+          width: 56,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: "#5B5B5B",
+          borderRadius: "30px",
+          color: "#B7B6B6",
+          marginBottom: 6,
+        },
+        "&.Mui-selected": {
+          color: `${props?.palette?.notification?.eventColor} !important`,
+          "& .count": {
             background: `${props?.palette?.notification?.eventColor} !important`,
+            color: `${props?.palette?.notification?.listTextColor} !important`,
           },
         },
-      },
-      "&:first-child.Mui-selected": {
-        color: `${props?.palette?.notification?.eventColor} !important`,
       },
       "&:nth-child(2)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
-        "& span": {
-          color: `${props?.palette?.notification?.tabListCountColor} !important`,
+        "& .count": {
+          width: 56,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: "#5B5B5B",
+          borderRadius: "30px",
+          color: "#B7B6B6",
+          marginBottom: 6,
         },
       },
-      "&:nth-child(2).Mui-selected": {
+      "&.Mui-selected": {
         color: `${props?.palette?.notification?.incidentColor} !important`,
+        "& .count": {
+          background: `${props?.palette?.notification?.incidentColor} !important`,
+          color: `${props?.palette?.notification?.listTextColor} !important`,
+        },
       },
       "&:nth-child(3)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
-        "& span": {
-          color: `${props?.palette?.notification?.tabListCountColor} !important`,
+        "& .count": {
+          width: 56,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: "#5B5B5B",
+          borderRadius: "30px",
+          color: "#B7B6B6",
+          marginBottom: 6,
         },
-      },
-      "&:nth-child(3).Mui-selected": {
-        color: `${props?.palette?.notification?.oprAlertColor} !important`,
+        "&.Mui-selected": {
+          color: `${props?.palette?.notification?.oprAlertColor} !important`,
+          "& .count": {
+            background: `${props?.palette?.notification?.oprAlertColor} !important`,
+            color: `${props?.palette?.notification?.listTextColor} !important`,
+          },
+        },
       },
     },
     "& .MuiTabs-root .MuiTabs-indicator": {
@@ -90,11 +123,14 @@ const useStyles = makeStyles({
           : props?.tabIndex === 1
           ? `${props?.palette?.notification?.incidentColor} !important`
           : `${props?.palette?.notification?.oprAlertColor} !important`,
-      height: "5px",
+      height: "6px",
+      borderRadius: 6,
+      textTransform: 'uppercase'
     },
   }),
   tabSection: (props: any) => ({
     margin: "15px 0px",
+    borderBottom:' 1px solid rgb(255 255 255 / 50%)'
   }),
   searchClass: (props: any) => ({
     border: `1px solid ${props?.palette?.notification?.listItemBorder}`,

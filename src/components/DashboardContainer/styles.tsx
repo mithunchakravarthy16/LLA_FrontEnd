@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     backdropFilter: "blur(17px)",
     borderRadius: "30px",
     color: "white",
-    width: "417px",
+    width: "440px",
   }),
 });
 export default useStyles;
