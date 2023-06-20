@@ -33,7 +33,7 @@ const useStyles = makeStyles({
       display: "flex",
       flexDirection: "row",
       columnGap: "69px",
-      textTransform: 'uppercase',
+      textTransform: "uppercase",
     },
 
     "& .MuiButtonBase-root": {
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
         "& .count": {
-          width: 56,
+          width: 45,
           fontWeight: 500,
           fontSize: "16px",
           lineHeight: "28px",
@@ -76,7 +76,7 @@ const useStyles = makeStyles({
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
         "& .count": {
-          width: 56,
+          width: 45,
           fontWeight: 500,
           fontSize: "16px",
           lineHeight: "28px",
@@ -98,7 +98,7 @@ const useStyles = makeStyles({
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
         "& .count": {
-          width: 56,
+          width: 45,
           fontWeight: 500,
           fontSize: "16px",
           lineHeight: "28px",
@@ -125,12 +125,12 @@ const useStyles = makeStyles({
           : `${props?.palette?.notification?.oprAlertColor} !important`,
       height: "6px",
       borderRadius: 6,
-      textTransform: 'uppercase'
+      textTransform: "uppercase",
     },
   }),
   tabSection: (props: any) => ({
     margin: "15px 0px",
-    borderBottom:' 1px solid rgb(255 255 255 / 50%)'
+    borderBottom: " 1px solid rgb(255 255 255 / 50%)",
   }),
   searchClass: (props: any) => ({
     border: `1px solid ${props?.palette?.notification?.listItemBorder}`,
