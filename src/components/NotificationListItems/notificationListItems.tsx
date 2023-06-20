@@ -58,8 +58,6 @@ const NotificationListItems = (props: any) => {
     buttonStyle,
   } = useStyles(appTheme);
 
-  console.log("data", data);
-
   return (
     <>
       <div className={rootContainer} onClick={() => handleExpandListItem(id)}>

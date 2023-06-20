@@ -31,7 +31,7 @@ let theme = {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
         listItemBg: colorCodes?.darkBlueShade,
-
+        listItemBorder: colorCodes?.blueGreyShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
@@ -111,7 +111,7 @@ let theme = {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
         listItemBg: colorCodes?.darkBlueShade,
-
+        listItemBorder: colorCodes?.blueGreyShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,

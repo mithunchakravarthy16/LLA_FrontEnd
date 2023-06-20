@@ -6,6 +6,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
+import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
 import useStyles from "./styles";
@@ -70,7 +71,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         <Map />
       </div>
       <img
-        src={NotificationIcon}
+        src={
+          notificationPanelActive ? NotificationActiveIcon : NotificationIcon
+        }
         alt="Notificaion Icon"
         width={50}
         onClick={onHandleBellIcon}
