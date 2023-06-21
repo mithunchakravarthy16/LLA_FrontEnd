@@ -30,6 +30,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
+  const [currentOpenedCard, setCurrentOpenedCard] = useState<any>('');
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -120,7 +121,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         onClick={onHandleBellIcon}
         className={notificationIconSection}
       />
-      <FlippingCard />
+      <FlippingCard currentOpenedCard={currentOpenedCard} setCurrentOpenedCard={setCurrentOpenedCard} />
       {notificationPanelActive && (
         <div className={notificationPanelSection}>
           <NotificationPanel

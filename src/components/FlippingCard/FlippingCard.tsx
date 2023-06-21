@@ -154,26 +154,27 @@ type CardPropType = {
     card: {
         title: string
         image: any,
-    }
+    },
+    currentOpenedCard: any,
+    setCurrentOpenedCard: any
 } 
 
-const Card = ({card}: CardPropType) => {
-    const [isOpen, setIsOpen] = useState(false)
+const Card = ({card, currentOpenedCard, setCurrentOpenedCard}: CardPropType) => {
     const containerTransform = useSpring({
-        opacity: isOpen ? 1 : 0,
-        transform: `skew(-18deg) perspective(600px) rotateY(${isOpen ? 180 : 0}deg)`,
+        opacity: currentOpenedCard === card.title ? 1 : 0,
+        transform: `skew(-18deg) perspective(600px) rotateY(${currentOpenedCard === card.title ? 180 : 0}deg)`,
         config: { mass: 5, tension: 500, friction: 80 },
     })
     const contentTransform = useSpring({
-        opacity: isOpen ? 1 : 0,
-        transform: `perspective(600px) rotateY(${isOpen ? 360 : 0}deg)`,
+        opacity: currentOpenedCard === card.title ? 1 : 0,
+        transform: `perspective(600px) rotateY(${currentOpenedCard === card.title ? 360 : 0}deg)`,
         config: { mass: 5, tension: 500, friction: 80 },
     })
 
     console.log("CARD ITEM", card);
 
     return (
-        <RootContainer onDoubleClick={() => console.log("ON DOUBLE CLICK")} onClick={() => setIsOpen(prev => !prev)} >
+        <RootContainer onDoubleClick={() => console.log("ON DOUBLE CLICK")} onClick={() => setCurrentOpenedCard(card?.title)} >
             <SkewContainer style={{transform: containerTransform.transform, opacity: containerTransform.opacity.to(o => 1 - o)}} />
             <SkewBackContainer style={{transform: containerTransform.transform, opacity: containerTransform.opacity}}  />
             <ContentContainer style={{ transform: contentTransform.transform, opacity: contentTransform.opacity.to(o => 1 - o)}} >
@@ -206,13 +207,13 @@ const Card = ({card}: CardPropType) => {
     )
 }
 
-const FlippingCard = () => {
+const FlippingCard = (props: any) => {
     
     return (
         <Wrapper>
             {
                 CARD_LIST.map((card: any) => (
-                    <Card card={card} />
+                    <Card card={card} currentOpenedCard={props.currentOpenedCard} setCurrentOpenedCard={props.setCurrentOpenedCard} />
                 ))
             }
         </Wrapper>
