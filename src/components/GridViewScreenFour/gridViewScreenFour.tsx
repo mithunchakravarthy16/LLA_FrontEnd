@@ -127,7 +127,7 @@ const GridViewScreenFour = () => {
                             </div>
                           </div>
                           <div className={liveContentStyle}>
-                            <div style={{ fontSize: "20px", fontWeight: 600 }}>
+                            <div style={{ fontSize: "20px", fontWeight: 600, color: "#80C53B" }}>
                               50
                             </div>
                             <div
@@ -137,7 +137,7 @@ const GridViewScreenFour = () => {
                                 fontStyle: "italic",
                                 display: "flex",
                                 alignItems: "center",
-                                columnGap: "15px",
+                                columnGap: "15px",                                
                               }}
                             >
                               <div>AQI</div>
