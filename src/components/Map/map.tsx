@@ -6,7 +6,7 @@ import {
   OverlayViewF,
   InfoWindowF,
 } from "@react-google-maps/api";
-
+import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
 import theme from "../../theme/theme";
 import appData from "../../data/appData";
@@ -41,8 +41,8 @@ import SecurityAlertActiveIcon from "../../assets/selectedMarkers/Security-orang
 import LightenEventActiveIcon from "../../assets/selectedMarkers/Lighting-green.svg";
 import LightenIncidentActiveIcon from "../../assets/selectedMarkers/Lighting-red.svg";
 import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange.svg";
-import FleetEventIcon from "../../assets/markers/BusGreen.svg";
-import FleetIncidentIcon from "../../assets/markers/BusRed.svg";
+import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
+import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import useStyles from "./styles";
 
@@ -249,40 +249,14 @@ const Map: React.FC<any> = (props) => {
             if (!window.google) return null;
             return (
               <>
-                <Marker
-                  position={singleMarker?.location}
-                  onClick={() => {
-                    toggleInfoWindow(
-                      singleMarker.id,
-                      singleMarker.notificationCategory,
-                      singleMarker?.location
-                    );
-                  }}
-                  icon={{
-                    url: getMarkerIcon(
-                      singleMarker.category,
-                      singleMarker.notificationCategory,
-                      singleMarker.id
-                    ),
-                    scaledSize: new window.google.maps.Size(60.5, 60.5),
-                  }}
-                  key={singleMarker.id}
-                  zIndex={1}
+                <MapMarker
+                  mapMarker={singleMarker}
+                  toggleInfoWindow={toggleInfoWindow}
+                  handleMarkerClose={handleMarkerClose}
+                  handleExpandListItem={handleExpandListItem}
+                  getMarkerIcon={getMarkerIcon}
+                  currentMarker={currentMarker}
                 />
-
-                {currentMarker === singleMarker.id && (
-                  <InfoWindowF
-                    position={singleMarker?.location}
-                    options={{ pixelOffset: new google.maps.Size(0, -20) }}
-                  >
-                    <NotificationListItems
-                      data={singleMarker}
-                      pageName={"markerCallout"}
-                      handleMarkerClose={handleMarkerClose}
-                      handleExpandListItem={handleExpandListItem}
-                    />
-                  </InfoWindowF>
-                )}
               </>
             );
           })}
