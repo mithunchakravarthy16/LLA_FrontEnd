@@ -95,7 +95,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setNotificationCount(
       formatttedDashboardNotificationCount(dashboardDataList)
     );
-  }, [dashboardDataList]);
+  }, [dashboardData]);
 
   return (
     <>
