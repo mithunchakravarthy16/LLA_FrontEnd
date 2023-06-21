@@ -1,45 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import Highcharts from "highcharts";
-import theme from "../../theme/theme";
-import useStyles from "./styles";
-import EnergyManagementCharts from "elements/energyManagementCharts";
-import { LiveImg } from "assets/gridViewIcons";
 import CustomizableProgressBar from "elements/ProgressBar";
+import { LiveImg } from "assets/gridViewIcons";
+import theme from "../../../theme/theme";
+import useStyles from "../styles";
 
-const GridViewScreenFive = () => {
+const GridViewScreenFive: React.FC<any> = (props) => {
 
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
- 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  // useEffect(() => {
-  //   switch (selectedTheme) {
-  //     case "red":
-  //       setAppTheme(theme?.redTheme);
-  //       break;
-  //     case "green":
-  //       setAppTheme(theme?.greenTheme);
-  //       break;
-  //     case "yellow":
-  //       setAppTheme(theme?.yellowTheme);
-  //       break;
-  //     case "default":
-  //       setAppTheme(theme?.defaultTheme);
-  //       break;
-  //     default:
-  //       setAppTheme(theme?.defaultTheme);
-  //       break;
-  //   }
-  // }, [selectedTheme]);
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
 
   
 
   const {
-    rootContainer,
-    mainSection,
     gridStyles,
     rightListItemStyle,
     rightListItemStyleLastChild,
@@ -47,10 +36,19 @@ const GridViewScreenFive = () => {
     listItemLabelStyle,
     liveContentStyle,
     liveContentLeftStyle,
-    engMgntliveContentLeftStyle,
-    engMgntliveContentStyle,
-    engMgntliveContentMiddleStyle,
-    aqiCircleStyle,
+    gridContainers,
+    containerTitleScreenFive,
+    subContainerScreenFive,
+    childSubContainer,
+    leftSubChildContainer,
+    liveContainer,
+    liveImgStyle,
+    liveContentValue,
+    liveContentLabel,
+    lastweekContainer,
+    lastweekTitleStyle,
+    lastweekBodyContainer,
+    lastweekBodySubContainer,
   } = useStyles(appTheme);
 
 
@@ -59,74 +57,52 @@ const GridViewScreenFive = () => {
     <>
       {/* Grid 5 */}
       <Grid item xs={4} className={gridStyles}>
-            <Grid container xs={12} style={{ height: "100%" }}>
+            <Grid container xs={12} className={gridContainers} >
               <Grid
                 item
                 xs={12}
-                style={{
-                  paddingBottom: "15px",
-                  height: "18%",
-                  color: "#F26522",
-                }}
+                className={containerTitleScreenFive}                
               >
                 FLEET MANAGEMENT
               </Grid>
-              <Grid item xs={12} style={{ height: "82%" }}>
-                <Grid container xs={12} style={{ height: "100%" }}>
+              <Grid item xs={12} className={subContainerScreenFive} >
+                <Grid container xs={12} className={childSubContainer} >
                   <Grid item xs={9}>
                     <Grid
                       container
                       xs={12}
                       alignContent="space-between"
-                      style={{ height: "100%" }}
+                      className={leftSubChildContainer}
+                     
                     >
                       <Grid item xs={12}>
                         <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-around",
-                            padding: "25px 0px",
-                            backgroundColor: "#09121B",
-                            borderRadius: "4px",
-                            position: "relative",
-                          }}
+                        className={liveContainer}
+                          
                         >
                           <div
-                            style={{
-                              position: "absolute",
-                              top: "-15px",
-                              left: "20px",
-                            }}
+                          className={liveImgStyle}
+                            
                           >
                             <img width={50} height={30} src={LiveImg} />
                           </div>
                           <div className={liveContentLeftStyle}>
-                            <div style={{ fontSize: "20px", fontWeight: 600 }}>
+                            <div className={liveContentValue} >
                               24
                             </div>
                             <div
-                              style={{
-                                fontSize: "14px",
-                                fontWeight: 500,
-                                fontStyle: "italic",
-                              }}
+                            className={liveContentLabel}
+                              
                             >
                               VEHICLES
                             </div>
                           </div>
                           <div className={liveContentStyle}>
-                            <div style={{ fontSize: "20px", fontWeight: 600 }}>
+                            <div className={liveContentValue} >
                               60
                             </div>
                             <div
-                              style={{
-                                fontSize: "14px",
-                                fontWeight: 500,
-                                fontStyle: "italic",
-                                display: "flex",
-                                alignItems: "center",
-                                columnGap: "15px",
-                              }}
+                              className={liveContentLabel}
                             >
                               TRIPS
                             </div>
@@ -140,8 +116,8 @@ const GridViewScreenFive = () => {
                               innerHeading={"75%"}
                               progressValue={75}
                               radius={70}
-                              strockColor={"#688F40"}
-                              trackStrokeColor={"#FFFFFF10"}
+                              strockColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveStrockColor1} //"#688F40"
+                              trackStrokeColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveTrackStrokeColor1} //"#FFFFFF10"
                               subTitle={"Avg. Driving Score"}
                               strokeWidth={18}
                               trackStrokeWidth={18}
@@ -152,8 +128,8 @@ const GridViewScreenFive = () => {
                               innerHeading={"50%"}
                               progressValue={50}
                               radius={70}
-                              strockColor={"#3A9479"}
-                              trackStrokeColor={"#FFFFFF10"}
+                              strockColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveStrockColor2} //"#3A9479"
+                              trackStrokeColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveTrackStrokeColor2} //"#FFFFFF10"
                               subTitle={"Vehicle Active"}
                               strokeWidth={18}
                               trackStrokeWidth={18}
@@ -169,21 +145,19 @@ const GridViewScreenFive = () => {
                       xs={12}
                       alignItems="center"
                       textAlign="center"
-                      style={{ paddingLeft: "32px", height: "100%" }}
+                      className={lastweekContainer}
+                      
                     >
                       <Grid
                         item
                         xs={12}
-                        style={{
-                          fontWeight: 500,
-                          fontSize: "18px",
-                          color: "#5DE6CD",
-                        }}
+                        className={lastweekTitleStyle}
+                        
                       >
                         Last Week
                       </Grid>
-                      <Grid item xs={12} style={{ height: "90%" }}>
-                        <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid item xs={12} className={lastweekBodyContainer} >
+                        <Grid container xs={12} className={lastweekBodySubContainer} >
                           <Grid
                             item
                             xs={12}
