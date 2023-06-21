@@ -66,6 +66,7 @@ const Map: React.FC<any> = (props) => {
     setTabIndex,
     currentMarker,
     setCurrentMarker,
+    focusedCategory,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -259,6 +260,7 @@ const Map: React.FC<any> = (props) => {
                   handleExpandListItem={handleExpandListItem}
                   getMarkerIcon={getMarkerIcon}
                   currentMarker={currentMarker}
+                  focusedCategory={focusedCategory}
                 />
               </>
             );
