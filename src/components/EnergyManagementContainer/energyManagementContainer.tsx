@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { BuildingFocusIcon } from "../../assets/energyManagementIcons";
 import useStyles from "./styles";
-import EnergyManagementCharts from "elements/energyManagementCharts";
+import Chart from "elements/Chart";
 
 const EnergyManagementContainer = () => {
   const [appTheme, setAppTheme] = useState();
@@ -88,7 +88,7 @@ const EnergyManagementContainer = () => {
                         alignItems: "center",
                       }}
                     >
-                      <EnergyManagementCharts
+                      <Chart
                         width={150}
                         height={60}
                         isVisible={false}
@@ -132,7 +132,7 @@ const EnergyManagementContainer = () => {
                         alignItems: "center",
                       }}
                     >
-                      <EnergyManagementCharts
+                      <Chart
                         width={150}
                         height={60}
                         isVisible={false}
@@ -174,7 +174,7 @@ const EnergyManagementContainer = () => {
                         alignItems: "center",
                       }}
                     >
-                      <EnergyManagementCharts
+                      <Chart
                         width={150}
                         height={60}
                         isVisible={false}
@@ -240,7 +240,7 @@ const EnergyManagementContainer = () => {
                   <Grid container xs={12} style={{ height: "280px" }}>
                     <Grid item xs={6} style={{ paddingBottom: "10px" }}>
                       <div>Buildings</div>
-                      <EnergyManagementCharts
+                      <Chart
                       xAxisInterval={5}
                         isVisible={true}
                         width={300}
@@ -257,7 +257,7 @@ const EnergyManagementContainer = () => {
                     </Grid>
                     <Grid item xs={6} style={{ paddingBottom: "10px" }}>
                       <div>Labs</div>
-                      <EnergyManagementCharts
+                      <Chart
                       xAxisInterval={5}
                         isVisible={true}
                         width={300}
@@ -274,7 +274,7 @@ const EnergyManagementContainer = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <div>Data Center</div>
-                      <EnergyManagementCharts
+                      <Chart
                       xAxisInterval={5}
                         isVisible={true}
                         width={300}
@@ -291,7 +291,7 @@ const EnergyManagementContainer = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <div>Offices</div>
-                      <EnergyManagementCharts
+                      <Chart
                       xAxisInterval={5}
                         isVisible={true}
                         width={300}
@@ -322,7 +322,7 @@ const EnergyManagementContainer = () => {
                   xs={12}
                   style={{ padding: "0px 15px 15px 15px", height: "240px" }}
                 >
-                  <EnergyManagementCharts
+                  <Chart
                   xAxisInterval={6}
                     isVisible={true}
                     width={600}

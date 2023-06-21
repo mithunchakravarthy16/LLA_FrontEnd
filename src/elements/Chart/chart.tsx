@@ -3,7 +3,7 @@ import HighchartsReact from "highcharts-react-official";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-const EnergyManagementCharts: React.FC<any> = (props) => {
+const Chart: React.FC<any> = (props) => {
   const {
     width,
     height,
@@ -223,4 +223,4 @@ const EnergyManagementCharts: React.FC<any> = (props) => {
     />
   );
 };
-export default EnergyManagementCharts;
+export default Chart;

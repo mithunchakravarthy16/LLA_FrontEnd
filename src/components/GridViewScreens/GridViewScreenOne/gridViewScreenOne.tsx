@@ -1,42 +1,33 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Highcharts from "highcharts";
-import theme from "../../theme/theme";
-import useStyles from "./styles";
-import EnergyManagementCharts from "elements/energyManagementCharts";
+import Chart from "elements/Chart";
 import { LiveImg } from "assets/gridViewIcons";
-import CustomizableProgressBar from "elements/ProgressBar";
+import theme from "../../../theme/theme";
+import useStyles from "../styles";
 
-const GridViewScreenOne = () => {
+const GridViewScreenOne : React.FC<any> = (props) => {
+
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
-
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  // useEffect(() => {
-  //   switch (selectedTheme) {
-  //     case "red":
-  //       setAppTheme(theme?.redTheme);
-  //       break;
-  //     case "green":
-  //       setAppTheme(theme?.greenTheme);
-  //       break;
-  //     case "yellow":
-  //       setAppTheme(theme?.yellowTheme);
-  //       break;
-  //     case "default":
-  //       setAppTheme(theme?.defaultTheme);
-  //       break;
-  //     default:
-  //       setAppTheme(theme?.defaultTheme);
-  //       break;
-  //   }
-  // }, [selectedTheme]);
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
 
   const {
-    rootContainer,
-    mainSection,
     gridStyles,
     rightListItemStyle,
     rightListItemStyleLastChild,
@@ -44,42 +35,48 @@ const GridViewScreenOne = () => {
     listItemLabelStyle,
     liveContentStyle,
     liveContentLeftStyle,
-    engMgntliveContentLeftStyle,
-    engMgntliveContentStyle,
-    engMgntliveContentMiddleStyle,
-    aqiCircleStyle,
+    gridContainers,
+    containerTitle,
+    subContainer,
+    childSubContainer,
+    leftSubChildContainer,
+    graphTitleScreenOne,
+    liveContainer,
+    liveImgStyle,
+    liveContentValue,
+    liveContentLabel,
+    lastweekContainer,
+    lastweekTitleStyle,
+    lastweekBodyContainer,
+    lastweekBodySubContainer,
   } = useStyles(appTheme);
 
   return (
     <>
       {/* Gride 1 */}
       <Grid item xs={4} className={gridStyles}>
-        <Grid container xs={12} style={{ height: "100%" }}>
+        <Grid container xs={12} className={gridContainers}>
           <Grid
             item
             xs={12}
-            style={{
-              paddingBottom: "15px",
-              height: "10%",
-              color: "#F26522",
-            }}
+            className={containerTitle}
           >
             PARKING
           </Grid>
-          <Grid item xs={12} style={{ height: "90%" }}>
-            <Grid container xs={12} style={{ height: "100%" }}>
+          <Grid item xs={12} className={subContainer}>
+            <Grid container xs={12} className={childSubContainer} >
               <Grid item xs={9}>
                 <Grid
                   container
                   xs={12}
                   alignContent="space-between"
-                  style={{ height: "100%" }}
+                  className={leftSubChildContainer}
                 >
                   <Grid item xs={12}>
-                    <div style={{ width: "100%", marginBottom: "20px" }}>
+                    <div className={graphTitleScreenOne} >
                       Occupancy
                     </div>
-                    <EnergyManagementCharts
+                    <Chart
                       width={414}
                       height={160}
                       graphType={"areaspline"}
@@ -91,21 +88,21 @@ const GridViewScreenOne = () => {
                           marker: {
                             enabled: false,
                           },
-                          lineColor: "#3DFFDC90",
-                          color: "#3DFFDC",
+                          lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenOneGraphLine,
+                          color: appTheme?.palette?.gridViewComponentGraphsColor?.screenOneGraphPoint,
                           lineWidth: 2,
                           fillColor: {
                             linearGradient: [0, 0, 0, 200],
                             stops: [
                               [
                                 0,
-                                Highcharts.color("#3DFFDC")
+                                Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenOneGraphPoint)
                                   .setOpacity(0.4)
                                   .get("rgba"),
                               ],
                               [
                                 0.8,
-                                Highcharts.color("#000")
+                                Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient)
                                   .setOpacity(0)
                                   .get("rgba"),
                               ],
@@ -121,49 +118,24 @@ const GridViewScreenOne = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-around",
-                        padding: "25px 0px",
-                        backgroundColor: "#09121B",
-                        borderRadius: "4px",
-                        position: "relative",
-                      }}
+                    className={liveContainer}
                     >
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "-15px",
-                          left: "20px",
-                        }}
-                      >
+                      <div className={liveImgStyle} >
                         <img width={50} height={30} src={LiveImg} />
                       </div>
                       <div className={liveContentLeftStyle}>
-                        <div style={{ fontSize: "20px", fontWeight: 600 }}>
+                        <div className={liveContentValue} >
                         398 
                         </div>
-                        <div
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: 500,
-                            fontStyle: "italic",
-                          }}
-                        >
+                        <div className={liveContentLabel} >
                           AVAILABLE
                         </div>
                       </div>
                       <div className={liveContentStyle}>
-                        <div style={{ fontSize: "20px", fontWeight: 600 }}>
+                        <div className={liveContentValue} >
                         354
                         </div>
-                        <div
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: 500,
-                            fontStyle: "italic",
-                          }}
-                        >
+                        <div className={liveContentLabel} >
                           OCCUPIED
                         </div>
                       </div>
@@ -177,21 +149,17 @@ const GridViewScreenOne = () => {
                   xs={12}
                   alignItems="center"
                   textAlign="center"
-                  style={{ paddingLeft: "32px", height: "100%" }}
+                  className={lastweekContainer}
                 >
                   <Grid
                     item
                     xs={12}
-                    style={{
-                      fontWeight: 500,
-                      fontSize: "18px",
-                      color: "#5DE6CD",
-                    }}
+                    className={lastweekTitleStyle}
                   >
                     Last Week
                   </Grid>
-                  <Grid item xs={12} style={{ height: "90%" }}>
-                    <Grid container xs={12} style={{ height: "100%" }}>
+                  <Grid item xs={12} className={lastweekBodyContainer} >
+                    <Grid container xs={12} className={lastweekBodySubContainer} >
                       <Grid
                         item
                         xs={12}
