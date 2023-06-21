@@ -5,7 +5,7 @@ const fetchConfig = async (url: string, options: any) => {
     data = await response.json();
     return data;
   } catch (error) {
-    console.log("error ", error);
+    console.log("error", error);
   }
 };
 

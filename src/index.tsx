@@ -11,6 +11,12 @@ import theme from "./theme/muiTheme";
 
 import "./index.css";
 
+import './fonts/HelveticaNeue/HelveticaNeueItalicExtraBold.ttf';
+import './fonts/HelveticaNeue/HelveticaNeueItalicMedium.ttf';
+import './fonts/HelveticaNeue/HelveticaNeueItalicSemiBold.ttf';
+import './fonts/HelveticaNeue/HelveticaNeueRegular.ttf';
+import './fonts/HelveticaNeue/HelveticaNeueUltraLight.ttf';
+
 let { store, persistor } = configureStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import SideBar from "../../components/SideBar";
-// import LoaderGif from "../../assets/Header/loaderGif.gif";
 import theme from "../../theme/theme";
-import FooterIcon from "../../assets/footer.svg";
+import FooterIcon from "../../assets/images/footer-logo-1.svg";
 import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
@@ -27,7 +26,7 @@ const MainLayout = () => {
     }
   }, [selectedTheme]);
 
-  const { loaderStyle, footerSection, footerContent } = useStyles(appTheme);
+  const { loaderStyle, footerSection, footerContent, footerIconStyle, copyrights, allRights} = useStyles(appTheme);
 
   const { poweredByText, allRightsReservedText, titleText, subTitleText } =
     useTranslation();
@@ -63,12 +62,11 @@ const MainLayout = () => {
             </div>
             <div className={footerSection}>
               <div className={footerContent}>
-                {poweredByText} <img src={FooterIcon} width={"25px"} /> |
-                <div style={{ padding: "0 8px" }}>
-                  <p>{titleText}</p>
-                  <p>{subTitleText}</p>
-                </div>
-                | © 2023 | {allRightsReservedText}
+                <p>{poweredByText}</p>
+                <p className={footerIconStyle}>
+                  <img src={FooterIcon} />
+                </p>
+                <p className={copyrights}>© 2023 </p> <p className={allRights}>{allRightsReservedText}</p>
               </div>
             </div>
           </>

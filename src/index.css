@@ -1,12 +1,12 @@
 body {
   margin: 0 !important;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'HelveticaNeue-Regular',
 
 }
 
 
 code {
-  font-family: 'Nunito Sans', sans-serif !important
+  font-family: 'HelveticaNeue-Regular',
 }
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
@@ -35,7 +35,7 @@ font-weight: 300;
 padding: 0px !important;
 } */
 
-.gm-style-iw-d {
+/* .gm-style-iw-d {
   overflow: auto !important;
 }
 
@@ -62,5 +62,51 @@ padding: 0px !important;
 
 .gm-fullscreen-control {
   top : 50px !important
+} */
+
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+  display:none;
 }
 
+a[href^="http://maps.google.com/maps"],
+a[href^="https://maps.google.com/maps"],
+a[href^="https://www.google.com/maps"] {
+    display: none !important;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue-ItalicExtraBold';
+  src: local("HelveticaNeue"),
+  url("../src/fonts/HelveticaNeue/HelveticaNeueItalicExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'HelveticaNeue-ItalicMedium';
+  src: local("HelveticaNeue"),
+  url("../src/fonts/HelveticaNeue/HelveticaNeueItalicMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'HelveticaNeue-ItalicSemiBold';
+  src: local("HelveticaNeue"),
+  url("../src/fonts/HelveticaNeue/HelveticaNeueItalicSemiBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'HelveticaNeue-Regular';
+  src: local("HelveticaNeue"),
+  url("../src/fonts/HelveticaNeue/HelveticaNeueRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'HelveticaNeue-UltraLight';
+  src: local("HelveticaNeue"),
+  url("../src/fonts/HelveticaNeue/HelveticaNeueUltraLight.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}

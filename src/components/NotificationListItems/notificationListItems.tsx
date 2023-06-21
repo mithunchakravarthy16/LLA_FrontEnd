@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import Button from "elements/Button";
 import theme from "../../theme/theme";
+import CloseIcon from "../../assets/markers/closeIcon.svg";
 import useStyles from "./styles";
 
 const NotificationListItems = (props: any) => {
@@ -16,9 +18,14 @@ const NotificationListItems = (props: any) => {
       category,
       notificationCategory,
       currentTimeStamp,
+      equipment,
+      subTitle,
     },
     handleExpandListItem,
     selectedNotification,
+    refs,
+    pageName,
+    handleMarkerClose,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -57,33 +64,59 @@ const NotificationListItems = (props: any) => {
     expandedListItemRow3,
     expandedListItemRow4,
     buttonStyle,
-  } = useStyles(appTheme);
+    markerCloseIcon,
+    listItemCallout,
+  } = useStyles({ ...appTheme, pageName: pageName });
 
   return (
     <>
-      <div className={rootContainer} onClick={() => handleExpandListItem(id)}>
-        {/* {selectedNotification === id ? (
+      <div
+        className={rootContainer}
+        onClick={() => handleExpandListItem(id)}
+        ref={refs && refs[id]}
+      >
+        {selectedNotification === id || pageName === "markerCallout" ? (
           <div className={expandedListItems}>
-            <div className={listItemTitle}>{title}</div>
+            {pageName === "markerCallout" ? (
+              <div className={listItemCallout}>
+                <div className={listItemTitle}>{title}</div>
+                <div className={markerCloseIcon} onClick={handleMarkerClose}>
+                  <img src={CloseIcon} width={"20px"} />
+                </div>
+              </div>
+            ) : (
+              <div className={listItemTitle}>{title}</div>
+            )}
             <div className={expandedListItemRow2}>
               {category === "parking" ? `Vehicle LPN : ${entity}` : `${entity}`}{" "}
-              | {venue}
             </div>
-            <div className={expandedListItemRow3}>{area}</div>
+            <div className={expandedListItemRow3}>
+              {equipment && `${equipment} | `}
+              {subTitle ? subTitle : area}
+            </div>
+            {venue && <div className={expandedListItemRow3}>{venue}</div>}
+
             <div className={expandedListItemRow4}>
-              <div className={buttonStyle}>Take Action</div>
+              <div className={buttonStyle}>
+                <Button variant="contained" handleClick={() => null}>
+                  Take Action
+                </Button>
+              </div>
               <div className={timeStampStyle}>{currentTimeStamp}</div>
             </div>
           </div>
-        ) : ( */}
-        <div className={collapsedListItems}>
-          <div className={listItemTitle}>{title}</div>
-          <div className={collapsedlistItemRow2}>
-            <div className={listItemSubTitle}>{area}</div>
-            <div className={timeStampStyle}>{currentTimeStamp}</div>
+        ) : (
+          <div className={collapsedListItems}>
+            <div className={listItemTitle}>{title}</div>
+            <div className={collapsedlistItemRow2}>
+              <div className={listItemSubTitle}>
+                {equipment && `${equipment} | `}
+                {subTitle ? subTitle : area}
+              </div>
+              <div className={timeStampStyle}>{currentTimeStamp}</div>
+            </div>
           </div>
-        </div>
-        {/* )} */}
+        )}
       </div>
     </>
   );

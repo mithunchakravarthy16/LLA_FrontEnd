@@ -26,6 +26,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -46,11 +50,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     notificationPanelSection,
   } = useStyles(appTheme);
 
-  const [notificationPanelActive, setNotificationPanelActive] =
-    useState<boolean>(false);
-
   const onHandleBellIcon = () => {
-    setNotificationPanelActive(!notificationPanelActive);
+    setNotificationPanelActive(true);
   };
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
@@ -70,6 +71,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     Object.assign({}, item, dashboardArray[i])
   );
 
+  const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
+  );
+
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(dashboardDataList, tabIndex)
   );
@@ -82,12 +87,29 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setDashboardData(
       formatttedDashboardNotification(dashboardDataList, tabIndex)
     );
+    setSearchValue(
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    );
   }, [tabIndex]);
+
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(dashboardDataList)
+    );
+  }, [dashboardData]);
 
   return (
     <>
       <div className={dashboardRightPanelStyle}>
-        <Map />
+        <Map
+          markers={dashboardDataList}
+          setNotificationPanelActive={setNotificationPanelActive}
+          setSelectedNotification={setSelectedNotification}
+          marker={selectedNotification}
+          setTabIndex={setTabIndex}
+          currentMarker={currentMarker}
+          setCurrentMarker={setCurrentMarker}
+        />
       </div>
       <img
         src={
@@ -109,6 +131,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             notificationCount={notificationCount}
             selectedNotification={selectedNotification}
             setSelectedNotification={setSelectedNotification}
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            setCurrentMarker={setCurrentMarker}
           />
         </div>
       )}
