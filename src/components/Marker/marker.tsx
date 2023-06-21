@@ -13,6 +13,7 @@ const MapMarker: React.FC<any> = (props) => {
     handleMarkerClose,
     handleExpandListItem,
     getMarkerIcon,
+    focusedCategory,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -35,6 +36,11 @@ const MapMarker: React.FC<any> = (props) => {
   return (
     <>
       <Marker
+        animation={
+          focusedCategory === mapMarker?.category
+            ? window.google.maps.Animation.BOUNCE
+            : undefined
+        }
         position={
           //   mapMarker?.category === "fleet" ? movingMarker : mapMarker?.location
           mapMarker?.location

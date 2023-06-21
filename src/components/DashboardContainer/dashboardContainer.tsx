@@ -30,7 +30,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
-  const [currentOpenedCard, setCurrentOpenedCard] = useState<any>('');
+  const [currentOpenedCard, setCurrentOpenedCard] = useState<any>("");
+  const [focusedCategory, setFocusedCategory] = useState<any>("");
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -110,6 +111,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           setTabIndex={setTabIndex}
           currentMarker={currentMarker}
           setCurrentMarker={setCurrentMarker}
+          focusedCategory={focusedCategory}
         />
       </div>
       <img
@@ -121,7 +123,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         onClick={onHandleBellIcon}
         className={notificationIconSection}
       />
-      <FlippingCard currentOpenedCard={currentOpenedCard} setCurrentOpenedCard={setCurrentOpenedCard} />
+      <FlippingCard
+        currentOpenedCard={currentOpenedCard}
+        setCurrentOpenedCard={setCurrentOpenedCard}
+        focusedCategory={focusedCategory}
+        setFocusedCategory={setFocusedCategory}
+      />
       {notificationPanelActive && (
         <div className={notificationPanelSection}>
           <NotificationPanel
