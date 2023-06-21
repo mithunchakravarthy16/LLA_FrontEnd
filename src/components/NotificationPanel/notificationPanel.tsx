@@ -137,9 +137,12 @@ const NotificationPanel = (props: any) => {
   };
 
   const handleCloseIcon = () => {
-    setSearchOpen(false);
     setSearchValue(dashboardData);
     setSelectedNotification("");
+  };
+
+  const handleSearchCloseIcon = () => {
+    setSearchOpen(false);
   };
 
   const refs =
@@ -190,7 +193,7 @@ const NotificationPanel = (props: any) => {
               src={searchOpen ? CloseIcon : SearchIcon}
               alt="Search"
               width={20}
-              onClick={searchOpen ? handleCloseIcon : handleSearchIcon}
+              onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
             <img
               className={notificationCloseIcon}
