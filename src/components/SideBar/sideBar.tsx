@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Drawer } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import theme from "../../theme/theme";
 import Tooltip from "elements/Tooltip";
 import LogoIcon from "../../assets/logo.svg";
@@ -19,7 +20,7 @@ interface SideBarProps {}
 
 const SideBar = (props: SideBarProps) => {
   const location = useLocation();
-
+  const user = useSelector((state: any) => state.login.loginData);
   const {} = props;
   const [selectedTheme, setSelectedTheme] = useState<any>(
     JSON.parse(localStorage.getItem("theme") || "{}")
@@ -150,14 +151,16 @@ const SideBar = (props: SideBarProps) => {
                   }
                   key={index}
                 >
-                  <img src={item.image}  />
+                  <img src={item.image} />
                 </div>
               </Tooltip>
             );
           })}
         </div>
         <div className={avatharSection}>
-          <div>MR</div>
+          <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
+            0
+          )}`}</div>
         </div>
       </Drawer>
     </Box>

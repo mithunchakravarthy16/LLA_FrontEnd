@@ -18,6 +18,7 @@ import {
   Label,
   Note,
 } from "./styles";
+import { useNavigate } from "react-router-dom";
 import {
   assetTracking,
   energyManagement,
@@ -172,9 +173,9 @@ const Card = ({
   card,
   currentOpenedCard,
   setCurrentOpenedCard,
-  focusedCategory,
   setFocusedCategory,
 }: CardPropType) => {
+  const navigate = useNavigate();
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
     transform: `skew(-18deg) perspective(600px) rotateY(${
@@ -193,9 +194,13 @@ const Card = ({
   return (
     <RootContainer
       onMouseOver={() => setFocusedCategory(card?.category)}
-      onDoubleClick={() => console.log("ON DOUBLE CLICK")}
-      onClick={() => setCurrentOpenedCard(card?.title)}
       onMouseLeave={() => setFocusedCategory("")}
+      onDoubleClick={() => navigate("/gridView")}
+      onClick={() =>
+        setCurrentOpenedCard((prev: any) =>
+          prev === card?.title ? "" : card?.title
+        )
+      }
     >
       <SkewContainer
         style={{

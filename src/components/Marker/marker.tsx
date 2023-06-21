@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import { Marker, InfoWindowF } from "@react-google-maps/api";
 
@@ -61,7 +62,7 @@ const MapMarker: React.FC<any> = (props) => {
           scaledSize: new window.google.maps.Size(60.5, 60.5),
         }}
         key={mapMarker.id}
-        zIndex={1}
+        zIndex={currentMarker === mapMarker.id ? 1000 : 1}
       />
 
       {currentMarker === mapMarker.id && (
