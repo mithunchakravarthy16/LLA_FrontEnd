@@ -1,23 +1,35 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Highcharts from "highcharts";
+import GridViewScreenOne from "components/GridViewScreens/GridViewScreenOne";
+import GridViewScreenTwo from "components/GridViewScreens/GridViewScreenTwo";
+import GridViewScreenThree from "components/GridViewScreens/GridViewScreenThree";
+import GridViewScreenFour from "components/GridViewScreens/GridViewScreenFour";
+import GridViewScreenFive from "components/GridViewScreens/GridViewScreenFive";
+import GridViewScreenSix from "components/GridViewScreens/GridViewScreenSix";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
-import EnergyManagementCharts from "elements/energyManagementCharts";
-import { LiveImg } from "assets/gridViewIcons";
-import CustomizableProgressBar from "elements/ProgressBar";
-import GridViewScreenOne from "components/GridViewScreenOne";
-import GridViewScreenTwo from "components/GridViewScreenTwo";
-import GridViewScreenThree from "components/GridViewScreenThree";
-import GridViewScreenFour from "components/GridViewScreenFour";
-import GridViewScreenFive from "components/GridViewScreenFive";
-import GridViewScreenSix from "components/GridViewScreenSix";
 
-const GridView = () => {
+const GridView : React.FC<any> = (props) => {
+
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
+
   const {
     rootContainer,
     mainSection,

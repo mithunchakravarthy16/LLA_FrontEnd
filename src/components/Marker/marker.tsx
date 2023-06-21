@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import { Marker, InfoWindowF } from "@react-google-maps/api";
 
