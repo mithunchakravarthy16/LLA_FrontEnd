@@ -228,6 +228,7 @@ const Map: React.FC<any> = (props) => {
   const handleMarkerClose = () => {
     setSelectedNotification("");
     map?.panTo(defaultCenter);
+    map?.setZoom(zoomValue);
   };
 
   const handleExpandListItem = () => {
@@ -239,7 +240,7 @@ const Map: React.FC<any> = (props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={map?.panTo(defaultCenter)}
+          center={defaultCenter}
           zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
