@@ -1,6 +1,6 @@
-/** @format */
-
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
+
 
 const useStyles = makeStyles(
   {
@@ -20,9 +20,22 @@ const useStyles = makeStyles(
       bottom: 0,
       zIndex: "1111111",
       width: "100vw",
-      height: "50px",
       color: "#FFFFFF",
-      fontSize: 14,
+      fontSize: "30px",
+      lineHeight: "36px",
+      height: 100,
+      [muiTheme.breakpoints.down(3073)]: {
+        fontWeight: " 500",
+        fontSize: "16px",
+        lineHeight: "24px",
+        height: 60,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        fontWeight: " 500",
+        fontSize: "14px",
+        lineHeight: "21px",
+        height: 60,
+      },
     }),
     footerContent: (props: any) => ({
       display: "flex",
@@ -31,7 +44,13 @@ const useStyles = makeStyles(
     footerIconStyle: (props: any) => ({
       padding: "0 16px",
       "& img": {
-        width: 140,
+        width: 250,
+        [muiTheme.breakpoints.down(3073)]: {
+          width: 140,
+        },
+        [muiTheme.breakpoints.down(1921)]: {
+          width: 140,
+        },
       },
     }),
     copyrights: (props: any) => ({
@@ -40,22 +59,38 @@ const useStyles = makeStyles(
       "&::before": {
         top: "4px",
         left: "-12px",
-        width: "2px",
-        height: "10px",
+        width: "3px",
+        height: "28px",
         content: `''`,
         position: "absolute",
         background: "white",
         zIndex: "-1",
+        [muiTheme.breakpoints.down(3073)]: {
+          width: "2px",
+        height: "10px",
+        },
+        [muiTheme.breakpoints.down(1921)]: {
+          width: "2px",
+        height: "10px",
+        },
       },
       "&::after": {
         top: "4px",
         right: "-10px",
-        width: "2px",
-        height: "10px",
+        width: "3px",
+        height: "27px",
         content: `''`,
         position: "absolute",
         background: "white",
         zIndex: "-1",
+        [muiTheme.breakpoints.down(3073)]: {
+          width: "2px",
+        height: "10px",
+        },
+        [muiTheme.breakpoints.down(1921)]: {
+          width: "2px",
+        height: "10px",
+        },
       },
     }),
     allRights: (props:any) => ({
