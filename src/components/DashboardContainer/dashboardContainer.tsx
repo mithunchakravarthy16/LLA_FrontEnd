@@ -7,6 +7,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
+import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
@@ -97,6 +98,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         onClick={onHandleBellIcon}
         className={notificationIconSection}
       />
+      <FlippingCard />
       {notificationPanelActive && (
         <div className={notificationPanelSection}>
           <NotificationPanel

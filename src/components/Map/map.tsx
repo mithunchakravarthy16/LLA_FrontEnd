@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect, Fragment } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 
