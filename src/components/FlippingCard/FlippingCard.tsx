@@ -18,6 +18,7 @@ import {
     Label,
     Note,
 } from './styles';
+import { useNavigate } from "react-router-dom";
 import {
     assetTracking,
     energyManagement,
@@ -160,6 +161,7 @@ type CardPropType = {
 } 
 
 const Card = ({card, currentOpenedCard, setCurrentOpenedCard}: CardPropType) => {
+    const navigate = useNavigate();
     const containerTransform = useSpring({
         opacity: currentOpenedCard === card.title ? 1 : 0,
         transform: `skew(-18deg) perspective(600px) rotateY(${currentOpenedCard === card.title ? 180 : 0}deg)`,
@@ -174,7 +176,7 @@ const Card = ({card, currentOpenedCard, setCurrentOpenedCard}: CardPropType) => 
     console.log("CARD ITEM", card);
 
     return (
-        <RootContainer onDoubleClick={() => console.log("ON DOUBLE CLICK")} onClick={() => setCurrentOpenedCard(card?.title)} >
+        <RootContainer onDoubleClick={() => navigate('/gridView')} onClick={() => setCurrentOpenedCard((prev: any) => prev === card?.title ? '' : card?.title)} >
             <SkewContainer style={{transform: containerTransform.transform, opacity: containerTransform.opacity.to(o => 1 - o)}} />
             <SkewBackContainer style={{transform: containerTransform.transform, opacity: containerTransform.opacity}}  />
             <ContentContainer style={{ transform: contentTransform.transform, opacity: contentTransform.opacity.to(o => 1 - o)}} >
