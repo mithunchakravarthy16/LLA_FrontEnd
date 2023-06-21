@@ -26,6 +26,24 @@ import LighteningAlertIcon from "../../assets/markers/Lighting-orange.svg";
 import AssetTrackingEventIcon from "../../assets/markers/Assets Tracking-green.svg";
 import AssetTrackingIncidentIcon from "../../assets/markers/Assets Tracking-red.svg";
 import AssetTrackingAlertIcon from "../../assets/markers/Assets Tracking-orange.svg";
+import EnergyManagementEventActiveIcon from "../../assets/selectedMarkers/energyManagementActiveGreen.svg";
+import EnergyManagementIncidentActiveIcon from "../../assets/selectedMarkers/Energy management-red.svg";
+import EnergyManagementAlertActiveIcon from "../../assets/selectedMarkers/Energy management-orange.svg";
+import ParkingEventActiveIcon from "../../assets/selectedMarkers/Parking-green.svg";
+import ParkingIncidentActiveIcon from "../../assets/selectedMarkers/Parking-red.svg";
+import ParkingAlertActiveIcon from "../../assets/selectedMarkers/Parking-orange.svg";
+import AssetTrackingEventActiveIcon from "../../assets/selectedMarkers/Assets Tracking-green.svg";
+import AssetTrackingIncidentActiveIcon from "../../assets/selectedMarkers/Assets Tracking-red.svg";
+import AssetTrackingAlertActiveIcon from "../../assets/selectedMarkers/Assets Tracking-orange.svg";
+import SecurityEventActiveIcon from "../../assets/selectedMarkers/Security-green.svg";
+import SecurityIncidentActiveIcon from "../../assets/selectedMarkers/Security-red.svg";
+import SecurityAlertActiveIcon from "../../assets/selectedMarkers/Security-orange.svg";
+import LightenEventActiveIcon from "../../assets/selectedMarkers/Lighting-green.svg";
+import LightenIncidentActiveIcon from "../../assets/selectedMarkers/Lighting-red.svg";
+import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange.svg";
+import FleetEventIcon from "../../assets/markers/BusGreen.svg";
+import FleetIncidentIcon from "../../assets/markers/BusRed.svg";
+import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import useStyles from "./styles";
 
 const containerStyle = {
@@ -57,6 +75,7 @@ const Map: React.FC<any> = (props) => {
 
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>(15);
+  const [selectedMarker, setSelectedMarker] = useState<any>("");
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
@@ -82,20 +101,36 @@ const Map: React.FC<any> = (props) => {
     };
   };
 
-  const getMarkerIcon = (category: string, notificationCategory: string) => {
+  const getMarkerIcon = (
+    category: string,
+    notificationCategory: string,
+    id: string
+  ) => {
     switch (notificationCategory) {
       case "event": {
         switch (category) {
           case "parking":
-            return ParkingEventIcon;
+            return currentMarker === id
+              ? ParkingEventActiveIcon
+              : ParkingEventIcon;
           case "energy":
-            return EnergyManagemnetEventIcon;
+            return currentMarker === id
+              ? EnergyManagementEventActiveIcon
+              : EnergyManagemnetEventIcon;
           case "security":
-            return SecurityEventIcon;
+            return currentMarker === id
+              ? SecurityEventActiveIcon
+              : SecurityEventIcon;
           case "lighting":
-            return LighteningEventIcon;
+            return currentMarker === id
+              ? LightenEventActiveIcon
+              : LighteningEventIcon;
           case "asset":
-            return AssetTrackingEventIcon;
+            return currentMarker === id
+              ? AssetTrackingEventActiveIcon
+              : AssetTrackingEventIcon;
+          case "fleet":
+            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
         }
@@ -103,15 +138,27 @@ const Map: React.FC<any> = (props) => {
       case "oprAlert": {
         switch (category) {
           case "parking":
-            return ParkingAlertIcon;
+            return currentMarker === id
+              ? ParkingAlertActiveIcon
+              : ParkingAlertIcon;
           case "energy":
-            return EnergyManagementAlertIcon;
+            return currentMarker === id
+              ? EnergyManagementAlertActiveIcon
+              : EnergyManagementAlertIcon;
           case "security":
-            return SecutiryAlertIcon;
+            return currentMarker === id
+              ? SecurityAlertActiveIcon
+              : SecutiryAlertIcon;
           case "lighting":
-            return LighteningAlertIcon;
+            return currentMarker === id
+              ? LightenAlertActiveIcon
+              : LighteningAlertIcon;
           case "asset":
-            return AssetTrackingAlertIcon;
+            return currentMarker === id
+              ? AssetTrackingAlertActiveIcon
+              : AssetTrackingAlertIcon;
+          case "fleet":
+            return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
         }
@@ -120,15 +167,27 @@ const Map: React.FC<any> = (props) => {
       case "incident": {
         switch (category) {
           case "parking":
-            return ParkingIncidentIcon;
+            return currentMarker === id
+              ? ParkingIncidentActiveIcon
+              : ParkingIncidentIcon;
           case "energy":
-            return EnergyManagementIncidentIcon;
+            return currentMarker === id
+              ? EnergyManagementIncidentActiveIcon
+              : EnergyManagementIncidentIcon;
           case "security":
-            return SecurityIncidentIcon;
+            return currentMarker === id
+              ? SecurityIncidentActiveIcon
+              : SecurityIncidentIcon;
           case "lighting":
-            return LighteningIncidentIcon;
+            return currentMarker === id
+              ? LightenIncidentActiveIcon
+              : LighteningIncidentIcon;
           case "asset":
-            return AssetTrackingIncidentIcon;
+            return currentMarker === id
+              ? AssetTrackingIncidentActiveIcon
+              : AssetTrackingIncidentIcon;
+          case "fleet":
+            return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
         }
@@ -202,7 +261,8 @@ const Map: React.FC<any> = (props) => {
                   icon={{
                     url: getMarkerIcon(
                       singleMarker.category,
-                      singleMarker.notificationCategory
+                      singleMarker.notificationCategory,
+                      singleMarker.id
                     ),
                     scaledSize: new window.google.maps.Size(60.5, 60.5),
                   }}
