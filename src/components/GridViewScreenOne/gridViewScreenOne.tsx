@@ -112,40 +112,8 @@ const GridViewScreenOne = () => {
                             ],
                           },
                           data: [
-                            1,
-                            {
-                              y: 4,
-                              marker: {
-                                enabled: false,
-                              },
-                            },
-                            3,
-                            5,
-                            4,
-                            2,
-                            8,
-                            4,
-                            3,
-                            4,
-                            7,
-                            5,
-                            1,
-                            {
-                              y: 4,
-                              marker: {
-                                enabled: false,
-                              },
-                            },
-                            3,
-                            5,
-                            4,
-                            2,
-                            8,
-                            4,
-                            3,
-                            // 4,
-                            // 7,
-                            // 5,
+                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5, 4,
+                            2, 8, 4, 3, 4, 1, 4
                           ],
                         },
                       ]}
@@ -173,7 +141,7 @@ const GridViewScreenOne = () => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div style={{ fontSize: "20px", fontWeight: 600 }}>
-                          354
+                        398 
                         </div>
                         <div
                           style={{
@@ -187,7 +155,7 @@ const GridViewScreenOne = () => {
                       </div>
                       <div className={liveContentStyle}>
                         <div style={{ fontSize: "20px", fontWeight: 600 }}>
-                          398
+                        354
                         </div>
                         <div
                           style={{

@@ -5,62 +5,44 @@ import moment from "moment";
 
 const EnergyManagementCharts: React.FC<any> = (props) => {
   const {
-    type,
-    splineWidth,
     width,
     height,
     dataPoints,
     isVisible,
     graphType,
     units,
-    format,
-    graphSequence,
-    tooltipShow,
-    isCrosshair,
-    dataLabels,
-    tabIdentity,
-    pageName,
-    // xAxisArray,
-    xAxisInterval,
-    graphTitle,
-    selectedAnalyticListItem,
-    toolTipShared,
+    isCrosshair,   
   } = props;
 
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
-
-  let times = [],
-    periods = ["AM", "PM"],
-    hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-    prop = null,
-    hour = null,
-    min = null;
-
-  for (prop in periods) {
-    for (hour in hours) {
-      for (min = 0; min < 60; min += 60) {
-        times.push(
-          ("0" + hours[hour]).slice(-2) +
-            ":" +
-            ("0" + min).slice(-2) +
-            " " +
-            periods[prop]
-        );
+  const [lastTwntyTwoHours, setLastTwntyTwoHours]= useState<any>(()=>{
+    const currentTime1 = moment();
+      const last24Hours = [];
+    
+      for (let i = 0; i < 24; i++) {
+        const hour = currentTime1.subtract(1, 'hour').startOf('hour').format('hh:mm A');
+        
+        last24Hours.unshift(hour);
       }
-    }
-  }
-  const currentTime = moment().format("h A");
-  const xAxisArray = times.filter(
-    (value) =>
-      moment(value, ["h A"]).format("HH") <
-      moment(currentTime, ["h A"]).format("HH")
-  );
-  const xAxisTimeArray = xAxisArray.slice(
-    xAxisArray.length - xAxisInterval,
-    xAxisArray.length
-  );
-  const xAxisNewValue = Array.from(xAxisTimeArray, (ps) => ps);
+      return last24Hours;
+  });  
+
+  useEffect(()=>{
+
+    const interval = setInterval(()=>{
+      const currentTime1 = moment();
+      const last24Hours = [];
+    
+      for (let i = 0; i < 24; i++) {
+        const hour = currentTime1.subtract(1, 'hour').startOf('hour').format('hh:mm A');
+        
+        last24Hours.unshift(hour);
+      }
+      setLastTwntyTwoHours(last24Hours)
+    },3600000)
+    return ()=> clearInterval(interval);
+  },[])
 
   return (
     <HighchartsReact
@@ -187,8 +169,8 @@ const EnergyManagementCharts: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          categories: xAxisNewValue,
-          tickInterval: 5,
+          categories: lastTwntyTwoHours,
+          tickInterval: 6,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
