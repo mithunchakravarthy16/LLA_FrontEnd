@@ -5,8 +5,9 @@ import theme from "../../theme/theme";
 import FooterIcon from "../../assets/images/footer-logo-1.svg";
 import useTranslation from "localization/translations";
 import useStyles from "./styles";
+import Footer from "components/Footer";
 
-const MainLayout = () => {
+const MainLayout = (props:any) => {
   const [selectedTheme, setSelectedTheme] = useState<any>(
     JSON.parse(localStorage.getItem("theme") || "{}")
   );
@@ -60,15 +61,7 @@ const MainLayout = () => {
             >
               <Outlet />
             </div>
-            <div className={footerSection}>
-              <div className={footerContent}>
-                <p>{poweredByText}</p>
-                <p className={footerIconStyle}>
-                  <img src={FooterIcon} />
-                </p>
-                <p className={copyrights}>© 2023 </p> <p className={allRights}>{allRightsReservedText}</p>
-              </div>
-            </div>
+            <Footer />
           </>
         ) : (
           <div className={loaderStyle}>

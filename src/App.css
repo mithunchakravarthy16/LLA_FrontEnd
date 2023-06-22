@@ -4,7 +4,7 @@
 
 body {
   margin: 0 !important;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'HelveticaNeue-Regular',
 
 }
 
@@ -51,8 +51,6 @@ input:-webkit-autofill:active {
   border-top-left-radius: inherit !important;
   border-bottom-left-radius: inherit !important;
   box-shadow: 0 0 0px 100px #fff inset !important;
-  -webkit-box-shadow: 0 0 0px 100px #fff inset !important;
-  -webkit-text-fill-color: #2D3748 !important;
+  -webkit-box-shadow: 0 0 0px 100px rgba(51, 51, 51) inset !important;
+  -webkit-text-fill-color: #a9a9a9 !important;
 }
-
-
