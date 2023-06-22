@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import VerticalProgressBar from "elements/VerticalProgressBar";
+
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 
 const TopPanelListItemContainer: React.FC<any> = (props) => {
-  const { topPanelListItems } = props;
+  const { topPanelListItems, percent, strokeWidth, trailWidth, strokeColor, trailColor, title } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -51,7 +53,17 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
           ))}
 
         <Grid flex={1.5} item className={progressBarContainer}>
-          ProgressBar
+          <Grid item xs={10}>
+            <VerticalProgressBar
+
+              percent={percent}
+              strokeWidth={strokeWidth}
+              trailWidth={trailWidth}
+              strokeColor={strokeColor}
+              trailColor={trailColor}
+              title={title}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>

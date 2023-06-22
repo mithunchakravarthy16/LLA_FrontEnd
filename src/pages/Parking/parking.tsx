@@ -17,7 +17,6 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import parkingData from "mockdata/parkingData";
-import dashboardList from "mockdata/dashboardNotification";
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -157,6 +156,12 @@ const Parking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
+                          percent={62}
+                          strokeWidth={10}
+                          trailWidth={10}
+                          strokeColor="#FABD96"
+                          trailColor="#484D52"
+                          title={"Occupancy"}
                         />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>

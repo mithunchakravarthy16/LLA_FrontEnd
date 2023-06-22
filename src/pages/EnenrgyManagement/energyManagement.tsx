@@ -157,6 +157,12 @@ const Parking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
+                          percent={30}
+                          strokeWidth={10}
+                          trailWidth={10}
+                          strokeColor="#92C07E"
+                          trailColor="#484D52"
+                          title={"Energy Savings "}
                         />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>
