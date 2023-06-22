@@ -23,6 +23,7 @@ const NotificationPanel = (props: any) => {
     searchValue,
     setSearchValue,
     setCurrentMarker,
+    notificationPageName
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -55,7 +56,7 @@ const NotificationPanel = (props: any) => {
     tabSection,
     searchClass,
     notificationListItemSection,
-  } = useStyles({ ...appTheme, tabIndex: tabIndex });
+  } = useStyles({ ...appTheme, tabIndex: tabIndex, notificationPageName : notificationPageName });
 
   const {
     notificationText,
@@ -103,6 +104,7 @@ const NotificationPanel = (props: any) => {
           : notificationCount && notificationCount[2],
     },
   ];
+
 
   const handleTabs = (index: number) => {
     setTabIndex(index);
@@ -195,13 +197,13 @@ const NotificationPanel = (props: any) => {
               width={20}
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
-            <img
+            {/* <img
               className={notificationCloseIcon}
               src={CloseIcon}
               alt="Close"
               width={20}
               onClick={handleNotificationCloseIcon}
-            />
+            /> */}
           </div>
         </div>
         <div className={tabSection}>

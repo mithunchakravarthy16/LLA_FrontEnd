@@ -47,10 +47,7 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import useStyles from "./styles";
 
-const containerStyle = {
-  width: "100%",
-  height: "calc(100vh - 0px)",
-};
+
 
 const defaultCenter = {
   lat: 39.75055380818962,
@@ -67,6 +64,7 @@ const Map: React.FC<any> = (props) => {
     currentMarker,
     setCurrentMarker,
     focusedCategory,
+    mapPageName
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -83,6 +81,11 @@ const Map: React.FC<any> = (props) => {
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
     libraries: ["places", "drawing"],
   });
+
+  const containerStyle = {
+    width: "100%",
+    height: mapPageName === "dashboard" ? "calc(100vh - 0px)" :  "calc(100vh - 401px)",
+  };
 
   useEffect(() => {
     setCurrentMarker(marker);

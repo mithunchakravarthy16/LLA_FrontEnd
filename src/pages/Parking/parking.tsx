@@ -16,8 +16,8 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import securityData from "mockdata/securityData";
-
+import parkingData from "mockdata/parkingData";
+import dashboardList from "mockdata/dashboardNotification";
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -88,7 +88,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-  const dashboardArray = securityData?.notifications?.security;
+  const dashboardArray = parkingData?.notifications?.parking;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
   for (let i = 0; i < dashboardArray?.length; i++) {
@@ -138,7 +138,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            SECURITY
+            PARKING
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
