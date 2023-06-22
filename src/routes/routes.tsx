@@ -3,10 +3,14 @@ import { useSelector } from "react-redux";
 import MainLayout from "pages/MainLayout";
 import Login from "../pages/Login";
 import DashBoard from "../pages/DashBoard";
-import Parking from "../pages/Parking";
+import Parking from "../pages/ParkingOld";
 import BirdsView from "pages/BirdsView";
 import Settings from "pages/Settings";
 import GridView from "pages/GridView";
+import Lighting from "pages/Lighting";
+import ParkingNew from "pages/ParkingNew";
+import EnergyManagement from "pages/EnenrgyManagement";
+import Security from "pages/Security";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -42,6 +46,22 @@ const VIOT_Routes = () => {
         {
           path: "settings",
           element: <Settings />,
+        },
+        {
+          path: "parking",
+          element: <ParkingNew />,
+        },
+        {
+          path: "energyManagement",
+          element: <EnergyManagement />,
+        },
+        {
+          path: "security",
+          element: <Security />,
+        },
+        {
+          path: "lighting",
+          element: <Lighting />,
         },
       ],
     },

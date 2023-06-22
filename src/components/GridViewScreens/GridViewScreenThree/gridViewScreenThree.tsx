@@ -6,6 +6,8 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenThree: React.FC<any> = (props) => {
+  const {handleClick}=props
+  
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -41,7 +43,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 3 */}
-      <Grid item xs={4} className={gridStyles}>
+      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/security")}}>
         <Grid
           container
           xs={12}

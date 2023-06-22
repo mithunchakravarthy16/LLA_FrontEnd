@@ -7,7 +7,7 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenOne : React.FC<any> = (props) => {
-
+ const {handleClick}=props
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -54,7 +54,7 @@ const GridViewScreenOne : React.FC<any> = (props) => {
   return (
     <>
       {/* Gride 1 */}
-      <Grid item xs={4} className={gridStyles}>
+      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}>
         <Grid container xs={12} className={gridContainers}>
           <Grid
             item

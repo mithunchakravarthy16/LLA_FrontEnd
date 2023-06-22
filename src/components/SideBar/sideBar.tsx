@@ -43,7 +43,12 @@ const SideBar = (props: SideBarProps) => {
     },
     {
       image:
-        activePage === 1 && location?.pathname === "/gridView"
+        activePage === 1 &&
+        (location?.pathname === "/gridView" ||
+          location?.pathname === "/parking" ||
+          location?.pathname === "/energyManagement" ||
+          location?.pathname === "/security" ||
+          location?.pathname === "/lighting")
           ? GridViewActiveIcon
           : GridViewIcon,
       id: 1,
@@ -103,7 +108,11 @@ const SideBar = (props: SideBarProps) => {
     setActivePage(
       location?.pathname === "/home"
         ? 0
-        : location?.pathname === "/gridView"
+        : location?.pathname === "/gridView" ||
+          location?.pathname === "/parking" ||
+          location?.pathname === "/energyManagement" ||
+          location?.pathname === "/security" ||
+          location?.pathname === "/lighting"
         ? 1
         : location?.pathname === "/birdsView" //location?.pathname === "/settings"
         ? 2
