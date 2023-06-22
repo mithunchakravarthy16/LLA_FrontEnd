@@ -46,7 +46,7 @@ const useStyles = makeStyles(
       zIndex: "1",
       width: "100vw",
       color: "#FFFFFF",
-      fontSize: "30px",
+      fontSize: "22px",
       lineHeight: "36px",
       height: 100,
       fontFamily: 'HelveticaNeue-Regular',
