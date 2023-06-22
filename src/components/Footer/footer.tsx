@@ -6,7 +6,7 @@ import FooterIcon from "../../assets/images/footer-logo-1.svg";
 import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
-const Footer = () => {
+const Footer = (props:any) => {
   const [selectedTheme, setSelectedTheme] = useState<any>(
     JSON.parse(localStorage.getItem("theme") || "{}")
   );
@@ -25,6 +25,7 @@ const Footer = () => {
         break;
     }
   }, [selectedTheme]);
+  const {pageName} = props;
 
   const {
     loaderStyle,
@@ -33,6 +34,7 @@ const Footer = () => {
     footerIconStyle,
     copyrights,
     allRights,
+    footerSectionDasbhoard
   } = useStyles(appTheme);
 
   const { poweredByText, allRightsReservedText, titleText, subTitleText } =
@@ -47,7 +49,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className={footerSection}>
+    <div className={pageName === "dashboard " ? footerSection : footerSectionDasbhoard}>
       <div className={footerContent}>
         <p>{poweredByText}</p>
         <p className={footerIconStyle}>

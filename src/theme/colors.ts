@@ -57,5 +57,6 @@ let colorCodes = {
   seaGreen: "#3A9479",
   turquoiseBlueGreen: "#19E392",
   turquoiseBlueGreenOpacity: "#19E39295",
+  lightGreyinputBorder: 'rgba(131, 131, 131, 1)'
 };
 export default colorCodes;
