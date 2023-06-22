@@ -14,6 +14,7 @@ let theme = {
         boxShadow: colorCodes.rgbaOne,
         inputTitle: colorCodes.orangeTwo,
         loginBg: colorCodes.linearBackgroundOne,
+        loginBorder: colorCodes.lightGreyinputBorder
       },
       sidebar: {
         menuActiveColor: colorCodes.orangeOne,
@@ -94,6 +95,7 @@ let theme = {
         boxShadow: colorCodes.rgbaOne,
         inputTitle: colorCodes.orangeTwo,
         loginBg: colorCodes.linearBackgroundOne,
+        loginBorder: colorCodes.lightGreyinputBorder
       },
       sidebar: {
         menuActiveColor: colorCodes.orangeOne,
@@ -174,6 +176,7 @@ let theme = {
         boxShadow: colorCodes.rgbaOne,
         inputTitle: colorCodes.orangeTwo,
         loginBg: colorCodes.linearBackgroundOne,
+        loginBorder: colorCodes.lightGreyinputBorder
       },
       sidebar: {
         menuActiveColor: colorCodes.orangeOne,

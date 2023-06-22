@@ -47,7 +47,7 @@ const useStyles = makeStyles({
       fontSize: "16px !important",
       fontWeight: "600 !important",
       lineHeight: "30px !important",
-      fontFamily: "Poppins",
+      fontFamily: 'HelveticaNeue-Regular',
       marginBottom: 10,
       "&:first-child": {
         marginRight: "0 !important",

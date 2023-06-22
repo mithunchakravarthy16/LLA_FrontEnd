@@ -50,10 +50,9 @@ export const CardImage = styled("img")`
 `;
 
 export const CardTitle = styled("div")`
-    font-family: 'Helvetica Neue';
+    font-family: 'HelveticaNeue-Regular';
     font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 27px;
     color: #EEEEEE;
     text-transform: uppercase;
@@ -65,9 +64,8 @@ export const BackContentContainer = styled(ContentContainer)`
 `;
 
 export const CardTitleSmall = styled("div")`
-    font-family: 'Helvetica Neue';
+    font-family: 'HelveticaNeue-Regular';
     font-style: italic;
-    font-weight: 700;
     font-size: 18px;
     line-height: 18px;
     color: #FFFFFF;
@@ -98,36 +96,48 @@ export const CardValuesContainer = styled("div")`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
 `;
 
 export const ValueWrapper = styled("div")`
     display: flex;
     flex-direction: column;
     align-items: center;
+    &::after {
+        position: absolute;
+        content: '';
+        width: 1px;
+        height: 46px;
+        background: #fff;
+        transform: rotate(18deg);
+        right: 111px;
+        top: 12px;
+        
+    }
 `;
 
 export const Value = styled("div")`
-    font-family: 'Helvetica Neue';
+    font-family: 'HelveticaNeue-Regular';
     font-style: italic;
-    font-weight: 700;
-    font-size: 22px;
+    font-size: 18px;
     color: #FFF;
+   
 `;
 
 export const Label = styled("div")`
     color: #9D9D9C;
-    font-family: 'Helvetica Neue';
+    font-family: 'HelveticaNeue-Regular';
     font-style: italic;
-    font-weight: 500;
-    font-size: 16px;
+    font-size: 11px;
+    line-height: 30px;
     text-transform: uppercase;
 `;
 
 export const Note = styled("div")`
-    font-family: 'Helvetica Neue';
+    font-family: 'HelveticaNeue-Regular';
     font-style: italic;
-    font-weight: 500;
-    font-size: 18px;
+    font-size: 14px;
     color: #FFCF25;
     margin-left: -10px;
+    max-width: 212px;
 `;
