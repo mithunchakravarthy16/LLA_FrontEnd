@@ -5,6 +5,9 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenTwo: React.FC<any> = (props) => {
+
+  const {handleClick}=props
+  
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -40,7 +43,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 2 */}
-      <Grid item xs={4} className={gridStyles}>
+      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/energyManagement")}}>
         <Grid
           container
           xs={12}

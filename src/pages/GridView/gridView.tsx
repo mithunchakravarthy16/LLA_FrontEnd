@@ -8,6 +8,7 @@ import GridViewScreenFive from "components/GridViewScreens/GridViewScreenFive";
 import GridViewScreenSix from "components/GridViewScreens/GridViewScreenSix";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const GridView : React.FC<any> = (props) => {
 
@@ -35,28 +36,34 @@ const GridView : React.FC<any> = (props) => {
     mainSection,
   } = useStyles(appTheme);
 
+  const navigate = useNavigate();
+
+  const handleClick = (path : string)=>{
+    navigate(path)
+  }
+
   return (
     <>
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
 
           {/* Gride 1 */}
-          <GridViewScreenOne/>
+          <GridViewScreenOne handleClick={handleClick}/>
 
           {/* Grid 2 */}
-          <GridViewScreenTwo/>
+          <GridViewScreenTwo handleClick={handleClick}/>
 
           {/* Grid 3 */}
-          <GridViewScreenThree/>
+          <GridViewScreenThree handleClick={handleClick}/>
 
           {/* Grid 4 */}
-          <GridViewScreenFour/>
+          <GridViewScreenFour handleClick={handleClick}/>
 
           {/* Grid 5 */}
-          <GridViewScreenFive/>
+          <GridViewScreenFive />
 
           {/* Grid 6 */}
-          <GridViewScreenSix/>
+          <GridViewScreenSix />
 
         </Grid>
       </Grid>

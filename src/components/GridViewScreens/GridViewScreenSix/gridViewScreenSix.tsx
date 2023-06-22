@@ -6,6 +6,10 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
+
+  const {handleClick}=props
+
+  
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -40,7 +44,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 6 */}
-      <Grid item xs={4} className={gridStyles}>
+      <Grid item xs={4} className={gridStyles} >
         <Grid
           container
           xs={12}

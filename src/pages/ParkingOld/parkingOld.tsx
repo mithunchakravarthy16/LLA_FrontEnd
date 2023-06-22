@@ -10,7 +10,7 @@ import ParkingScreen6 from "components/ParkingScreen6";
 import parking from "mockdata/parking";
 import useStyles from "./styles";
 
-const Parking = () => {
+const ParkingOld = () => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -81,4 +81,4 @@ const Parking = () => {
   );
 };
 
-export default Parking;
+export default ParkingOld;
