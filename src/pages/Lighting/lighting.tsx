@@ -33,7 +33,6 @@ const Lighting: React.FC<any> = (props) => {
   const {
     rootContainer,
     mainSection,
-    topPanelListItemStyle,
     pageHeading,
     bodyContainer,
     bodySubContainer,
@@ -43,8 +42,6 @@ const Lighting: React.FC<any> = (props) => {
     bodyLeftTopPanelMapContainer,
     bodyLeftTopPanelSubContainer,
     bodyLeftTopPanelListContainer,
-    bodyLeftTopPanelListSubContainer,
-    progressBarContainer,
     graphOneContainer,
     graphTwoContainer,
   } = useStyles(appTheme);
