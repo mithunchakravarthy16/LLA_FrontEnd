@@ -128,7 +128,7 @@ export const Label = styled("div")`
     color: #9D9D9C;
     font-family: 'HelveticaNeue-Regular';
     font-style: italic;
-    font-size: 14px;
+    font-size: 11px;
     line-height: 30px;
     text-transform: uppercase;
 `;
@@ -136,7 +136,8 @@ export const Label = styled("div")`
 export const Note = styled("div")`
     font-family: 'HelveticaNeue-Regular';
     font-style: italic;
-    font-size: 18px;
+    font-size: 14px;
     color: #FFCF25;
     margin-left: -10px;
+    max-width: 212px;
 `;
