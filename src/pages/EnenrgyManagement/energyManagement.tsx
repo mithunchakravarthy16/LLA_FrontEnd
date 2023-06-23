@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
-  CoTwoCloudIcon,
-  VocCloudIcon,
-  AirQualityIcon,
-  PersonIcon,
+  PowerConsumtionIcon,
+  TemperatureIcon,
+  WaterConsumption,
+  IncomeIcon,
+  SubtractIcon,
 } from "../../assets/topPanelListIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
@@ -52,29 +53,29 @@ const Parking: React.FC<any> = (props) => {
     bodyLeftTopPanelListContainer,
     graphOneContainer,
     graphTwoContainer,
-    notificationPanelGrid
+    notificationPanelGrid,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
     {
-      icon: CoTwoCloudIcon,
-      value: "643ppm",
+      icon: PowerConsumtionIcon,
+      value: "200kWh",
     },
     {
-      icon: VocCloudIcon,
-      value: "15ppm",
+      icon: TemperatureIcon,
+      value: "100kWh",
     },
     {
-      icon: AirQualityIcon,
-      value: "12µg/m³",
+      icon: WaterConsumption,
+      value: "1480KL",
     },
     {
-      icon: AirQualityIcon,
-      value: "50µg/m³",
+      icon: IncomeIcon,
+      value: "500$",
     },
     {
-      icon: PersonIcon,
-      value: "200",
+      icon: SubtractIcon,
+      value: "50Kg",
     },
   ];
 
@@ -132,14 +133,13 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
-
   return (
     <>
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
             ENERGY MANAGEMENT
-            </Grid>
+          </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
               <Grid item xs={9} className={bodyLeftContainer}>
@@ -174,15 +174,15 @@ const Parking: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                  <Map
-          markers={dashboardDataList}
-          setNotificationPanelActive={setNotificationPanelActive}
-          setSelectedNotification={setSelectedNotification}
-          marker={selectedNotification}
-          setTabIndex={setTabIndex}
-          currentMarker={currentMarker}
-          setCurrentMarker={setCurrentMarker}
-        />
+                    <Map
+                      markers={dashboardDataList}
+                      setNotificationPanelActive={setNotificationPanelActive}
+                      setSelectedNotification={setSelectedNotification}
+                      marker={selectedNotification}
+                      setTabIndex={setTabIndex}
+                      currentMarker={currentMarker}
+                      setCurrentMarker={setCurrentMarker}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
