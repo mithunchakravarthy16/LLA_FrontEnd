@@ -62,7 +62,7 @@ const useStyles = makeStyles({
     borderBottom : "1px solid #333333",
     borderRight : "1px solid #333333",
 
-    height: "80%",
+    height: "100%",
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -72,7 +72,7 @@ const useStyles = makeStyles({
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom : "1px solid #333333",
 
-    height: "80%",
+    height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({
