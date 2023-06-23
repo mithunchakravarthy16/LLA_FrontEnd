@@ -73,22 +73,27 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: CoTwoCloudIcon,
       value: "643ppm",
+      name: "CO2 Level",
     },
     {
       icon: VocCloudIcon,
       value: "15ppm",
+      name: "VOC Level",
     },
     {
       icon: AirQualityIcon,
       value: "12µg/m³",
+      name: "PM2.5",
     },
     {
       icon: AirQualityIcon,
       value: "50µg/m³",
+      name: "PM10",
     },
     {
       icon: PersonIcon,
       value: "200",
+      name: "Wifi Users",
     },
   ];
 

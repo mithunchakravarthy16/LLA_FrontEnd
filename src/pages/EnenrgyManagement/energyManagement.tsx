@@ -12,6 +12,8 @@ import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import Map from "components/Map";
 import moment from "moment";
+import Highcharts from "highcharts";
+import Chart from "elements/Chart";
 import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedDashboardNotification,
@@ -54,28 +56,35 @@ const Parking: React.FC<any> = (props) => {
     graphOneContainer,
     graphTwoContainer,
     notificationPanelGrid,
+    graphTwoHeader,
+    screenFiveGraphTitleStyle,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
     {
       icon: PowerConsumtionIcon,
       value: "200kWh",
+      name: "Electricity Consumed",
     },
     {
       icon: TemperatureIcon,
       value: "100kWh",
+      name: "HVAC",
     },
     {
       icon: WaterConsumption,
       value: "1480KL",
+      name: "Water Consumption",
     },
     {
       icon: IncomeIcon,
       value: "500$",
+      name: "Cost Saved",
     },
     {
       icon: SubtractIcon,
       value: "50Kg",
+      name: "CO2 Emission",
     },
   ];
 
@@ -166,10 +175,135 @@ const Parking: React.FC<any> = (props) => {
                         />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>
-                        Graph 1
+                        <Grid
+                          container
+                          xs={12}
+                          style={{
+                            height: "100%",
+                            padding: "10px 10px 5px 30px",
+                          }}
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                            className={screenFiveGraphTitleStyle}
+                            style={{ height: "10%" }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                columnGap: "6px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "10px",
+                                  height: "10px",
+                                  borderRadius: "50%",
+                                  backgroundColor: "#BD8C52",
+                                }}
+                              ></div>
+                              <div>Electricity Consumption </div>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                columnGap: "6px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "10px",
+                                  height: "10px",
+                                  borderRadius: "50%",
+                                  backgroundColor: "#5F3B6C",
+                                }}
+                              ></div>
+                              <div>HVAC</div>
+                            </div>
+                          </Grid>
+                          <Grid item xs={12} style={{ height: "90%" }}>
+                            <Chart
+                              width={650}
+                              height={222}
+                              isVisible={true}
+                              graphType={"spline"}
+                              units={"kWh"}
+                              isCrosshair={false}
+                              dataPoints={[
+                                {
+                                  marker: {
+                                    enabled: false,
+                                  },
+                                  lineColor: "#BD8C52",
+                                  color: "#BD8C52",
+                                  lineWidth: 2,
+                                  data: [
+                                    0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4, 8, 6,
+                                    6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                  ],
+                                },
+                                {
+                                  marker: {
+                                    enabled: false,
+                                  },
+                                  lineColor: "#5F3B6C",
+                                  color: "#5F3B6C",
+                                  lineWidth: 2,
+                                  data: [
+                                    1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3,
+                                    5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                  ],
+                                },
+                              ]}
+                            />
+                          </Grid>
+                          <Grid />
+                        </Grid>
                       </Grid>
                       <Grid item xs={6} className={graphTwoContainer}>
-                        Graph 2
+                        <Grid
+                          container
+                          xs={12}
+                          style={{
+                            height: "100%",
+                            padding: "10px 10px 5px 30px",
+                          }}
+                        >
+                          <Grid item xs={12} className={graphTwoHeader}>
+                            Water Consumption
+                          </Grid>
+                          <Grid item xs={12} style={{ height: "90%" }}>
+                            <Chart
+                              width={650}
+                              height={222}
+                              graphType={"spline"}
+                              isVisible={true}
+                              units={"KL"}
+                              isCrosshair={true}
+                              crossHairLineColor={"#47A899"}
+                              dataPoints={[
+                                {
+                                  marker: {
+                                    enabled: false,
+                                  },
+                                  lineColor: "#47A89990",
+                                  color: "#47A899",
+                                  lineWidth: 2,
+                                  data: [
+                                    1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6, 4, 7,
+                                    5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                  ],
+                                },
+                              ]}
+                            />
+                          </Grid>
+                          <Grid />
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
