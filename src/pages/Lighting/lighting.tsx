@@ -90,17 +90,21 @@ const Lighting: React.FC<any> = (props) => {
                         item
                         xs={12}
                         className={bodyLeftTopPanelListContainer}
-                      >
-                       
-                        <TopPanelListItemContainer topPanelListItems={topPanelListItems}/>
-                        
+                      >                       
+                        <TopPanelListItemContainer topPanelListItems={topPanelListItems}/>                        
                       </Grid>
+                      <Grid item xs={12} style={{height: "80%"}}>
+                      <Grid container xs={12} style={{height: "100%"}}>
                       <Grid item xs={6} className={graphOneContainer}>
                         Graph 1
                       </Grid>
                       <Grid item xs={6} className={graphTwoContainer}>
                         Graph 2
                       </Grid>
+                      </Grid>
+                      </Grid>
+                      
+                      
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>

@@ -65,7 +65,7 @@ const useStyles = makeStyles({
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "transparent #808080 #808080 #808080",
-    height: "80%",
+   height: "100%",
     
   }),
 
@@ -74,7 +74,7 @@ const useStyles = makeStyles({
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "transparent #808080 #808080 transparent",
-    height: "80%",
+    height: "100%",
   }),
 });
 export default useStyles;

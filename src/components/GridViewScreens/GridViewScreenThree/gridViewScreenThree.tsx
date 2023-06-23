@@ -80,28 +80,30 @@ const GridViewScreenThree: React.FC<any> = (props) => {
             <Chart
               width={550}
               height={200}
-              graphType={"area"}
+              graphType={"spline"}
               isVisible={true}
               units={""}
               isCrosshair={true}
+              crossHairLineColor={"#637ED190"}
               dataPoints={[
                 {
                   marker: {
                     enabled: false,
                   },
-                  lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenThreeGraphLine, //"#5DE5CD90",
-                  color: appTheme?.palette?.gridViewComponentGraphsColor?.screenThreeGraphPoint, //"#5DE5CD",
+                  lineColor: "#26408E",
+                  color: "#26408E",
+                  
                   lineWidth: 2,
-                  fillColor: {
-                    linearGradient: [0, 0, 0, 200],
-                    stops: [
-                      [
-                        0,
-                        Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenThreeGraphPoint).setOpacity(0.9).get("rgba"),
-                      ],
-                      [1, Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient).setOpacity(0).get("rgba")],
-                    ],
-                  },
+                  // fillColor: {
+                  //   linearGradient: [0, 0, 0, 200],
+                  //   stops: [
+                  //     [
+                  //       0,
+                  //       Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenThreeGraphPoint).setOpacity(0.9).get("rgba"),
+                  //     ],
+                  //     [1, Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient).setOpacity(0).get("rgba")],
+                  //   ],
+                  // },
                   data: [
                     1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 2, 8, 4, 3, 4, 7,
                     5, 1, 4, 3,

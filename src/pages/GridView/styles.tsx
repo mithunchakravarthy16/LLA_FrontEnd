@@ -3,39 +3,39 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: `'Nunito Sans', sans-serif !important`,
-    background: props?.palette?.gridViewPageStyle?.rootContainerBg, //"#1d2c4d",
+    background: "#161515",
     height: "100vh",
   }),
   mainSection: (props: any) => ({
-    height: "calc(100vh - 50px)",
+    height: "calc(100vh - 60px)",
     color: "white",
-    background: props?.palette?.gridViewPageStyle?.mainSectionGridBg, //"#151A1F",
+    background: "#161515",
     opacity: 1,
 
     "& > .MuiGrid-item:first-child": {
-      borderWidth: "0px 2px 2px 0px",
+      borderWidth: "0px 1px 1px 0px",
       borderStyle: "solid",
-      borderColor: props?.palette?.gridViewPageStyle?.mainSectionGridBorder, //"#38526B",
+      borderColor: "#3F4684",
     },
 
     "& > .MuiGrid-item:nth-child(2)": {
-      borderWidth: "0px 2px 2px 0px",
+      borderWidth: "0px 1px 1px 0px",
       borderStyle: "solid",
-      borderColor: props?.palette?.gridViewPageStyle?.mainSectionGridBorder, //"#38526B",
+      borderColor: "#3F4684",
     },
 
     "& > .MuiGrid-item:nth-child(3)": {
-      borderWidth: "0px 0px 2px 0px",
+      borderWidth: "0px 0px 1px 0px",
       borderStyle: "solid",
-      borderColor: props?.palette?.gridViewPageStyle?.mainSectionGridBorder, //"#38526B",
+      borderColor: "#3F4684",
     },
 
     "& > .MuiGrid-item:nth-child(4)": {
-      borderRight: `2px solid ${props?.palette?.gridViewPageStyle?.mainSectionGridBorder}`,
+      borderRight: `1px solid #3F4684`,
     },
 
     "& > .MuiGrid-item:nth-child(5)": {
-      borderRight: `2px solid ${props?.palette?.gridViewPageStyle?.mainSectionGridBorder}`,
+      borderRight: "1px solid #3F4684",
     },
 
     "& > .MuiGrid-item:nth-child(6)": {},

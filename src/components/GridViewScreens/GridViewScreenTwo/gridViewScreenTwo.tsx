@@ -5,9 +5,8 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenTwo: React.FC<any> = (props) => {
+  const { handleClick } = props;
 
-  const {handleClick}=props
-  
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -38,22 +37,40 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
     horizantalDataGridValueStyle,
     horizantalDataGridLabelStyle,
     screenTwoGraphTitleStyle,
+    lastweekContainer,
+    lastweekTitleStyle,
+    lastweekBodyContainer,
+    lastweekBodySubContainer,
+    rightListItemStyle,
+    listItemValueStyle,
+    listItemLabelStyle,
+    rightListItemStyleLastChild,
+    containerTitle,
+    subContainer,
+    childSubContainer,
   } = useStyles(appTheme);
 
   return (
     <>
       {/* Grid 2 */}
-      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/energyManagement")}}>
+      <Grid
+        item
+        xs={4}
+        className={gridStyles}
+        onClick={() => {
+          handleClick("/energyManagement");
+        }}
+      >
         <Grid
           container
           xs={12}
           alignContent="space-between"
           className={gridContainers}
         >
-          <Grid item xs={12} className={containerTitleTwo}>
+          <Grid item xs={12} className={containerTitle}>
             ENERGY MANAGEMENT
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>300kWh</div>
@@ -70,105 +87,166 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                 <div className={horizantalDataGridLabelStyle}>Cost Saved</div>
               </div>
             </div>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container xs={12}>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  xs={12}
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Grid item xs={4} className={screenTwoGraphTitleStyle}>
-                    Electricity Consumption
+          </Grid> */}
+          <Grid item xs={12} className={subContainer}>
+            <Grid container xs={12} className={childSubContainer}>
+              <Grid item xs={9} className={childSubContainer}>
+                <Grid container xs={12} className={childSubContainer}>
+                  <Grid item xs={12}>
+                    <Grid
+                      container
+                      xs={12}
+                      rowGap={1}
+                      // justifyContent="space-between"
+                      // alignItems="center"
+                    >
+                      <Grid item xs={12} className={screenTwoGraphTitleStyle}>
+                        Electricity Consumption
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Chart
+                          width={410}
+                          height={80}
+                          isVisible={false}
+                          graphType={"spline"}
+                          units={"kWh"}
+                          isCrosshair={false}
+                          dataPoints={[
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor:
+                              "#253F8E",
+                              color:
+                              "#253F8E",
+                              lineWidth: 2,
+                              data: [0, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 0],
+                            },
+                          ]}
+                        />
+                      </Grid>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={8}>
-                    <Chart
-                      width={360}
-                      height={80}
-                      isVisible={false}
-                      graphType={"spline"}
-                      units={"kWh"}
-                      isCrosshair={false}
-                      dataPoints={[
-                        {
-                          marker: {
-                            enabled: false,
-                          },
-                          lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenTwoGraph1Line, //"#EEC22590",
-                          color: appTheme?.palette?.gridViewComponentGraphsColor?.screenTwoGraph1Point, //"#EEC225",
-                          lineWidth: 2,
-                          data: [0, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 0],
-                        },
-                      ]}
-                    />
+                  <Grid item xs={12}>
+                    <Grid
+                      container
+                      xs={12}
+                      rowGap={1}
+                    >
+                      <Grid item xs={12} className={screenTwoGraphTitleStyle}>
+                        HAVC
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Chart
+                          width={410}
+                          height={80}
+                          graphType={"spline"}
+                          isVisible={false}
+                          units={"kWh"}
+                          isCrosshair={false}
+                          dataPoints={[
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor:
+                                "#80488A",
+                              color:
+                                "#80488A",
+                              lineWidth: 2,
+                              data: [0, 4, 3, 8, 1, 4, 1, 4, 2, 4, 7, 2],
+                            },
+                          ]}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid
+                      container
+                      xs={12}
+                      rowGap={1}
+                    >
+                      <Grid item xs={12} className={screenTwoGraphTitleStyle}>
+                        Water Consumption
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Chart
+                          width={410}
+                          height={80}
+                          graphType={"spline"}
+                          isVisible={false}
+                          units={"KL"}
+                          isCrosshair={false}
+                          dataPoints={[
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor:
+                                "#82BA6D",
+                              color:
+                                "#82BA6D",
+                              lineWidth: 2,
+                              data: [0, 4, 3, 8, 4, 2, 7, 4, 8, 4, 7, 0],
+                            },
+                          ]}
+                        />
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={3}>
                 <Grid
                   container
                   xs={12}
-                  justifyContent="space-between"
                   alignItems="center"
+                  textAlign="center"
+                  className={lastweekContainer}
                 >
-                  <Grid item xs={4} className={screenTwoGraphTitleStyle}>
-                    HAVC
+                  <Grid item xs={12} className={lastweekTitleStyle}>
+                    Today
                   </Grid>
-                  <Grid item xs={8}>
-                    <Chart
-                      width={360}
-                      height={80}
-                      graphType={"spline"}
-                      isVisible={false}
-                      units={"kWh"}
-                      isCrosshair={false}
-                      dataPoints={[
-                        {
-                          marker: {
-                            enabled: false,
-                          },
-                          lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenTwoGraph2Line, //"#1CC70090",
-                          color: appTheme?.palette?.gridViewComponentGraphsColor?.screenTwoGraph2Point, //"#1CC700",
-                          lineWidth: 2,
-                          data: [0, 4, 3, 8, 1, 4, 1, 4, 2, 4, 7, 2],
-                        },
-                      ]}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  xs={12}
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Grid item xs={4} className={screenTwoGraphTitleStyle}>
-                    Water Consumption
-                  </Grid>
-                  <Grid item xs={8}>
-                    <Chart
-                      width={360}
-                      height={80}
-                      graphType={"spline"}
-                      isVisible={false}
-                      units={"KL"}
-                      isCrosshair={false}
-                      dataPoints={[
-                        {
-                          marker: {
-                            enabled: false,
-                          },
-                          lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenTwoGraph3Line, //"#0096C790",
-                          color: appTheme?.palette?.gridViewComponentGraphsColor?.screenTwoGraph3Point, //"#0096C7",
-                          lineWidth: 2,
-                          data: [0, 4, 3, 8, 4, 2, 7, 4, 8, 4, 7, 0],
-                        },
-                      ]}
-                    />
+                  <Grid item xs={12} className={lastweekBodyContainer}>
+                    <Grid
+                      container
+                      xs={12}
+                      className={lastweekBodySubContainer}
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        className={rightListItemStyle}
+                        direction="column"
+                      >
+                        <div className={listItemValueStyle}>300kWh</div>
+                        <div className={listItemLabelStyle}>
+                        Energy Consumption
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        direction="column"
+                        className={rightListItemStyle}
+                      >
+                        <div className={listItemValueStyle}>30%</div>
+                        <div className={listItemLabelStyle}>Energy Saved</div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        direction="column"
+                        className={rightListItemStyleLastChild}
+                      >
+                        <div className={listItemValueStyle}>$500</div>
+                        <div className={listItemLabelStyle}>
+                        Cost Saved
+                        </div>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
