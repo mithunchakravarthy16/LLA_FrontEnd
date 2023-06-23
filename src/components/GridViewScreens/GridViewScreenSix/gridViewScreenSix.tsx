@@ -57,21 +57,21 @@ const GridViewScreenSix: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
-                <div className={horizantalDataGridValueStyle}>19</div>
+                <div className={horizantalDataGridValueStyle}>52</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Temperature Changes
+                Assets Tracked
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
-                <div className={horizantalDataGridValueStyle}>20</div>
+                <div className={horizantalDataGridValueStyle}>30</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Assets Tracked
+                Location Changes
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
-                <div className={horizantalDataGridValueStyle}>1M</div>
+                <div className={horizantalDataGridValueStyle}>10</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Location Changes
+                Out Of Geofence
                 </div>
               </div>
             </div>
@@ -81,28 +81,29 @@ const GridViewScreenSix: React.FC<any> = (props) => {
             <Chart
               width={550}
               height={200}
-              graphType={"areaspline"}
+              graphType={"spline"}
               isVisible={true}
               units={""}
               isCrosshair={true}
+              crossHairLineColor={"#ABCD9890"}
               dataPoints={[
                 {
                   marker: {
                     enabled: false,
                   },
-                  lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenSixGraphLine, //"#19E39295"
-                  color: appTheme?.palette?.gridViewComponentGraphsColor?.screenSixGraphPoint, //"#19E392"
+                  lineColor: "#ABCD98",
+                  color: "#ABCD98",
                   lineWidth: 2,
-                  fillColor: {
-                    linearGradient: [0, 0, 0, 200],
-                    stops: [
-                      [
-                        0,
-                        Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenSixGraphPoint).setOpacity(0.6).get("rgba"),
-                      ],
-                      [1, Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient).setOpacity(0).get("rgba")],
-                    ],
-                  },
+                  // fillColor: {
+                  //   linearGradient: [0, 0, 0, 200],
+                  //   stops: [
+                  //     [
+                  //       0,
+                  //       Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenSixGraphPoint).setOpacity(0.6).get("rgba"),
+                  //     ],
+                  //     [1, Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient).setOpacity(0).get("rgba")],
+                  //   ],
+                  // },
                   data: [
                     1, 3, 2, 5, 1, 3, 10, 4, 3, 4, 7, 10, 1, 1, 3, 10, 4, 3, 4,
                     7, 10, 4, 3, 4,

@@ -72,6 +72,30 @@ const useStyles = makeStyles({
     height: "20%",
   }),
 
+  graphOneContainer: (props: any) => ({
+    // border: "none",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: "transparent #808080 #808080 #808080",
+    borderBottom : "1px solid #333333",
+    borderRight : "1px solid #333333",
+
+    height: "80%",
+  }),
+
+  graphTwoContainer: (props: any) => ({
+    // border: "none",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: "transparent #808080 #808080 transparent",
+    borderBottom : "1px solid #333333",
+
+    height: "80%",
+  }),
+
+  notificationPanelGrid: (props: any) => ({
+    border : "1px solid #333333"
+  }),
   bodyLeftTopPanelListSubContainer: (props: any) => ({
     border: "1px solid #808080",
   }),

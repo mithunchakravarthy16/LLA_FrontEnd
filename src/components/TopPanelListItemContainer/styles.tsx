@@ -21,7 +21,10 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelListSubContainer: (props: any) => ({
-    border: "1px solid #808080",
+    // border: "1px solid #808080",
+    height: "100%",
+    border: "1px solid  #333333",
+    borderRight : "none"
   }),
 
   progressBarContainer: (props: any) => ({
@@ -29,6 +32,14 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     padding: "10px 0px",
+  }),
+
+  progressBarTitleStyle: (props: any) => ({
+    fontSize: "14px",
+  }),
+
+  progressBarContainerStyle: (props: any) => ({
+    padding: "0px 20px"
   }),
 
 });

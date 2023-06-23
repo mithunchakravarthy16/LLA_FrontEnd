@@ -4,9 +4,10 @@ import CustomizableProgressBar from "elements/ProgressBar";
 import { LiveImg } from "assets/gridViewIcons";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
+import Chart from "elements/Chart";
 
 const GridViewScreenFive: React.FC<any> = (props) => {
-  const {handleClick}=props
+  const { handleClick } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -25,8 +26,6 @@ const GridViewScreenFive: React.FC<any> = (props) => {
         break;
     }
   }, [selectedTheme]);
-
-  
 
   const {
     gridStyles,
@@ -49,68 +48,104 @@ const GridViewScreenFive: React.FC<any> = (props) => {
     lastweekTitleStyle,
     lastweekBodyContainer,
     lastweekBodySubContainer,
+    screenFiveGraphTitleStyle,
   } = useStyles(appTheme);
-
-
 
   return (
     <>
       {/* Grid 5 */}
-      <Grid item xs={4} className={gridStyles} >
-            <Grid container xs={12} className={gridContainers} >
-              <Grid
-                item
-                xs={12}
-                className={containerTitleScreenFive}                
-              >
-                FLEET MANAGEMENT
-              </Grid>
-              <Grid item xs={12} className={subContainerScreenFive} >
-                <Grid container xs={12} className={childSubContainer} >
-                  <Grid item xs={9}>
-                    <Grid
-                      container
-                      xs={12}
-                      alignContent="space-between"
-                      className={leftSubChildContainer}
-                     
-                    >
-                      <Grid item xs={12}>
+      <Grid item xs={4} className={gridStyles}>
+        <Grid container xs={12} className={gridContainers}>
+          <Grid item xs={12} className={containerTitleScreenFive}>
+            FLEET MANAGEMENT
+          </Grid>
+          <Grid item xs={12} className={subContainerScreenFive}>
+            <Grid container xs={12} className={childSubContainer}>
+              <Grid item xs={9}>
+                <Grid
+                  container
+                  xs={12}
+                  alignContent="space-between"
+                  className={leftSubChildContainer}
+                >
+                  <Grid item xs={12}>
+                    <Grid container xs={12} rowGap={1}>
+                      <Grid item xs={12} className={screenFiveGraphTitleStyle}>
                         <div
-                        className={liveContainer}
-                          
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            columnGap: "6px"
+                          }}
                         >
                           <div
-                          className={liveImgStyle}
-                            
-                          >
-                            <img width={50} height={30} src={LiveImg} />
-                          </div>
-                          <div className={liveContentLeftStyle}>
-                            <div className={liveContentValue} >
-                              24
-                            </div>
-                            <div
-                            className={liveContentLabel}
-                              
-                            >
-                              VEHICLES
-                            </div>
-                          </div>
-                          <div className={liveContentStyle}>
-                            <div className={liveContentValue} >
-                              60
-                            </div>
-                            <div
-                              className={liveContentLabel}
-                            >
-                              TRIPS
-                            </div>
-                          </div>
+                            style={{
+                              width: "10px",
+                              height: "10px",
+                              borderRadius: "50%",
+                              backgroundColor: "#C39C66",
+                            }}
+                          ></div>
+                          <div>Overspeeding</div>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            columnGap: "6px"
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "10px",
+                              height: "10px",
+                              borderRadius: "50%",
+                              backgroundColor: "#26428E",
+                            }}
+                          ></div>
+                          <div>Harsh Breaking</div>
                         </div>
                       </Grid>
                       <Grid item xs={12}>
-                        <Grid container xs={12} justifyContent="space-between">
+                        <Chart
+                          width={410}
+                          height={160}
+                          isVisible={true}
+                          graphType={"spline"}
+                          units={"kWh"}
+                          isCrosshair={false}
+                          dataPoints={[
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor: "#FDC981",
+                              color: "#FDC981",
+                              lineWidth: 2,
+                              data: [
+                                0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4, 8, 6, 6,
+                                8, 7, 6, 5, 3, 1, 2, 0,
+                              ],
+                            },
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor: "#26428E",
+                              color: "#26428E",
+                              lineWidth: 2,
+                              data: [
+                                1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5,
+                                4, 2, 8, 4, 3, 4, 1, 4,
+                              ],
+                            },
+                          ]}
+                        />
+                      </Grid>
+                    </Grid>
+                    {/* <Grid container xs={12} justifyContent="space-between">
                           <Grid item xs={6}>
                             <CustomizableProgressBar
                               innerHeading={"75%"}
@@ -135,61 +170,69 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                               trackStrokeWidth={18}
                             />
                           </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                        </Grid> */}
                   </Grid>
-                  <Grid item xs={3}>
+
+                  <Grid item xs={12}>
+                    <div className={liveContainer}>
+                      <div className={liveImgStyle}>
+                        <img width={50} height={30} src={LiveImg} />
+                      </div>
+                      <div className={liveContentLeftStyle}>
+                        <div className={liveContentValue}>10</div>
+                        <div className={liveContentLabel}>VEHICLES</div>
+                      </div>
+                      <div className={liveContentStyle}>
+                        <div className={liveContentValue}>13</div>
+                        <div className={liveContentLabel}>TRIPS</div>
+                      </div>
+                    </div>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={3}>
+                <Grid
+                  container
+                  xs={12}
+                  alignItems="center"
+                  textAlign="center"
+                  className={lastweekContainer}
+                >
+                  <Grid item xs={12} className={lastweekTitleStyle}>
+                  Today
+                  </Grid>
+                  <Grid item xs={12} className={lastweekBodyContainer}>
                     <Grid
                       container
                       xs={12}
-                      alignItems="center"
-                      textAlign="center"
-                      className={lastweekContainer}
-                      
+                      className={lastweekBodySubContainer}
                     >
                       <Grid
                         item
                         xs={12}
-                        className={lastweekTitleStyle}
-                        
+                        className={rightListItemStyle}
+                        direction="column"
                       >
-                        Last Week
+                        <div className={listItemValueStyle}>20</div>
+                        <div className={listItemLabelStyle}>Incidents</div>
                       </Grid>
-                      <Grid item xs={12} className={lastweekBodyContainer} >
-                        <Grid container xs={12} className={lastweekBodySubContainer} >
-                          <Grid
-                            item
-                            xs={12}
-                            className={rightListItemStyle}
-                            direction="column"
-                          >
-                            <div className={listItemValueStyle}>20</div>
-                            <div className={listItemLabelStyle}>Incidents</div>
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            direction="column"
-                            className={rightListItemStyle}
-                          >
-                            <div className={listItemValueStyle}>18</div>
-                            <div className={listItemLabelStyle}>
-                              Fuel Consumed
-                            </div>
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            direction="column"
-                            className={rightListItemStyleLastChild}
-                          >
-                            <div className={listItemValueStyle}>0.15</div>
-                            <div className={listItemLabelStyle}>
-                              Kg CO2 Reduced
-                            </div>
-                          </Grid>
-                        </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        direction="column"
+                        className={rightListItemStyle}
+                      >
+                        <div className={listItemValueStyle}>1237Km</div>
+                        <div className={listItemLabelStyle}>Total Distance</div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        direction="column"
+                        className={rightListItemStyleLastChild}
+                      >
+                        <div className={listItemValueStyle}>5Hrs</div>
+                        <div className={listItemLabelStyle}>Total Idling Hours</div>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -197,8 +240,10 @@ const GridViewScreenFive: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </Grid>
-      </>
-  )
-}
+        </Grid>
+      </Grid>
+    </>
+  );
+};
 
 export default GridViewScreenFive;

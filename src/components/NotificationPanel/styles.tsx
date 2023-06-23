@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
-      columnGap: "69px",
+      columnGap: "51px",
       textTransform: "uppercase",
     },
 

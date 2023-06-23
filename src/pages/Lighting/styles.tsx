@@ -14,24 +14,6 @@ const useStyles = makeStyles({
     opacity: 1,
   }),
 
-  topPanelListItemStyle: (props: any) => ({
-    display: "flex",
-    columnGap: "10px",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "15px 0px",
-    position: "relative",
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      top: "20%",
-      right: 0,
-      height: "60%", // Specify the desired length of the bottom border
-      borderRight: `1px dashed #808080`, // Specify your desired color and border style
-      opacity: "0.4",
-    },
-  }),
-
   pageHeading: (props: any) => ({
     height: "6%",
     paddingLeft: "15px",
@@ -72,32 +54,30 @@ const useStyles = makeStyles({
     height: "20%",
   }),
 
-  bodyLeftTopPanelListSubContainer: (props: any) => ({
-    border: "1px solid #808080",
-  }),
-
-  progressBarContainer: (props: any) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px 0px",
-  }),
-
   graphOneContainer: (props: any) => ({
-    border: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "transparent #808080 #808080 #808080",
-    height: "80%",
+    // border: "none",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: "transparent #808080 #808080 #808080",
+   height: "100%",
+
+   borderBottom : "1px solid #333333",
+
+    borderRight : "1px solid #333333",
     
   }),
 
   graphTwoContainer: (props: any) => ({
-    border: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "transparent #808080 #808080 transparent",
-    height: "80%",
+    // border: "none",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: "transparent #808080 #808080 transparent",
+    borderBottom : "1px solid #333333",
+    height: "100%",
+  }),
+
+  notificationPanelGrid: (props: any) => ({
+    border : "1px solid #333333"
   }),
 });
 export default useStyles;

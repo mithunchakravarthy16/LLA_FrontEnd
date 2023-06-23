@@ -11,7 +11,8 @@ const Chart: React.FC<any> = (props) => {
     isVisible,
     graphType,
     units,
-    isCrosshair,   
+    isCrosshair, 
+    crossHairLineColor,  
   } = props;
 
   const [toolTipBg, setToolTipBg] = useState<string>();
@@ -94,8 +95,8 @@ const Chart: React.FC<any> = (props) => {
               const thisColorColumnChart3: any = this?.color;
               switch ("graph1") {
                 case "graph1":
-                  setToolTipBg("#050F1B");
-                  setTBorder("#050F1B");
+                  setToolTipBg("#57585A");
+                  setTBorder("#57585A");
                   break;
               }
 
@@ -174,7 +175,7 @@ const Chart: React.FC<any> = (props) => {
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
-            color: isCrosshair ? "#35DABF" : "transparent",
+            color: isCrosshair ? crossHairLineColor : "transparent",
             dashStyle: "ShortDash",
             snap: isCrosshair,
           },

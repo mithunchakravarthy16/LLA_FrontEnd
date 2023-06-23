@@ -8,22 +8,25 @@ const useStyles = makeStyles({
 
   containerTitle: (props: any) => ({
     paddingBottom: "15px",
-    height: "12%",
+    height: "10%",
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle, //"#F26522",
+    fontSize: "18px"
   }),
 
   containerTitleTwo: (props: any) => ({
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
+    fontSize: "18px"
   }),
 
   containerTitleScreenFive: (props: any) => ({
     paddingBottom: "15px",
     height: "15%",
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
+    fontSize: "18px"
   }),
 
   subContainer: (props: any) => ({
-    height: "88%",
+    height: "90%",
   }),
 
   subContainerScreenFive: (props: any) => ({
@@ -41,13 +44,14 @@ const useStyles = makeStyles({
   graphTitleScreenOne: (props: any) => ({
     width: "100%",
     marginBottom: "20px",
+    fontSize: "16px"
   }),
 
   liveContainer: (props: any) => ({
     display: "flex",
     justifyContent: "space-around",
     padding: "25px 0px",
-    backgroundColor: props?.palette?.gridViewComponentCommonStyle?.liveContainerBg, //"#09121B",
+    backgroundColor: "#57585A20",
     borderRadius: "4px",
     position: "relative",
   }),
@@ -92,7 +96,7 @@ const useStyles = makeStyles({
   lastweekTitleStyle: (props: any) => ({
     fontWeight: 500,
     fontSize: "18px",
-    color: props?.palette?.gridViewComponentCommonStyle?.lastweekTitle, //"#5DE6CD",
+    color: "#82BA6D",
   }),
 
   lastweekBodyContainer: (props: any) => ({
@@ -116,7 +120,7 @@ const useStyles = makeStyles({
   }),
 
   horizantalDataGridLabelStyle: (props: any) => ({
-    fontSize: "16px",
+    fontSize: "17px",
     fontWeight: 500,
     fontStyle: "italic",
     color: props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel, //"#B5B2B2",
@@ -125,7 +129,20 @@ const useStyles = makeStyles({
   }),
 
   screenTwoGraphTitleStyle: (props: any) => ({
-    fontSize: "18px",
+    fontSize: "16px",
+  }),
+
+  progressBarTitleStyle: (props: any) => ({
+    fontSize: "16px",
+  }),
+
+  progressBarContainerStyle: (props: any) => ({
+    padding : "0px 10px 0px 10px"
+  }),
+  screenFiveGraphTitleStyle: (props: any) => ({
+    fontSize: "16px",
+    display: "flex",
+    columnGap: "30px"
   }),
 
   gridStyles: (props: any) => ({
@@ -163,7 +180,7 @@ const useStyles = makeStyles({
   }),
 
   listItemLabelStyle: (props: any) => ({
-    fontSize: "16px",
+    fontSize: "18px",
     color: props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel,
     fontStyle: "italic",
   }),

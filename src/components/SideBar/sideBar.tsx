@@ -97,6 +97,7 @@ const SideBar = (props: SideBarProps) => {
     menuIconListActive,
     customTooltip,
     avatharSection,
+    sidebarSection
   } = useStyles(appTheme);
   const navigate = useNavigate();
 
@@ -131,15 +132,14 @@ const SideBar = (props: SideBarProps) => {
   const padding = [2];
 
   return (
-    <Box component={"nav"} sx={{ flexShrink: 0, width: "90px" }}>
+    <Box component={"nav"} className={sidebarSection}>
       <Drawer
         open
         variant="permanent"
-        PaperProps={{ sx: { width: 90, bgcolor: "blue" } }}
         className={sideNavigation}
       >
-        <div>
-          <img src={LogoIcon} width={"60px"} />
+        <div className={menuLogoSection}>
+          <img src={LogoIcon} />
         </div>
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
