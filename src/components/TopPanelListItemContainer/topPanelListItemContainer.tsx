@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import VerticalProgressBar from "elements/VerticalProgressBar";
@@ -7,7 +9,15 @@ import useStyles from "./styles";
 import Tooltip from "elements/Tooltip";
 
 const TopPanelListItemContainer: React.FC<any> = (props) => {
-  const { topPanelListItems, percent, strokeWidth, trailWidth, strokeColor, trailColor, title } = props;
+  const {
+    topPanelListItems,
+    percent,
+    strokeWidth,
+    trailWidth,
+    strokeColor,
+    trailColor,
+    title,
+  } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -35,7 +45,8 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     // progressBarTitleStyle,
     itemValueStyle,
     itemUnitStyle,
-    itemValueUnitStyle
+    itemValueUnitStyle,
+    imageWidthStyle,
   } = useStyles(appTheme);
 
   const tooltipOfset = [0, 0];
@@ -56,18 +67,21 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
           topPanelListItems?.map((item: any) => (
             <Grid item flex={1} className={topPanelListItemStyle}>
               <div>
-              <Tooltip
-                tooltipValue={item?.name}
-                placement={"bottom"}
-                offset={tooltipOfset}
-                fontSize={fontSize}
-                padding={padding}
-              >
-                <img width={30} height={30} src={item?.icon} /></Tooltip>
+                <Tooltip
+                  tooltipValue={item?.name}
+                  placement={"bottom"}
+                  offset={tooltipOfset}
+                  fontSize={fontSize}
+                  padding={padding}
+                >
+                  <img className={imageWidthStyle} src={item?.icon} />
+                </Tooltip>
               </div>
-              <div  className={itemValueUnitStyle}>
-              <div className={itemValueStyle}>{item?.value}</div> {item?.unit && <span className={itemUnitStyle}>{item?.unit}</span>}
-
+              <div className={itemValueUnitStyle}>
+                <div className={itemValueStyle}>{item?.value}</div>{" "}
+                {item?.unit && (
+                  <span className={itemUnitStyle}>{item?.unit}</span>
+                )}
               </div>
             </Grid>
           ))}
