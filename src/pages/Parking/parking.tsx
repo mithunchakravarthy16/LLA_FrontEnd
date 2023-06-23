@@ -15,6 +15,7 @@ import {
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
+import Tabs from "elements/Tabs";
 import Map from "components/Map";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
@@ -59,44 +60,68 @@ const Parking: React.FC<any> = (props) => {
     graphOneContainer,
     graphTwoContainer,
     notificationPanelGrid,
+    mapFilterStyle,
+    customNotificationTabs,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
     {
       icon: GeneralParkingIcon,
       value: "220",
-      unit : "/300",
-      name : "General"
+      unit: "/300",
+      name: "General",
     },
     {
       icon: VipParkingIcon,
       value: "75",
-      unit : "/130",
-      name : "VIP"
-    
+      unit: "/130",
+      name: "VIP",
     },
     {
       icon: ElectricVehicleIcon,
       value: "50",
-      unit : "/100",
-      name : "Electric"
+      unit: "/100",
+      name: "Electric",
     },
     {
       icon: DisabilityIcon,
       value: "25",
-      unit : "/68",
-      name : "Accessbility"
+      unit: "/68",
+      name: "Accessbility",
     },
     {
       icon: RotationIcon,
       value: "1.5",
-      name : "Rotation Index"
+      name: "Rotation Index",
     },
     {
       icon: ClockIcon,
       value: "10",
-      unit : "Hrs",
-      name : "Hours Saved"
+      unit: "Hrs",
+      name: "Hours Saved",
+    },
+  ];
+
+  const tabsList = [
+    {
+      name: "All",
+      val: 0,
+    },
+    {
+      name: "Lot 1",
+      val: 1,
+    },
+    {
+      name: "Lot 2",
+      val: 2,
+    },
+    {
+      name: "Lot 3",
+      val: 3,
+    },
+    {
+      name: "Lot 4",
+      val: 4,
     },
   ];
 
@@ -154,6 +179,13 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
+  const handleTabs = (index: number) => {
+    // setTabIndex(index);
+    // setSearchOpen(false);
+    // setSelectedNotification("");
+    // setSelectedRefId("");
+  };
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -199,6 +231,14 @@ const Parking: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                    <div className={mapFilterStyle}>
+                      <Tabs
+                        initialIndex={tabIndex}
+                        tabsList={tabsList}
+                        handleTabs={handleTabs}
+                        dashboardNotificationClassName={customNotificationTabs}
+                      />
+                    </div>
                     <Map
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}
