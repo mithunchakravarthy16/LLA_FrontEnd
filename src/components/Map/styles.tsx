@@ -1,9 +1,15 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   containerStyle: (props: any) => ({
     width: "100%",
     height: "calc(100vh - 0px)",
+    [muiTheme.breakpoints.down(3841)]: {
+      height: "calc(100vh - 924px)",
+    },
   }),
 
   googleMapStyle: (props: any) => ({
@@ -30,7 +36,7 @@ const useStyles = makeStyles({
       fontSize: "13px",
       fontWeight: 300,
       padding: "0px !important",
-      fontFamily: 'HelveticaNeue-Regular',
+      fontFamily: "HelveticaNeue-Regular",
       color: "#FFFFFF !important",
     },
     "& .gm-style .gm-style-cc a, .gm-style .gm-style-cc button, .gm-style .gm-style-cc span":

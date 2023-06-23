@@ -1,3 +1,5 @@
+/** @format */
+
 // @ts-nocheck
 import { useState, useEffect, Fragment } from "react";
 import {
@@ -47,8 +49,6 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import useStyles from "./styles";
 
-
-
 const defaultCenter = {
   lat: 39.75055380818962,
   lng: -105.00000034678636,
@@ -64,7 +64,7 @@ const Map: React.FC<any> = (props) => {
     currentMarker,
     setCurrentMarker,
     focusedCategory,
-    mapPageName
+    mapPageName,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -75,17 +75,34 @@ const Map: React.FC<any> = (props) => {
 
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>(15);
-  const [selectedMarker, setSelectedMarker] = useState<any>("");
+  const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
     libraries: ["places", "drawing"],
   });
 
-  const containerStyle = {
-    width: "100%",
-    height: mapPageName === "dashboard" ? "calc(100vh - 0px)" :  "calc(100vh - 401px)",
-  };
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 924px)",
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 401px)",
+      });
+    }
+  }, []);
 
   useEffect(() => {
     setCurrentMarker(marker);
@@ -245,7 +262,7 @@ const Map: React.FC<any> = (props) => {
     <>
       {isLoaded && (
         <GoogleMap
-          mapContainerStyle={containerStyle}
+          mapContainerStyle={selectedContainerStyle}
           center={defaultCenter}
           zoom={zoomValue}
           onLoad={setMap}

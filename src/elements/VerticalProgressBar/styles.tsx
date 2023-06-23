@@ -1,4 +1,7 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   label: (props: any) => ({
@@ -8,7 +11,11 @@ const useStyles = makeStyles({
 
   progressBarTitle: (props: any) => ({
     padding: "0 0 5px 5px",
-    fontSize: "14px"
+    fontSize: "14px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 26,
+      lineHeight: "38px",
+    },
   }),
 
   progressBarContainer: (props: any) => ({

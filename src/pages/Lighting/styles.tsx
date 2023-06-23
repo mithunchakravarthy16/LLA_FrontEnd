@@ -1,11 +1,17 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
     height: "100vh",
     paddingLeft: "3.4px",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 159px) !important",
+    },
   }),
   mainSection: (props: any) => ({
     height: "calc(100vh - 60px)",
@@ -59,12 +65,11 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 #808080",
-   height: "100%",
+    height: "100%",
 
-   borderBottom : "1px solid #333333",
+    borderBottom: "1px solid #333333",
 
-    borderRight : "1px solid #333333",
-    
+    borderRight: "1px solid #333333",
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -72,14 +77,13 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
-    borderBottom : "1px solid #333333",
+    borderBottom: "1px solid #333333",
     height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({
-    border : "1px solid #333333"
+    border: "1px solid #333333",
   }),
-
 
   liveContainer: (props: any) => ({
     display: "flex",
@@ -100,12 +104,29 @@ const useStyles = makeStyles({
   liveContentValue: (props: any) => ({
     fontSize: "20px",
     fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+  }),
+
+  electricity: (props: any) => ({
+    fontSize: "20px",
+    fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   liveContentValueGreen: (props: any) => ({
     fontSize: "22px",
     fontWeight: 700,
     color: props?.palette?.gridViewComponentCommonStyle?.liveContentValueGreen, //"#80C53B",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   liveContentLabel: (props: any) => ({
@@ -152,19 +173,21 @@ const useStyles = makeStyles({
   }),
 
   aqiCircleStyle: (props: any) => ({
-    
     width: "6px",
     height: "6px",
     borderRadius: "50%",
     backgroundColor: props?.palette?.gridViewComponentCommonStyle?.aqiCircleBg, //"#80C43B",
     boxShadow: `0px 0px 2px 3px ${props?.palette?.gridViewComponentCommonStyle?.aqiCircleShadow}`,
-    
   }),
 
-  graphTwoHeader: (props:any)=>({
+  graphTwoHeader: (props: any) => ({
     height: "10%",
-    
+    fontSize: "20px",
+    fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
-
 });
 export default useStyles;

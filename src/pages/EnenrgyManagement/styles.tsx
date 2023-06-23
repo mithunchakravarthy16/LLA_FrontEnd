@@ -1,11 +1,17 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
     height: "100vh",
     paddingLeft: "3.4px",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 159px) !important",
+    },
   }),
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
@@ -80,11 +86,19 @@ const useStyles = makeStyles({
   }),
   graphTwoHeader: (props: any) => ({
     height: "10%",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "70px",
+    },
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 });
 export default useStyles;

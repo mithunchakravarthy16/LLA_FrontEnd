@@ -1,7 +1,9 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
-  
   topPanelListItemStyle: (props: any) => ({
     display: "flex",
     columnGap: "10px",
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
     // border: "1px solid #808080",
     height: "100%",
     border: "1px solid  #333333",
-    borderRight : "none"
+    borderRight: "none",
   }),
 
   progressBarContainer: (props: any) => ({
@@ -39,25 +41,34 @@ const useStyles = makeStyles({
   }),
 
   progressBarContainerStyle: (props: any) => ({
-    padding: "0px 20px"
+    padding: "0px 20px",
   }),
 
   itemValueStyle: (props: any) => ({
     fontSize: "22px",
-    fontWeight : 700
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 36,
+      lineHeight: "56px",
+    },
+  }),
+  imageWidthStyle: (props: any) => ({
+    width: 30,
+    height: 30,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: 50,
+      height: 50,
+    },
   }),
   itemUnitStyle: (props: any) => ({
     fontSize: "18px",
-    margin :"0 0 2px 2px",
-    textAlign : "end",
-    fontWeight : 700
+    margin: "0 0 2px 2px",
+    textAlign: "end",
+    fontWeight: 700,
   }),
 
   itemValueUnitStyle: (props: any) => ({
     display: "flex",
     alignItems: "flex-end",
   }),
-
-
 });
 export default useStyles;
