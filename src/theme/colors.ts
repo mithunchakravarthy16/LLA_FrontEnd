@@ -19,7 +19,7 @@ let colorCodes = {
   lightGrey1: "#131D27",
   darkGrey: "#566278",
   blueBlack: "#020308",
-  linearGradientBackground: "rgba(9, 17, 22, 0.9)",
+  linearGradientBackground: "#0E0F10",
   linearGradientTwo: "rgba(133, 130, 130, 0.2)",
   darkBlueShade: "#142231",
   blueGreyShade: "#5662784a",
@@ -57,6 +57,9 @@ let colorCodes = {
   seaGreen: "#3A9479",
   turquoiseBlueGreen: "#19E392",
   turquoiseBlueGreenOpacity: "#19E39295",
-  lightGreyinputBorder: 'rgba(131, 131, 131, 1)'
+  lightGreyinputBorder: 'rgba(131, 131, 131, 1)',
+  darkBlackShade : "#333333",
+  darkOrangeShade : "#CD5209",
+  darkGreyBalckShade : "#1A1B22"
 };
 export default colorCodes;
