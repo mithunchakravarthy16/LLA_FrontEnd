@@ -4,10 +4,10 @@ import CustomizableProgressBar from "elements/ProgressBar";
 import { LiveImg } from "assets/gridViewIcons";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
+import Chart from "elements/Chart";
 
 const GridViewScreenFour: React.FC<any> = (props) => {
-
-  const {handleClick}=props;
+  const { handleClick } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -51,12 +51,22 @@ const GridViewScreenFour: React.FC<any> = (props) => {
     lastweekTitleStyle,
     lastweekBodyContainer,
     lastweekBodySubContainer,
+    screenTwoGraphTitleStyle,
+    progressBarTitleStyle,
+    progressBarContainerStyle,
   } = useStyles(appTheme);
 
   return (
     <>
       {/* Grid 4 */}
-      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/lighting")}} >
+      <Grid
+        item
+        xs={4}
+        className={gridStyles}
+        onClick={() => {
+          handleClick("/lighting");
+        }}
+      >
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
             LIGHTING
@@ -71,7 +81,38 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   className={leftSubChildContainer}
                 >
                   <Grid item xs={12}>
-                    <CustomizableProgressBar
+                    <Grid
+                      container
+                      xs={12}
+                      rowGap={1}
+                      
+                    >
+                      <Grid item xs={12} className={screenTwoGraphTitleStyle}>
+                      Wifi Users
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Chart
+                          width={410}
+                          height={80}
+                          isVisible={true}
+                          graphType={"spline"}
+                          units={"kWh"}
+                          isCrosshair={false}
+                          dataPoints={[
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor: "#80488A",
+                              color: "#80488A",
+                              lineWidth: 2,
+                              data: [0, 1, 5, 3, 4, 5, 4, 1, 6, 1, 2, 3, 4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0],
+                            },
+                          ]}
+                        />
+                      </Grid>
+                    </Grid>
+                    {/* <CustomizableProgressBar
                       innerHeading={"80%"}
                       innerSubHeading={"Wifi Users"}
                       progressValue={80}
@@ -80,7 +121,44 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       trackStrokeColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFourTrackStrokeColor} //"#FFFFFF10"
                       strokeWidth={18}
                       trackStrokeWidth={18}
-                    />
+                    /> */}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid
+                      container
+                      xs={12}
+                      rowGap={1}
+                      className={progressBarContainerStyle}
+                    >
+                      <Grid item xs={12} className={progressBarTitleStyle}>
+                      Avg. Dimming Level
+                      </Grid>
+                      <Grid item xs={12}>
+                        <div
+                          style={{
+                            width: "100%",
+                            height: "15px",
+                            backgroundColor: "#484D52",
+                            borderRadius: "7.5px",
+                            overflow: "hidden",
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "100%",
+                              backgroundColor: "#FFA626",
+                              borderRadius: "7.5px",
+                              width:
+                                "60%" /* Adjust this value to set the initial progress */,
+                              transition: `width 0.3s ease-in-out`,
+                            }}
+                          ></div>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} justifyContent="center" alignItems="center" display="flex">
+                      60%
+                      </Grid>
+                    </Grid>
                   </Grid>
                   <Grid item xs={12}>
                     <div className={liveContainer}>
@@ -109,18 +187,16 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   alignItems="center"
                   textAlign="center"
                   className={lastweekContainer}
-                  
                 >
-                  <Grid
-                    item
-                    xs={12}
-                    className={lastweekTitleStyle}
-                    
-                  >
-                    Last Week
+                  <Grid item xs={12} className={lastweekTitleStyle}>
+                  Today
                   </Grid>
-                  <Grid item xs={12} className={lastweekBodyContainer} >
-                    <Grid container xs={12} className={lastweekBodySubContainer} >
+                  <Grid item xs={12} className={lastweekBodyContainer}>
+                    <Grid
+                      container
+                      xs={12}
+                      className={lastweekBodySubContainer}
+                    >
                       <Grid
                         item
                         xs={12}

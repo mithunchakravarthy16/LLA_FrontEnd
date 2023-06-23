@@ -83,20 +83,21 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                       isVisible={true}
                       units={"%"}
                       isCrosshair={true}
+                      crossHairLineColor={"#73B35A90"}
                       dataPoints={[
                         {
                           marker: {
                             enabled: false,
                           },
-                          lineColor: appTheme?.palette?.gridViewComponentGraphsColor?.screenOneGraphLine,
-                          color: appTheme?.palette?.gridViewComponentGraphsColor?.screenOneGraphPoint,
+                          lineColor: "#73B35A90",
+                          color: "#73B35A",
                           lineWidth: 2,
                           fillColor: {
                             linearGradient: [0, 0, 0, 200],
                             stops: [
                               [
                                 0,
-                                Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenOneGraphPoint)
+                                Highcharts.color("#73B35A")
                                   .setOpacity(0.4)
                                   .get("rgba"),
                               ],
@@ -156,7 +157,7 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                     xs={12}
                     className={lastweekTitleStyle}
                   >
-                    Last Week
+                    Today
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer} >
                     <Grid container xs={12} className={lastweekBodySubContainer} >
@@ -166,8 +167,8 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                         className={rightListItemStyle}
                         direction="column"
                       >
-                        <div className={listItemValueStyle}>19.5</div>
-                        <div className={listItemLabelStyle}>Hrs.Saved</div>
+                        <div className={listItemValueStyle}>10Hrs</div>
+                        <div className={listItemLabelStyle}>Avg.Parking Hrs.</div>
                       </Grid>
                       <Grid
                         item
@@ -175,8 +176,8 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                         direction="column"
                         className={rightListItemStyle}
                       >
-                        <div className={listItemValueStyle}>19.5</div>
-                        <div className={listItemLabelStyle}>Gal Saved</div>
+                        <div className={listItemValueStyle}>1.5</div>
+                        <div className={listItemLabelStyle}>Rotation Index</div>
                       </Grid>
                       <Grid
                         item
@@ -184,9 +185,9 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                         direction="column"
                         className={rightListItemStyleLastChild}
                       >
-                        <div className={listItemValueStyle}>19.5</div>
+                        <div className={listItemValueStyle}>20Kg</div>
                         <div className={listItemLabelStyle}>
-                          Metric Ton CO2 reduced
+                        Carbon Emission
                         </div>
                       </Grid>
                     </Grid>
