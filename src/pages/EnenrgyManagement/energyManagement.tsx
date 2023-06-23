@@ -60,22 +60,27 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: PowerConsumtionIcon,
       value: "200kWh",
+      name: "Electricity Consumed",
     },
     {
       icon: TemperatureIcon,
       value: "100kWh",
+      name: "HVAC",
     },
     {
       icon: WaterConsumption,
       value: "1480KL",
+      name: "Water Consumption",
     },
     {
       icon: IncomeIcon,
       value: "500$",
+      name: "Cost Saved",
     },
     {
       icon: SubtractIcon,
       value: "50Kg",
+      name: "CO2 Emission",
     },
   ];
 
