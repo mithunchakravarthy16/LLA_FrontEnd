@@ -210,7 +210,7 @@ const Parking: React.FC<any> = (props) => {
                                   [
                                     0,
                                     Highcharts.color("#73B35A")
-                                      .setOpacity(0.4)
+                                      .setOpacity(0.9)
                                       .get("rgba"),
                                   ],
                                   [
@@ -239,7 +239,7 @@ const Parking: React.FC<any> = (props) => {
                           height={240}
                           graphType={"pie"}
                           isVisible={true}
-                          unit="%"
+                          units="%"
                           // units={"%"}
                           // isCrosshair={true}
                           // crossHairLineColor={"#73B35A90"}
@@ -250,6 +250,7 @@ const Parking: React.FC<any> = (props) => {
                               type: "pie",
                               size: "100%",
                               innerSize: "80%",
+                              showInLegend: true,
                               // dataLabels: {
                               //   enabled: true,
                               //   crop: false,
@@ -267,7 +268,29 @@ const Parking: React.FC<any> = (props) => {
                                 "#FDC270",
                                 "#9191C1",
                               ],
-                              data: [37, 15, 16, 17, 15],
+                              // data: [37, 15, 16, 17, 15],
+                              data: [
+                                {
+                                  name: "Intrusion",
+                                  y: 37,
+                                },
+                                {
+                                  name: "Fire Detection",
+                                  y: 37,
+                                },
+                                {
+                                  name: "Tampering Alarm",
+                                  y: 37,
+                                },
+                                {
+                                  name: "Unauthorised Access",
+                                  y: 37,
+                                },
+                                {
+                                  name: "Tailgating",
+                                  y: 37,
+                                }
+                              ]
                             },
                           ]}
                         />
