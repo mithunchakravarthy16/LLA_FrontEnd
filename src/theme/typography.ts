@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme();
 
 const h1 = {
-  fontFamily: `'Nunito Sans', sans-serif !important`,
+  fontFamily: 'HelveticaNeue-Regular',
   fontWeight: 500,
   fontSize: "48px",
   [theme.breakpoints.up("xs")]: {
@@ -25,7 +25,7 @@ const h1 = {
 };
 
 const h2 = {
-  fontFamily: `'Nunito Sans', sans-serif !important`,
+  fontFamily: 'HelveticaNeue-Regular',
   fontWeight: 500,
   [theme.breakpoints.up("xs")]: {
     fontSize: "36px",
@@ -45,7 +45,7 @@ const h2 = {
 };
 
 const h3 = {
-  fontFamily: `'Nunito Sans', sans-serif !important`,
+  fontFamily: 'HelveticaNeue-Regular',
   fontWeight: 500,
   [theme.breakpoints.up("xs")]: {
     fontSize: "18px",
@@ -65,7 +65,7 @@ const h3 = {
 };
 
 const h4 = {
-  fontFamily: `'Nunito Sans', sans-serif !important`,
+  fontFamily: 'HelveticaNeue-Regular',
   fontWeight: 500,
   [theme.breakpoints.up("xs")]: {
     fontSize: "16px",
@@ -85,7 +85,7 @@ const h4 = {
 };
 
 const h5 = {
-  fontFamily: `'Nunito Sans', sans-serif !important`,
+  fontFamily: 'HelveticaNeue-Regular',
   fontWeight: 500,
   [theme.breakpoints.up("xs")]: {
     fontSize: "14px",
@@ -116,7 +116,7 @@ const infLarge = {};
 const infXLarge = {};
 
 const typography = {
-  fontFamily: `'Nunito Sans', sans-serif !important`,
+  fontFamily: 'HelveticaNeue-Regular',
   h1: h1,
   h2: h2,
   h3: h3,

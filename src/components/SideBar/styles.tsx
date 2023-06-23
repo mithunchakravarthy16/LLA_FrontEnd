@@ -15,8 +15,12 @@ const useStyles = makeStyles({
       alignItems: "center",
       height: "calc(100vh - 44px)",
       width: '150px',
+      [muiTheme.breakpoints.down(3841)]: {
+        height: "calc(100vh - 44px)",
+      },
       [muiTheme.breakpoints.down(2049)]: {
         width: '90px',
+        height: "calc(100vh - 44px)",
       },
     },
   }),
@@ -31,10 +35,17 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     background: "#485A6B",
-    borderRadius: "50px",
-    width: "50px",
-    height: "50px",
+    borderRadius: "50%",
+    width: "120px",
+    height: "120px",
     color: "white",
+    fontSize: 30,
+    fontFamily: 'HelveticaNeue-Regular',
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "50px",
+      height: "50px",
+      fontSize: 18,
+    },
   }),
   menuLogoSection: () => ({
     marginBottom: 46,

@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import CustomizableProgressBar from "elements/ProgressBar";
@@ -81,14 +83,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   className={leftSubChildContainer}
                 >
                   <Grid item xs={12}>
-                    <Grid
-                      container
-                      xs={12}
-                      rowGap={1}
-                      
-                    >
+                    <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
-                      Wifi Users
+                        Wifi Users
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
@@ -106,7 +103,10 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               lineColor: "#80488A",
                               color: "#80488A",
                               lineWidth: 2,
-                              data: [0, 1, 5, 3, 4, 5, 4, 1, 6, 1, 2, 3, 4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0],
+                              data: [
+                                0, 1, 5, 3, 4, 5, 4, 1, 6, 1, 2, 3, 4, 8, 6, 6,
+                                8, 7, 6, 5, 3, 1, 2, 0,
+                              ],
                             },
                           ]}
                         />
@@ -131,7 +131,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       className={progressBarContainerStyle}
                     >
                       <Grid item xs={12} className={progressBarTitleStyle}>
-                      Avg. Dimming Level
+                        Avg. Dimming Level
                       </Grid>
                       <Grid item xs={12}>
                         <div
@@ -155,8 +155,14 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                           ></div>
                         </div>
                       </Grid>
-                      <Grid item xs={12} justifyContent="center" alignItems="center" display="flex">
-                      60%
+                      <Grid
+                        item
+                        xs={12}
+                        justifyContent="center"
+                        alignItems="center"
+                        display="flex"
+                      >
+                        60%
                       </Grid>
                     </Grid>
                   </Grid>
@@ -189,7 +195,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   className={lastweekContainer}
                 >
                   <Grid item xs={12} className={lastweekTitleStyle}>
-                  Today
+                    Today
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>
                     <Grid
