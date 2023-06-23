@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    fontFamily: `'Nunito Sans', sans-serif !important`,
+    fontFamily: 'HelveticaNeue-Regular',
     background: "#161515",
     height: "100vh",
     paddingLeft: "3.4px",

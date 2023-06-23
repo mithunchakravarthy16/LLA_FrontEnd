@@ -1,8 +1,11 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    fontFamily: `'Nunito Sans', sans-serif !important`,
+    fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
     height: "100vh",
   }),
@@ -11,6 +14,9 @@ const useStyles = makeStyles({
     color: "white",
     background: "#161515",
     opacity: 1,
+    [muiTheme.breakpoints.down(3841)]: {
+      width: "calc(100vw - 150px) !important",
+    },
 
     "& > .MuiGrid-item:first-child": {
       borderWidth: "0px 1px 1px 0px",
@@ -40,7 +46,5 @@ const useStyles = makeStyles({
 
     "& > .MuiGrid-item:nth-child(6)": {},
   }),
-  
-
 });
 export default useStyles;

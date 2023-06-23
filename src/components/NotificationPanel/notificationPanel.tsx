@@ -194,7 +194,6 @@ const NotificationPanel = (props: any) => {
               className={notificationSearchIcon}
               src={searchOpen ? CloseIcon : SearchIcon}
               alt="Search"
-              width={20}
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
             {/* <img

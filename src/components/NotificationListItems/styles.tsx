@@ -1,8 +1,12 @@
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     minWidth: props?.pageName === "markerCallout" ? "400px" : "380px",
+    [muiTheme.breakpoints.down(3841)]: {
+      minWidth: 500
+    },
   }),
   collapsedListItems: (props: any) => ({
     background: props?.palette?.notification?.listItemBg, //rgba(7, 48, 77, 0.8)
@@ -25,9 +29,13 @@ const useStyles = makeStyles({
   }),
   listItemTitle: (props: any) => ({
     fontSize: 20,
-    fontWeight: 700,
     letterSpacing: "0.5px",
     marginBottom: 12,
+    fontFamily: 'HelveticaNeue-Regular',
+    [muiTheme.breakpoints.down(3841)]: {
+      fontSize: 30,
+      lineHeight: '56px'
+    },
   }),
   collapsedlistItemRow2: (props: any) => ({
     display: "flex",
@@ -35,21 +43,39 @@ const useStyles = makeStyles({
   }),
   listItemSubTitle: (props: any) => ({
     fontStyle: "italic",
-    fontWeight: 400,
     fontSize: 14,
+    fontFamily: 'HelveticaNeue-Regular',
+    [muiTheme.breakpoints.down(3841)]: {
+      fontSize: 24,
+      lineHeight: '48px'
+    },
   }),
-  timeStampStyle: (props: any) => ({ fontWeight: 400, fontSize: 13 }),
+  timeStampStyle: (props: any) => ({ fontSize: 10,fontFamily: 'HelveticaNeue-Regular', [muiTheme.breakpoints.down(3841)]: {
+    fontSize: 18,
+    lineHeight: '38px'
+  },  }),
   expandedListItemRow2: (props: any) => ({
     fontSize: 14,
     fontWeight: 400,
     letterSpacing: "0.5px",
     marginBottom: 12,
+    fontFamily: 'HelveticaNeue-Regular',
+    [muiTheme.breakpoints.down(3841)]: {
+      fontSize: 20,
+      lineHeight: '48px'
+    },
   }),
   expandedListItemRow3: (props: any) => ({
     fontSize: 14,
     fontWeight: 400,
     letterSpacing: "0.5px",
     marginBottom: 12,
+    fontFamily: 'HelveticaNeue-Regular',
+    [muiTheme.breakpoints.down(3841)]: {
+      fontSize: 20,
+      lineHeight: '40px'
+    },
+
   }),
   expandedListItemRow4: (props: any) => ({
     display: "flex",
@@ -60,8 +86,9 @@ const useStyles = makeStyles({
   markerCloseIcon: (props: any) => ({
     margin: "4px 0px 0px 0px",
     fontSize: 13,
-    fontFamily: `'Nunito Sans', sans-serif !important`,
     padding: "0px 0px 0px 15px",
+    fontFamily: 'HelveticaNeue-Regular'
+
   }),
   listItemCallout: (props: any) => ({
     display: "flex",

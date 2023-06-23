@@ -1,4 +1,6 @@
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
+
 
 const useStyles = makeStyles({
   root: (props: any) => ({ background: "transparent" }),
@@ -9,6 +11,10 @@ const useStyles = makeStyles({
     justifyContent: "center",
     // fontFamily: "HelveticaNeue-Regular",
     fontSize: 16,
+    [muiTheme.breakpoints.down(3841)]: {
+      fontSize: 35,
+      lineHeight: '63px'
+    },
   }),
   labelCountStyle: (props: any) => ({
     padding: "0px 15px",

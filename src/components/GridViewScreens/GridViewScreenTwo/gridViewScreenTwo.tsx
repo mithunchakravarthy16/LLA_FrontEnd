@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Chart from "elements/Chart";
@@ -116,10 +118,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               marker: {
                                 enabled: false,
                               },
-                              lineColor:
-                              "#253F8E",
-                              color:
-                              "#253F8E",
+                              lineColor: "#253F8E",
+                              color: "#253F8E",
                               lineWidth: 2,
                               data: [0, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 0],
                             },
@@ -129,11 +129,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <Grid
-                      container
-                      xs={12}
-                      rowGap={1}
-                    >
+                    <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
                         HAVC
                       </Grid>
@@ -150,10 +146,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               marker: {
                                 enabled: false,
                               },
-                              lineColor:
-                                "#80488A",
-                              color:
-                                "#80488A",
+                              lineColor: "#80488A",
+                              color: "#80488A",
                               lineWidth: 2,
                               data: [0, 4, 3, 8, 1, 4, 1, 4, 2, 4, 7, 2],
                             },
@@ -163,11 +157,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <Grid
-                      container
-                      xs={12}
-                      rowGap={1}
-                    >
+                    <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
                         Water Consumption
                       </Grid>
@@ -184,10 +174,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               marker: {
                                 enabled: false,
                               },
-                              lineColor:
-                                "#82BA6D",
-                              color:
-                                "#82BA6D",
+                              lineColor: "#82BA6D",
+                              color: "#82BA6D",
                               lineWidth: 2,
                               data: [0, 4, 3, 8, 4, 2, 7, 4, 8, 4, 7, 0],
                             },
@@ -223,7 +211,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>300kWh</div>
                         <div className={listItemLabelStyle}>
-                        Energy Consumption
+                          Energy Consumption
                         </div>
                       </Grid>
                       <Grid
@@ -242,9 +230,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                         className={rightListItemStyleLastChild}
                       >
                         <div className={listItemValueStyle}>$500</div>
-                        <div className={listItemLabelStyle}>
-                        Cost Saved
-                        </div>
+                        <div className={listItemLabelStyle}>Cost Saved</div>
                       </Grid>
                     </Grid>
                   </Grid>

@@ -30,7 +30,7 @@ const useStyles = makeStyles({
       fontSize: "13px",
       fontWeight: 300,
       padding: "0px !important",
-      fontFamily: `'Nunito Sans', sans-serif !important`,
+      fontFamily: 'HelveticaNeue-Regular',
       color: "#FFFFFF !important",
     },
     "& .gm-style .gm-style-cc a, .gm-style .gm-style-cc button, .gm-style .gm-style-cc span":

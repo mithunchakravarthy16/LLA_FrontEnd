@@ -1,6 +1,8 @@
 /** @format */
 
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
+
 
 const useStyles = makeStyles({
   notificationRootContainer: (props: any) => ({
@@ -12,6 +14,11 @@ const useStyles = makeStyles({
     fontWeight: 700,
     fontSize: 22,
     width: "77%",
+    fontFamily: 'HelveticaNeue-Regular',
+    [muiTheme.breakpoints.down(3841)]: {
+      fontSize: 48,
+      lineHeight: '63px'
+    },
   }),
   notificationHeader: (props: any) => ({
     display: "flex",
@@ -19,11 +26,18 @@ const useStyles = makeStyles({
     alignItems: "center",
     height: "50px",
     width: "100%",
+    [muiTheme.breakpoints.down(3841)]: {
+      height: "100px",
+    },
   }),
   notificationIconSection: (props: any) => ({}),
   notificationSearchIcon: (props: any) => ({
     marginRight: "20px",
     cursor: "pointer",
+    width: 20,
+    [muiTheme.breakpoints.down(3841)]: {
+      width: 40,
+    },
   }),
   notificationCloseIcon: (props: any) => ({
     cursor: "pointer",
@@ -62,6 +76,12 @@ const useStyles = makeStyles({
           borderRadius: "30px",
           color: "#B7B6B6",
           marginBottom: 6,
+          [muiTheme.breakpoints.down(3841)]: {
+            fontSize: "30px",
+            lineHeight: '50px',
+            marginBottom: 16,
+            width: 90,
+          },
         },
         "&.Mui-selected": {
           color: `${props?.palette?.notification?.eventColor} !important`,
@@ -84,6 +104,12 @@ const useStyles = makeStyles({
           borderRadius: "30px",
           color: "#B7B6B6",
           marginBottom: 6,
+          [muiTheme.breakpoints.down(3841)]: {
+            fontSize: "30px",
+            lineHeight: '50px',
+            marginBottom: 16,
+            width: 90,
+          },
         },
       },
       "&.Mui-selected": {
@@ -106,6 +132,12 @@ const useStyles = makeStyles({
           borderRadius: "30px",
           color: "#B7B6B6",
           marginBottom: 6,
+          [muiTheme.breakpoints.down(3841)]: {
+            fontSize: "30px",
+            lineHeight: '50px',
+            marginBottom: 16,
+            width: 90,
+          },
         },
         "&.Mui-selected": {
           color: `${props?.palette?.notification?.oprAlertColor} !important`,
@@ -148,6 +180,9 @@ const useStyles = makeStyles({
   notificationListItemSection: (props: any) => ({
     height: "calc(100vh - 365px)",
     overflowY: "scroll",
+    [muiTheme.breakpoints.down(3841)]: {
+      height: "calc(100vh - 521px)",
+    },
   }),
 });
 export default useStyles;

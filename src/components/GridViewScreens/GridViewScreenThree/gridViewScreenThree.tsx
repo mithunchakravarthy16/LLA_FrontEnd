@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Highcharts from "highcharts";
@@ -6,8 +8,8 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenThree: React.FC<any> = (props) => {
-  const {handleClick}=props
-  
+  const { handleClick } = props;
+
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -37,13 +39,19 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     horizantalDataGridStyle,
     horizantalDataGridValueStyle,
     horizantalDataGridLabelStyle,
-   
   } = useStyles(appTheme);
 
   return (
     <>
       {/* Grid 3 */}
-      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/security")}}>
+      <Grid
+        item
+        xs={4}
+        className={gridStyles}
+        onClick={() => {
+          handleClick("/security");
+        }}
+      >
         <Grid
           container
           xs={12}
@@ -92,7 +100,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
                   },
                   lineColor: "#26408E",
                   color: "#26408E",
-                  
+
                   lineWidth: 2,
                   // fillColor: {
                   //   linearGradient: [0, 0, 0, 200],

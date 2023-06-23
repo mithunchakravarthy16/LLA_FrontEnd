@@ -13,6 +13,10 @@ const useStyles = makeStyles({
     top: "30px",
     right: "30px",
     cursor: "pointer",
+    width: 50,
+    [muiTheme.breakpoints.down(3841)]: {
+      width: 80,
+    },
   }),
   notificationPanelSection: (props: any) => ({
     position: "absolute",
@@ -25,6 +29,10 @@ const useStyles = makeStyles({
     borderRadius: "30px",
     color: "white",
     width: "466px",
+    [muiTheme.breakpoints.down(3841)]: {
+      width: "822px",
+      top: "135px",
+    },
   }),
 });
 export default useStyles;

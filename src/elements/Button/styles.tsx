@@ -1,4 +1,5 @@
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles(
   {
@@ -11,6 +12,10 @@ const useStyles = makeStyles(
       color: `${props?.palette?.notification?.listTextColor} !important`,
       "& .MuiTouchRipple-root": {
         display: "none !important",
+      },
+      [muiTheme.breakpoints.down(3841)]: {
+        fontSize: '20px !important',
+        lineHeight: '37px !important'
       },
     }),
   },

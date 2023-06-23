@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import GridViewScreenOne from "components/GridViewScreens/GridViewScreenOne";
@@ -10,8 +12,7 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
-const GridView : React.FC<any> = (props) => {
-
+const GridView: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -31,42 +32,37 @@ const GridView : React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
-  const {
-    rootContainer,
-    mainSection,
-  } = useStyles(appTheme);
+  const { rootContainer, mainSection } = useStyles(appTheme);
 
   const navigate = useNavigate();
 
-  const handleClick = (path : string)=>{
-    navigate(path)
-  }
+  const handleClick = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <>
-      <Grid container className={rootContainer}>
+      <div className={rootContainer}>
         <Grid container className={mainSection}>
-
           {/* Gride 1 */}
-          <GridViewScreenOne handleClick={handleClick}/>
+          <GridViewScreenOne handleClick={handleClick} />
 
           {/* Grid 2 */}
-          <GridViewScreenTwo handleClick={handleClick}/>
+          <GridViewScreenTwo handleClick={handleClick} />
 
           {/* Grid 3 */}
-          <GridViewScreenThree handleClick={handleClick}/>
+          <GridViewScreenThree handleClick={handleClick} />
 
           {/* Grid 4 */}
-          <GridViewScreenFour handleClick={handleClick}/>
+          <GridViewScreenFour handleClick={handleClick} />
 
           {/* Grid 5 */}
           <GridViewScreenFive />
 
           {/* Grid 6 */}
           <GridViewScreenSix />
-
         </Grid>
-      </Grid>
+      </div>
     </>
   );
 };
