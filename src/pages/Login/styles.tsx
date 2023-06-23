@@ -338,6 +338,7 @@ const useStyles = makeStyles(() => ({
   }),
   formSection: (props: any) => ({
     textAlign: "center",
+    letterSpacing : "4px"
   }),
 }));
 export default useStyles;
