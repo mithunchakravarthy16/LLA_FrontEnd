@@ -4,7 +4,7 @@ import VerticalProgressBar from "elements/VerticalProgressBar";
 
 import theme from "../../theme/theme";
 import useStyles from "./styles";
-import HorizontalProgressBar from "elements/HorizontalProgressBar";
+import Tooltip from "elements/Tooltip";
 
 const TopPanelListItemContainer: React.FC<any> = (props) => {
   const { topPanelListItems, percent, strokeWidth, trailWidth, strokeColor, trailColor, title } = props;
@@ -31,9 +31,16 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     topPanelListItemStyle,
     bodyLeftTopPanelListSubContainer,
     progressBarContainer,
-    progressBarContainerStyle,
-    progressBarTitleStyle,
+    // progressBarContainerStyle,
+    // progressBarTitleStyle,
+    itemValueStyle,
+    itemUnitStyle,
+    itemValueUnitStyle
   } = useStyles(appTheme);
+
+  const tooltipOfset = [0, 0];
+  const fontSize = [14];
+  const padding = [2];
 
   return (
     <>
@@ -49,9 +56,19 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
           topPanelListItems?.map((item: any) => (
             <Grid item flex={1} className={topPanelListItemStyle}>
               <div>
-                <img width={30} height={30} src={item?.icon} />
+              <Tooltip
+                tooltipValue={item?.name}
+                placement={"bottom"}
+                offset={tooltipOfset}
+                fontSize={fontSize}
+                padding={padding}
+              >
+                <img width={30} height={30} src={item?.icon} /></Tooltip>
               </div>
-              <div>{item?.value}</div>
+              <div  className={itemValueUnitStyle}>
+              <div className={itemValueStyle}>{item?.value}</div> {item?.unit && <span className={itemUnitStyle}>{item?.unit}</span>}
+
+              </div>
             </Grid>
           ))}
 
@@ -68,7 +85,6 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
           /> */}
           <Grid item xs={10}>
             <VerticalProgressBar
-
               percent={percent}
               strokeWidth={strokeWidth}
               trailWidth={trailWidth}
