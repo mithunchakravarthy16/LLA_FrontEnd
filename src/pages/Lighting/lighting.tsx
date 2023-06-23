@@ -6,8 +6,7 @@ import {
   AirQualityIcon,
   PersonIcon,
 } from "../../assets/topPanelListIcons";
-import theme from "../../theme/theme";
-import useStyles from "./styles";
+import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import Map from "components/Map";
 import moment from "moment";
@@ -17,6 +16,10 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import parkingData from "mockdata/lightingData";
+import { LiveImg } from "assets/gridViewIcons";
+import Chart from "elements/Chart";
+import theme from "../../theme/theme";
+import useStyles from "./styles";
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -52,7 +55,18 @@ const Parking: React.FC<any> = (props) => {
     bodyLeftTopPanelListContainer,
     graphOneContainer,
     graphTwoContainer,
-    notificationPanelGrid
+    notificationPanelGrid,
+
+    liveContainer,
+    liveImgStyle,
+    liveContentValue,
+    liveContentValueGreen,
+    liveContentLabel,
+    liveContentLabelGreen,
+    liveContentStyle,
+    liveContentLeftStyle,
+    aqiCircleStyle,
+    graphTwoHeader,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
@@ -138,7 +152,7 @@ const Parking: React.FC<any> = (props) => {
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
             LIGHTING
-            </Grid>
+          </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
               <Grid item xs={9} className={bodyLeftContainer}>
@@ -164,30 +178,186 @@ const Parking: React.FC<any> = (props) => {
                           title={"Avg Dimming Level"}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{height: "80%"}}>
-                      <Grid container xs={12} style={{height: "100%"}}>
-                      <Grid item xs={6} className={graphOneContainer}>
-                        Graph 1
+                      <Grid item xs={12} style={{ height: "80%" }}>
+                        <Grid container xs={12} style={{ height: "100%" }}>
+                          <Grid item xs={6} className={graphOneContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid item xs={12} style={{ height: "10%" }}>
+                                Electricity Consumed
+                              </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid item xs={9} style={{ height: "100%" }}>
+                                    <Chart
+                                      width={490}
+                                      height={222}
+                                      graphType={"areaspline"}
+                                      isVisible={true}
+                                      units={"kWh"}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#004F9F90"}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#004F9F90",
+                                          color: "#004F9F",
+                                          lineWidth: 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [
+                                                0,
+                                                Highcharts.color("#004F9F")
+                                                  .setOpacity(0.9)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                0.8,
+                                                Highcharts.color(
+                                                  appTheme?.palette
+                                                    ?.gridViewComponentGraphsColor
+                                                    ?.highChartsGradient
+                                                )
+                                                  .setOpacity(0)
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          data: [
+                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    xs={3}
+                                    style={{
+                                      height: "100%",
+                                      padding: "0px 0px 15px 36px",
+                                    }}
+                                  >
+                                    <div className={liveContainer}>
+                                      <div className={liveImgStyle}>
+                                        <img
+                                          width={50}
+                                          height={30}
+                                          src={LiveImg}
+                                        />
+                                      </div>
+                                      <div className={liveContentLeftStyle}>
+                                        <div className={liveContentValue}>
+                                          64Kw
+                                        </div>
+                                        <div className={liveContentLabel}>
+                                          CONSUMED
+                                        </div>
+                                      </div>
+                                      <div className={liveContentStyle}>
+                                        <div className={liveContentValueGreen}>
+                                          50
+                                        </div>
+                                        <div className={liveContentLabelGreen}>
+                                          <div>AQI</div>
+                                          <div className={aqiCircleStyle}></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={6} className={graphTwoContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid item xs={12} className={graphTwoHeader}>
+                                Air Quality Index
+                              </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Chart
+                                  width={650}
+                                  height={222}
+                                  graphType={"areaspline"}
+                                  isVisible={true}
+                                  units={""}
+                                  isCrosshair={true}
+                                  crossHairLineColor={"#50A02890"}
+                                  dataPoints={[
+                                    {
+                                      marker: {
+                                        enabled: false,
+                                      },
+                                      lineColor: "#50A02890",
+                                      color: "#50A028",
+                                      lineWidth: 2,
+                                      fillColor: {
+                                        linearGradient: [0, 0, 0, 200],
+                                        stops: [
+                                          [
+                                            0,
+                                            Highcharts.color("#50A028")
+                                              .setOpacity(0.9)
+                                              .get("rgba"),
+                                          ],
+                                          [
+                                            0.8,
+                                            Highcharts.color(
+                                              appTheme?.palette
+                                                ?.gridViewComponentGraphsColor
+                                                ?.highChartsGradient
+                                            )
+                                              .setOpacity(0)
+                                              .get("rgba"),
+                                          ],
+                                        ],
+                                      },
+                                      data: [
+                                        1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6,
+                                        4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                      ],
+                                    },
+                                  ]}
+                                />
+                              </Grid>
+                              <Grid />
+                            </Grid>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={6} className={graphTwoContainer}>
-                        Graph 2
-                      </Grid>
-                      </Grid>
-                      </Grid>
-                      
-                      
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                  <Map
-          markers={dashboardDataList}
-          setNotificationPanelActive={setNotificationPanelActive}
-          setSelectedNotification={setSelectedNotification}
-          marker={selectedNotification}
-          setTabIndex={setTabIndex}
-          currentMarker={currentMarker}
-          setCurrentMarker={setCurrentMarker}
-        />
+                    <Map
+                      markers={dashboardDataList}
+                      setNotificationPanelActive={setNotificationPanelActive}
+                      setSelectedNotification={setSelectedNotification}
+                      marker={selectedNotification}
+                      setTabIndex={setTabIndex}
+                      currentMarker={currentMarker}
+                      setCurrentMarker={setCurrentMarker}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
