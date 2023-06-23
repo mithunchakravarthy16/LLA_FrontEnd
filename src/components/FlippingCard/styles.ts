@@ -40,7 +40,7 @@ export const RootContainer = styled("div")`
 `;
 
 export const SkewContainer = styled(a.div) <{ isOpen?: boolean }>`
-    background: rgba(9, 17, 22, 0.8);
+    background: rgba(22, 25, 30, 0.8);
     position: absolute;
     top: 0;
     left: 0;

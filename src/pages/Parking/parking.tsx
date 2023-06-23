@@ -5,10 +5,17 @@ import {
   VocCloudIcon,
   AirQualityIcon,
   PersonIcon,
+  ClockIcon,
+  DisabilityIcon,
+  ElectricVehicleIcon,
+  GeneralParkingIcon,
+  RotationIcon,
+  VipParkingIcon,
 } from "../../assets/topPanelListIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
+import Tabs from "elements/Tabs";
 import Map from "components/Map";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
@@ -52,29 +59,69 @@ const Parking: React.FC<any> = (props) => {
     bodyLeftTopPanelListContainer,
     graphOneContainer,
     graphTwoContainer,
-    notificationPanelGrid
+    notificationPanelGrid,
+    mapFilterStyle,
+    customNotificationTabs,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
     {
-      icon: CoTwoCloudIcon,
-      value: "643ppm",
+      icon: GeneralParkingIcon,
+      value: "220",
+      unit: "/300",
+      name: "General",
     },
     {
-      icon: VocCloudIcon,
-      value: "15ppm",
+      icon: VipParkingIcon,
+      value: "75",
+      unit: "/130",
+      name: "VIP",
     },
     {
-      icon: AirQualityIcon,
-      value: "12µg/m³",
+      icon: ElectricVehicleIcon,
+      value: "50",
+      unit: "/100",
+      name: "Electric",
     },
     {
-      icon: AirQualityIcon,
-      value: "50µg/m³",
+      icon: DisabilityIcon,
+      value: "25",
+      unit: "/68",
+      name: "Accessbility",
     },
     {
-      icon: PersonIcon,
-      value: "200",
+      icon: RotationIcon,
+      value: "1.5",
+      name: "Rotation Index",
+    },
+    {
+      icon: ClockIcon,
+      value: "10",
+      unit: "Hrs",
+      name: "Hours Saved",
+    },
+  ];
+
+  const tabsList = [
+    {
+      name: "All",
+      val: 0,
+    },
+    {
+      name: "Lot 1",
+      val: 1,
+    },
+    {
+      name: "Lot 2",
+      val: 2,
+    },
+    {
+      name: "Lot 3",
+      val: 3,
+    },
+    {
+      name: "Lot 4",
+      val: 4,
     },
   ];
 
@@ -132,6 +179,13 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
+  const handleTabs = (index: number) => {
+    // setTabIndex(index);
+    // setSearchOpen(false);
+    // setSelectedNotification("");
+    // setSelectedRefId("");
+  };
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -164,24 +218,36 @@ const Parking: React.FC<any> = (props) => {
                           title={"Occupancy"}
                         />
                       </Grid>
-                      <Grid item xs={6} className={graphOneContainer}>
-                        Graph 1
-                      </Grid>
-                      <Grid item xs={6} className={graphTwoContainer}>
-                        Graph 2
+                      <Grid item xs={12} style={{ height: "80%" }}>
+                        <Grid container xs={12} style={{ height: "100%" }}>
+                          <Grid item xs={6} className={graphOneContainer}>
+                            Graph 1
+                          </Grid>
+                          <Grid item xs={6} className={graphTwoContainer}>
+                            Graph 2
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                  <Map
-          markers={dashboardDataList}
-          setNotificationPanelActive={setNotificationPanelActive}
-          setSelectedNotification={setSelectedNotification}
-          marker={selectedNotification}
-          setTabIndex={setTabIndex}
-          currentMarker={currentMarker}
-          setCurrentMarker={setCurrentMarker}
-        />
+                    <div className={mapFilterStyle}>
+                      <Tabs
+                        initialIndex={tabIndex}
+                        tabsList={tabsList}
+                        handleTabs={handleTabs}
+                        dashboardNotificationClassName={customNotificationTabs}
+                      />
+                    </div>
+                    <Map
+                      markers={dashboardDataList}
+                      setNotificationPanelActive={setNotificationPanelActive}
+                      setSelectedNotification={setSelectedNotification}
+                      marker={selectedNotification}
+                      setTabIndex={setTabIndex}
+                      currentMarker={currentMarker}
+                      setCurrentMarker={setCurrentMarker}
+                    />
                   </Grid>
                 </Grid>
               </Grid>

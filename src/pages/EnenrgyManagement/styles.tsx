@@ -59,10 +59,10 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 #808080",
-    borderBottom : "1px solid #333333",
-    borderRight : "1px solid #333333",
+    borderBottom: "1px solid #333333",
+    borderRight: "1px solid #333333",
 
-    height: "80%",
+    height: "100%",
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -70,13 +70,21 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
-    borderBottom : "1px solid #333333",
+    borderBottom: "1px solid #333333",
 
-    height: "80%",
+    height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({
-    border : "1px solid #333333"
+    border: "1px solid #333333",
+  }),
+  graphTwoHeader: (props: any) => ({
+    height: "10%",
+  }),
+  screenFiveGraphTitleStyle: (props: any) => ({
+    fontSize: "16px",
+    display: "flex",
+    columnGap: "30px",
   }),
 });
 export default useStyles;

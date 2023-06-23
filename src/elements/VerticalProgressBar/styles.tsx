@@ -8,6 +8,7 @@ const useStyles = makeStyles({
 
   progressBarTitle: (props: any) => ({
     padding: "0 0 5px 5px",
+    fontSize: "14px"
   }),
 
   progressBarContainer: (props: any) => ({

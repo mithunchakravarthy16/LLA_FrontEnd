@@ -31,8 +31,8 @@ let theme = {
       notification: {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
-        listItemBg: colorCodes?.darkBlueShade,
-        listItemBorder: colorCodes?.blueGreyShade,
+        listItemBg: colorCodes?.darkBlackShade,
+        listItemBorder: colorCodes?.darkGreyBalckShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
@@ -40,6 +40,7 @@ let theme = {
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
         tabListCountColor: colorCodes?.greyColor2,
+        expansionListItemBorder : colorCodes?.darkOrangeShade
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,
@@ -112,8 +113,8 @@ let theme = {
       notification: {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
-        listItemBg: colorCodes?.darkBlueShade,
-        listItemBorder: colorCodes?.blueGreyShade,
+        listItemBg: colorCodes?.darkBlackShade,
+        listItemBorder: colorCodes?.darkGreyBalckShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
@@ -121,6 +122,7 @@ let theme = {
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
         tabListCountColor: colorCodes?.greyColor2,
+        expansionListItemBorder : colorCodes?.darkOrangeShade
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,
@@ -193,8 +195,8 @@ let theme = {
       notification: {
         notificationBg: colorCodes?.linearGradientBackground,
         notificationBoxShadow: colorCodes?.linearGradientTwo,
-        listItemBg: colorCodes?.darkBlueShade,
-        listItemBorder: colorCodes?.blueGreyShade,
+        listItemBg: colorCodes?.darkBlackShade,
+        listItemBorder: colorCodes?.darkGreyBalckShade,
         eventColor: colorCodes?.greenColor,
         incidentColor: colorCodes?.redColor,
         oprAlertColor: colorCodes?.orangeColor,
@@ -202,6 +204,7 @@ let theme = {
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
         tabListCountColor: colorCodes?.greyColor2,
+        expansionListItemBorder : colorCodes?.darkOrangeShade
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,

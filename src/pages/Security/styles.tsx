@@ -80,7 +80,7 @@ const useStyles = makeStyles({
     borderBottom : "1px solid #333333",
     borderRight : "1px solid #333333",
     paddingLeft: '30px',
-    height: "80%",
+    height: "100%",
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -89,7 +89,7 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom : "1px solid #333333",
-    height: "80%",
+    height: "100%",
     display: "flex",
     alignItems: "center"
   }),
