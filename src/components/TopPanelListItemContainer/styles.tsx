@@ -21,7 +21,8 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelListSubContainer: (props: any) => ({
-    border: "1px solid #808080",
+    border: "1px solid  #333333",
+    borderRight : "none"
   }),
 
   progressBarContainer: (props: any) => ({

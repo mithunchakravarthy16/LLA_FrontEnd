@@ -16,7 +16,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import energyManagementData from "mockdata/energyManagementData";
+import parkingData from "mockdata/parkingData";
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -87,7 +87,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-  const dashboardArray = energyManagementData?.notifications?.energyManagement;
+  const dashboardArray = parkingData?.notifications?.parking;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
   for (let i = 0; i < dashboardArray?.length; i++) {
@@ -132,14 +132,13 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
-
   return (
     <>
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            ENERGY MANAGEMENT
-            </Grid>
+            PARKING
+          </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
               <Grid item xs={9} className={bodyLeftContainer}>
@@ -157,12 +156,12 @@ const Parking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={30}
+                          percent={62}
                           strokeWidth={10}
                           trailWidth={10}
-                          strokeColor="#92C07E"
+                          strokeColor="#FABD96"
                           trailColor="#484D52"
-                          title={"Energy Savings "}
+                          title={"Occupancy"}
                         />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>

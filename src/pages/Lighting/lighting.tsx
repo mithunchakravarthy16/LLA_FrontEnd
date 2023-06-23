@@ -9,8 +9,16 @@ import {
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
+import Map from "components/Map";
+import moment from "moment";
+import NotificationPanel from "components/NotificationPanel";
+import {
+  formatttedDashboardNotification,
+  formatttedDashboardNotificationCount,
+} from "../../utils/utils";
+import parkingData from "mockdata/lightingData";
 
-const Lighting: React.FC<any> = (props) => {
+const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -44,6 +52,7 @@ const Lighting: React.FC<any> = (props) => {
     bodyLeftTopPanelListContainer,
     graphOneContainer,
     graphTwoContainer,
+    notificationPanelGrid
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
@@ -69,13 +78,67 @@ const Lighting: React.FC<any> = (props) => {
     },
   ];
 
+  // Notification Data
+
+  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
+
+  const dashboardArray = parkingData?.notifications?.lighting;
+  let currentTimeStampValue;
+  let timeArrayNew: any = [];
+  for (let i = 0; i < dashboardArray?.length; i++) {
+    currentTimeStampValue = moment()
+      .subtract({
+        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
+        minutes: i + 59,
+        seconds: i + 49,
+      })
+      .format("MM-DD-YYYY | h:mm A");
+    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
+  }
+
+  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
+    Object.assign({}, item, dashboardArray[i])
+  );
+
+  const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
+  );
+
+  const [dashboardData, setDashboardData] = useState<any>(
+    formatttedDashboardNotification(dashboardDataList, tabIndex)
+  );
+
+  const [notificationCount, setNotificationCount] = useState<any>(
+    formatttedDashboardNotificationCount(dashboardDataList)
+  );
+
+  useEffect(() => {
+    setDashboardData(
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    );
+    setSearchValue(
+      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    );
+  }, [tabIndex]);
+
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(dashboardDataList)
+    );
+  }, [dashboardData]);
+
   return (
     <>
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
             LIGHTING
-          </Grid>
+            </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
               <Grid item xs={9} className={bodyLeftContainer}>
@@ -91,9 +154,15 @@ const Lighting: React.FC<any> = (props) => {
                         xs={12}
                         className={bodyLeftTopPanelListContainer}
                       >
-                       
-                        <TopPanelListItemContainer topPanelListItems={topPanelListItems}/>
-                        
+                        <TopPanelListItemContainer
+                          topPanelListItems={topPanelListItems}
+                          percent={60}
+                          strokeWidth={10}
+                          trailWidth={10}
+                          strokeColor="#FFA626"
+                          trailColor="#484D52"
+                          title={"Avg Dimming Level"}
+                        />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>
                         Graph 1
@@ -104,12 +173,34 @@ const Lighting: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                    Google Map
+                  <Map
+          markers={dashboardDataList}
+          setNotificationPanelActive={setNotificationPanelActive}
+          setSelectedNotification={setSelectedNotification}
+          marker={selectedNotification}
+          setTabIndex={setTabIndex}
+          currentMarker={currentMarker}
+          setCurrentMarker={setCurrentMarker}
+        />
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3}>
-                Notification
+              <Grid item xs={3} className={notificationPanelGrid}>
+                <NotificationPanel
+                  setNotificationPanelActive={setNotificationPanelActive}
+                  dashboardData={dashboardData}
+                  tabIndex={tabIndex}
+                  setTabIndex={setTabIndex}
+                  notificationCount={notificationCount}
+                  selectedNotification={selectedNotification}
+                  setSelectedNotification={setSelectedNotification}
+                  searchOpen={searchOpen}
+                  setSearchOpen={setSearchOpen}
+                  searchValue={searchValue}
+                  setSearchValue={setSearchValue}
+                  setCurrentMarker={setCurrentMarker}
+                  notificationPageName={"parking"}
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -119,4 +210,4 @@ const Lighting: React.FC<any> = (props) => {
   );
 };
 
-export default Lighting;
+export default Parking;
