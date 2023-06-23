@@ -99,8 +99,8 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       if (
-        (values?.userid).toLowerCase() === "zyteradmin" &&
-        values?.password === "zyteradmin@2023#"
+        (values?.userid).toLowerCase() === "sensyonadmin" &&
+        values?.password === "sensyon@2023#"
       ) {
         let payload = {
           userName: values.userid,
