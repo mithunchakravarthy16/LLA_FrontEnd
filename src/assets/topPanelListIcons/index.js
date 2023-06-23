@@ -14,6 +14,12 @@ import GeneralParkingIcon from "./ParkingIcons/generalParking.svg";
 import RotationIcon from "./ParkingIcons/rotationIcon.svg";
 import VipParkingIcon from "./ParkingIcons/vipParkingIcon.svg";
 
+import Camera from "./cctv-camera.svg"
+import FireAlarm from "./firealarm.svg"
+import Siren from "./siren.svg"
+import Trolley from "./trolley.svg"
+import Unauthorised from "./unauthorised.svg"
+
 export {
   CoTwoCloudIcon,
   VocCloudIcon,
@@ -24,6 +30,11 @@ export {
   WaterConsumption,
   IncomeIcon,
   SubtractIcon,
+  Camera,
+  FireAlarm,
+  Siren,
+  Trolley,
+  Unauthorised,
   ClockIcon,
   DisabilityIcon,
   ElectricVehicleIcon,

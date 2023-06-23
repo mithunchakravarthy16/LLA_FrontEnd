@@ -74,7 +74,7 @@ const Chart: React.FC<any> = (props) => {
           trackBorderRadius: 8,
           trackBorderColor: "#C38C8C",
         },
-        legend: false,
+        legend: {enabled: false},
         tooltip: {
           shared: false,
           useHTML: true,
@@ -203,6 +203,11 @@ const Chart: React.FC<any> = (props) => {
 
         title: false,
         plotOptions: {
+          pie: {
+            dataLabels: {
+              enabled: false
+            }
+          },
           series: {
             // fillColor: {
             //   linearGradient: [0, 0, 0, 200],
