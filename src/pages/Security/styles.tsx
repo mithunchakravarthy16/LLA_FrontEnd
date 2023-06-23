@@ -79,7 +79,7 @@ const useStyles = makeStyles({
     // borderColor: "transparent #808080 #808080 #808080",
     borderBottom : "1px solid #333333",
     borderRight : "1px solid #333333",
-
+    paddingLeft: '30px',
     height: "80%",
   }),
 
@@ -89,9 +89,41 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom : "1px solid #333333",
-
     height: "80%",
+    display: "flex",
+    alignItems: "center"
   }),
+
+  pieChartLegendContainer: {
+    display: "flex",
+    flexDirection: "column",
+    paddingLeft: "10%"
+  },
+
+  legendIdentifierContainer: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "10px",
+  },
+
+  legendColorBox: (props: any) => {
+    console.log("PROPS", props);
+    return ({
+      width: '20px',
+      height: '10px',
+      backgroundColor: '#30b7fb',
+      borderRadius: '10px'
+    })
+  },
+
+  legendText: {
+    color: '#8A8A8A',
+    fontSize: '20px',
+    fontFamily: 'Helvetica Neue',
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    marginLeft: '15px',
+  },
 
   notificationPanelGrid: (props: any) => ({
     border : "1px solid #333333"
@@ -106,22 +138,9 @@ const useStyles = makeStyles({
     justifyContent: "center",
     padding: "10px 0px",
   }),
-
-  graphOneContainer: (props: any) => ({
-    border: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "transparent #808080 #808080 #808080",
-    height: "80%",
-    
-  }),
-
-  graphTwoContainer: (props: any) => ({
-    border: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "transparent #808080 #808080 transparent",
-    height: "80%",
-  }),
+  graphTitle: (props: any) => ({
+    marginBottom: "20px",
+    fontSize: "16px"
+  })
 });
 export default useStyles;

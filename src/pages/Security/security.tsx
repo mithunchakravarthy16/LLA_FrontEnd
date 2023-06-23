@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
-  CoTwoCloudIcon,
-  VocCloudIcon,
-  AirQualityIcon,
-  PersonIcon,
+  Camera,
+  FireAlarm,
+  Siren,
+  Trolley,
+  Unauthorised,
 } from "../../assets/topPanelListIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
@@ -17,7 +18,16 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import securityData from "mockdata/securityData";
+import Highcharts from "highcharts";
+import Chart from "elements/Chart";
 
+const PIECHART_LEGEND = [
+  { background: "#C64640", name: "Intrusion" },
+  { background: "#F89863", name: "Fire Detection" },
+  { background: "#B3D2A1", name: "Tempering Alarm" },
+  { background: "#FDC270", name: "Unauthorised Access " },
+  { background: "#9191C1", name: "Tailgating" },
+];
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -54,29 +64,39 @@ const Parking: React.FC<any> = (props) => {
     bodyLeftTopPanelListContainer,
     graphOneContainer,
     graphTwoContainer,
-    notificationPanelGrid
+    pieChartLegendContainer,
+    notificationPanelGrid,
+    legendIdentifierContainer,
+    legendColorBox,
+    legendText,
+    graphTitle,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
     {
-      icon: CoTwoCloudIcon,
-      value: "643ppm",
+      icon: FireAlarm,
+      value: "15",
+      name: "Fire Detection"
     },
     {
-      icon: VocCloudIcon,
-      value: "15ppm",
+      icon: Siren,
+      value: "20",
+      name: "Tampering Alarm"
     },
     {
-      icon: AirQualityIcon,
-      value: "12µg/m³",
+      icon: Unauthorised,
+      value: "14",
+      name: "Unauthorised Access"
     },
     {
-      icon: AirQualityIcon,
-      value: "50µg/m³",
+      icon: Trolley,
+      value: "15",
+      name: "Tailgating"
     },
     {
-      icon: PersonIcon,
-      value: "200",
+      icon: Camera,
+      value: "05",
+      name: "Camera Occlusion"
     },
   ];
 
@@ -167,23 +187,113 @@ const Parking: React.FC<any> = (props) => {
                         />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>
-                        Graph 1
+                        <div className={graphTitle}>Security</div>
+                        <Chart
+                          width={654}
+                          height={240}
+                          graphType={"areaspline"}
+                          isVisible={true}
+                          units={"%"}
+                          isCrosshair={true}
+                          crossHairLineColor={"#73B35A90"}
+                          dataPoints={[
+                            {
+                              marker: {
+                                enabled: false,
+                              },
+                              lineColor: "#73B35A90",
+                              color: "#73B35A",
+                              lineWidth: 2,
+                              fillColor: {
+                                linearGradient: [0, 0, 0, 200],
+                                stops: [
+                                  [
+                                    0,
+                                    Highcharts.color("#73B35A")
+                                      .setOpacity(0.4)
+                                      .get("rgba"),
+                                  ],
+                                  [
+                                    0.8,
+                                    Highcharts.color(
+                                      appTheme?.palette
+                                        ?.gridViewComponentGraphsColor
+                                        ?.highChartsGradient
+                                    )
+                                      .setOpacity(0)
+                                      .get("rgba"),
+                                  ],
+                                ],
+                              },
+                              data: [
+                                1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5,
+                                4, 2, 8, 4, 3, 4, 1, 4,
+                              ],
+                            },
+                          ]}
+                        />
                       </Grid>
                       <Grid item xs={6} className={graphTwoContainer}>
-                        Graph 2
+                        <Chart
+                          width={327}
+                          height={240}
+                          graphType={"pie"}
+                          isVisible={true}
+                          unit="%"
+                          // units={"%"}
+                          // isCrosshair={true}
+                          // crossHairLineColor={"#73B35A90"}
+                          dataPoints={[
+                            {
+                              borderWidth: 0,
+                              colorByPoint: true,
+                              type: "pie",
+                              size: "100%",
+                              innerSize: "80%",
+                              // dataLabels: {
+                              //   enabled: true,
+                              //   crop: false,
+                              //   distance: "-10%",
+                              //   style: {
+                              //     fontWeight: "bold",
+                              //     fontSize: "16px",
+                              //   },
+                              //   connectorWidth: 0,
+                              // },
+                              colors: [
+                                "#C64640",
+                                "#F89863",
+                                "#B3D2A1",
+                                "#FDC270",
+                                "#9191C1",
+                              ],
+                              data: [37, 15, 16, 17, 15],
+                            },
+                          ]}
+                        />
+                        <Grid direction='column' className={pieChartLegendContainer}>
+                          {
+                            PIECHART_LEGEND.map(legend => (
+                              <div className={legendIdentifierContainer}>
+                                <div className={legendColorBox} style={{backgroundColor: legend.background}} ></div>
+                                <div className={legendText}>{legend.name}</div>
+                              </div>
+                            ))
+                          }
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                  <Map
-          markers={dashboardDataList}
-          setNotificationPanelActive={setNotificationPanelActive}
-          setSelectedNotification={setSelectedNotification}
-          marker={selectedNotification}
-          setTabIndex={setTabIndex}
-          currentMarker={currentMarker}
-          setCurrentMarker={setCurrentMarker}
-        />
+                    <Map
+                      markers={dashboardDataList}
+                      setNotificationPanelActive={setNotificationPanelActive}
+                      setSelectedNotification={setSelectedNotification}
+                      marker={selectedNotification}
+                      setTabIndex={setTabIndex}
+                      currentMarker={currentMarker}
+                      setCurrentMarker={setCurrentMarker}
+                    />
                   </Grid>
                 </Grid>
               </Grid>

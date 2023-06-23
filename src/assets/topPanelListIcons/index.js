@@ -8,6 +8,12 @@ import WaterConsumption from "./waterConsumption.svg";
 import IncomeIcon from "./Income.svg";
 import SubtractIcon from "./Subtract.svg";
 
+import Camera from "./cctv-camera.svg"
+import FireAlarm from "./firealarm.svg"
+import Siren from "./siren.svg"
+import Trolley from "./trolley.svg"
+import Unauthorised from "./unauthorised.svg"
+
 export {
   CoTwoCloudIcon,
   VocCloudIcon,
@@ -18,4 +24,9 @@ export {
   WaterConsumption,
   IncomeIcon,
   SubtractIcon,
+  Camera,
+  FireAlarm,
+  Siren,
+  Trolley,
+  Unauthorised,
 };
