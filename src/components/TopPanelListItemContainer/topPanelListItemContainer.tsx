@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import VerticalProgressBar from "elements/VerticalProgressBar";
+
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HorizontalProgressBar from "elements/HorizontalProgressBar";
 
 const TopPanelListItemContainer: React.FC<any> = (props) => {
-  const { topPanelListItems } = props;
+  const { topPanelListItems, percent, strokeWidth, trailWidth, strokeColor, trailColor, title } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -54,7 +56,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
           ))}
 
         <Grid flex={1.5} item className={progressBarContainer}>
-          <HorizontalProgressBar
+          {/* <HorizontalProgressBar
             progressBarTitle={"Avg. Dimming Level"} //mandatory
             progressBarTitleFontSize={"14px"}
             progressBarValue={"60%"}
@@ -63,7 +65,18 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
             progressBarTrackerRadius={"7px"}
             progressBarValueBarRadius={"7px"}
             progressBarTrackerHeight={"18px"}
-          />
+          /> */}
+          <Grid item xs={10}>
+            <VerticalProgressBar
+
+              percent={percent}
+              strokeWidth={strokeWidth}
+              trailWidth={trailWidth}
+              strokeColor={strokeColor}
+              trailColor={trailColor}
+              title={title}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>

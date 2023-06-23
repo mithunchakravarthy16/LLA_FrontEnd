@@ -14,8 +14,6 @@ const useStyles = makeStyles({
     opacity: 1,
   }),
 
-
-
   pageHeading: (props: any) => ({
     height: "6%",
     paddingLeft: "15px",
@@ -56,25 +54,30 @@ const useStyles = makeStyles({
     height: "20%",
   }),
 
-  
-
- 
-
   graphOneContainer: (props: any) => ({
-    border: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "transparent #808080 #808080 #808080",
+    // border: "none",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: "transparent #808080 #808080 #808080",
    height: "100%",
+
+   borderBottom : "1px solid #333333",
+
+    borderRight : "1px solid #333333",
     
   }),
 
   graphTwoContainer: (props: any) => ({
-    border: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "transparent #808080 #808080 transparent",
+    // border: "none",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: "transparent #808080 #808080 transparent",
+    borderBottom : "1px solid #333333",
     height: "100%",
+  }),
+
+  notificationPanelGrid: (props: any) => ({
+    border : "1px solid #333333"
   }),
 });
 export default useStyles;

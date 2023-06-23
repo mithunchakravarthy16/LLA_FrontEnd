@@ -53,7 +53,15 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
-    setNotificationPanelActive(true);
+    setNotificationPanelActive(!notificationPanelActive);
+    if(!notificationPanelActive) {
+      setSearchOpen(false);
+      setTabIndex(1);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setSearchValue(dashboardData);
+    }
+
   };
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
@@ -112,6 +120,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           currentMarker={currentMarker}
           setCurrentMarker={setCurrentMarker}
           focusedCategory={focusedCategory}
+          mapPageName = {"dashboard"}
         />
       </div>
       <img
@@ -144,6 +153,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             searchValue={searchValue}
             setSearchValue={setSearchValue}
             setCurrentMarker={setCurrentMarker}
+            notificationPageName={"dashboard"}
           />
         </div>
       )}
