@@ -128,7 +128,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           notificationPanelActive ? NotificationActiveIcon : NotificationIcon
         }
         alt="Notificaion Icon"
-        width={50}
         onClick={onHandleBellIcon}
         className={notificationIconSection}
       />
