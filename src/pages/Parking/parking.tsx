@@ -179,12 +179,20 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
-  const handleTabs = (index: number) => {
+  const[parkingLotIndex, setParkingLotIndex] = useState<any>(0);
+  const[selectedParkingLot, setSelectedParkingLot] = useState<any>(tabsList[parkingLotIndex]?.name);
+
+  const handleParkingLot = (index: number) => {
+    setParkingLotIndex(index)
     // setTabIndex(index);
     // setSearchOpen(false);
     // setSelectedNotification("");
     // setSelectedRefId("");
   };
+
+  useEffect(()=>{
+    setSelectedParkingLot(tabsList[parkingLotIndex]?.name)
+  },[parkingLotIndex])
 
   return (
     <>
@@ -232,10 +240,11 @@ const Parking: React.FC<any> = (props) => {
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
                     <div className={mapFilterStyle}>
+                      <div style={{}}>{selectedParkingLot}</div>
                       <Tabs
-                        initialIndex={tabIndex}
+                        initialIndex={parkingLotIndex}
                         tabsList={tabsList}
-                        handleTabs={handleTabs}
+                        handleTabs={handleParkingLot}
                         dashboardNotificationClassName={customNotificationTabs}
                       />
                     </div>
