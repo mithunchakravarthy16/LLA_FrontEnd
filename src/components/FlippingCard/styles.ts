@@ -8,11 +8,17 @@ export const Wrapper = styled("div")`
     right: 220px;
     width: calc(100vw - 300px);
     display: flex;
+    @media (max-width : 3841px) {
+        left: 220px;  
+       bottom: 154px;
+    }
     @media (max-width : 3073px) {
         left: 220px;
+        bottom: 100px;
     }
     @media (max-width : 2049px) {
         left: 150px;
+        bottom: 100px;
     }
     @media (max-width : 1153px) {
         left: 150px;
@@ -30,7 +36,7 @@ export const RootContainer = styled("div")`
     height: 330px;
     }
     @media (max-width : 2049px) {
-        min-width: 294px;
+        min-width: 270px;
         height: 186px;
     }
     @media (max-width : 1153px) {

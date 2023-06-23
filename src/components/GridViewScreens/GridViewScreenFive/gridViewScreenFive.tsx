@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import CustomizableProgressBar from "elements/ProgressBar";
@@ -76,7 +78,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            columnGap: "6px"
+                            columnGap: "6px",
                           }}
                         >
                           <div
@@ -94,7 +96,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            columnGap: "6px"
+                            columnGap: "6px",
                           }}
                         >
                           <div
@@ -199,7 +201,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   className={lastweekContainer}
                 >
                   <Grid item xs={12} className={lastweekTitleStyle}>
-                  Today
+                    Today
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>
                     <Grid
@@ -232,7 +234,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         className={rightListItemStyleLastChild}
                       >
                         <div className={listItemValueStyle}>5Hrs</div>
-                        <div className={listItemLabelStyle}>Total Idling Hours</div>
+                        <div className={listItemLabelStyle}>
+                          Total Idling Hours
+                        </div>
                       </Grid>
                     </Grid>
                   </Grid>
