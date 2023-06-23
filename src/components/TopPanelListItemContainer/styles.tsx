@@ -42,5 +42,22 @@ const useStyles = makeStyles({
     padding: "0px 20px"
   }),
 
+  itemValueStyle: (props: any) => ({
+    fontSize: "22px",
+    fontWeight : 700
+  }),
+  itemUnitStyle: (props: any) => ({
+    fontSize: "18px",
+    margin :"0 0 2px 2px",
+    textAlign : "end",
+    fontWeight : 700
+  }),
+
+  itemValueUnitStyle: (props: any) => ({
+    display: "flex",
+    alignItems: "flex-end",
+  }),
+
+
 });
 export default useStyles;

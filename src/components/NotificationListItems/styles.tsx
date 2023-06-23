@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     border:
       props?.pageName === "markerCallout"
         ? "none"
-        : `2px solid ${props?.palette?.notification?.listItemBorder}`,
+        : `1.5px solid ${props?.palette?.notification?.expansionListItemBorder}`,
     marginBottom: props?.pageName === "markerCallout" ? 0 : "15px",
     cursor: "pointer",
   }),

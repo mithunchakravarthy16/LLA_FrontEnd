@@ -1,10 +1,10 @@
 const appData = {
   googleApiKey: "AIzaSyDykLcSVPpD9Kw0VoZUkrlpMOCKOVWs7Bg",
   googleMapColor: {
-    mapBgColor: "#0B151F",
-    roadColor: "#131D27",
-    textColor: "#566278",
-    riverColor: "#020308",
+    mapBgColor: "#0F1011",
+    roadColor: "#1A1B1C",
+    textColor: "#3B3C3E",
+    riverColor: "#000000",
   },
 };
 export default appData;
