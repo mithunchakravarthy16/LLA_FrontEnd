@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Highcharts from "highcharts";
@@ -6,10 +8,8 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
+  const { handleClick } = props;
 
-  const {handleClick}=props
-
-  
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -44,7 +44,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 6 */}
-      <Grid item xs={4} className={gridStyles} >
+      <Grid item xs={4} className={gridStyles}>
         <Grid
           container
           xs={12}
@@ -59,19 +59,19 @@ const GridViewScreenSix: React.FC<any> = (props) => {
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>52</div>
                 <div className={horizantalDataGridLabelStyle}>
-                Assets Tracked
+                  Assets Tracked
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
                 <div className={horizantalDataGridValueStyle}>30</div>
                 <div className={horizantalDataGridLabelStyle}>
-                Location Changes
+                  Location Changes
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
                 <div className={horizantalDataGridValueStyle}>10</div>
                 <div className={horizantalDataGridLabelStyle}>
-                Out Of Geofence
+                  Out Of Geofence
                 </div>
               </div>
             </div>

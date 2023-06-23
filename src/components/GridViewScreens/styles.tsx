@@ -1,7 +1,9 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
-
   gridContainers: (props: any) => ({
     height: "100%",
   }),
@@ -10,19 +12,31 @@ const useStyles = makeStyles({
     paddingBottom: "15px",
     height: "10%",
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle, //"#F26522",
-    fontSize: "18px"
+    fontSize: "18px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   containerTitleTwo: (props: any) => ({
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
-    fontSize: "18px"
+    fontSize: "18px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   containerTitleScreenFive: (props: any) => ({
     paddingBottom: "15px",
     height: "15%",
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
-    fontSize: "18px"
+    fontSize: "18px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   subContainer: (props: any) => ({
@@ -44,7 +58,11 @@ const useStyles = makeStyles({
   graphTitleScreenOne: (props: any) => ({
     width: "100%",
     marginBottom: "20px",
-    fontSize: "16px"
+    fontSize: "16px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 24,
+      lineHeight: "48px",
+    },
   }),
 
   liveContainer: (props: any) => ({
@@ -65,18 +83,30 @@ const useStyles = makeStyles({
   liveContentValue: (props: any) => ({
     fontSize: "20px",
     fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   liveContentValueGreen: (props: any) => ({
     fontSize: "22px",
     fontWeight: 700,
     color: props?.palette?.gridViewComponentCommonStyle?.liveContentValueGreen, //"#80C53B",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   liveContentLabel: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
     fontStyle: "italic",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   liveContentLabelGreen: (props: any) => ({
@@ -86,6 +116,10 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     columnGap: "15px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   lastweekContainer: (props: any) => ({
@@ -97,6 +131,10 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: "18px",
     color: "#82BA6D",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   lastweekBodyContainer: (props: any) => ({
@@ -117,32 +155,53 @@ const useStyles = makeStyles({
     fontWeight: 600,
     flex: 1,
     flexGrow: 1,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   horizantalDataGridLabelStyle: (props: any) => ({
     fontSize: "17px",
     fontWeight: 500,
     fontStyle: "italic",
-    color: props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel, //"#B5B2B2",
+    color:
+      props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel, //"#B5B2B2",
     flexGrow: 1,
     flex: 1,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   screenTwoGraphTitleStyle: (props: any) => ({
     fontSize: "16px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   progressBarTitleStyle: (props: any) => ({
     fontSize: "16px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   progressBarContainerStyle: (props: any) => ({
-    padding : "0px 10px 0px 10px"
+    padding: "0px 10px 0px 10px",
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
     fontSize: "16px",
     display: "flex",
-    columnGap: "30px"
+    columnGap: "30px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   gridStyles: (props: any) => ({
@@ -181,8 +240,13 @@ const useStyles = makeStyles({
 
   listItemLabelStyle: (props: any) => ({
     fontSize: "18px",
-    color: props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel,
+    color:
+      props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel,
     fontStyle: "italic",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   }),
 
   liveContentStyle: (props: any) => ({
