@@ -95,7 +95,7 @@ const Login = () => {
       password: Yup.string()
         .min(2, "Mininum 2 characters")
         .max(20, "Maximum 20 characters")
-        .required("Please Enter password"),
+        .required("Please Enter password"), 
     }),
     onSubmit: (values) => {
       if (
