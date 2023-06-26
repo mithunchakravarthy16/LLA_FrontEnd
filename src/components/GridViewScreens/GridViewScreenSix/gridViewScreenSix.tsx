@@ -46,13 +46,15 @@ const GridViewScreenSix: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1000,
+        width: 1100,
         height: 400,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
         width: 550,
         height: 200,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -102,6 +104,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
               units={""}
               isCrosshair={true}
               crossHairLineColor={"#ABCD9890"}
+              is4kDevice={selectedWidth?.is4kDevice}
               dataPoints={[
                 {
                   marker: {

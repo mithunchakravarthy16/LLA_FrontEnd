@@ -58,13 +58,15 @@ const GridViewScreenFive: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 860,
-        height: 320,
+        width: 835,
+        height: 420,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
         width: 410,
         height: 160,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -134,6 +136,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                           graphType={"spline"}
                           units={"kWh"}
                           isCrosshair={false}
+                          is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
                             {
                               marker: {
@@ -194,7 +197,11 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   <Grid item xs={12}>
                     <div className={liveContainer}>
                       <div className={liveImgStyle}>
-                        <img width={50} height={30} src={LiveImg} />
+                        <img
+                          width={selectedWidth?.is4kDevice ? 146 : 50}
+                          height={selectedWidth?.is4kDevice ? 60 : 30}
+                          src={LiveImg}
+                        />
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>10</div>

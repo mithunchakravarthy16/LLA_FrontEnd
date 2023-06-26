@@ -59,11 +59,13 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 820,
         height: 160,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
         width: 360,
         height: 80,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -129,6 +131,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                           graphType={"spline"}
                           units={"kWh"}
                           isCrosshair={false}
+                          is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
                             {
                               marker: {
