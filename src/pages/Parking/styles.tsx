@@ -101,9 +101,10 @@ const useStyles = makeStyles({
     borderRadius: "50px",
     cursor: "pointer",
     fontWeight: 600,
-    width: "30%",
+    width: "35%",
   }),
   customNotificationTabs: (props: any) => ({
+    width : "85%",
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
@@ -261,6 +262,25 @@ const useStyles = makeStyles({
       borderRadius: 6,
       textTransform: "uppercase",
     },
+  }),
+
+  lotSelectionIconStyle: (props: any) => ({
+    position: "absolute",
+    color: "white",
+    zIndex: 1,
+    background: "#F26522",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "50px",
+    cursor: "pointer",
+    fontWeight: 600,
+    padding: "15px 5px 15px 5px",
+    width : "53px",
+    height : "30px",
+    right :  props?.parkingLotSelectionActive ? 0 : "15px",
+    top :  props?.parkingLotSelectionActive ? 0 : "15px",
+
   }),
 });
 export default useStyles;
