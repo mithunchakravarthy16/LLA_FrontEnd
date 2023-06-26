@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     border: `2px solid ${props?.palette?.notification?.listItemBg}`,
     marginBottom: "15px",
     cursor: "pointer",
+    [muiTheme.breakpoints.down(3841)]: {
+      marginBottom: "30px",
+    },
   }),
   expandedListItems: (props: any) => ({
     background:
@@ -31,6 +34,9 @@ const useStyles = makeStyles({
         : `2px solid ${props?.palette?.notification?.expansionListItemBorder}`,
     marginBottom: props?.pageName === "markerCallout" ? 0 : "15px",
     cursor: "pointer",
+    [muiTheme.breakpoints.down(3841)]: {
+      marginBottom: props?.pageName === "markerCallout" ? 0 : "32px",
+    },
   }),
   listItemTitle: (props: any) => ({
     fontSize: 20,

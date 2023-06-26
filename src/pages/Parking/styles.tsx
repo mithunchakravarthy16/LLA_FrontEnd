@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     height: "100vh",
     paddingLeft: "3.4px",
     [muiTheme.breakpoints.up(3839)]: {
-      width: "calc(100vw - 159px) !important",
+      width: "calc(100vw - 200px) !important",
     },
   }),
   mainSection: (props: any) => ({

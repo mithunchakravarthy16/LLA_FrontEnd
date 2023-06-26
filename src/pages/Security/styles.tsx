@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     height: "100vh",
     paddingLeft: "3.4px",
     [muiTheme.breakpoints.up(3839)]: {
-      width: "calc(100vw - 159px) !important",
+      width: "calc(100vw - 200px) !important",
     },
   }),
   mainSection: (props: any) => ({
@@ -95,7 +95,7 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom: "1px solid #333333",
-    height: "100%",
+    height: "80%",
     display: "flex",
     alignItems: "center",
   }),
@@ -149,8 +149,8 @@ const useStyles = makeStyles({
     padding: "10px 0px",
   }),
   graphTitle: (props: any) => ({
-    marginBottom: "20px",
     fontSize: "16px",
+    padding: 16,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
