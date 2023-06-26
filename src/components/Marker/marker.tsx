@@ -59,7 +59,10 @@ const MapMarker: React.FC<any> = (props) => {
             mapMarker.notificationCategory,
             mapMarker.id
           ),
-          scaledSize: new window.google.maps.Size(60.5, 60.5),
+          scaledSize: new window.google.maps.Size(
+            window.innerWidth > 3839 ? 160.5 : 60.5,
+            window.innerWidth > 3839 ? 160.5 : 60.5
+          ),
         }}
         key={mapMarker.id}
         zIndex={currentMarker === mapMarker.id ? 1000 : 1}

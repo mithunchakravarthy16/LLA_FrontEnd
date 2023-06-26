@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3841)]: {
       width: 80,
     },
+    [muiTheme.breakpoints.up(3839)]: {
+      width: 120,
+    },
   }),
   notificationPanelSection: (props: any) => ({
     position: "absolute",

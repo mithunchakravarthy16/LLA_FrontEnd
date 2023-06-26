@@ -2,6 +2,7 @@
 
 // @ts-nocheck
 import { useState, useEffect, Fragment } from "react";
+import { useLocation } from "react-router-dom";
 import {
   GoogleMap,
   useLoadScript,
@@ -55,6 +56,8 @@ const defaultCenter = {
 };
 
 const Map: React.FC<any> = (props) => {
+  const location = useLocation();
+
   const {
     markers,
     setNotificationPanelActive,
@@ -74,7 +77,7 @@ const Map: React.FC<any> = (props) => {
   const { googleMapStyle, footerSection } = useStyles(appTheme);
 
   const [map, setMap] = useState<any>(null);
-  const [zoomValue, setZoomValue] = useState<number>(15);
+  const [zoomValue, setZoomValue] = useState<number>();
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
 
   const { isLoaded } = useLoadScript({
@@ -92,6 +95,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 924px)",
       });
+      setZoomValue(16.5);
     } else if (window.innerWidth < 3839) {
       setSelectedContainerStyle({
         width: "100%",
@@ -101,6 +105,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 401px)",
       });
+      setZoomValue(15);
     }
   }, []);
 
@@ -250,7 +255,7 @@ const Map: React.FC<any> = (props) => {
   const handleMarkerClose = () => {
     setSelectedNotification("");
     map?.panTo(defaultCenter);
-    map?.setZoom(zoomValue);
+    map?.setZoom(window.innerWidth > 3839 && zoomValue);
     setNotificationPanelActive(false);
   };
 
@@ -263,8 +268,15 @@ const Map: React.FC<any> = (props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={selectedContainerStyle}
-          center={defaultCenter}
-          zoom={zoomValue}
+          center={
+            location?.pathname === "/home"
+              ? defaultCenter
+              : {
+                  lat: 39.7522538638645,
+                  lng: -105.00233200716357,
+                }
+          }
+          zoom={location?.pathname === "/home" ? zoomValue : 16}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}

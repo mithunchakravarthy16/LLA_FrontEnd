@@ -161,10 +161,11 @@ const Parking: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1200,
-        height: 400,
+        width: 1300,
+        height: 500,
         width1: 640,
         height1: 480,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
@@ -172,6 +173,7 @@ const Parking: React.FC<any> = (props) => {
         height: 240,
         width1: 327,
         height1: 240,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -218,6 +220,7 @@ const Parking: React.FC<any> = (props) => {
                           units={"%"}
                           isCrosshair={true}
                           crossHairLineColor={"#73B35A90"}
+                          is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
                             {
                               marker: {
@@ -232,15 +235,15 @@ const Parking: React.FC<any> = (props) => {
                                   [
                                     0,
                                     Highcharts.color("#73B35A")
-                                      .setOpacity(0.9)
+                                      .setOpacity(0.6)
                                       .get("rgba"),
                                   ],
                                   [
-                                    0.8,
+                                    1,
                                     Highcharts.color(
-                                      appTheme?.palette
-                                        ?.gridViewComponentGraphsColor
-                                        ?.highChartsGradient
+                                      selectedWidth?.is4kDevice
+                                        ? "#73B35A"
+                                        : "#000000"
                                     )
                                       .setOpacity(0)
                                       .get("rgba"),
