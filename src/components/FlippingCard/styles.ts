@@ -9,7 +9,7 @@ export const Wrapper = styled("div")`
     width: calc(100vw - 300px);
     display: flex;
     @media (max-width : 3841px) {
-        left: 220px;  
+        left: 290px;  
        bottom: 154px;
     }
     @media (max-width : 3073px) {
@@ -46,7 +46,7 @@ export const RootContainer = styled("div")`
 `;
 
 export const SkewContainer = styled(a.div) <{ isOpen?: boolean }>`
-    background: rgba(22, 25, 30, 0.8);
+    background: rgba(22, 25, 30, 0.7);
     position: absolute;
     top: 0;
     left: 0;
@@ -88,10 +88,11 @@ export const CardImage = styled("img")`
 export const CardTitle = styled("div")`
     font-family: 'HelveticaNeue-Regular';
     font-style: normal;
-    font-size: 40px;
-    line-height: 50px;
+    font-size: 34px;
+    line-height: 48px;
     color: #EEEEEE;
     text-transform: uppercase;
+    margin-top: 20px;
     @media (max-width : 3073px) {
         font-size: 30px;
     line-height: 40px;

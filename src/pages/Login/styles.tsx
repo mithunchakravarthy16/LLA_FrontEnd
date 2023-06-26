@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import llaBanner from "../../assets/images/login-bg1.jpg";
 import muiTheme from "../../theme/muiTheme";
@@ -8,8 +10,7 @@ const useStyles = makeStyles(() => ({
   }),
   loginBannerSection: (props: any) => ({
     backgroundImage: `url("${llaBanner}")`,
-    background:
-      props?.palette?.login?.loginBg,
+    background: props?.palette?.login?.loginBg,
     mixBlendMode: "hard-light",
     backdropFilter: "blur(42px)",
     backgroundSize: "cover",
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   }),
   loginBannerTitle: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     fontWeight: " 700",
     fontSize: "40px",
     lineHeight: "60px",
@@ -30,19 +31,18 @@ const useStyles = makeStyles(() => ({
       lineHeight: "40px",
       fontWeight: " 600",
     },
-    
   }),
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(45px)",
     borderRadius: "24px",
-    background: 'rgba(51, 51, 51, 0.6)',
+    background: "rgba(51, 51, 51, 0.6)",
     color: props?.palette?.login?.loginBannerTitle,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "1016px !important",
+    width: "856px !important",
     padding: "80px",
-    margin: '0 auto',
+    margin: "0 auto",
     [muiTheme.breakpoints.down(3073)]: {
       maxWidth: "460px !important",
       padding: "60px 40px ",
@@ -57,9 +57,8 @@ const useStyles = makeStyles(() => ({
     },
     "&::before": {
       top: "0",
-      right: "24px",
       width: "90%",
-      height: "6px",
+      height: "8px",
       content: `''`,
       position: "absolute",
       backgroundColor: props?.palette?.sidebar?.menuColor,
@@ -73,7 +72,7 @@ const useStyles = makeStyles(() => ({
   }),
   loginBannerBorder: (props: any) => ({}),
   loginBannerDescription: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     fontWeight: " 500",
     fontSize: "20px",
     lineHeight: "30px",
@@ -110,9 +109,9 @@ const useStyles = makeStyles(() => ({
     fontWeight: " 600",
   }),
   welcomeContent: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
-    fontSize: "69px",
-    lineHeight: "87px",
+    fontFamily: "HelveticaNeue-Regular",
+    fontSize: "56px",
+    lineHeight: "82px",
     color: props?.palette?.login?.loginBannerTitle,
     textAlign: "left",
     [muiTheme.breakpoints.down(3073)]: {
@@ -125,7 +124,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   formTitle: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     fontSize: "70px",
     lineHeight: "96px",
     color: props?.palette?.login?.loginBannerTitle,
@@ -146,7 +145,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   inputTitle: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     fontWeight: " 500",
     fontSize: "30px",
     lineHeight: "36px",
@@ -156,19 +155,19 @@ const useStyles = makeStyles(() => ({
       fontWeight: " 500",
       fontSize: "16px",
       lineHeight: "24px",
-      marginBottom: 6
+      marginBottom: 6,
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontWeight: " 500",
       fontSize: "14px",
       lineHeight: "21px",
-      marginBottom: 6
+      marginBottom: 6,
     },
   }),
   inputField: (props: any) => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
-      fontFamily: 'HelveticaNeue-Regular',
+      fontFamily: "HelveticaNeue-Regular",
       fontWeight: " 500",
       fontSize: "40px",
       lineHeight: "48px",
@@ -182,13 +181,13 @@ const useStyles = makeStyles(() => ({
         fontWeight: " 500",
         fontSize: "16px",
         lineHeight: "24px",
-        padding: 16
+        padding: 16,
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontWeight: " 500",
         fontSize: "14px",
         lineHeight: "21px",
-        padding: 16
+        padding: 16,
       },
     },
     [muiTheme.breakpoints.down(3073)]: {
@@ -201,7 +200,7 @@ const useStyles = makeStyles(() => ({
   inputFieldPassword: (props: any) => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
-      fontFamily: 'HelveticaNeue-Regular',
+      fontFamily: "HelveticaNeue-Regular",
       fontWeight: " 500",
       fontSize: "40px",
       lineHeight: "48px",
@@ -215,13 +214,13 @@ const useStyles = makeStyles(() => ({
         fontWeight: " 500",
         fontSize: "16px",
         lineHeight: "24px",
-        padding: 16
+        padding: 16,
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontWeight: " 500",
         fontSize: "14px",
         lineHeight: "21px",
-        padding: 16
+        padding: 16,
       },
     },
     [muiTheme.breakpoints.down(3073)]: {
@@ -239,7 +238,7 @@ const useStyles = makeStyles(() => ({
       },
     },
     "& .MuiFormControlLabel-label": {
-      fontFamily: 'HelveticaNeue-Regular',
+      fontFamily: "HelveticaNeue-Regular",
       fontWeight: " 500",
       fontSize: "16px",
       lineHeight: "24px",
@@ -251,9 +250,9 @@ const useStyles = makeStyles(() => ({
     "& .MuiButtonBase-root": {
       background: props?.palette?.login?.loginButton,
       borderRadius: "5px",
-      fontFamily: 'HelveticaNeue-Regular',
-      fontSize: "40px",
-      lineHeight: "90px",
+      fontFamily: "HelveticaNeue-Regular",
+      fontSize: "32px",
+      lineHeight: "82px",
       color: props?.palette?.login?.loginBannerTitle,
       padding: 12,
       letterSpacing: " 0.2em",
@@ -269,10 +268,14 @@ const useStyles = makeStyles(() => ({
       "&:hover": {
         background: props?.palette?.login?.loginButton,
       },
+      "&:-webkit-autofill::first-line": {
+        fontSize: "40px",
+        lineHeight: "90px",
+      },
     },
   }),
   copyRights: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     fontWeight: " 500",
     fontSize: "16px",
     lineHeight: "24px",
@@ -289,7 +292,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   formikErrorClass: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     color: "red",
     padding: 0,
     margin: 0,
@@ -314,9 +317,9 @@ const useStyles = makeStyles(() => ({
     },
   }),
   llaLogoSection: (props: any) => ({
-    width: 180,
+    width: 200,
     margin: "0 auto",
-    marginBottom: 48,
+    marginBottom: 32,
     [muiTheme.breakpoints.down(3073)]: {
       width: 100,
       margin: "0 auto",
@@ -338,7 +341,7 @@ const useStyles = makeStyles(() => ({
   }),
   formSection: (props: any) => ({
     textAlign: "center",
-    letterSpacing : "4px"
+    letterSpacing: "4px",
   }),
 }));
 export default useStyles;

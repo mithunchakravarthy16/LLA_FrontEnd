@@ -1,6 +1,6 @@
 let colorCodes = {
   orangeOne: "#3b5270",
-  orangeTwo: "#FF7A00",
+  orangeTwo: "#F26522",
   darkGreyBlueOne: "#db560a",
   darkGreyBlueTwo: "#152232",
   colorWhite: "#ffffff",
@@ -60,6 +60,8 @@ let colorCodes = {
   lightGreyinputBorder: 'rgba(131, 131, 131, 1)',
   darkBlackShade : "#333333",
   darkOrangeShade : "#CD5209",
-  darkGreyBalckShade : "#1A1B22"
+  darkGreyBalckShade : "#1A1B22",
+  darkBlackShade2: '#090A0C',
+  markerCallOutGrey: 'rgba(45, 47, 52, 0.85)'
 };
 export default colorCodes;

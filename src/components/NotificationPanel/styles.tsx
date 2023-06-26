@@ -3,31 +3,29 @@
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
-
 const useStyles = makeStyles({
   notificationRootContainer: (props: any) => ({
-    margin: "25px",
+    margin: "36px",
   }),
   notificationTitle: (props: any) => ({
     textTransform: "uppercase",
-    letterSpacing: "0.10em",
-    fontWeight: 700,
+    letterSpacing: "0.1em",
     fontSize: 22,
-    width: "77%",
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
+    width: "80%",
     [muiTheme.breakpoints.down(3841)]: {
-      fontSize: 48,
-      lineHeight: '63px'
+      fontSize: 42,
+      lineHeight: "56px",
     },
   }),
   notificationHeader: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    height: "50px",
     width: "100%",
+    marginBottom: 24,
     [muiTheme.breakpoints.down(3841)]: {
-      height: "100px",
+      marginBottom: 48,
     },
   }),
   notificationIconSection: (props: any) => ({}),
@@ -61,12 +59,13 @@ const useStyles = makeStyles({
       fontSize: "16px !important",
       fontWeight: "600 !important",
       lineHeight: "30px !important",
-      fontFamily: 'HelveticaNeue-Regular',
+      fontFamily: "HelveticaNeue-Regular",
       marginBottom: 10,
       "&:first-child": {
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        flex: 1,
         "& .count": {
           width: 45,
           fontWeight: 500,
@@ -78,7 +77,7 @@ const useStyles = makeStyles({
           marginBottom: 6,
           [muiTheme.breakpoints.down(3841)]: {
             fontSize: "30px",
-            lineHeight: '50px',
+            lineHeight: "50px",
             marginBottom: 16,
             width: 90,
           },
@@ -95,6 +94,7 @@ const useStyles = makeStyles({
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        flex: 1,
         "& .count": {
           width: 45,
           fontWeight: 500,
@@ -106,7 +106,7 @@ const useStyles = makeStyles({
           marginBottom: 6,
           [muiTheme.breakpoints.down(3841)]: {
             fontSize: "30px",
-            lineHeight: '50px',
+            lineHeight: "50px",
             marginBottom: 16,
             width: 90,
           },
@@ -123,6 +123,7 @@ const useStyles = makeStyles({
         marginRight: "0 !important",
         minWidth: "64px !important",
         color: `${props?.palette?.notification?.tabTextColor} !important`,
+        flex: 1,
         "& .count": {
           width: 45,
           fontWeight: 500,
@@ -134,7 +135,7 @@ const useStyles = makeStyles({
           marginBottom: 6,
           [muiTheme.breakpoints.down(3841)]: {
             fontSize: "30px",
-            lineHeight: '50px',
+            lineHeight: "50px",
             marginBottom: 16,
             width: 90,
           },
@@ -170,11 +171,25 @@ const useStyles = makeStyles({
     color: props?.palette?.notification?.lightGrey3,
     borderRadius: 6,
     height: "48px",
+    [muiTheme.breakpoints.down(3841)]: {
+      height: "70px",
+    },
     "& .MuiIconButton-root": {
       marginRight: 7,
+      [muiTheme.breakpoints.down(3841)]: {
+        marginRight: 15,
+      },
+      "& img": {
+        [muiTheme.breakpoints.down(3841)]: {
+          width: 30,
+        },
+      },
     },
     "& .MuiInputBase-input": {
       padding: "14px 6px",
+      fontSize: "24px",
+      lineHeight: "52px",
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
   notificationListItemSection: (props: any) => ({

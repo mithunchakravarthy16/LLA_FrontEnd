@@ -40,7 +40,9 @@ let theme = {
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
         tabListCountColor: colorCodes?.greyColor2,
-        expansionListItemBorder : colorCodes?.darkOrangeShade
+        expansionListItemBorder : colorCodes?.darkOrangeShade,
+        expansionListItemBg: colorCodes?.darkBlackShade2,
+        expansionMarkerListBg: colorCodes?.markerCallOutGrey
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,
@@ -122,7 +124,9 @@ let theme = {
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
         tabListCountColor: colorCodes?.greyColor2,
-        expansionListItemBorder : colorCodes?.darkOrangeShade
+        expansionListItemBorder : colorCodes?.darkOrangeShade,
+        expansionListItemBg: colorCodes?.darkBlackShade2,
+        expansionMarkerListBg: colorCodes?.markerCallOutGrey
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,
@@ -204,7 +208,9 @@ let theme = {
         takeActionButtonColor: colorCodes?.orangeShadeRed,
         listTextColor: colorCodes?.colorWhite,
         tabListCountColor: colorCodes?.greyColor2,
-        expansionListItemBorder : colorCodes?.darkOrangeShade
+        expansionListItemBorder : colorCodes?.darkOrangeShade,
+        expansionListItemBg: colorCodes?.darkBlackShade2,
+        expansionMarkerListBg: colorCodes?.markerCallOutGrey
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,
