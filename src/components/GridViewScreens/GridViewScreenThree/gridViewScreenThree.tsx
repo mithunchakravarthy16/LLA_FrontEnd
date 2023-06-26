@@ -41,6 +41,22 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     horizantalDataGridLabelStyle,
   } = useStyles(appTheme);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 1000,
+        height: 400,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+      });
+    }
+  }, []);
+
   return (
     <>
       {/* Grid 3 */}
@@ -86,8 +102,8 @@ const GridViewScreenThree: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <div>Security Alerts</div>
             <Chart
-              width={550}
-              height={200}
+              width={selectedWidth?.width}
+              height={selectedWidth?.height}
               graphType={"spline"}
               isVisible={true}
               units={""}

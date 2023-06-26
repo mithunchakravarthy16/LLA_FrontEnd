@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Highcharts from "highcharts";
@@ -6,8 +8,8 @@ import { LiveImg } from "assets/gridViewIcons";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
 
-const GridViewScreenOne : React.FC<any> = (props) => {
- const {handleClick}=props
+const GridViewScreenOne: React.FC<any> = (props) => {
+  const { handleClick } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -51,22 +53,34 @@ const GridViewScreenOne : React.FC<any> = (props) => {
     lastweekBodySubContainer,
   } = useStyles(appTheme);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 860,
+        height: 340,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 414,
+        height: 160,
+      });
+    }
+  }, []);
+
   return (
     <>
       {/* Gride 1 */}
-      {/* <Grid item xs={4} className={gridStyles} > */}
-      <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}>
+      {/* <Grid item xs={4} className={gridStyles}> */}
+        <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}>
 
         <Grid container xs={12} className={gridContainers}>
-          <Grid
-            item
-            xs={12}
-            className={containerTitle}
-          >
+          <Grid item xs={12} className={containerTitle}>
             PARKING
           </Grid>
           <Grid item xs={12} className={subContainer}>
-            <Grid container xs={12} className={childSubContainer} >
+            <Grid container xs={12} className={childSubContainer}>
               <Grid item xs={9}>
                 <Grid
                   container
@@ -75,12 +89,10 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                   className={leftSubChildContainer}
                 >
                   <Grid item xs={12}>
-                    <div className={graphTitleScreenOne} >
-                      Occupancy
-                    </div>
+                    <div className={graphTitleScreenOne}>Occupancy</div>
                     <Chart
-                      width={414}
-                      height={160}
+                      width={selectedWidth?.width}
+                      height={selectedWidth?.height}
                       graphType={"areaspline"}
                       isVisible={true}
                       units={"%"}
@@ -105,7 +117,11 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                               ],
                               [
                                 0.8,
-                                Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient)
+                                Highcharts.color(
+                                  appTheme?.palette
+                                    ?.gridViewComponentGraphsColor
+                                    ?.highChartsGradient
+                                )
                                   .setOpacity(0)
                                   .get("rgba"),
                               ],
@@ -113,34 +129,24 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                           },
                           data: [
                             1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5, 4,
-                            2, 8, 4, 3, 4, 1, 4
+                            2, 8, 4, 3, 4, 1, 4,
                           ],
                         },
                       ]}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <div
-                    className={liveContainer}
-                    >
-                      <div className={liveImgStyle} >
+                    <div className={liveContainer}>
+                      <div className={liveImgStyle}>
                         <img width={50} height={30} src={LiveImg} />
                       </div>
                       <div className={liveContentLeftStyle}>
-                        <div className={liveContentValue} >
-                        398 
-                        </div>
-                        <div className={liveContentLabel} >
-                          AVAILABLE
-                        </div>
+                        <div className={liveContentValue}>398</div>
+                        <div className={liveContentLabel}>AVAILABLE</div>
                       </div>
                       <div className={liveContentStyle}>
-                        <div className={liveContentValue} >
-                        354
-                        </div>
-                        <div className={liveContentLabel} >
-                          OCCUPIED
-                        </div>
+                        <div className={liveContentValue}>354</div>
+                        <div className={liveContentLabel}>OCCUPIED</div>
                       </div>
                     </div>
                   </Grid>
@@ -154,15 +160,15 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                   textAlign="center"
                   className={lastweekContainer}
                 >
-                  <Grid
-                    item
-                    xs={12}
-                    className={lastweekTitleStyle}
-                  >
+                  <Grid item xs={12} className={lastweekTitleStyle}>
                     Today
                   </Grid>
-                  <Grid item xs={12} className={lastweekBodyContainer} >
-                    <Grid container xs={12} className={lastweekBodySubContainer} >
+                  <Grid item xs={12} className={lastweekBodyContainer}>
+                    <Grid
+                      container
+                      xs={12}
+                      className={lastweekBodySubContainer}
+                    >
                       <Grid
                         item
                         xs={12}
@@ -170,7 +176,9 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                         direction="column"
                       >
                         <div className={listItemValueStyle}>10Hrs</div>
-                        <div className={listItemLabelStyle}>Avg.Parking Hrs.</div>
+                        <div className={listItemLabelStyle}>
+                          Avg.Parking Hrs.
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -189,7 +197,7 @@ const GridViewScreenOne : React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>20Kg</div>
                         <div className={listItemLabelStyle}>
-                        Carbon Emission
+                          Carbon Emission
                         </div>
                       </Grid>
                     </Grid>

@@ -30,6 +30,14 @@ const Parking: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
+  const [parkingLotSelectionActive, setParkingLotSelectionActive] =
+  useState<boolean>(false);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -62,7 +70,8 @@ const Parking: React.FC<any> = (props) => {
     notificationPanelGrid,
     mapFilterStyle,
     customNotificationTabs,
-  } = useStyles(appTheme);
+    lotSelectionIconStyle,
+  } = useStyles({...appTheme, parkingLotSelectionActive:parkingLotSelectionActive});
 
   const topPanelListItems: any[] = [
     {
@@ -127,12 +136,7 @@ const Parking: React.FC<any> = (props) => {
 
   // Notification Data
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
-  const [selectedNotification, setSelectedNotification] = useState<any>("");
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const [notificationPanelActive, setNotificationPanelActive] =
-    useState<boolean>(false);
-  const [currentMarker, setCurrentMarker] = useState<any>("");
+
 
   const dashboardArray = parkingData?.notifications?.parking;
   let currentTimeStampValue;
@@ -179,20 +183,28 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
-  const[parkingLotIndex, setParkingLotIndex] = useState<any>(0);
-  const[selectedParkingLot, setSelectedParkingLot] = useState<any>(tabsList[parkingLotIndex]?.name);
+  const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
+  const [selectedParkingLot, setSelectedParkingLot] = useState<any>(
+    tabsList[parkingLotIndex]?.name
+  );
+
 
   const handleParkingLot = (index: number) => {
-    setParkingLotIndex(index)
+    setParkingLotIndex(index);
+    // setParkingLotSelectionActive(!parkingLotSelectionActive);
     // setTabIndex(index);
     // setSearchOpen(false);
     // setSelectedNotification("");
     // setSelectedRefId("");
   };
 
-  useEffect(()=>{
-    setSelectedParkingLot(tabsList[parkingLotIndex]?.name)
-  },[parkingLotIndex])
+  useEffect(() => {
+    setSelectedParkingLot(tabsList[parkingLotIndex]?.name);
+  }, [parkingLotIndex]);
+
+  const handleLotSelction = () => {
+    setParkingLotSelectionActive(!parkingLotSelectionActive);
+  };
 
   return (
     <>
@@ -239,15 +251,29 @@ const Parking: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                    <div className={mapFilterStyle}>
-                      <div style={{}}>{selectedParkingLot}</div>
-                      <Tabs
-                        initialIndex={parkingLotIndex}
-                        tabsList={tabsList}
-                        handleTabs={handleParkingLot}
-                        dashboardNotificationClassName={customNotificationTabs}
-                      />
-                    </div>
+                    {!parkingLotSelectionActive ? (
+                      <div
+                        className={lotSelectionIconStyle}
+                        onClick={handleLotSelction}
+                      >
+                        {selectedParkingLot}
+                      </div>
+                    ) :  <div className={mapFilterStyle}>
+                    <Tabs
+                      initialIndex={parkingLotIndex}
+                      tabsList={tabsList}
+                      handleTabs={handleParkingLot}
+                      dashboardNotificationClassName={customNotificationTabs}
+                    />
+                     <div
+                        className={lotSelectionIconStyle}
+                        onClick={handleLotSelction}
+                      >
+                        X
+                      </div>
+                  </div>
+                  }
+                   
                     <Map
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}

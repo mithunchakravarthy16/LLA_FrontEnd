@@ -52,6 +52,22 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
     childSubContainer,
   } = useStyles(appTheme);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 820,
+        height: 160,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 360,
+        height: 80,
+      });
+    }
+  }, []);
+
   return (
     <>
       {/* Grid 2 */}
@@ -107,8 +123,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
-                          width={410}
-                          height={80}
+                          width={selectedWidth?.width}
+                          height={selectedWidth?.height}
                           isVisible={false}
                           graphType={"spline"}
                           units={"kWh"}
@@ -135,8 +151,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
-                          width={410}
-                          height={80}
+                          width={selectedWidth?.width}
+                          height={selectedWidth?.height}
                           graphType={"spline"}
                           isVisible={false}
                           units={"kWh"}
@@ -163,8 +179,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
-                          width={410}
-                          height={80}
+                          width={selectedWidth?.width}
+                          height={selectedWidth?.height}
                           graphType={"spline"}
                           isVisible={false}
                           units={"KL"}

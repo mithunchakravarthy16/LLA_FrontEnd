@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
@@ -67,6 +69,7 @@ const Parking: React.FC<any> = (props) => {
     liveContentLeftStyle,
     aqiCircleStyle,
     graphTwoHeader,
+    electricity,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
@@ -151,6 +154,22 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 1000,
+        height: 440,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 550,
+        height: 220,
+      });
+    }
+  }, []);
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -194,7 +213,12 @@ const Parking: React.FC<any> = (props) => {
                                 padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <Grid item xs={12} style={{ height: "10%" }}>
+                              <Grid
+                                item
+                                xs={12}
+                                style={{ height: "10%" }}
+                                className={electricity}
+                              >
                                 Electricity Consumed
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
@@ -205,8 +229,8 @@ const Parking: React.FC<any> = (props) => {
                                 >
                                   <Grid item xs={9} style={{ height: "100%" }}>
                                     <Chart
-                                      width={490}
-                                      height={222}
+                                      width={selectedWidth?.width}
+                                      height={selectedWidth?.height}
                                       graphType={"areaspline"}
                                       isVisible={true}
                                       units={"kWh"}
@@ -302,8 +326,8 @@ const Parking: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Chart
-                                  width={650}
-                                  height={222}
+                                  width={selectedWidth?.width}
+                                  height={selectedWidth?.height}
                                   graphType={"areaspline"}
                                   isVisible={true}
                                   units={""}

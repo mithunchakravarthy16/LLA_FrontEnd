@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
@@ -142,6 +144,22 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 1000,
+        height: 400,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+      });
+    }
+  }, []);
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -228,8 +246,8 @@ const Parking: React.FC<any> = (props) => {
                           </Grid>
                           <Grid item xs={12} style={{ height: "90%" }}>
                             <Chart
-                              width={650}
-                              height={222}
+                              width={selectedWidth?.width}
+                              height={selectedWidth?.height}
                               isVisible={true}
                               graphType={"spline"}
                               units={"kWh"}
@@ -279,8 +297,8 @@ const Parking: React.FC<any> = (props) => {
                           </Grid>
                           <Grid item xs={12} style={{ height: "90%" }}>
                             <Chart
-                              width={650}
-                              height={222}
+                              width={selectedWidth?.width}
+                              height={selectedWidth?.height}
                               graphType={"spline"}
                               isVisible={true}
                               units={"KL"}

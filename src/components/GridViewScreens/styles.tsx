@@ -5,7 +5,7 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   gridContainers: (props: any) => ({
-    height: "100%",
+    height: "95%",
   }),
 
   containerTitle: (props: any) => ({
@@ -236,6 +236,10 @@ const useStyles = makeStyles({
   listItemValueStyle: (props: any) => ({
     fontWeight: "600",
     fontSize: "22px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 36,
+      lineHeight: "56px",
+    },
   }),
 
   listItemLabelStyle: (props: any) => ({

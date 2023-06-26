@@ -53,6 +53,22 @@ const GridViewScreenFive: React.FC<any> = (props) => {
     screenFiveGraphTitleStyle,
   } = useStyles(appTheme);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 860,
+        height: 320,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 410,
+        height: 160,
+      });
+    }
+  }, []);
+
   return (
     <>
       {/* Grid 5 */}
@@ -112,8 +128,8 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
-                          width={410}
-                          height={160}
+                          width={selectedWidth?.width}
+                          height={selectedWidth?.height}
                           isVisible={true}
                           graphType={"spline"}
                           units={"kWh"}

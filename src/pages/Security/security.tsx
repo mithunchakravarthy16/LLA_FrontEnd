@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
@@ -76,27 +78,27 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: FireAlarm,
       value: "15",
-      name: "Fire Detection"
+      name: "Fire Detection",
     },
     {
       icon: Siren,
       value: "20",
-      name: "Tampering Alarm"
+      name: "Tampering Alarm",
     },
     {
       icon: Unauthorised,
       value: "14",
-      name: "Unauthorised Access"
+      name: "Unauthorised Access",
     },
     {
       icon: Trolley,
       value: "15",
-      name: "Tailgating"
+      name: "Tailgating",
     },
     {
       icon: Camera,
       value: "05",
-      name: "Camera Occlusion"
+      name: "Camera Occlusion",
     },
   ];
 
@@ -154,6 +156,26 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 1200,
+        height: 400,
+        width1: 640,
+        height1: 480,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 654,
+        height: 240,
+        width1: 327,
+        height1: 240,
+      });
+    }
+  }, []);
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -189,8 +211,8 @@ const Parking: React.FC<any> = (props) => {
                       <Grid item xs={6} className={graphOneContainer}>
                         <div className={graphTitle}>Security</div>
                         <Chart
-                          width={654}
-                          height={240}
+                          width={selectedWidth?.width}
+                          height={selectedWidth?.height}
                           graphType={"areaspline"}
                           isVisible={true}
                           units={"%"}
@@ -235,8 +257,8 @@ const Parking: React.FC<any> = (props) => {
                       </Grid>
                       <Grid item xs={6} className={graphTwoContainer}>
                         <Chart
-                          width={327}
-                          height={240}
+                          width={selectedWidth?.width1}
+                          height={selectedWidth?.height1}
                           graphType={"pie"}
                           isVisible={true}
                           units="%"
@@ -289,20 +311,24 @@ const Parking: React.FC<any> = (props) => {
                                 {
                                   name: "Tailgating",
                                   y: 37,
-                                }
-                              ]
+                                },
+                              ],
                             },
                           ]}
                         />
-                        <Grid direction='column' className={pieChartLegendContainer}>
-                          {
-                            PIECHART_LEGEND.map(legend => (
-                              <div className={legendIdentifierContainer}>
-                                <div className={legendColorBox} style={{backgroundColor: legend.background}} ></div>
-                                <div className={legendText}>{legend.name}</div>
-                              </div>
-                            ))
-                          }
+                        <Grid
+                          direction="column"
+                          className={pieChartLegendContainer}
+                        >
+                          {PIECHART_LEGEND.map((legend) => (
+                            <div className={legendIdentifierContainer}>
+                              <div
+                                className={legendColorBox}
+                                style={{ backgroundColor: legend.background }}
+                              ></div>
+                              <div className={legendText}>{legend.name}</div>
+                            </div>
+                          ))}
                         </Grid>
                       </Grid>
                     </Grid>

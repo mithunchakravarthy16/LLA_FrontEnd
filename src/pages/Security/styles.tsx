@@ -1,11 +1,17 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
     height: "100vh",
     paddingLeft: "3.4px",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 159px) !important",
+    },
   }),
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
@@ -77,9 +83,9 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 #808080",
-    borderBottom : "1px solid #333333",
-    borderRight : "1px solid #333333",
-    paddingLeft: '30px',
+    borderBottom: "1px solid #333333",
+    borderRight: "1px solid #333333",
+    paddingLeft: "30px",
     height: "100%",
   }),
 
@@ -88,16 +94,16 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
-    borderBottom : "1px solid #333333",
+    borderBottom: "1px solid #333333",
     height: "100%",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   }),
 
   pieChartLegendContainer: {
     display: "flex",
     flexDirection: "column",
-    paddingLeft: "10%"
+    paddingLeft: "10%",
   },
 
   legendIdentifierContainer: {
@@ -108,25 +114,29 @@ const useStyles = makeStyles({
 
   legendColorBox: (props: any) => {
     console.log("PROPS", props);
-    return ({
-      width: '20px',
-      height: '10px',
-      backgroundColor: '#30b7fb',
-      borderRadius: '10px'
-    })
+    return {
+      width: "20px",
+      height: "10px",
+      backgroundColor: "#30b7fb",
+      borderRadius: "10px",
+    };
   },
 
   legendText: {
-    color: '#8A8A8A',
-    fontSize: '20px',
-    fontFamily: 'Helvetica Neue',
-    fontWeight: '500',
-    textTransform: 'capitalize',
-    marginLeft: '15px',
+    color: "#8A8A8A",
+    fontSize: "20px",
+    fontFamily: "HelveticaNeue-Regular",
+    fontWeight: "500",
+    textTransform: "capitalize",
+    marginLeft: "15px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
   },
 
   notificationPanelGrid: (props: any) => ({
-    border : "1px solid #333333"
+    border: "1px solid #333333",
   }),
   bodyLeftTopPanelListSubContainer: (props: any) => ({
     border: "1px solid #808080",
@@ -140,7 +150,11 @@ const useStyles = makeStyles({
   }),
   graphTitle: (props: any) => ({
     marginBottom: "20px",
-    fontSize: "16px"
-  })
+    fontSize: "16px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+  }),
 });
 export default useStyles;
