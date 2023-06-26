@@ -56,9 +56,10 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                 value={pageName === "sendConfig" ? item?.val : index}
                 label={
                   <div className={tabLabel}>
-                    <div className={listCount}>
+                    {item?.count && <div className={listCount}>
                       <div className="count">{item?.count}</div>
-                    </div>
+                    </div>}
+                    
                     <div>{item?.name}</div>
                   </div>
                 }

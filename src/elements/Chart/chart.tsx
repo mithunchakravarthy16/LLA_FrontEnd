@@ -184,7 +184,7 @@ const Chart: React.FC<any> = (props) => {
             useHTML: true,
             overflow: "justify",
             style: {
-              fontSize: "10px",
+              fontSize: "12px",
               color: "white",
             },
           },
