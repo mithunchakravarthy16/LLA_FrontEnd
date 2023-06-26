@@ -78,6 +78,9 @@ const useStyles = makeStyles({
     position: "absolute",
     top: "-15px",
     left: "20px",
+    [muiTheme.breakpoints.up(3839)]: {
+      top: "-30px",
+    },
   }),
 
   liveContentValue: (props: any) => ({

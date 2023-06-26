@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   progressBarStyle: (props: any) => ({
     width: "80%",
     height: "22px",
+    [muiTheme.breakpoints.up(3839)]: {
+      height: "47px",
+    },
   }),
 });
 export default useStyles;

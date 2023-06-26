@@ -63,13 +63,15 @@ const GridViewScreenFour: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 860,
-        height: 160,
+        width: 835,
+        height: 260,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
-        width: 410,
+        width: 400,
         height: 80,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -111,6 +113,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                           graphType={"spline"}
                           units={"kWh"}
                           isCrosshair={false}
+                          is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
                             {
                               marker: {
@@ -153,9 +156,13 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         <div
                           style={{
                             width: "100%",
-                            height: "15px",
+                            height: selectedWidth?.is4kDevice
+                              ? "35.92px"
+                              : "15px",
                             backgroundColor: "#484D52",
-                            borderRadius: "7.5px",
+                            borderRadius: selectedWidth?.is4kDevice
+                              ? "20px"
+                              : "7.5px",
                             overflow: "hidden",
                           }}
                         >
@@ -177,6 +184,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         justifyContent="center"
                         alignItems="center"
                         display="flex"
+                        fontSize={selectedWidth?.is4kDevice ? "40px" : "15px"}
                       >
                         60%
                       </Grid>
@@ -185,7 +193,11 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   <Grid item xs={12}>
                     <div className={liveContainer}>
                       <div className={liveImgStyle}>
-                        <img width={50} height={30} src={LiveImg} />
+                        <img
+                          width={selectedWidth?.is4kDevice ? 146 : 50}
+                          height={selectedWidth?.is4kDevice ? 60 : 30}
+                          src={LiveImg}
+                        />
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>64Kw</div>

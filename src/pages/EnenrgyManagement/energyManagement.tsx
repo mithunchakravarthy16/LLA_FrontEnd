@@ -149,13 +149,15 @@ const Parking: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1000,
-        height: 400,
+        width: 1300,
+        height: 500,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
         width: 550,
         height: 200,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -251,7 +253,10 @@ const Parking: React.FC<any> = (props) => {
                               isVisible={true}
                               graphType={"spline"}
                               units={"kWh"}
-                              isCrosshair={false}
+                              isCrosshair={true}
+                              crossHairLineColor={"#E5FAF6"}
+                              is4kDevice={selectedWidth?.is4kDevice}
+                              tooltip={"shared"}
                               dataPoints={[
                                 {
                                   marker: {
@@ -304,6 +309,7 @@ const Parking: React.FC<any> = (props) => {
                               units={"KL"}
                               isCrosshair={true}
                               crossHairLineColor={"#47A899"}
+                              is4kDevice={selectedWidth?.is4kDevice}
                               dataPoints={[
                                 {
                                   marker: {
