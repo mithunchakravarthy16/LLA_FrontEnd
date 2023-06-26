@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     width: "100%",
     marginBottom: 24,
+    height: 100,
     [muiTheme.breakpoints.down(3841)]: {
       marginBottom: 48,
     },
@@ -196,7 +197,7 @@ const useStyles = makeStyles({
     height: "calc(100vh - 365px)",
     overflowY: "scroll",
     [muiTheme.breakpoints.down(3841)]: {
-      height: "calc(100vh - 521px)",
+      height: "calc(100vh - 694px)",
     },
   }),
 });

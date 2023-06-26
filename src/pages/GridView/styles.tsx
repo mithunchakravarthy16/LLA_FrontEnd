@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     background: "#161515",
     opacity: 1,
     [muiTheme.breakpoints.down(3841)]: {
-      width: "calc(100vw - 150px) !important",
+      width: "calc(100vw - 200px) !important",
     },
 
     "& > .MuiGrid-item:first-child": {
