@@ -58,13 +58,15 @@ const GridViewScreenOne: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 860,
-        height: 340,
+        width: 835,
+        height: 440,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
-        width: 414,
+        width: 400,
         height: 160,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -98,6 +100,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       units={"%"}
                       isCrosshair={true}
                       crossHairLineColor={"#73B35A90"}
+                      is4kDevice={selectedWidth?.is4kDevice}
                       dataPoints={[
                         {
                           marker: {
@@ -112,16 +115,14 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                               [
                                 0,
                                 Highcharts.color("#73B35A")
-                                  .setOpacity(0.4)
+                                  .setOpacity(
+                                    selectedWidth?.is4kDevice ? 0.6 : 0.4
+                                  )
                                   .get("rgba"),
                               ],
                               [
-                                0.8,
-                                Highcharts.color(
-                                  appTheme?.palette
-                                    ?.gridViewComponentGraphsColor
-                                    ?.highChartsGradient
-                                )
+                                1,
+                                Highcharts.color("#73B35A")
                                   .setOpacity(0)
                                   .get("rgba"),
                               ],
@@ -138,7 +139,11 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                   <Grid item xs={12}>
                     <div className={liveContainer}>
                       <div className={liveImgStyle}>
-                        <img width={50} height={30} src={LiveImg} />
+                        <img
+                          width={selectedWidth?.is4kDevice ? 146 : 50}
+                          height={selectedWidth?.is4kDevice ? 60 : 30}
+                          src={LiveImg}
+                        />
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>398</div>

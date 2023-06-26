@@ -1,9 +1,12 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import muiTheme from "theme/muiTheme";
 import moment from "moment";
 
 const Chart: React.FC<any> = (props) => {
+  const location = useLocation();
   const {
     width,
     height,
@@ -11,39 +14,46 @@ const Chart: React.FC<any> = (props) => {
     isVisible,
     graphType,
     units,
-    isCrosshair, 
-    crossHairLineColor,  
+    isCrosshair,
+    crossHairLineColor,
+    is4kDevice,
+    tooltip,
   } = props;
 
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
-  const [lastTwntyTwoHours, setLastTwntyTwoHours]= useState<any>(()=>{
+  const [lastTwntyTwoHours, setLastTwntyTwoHours] = useState<any>(() => {
     const currentTime1 = moment();
-      const last24Hours = [];
-    
-      for (let i = 0; i < 24; i++) {
-        const hour = currentTime1.subtract(1, 'hour').startOf('hour').format('hh:mm A');
-        
-        last24Hours.unshift(hour);
-      }
-      return last24Hours;
-  });  
+    const last24Hours = [];
 
-  useEffect(()=>{
+    for (let i = 0; i < 24; i++) {
+      const hour = currentTime1
+        .subtract(1, "hour")
+        .startOf("hour")
+        .format("hh:mm A");
 
-    const interval = setInterval(()=>{
+      last24Hours.unshift(hour);
+    }
+    return last24Hours;
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
       const currentTime1 = moment();
       const last24Hours = [];
-    
+
       for (let i = 0; i < 24; i++) {
-        const hour = currentTime1.subtract(1, 'hour').startOf('hour').format('hh:mm A');
-        
+        const hour = currentTime1
+          .subtract(1, "hour")
+          .startOf("hour")
+          .format("hh:mm A");
+
         last24Hours.unshift(hour);
       }
-      setLastTwntyTwoHours(last24Hours)
-    },3600000)
-    return ()=> clearInterval(interval);
-  },[])
+      setLastTwntyTwoHours(last24Hours);
+    }, 3600000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <HighchartsReact
@@ -74,9 +84,9 @@ const Chart: React.FC<any> = (props) => {
           trackBorderRadius: 8,
           trackBorderColor: "#C38C8C",
         },
-        legend: {enabled: false},
+        legend: { enabled: false },
         tooltip: {
-          shared: false,
+          shared: tooltip ? tooltip : false,
           useHTML: true,
           backgroundColor: toolTipBg,
           borderColor: tBorder,
@@ -85,18 +95,27 @@ const Chart: React.FC<any> = (props) => {
           style: {
             color: "#fff",
             fontWeight: "bold",
+            fontSize: is4kDevice ? "40px" : "15px",
           },
           formatter: function (
             this: Highcharts.TooltipFormatterContextObject
           ): string | boolean {
-            if (true) {
+            if (tooltip !== "shared") {
               const value: any = this.y;
 
               const thisColorColumnChart3: any = this?.color;
               switch ("graph1") {
                 case "graph1":
-                  setToolTipBg("#57585A");
-                  setTBorder("#57585A");
+                  setToolTipBg(
+                    location.pathname === "/energyManagement"
+                      ? "#050F1B"
+                      : "#57585A"
+                  );
+                  setTBorder(
+                    location.pathname === "/energyManagement"
+                      ? "#636363"
+                      : "#57585A"
+                  );
                   break;
               }
 
@@ -107,20 +126,21 @@ const Chart: React.FC<any> = (props) => {
             </td>
           </tr>
         </table>`;
-            } else if (false) {
+            } else if (tooltip) {
               const thisXCopy: any = this?.x;
               return `<table>
                             <tr>
                             <td 
                             style="font-weight: 100;
                             line-height:10px;
-                            font-size:14px;
-                            color:#464646;
-                            background-color:#fff;
-                            padding:10px 20px 5px 10px;
+                            font-size: ${is4kDevice ? "40px" : "14px"};
+                            color:#FFFFFF;
+                            background-color:#050F1B;
+                            padding:20px;
                             vertical-align:middle;
-                            border-radius:5px;
-                            box-shadow:0 0 5px #464646;">
+                            border-radius:${is4kDevice ? "10px" : "5px"};
+                            border: 0.5px solid #636363
+                           ">
                               ${this?.points?.reduce(
                                 (s: any, point: any): any => {
                                   return (
@@ -131,14 +151,13 @@ const Chart: React.FC<any> = (props) => {
                                       ? "#37CB94"
                                       : point.series.color
                                   };
-                                  padding:7px;
+                                  padding:${is4kDevice ? "15px" : "7px"};
                                   display:inline-block;
-                                  margin-right:5px;
-                                  border-radius:3px;
+                                  margin-right:${is4kDevice ? "10px" : "5px"};
+                                  border-radius:${is4kDevice ? "25px" : "3px"};
                                   "></div>` +
-                                    point?.series?.name +
-                                    " - " +
                                     point?.y +
+                                    units +
                                     "<br/><br/>"
                                   );
                                 },
@@ -171,7 +190,13 @@ const Chart: React.FC<any> = (props) => {
         xAxis: {
           visible: isVisible,
           categories: lastTwntyTwoHours,
-          tickInterval: 6,
+          tickInterval: is4kDevice
+            ? (is4kDevice && location.pathname === "/energyManagement") ||
+              (is4kDevice && location.pathname === "/security") ||
+              (is4kDevice && location.pathname === "/lighting")
+              ? 8
+              : 12
+            : 6,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -184,7 +209,7 @@ const Chart: React.FC<any> = (props) => {
             useHTML: true,
             overflow: "justify",
             style: {
-              fontSize: "12px",
+              fontSize: is4kDevice ? "30px" : "10px",
               color: "white",
             },
           },
@@ -205,8 +230,8 @@ const Chart: React.FC<any> = (props) => {
         plotOptions: {
           pie: {
             dataLabels: {
-              enabled: false
-            }
+              enabled: false,
+            },
           },
           series: {
             // fillColor: {

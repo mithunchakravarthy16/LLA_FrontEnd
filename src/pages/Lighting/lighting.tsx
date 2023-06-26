@@ -161,12 +161,18 @@ const Parking: React.FC<any> = (props) => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
         width: 1000,
-        height: 440,
+        height: 500,
+        width1: 1300,
+        height1: 500,
+        is4kDevice: true,
       });
     } else if (window.innerWidth < 3839) {
       setSelectedWidth({
         width: 550,
         height: 220,
+        width1: 550,
+        height1: 220,
+        is4kDevice: true,
       });
     }
   }, []);
@@ -237,6 +243,7 @@ const Parking: React.FC<any> = (props) => {
                                       units={"kWh"}
                                       isCrosshair={true}
                                       crossHairLineColor={"#004F9F90"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
                                       dataPoints={[
                                         {
                                           marker: {
@@ -251,17 +258,23 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0,
                                                 Highcharts.color("#004F9F")
-                                                  .setOpacity(0.9)
+                                                  .setOpacity(0.5)
                                                   .get("rgba"),
                                               ],
                                               [
-                                                0.8,
+                                                0.5,
+                                                Highcharts.color("#004F9F")
+                                                  .setOpacity(0.3)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
                                                 Highcharts.color(
-                                                  appTheme?.palette
-                                                    ?.gridViewComponentGraphsColor
-                                                    ?.highChartsGradient
+                                                  selectedWidth?.is4kDevice
+                                                    ? "#004F9F"
+                                                    : "#000000"
                                                 )
-                                                  .setOpacity(0)
+                                                  .setOpacity(0.05)
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -285,8 +298,12 @@ const Parking: React.FC<any> = (props) => {
                                     <div className={liveContainer}>
                                       <div className={liveImgStyle}>
                                         <img
-                                          width={50}
-                                          height={30}
+                                          width={
+                                            selectedWidth?.is4kDevice ? 109 : 50
+                                          }
+                                          height={
+                                            selectedWidth?.is4kDevice ? 49 : 30
+                                          }
                                           src={LiveImg}
                                         />
                                       </div>
@@ -327,13 +344,14 @@ const Parking: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Chart
-                                  width={selectedWidth?.width}
-                                  height={selectedWidth?.height}
+                                  width={selectedWidth?.width1}
+                                  height={selectedWidth?.height1}
                                   graphType={"areaspline"}
                                   isVisible={true}
                                   units={""}
                                   isCrosshair={true}
                                   crossHairLineColor={"#50A02890"}
+                                  is4kDevice={selectedWidth?.is4kDevice}
                                   dataPoints={[
                                     {
                                       marker: {
@@ -348,17 +366,23 @@ const Parking: React.FC<any> = (props) => {
                                           [
                                             0,
                                             Highcharts.color("#50A028")
-                                              .setOpacity(0.9)
+                                              .setOpacity(0.5)
                                               .get("rgba"),
                                           ],
                                           [
-                                            0.8,
+                                            0.5,
+                                            Highcharts.color("#50A028")
+                                              .setOpacity(0.3)
+                                              .get("rgba"),
+                                          ],
+                                          [
+                                            1,
                                             Highcharts.color(
-                                              appTheme?.palette
-                                                ?.gridViewComponentGraphsColor
-                                                ?.highChartsGradient
+                                              selectedWidth?.is4kDevice
+                                                ? "#50A028"
+                                                : "#000000"
                                             )
-                                              .setOpacity(0)
+                                              .setOpacity(0.05)
                                               .get("rgba"),
                                           ],
                                         ],

@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     },
     "& .gm-style-iw-t": {
       bottom: "66px !important",
+      [muiTheme.breakpoints.up(3839)]: {
+        bottom: "160px !important",
+      },
     },
     "& .gm-style-iw-t > div > button": {
       display: "none !important",
