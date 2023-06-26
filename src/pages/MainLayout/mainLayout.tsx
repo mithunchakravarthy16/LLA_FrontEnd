@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import SideBar from "../../components/SideBar";
@@ -7,7 +9,7 @@ import useTranslation from "localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
 
-const MainLayout = (props:any) => {
+const MainLayout = (props: any) => {
   const [selectedTheme, setSelectedTheme] = useState<any>(
     JSON.parse(localStorage.getItem("theme") || "{}")
   );
@@ -27,7 +29,14 @@ const MainLayout = (props:any) => {
     }
   }, [selectedTheme]);
 
-  const { loaderStyle, footerSection, footerContent, footerIconStyle, copyrights, allRights} = useStyles(appTheme);
+  const {
+    loaderStyle,
+    footerSection,
+    footerContent,
+    footerIconStyle,
+    copyrights,
+    allRights,
+  } = useStyles(appTheme);
 
   const { poweredByText, allRightsReservedText, titleText, subTitleText } =
     useTranslation();
@@ -61,7 +70,7 @@ const MainLayout = (props:any) => {
             >
               <Outlet />
             </div>
-            <Footer />
+            <Footer pageName={"dashboard"} />
           </>
         ) : (
           <div className={loaderStyle}>

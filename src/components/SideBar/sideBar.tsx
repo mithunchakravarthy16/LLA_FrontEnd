@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import { Box, Drawer } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -97,7 +99,7 @@ const SideBar = (props: SideBarProps) => {
     menuIconListActive,
     customTooltip,
     avatharSection,
-    sidebarSection
+    sidebarSection,
   } = useStyles(appTheme);
   const navigate = useNavigate();
 
@@ -133,11 +135,7 @@ const SideBar = (props: SideBarProps) => {
 
   return (
     <Box component={"nav"} className={sidebarSection}>
-      <Drawer
-        open
-        variant="permanent"
-        className={sideNavigation}
-      >
+      <Drawer open variant="permanent" className={sideNavigation}>
         <div className={menuLogoSection}>
           <img src={LogoIcon} />
         </div>

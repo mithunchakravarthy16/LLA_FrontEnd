@@ -1,6 +1,7 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
-
 
 const useStyles = makeStyles({
   root: (props: any) => ({}),
@@ -14,20 +15,20 @@ const useStyles = makeStyles({
       flexDirection: "column",
       alignItems: "center",
       height: "calc(100vh - 44px)",
-      width: '150px',
+      width: "200px",
       [muiTheme.breakpoints.down(3841)]: {
         height: "calc(100vh - 44px)",
       },
       [muiTheme.breakpoints.down(2049)]: {
-        width: '90px',
+        width: "90px",
         height: "calc(100vh - 44px)",
       },
     },
   }),
-  sidebarSection: (props:any) => ({
-    width: 150,
+  sidebarSection: (props: any) => ({
+    width: 200,
     [muiTheme.breakpoints.down(2049)]: {
-      width: '90px',
+      width: "90px",
     },
   }),
   avatharSection: (props: any) => ({
@@ -40,7 +41,8 @@ const useStyles = makeStyles({
     height: "120px",
     color: "white",
     fontSize: 30,
-    fontFamily: 'HelveticaNeue-Regular',
+    fontFamily: "HelveticaNeue-Regular",
+    margin: 30,
     [muiTheme.breakpoints.down(2049)]: {
       width: "50px",
       height: "50px",
@@ -48,9 +50,9 @@ const useStyles = makeStyles({
     },
   }),
   menuLogoSection: () => ({
-    marginBottom: 46,
+    margin: 30,
     "& img": {
-      width: 100,
+      width: 140,
       [muiTheme.breakpoints.down(2049)]: {
         width: 68,
       },
@@ -58,46 +60,48 @@ const useStyles = makeStyles({
   }),
   menuIconSection: () => ({
     flex: 1,
-    marginTop: 150,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: " center",
+    height: "100%",
   }),
   menuIconList: (props: any) => ({
     cursor: "pointer",
     position: "relative",
-    width: "70px",
-    height: " 150px",
+    height: "250px",
     display: " flex",
-    alignItems: "center",
+    alignItems: "baseline",
     justifyContent: "center",
     [muiTheme.breakpoints.down(2049)]: {
-      width: '35px',
+      width: "35px",
       height: " 85.7px",
     },
     "& .MuiSvgIcon-root": {
       color: props?.palette?.sidebar?.menuActiveColor,
     },
-    '& img': {
-      width: 70,
+    "& img": {
+      width: 60,
       [muiTheme.breakpoints.down(2049)]: {
-        width: '35px',
+        width: "35px",
       },
-    }
+    },
   }),
   menuIconListActive: (props: any) => ({
     cursor: "pointer",
     position: "relative",
-    width: "70px",
-    height: " 150px",
+    height: "250px",
     display: " flex",
-    alignItems: "center",
+    alignItems: "baseline",
     justifyContent: "center",
     [muiTheme.breakpoints.down(2049)]: {
       width: "35px",
-    height: " 85.7px",
+      height: " 85.7px",
     },
-    '& img': {
-      width: 70,
+    "& img": {
+      width: 120,
       [muiTheme.breakpoints.down(2049)]: {
-        width: '56px',
+        width: "56px",
       },
     },
     "& .MuiSvgIcon-root": {
@@ -109,10 +113,10 @@ const useStyles = makeStyles({
     "&::after": {
       content: `''`,
       position: "absolute",
-      width: "3px",
-      height: "60px",
+      width: "6px",
+      height: "86px",
       right: "-42px",
-      top: "45px",
+      top: "16px",
       backgroundColor: props?.palette?.sidebar?.menuColor,
       borderTopLeftRadius: "6px",
       borderBottomLeftRadius: "6px",
@@ -128,7 +132,7 @@ const useStyles = makeStyles({
         borderTopLeftRadius: "6px",
         borderBottomLeftRadius: "6px",
         zIndex: "-1",
-        },
+      },
     },
   }),
   customTooltip: () => ({

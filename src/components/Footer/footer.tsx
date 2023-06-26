@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import theme from "../../theme/theme";
 import FooterIcon from "../../assets/images/footer-logo-1.svg";
 import useTranslation from "localization/translations";
+import poweredBy from "../../assets/images/powered-by.svg";
 import useStyles from "./styles";
 
-const Footer = (props:any) => {
+const Footer = (props: any) => {
   const [selectedTheme, setSelectedTheme] = useState<any>(
     JSON.parse(localStorage.getItem("theme") || "{}")
   );
@@ -25,7 +26,7 @@ const Footer = (props:any) => {
         break;
     }
   }, [selectedTheme]);
-  const {pageName} = props;
+  const { pageName } = props;
 
   const {
     loaderStyle,
@@ -34,7 +35,7 @@ const Footer = (props:any) => {
     footerIconStyle,
     copyrights,
     allRights,
-    footerSectionDasbhoard
+    footerSectionDasbhoard,
   } = useStyles(appTheme);
 
   const { poweredByText, allRightsReservedText, titleText, subTitleText } =
@@ -49,9 +50,15 @@ const Footer = (props:any) => {
   }, []);
 
   return (
-    <div className={pageName === "dashboard " ? footerSection : footerSectionDasbhoard}>
+    <div
+      className={
+        pageName === "dashboard" ? footerSectionDasbhoard : footerSection
+      }
+    >
       <div className={footerContent}>
-        <p>{poweredByText}</p>
+        <p>
+          <img src={poweredBy} />
+        </p>
         <p className={footerIconStyle}>
           <img src={FooterIcon} />
         </p>

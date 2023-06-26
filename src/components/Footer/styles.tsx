@@ -1,6 +1,7 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
-
 
 const useStyles = makeStyles(
   {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(
       fontSize: "30px",
       lineHeight: "36px",
       height: 100,
-      fontFamily: 'HelveticaNeue-Regular',
+      fontFamily: "HelveticaNeue-Regular",
       [muiTheme.breakpoints.down(3073)]: {
         fontSize: "16px",
         lineHeight: "24px",
@@ -36,7 +37,7 @@ const useStyles = makeStyles(
         height: 60,
       },
     }),
-    footerSectionDasbhoard: (props:any) => ({
+    footerSectionDasbhoard: (props: any) => ({
       background: "rgba(30, 31, 39, 1)",
       display: "flex",
       alignItems: "center",
@@ -48,8 +49,8 @@ const useStyles = makeStyles(
       color: "#FFFFFF",
       fontSize: "22px",
       lineHeight: "36px",
-      height: 100,
-      fontFamily: 'HelveticaNeue-Regular',
+      height: 124,
+      fontFamily: "HelveticaNeue-Regular",
       [muiTheme.breakpoints.down(3073)]: {
         fontSize: "16px",
         lineHeight: "24px",
@@ -91,11 +92,11 @@ const useStyles = makeStyles(
         zIndex: "-1",
         [muiTheme.breakpoints.down(3073)]: {
           width: "2px",
-        height: "10px",
+          height: "10px",
         },
         [muiTheme.breakpoints.down(1921)]: {
           width: "2px",
-        height: "10px",
+          height: "10px",
         },
       },
       "&::after": {
@@ -109,17 +110,17 @@ const useStyles = makeStyles(
         zIndex: "-1",
         [muiTheme.breakpoints.down(3073)]: {
           width: "2px",
-        height: "10px",
+          height: "10px",
         },
         [muiTheme.breakpoints.down(1921)]: {
           width: "2px",
-        height: "10px",
+          height: "10px",
         },
       },
     }),
-    allRights: (props:any) => ({
-marginLeft: 24
-    })
+    allRights: (props: any) => ({
+      marginLeft: 24,
+    }),
   },
   { index: 1 }
 );

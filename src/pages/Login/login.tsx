@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +9,7 @@ import Box from "@mui/material/Box";
 import llaLogo from "../../assets/images/lla-logo.svg";
 import loginBorder from "../../assets/login-border.svg";
 import virtualIOTLogo from "../../assets/Iot-logo.svg";
+import smartLogoText from "../../assets/images/smart-logo-text.svg";
 import { OutlinedInput } from "@mui/material";
 import Button from "@mui/material/Button";
 import Radio from "@mui/material/Radio";
@@ -21,11 +24,7 @@ import Footer from "components/Footer";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    yourEmail,
-    passwordTItle,
-    loginNowButton,
-  } = useTranslation();
+  const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
 
@@ -95,7 +94,7 @@ const Login = () => {
       password: Yup.string()
         .min(2, "Mininum 2 characters")
         .max(20, "Maximum 20 characters")
-        .required("Please Enter password"), 
+        .required("Please Enter password"),
     }),
     onSubmit: (values) => {
       if (
@@ -134,10 +133,12 @@ const Login = () => {
           >
             <div>
               <div className={formSection}>
-              <div className={llaLogoSection}>
-                <img src={llaLogo} />
-              </div>
-              <h2 className={formTitle}>Smart Lab Tech</h2>
+                <div className={llaLogoSection}>
+                  <img src={llaLogo} />
+                </div>
+                <h2 className={formTitle}>
+                  <img src={smartLogoText} />
+                </h2>
               </div>
               <div className={loginFormSection}>
                 <Grid item xs={12} className={innerForm}>
@@ -214,7 +215,7 @@ const Login = () => {
           </Grid>
         </Grid>
       </div>
-      <Footer />
+      <Footer pageName={"login"} />
     </>
   );
 };
