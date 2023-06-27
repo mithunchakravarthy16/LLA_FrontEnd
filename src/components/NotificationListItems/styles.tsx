@@ -9,6 +9,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3841)]: {
       minWidth: 500,
     },
+    [muiTheme.breakpoints.up(3839)]: {
+      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+    },
   }),
   collapsedListItems: (props: any) => ({
     background: props?.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
@@ -37,6 +40,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3841)]: {
       marginBottom: props?.pageName === "markerCallout" ? 0 : "32px",
     },
+    [muiTheme.breakpoints.up(3839)]: {
+      padding: "25px",
+    },
   }),
   listItemTitle: (props: any) => ({
     fontSize: 20,
@@ -46,6 +52,11 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3841)]: {
       fontSize: 30,
       lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "40px",
+      lineHeight: "48px",
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
   collapsedlistItemRow2: (props: any) => ({
@@ -67,6 +78,11 @@ const useStyles = makeStyles({
       fontSize: 18,
       lineHeight: "38px",
     },
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "30px !important",
+      fontFamily: "HelveticaNeue-Regular",
+      fontWeight: 500,
+    },
   }),
   expandedListItemRow2: (props: any) => ({
     fontSize: 14,
@@ -87,13 +103,31 @@ const useStyles = makeStyles({
       fontSize: 20,
       lineHeight: "40px",
     },
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "35px",
+      fontFamily: "HelveticaNeue-ItalicMedium",
+    },
   }),
   expandedListItemRow4: (props: any) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    [muiTheme.breakpoints.up(3839)]: {
+      paddingTop: "20px",
+    },
   }),
-  buttonStyle: (props: any) => ({}),
+  buttonStyle: (props: any) => ({
+    "& .MuiButton-contained": {
+      [muiTheme.breakpoints.up(3839)]: {
+        minWidth: "223px",
+        height: "70px",
+        fontSize: "30px !important",
+        fontFamily: "HelveticaNeue-Regular",
+        fontWeight: 500,
+      },
+    },
+  }),
   markerCloseIcon: (props: any) => ({
     margin: "4px 0px 0px 0px",
     fontSize: 13,

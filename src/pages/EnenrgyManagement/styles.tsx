@@ -25,6 +25,11 @@ const useStyles = makeStyles({
     color: "#F26522",
     fontSize: "26px",
     padding: 30,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "40px",
+      fontWeight: 700,
+      fontFamily: "HelveticaNeue-Regular",
+    },
   }),
 
   bodyContainer: (props: any) => ({
@@ -86,8 +91,10 @@ const useStyles = makeStyles({
   graphTwoHeader: (props: any) => ({
     height: "10%",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      fontSize: 40,
       lineHeight: "70px",
+      fontWeight: 500,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
@@ -95,8 +102,10 @@ const useStyles = makeStyles({
     display: "flex",
     columnGap: "30px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      fontSize: 40,
       lineHeight: "56px",
+      fontWeight: 500,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
 });

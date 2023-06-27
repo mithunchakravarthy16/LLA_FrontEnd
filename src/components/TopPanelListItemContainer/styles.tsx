@@ -47,8 +47,10 @@ const useStyles = makeStyles({
   itemValueStyle: (props: any) => ({
     fontSize: "22px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 36,
+      fontSize: 40,
       lineHeight: "56px",
+      fontWeight: 700,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
   imageWidthStyle: (props: any) => ({

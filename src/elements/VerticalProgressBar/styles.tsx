@@ -7,6 +7,9 @@ const useStyles = makeStyles({
   label: (props: any) => ({
     fontSize: "30px",
     fontWeight: 700,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "35px",
+    },
   }),
 
   progressBarTitle: (props: any) => ({
@@ -14,7 +17,7 @@ const useStyles = makeStyles({
     fontSize: "14px",
     marginBottom: 4,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 26,
+      fontSize: 30,
       lineHeight: "38px",
       marginBottom: 8,
     },

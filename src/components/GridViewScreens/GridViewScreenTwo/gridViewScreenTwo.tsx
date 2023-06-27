@@ -160,6 +160,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                           isVisible={false}
                           units={"kWh"}
                           isCrosshair={false}
+                          is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
                             {
                               marker: {
@@ -188,6 +189,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                           isVisible={false}
                           units={"KL"}
                           isCrosshair={false}
+                          is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
                             {
                               marker: {

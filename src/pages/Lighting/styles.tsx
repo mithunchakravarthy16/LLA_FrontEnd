@@ -26,6 +26,11 @@ const useStyles = makeStyles({
     display: "flex",
     color: "#F26522",
     fontSize: "20px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "40px",
+      fontWeight: 700,
+      fontFamily: "HelveticaNeue-Regular",
+    },
   }),
 
   bodyContainer: (props: any) => ({
@@ -117,8 +122,10 @@ const useStyles = makeStyles({
     fontSize: "20px",
     fontWeight: 600,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
       lineHeight: "56px",
+      fontSize: 40,
+      fontWeight: 500,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
 
@@ -188,8 +195,10 @@ const useStyles = makeStyles({
     fontSize: "20px",
     fontWeight: 600,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
       lineHeight: "56px",
+      fontSize: 40,
+      fontWeight: 500,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
 });

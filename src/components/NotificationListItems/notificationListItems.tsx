@@ -68,6 +68,24 @@ const NotificationListItems = (props: any) => {
     listItemCallout,
   } = useStyles({ ...appTheme, pageName: pageName });
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 820,
+        height: 160,
+        is4kDevice: true,
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 360,
+        height: 80,
+        is4kDevice: false,
+      });
+    }
+  }, []);
+
   return (
     <>
       <div
@@ -81,7 +99,11 @@ const NotificationListItems = (props: any) => {
               <div className={listItemCallout}>
                 <div className={listItemTitle}>{title}</div>
                 <div className={markerCloseIcon} onClick={handleMarkerClose}>
-                  <img src={CloseIcon} width={"20px"} />
+                  <img
+                    src={CloseIcon}
+                    width={selectedWidth?.is4kDevice ? 40 : 20}
+                    height={selectedWidth?.is4kDevice ? 40 : 20}
+                  />
                 </div>
               </div>
             ) : (
