@@ -16,6 +16,10 @@ const useStyles = makeStyles({
       fontSize: 28,
       lineHeight: "56px",
     },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: '23px'
+    },
   }),
   labelCountStyle: (props: any) => ({
     padding: "0px 15px",

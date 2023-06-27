@@ -57,10 +57,10 @@ const GridView: React.FC<any> = (props) => {
           <GridViewScreenFour handleClick={handleClick} />
 
           {/* Grid 5 */}
-          <GridViewScreenFive />
+          <GridViewScreenFive handleClick={handleClick}/>
 
           {/* Grid 6 */}
-          <GridViewScreenSix />
+          <GridViewScreenSix handleClick={handleClick}/>
         </Grid>
       </div>
     </>

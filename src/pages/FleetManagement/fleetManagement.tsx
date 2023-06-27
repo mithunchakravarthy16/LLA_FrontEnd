@@ -17,14 +17,13 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import parkingData from "mockdata/lightingData";
+import parkingData from "mockdata/fleetManagementData";
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 
-
-const Parking: React.FC<any> = (props) => {
+const FleetManagement: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -110,7 +109,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-  const dashboardArray = parkingData?.notifications?.lighting;
+  const dashboardArray = parkingData?.notifications?.fleetData;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
   for (let i = 0; i < dashboardArray?.length; i++) {
@@ -182,7 +181,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            LIGHTING
+            FLEET MANAGEMENT
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
@@ -429,6 +428,7 @@ const Parking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  notificationPageName={"parking"}
                 />
               </Grid>
             </Grid>
@@ -439,4 +439,4 @@ const Parking: React.FC<any> = (props) => {
   );
 };
 
-export default Parking;
+export default FleetManagement;

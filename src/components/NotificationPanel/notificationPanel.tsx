@@ -23,7 +23,9 @@ const NotificationPanel = (props: any) => {
     searchValue,
     setSearchValue,
     setCurrentMarker,
-    notificationPageName
+    notificationPageName,
+    setParkingLotIndex,
+    setParkingLotSelectionActive
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -115,6 +117,10 @@ const NotificationPanel = (props: any) => {
 
   const handleExpandListItem = (id: any) => {
     setSelectedNotification(selectedNotification === id ? "" : id);
+    if(notificationPageName && notificationPageName === 'parking') {
+      setParkingLotIndex(0);
+      setParkingLotSelectionActive(false)
+    }
   };
 
   const handleSearchIcon = () => {

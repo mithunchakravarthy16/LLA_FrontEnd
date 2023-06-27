@@ -12,8 +12,10 @@ import {
   RotationIcon,
   VipParkingIcon,
 } from "../../assets/topPanelListIcons";
-import theme from "../../theme/theme";
-import useStyles from "./styles";
+import { LiveImg } from "assets/gridViewIcons";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import Chart from "elements/Chart";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import Tabs from "elements/Tabs";
 import Map from "components/Map";
@@ -24,12 +26,28 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import parkingData from "mockdata/parkingData";
+import ParkingLot1 from "../../assets/parkingLot/Parking_Lot1.svg";
+import theme from "../../theme/theme";
+import useStyles from "./styles";
+import HC_rounded from "highcharts-rounded-corners";
+
+HC_rounded(Highcharts);
+
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
+  const [parkingLotSelectionActive, setParkingLotSelectionActive] =
+    useState<boolean>(false);
+  const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -62,7 +80,25 @@ const Parking: React.FC<any> = (props) => {
     notificationPanelGrid,
     mapFilterStyle,
     customNotificationTabs,
-  } = useStyles(appTheme);
+    lotSelectionIconStyle,
+    lotImageStyle,
+
+    liveContainer,
+    liveImgStyle,
+    liveContentValue,
+    liveContentValueGreen,
+    liveContentLabel,
+    liveContentLabelGreen,
+    liveContentStyle,
+    liveContentLeftStyle,
+    aqiCircleStyle,
+    graphTwoHeader,
+    electricity,
+  } = useStyles({
+    ...appTheme,
+    parkingLotSelectionActive: parkingLotSelectionActive,
+    parkingLotIndex: parkingLotIndex,
+  });
 
   const topPanelListItems: any[] = [
     {
@@ -127,13 +163,6 @@ const Parking: React.FC<any> = (props) => {
 
   // Notification Data
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
-  const [selectedNotification, setSelectedNotification] = useState<any>("");
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const [notificationPanelActive, setNotificationPanelActive] =
-    useState<boolean>(false);
-  const [currentMarker, setCurrentMarker] = useState<any>("");
-
   const dashboardArray = parkingData?.notifications?.parking;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
@@ -179,12 +208,80 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [dashboardData]);
 
-  const handleTabs = (index: number) => {
+  const handleParkingLot = (index: number) => {
+    setParkingLotIndex(index);
+    // setParkingLotSelectionActive(!parkingLotSelectionActive);
     // setTabIndex(index);
     // setSearchOpen(false);
     // setSelectedNotification("");
     // setSelectedRefId("");
   };
+
+  const [selectedParkingLot, setSelectedParkingLot] = useState<any>(
+    tabsList[parkingLotIndex]?.name
+  );
+
+  useEffect(() => {
+    setSelectedParkingLot(tabsList[parkingLotIndex]?.name);
+  }, [parkingLotIndex]);
+
+  const handleLotSelction = () => {
+    setParkingLotSelectionActive(!parkingLotSelectionActive);
+  };
+
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 1000,
+        height: 440,
+        width2 : 1000,
+        height2 : 440
+      });
+    } else if (window.innerWidth < 3839) {
+      setSelectedWidth({
+        width: 498,
+        height: 220,
+        width2 : 658,
+        height2 : 220
+      });
+    }
+  }, []);
+
+  let monthName: any = new Array(
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  );
+  let currentDate: any = new Date();
+
+  let result: any = [];
+  currentDate.setDate(1);
+  for (let i = 0; i <= 11; i++) {
+    result.push(
+      monthName[currentDate.getMonth()]
+      // +
+      //   " " +
+      //   currentDate.getFullYear().toString().substr(-2)
+    );
+    currentDate.setMonth(currentDate.getMonth() - 1);
+  }
+  const xAxisNewValue: any = result.reverse();
+  const xAxisValueYear: any = xAxisNewValue.slice(
+    xAxisNewValue.length - 6,
+    xAxisNewValue.length
+  );
+
 
   return (
     <>
@@ -221,33 +318,280 @@ const Parking: React.FC<any> = (props) => {
                       <Grid item xs={12} style={{ height: "80%" }}>
                         <Grid container xs={12} style={{ height: "100%" }}>
                           <Grid item xs={6} className={graphOneContainer}>
-                            Graph 1
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid
+                                item
+                                xs={12}
+                                style={{ height: "10%" }}
+                                className={electricity}
+                              >
+                                Occupancy
+                              </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid item xs={9} style={{ height: "100%" }}>
+                                    <Chart
+                                      width={selectedWidth?.width}
+                                      height={selectedWidth?.height}
+                                      graphType={"areaspline"}
+                                      isVisible={true}
+                                      units={"%"}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#954EA190"}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#954EA1",
+                                          color: "#954EA1",
+                                          lineWidth: 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [
+                                                0,
+                                                Highcharts.color("#954EA1")
+                                                  .setOpacity(0.9)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                0.8,
+                                                Highcharts.color(
+                                                  appTheme?.palette
+                                                    ?.gridViewComponentGraphsColor
+                                                    ?.highChartsGradient
+                                                )
+                                                  .setOpacity(0)
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          data: [
+                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    xs={3}
+                                    style={{
+                                      height: "100%",
+                                      padding: "0px 0px 15px 36px",
+                                    }}
+                                  >
+                                    <div className={liveContainer}>
+                                      <div className={liveImgStyle}>
+                                        <img
+                                          width={50}
+                                          height={30}
+                                          src={LiveImg}
+                                        />
+                                      </div>
+                                      <div className={liveContentLeftStyle}>
+                                        <div className={liveContentValue}>
+                                          228
+                                        </div>
+                                        <div className={liveContentLabel}>
+                                          Available
+                                        </div>
+                                      </div>
+                                      <div className={liveContentStyle}>
+                                        <div className={liveContentValue}>
+                                          370
+                                        </div>
+                                        <div className={liveContentLabel}>
+                                          Occupied
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
                           </Grid>
                           <Grid item xs={6} className={graphTwoContainer}>
-                            Graph 2
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid
+                                item
+                                xs={12}
+                                style={{ height: "10%" }}
+                                className={electricity}
+                              >
+                                Parking Violation
+                              </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid item xs={12} style={{ height: "100%" }}>
+                                    <HighchartsReact
+                                      highcharts={Highcharts}
+                                      options={{
+                                        chart: {
+                                          type: "column",
+                                          plotBackgroundColor: "transparent",
+                                          backgroundColor: "transparent",
+                                          marginTop: 0,
+                                          marginLeft: 0,
+                                          marginRight: 0,
+                                          // marginBottom: 10,
+                                          height: selectedWidth?.height2,
+                                          width: selectedWidth?.width2,
+                                          reflow: true,
+                                          borderRadius : 10
+                                        },
+
+                                        title: false,
+                                        legend: false,
+                                        credits: false,
+                                        tooltip: {
+                                          shared: false,
+                                          useHTML: true,
+                                          backgroundColor: "#57585A",
+                                          borderColor: "#57585A",
+                                          padding: 4,
+                                          className: "tooltipStyle",
+                                          style: {
+                                            color: "#fff",
+                                            fontWeight: "bold",
+                                          },
+                                          formatter: function (
+                                            this: Highcharts.TooltipFormatterContextObject
+                                          ): string | boolean {
+                                            if (true) {
+                                              const value: any = this.y;
+                                              return ` <table>
+                                          <tr>
+                                            <td style="text-align: center;">
+                                                ${`${value}%`}
+                                            </td>
+                                          </tr>
+                                        </table>`;
+                                            } 
+                                          },
+                                        },
+                                        plotOptions: {
+                                          column: {
+                                            pointWidth: 25,
+                                            borderRadiusTopLeft: 20,
+                                            borderRadiusTopRight: 20,
+                                            borderRadiusBottomLeft: 20,
+                                            borderRadiusBottomRight: 20,
+                                          },
+                                        },
+                                        xAxis: {
+                                          categories: xAxisValueYear,
+                                          labels: {
+                                            useHTML: true,
+                                            style: {
+                                              fontSize: "12px",
+                                              color: "white",
+                                            },
+                                          },
+                                          gridLineWidth: 0,
+                                          lineWidth: 0,
+                                          minorGridLineWidth: 0,
+                                          minorTickLength: 0,
+                                          tickLength: 0,
+                                        },
+
+                                        series: [
+                                          {
+                                            color: "#D1705F",
+                                            borderWidth: 0,
+                                            data: [5, 3, 4, 2, 2, 3],
+                                          },
+                                        ],
+                                        yAxis: {
+                                          min: 0,
+                                          gridLineWidth: 0,
+                                          lineWidth: 0,
+                                          minorGridLineWidth: 0,
+                                          minorTickLength: 0,
+                                          tickLength: 0,
+                                        },
+
+                                       
+                                      }}
+                                    />
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                    <div className={mapFilterStyle}>
-                      <Tabs
-                        initialIndex={tabIndex}
-                        tabsList={tabsList}
-                        handleTabs={handleTabs}
-                        dashboardNotificationClassName={customNotificationTabs}
+                    {!parkingLotSelectionActive ? (
+                      <div
+                        className={lotSelectionIconStyle}
+                        onClick={handleLotSelction}
+                      >
+                        {selectedParkingLot}
+                      </div>
+                    ) : (
+                      <div className={mapFilterStyle}>
+                        <Tabs
+                          initialIndex={parkingLotIndex}
+                          tabsList={tabsList}
+                          handleTabs={handleParkingLot}
+                          dashboardNotificationClassName={
+                            customNotificationTabs
+                          }
+                        />
+                        <div
+                          className={lotSelectionIconStyle}
+                          onClick={handleLotSelction}
+                        >
+                          X
+                        </div>
+                      </div>
+                    )}
+                    {parkingLotIndex === 0 ? (
+                      <Map
+                        markers={dashboardDataList}
+                        setNotificationPanelActive={setNotificationPanelActive}
+                        setSelectedNotification={setSelectedNotification}
+                        marker={selectedNotification}
+                        setTabIndex={setTabIndex}
+                        currentMarker={currentMarker}
+                        setCurrentMarker={setCurrentMarker}
                       />
-                    </div>
-                    <Map
-                      markers={dashboardDataList}
-                      setNotificationPanelActive={setNotificationPanelActive}
-                      setSelectedNotification={setSelectedNotification}
-                      marker={selectedNotification}
-                      setTabIndex={setTabIndex}
-                      currentMarker={currentMarker}
-                      setCurrentMarker={setCurrentMarker}
-                    />
+                    ) : (
+                      <div className={lotImageStyle}>
+                        <img
+                          src={ParkingLot1}
+                          alt="ParkingLot1"
+                          style={{ width: "95%" }}
+                        />
+                      </div>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
@@ -266,6 +610,8 @@ const Parking: React.FC<any> = (props) => {
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
                   notificationPageName={"parking"}
+                  setParkingLotIndex={setParkingLotIndex}
+                  setParkingLotSelectionActive={setParkingLotSelectionActive}
                 />
               </Grid>
             </Grid>
