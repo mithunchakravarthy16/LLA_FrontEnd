@@ -63,7 +63,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 835,
+        width: 825,
         height: 260,
         is4kDevice: true,
       });
