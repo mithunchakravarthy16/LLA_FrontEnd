@@ -39,6 +39,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     horizantalDataGridStyle,
     horizantalDataGridValueStyle,
     horizantalDataGridLabelStyle,
+    screenTwoGraphTitleStyle,
   } = useStyles(appTheme);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -50,10 +51,52 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         height: 400,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
+      setSelectedWidth({
+        width: 800,
+        height: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 550,
-        height: 200,
+        height: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 550,
+        height: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 400,
+        height: 90,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 350,
+        height: 70,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 350,
+        height: 70,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 300,
+        height: 60,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 240,
+        height: 60,
         is4kDevice: false,
       });
     }
@@ -102,7 +145,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            <div>Security Alerts</div>
+            <div className={screenTwoGraphTitleStyle}>Security Alerts</div>
             <Chart
               width={selectedWidth?.width}
               height={selectedWidth?.height}

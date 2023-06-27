@@ -36,6 +36,7 @@ const Footer = (props: any) => {
     copyrights,
     allRights,
     footerSectionDasbhoard,
+    poweredByImage,
   } = useStyles(appTheme);
 
   const { poweredByText, allRightsReservedText, titleText, subTitleText } =
@@ -56,7 +57,7 @@ const Footer = (props: any) => {
       }
     >
       <div className={footerContent}>
-        <p>
+        <p className={poweredByImage}>
           <img src={poweredBy} />
         </p>
         <p className={footerIconStyle}>

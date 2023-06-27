@@ -14,8 +14,20 @@ const useStyles = makeStyles({
     color: "white",
     background: "#161515",
     opacity: 1,
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "calc(100vw - 130px) !important",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "calc(100vw - 100px) !important",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 80px) !important",
     },
 
     "& > .MuiGrid-item:first-child": {

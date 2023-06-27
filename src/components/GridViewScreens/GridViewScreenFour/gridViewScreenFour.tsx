@@ -67,10 +67,52 @@ const GridViewScreenFour: React.FC<any> = (props) => {
         height: 260,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
+      setSelectedWidth({
+        width: 600,
+        height: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 400,
-        height: 80,
+        height: 70,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 400,
+        height: 70,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 300,
+        height: 70,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 250,
+        height: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 250,
+        height: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 220,
+        height: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 170,
+        height: 70,
         is4kDevice: false,
       });
     }
