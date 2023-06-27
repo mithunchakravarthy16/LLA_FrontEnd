@@ -15,9 +15,18 @@ const useStyles = makeStyles({
     top: "30px",
     right: "30px",
     cursor: "pointer",
-    width: 50,
-    [muiTheme.breakpoints.down(3841)]: {
+    width: 40,
+    [muiTheme.breakpoints.up(3839)]: {
       width: 100,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: 70,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: 50,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: 30,
     },
   }),
   notificationPanelSection: (props: any) => ({

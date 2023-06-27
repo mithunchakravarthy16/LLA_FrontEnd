@@ -16,19 +16,44 @@ const useStyles = makeStyles({
       alignItems: "center",
       height: "calc(100vh - 44px)",
       width: "200px",
-      [muiTheme.breakpoints.down(3841)]: {
+      [muiTheme.breakpoints.up(3839)]: {
         height: "calc(100vh - 44px)",
+        width: "200px",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        height: "calc(100vh - 44px)",
+        width: "180px",
       },
       [muiTheme.breakpoints.down(2049)]: {
-        width: "90px",
         height: "calc(100vh - 44px)",
+        width: "130px",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        height: "calc(100vh - 44px)",
+        width: "100px",
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        height: "calc(100vh - 44px)",
+        width: "80px",
       },
     },
   }),
   sidebarSection: (props: any) => ({
     width: 200,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "200px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "180px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
-      width: "90px",
+      width: "130px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "100px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "80px",
     },
   }),
   avatharSection: (props: any) => ({
@@ -43,18 +68,70 @@ const useStyles = makeStyles({
     fontSize: 30,
     fontFamily: "HelveticaNeue-Regular",
     margin: 30,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "120px",
+      height: "120px",
+      margin: 30,
+      fontSize: 30,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "90px",
+      height: "90px",
+      margin: 20,
+      fontSize: 20,
+    },
     [muiTheme.breakpoints.down(2049)]: {
+      width: "60px",
+      height: "60px",
+      margin: 16,
+      fontSize: 16,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
       width: "50px",
       height: "50px",
-      fontSize: 18,
+      margin: 12,
+      fontSize: 12,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "30px",
+      height: "30px",
+      margin: 12,
+      fontSize: 12,
     },
   }),
   menuLogoSection: () => ({
     margin: 30,
+    [muiTheme.breakpoints.up(3839)]: {
+      margin: 30,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      margin: 20,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      margin: 16,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      margin: 12,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      margin: 10,
+    },
     "& img": {
       width: 140,
+      [muiTheme.breakpoints.up(3839)]: {
+        width: 140,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        width: 100,
+      },
       [muiTheme.breakpoints.down(2049)]: {
-        width: 68,
+        width: 90,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        width: 75,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        width: 40,
       },
     },
   }),
@@ -73,17 +150,40 @@ const useStyles = makeStyles({
     display: " flex",
     alignItems: "baseline",
     justifyContent: "center",
+    [muiTheme.breakpoints.up(3839)]: {
+      height: "250px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      height: "200px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
-      width: "35px",
-      height: " 85.7px",
+      height: "140px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "125px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      height: "80px",
     },
     "& .MuiSvgIcon-root": {
       color: props?.palette?.sidebar?.menuActiveColor,
     },
     "& img": {
       width: 60,
+      [muiTheme.breakpoints.up(3839)]: {
+        width: 60,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        width: 50,
+      },
       [muiTheme.breakpoints.down(2049)]: {
-        width: "35px",
+        width: 30,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        width: 25,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        width: 20,
       },
     },
   }),
@@ -94,14 +194,37 @@ const useStyles = makeStyles({
     display: " flex",
     alignItems: "baseline",
     justifyContent: "center",
+    [muiTheme.breakpoints.up(3839)]: {
+      height: "250px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      height: "200px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
-      width: "35px",
-      height: " 85.7px",
+      height: "140px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "125px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      height: "80px",
     },
     "& img": {
       width: 120,
+      [muiTheme.breakpoints.up(3839)]: {
+        width: 120,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        width: 100,
+      },
       [muiTheme.breakpoints.down(2049)]: {
-        width: "56px",
+        width: 60,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        width: 50,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        width: 40,
       },
     },
     "& .MuiSvgIcon-root": {
@@ -121,17 +244,35 @@ const useStyles = makeStyles({
       borderTopLeftRadius: "6px",
       borderBottomLeftRadius: "6px",
       zIndex: "-1",
+      [muiTheme.breakpoints.up(3839)]: {
+        width: "5px",
+        height: "34%",
+        right: "-42px",
+        top: "17px",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        width: "5px",
+        height: "34%",
+        right: "-41px",
+        top: "15px",
+      },
       [muiTheme.breakpoints.down(2049)]: {
-        content: `''`,
-        position: "absolute",
-        width: "3px",
-        height: "40px",
-        right: "-29px",
-        top: "23px",
-        backgroundColor: props?.palette?.sidebar?.menuColor,
-        borderTopLeftRadius: "6px",
-        borderBottomLeftRadius: "6px",
-        zIndex: "-1",
+        width: "4px",
+        height: "34%",
+        right: "-36px",
+        top: "7px",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        width: "4px",
+        height: "34%",
+        right: "-27px",
+        top: "5px",
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        width: "4px",
+        height: "34%",
+        right: "-22px",
+        top: "2px",
       },
     },
   }),

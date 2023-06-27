@@ -123,27 +123,7 @@ const useStyles = makeStyles(() => ({
       lineHeight: "28px",
     },
   }),
-  formTitle: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
-    fontSize: "70px",
-    lineHeight: "96px",
-    color: props?.palette?.login?.loginBannerTitle,
-    marginBottom: 40,
-    textTransform: "uppercase",
-    [muiTheme.breakpoints.down(3073)]: {
-      fontSize: "36px",
-      lineHeight: "46px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontSize: "28px",
-      lineHeight: "38px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      fontSize: "28px",
-      lineHeight: "38px",
-      marginBottom: 16,
-    },
-  }),
+
   inputTitle: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: " 500",
@@ -337,6 +317,32 @@ const useStyles = makeStyles(() => ({
     },
     "& img": {
       maxWidth: "100%",
+    },
+  }),
+  formTitle: (props: any) => ({
+    "& img": {
+      maxWidth: "100%",
+      margin: "0 auto",
+      [muiTheme.breakpoints.up(3839)]: {
+        maxWidth: "100%",
+        margin: "0 auto",
+        marginBottom: 70,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        maxWidth: "70%",
+        margin: "0 auto",
+        marginBottom: 28,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        maxWidth: "50%",
+        margin: "0 auto",
+        marginBottom: 28,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        maxWidth: "40%",
+        margin: "0 auto",
+        marginBottom: 18,
+      },
     },
   }),
   formSection: (props: any) => ({

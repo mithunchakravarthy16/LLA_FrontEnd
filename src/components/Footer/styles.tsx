@@ -51,15 +51,30 @@ const useStyles = makeStyles(
       lineHeight: "36px",
       height: 124,
       fontFamily: "HelveticaNeue-Regular",
+      [muiTheme.breakpoints.up(3839)]: {
+        fontSize: "22px",
+        lineHeight: "36px",
+        height: 124,
+      },
       [muiTheme.breakpoints.down(3073)]: {
         fontSize: "16px",
-        lineHeight: "24px",
+        lineHeight: "27px",
+        height: 96,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: "11px",
+        lineHeight: "17px",
         height: 60,
       },
       [muiTheme.breakpoints.down(1921)]: {
-        fontSize: "10px",
-        lineHeight: "19px",
+        fontSize: "11px",
+        lineHeight: "17px",
         height: 60,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        fontSize: "10px",
+        lineHeight: "18px",
+        height: 48,
       },
     }),
     footerContent: (props: any) => ({
@@ -70,11 +85,20 @@ const useStyles = makeStyles(
       padding: "0 16px",
       "& img": {
         width: 250,
+        [muiTheme.breakpoints.up(3839)]: {
+          width: 250,
+        },
         [muiTheme.breakpoints.down(3073)]: {
+          width: 170,
+        },
+        [muiTheme.breakpoints.down(2049)]: {
           width: 140,
         },
         [muiTheme.breakpoints.down(1921)]: {
           width: 120,
+        },
+        [muiTheme.breakpoints.down(1153)]: {
+          width: 100,
         },
       },
     }),
@@ -120,6 +144,29 @@ const useStyles = makeStyles(
     }),
     allRights: (props: any) => ({
       marginLeft: 24,
+    }),
+    poweredByImage: (props: any) => ({
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      "& img": {
+        maxWidth: "100%",
+        [muiTheme.breakpoints.up(3839)]: {
+          maxWidth: "100%",
+        },
+        [muiTheme.breakpoints.down(3073)]: {
+          maxWidth: "70%",
+        },
+        [muiTheme.breakpoints.down(2049)]: {
+          maxWidth: "50%",
+        },
+        [muiTheme.breakpoints.down(1921)]: {
+          maxWidth: "50%",
+        },
+        [muiTheme.breakpoints.down(1153)]: {
+          maxWidth: "40%",
+        },
+      },
     }),
   },
   { index: 1 }
