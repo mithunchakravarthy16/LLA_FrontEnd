@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     background: "#161515",
     height: "100vh",
     // paddingLeft: props?.parkingLotIndex === 0 ? "3.4px" : "57.4px",
-    paddingLeft:  "3.4px",
+    paddingLeft: "3.4px",
 
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -20,14 +20,59 @@ const useStyles = makeStyles({
     color: "white",
     background: "#161515",
     opacity: 1,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "calc(100vw - 130px) !important",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "calc(100vw - 100px) !important",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 80px) !important",
+    },
   }),
 
   pageHeading: (props: any) => ({
-    height: "6%",
-    paddingLeft: "15px",
     display: "flex",
-    color: "#F26522",
-    fontSize: "20px",
+    color: props?.palette?.gridViewComponentCommonStyle?.containerTitle, //"#F26522",
+    fontSize: "18px",
+    padding: 30,
+    fontFamily: "HelveticaNeue-Regular",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+      padding: 30,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+      padding: 24,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+      padding: 20,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+      padding: 16,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 13,
+      lineHeight: "20px",
+      padding: 14,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
+      padding: 12,
+    },
   }),
 
   bodyContainer: (props: any) => ({
@@ -103,10 +148,10 @@ const useStyles = makeStyles({
     borderRadius: "50px",
     cursor: "pointer",
     width: "35%",
-    height : "12%"
+    height: "12%",
   }),
   customNotificationTabs: (props: any) => ({
-    width : "85%",
+    width: "85%",
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
@@ -277,17 +322,17 @@ const useStyles = makeStyles({
     borderRadius: "50px",
     cursor: "pointer",
     padding: "15px 5px 15px 5px",
-    width : "53px",
-    height : "30px",
-    right :  props?.parkingLotSelectionActive ? 0 : "15px",
-    top :  props?.parkingLotSelectionActive ? 0 : "7px",
+    width: "53px",
+    height: "30px",
+    right: props?.parkingLotSelectionActive ? 0 : "15px",
+    top: props?.parkingLotSelectionActive ? 0 : "7px",
   }),
   lotImageStyle: (props: any) => ({
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop : "-1.75%"
+    marginTop: "-1.75%",
   }),
   liveContainer: (props: any) => ({
     display: "flex",

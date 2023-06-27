@@ -410,6 +410,10 @@ const useStyles = makeStyles({
       fontSize: 10,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 9,
+      lineHeight: "16px",
+    },
   }),
 
   screenTwoGraphTitleStyle: (props: any) => ({
@@ -457,6 +461,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 16,
       lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      fontSize: 12,
+      lineHeight: "20px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
@@ -572,8 +580,12 @@ const useStyles = makeStyles({
       fontSize: 13,
       lineHeight: "21px",
     },
-    [muiTheme.breakpoints.down(1153)]: {
+    [muiTheme.breakpoints.down(1545)]: {
       fontSize: 10,
+      lineHeight: "19px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 9,
       lineHeight: "16px",
     },
   }),
