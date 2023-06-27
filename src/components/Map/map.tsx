@@ -113,6 +113,24 @@ const Map: React.FC<any> = (props) => {
     setCurrentMarker(marker);
   }, [marker]);
 
+  useEffect(() => {
+    if (currentMarker) {
+      const index = markers.findIndex((marker) => marker.id === currentMarker);
+      map?.setZoom(location?.pathname === "/home" ? 16.5 : 15);
+      map?.panTo(markers[index]?.location);
+    } else {
+      map?.panTo(
+        location?.pathname === "/home"
+          ? defaultCenter
+          : {
+              lat: 39.7522538638645,
+              lng: -105.00233200716357,
+            }
+      );
+      map?.setZoom(location?.pathname === "/home" ? 16.5 : 15);
+    }
+  }, [currentMarker]);
+
   const getMapTypeControls = () => {
     const defaultMapOptions = {
       styles: customMapStyles,
@@ -240,7 +258,14 @@ const Map: React.FC<any> = (props) => {
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
       if (prev && prev === markerId) {
-        map?.panTo(defaultCenter);
+        map?.panTo(
+          location?.pathname === "/home"
+            ? defaultCenter
+            : {
+                lat: 39.7522538638645,
+                lng: -105.00233200716357,
+              }
+        );
         return "";
       } else {
         map?.panTo(location);
@@ -254,8 +279,15 @@ const Map: React.FC<any> = (props) => {
 
   const handleMarkerClose = () => {
     setSelectedNotification("");
-    map?.panTo(defaultCenter);
-    map?.setZoom(window.innerWidth > 3839 && zoomValue);
+    map?.panTo(
+      location?.pathname === "/home"
+        ? defaultCenter
+        : {
+            lat: 39.7522538638645,
+            lng: -105.00233200716357,
+          }
+    );
+    map?.setZoom(location?.pathname === "/home" ? 16.5 : 15);
     setNotificationPanelActive(false);
   };
 
