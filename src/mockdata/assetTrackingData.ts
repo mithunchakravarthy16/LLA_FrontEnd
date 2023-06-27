@@ -5,9 +5,9 @@ const assetTrackingData = {
     assetTracking: [
       {
         id: "lght1",
-        title: "WiFi Network Upgraded",
-        subTitle: "Provide faster and more reliable connectivity",
-        area: "OutDoor",
+        title: "Asset Check-in Recorded",
+        subTitle: "Storage Room A.",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -20,9 +20,9 @@ const assetTrackingData = {
       },
       {
         id: "lght2",
-        title: "WiFi Password Reset",
-        subTitle: "Outdoor WiFi network has been reset",
-        area: "OutDoor",
+        title: "Asset Check-out Recorded",
+        subTitle: "Workshop B.",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -35,9 +35,9 @@ const assetTrackingData = {
       },
       {
         id: "lght3",
-        title: "WiFi Signal Boost",
-        subTitle: "Enhanced the outdoor WiFi signal strength",
-        area: "OutDoor",
+        title: "Asset Movement Detected",
+        subTitle: "Production Area C",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -50,9 +50,9 @@ const assetTrackingData = {
       },
       {
         id: "lght4",
-        title: "Light Interactive Workshop",
-        subTitle: "The art of smart lights programming",
-        area: "OutDoor",
+        title: "Asset Located In Designated Area",
+        subTitle: "Warehouse D",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -65,9 +65,9 @@ const assetTrackingData = {
       },
       {
         id: "lght5",
-        title: "Smart Lights Exhibitiont",
-        subTitle: "Display of creativity and technology",
-        area: "OutDoor",
+        title: "Asset Maintenance Completed",
+        subTitle: "Area E",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -80,9 +80,9 @@ const assetTrackingData = {
       },
       {
         id: "lght6",
-        title: "WiFi Movie Marathon",
-        subTitle: "Outdoor movie marathon with WiFi streaming access",
-        area: "OutDoor",
+        title: "Asset Transfer Initiated",
+        subTitle: "Distribution Center F",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -95,10 +95,9 @@ const assetTrackingData = {
       },
       {
         id: "lght7",
-        title: "Light Sculpture Showcase",
-        subTitle:
-          "The blend of creativity and technology in this stunning showcase",
-        area: "OutDoor",
+        title: "Aset Retrieval Recorded",
+        subTitle: "Testing Lab G",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -110,40 +109,10 @@ const assetTrackingData = {
         },
       },
       {
-        id: "lght8",
-        title: "Interactive Light Installation",
-        subTitle: "Engage with cutting-edge interactive light installations",
-        area: "OutDoor",
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "event",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.75181100420289,
-          lng: -105.00847214637164,
-        },
-      },
-      {
-        id: "lght10",
-        title: "Light Technology Seminar",
-        subTitle: "Discover how innovation is shaping the future of lighting",
-        area: "OutDoor",
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "event",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.755314112781264,
-          lng: -105.0013163832604,
-        },
-      },
-      {
         id: "lght11",
-        title: "Smart Lights Power Outage",
-        subTitle: "Outdoor smart lights are temporarily unavailable",
-        area: "OutDoor",
+        title: "Asset Misplacement",
+        subTitle: "Zone H",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -156,9 +125,9 @@ const assetTrackingData = {
       },
       {
         id: "lght12",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
-        area: "OutDoor",
+        title: "Asset Theft Identified",
+        subTitle: "Zone H",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -171,9 +140,9 @@ const assetTrackingData = {
       },
       {
         id: "lght13",
-        title: "Lights Firmware Update",
-        subTitle: "Introduce new features and enhance performance",
-        area: "OutDoor",
+        title: "Asset Damage Reported",
+        subTitle: "Zone J",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -186,10 +155,9 @@ const assetTrackingData = {
       },
       {
         id: "lght14",
-        title: "Malfunctioning Spotlight",
-        subTitle: "Spotlight not focusing properly",
-
-        area: "OutDoor",
+        title: "Asset Loss Reported",
+        subTitle: "Building C",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -202,10 +170,9 @@ const assetTrackingData = {
       },
       {
         id: "lght15",
-        title: "Uneven Street Lighting",
-        subTitle: "Inconsistent brightness along the street",
-
-        area: "OutDoor",
+        title: "Asset Tampering Incident Detected",
+        subTitle: "Zone C",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -216,96 +183,12 @@ const assetTrackingData = {
           lng: -104.98829377916307,
         },
       },
-      {
-        id: "lght16",
-        title: "Flashing Neon Sign",
-        subTitle: "Neon sign flashing abnormally",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "incident",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.749982493422706,
-          lng: -104.99238147786095,
-        },
-      },
-      {
-        id: "lght17",
-        title: "Broken Street Lamp",
-        subTitle: "Non-functional street lamp",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "incident",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.7519538545636,
-          lng: -105.00639113612544,
-        },
-      },
-      {
-        id: "lght18",
-        title: "Flickering Lights",
-        subTitle: "Lights intermittently turning on and off",
-
-        area: "OutDoor",
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "incident",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.755724996944544,
-          lng: -105.0059452053584,
-        },
-      },
-      {
-        id: "lght19",
-        title: "Dimmed Lights",
-        subTitle: "Reduced brightness in specific areas",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "incident",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.75263953217147,
-          lng: -104.99134097273785,
-        },
-      },
-      {
-        id: "lght20",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "asset",
-        notificationCategory: "incident",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.7519824246002,
-          lng: -105.00928968611122,
-        },
-      },
 
       {
         id: "lght21",
-        title: "Outdoor Lighting Malfunction",
-        subTitle: "Maintenance team notified",
-        area: "OutDoor",
+        title: "Asset Tracking Software Updated",
+        subTitle: "Zone B",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -334,9 +217,9 @@ const assetTrackingData = {
       },
       {
         id: "lght23",
-        title: "Lighting Fixture Replacement",
-        subTitle: "Replacing faulty fixtures in the building",
-        area: "OutDoor",
+        title: "Asset Movement Detected",
+        subTitle: "Zone C",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -349,11 +232,9 @@ const assetTrackingData = {
       },
       {
         id: "lght24",
-        title: "Maintenance of Landscape Lights",
-        subTitle: "Inspecting and cleaning landscape lights",
-
-        area: "OutDoor",
-
+        title: "Asset Tracking System Data Processing",
+        subTitle: "Zone B",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -366,11 +247,9 @@ const assetTrackingData = {
       },
       {
         id: "lght25",
-        title: "Lighting System Upgrade",
-        subTitle: "Upgrading to energy-efficient LED lights",
-
-        area: "OutDoor",
-
+        title: "Asset Tracking Tags Replaced",
+        subTitle: "Zone C",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -383,11 +262,9 @@ const assetTrackingData = {
       },
       {
         id: "lght26",
-        title: "New Lighting Installation",
-        subTitle: "Installing additional lights in the park",
-
-        area: "OutDoor",
-
+        title: "Asset Tracking System Data Processing Delay",
+        subTitle: "Zone H",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -400,10 +277,9 @@ const assetTrackingData = {
       },
       {
         id: "lght28",
-        title: "Street Light Replacement",
-        subTitle: "Old street lights being replaced",
-
-        area: "OutDoor",
+        title: "Asset Movement Detected",
+        subTitle: "Zone H",
+        area: "",
         entity: "",
         venue: "Location",
         category: "asset",
@@ -416,11 +292,9 @@ const assetTrackingData = {
       },
       {
         id: "lght30",
-        title: "New Lighting Installation",
-        subTitle: "Installing additional lights in the park",
-
+        title: "Asset Tracking System Malfunction",
+        subTitle: "Zone A",
         area: "OutDoor",
-
         entity: "",
         venue: "Location",
         category: "asset",
