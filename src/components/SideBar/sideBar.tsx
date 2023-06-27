@@ -50,7 +50,10 @@ const SideBar = (props: SideBarProps) => {
           location?.pathname === "/parking" ||
           location?.pathname === "/energyManagement" ||
           location?.pathname === "/security" ||
-          location?.pathname === "/lighting")
+          location?.pathname === "/lighting" ||
+          location?.pathname === "/fleetManagement" ||
+          location?.pathname === "/assetTracking"
+          )
           ? GridViewActiveIcon
           : GridViewIcon,
       id: 1,
@@ -115,7 +118,9 @@ const SideBar = (props: SideBarProps) => {
           location?.pathname === "/parking" ||
           location?.pathname === "/energyManagement" ||
           location?.pathname === "/security" ||
-          location?.pathname === "/lighting"
+          location?.pathname === "/lighting" ||
+          location?.pathname === "/fleetManagement" ||
+          location?.pathname === "/assetTracking"
         ? 1
         : location?.pathname === "/birdsView" //location?.pathname === "/settings"
         ? 2
