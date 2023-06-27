@@ -23,6 +23,7 @@ import Chart from "elements/Chart";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 
+
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -428,7 +429,6 @@ const Parking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
-                  notificationPageName={"parking"}
                 />
               </Grid>
             </Grid>

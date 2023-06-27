@@ -21,9 +21,9 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import energyManagementData from "mockdata/energyManagementData";
+import assetTrackingData from "mockdata/assetTrackingData";
 
-const Parking: React.FC<any> = (props) => {
+const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -99,7 +99,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-  const dashboardArray = energyManagementData?.notifications?.energyManagement;
+  const dashboardArray = assetTrackingData?.notifications?.assetTracking;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
   for (let i = 0; i < dashboardArray?.length; i++) {
@@ -167,7 +167,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            ENERGY MANAGEMENT
+            ASSET TRACKING
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}>
@@ -191,7 +191,7 @@ const Parking: React.FC<any> = (props) => {
                           trailWidth={10}
                           strokeColor="#92C07E"
                           trailColor="#484D52"
-                          title={"Energy Savings "}
+                          title={"Active Trackers"}
                         />
                       </Grid>
                       <Grid item xs={6} className={graphOneContainer}>
@@ -226,7 +226,7 @@ const Parking: React.FC<any> = (props) => {
                                   marginRight: 6,
                                 }}
                               ></div>
-                              <div>Electricity Consumption </div>
+                              <div>Active Tracker</div>
                             </div>
                             <div
                               style={{
@@ -245,7 +245,7 @@ const Parking: React.FC<any> = (props) => {
                                   marginRight: 6,
                                 }}
                               ></div>
-                              <div>HVAC</div>
+                              <div>In-Active Tracker</div>
                             </div>
                           </Grid>
                           <Grid item xs={12} style={{ height: "90%" }}>
@@ -300,7 +300,7 @@ const Parking: React.FC<any> = (props) => {
                           }}
                         >
                           <Grid item xs={12} className={graphTwoHeader}>
-                            Water Consumption
+                            Incidents
                           </Grid>
                           <Grid item xs={12} style={{ height: "90%" }}>
                             <Chart
@@ -370,4 +370,4 @@ const Parking: React.FC<any> = (props) => {
   );
 };
 
-export default Parking;
+export default AssetTracking;

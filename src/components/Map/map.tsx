@@ -284,7 +284,7 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle.is4kDevice ? 16.2 : 15);
-    setNotificationPanelActive(false);
+    // setNotificationPanelActive(false);
   };
 
   const handleExpandListItem = () => {
