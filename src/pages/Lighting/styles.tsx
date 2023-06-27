@@ -113,8 +113,10 @@ const useStyles = makeStyles({
     fontSize: "20px",
     fontWeight: 600,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
       lineHeight: "56px",
+      fontSize: 40,
+      fontWeight: 500,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
 
@@ -134,8 +136,9 @@ const useStyles = makeStyles({
     fontWeight: 700,
     color: props?.palette?.gridViewComponentCommonStyle?.liveContentValueGreen, //"#80C53B",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      lineHeight: "56px",
+      fontSize: 50,
+      fontWeight: 700,
+      fontFamily: "HelveticaNeue-Regular",
     },
   }),
 
@@ -143,6 +146,10 @@ const useStyles = makeStyles({
     fontSize: "14px",
     fontWeight: 500,
     fontFamily: "HelveticaNeue-ItalicMedium",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 28,
+      fontWeight: 400,
+    },
   }),
 
   liveContentLabelGreen: (props: any) => ({
@@ -152,6 +159,10 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     columnGap: "15px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 28,
+      fontWeight: 400,
+    },
   }),
 
   liveContentStyle: (props: any) => ({
