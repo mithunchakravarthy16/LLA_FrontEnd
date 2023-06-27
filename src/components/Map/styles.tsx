@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     },
     "& .gm-style .gm-style-iw-c": {
       left: "0 !important",
+      maxWidth: "749px !important",
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
       background: `#1D2D38 !important`, //markerInfoWindowBg
