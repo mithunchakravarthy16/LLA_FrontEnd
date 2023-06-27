@@ -101,14 +101,24 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 924px)",
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
       setSelectedContainerStyle({
         width: "100%",
 
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 401px)",
+            : "calc(100vh - 1049px)",
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 525px)",
         is4kDevice: false,
       });
     }
@@ -122,9 +132,9 @@ const Map: React.FC<any> = (props) => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
       map?.setZoom(
-        selectedContainerStyle.is4kDevice
+        selectedContainerStyle?.is4kDevice
           ? 16.2
-          : selectedContainerStyle.is4kDevice && location?.pathname !== "/home"
+          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
           ? 15
           : 15
       );
@@ -132,9 +142,9 @@ const Map: React.FC<any> = (props) => {
     } else {
       map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
       map?.setZoom(
-        selectedContainerStyle.is4kDevice
+        selectedContainerStyle?.is4kDevice
           ? 16.2
-          : selectedContainerStyle.is4kDevice && location?.pathname !== "/home"
+          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
           ? 15
           : 15
       );
@@ -283,7 +293,7 @@ const Map: React.FC<any> = (props) => {
   const handleMarkerClose = () => {
     setSelectedNotification("");
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
-    map?.setZoom(selectedContainerStyle.is4kDevice ? 16.2 : 15);
+    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
     // setNotificationPanelActive(false);
   };
 
@@ -298,9 +308,9 @@ const Map: React.FC<any> = (props) => {
           mapContainerStyle={selectedContainerStyle}
           center={location?.pathname === "/home" ? defaultCenter : center}
           zoom={
-            selectedContainerStyle.is4kDevice
+            selectedContainerStyle?.is4kDevice
               ? 16.2
-              : selectedContainerStyle.is4kDevice &&
+              : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
               : 15

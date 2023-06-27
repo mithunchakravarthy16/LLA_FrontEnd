@@ -18,17 +18,58 @@ const useStyles = makeStyles({
     color: "white",
     background: "#161515",
     opacity: 1,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "calc(100vw - 130px) !important",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "calc(100vw - 100px) !important",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 80px) !important",
+    },
   }),
 
   pageHeading: (props: any) => ({
     display: "flex",
-    color: "#F26522",
-    fontSize: "26px",
+    color: props?.palette?.gridViewComponentCommonStyle?.containerTitle, //"#F26522",
+    fontSize: "18px",
     padding: 30,
+    fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: "40px",
-      fontWeight: 700,
-      fontFamily: "HelveticaNeue-Regular",
+      fontSize: 30,
+      lineHeight: "56px",
+      padding: 30,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+      padding: 24,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+      padding: 20,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+      padding: 16,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 13,
+      lineHeight: "20px",
+      padding: 14,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
+      padding: 12,
     },
   }),
 
@@ -89,12 +130,29 @@ const useStyles = makeStyles({
     border: "1px solid #333333",
   }),
   graphTwoHeader: (props: any) => ({
-    height: "10%",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 40,
-      lineHeight: "70px",
-      fontWeight: 500,
-      fontFamily: "HelveticaNeue-Regular",
+      fontSize: 30,
+      lineHeight: "52px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 26,
+      lineHeight: "42px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "32px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "24px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 12,
+      lineHeight: "20px",
     },
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
@@ -102,10 +160,28 @@ const useStyles = makeStyles({
     display: "flex",
     columnGap: "30px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 40,
-      lineHeight: "56px",
-      fontWeight: 500,
-      fontFamily: "HelveticaNeue-Regular",
+      fontSize: 30,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 26,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 12,
+      lineHeight: "19px",
     },
   }),
 });

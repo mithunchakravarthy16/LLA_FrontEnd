@@ -6,10 +6,19 @@ import muiTheme from "../../theme/muiTheme";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     minWidth: props?.pageName === "markerCallout" ? "400px" : "380px",
-    [muiTheme.breakpoints.down(3841)]: {
-      minWidth: 500,
-    },
     [muiTheme.breakpoints.up(3839)]: {
+      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      minWidth: props?.pageName === "markerCallout" ? 749 : 370,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
       minWidth: props?.pageName === "markerCallout" ? 749 : 500,
     },
   }),
@@ -49,14 +58,29 @@ const useStyles = makeStyles({
     letterSpacing: "0.5px",
     marginBottom: 12,
     fontFamily: "HelveticaNeue-Regular",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
     },
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: "40px",
-      lineHeight: "48px",
-      fontFamily: "HelveticaNeue-Regular",
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 13,
+      lineHeight: "20px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
   collapsedlistItemRow2: (props: any) => ({
@@ -66,22 +90,57 @@ const useStyles = makeStyles({
   listItemSubTitle: (props: any) => ({
     fontSize: 14,
     fontFamily: "HelveticaNeue-ItalicMedium",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
-      lineHeight: "48px",
+      lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 15,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 13,
+      lineHeight: "21px",
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      fontSize: 10,
+      lineHeight: "19px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 9,
+      lineHeight: "16px",
     },
   }),
   timeStampStyle: (props: any) => ({
     fontSize: 10,
     fontFamily: "HelveticaNeue-Regular",
-    [muiTheme.breakpoints.down(3841)]: {
-      fontSize: 18,
-      lineHeight: "38px",
-    },
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: "30px !important",
-      fontFamily: "HelveticaNeue-Regular",
-      fontWeight: 500,
+      fontSize: 24,
+      lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 20,
+      lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 13,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 12,
+      lineHeight: "21px",
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      fontSize: 11,
+      lineHeight: "19px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
   expandedListItemRow2: (props: any) => ({
