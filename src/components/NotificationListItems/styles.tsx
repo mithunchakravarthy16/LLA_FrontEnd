@@ -16,10 +16,10 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 749 : 370,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 749 : 240,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 749 : 220,
     },
   }),
   collapsedListItems: (props: any) => ({
@@ -29,8 +29,23 @@ const useStyles = makeStyles({
     border: `2px solid ${props?.palette?.notification?.listItemBg}`,
     marginBottom: "15px",
     cursor: "pointer",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
       marginBottom: "30px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      marginBottom: "24px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      marginBottom: "20px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      marginBottom: "18px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      marginBottom: "15px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      marginBottom: "12px",
     },
   }),
   expandedListItems: (props: any) => ({
@@ -46,11 +61,23 @@ const useStyles = makeStyles({
         : `2px solid ${props?.palette?.notification?.expansionListItemBorder}`,
     marginBottom: props?.pageName === "markerCallout" ? 0 : "15px",
     cursor: "pointer",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
       marginBottom: props?.pageName === "markerCallout" ? 0 : "32px",
     },
-    [muiTheme.breakpoints.up(3839)]: {
-      padding: "25px",
+    [muiTheme.breakpoints.down(3073)]: {
+      marginBottom: props?.pageName === "markerCallout" ? 0 : "24px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      marginBottom: props?.pageName === "markerCallout" ? 0 : "20px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      marginBottom: props?.pageName === "markerCallout" ? 0 : "18px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      marginBottom: props?.pageName === "markerCallout" ? 0 : "16px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      marginBottom: props?.pageName === "markerCallout" ? 0 : "14px",
     },
   }),
   listItemTitle: (props: any) => ({
@@ -75,8 +102,8 @@ const useStyles = makeStyles({
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 13,
-      lineHeight: "20px",
+      fontSize: 11,
+      lineHeight: "18px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
@@ -107,11 +134,11 @@ const useStyles = makeStyles({
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1545)]: {
-      fontSize: 10,
+      fontSize: 9,
       lineHeight: "19px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 9,
+      fontSize: 8,
       lineHeight: "16px",
     },
   }),
@@ -135,11 +162,11 @@ const useStyles = makeStyles({
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1545)]: {
-      fontSize: 11,
+      fontSize: 8,
       lineHeight: "19px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
+      fontSize: 8,
       lineHeight: "16px",
     },
   }),
@@ -158,14 +185,29 @@ const useStyles = makeStyles({
     letterSpacing: "0.5px",
     marginBottom: 12,
     fontFamily: "HelveticaNeue-ItalicMedium",
-    [muiTheme.breakpoints.down(3841)]: {
-      fontSize: 20,
-      lineHeight: "40px",
-    },
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "35px",
-      fontFamily: "HelveticaNeue-ItalicMedium",
+      lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 11,
+      lineHeight: "18px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
   expandedListItemRow4: (props: any) => ({

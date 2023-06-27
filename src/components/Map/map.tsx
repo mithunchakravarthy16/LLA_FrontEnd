@@ -118,7 +118,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 525px)",
+            : "calc(100vh - 582px)",
         is4kDevice: false,
       });
     }
