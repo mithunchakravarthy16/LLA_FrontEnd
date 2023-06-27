@@ -49,8 +49,20 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     imageWidthStyle,
   } = useStyles(appTheme);
 
-  const tooltipOfset = [0, 0];
-  const fontSize = [14];
+  const [screenResolution, setScreenResolution] = useState<any>("2k");
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setScreenResolution("4k");
+    } else if (window.innerWidth < 3839) {
+      setScreenResolution("2k");
+    }
+  }, []);
+
+  console.log("screenResolution", screenResolution);
+
+  const tooltipOfset = [0, 10];
+  const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
 
   return (

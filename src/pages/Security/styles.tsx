@@ -118,7 +118,6 @@ const useStyles = makeStyles({
   },
 
   legendColorBox: (props: any) => {
-    console.log("PROPS", props);
     return {
       width: "20px",
       height: "10px",
