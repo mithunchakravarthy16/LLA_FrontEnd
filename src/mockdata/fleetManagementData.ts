@@ -5,9 +5,9 @@ const fleetManagementData = {
     fleetData: [
       {
         id: "lght1",
-        title: "WiFi Network Upgraded",
-        subTitle: "Provide faster and more reliable connectivity",
-        area: "OutDoor",
+        title: "Shuttle Arrived",
+        subTitle: "Shelter BS1",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -20,9 +20,9 @@ const fleetManagementData = {
       },
       {
         id: "lght2",
-        title: "WiFi Password Reset",
-        subTitle: "Outdoor WiFi network has been reset",
-        area: "OutDoor",
+        title: "Shuttle Departed",
+        subTitle: "Shelter BS3,Bus Id-#7890",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -35,9 +35,9 @@ const fleetManagementData = {
       },
       {
         id: "lght3",
-        title: "WiFi Signal Boost",
-        subTitle: "Enhanced the outdoor WiFi signal strength",
-        area: "OutDoor",
+        title: "Shuttle Service Resumed",
+        subTitle: "Shelter BS2,Bus Id-#5764",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -50,9 +50,9 @@ const fleetManagementData = {
       },
       {
         id: "lght4",
-        title: "Light Interactive Workshop",
-        subTitle: "The art of smart lights programming",
-        area: "OutDoor",
+        title: "Increased Service Frequency",
+        subTitle: "Shelter BS4",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -65,9 +65,9 @@ const fleetManagementData = {
       },
       {
         id: "lght5",
-        title: "Smart Lights Exhibitiont",
-        subTitle: "Display of creativity and technology",
-        area: "OutDoor",
+        title: "Shuttle Stop Relocated",
+        subTitle: "Shelter BS4",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -80,9 +80,9 @@ const fleetManagementData = {
       },
       {
         id: "lght6",
-        title: "WiFi Movie Marathon",
-        subTitle: "Outdoor movie marathon with WiFi streaming access",
-        area: "OutDoor",
+        title: "Last Shuttle",
+        subTitle: "Shelter BS1",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -95,10 +95,9 @@ const fleetManagementData = {
       },
       {
         id: "lght7",
-        title: "Light Sculpture Showcase",
-        subTitle:
-          "The blend of creativity and technology in this stunning showcase",
-        area: "OutDoor",
+        title: "Shuttle Service Resumed",
+        subTitle: "Shelter BS4,Bus Id-#5379",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -111,9 +110,9 @@ const fleetManagementData = {
       },
       {
         id: "lght8",
-        title: "Interactive Light Installation",
-        subTitle: "Engage with cutting-edge interactive light installations",
-        area: "OutDoor",
+        title: "Shuttle Change",
+        subTitle: "Shelter BS2,Bus Id-#8564",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -126,9 +125,9 @@ const fleetManagementData = {
       },
       {
         id: "lght10",
-        title: "Light Technology Seminar",
-        subTitle: "Discover how innovation is shaping the future of lighting",
-        area: "OutDoor",
+        title: "Increased Service Frequency",
+        subTitle: "Shelter BS3",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -141,9 +140,9 @@ const fleetManagementData = {
       },
       {
         id: "lght11",
-        title: "Smart Lights Power Outage",
-        subTitle: "Outdoor smart lights are temporarily unavailable",
-        area: "OutDoor",
+        title: "Service Disruptions Expected",
+        subTitle: "Shelter BS4,Bus Id-#9012",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -156,9 +155,9 @@ const fleetManagementData = {
       },
       {
         id: "lght12",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
-        area: "OutDoor",
+        title: "Shuttle Breakdown",
+        subTitle: "Shelter BS2,Bus Id-#4678",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -171,9 +170,9 @@ const fleetManagementData = {
       },
       {
         id: "lght13",
-        title: "Lights Firmware Update",
-        subTitle: "Introduce new features and enhance performance",
-        area: "OutDoor",
+        title: "Shuttle Driver Misconduct",
+        subTitle: "Shelter BS1,Bus Id-#5378",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -186,10 +185,9 @@ const fleetManagementData = {
       },
       {
         id: "lght14",
-        title: "Malfunctioning Spotlight",
-        subTitle: "Spotlight not focusing properly",
-
-        area: "OutDoor",
+        title: "Mechanical Issue Detected",
+        subTitle: "Shelter BS4,Bus Id-#3467",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -202,10 +200,9 @@ const fleetManagementData = {
       },
       {
         id: "lght15",
-        title: "Uneven Street Lighting",
-        subTitle: "Inconsistent brightness along the street",
-
-        area: "OutDoor",
+        title: "Temporary Bus Stop Relocation",
+        subTitle: "Shelter BS2",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -218,11 +215,9 @@ const fleetManagementData = {
       },
       {
         id: "lght16",
-        title: "Flashing Neon Sign",
-        subTitle: "Neon sign flashing abnormally",
-
-        area: "OutDoor",
-
+        title: "Temporary Bus Stop Closure",
+        subTitle: "Shelter BS3",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -235,11 +230,9 @@ const fleetManagementData = {
       },
       {
         id: "lght17",
-        title: "Broken Street Lamp",
-        subTitle: "Non-functional street lamp",
-
-        area: "OutDoor",
-
+        title: "Severe Weather Advisory",
+        subTitle: "Shelter BS1",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -252,10 +245,9 @@ const fleetManagementData = {
       },
       {
         id: "lght18",
-        title: "Flickering Lights",
-        subTitle: "Lights intermittently turning on and off",
-
-        area: "OutDoor",
+        title: "Bus Stop Accident",
+        subTitle: "Shelter BS4,Bus Id-#3532",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -268,11 +260,9 @@ const fleetManagementData = {
       },
       {
         id: "lght19",
-        title: "Dimmed Lights",
-        subTitle: "Reduced brightness in specific areas",
-
-        area: "OutDoor",
-
+        title: "Bus Stop Service Disruptions",
+        subTitle: "Shelter BS2",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -284,28 +274,10 @@ const fleetManagementData = {
         },
       },
       {
-        id: "lght20",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "fleet",
-        notificationCategory: "incident",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.7519824246002,
-          lng: -105.00928968611122,
-        },
-      },
-
-      {
         id: "lght21",
-        title: "Outdoor Lighting Malfunction",
-        subTitle: "Maintenance team notified",
-        area: "OutDoor",
+        title: "Shuttle Service Delayed",
+        subTitle: "Shelter BS1,Bus Id-#6845",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -318,10 +290,9 @@ const fleetManagementData = {
       },
       {
         id: "lght22",
-        title: "Floodlight Maintenance",
-        subTitle: "Checking and repairing floodlights",
-
-        area: "OutDoor",
+        title: "Service Frequency Reduced",
+        subTitle: "Shelter BS1",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -334,9 +305,9 @@ const fleetManagementData = {
       },
       {
         id: "lght23",
-        title: "Lighting Fixture Replacement",
-        subTitle: "Replacing faulty fixtures in the building",
-        area: "OutDoor",
+        title: "Shuttle Route Modification",
+        subTitle: "Shelter BS4,Bus Id-#2478",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -349,11 +320,9 @@ const fleetManagementData = {
       },
       {
         id: "lght24",
-        title: "Maintenance of Landscape Lights",
-        subTitle: "Inspecting and cleaning landscape lights",
-
-        area: "OutDoor",
-
+        title: "Shuttle Service Delayed",
+        subTitle: "Shelter BS1,Bus Id-#6788",
+        area: "",
         entity: "",
         venue: "Location",
         category: "fleet",
@@ -362,73 +331,6 @@ const fleetManagementData = {
         location: {
           lat: 39.75432512727771,
           lng: -105.00505334382431,
-        },
-      },
-      {
-        id: "lght25",
-        title: "Lighting System Upgrade",
-        subTitle: "Upgrading to energy-efficient LED lights",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "fleet",
-        notificationCategory: "oprAlert",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.75677237845138,
-          lng: -104.99989373019561,
-        },
-      },
-      {
-        id: "lght26",
-        title: "New Lighting Installation",
-        subTitle: "Installing additional lights in the park",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "fleet",
-        notificationCategory: "oprAlert",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.75978160140874,
-          lng: -104.99776980796267,
-        },
-      },
-      {
-        id: "lght28",
-        title: "Street Light Replacement",
-        subTitle: "Old street lights being replaced",
-
-        area: "OutDoor",
-        entity: "",
-        venue: "Location",
-        category: "fleet",
-        notificationCategory: "oprAlert",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.75838685085751,
-          lng: -105.00005180275836,
-        },
-      },
-      {
-        id: "lght30",
-        title: "New Lighting Installation",
-        subTitle: "Installing additional lights in the park",
-
-        area: "OutDoor",
-
-        entity: "",
-        venue: "Location",
-        category: "fleet",
-        notificationCategory: "oprAlert",
-        timeStamp: "09:41 AM",
-        location: {
-          lat: 39.75722374013964,
-          lng: -105.00077442018811,
         },
       },
     ],
