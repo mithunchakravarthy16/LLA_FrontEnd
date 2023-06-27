@@ -5,7 +5,7 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   gridContainers: (props: any) => ({
-    height: "90%",
+    height: "100%",
   }),
 
   containerTitle: (props: any) => ({
