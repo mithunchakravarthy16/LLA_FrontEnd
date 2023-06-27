@@ -86,7 +86,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
             </Grid>
           ))}
 
-        <Grid flex={1.5} item className={progressBarContainer}>
+        <Grid flex={2} item className={progressBarContainer}>
           {/* <HorizontalProgressBar
             progressBarTitle={"Avg. Dimming Level"} //mandatory
             progressBarTitleFontSize={"14px"}
