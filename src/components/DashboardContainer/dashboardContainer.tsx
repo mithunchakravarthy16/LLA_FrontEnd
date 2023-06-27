@@ -54,15 +54,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
-    if(!notificationPanelActive) {
-      setSearchOpen(false);
-      setTabIndex(1);
-      setCurrentMarker("");
-      setSelectedNotification("");
-      setSearchValue(dashboardData);
-    }
 
   };
+
+
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
@@ -107,6 +102,16 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       formatttedDashboardNotificationCount(dashboardDataList)
     );
   }, [dashboardData]);
+
+  useEffect(()=>{
+    if(!notificationPanelActive) {
+      setSearchOpen(false);
+      setTabIndex(1);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setSearchValue(dashboardData);
+    }
+  },[notificationPanelActive])
 
   return (
     <>

@@ -8,7 +8,9 @@ const useStyles = makeStyles({
     fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
     height: "100vh",
-    paddingLeft: "3.4px",
+    // paddingLeft: props?.parkingLotIndex === 0 ? "3.4px" : "57.4px",
+    paddingLeft:  "3.4px",
+
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
     },
@@ -90,7 +92,7 @@ const useStyles = makeStyles({
     position: "absolute",
     color: "white",
     right: 15,
-    top: 15,
+    top: 7,
     zIndex: 1,
     // width: "50px",
     // height: "50px",
@@ -100,10 +102,11 @@ const useStyles = makeStyles({
     justifyContent: "center",
     borderRadius: "50px",
     cursor: "pointer",
-    fontWeight: 600,
-    width: "30%",
+    width: "35%",
+    height : "12%"
   }),
   customNotificationTabs: (props: any) => ({
+    width : "85%",
     "& .MuiTabs-flexContainer": {
       display: "flex",
       flexDirection: "row",
@@ -121,9 +124,9 @@ const useStyles = makeStyles({
 
     "& .MuiTab-root": {
       fontSize: "16px !important",
-      fontWeight: "600 !important",
+      fontWeight: "500 !important",
       lineHeight: "30px !important",
-      fontFamily: "HelveticaNeue-Regular",
+      // fontFamily: "HelveticaNeue-Regular",
       margin: "10px 0px 10px 0px",
       "&:first-child": {
         marginRight: "0 !important",
@@ -260,6 +263,134 @@ const useStyles = makeStyles({
       height: "6px",
       borderRadius: 6,
       textTransform: "uppercase",
+    },
+  }),
+
+  lotSelectionIconStyle: (props: any) => ({
+    position: "absolute",
+    color: "white",
+    zIndex: 1,
+    background: "#F26522",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "50px",
+    cursor: "pointer",
+    padding: "15px 5px 15px 5px",
+    width : "53px",
+    height : "30px",
+    right :  props?.parkingLotSelectionActive ? 0 : "15px",
+    top :  props?.parkingLotSelectionActive ? 0 : "7px",
+  }),
+  lotImageStyle: (props: any) => ({
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop : "-1.75%"
+  }),
+  liveContainer: (props: any) => ({
+    display: "flex",
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    backgroundColor: "#57585A20",
+    borderRadius: "4px",
+    position: "relative",
+  }),
+
+  liveImgStyle: (props: any) => ({
+    position: "absolute",
+    top: "-15px",
+    left: "20px",
+  }),
+
+  liveContentValue: (props: any) => ({
+    fontSize: "20px",
+    fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+  }),
+
+  electricity: (props: any) => ({
+    fontSize: "20px",
+    fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+  }),
+
+  liveContentValueGreen: (props: any) => ({
+    fontSize: "22px",
+    fontWeight: 700,
+    color: props?.palette?.gridViewComponentCommonStyle?.liveContentValueGreen, //"#80C53B",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+  }),
+
+  liveContentLabel: (props: any) => ({
+    fontSize: "14px",
+    fontWeight: 500,
+    fontStyle: "italic",
+  }),
+
+  liveContentLabelGreen: (props: any) => ({
+    fontSize: "14px",
+    fontWeight: 500,
+    fontStyle: "italic",
+    display: "flex",
+    alignItems: "center",
+    columnGap: "15px",
+  }),
+
+  liveContentStyle: (props: any) => ({
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: "10px",
+  }),
+
+  liveContentLeftStyle: (props: any) => ({
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: "10px",
+    position: "relative",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      left: "28%",
+      bottom: 0,
+      width: "44%", // Specify the desired length of the bottom border
+      borderBottom: `1px solid ${props?.palette?.gridViewComponentCommonStyle?.liveContentLeftBorder}`, // Specify your desired color and border style
+      opacity: "0.4",
+    },
+  }),
+
+  aqiCircleStyle: (props: any) => ({
+    width: "6px",
+    height: "6px",
+    borderRadius: "50%",
+    backgroundColor: props?.palette?.gridViewComponentCommonStyle?.aqiCircleBg, //"#80C43B",
+    boxShadow: `0px 0px 2px 3px ${props?.palette?.gridViewComponentCommonStyle?.aqiCircleShadow}`,
+  }),
+
+  graphTwoHeader: (props: any) => ({
+    height: "10%",
+    fontSize: "20px",
+    fontWeight: 600,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
     },
   }),
 });
