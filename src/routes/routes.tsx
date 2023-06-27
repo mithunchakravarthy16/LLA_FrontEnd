@@ -10,6 +10,7 @@ import Lighting from "pages/Lighting";
 import EnergyManagement from "pages/EnenrgyManagement";
 import Security from "pages/Security";
 import Parking from "pages/Parking";
+import FleetManagement from "pages/FleetManagement";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -61,6 +62,14 @@ const VIOT_Routes = () => {
         {
           path: "lighting",
           element: <Lighting />,
+        },
+        {
+          path: "fleetManagement",
+          element: <FleetManagement />,
+        },
+        {
+          path: "assetTracking",
+          // element: <AssetTracking />,
         },
       ],
     },

@@ -62,7 +62,10 @@ const GridViewScreenSix: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 6 */}
-      <Grid item xs={4} className={gridStyles}>
+      <Grid item xs={4} className={gridStyles}
+      onClick={() => {
+        handleClick("/assetTracking");
+      }}>
         <Grid
           container
           xs={12}

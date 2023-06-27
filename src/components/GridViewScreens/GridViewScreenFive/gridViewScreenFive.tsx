@@ -74,7 +74,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 5 */}
-      <Grid item xs={4} className={gridStyles}>
+      <Grid item xs={4} className={gridStyles} onClick={() => {
+          handleClick("/fleetManagement");
+        }}>
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitleScreenFive}>
             FLEET MANAGEMENT
