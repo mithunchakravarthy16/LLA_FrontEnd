@@ -11,6 +11,7 @@ import EnergyManagement from "pages/EnenrgyManagement";
 import Security from "pages/Security";
 import Parking from "pages/Parking";
 import FleetManagement from "pages/FleetManagement";
+import AssetTracking from "pages/AssetTracking";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -69,7 +70,7 @@ const VIOT_Routes = () => {
         },
         {
           path: "assetTracking",
-          // element: <AssetTracking />,
+           element: <AssetTracking />,
         },
       ],
     },
