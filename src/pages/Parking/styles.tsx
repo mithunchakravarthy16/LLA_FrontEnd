@@ -8,7 +8,9 @@ const useStyles = makeStyles({
     fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
     height: "100vh",
-    paddingLeft: props?.parkingLotIndex === 0 ? "3.4px" : "57.4px",
+    // paddingLeft: props?.parkingLotIndex === 0 ? "3.4px" : "57.4px",
+    paddingLeft:  "3.4px",
+
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
     },
