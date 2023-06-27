@@ -74,8 +74,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
   return (
     <>
       {/* Gride 1 */}
-      {/* <Grid item xs={4} className={gridStyles}> */}
-        <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}>
+      <Grid item xs={4} className={gridStyles}>
+        {/* <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}> */}
 
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>

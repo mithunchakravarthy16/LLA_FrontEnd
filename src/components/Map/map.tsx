@@ -256,7 +256,6 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
     map?.panTo(defaultCenter);
     map?.setZoom(window.innerWidth > 3839 && zoomValue);
-    setNotificationPanelActive(false);
   };
 
   const handleExpandListItem = () => {

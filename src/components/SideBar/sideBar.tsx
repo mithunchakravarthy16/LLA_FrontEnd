@@ -129,8 +129,20 @@ const SideBar = (props: SideBarProps) => {
     localStorage.setItem("tabIndex", JSON.stringify(id));
   };
 
-  const tooltipOfset = [0, 10];
-  const fontSize = [14];
+  const [screenResolution, setScreenResolution] = useState<any>("2k");
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setScreenResolution("4k");
+    } else if (window.innerWidth < 3839) {
+      setScreenResolution("2k");
+    }
+  }, []);
+
+  console.log("screenResolution", screenResolution);
+
+  const tooltipOfset = screenResolution === "2k" ? [0, 10] : [0, 40];
+  const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
 
   return (
@@ -142,25 +154,25 @@ const SideBar = (props: SideBarProps) => {
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
             return (
-              <Tooltip
-                tooltipValue={item?.title}
-                placement={"right"}
-                offset={tooltipOfset}
-                fontSize={fontSize}
-                padding={padding}
+              <div
+                className={
+                  activePage === item.id ? menuIconListActive : menuIconList
+                }
+                onClick={(event) =>
+                  handleClick(event, item.id, item.path, item?.title)
+                }
+                key={index}
               >
-                <div
-                  className={
-                    activePage === item.id ? menuIconListActive : menuIconList
-                  }
-                  onClick={(event) =>
-                    handleClick(event, item.id, item.path, item?.title)
-                  }
-                  key={index}
+                <Tooltip
+                  tooltipValue={item?.title}
+                  placement={"right"}
+                  offset={tooltipOfset}
+                  fontSize={fontSize}
+                  padding={padding}
                 >
                   <img src={item.image} />
-                </div>
-              </Tooltip>
+                </Tooltip>
+              </div>
             );
           })}
         </div>

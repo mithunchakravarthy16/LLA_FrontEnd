@@ -358,7 +358,6 @@ const Parking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
-                  notificationPageName={"parking"}
                 />
               </Grid>
             </Grid>
