@@ -26,6 +26,11 @@ const useStyles = makeStyles({
     display: "flex",
     color: "#F26522",
     fontSize: "20px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "40px",
+      fontWeight: 700,
+      fontFamily: "HelveticaNeue-Regular",
+    },
   }),
 
   bodyContainer: (props: any) => ({
