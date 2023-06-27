@@ -51,8 +51,13 @@ import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import useStyles from "./styles";
 
 const defaultCenter = {
-  lat: 39.75055380818962,
-  lng: -105.00000034678636,
+  lat: 39.75223365792099,
+  lng: -105.00248276374698,
+};
+
+const center = {
+  lat: 39.75576345655451,
+  lng: -105.00357749556102,
 };
 
 const Map: React.FC<any> = (props) => {
@@ -96,7 +101,6 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 924px)",
         is4kDevice: true,
       });
-      setZoomValue(16.5);
     } else if (window.innerWidth < 3839) {
       setSelectedContainerStyle({
         width: "100%",
@@ -107,7 +111,6 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 401px)",
         is4kDevice: false,
       });
-      setZoomValue(15);
     }
   }, []);
 
@@ -118,18 +121,23 @@ const Map: React.FC<any> = (props) => {
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
-      map?.setZoom(selectedContainerStyle.is4kDevice ? 16.5 : 15);
+      map?.setZoom(
+        selectedContainerStyle.is4kDevice
+          ? 16.2
+          : selectedContainerStyle.is4kDevice && location?.pathname !== "/home"
+          ? 15
+          : 15
+      );
       map?.panTo(markers[index]?.location);
     } else {
-      map?.panTo(
-        location?.pathname === "/home"
-          ? defaultCenter
-          : {
-              lat: 39.7522538638645,
-              lng: -105.00233200716357,
-            }
+      map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
+      map?.setZoom(
+        selectedContainerStyle.is4kDevice
+          ? 16.2
+          : selectedContainerStyle.is4kDevice && location?.pathname !== "/home"
+          ? 15
+          : 15
       );
-      map?.setZoom(selectedContainerStyle.is4kDevice ? 16.5 : 15);
     }
   }, [currentMarker]);
 
@@ -260,14 +268,7 @@ const Map: React.FC<any> = (props) => {
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
       if (prev && prev === markerId) {
-        map?.panTo(
-          location?.pathname === "/home"
-            ? defaultCenter
-            : {
-                lat: 39.7522538638645,
-                lng: -105.00233200716357,
-              }
-        );
+        map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
         return "";
       } else {
         map?.panTo(location);
@@ -281,15 +282,8 @@ const Map: React.FC<any> = (props) => {
 
   const handleMarkerClose = () => {
     setSelectedNotification("");
-    map?.panTo(
-      location?.pathname === "/home"
-        ? defaultCenter
-        : {
-            lat: 39.7522538638645,
-            lng: -105.00233200716357,
-          }
-    );
-    map?.setZoom(selectedContainerStyle.is4kDevice ? 16.5 : 15);
+    map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
+    map?.setZoom(selectedContainerStyle.is4kDevice ? 16.2 : 15);
     setNotificationPanelActive(false);
   };
 
@@ -302,15 +296,15 @@ const Map: React.FC<any> = (props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={selectedContainerStyle}
-          center={
-            location?.pathname === "/home"
-              ? defaultCenter
-              : {
-                  lat: 39.7522538638645,
-                  lng: -105.00233200716357,
-                }
+          center={location?.pathname === "/home" ? defaultCenter : center}
+          zoom={
+            selectedContainerStyle.is4kDevice
+              ? 16.2
+              : selectedContainerStyle.is4kDevice &&
+                location?.pathname !== "/home"
+              ? 15
+              : 15
           }
-          zoom={location?.pathname === "/home" ? zoomValue : 16}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
