@@ -94,6 +94,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 924px)",
+        is4kDevice: true,
       });
       setZoomValue(16.5);
     } else if (window.innerWidth < 3839) {
@@ -104,6 +105,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 401px)",
+        is4kDevice: false,
       });
       setZoomValue(15);
     }
@@ -116,7 +118,7 @@ const Map: React.FC<any> = (props) => {
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
-      map?.setZoom(location?.pathname === "/home" ? 16.5 : 15);
+      map?.setZoom(selectedContainerStyle.is4kDevice ? 16.5 : 15);
       map?.panTo(markers[index]?.location);
     } else {
       map?.panTo(
@@ -127,7 +129,7 @@ const Map: React.FC<any> = (props) => {
               lng: -105.00233200716357,
             }
       );
-      map?.setZoom(location?.pathname === "/home" ? 16.5 : 15);
+      map?.setZoom(selectedContainerStyle.is4kDevice ? 16.5 : 15);
     }
   }, [currentMarker]);
 
@@ -287,7 +289,7 @@ const Map: React.FC<any> = (props) => {
             lng: -105.00233200716357,
           }
     );
-    map?.setZoom(location?.pathname === "/home" ? 16.5 : 15);
+    map?.setZoom(selectedContainerStyle.is4kDevice ? 16.5 : 15);
     setNotificationPanelActive(false);
   };
 
