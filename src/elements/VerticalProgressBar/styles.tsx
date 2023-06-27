@@ -5,16 +5,18 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   label: (props: any) => ({
-    fontSize: "20px",
+    fontSize: "30px",
     fontWeight: 700,
   }),
 
   progressBarTitle: (props: any) => ({
     padding: "0 0 5px 5px",
     fontSize: "14px",
+    marginBottom: 4,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 26,
       lineHeight: "38px",
+      marginBottom: 8,
     },
   }),
 

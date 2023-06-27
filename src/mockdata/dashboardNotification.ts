@@ -10,8 +10,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75055380818962,
-        lng: -105.00000034678636,
+        lat: 39.75932453116013,
+        lng: -105.01244836237774,
       },
     },
     {
@@ -24,8 +24,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75781397788408,
-        lng: -104.9972290784235,
+        lat: 39.75986730174264,
+        lng: -105.00059403615393,
       },
     },
     {
@@ -38,8 +38,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75353297677643,
-        lng: -105.00327870264529,
+        lat: 39.75181100420289,
+        lng: -105.01129637456289,
       },
       equipment: "Equip - 1",
     },
@@ -53,8 +53,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75734526008877,
-        lng: -105.00014212993709,
+        lat: 39.75515362500666,
+        lng: -104.99609756758628,
       },
       equipment: "Equip - 2",
     },
@@ -83,8 +83,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.754428722132545,
-        lng: -105.00332616298682,
+        lat: 39.75181100420289,
+        lng: -105.00847214637164,
       },
       equipment: "Cam - 1",
     },
@@ -99,8 +99,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.753160323749114,
-        lng: -105.01170566355108,
+        lat: 39.75555358586086,
+        lng: -105.01657322197286,
       },
     },
     {
@@ -114,8 +114,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75461968970569,
-        lng: -105.00328099939746,
+        lat: 39.75729624533388,
+        lng: -104.9895572496697,
       },
     },
     {
@@ -128,8 +128,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.753650251934815,
-        lng: -105.01000630268352,
+        lat: 39.75061104947772,
+        lng: -104.99754684257915,
       },
     },
     {
@@ -170,8 +170,8 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.7550189838296,
-        lng: -105.00034536608919,
+        lat: 39.75118245909654,
+        lng: -104.99316185670325,
       },
     },
     {
@@ -184,8 +184,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75753621957562,
-        lng: -104.99984856660626,
+        lat: 39.76323809694557,
+        lng: -105.00263788550286,
       },
     },
     {
@@ -198,8 +198,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75706749988997,
-        lng: -104.99973565763285,
+        lat: 39.758410381562285,
+        lng: -104.99914476116105,
       },
     },
     {
@@ -212,8 +212,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75428983629226,
-        lng: -105.000571184036,
+        lat: 39.758267544591504,
+        lng: -104.98829377916307,
       },
       equipment: "Equip - 3",
     },
@@ -227,8 +227,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.757206380129404,
-        lng: -104.99978082122222,
+        lat: 39.749982493422706,
+        lng: -104.99238147786095,
       },
       equipment: "Equip - 4",
     },
@@ -242,8 +242,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.756234212572515,
-        lng: -105.00118089249233,
+        lat: 39.7519538545636,
+        lng: -105.00639113612544,
       },
       equipment: "Cam - 3",
     },
@@ -257,8 +257,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.7517203977345,
-        lng: -105.00170027376996,
+        lat: 39.755724996944544,
+        lng: -105.0059452053584,
       },
       equipment: "Cam - 4",
     },
@@ -273,8 +273,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75569604248862,
-        lng: -105.00192609171674,
+        lat: 39.755724996944544,
+        lng: -105.0073944803513,
       },
     },
     {
@@ -288,8 +288,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.756824458797134,
-        lng: -105.00113572890297,
+        lat: 39.754096574426356,
+        lng: -104.99524286694944,
       },
     },
     {
@@ -302,8 +302,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.757362620063994,
-        lng: -104.99867431328295,
+        lat: 39.75263953217147,
+        lng: -104.99134097273785,
       },
     },
     {
@@ -316,8 +316,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.758247972998504,
-        lng: -105.00018729352644,
+        lat: 39.7519824246002,
+        lng: -105.00928968611122,
       },
     },
     {
@@ -330,8 +330,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.753334988559395,
-        lng: -105.00260354555711,
+        lat: 39.75681059056824,
+        lng: -105.01014438674804,
       },
     },
     {
@@ -344,8 +344,8 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75434191851517,
-        lng: -105.00104540172426,
+        lat: 39.7620097754289,
+        lng: -104.9920841906829,
       },
     },
     {
@@ -358,8 +358,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.757102219976076,
-        lng: -105.0022874004316,
+        lat: 39.75423942004732,
+        lng: -105.00910388162495,
       },
     },
     {
@@ -372,8 +372,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.756216852312875,
-        lng: -104.99993889378497,
+        lat: 39.75883889069712,
+        lng: -105.00156021948253,
       },
     },
     {
@@ -386,8 +386,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75788341728617,
-        lng: -105.00061634762534,
+        lat: 39.76092426375837,
+        lng: -104.99806709514071,
       },
       equipment: "Equip - 5",
     },
@@ -401,8 +401,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75564396128959,
-        lng: -105.00192609171674,
+        lat: 39.75509648755221,
+        lng: -105.00226627653032,
       },
       equipment: "Equip - 6",
     },
@@ -416,8 +416,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.756581416846664,
-        lng: -104.9982000955947,
+        lat: 39.749953922556664,
+        lng: -104.98699314775921,
       },
       equipment: "Cam - 5",
     },
@@ -431,8 +431,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.757605659257756,
-        lng: -104.99953242148075,
+        lat: 39.7541537127103,
+        lng: -104.99290173042249,
       },
       equipment: "Cam - 6",
     },
@@ -447,8 +447,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.757327900109146,
-        lng: -105.00070667480405,
+        lat: 39.75809613983553,
+        lng: -104.99754684257915,
       },
     },
     {
@@ -462,8 +462,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75838685085751,
-        lng: -105.00005180275836,
+        lat: 39.753039507624166,
+        lng: -104.9947226143879,
       },
     },
     {
@@ -476,8 +476,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75765773897343,
-        lng: -105.0017454373593,
+        lat: 39.75458224832903,
+        lng: -105.00449593036554,
       },
     },
     {
@@ -490,8 +490,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75722374013964,
-        lng: -105.00077442018811,
+        lat: 39.75432512727771,
+        lng: -105.00505334382431,
       },
     },
     {
@@ -518,8 +518,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.756112690663066,
-        lng: -104.99815493200533,
+        lat: 39.75978160140874,
+        lng: -104.99776980796267,
       },
     },
   ],

@@ -5,7 +5,7 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   gridContainers: (props: any) => ({
-    height: "95%",
+    height: "90%",
   }),
 
   containerTitle: (props: any) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
     fontSize: "18px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      fontSize: 32,
       lineHeight: "56px",
     },
   }),
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
     marginBottom: "20px",
     fontSize: "16px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 24,
+      fontSize: 28,
       lineHeight: "48px",
     },
   }),
@@ -87,8 +87,8 @@ const useStyles = makeStyles({
     fontSize: "20px",
     fontWeight: 600,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      lineHeight: "56px",
+      fontSize: 44,
+      lineHeight: "72px",
     },
   }),
 
@@ -105,7 +105,7 @@ const useStyles = makeStyles({
   liveContentLabel: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontStyle: "italic",
+    fontFamily: "HelveticaNeue-ItalicMedium",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -115,7 +115,7 @@ const useStyles = makeStyles({
   liveContentLabelGreen: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontStyle: "italic",
+    fontFamily: "HelveticaNeue-ItalicMedium",
     display: "flex",
     alignItems: "center",
     columnGap: "15px",
@@ -159,15 +159,15 @@ const useStyles = makeStyles({
     flex: 1,
     flexGrow: 1,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      lineHeight: "56px",
+      fontSize: 44,
+      lineHeight: "73px",
     },
   }),
 
   horizantalDataGridLabelStyle: (props: any) => ({
     fontSize: "17px",
     fontWeight: 500,
-    fontStyle: "italic",
+    fontFamily: "HelveticaNeue-ItalicMedium",
     color:
       props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel, //"#B5B2B2",
     flexGrow: 1,
@@ -240,8 +240,8 @@ const useStyles = makeStyles({
     fontWeight: "600",
     fontSize: "22px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 36,
-      lineHeight: "56px",
+      fontSize: 44,
+      lineHeight: "72px",
     },
   }),
 
@@ -249,10 +249,10 @@ const useStyles = makeStyles({
     fontSize: "18px",
     color:
       props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel,
-    fontStyle: "italic",
+    fontFamily: "HelveticaNeue-ItalicMedium",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "56px",
+      lineHeight: "42px",
     },
   }),
 

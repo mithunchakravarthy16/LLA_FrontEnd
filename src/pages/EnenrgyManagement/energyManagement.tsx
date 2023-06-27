@@ -219,10 +219,11 @@ const Parking: React.FC<any> = (props) => {
                             >
                               <div
                                 style={{
-                                  width: "10px",
-                                  height: "10px",
+                                  width: "18px",
+                                  height: "18px",
                                   borderRadius: "50%",
                                   backgroundColor: "#BD8C52",
+                                  marginRight: 6,
                                 }}
                               ></div>
                               <div>Electricity Consumption </div>
@@ -237,10 +238,11 @@ const Parking: React.FC<any> = (props) => {
                             >
                               <div
                                 style={{
-                                  width: "10px",
-                                  height: "10px",
+                                  width: "18px",
+                                  height: "18px",
                                   borderRadius: "50%",
                                   backgroundColor: "#5F3B6C",
+                                  marginRight: 6,
                                 }}
                               ></div>
                               <div>HVAC</div>

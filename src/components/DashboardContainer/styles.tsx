@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
@@ -15,17 +17,14 @@ const useStyles = makeStyles({
     cursor: "pointer",
     width: 50,
     [muiTheme.breakpoints.down(3841)]: {
-      width: 80,
-    },
-    [muiTheme.breakpoints.up(3839)]: {
-      width: 120,
+      width: 100,
     },
   }),
   notificationPanelSection: (props: any) => ({
     position: "absolute",
     right: "30px",
     background: props?.palette?.notification?.notificationBg,
-    height: "calc(100vh - 180px)",
+    height: "calc(100vh - 332px)",
     top: "106px",
     boxShadow: `0px 0px 20px 5px ${props?.palette?.notification?.notificationBoxShadow}`,
     backdropFilter: "blur(17px)",
@@ -34,7 +33,7 @@ const useStyles = makeStyles({
     width: "466px",
     [muiTheme.breakpoints.down(3841)]: {
       width: "822px",
-      top: "135px",
+      top: "180px",
     },
   }),
 });
