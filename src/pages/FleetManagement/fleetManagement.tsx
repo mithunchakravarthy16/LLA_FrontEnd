@@ -17,7 +17,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import parkingData from "mockdata/fleetManagementData";
+import parkingData from "../../mockdata/fleetManagementData";
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
@@ -428,7 +428,6 @@ const FleetManagement: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
-                  notificationPageName={"fleetManagement"}
                 />
               </Grid>
             </Grid>

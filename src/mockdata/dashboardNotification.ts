@@ -203,6 +203,34 @@ const dashboardList = {
       },
     },
     {
+      id: "prk61",
+      title: "Accident Detected",
+      area: "Parking Lot - 4 ",
+      entity: "LPN: ABL-C31| Sot - 28",
+      venue: "",
+      category: "parking",
+      notificationCategory: "incident",
+      timeStamp: "09:41 AM",
+      location: {
+        lat: 39.76146903388253,
+        lng: -105.00182251057917,
+      },
+    },
+    {
+      id: "prk63",
+      title: "Double Parking",
+      area: "Parking Lot -3 ",
+      entity: "LPN: 510-IBD | Spot - 05",
+      venue: "",
+      category: "parking",
+      notificationCategory: "incident",
+      timeStamp: "09:41 AM",
+      location: {
+        lat: 39.758186488708766,
+        lng: -105.00474075387679,
+      },
+    },
+    {
       id: "eng3",
       title: "Gas Leak Detected",
       area: "Building C",
@@ -467,6 +495,21 @@ const dashboardList = {
       },
     },
     {
+      id: "lght7",
+      title: "New Lighting Installation",
+      subTitle: "Installing additional lights in the park",
+      area: "OutDoor",
+      entity: "",
+      venue: "Location",
+      category: "lighting",
+      notificationCategory: "oprAlert",
+      timeStamp: "09:41 AM",
+      location: {
+        lat: 39.7575679010206,
+        lng: -105.00685433450045,
+      },
+    },
+    {
       id: "ast5",
       title: "Asset Movement Detected",
       area: "Zone B",
@@ -492,6 +535,20 @@ const dashboardList = {
       location: {
         lat: 39.75432512727771,
         lng: -105.00505334382431,
+      },
+    },
+    {
+      id: "ast7",
+      title: "Asset Movement Detected",
+      subTitle: "Zone H",
+      entity: "",
+      venue: "Location",
+      category: "asset",
+      notificationCategory: "oprAlert",
+      timeStamp: "09:41 AM",
+      location: {
+        lat: 39.75934117067896,
+        lng: -105.00260571558185,
       },
     },
     {
@@ -521,6 +578,20 @@ const dashboardList = {
         lat: 39.75978160140874,
         lng: -104.99776980796267,
       },
+      },
+      {
+        id: "fleet7",
+        title: "Shuttle Route Modification",
+        subTitle: "Shelter BS4,Bus Id-#2478",
+        entity: "",
+        venue: "Location",
+        category: "fleet",
+        notificationCategory: "oprAlert",
+        timeStamp: "09:41 AM",
+        location: {
+          lat: 39.76085047577622,
+          lng: -104.99713400939879,
+        },
     },
   ],
 };
