@@ -68,7 +68,6 @@ const useStyles = makeStyles({
     fontSize: 30,
     fontFamily: "HelveticaNeue-Regular",
     margin: 30,
-    cursor : "pointer",
     [muiTheme.breakpoints.up(3839)]: {
       width: "120px",
       height: "120px",
@@ -98,6 +97,28 @@ const useStyles = makeStyles({
       height: "30px",
       margin: 12,
       fontSize: 12,
+    },
+  }),
+
+  avatharIconStyle : (props:any) => ({
+    cursor : "pointer",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "50px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "50px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "50px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "25px",
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      width: "25px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "25px",
     },
   }),
   menuLogoSection: () => ({
@@ -298,5 +319,7 @@ const useStyles = makeStyles({
   customTooltip: () => ({
     background: "black !important",
   }),
+
+
 });
 export default useStyles;

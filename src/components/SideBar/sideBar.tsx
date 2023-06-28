@@ -104,6 +104,7 @@ const SideBar = (props: SideBarProps) => {
     customTooltip,
     avatharSection,
     sidebarSection,
+    avatharIconStyle
   } = useStyles(appTheme);
   const navigate = useNavigate();
 
@@ -184,7 +185,7 @@ const SideBar = (props: SideBarProps) => {
           {/* <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
             0
           )}`}</div> */}
-          <img src={AvatarIcon} alt="AvatarIcon" width={45} />
+          <img src={AvatarIcon} alt="AvatarIcon" className={avatharIconStyle} />
         </div>
       </Drawer>
     </Box>
