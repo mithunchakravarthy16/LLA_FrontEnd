@@ -17,22 +17,22 @@ const useStyles = makeStyles({
     cursor: "pointer",
     width: 40,
     [muiTheme.breakpoints.up(3839)]: {
-      width: 40,
+      width: 72,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      width: 32,
+      width: 62,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      width: 30,
+      width: 52,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      width: 28,
+      width: 42,
     },
     [muiTheme.breakpoints.down(1545)]: {
-      width: 26,
+      width: 32,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      width: 24,
+      width: 22,
     },
     [muiTheme.breakpoints.down(1025)]: {
       width: 20,
