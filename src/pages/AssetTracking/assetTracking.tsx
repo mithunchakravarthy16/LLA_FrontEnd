@@ -21,7 +21,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import assetTrackingData from "mockdata/assetTrackingData";
+import assetTrackingData from "../../mockdata/assetTrackingData";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(

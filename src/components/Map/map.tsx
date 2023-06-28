@@ -51,7 +51,7 @@ import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import useStyles from "./styles";
 
 const defaultCenter = {
-  lat: 39.75223365792099,
+  lat: 39.75525065792099,
   lng: -105.00248276374698,
 };
 
@@ -104,7 +104,6 @@ const Map: React.FC<any> = (props) => {
     } else if (window.innerWidth > 3071) {
       setSelectedContainerStyle({
         width: "100%",
-
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
@@ -122,7 +121,18 @@ const Map: React.FC<any> = (props) => {
         is4kDevice: false,
       });
     }
-  }, []);
+    else  {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 400px)",
+        is4kDevice: false,
+      });
+    }
+  }, [window.innerWidth]);
 
   useEffect(() => {
     setCurrentMarker(marker);
@@ -313,7 +323,7 @@ const Map: React.FC<any> = (props) => {
               : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
-              : 15
+              : 15.4
           }
           onLoad={setMap}
           options={getMapTypeControls()}
