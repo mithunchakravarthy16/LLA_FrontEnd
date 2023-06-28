@@ -60,7 +60,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "#485A6B",
+    background: "#717275",
     borderRadius: "50%",
     width: "120px",
     height: "120px",
@@ -68,6 +68,7 @@ const useStyles = makeStyles({
     fontSize: 30,
     fontFamily: "HelveticaNeue-Regular",
     margin: 30,
+    cursor : "pointer",
     [muiTheme.breakpoints.up(3839)]: {
       width: "120px",
       height: "120px",
