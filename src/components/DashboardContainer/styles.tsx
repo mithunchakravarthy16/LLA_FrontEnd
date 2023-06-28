@@ -17,16 +17,25 @@ const useStyles = makeStyles({
     cursor: "pointer",
     width: 40,
     [muiTheme.breakpoints.up(3839)]: {
-      width: 100,
+      width: 72,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      width: 70,
+      width: 62,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: 52,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      width: 50,
+      width: 42,
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      width: 32,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      width: 30,
+      width: 22,
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      width: 20,
     },
   }),
   notificationPanelSection: (props: any) => ({
@@ -40,9 +49,43 @@ const useStyles = makeStyles({
     borderRadius: "30px",
     color: "white",
     width: "466px",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
       width: "822px",
       top: "180px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "822px",
+      top: "180px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "550px",
+      top: "116px",
+      height: "calc(100vh - 216px)",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "450px",
+      top: "116px",
+      height: "calc(100vh - 216px)",
+    },
+    [muiTheme.breakpoints.down(1681)]: {
+      width: "450px",
+      top: "79px",
+      height: "calc(100vh - 176px)",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      width: "400px",
+      top: "116px",
+      height: "calc(100vh - 216px)",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "400px",
+      top: "69px",
+      height: "calc(100vh - 170px)",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "320px",
+      top: "116px",
+      height: "calc(100vh - 216px)",
     },
   }),
 });

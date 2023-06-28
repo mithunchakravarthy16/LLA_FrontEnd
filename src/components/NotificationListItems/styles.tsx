@@ -190,9 +190,29 @@ const useStyles = makeStyles({
     letterSpacing: "0.5px",
     marginBottom: 12,
     fontFamily: "HelveticaNeue-ItalicMedium",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
-      lineHeight: "48px",
+      lineHeight: "36px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 11,
+      lineHeight: "18px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
   expandedListItemRow3: (props: any) => ({

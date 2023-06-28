@@ -447,13 +447,19 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(2049)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 450px)"
           : "calc(100vh - 353px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 590px)"
+          : "calc(100vh - 353px)",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 439px)"
           : "calc(100vh - 353px)",
     },
     [muiTheme.breakpoints.down(1601)]: {
@@ -465,13 +471,13 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1681)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 425px)"
           : "calc(100vh - 340px)",
     },
     [muiTheme.breakpoints.down(1545)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 408px)"
           : "calc(100vh - 353px)",
     },
     [muiTheme.breakpoints.down(1441)]: {

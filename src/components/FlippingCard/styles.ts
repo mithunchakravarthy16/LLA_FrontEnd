@@ -39,8 +39,24 @@ export const RootContainer = styled("div")`
         min-width: 270px;
         height: 186px;
     }
+    @media (max-width : 1793px) {
+        min-width: 240px;
+        height: 186px;
+    }
+    @media (max-width : 1681px) {
+        min-width: 230px;
+        height: 186px;
+    }
+    @media (max-width : 1537px) {
+        min-width: 202px;
+        height: 186px;
+    }
+    @media (max-width : 1345px) {
+        min-width: 180px;
+        height: 186px;
+    }
     @media (max-width : 1153px) {
-        min-width: 270px;
+        min-width: 160px;
         height: 186px;
     }
 `;
@@ -80,8 +96,20 @@ export const CardImage = styled("img")`
     @media (max-width : 2049px) {
         width: 75px;
     }
+    @media (max-width : 1793px) {
+        width: 60px;
+    }
+    @media (max-width : 1681px) {
+        width: 52px;
+    }
+    @media (max-width : 1537px) {
+        width: 45x;
+    }
+    @media (max-width : 1345px) {
+        width: 35x;
+    }
     @media (max-width : 1153px) {
-        width: 75px;
+        width: 30px;
     }
 `;
 
@@ -101,9 +129,25 @@ export const CardTitle = styled("div")`
         font-size: 15px;
     line-height: 27px;
     }
+    @media (max-width : 1793px) {
+        font-size: 13px;
+    line-height: 24px;
+    }
+    @media (max-width : 1681px) {
+        font-size: 12px;
+    line-height: 22px;
+    }
+    @media (max-width : 1537px) {
+        font-size: 11px;
+    line-height: 20px;
+    }
+    @media (max-width : 1345px) {
+        font-size: 10px;
+    line-height: 18px;
+    }
     @media (max-width : 1153px) {
-        font-size: 15px;
-    line-height: 27px;
+        font-size: 9px;
+    line-height: 16px;
     }
 `;
 
@@ -121,22 +165,39 @@ export const CardTitleSmall = styled("div")`
     text-transform: uppercase;
     margin-left: 40px;
     @media (max-width : 3073px) {
-        font-size: 28px;
-    line-height: 40px;
-    margin-left: 30px;
-
+        font-size: 15px;
+    line-height: 27px;
+    margin-left: 10px;
     }
     @media (max-width : 2049px) {
         font-size: 15px;
-    line-height: 27px;
-    margin-left: 10px;
-
+        line-height: 27px;
+        margin-left: 10px;
+    }
+    @media (max-width : 1793px) {
+        font-size: 13px;
+        line-height: 24px;
+        margin-left: 8px;
+    }
+    @media (max-width : 1681px) {
+        font-size: 12px;
+        line-height: 22px;
+        margin-left: 7px;
+    }
+    @media (max-width : 1537px) {
+        font-size: 11px;
+        line-height: 21px;
+        margin-left: 6px;
+    }
+    @media (max-width : 1345px) {
+        font-size: 10px;
+        line-height: 20px;
+        margin-left: 5px;
     }
     @media (max-width : 1153px) {
-        font-size: 15px;
-    line-height: 27px;
-    margin-left: 10px;
-
+        font-size: 9px;
+        line-height: 18px;
+        margin-left: 5px;
     }
 `;
 
@@ -234,16 +295,39 @@ export const Label = styled("div")`
     line-height: 44px;
     text-transform: uppercase;
     @media (max-width : 3073px) {
-        font-size: 24px;
-    line-height: 34px;
+        font-size: 15px;
+    line-height: 27px;
+    margin-left: 10px;
     }
     @media (max-width : 2049px) {
         font-size: 15px;
-    line-height: 27px;
+        line-height: 27px;
+        margin-left: 10px;
+    }
+    @media (max-width : 1793px) {
+        font-size: 13px;
+        line-height: 24px;
+        margin-left: 8px;
+    }
+    @media (max-width : 1681px) {
+        font-size: 12px;
+        line-height: 22px;
+        margin-left: 7px;
+    }
+    @media (max-width : 1537px) {
+        font-size: 11px;
+        line-height: 21px;
+        margin-left: 6px;
+    }
+    @media (max-width : 1345px) {
+        font-size: 10px;
+        line-height: 20px;
+        margin-left: 5px;
     }
     @media (max-width : 1153px) {
-        font-size: 15px;
-    line-height: 27px;
+        font-size: 9px;
+        line-height: 18px;
+        margin-left: 5px;
     }
 `;
 
@@ -255,17 +339,38 @@ export const Note = styled("div")`
     color: #FFCF25;
     margin-left: -10px;
     @media (max-width : 3073px) {
-        font-size: 20px;
-        line-height: 34px;
+        font-size: 15px;
+    line-height: 27px;
+    margin-left: 10px;
     }
     @media (max-width : 2049px) {
         font-size: 15px;
-    line-height: 27px;
-    max-width: 212px;
+        line-height: 27px;
+        margin-left: 10px;
+    }
+    @media (max-width : 1793px) {
+        font-size: 13px;
+        line-height: 24px;
+        margin-left: 8px;
+    }
+    @media (max-width : 1681px) {
+        font-size: 12px;
+        line-height: 22px;
+        margin-left: 7px;
+    }
+    @media (max-width : 1537px) {
+        font-size: 11px;
+        line-height: 21px;
+        margin-left: 6px;
+    }
+    @media (max-width : 1345px) {
+        font-size: 10px;
+        line-height: 20px;
+        margin-left: 5px;
     }
     @media (max-width : 1153px) {
-        font-size: 15px;
-    line-height: 27px;
-    max-width: 212px;
+        font-size: 9px;
+        line-height: 18px;
+        margin-left: 5px;
     }
 `;
