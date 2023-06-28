@@ -15,6 +15,7 @@ import BirdsViewIcon from "../../assets/Bird_View.svg";
 import BirdsViewActiveIcon from "../../assets/Birds Eye-ViewActive.svg";
 import SettingsIcon from "../../assets/settings.svg";
 import SettingsActiveIcon from "../../assets/SettingsActive.svg";
+import AvatarIcon from "../../assets/AvatarIcon.svg";
 import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
@@ -180,9 +181,10 @@ const SideBar = (props: SideBarProps) => {
           })}
         </div>
         <div className={avatharSection}>
-          <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
+          {/* <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
             0
-          )}`}</div>
+          )}`}</div> */}
+          <img src={AvatarIcon} alt="AvatarIcon" width={45} />
         </div>
       </Drawer>
     </Box>
