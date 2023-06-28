@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import theme from "../../theme/theme";
@@ -56,10 +58,12 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                 value={pageName === "sendConfig" ? item?.val : index}
                 label={
                   <div className={tabLabel}>
-                    {item?.count && <div className={listCount}>
-                      <div className="count">{item?.count}</div>
-                    </div>}
-                    
+                    {(item?.count || item?.count === 0) && (
+                      <div className={listCount}>
+                        <div className="count">{item?.count}</div>
+                      </div>
+                    )}
+
                     <div>{item?.name}</div>
                   </div>
                 }

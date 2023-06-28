@@ -5,21 +5,24 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    minWidth: props?.pageName === "markerCallout" ? "400px" : "380px",
+    minWidth: props?.pageName === "markerCallout" ? "350px" : "380px",
     [muiTheme.breakpoints.up(3839)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 500,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 500,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 370,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 370,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 240,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 240,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 220,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 220,
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      minWidth: props?.pageName === "markerCallout" ? 350 : 186,
     },
   }),
   collapsedListItems: (props: any) => ({
@@ -109,6 +112,10 @@ const useStyles = makeStyles({
       fontSize: 10,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 9,
+      lineHeight: "15px",
+    },
   }),
   collapsedlistItemRow2: (props: any) => ({
     display: "flex",
@@ -141,6 +148,10 @@ const useStyles = makeStyles({
       fontSize: 8,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      lineHeight: "13px",
+    },
   }),
   timeStampStyle: (props: any) => ({
     fontSize: 10,
@@ -168,6 +179,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 8,
       lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      lineHeight: "13px",
     },
   }),
   expandedListItemRow2: (props: any) => ({

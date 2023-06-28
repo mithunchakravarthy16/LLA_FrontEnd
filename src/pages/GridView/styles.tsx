@@ -10,7 +10,6 @@ const useStyles = makeStyles({
     height: "100vh",
   }),
   mainSection: (props: any) => ({
-
     height: "calc(100vh - 50px)",
     color: "white",
     background: "#161515",
@@ -22,7 +21,6 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       width: "calc(100vw - 200px) !important",
       height: "calc(100vh - 96px)",
-      
     },
     [muiTheme.breakpoints.down(2049)]: {
       width: "calc(100vw - 130px) !important",
