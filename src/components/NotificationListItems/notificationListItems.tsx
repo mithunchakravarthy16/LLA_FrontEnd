@@ -121,7 +121,7 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>
                 <Button variant="contained" handleClick={() => null}>
-                  Take Action
+               {category === "asset" ? "View Details" : "Take Action"}   
                 </Button>
               </div>
               <div className={timeStampStyle}>{currentTimeStamp}</div>

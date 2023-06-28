@@ -68,7 +68,7 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.749147447458455,
+        lat: 39.762147447458455,
         lng: -105.00751795284174,
       },
       equipment: "Cam - 1",
@@ -128,7 +128,7 @@ const dashboardList = {
       notificationCategory: "event",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.75061104947772,
+        lat: 39.75561104947772,
         lng: -104.99754684257915,
       },
     },
@@ -255,7 +255,7 @@ const dashboardList = {
       notificationCategory: "incident",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.749982493422706,
+        lat: 39.751982493422706,
         lng: -104.99238147786095,
       },
       equipment: "Equip - 4",
@@ -444,8 +444,8 @@ const dashboardList = {
       notificationCategory: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
-        lat: 39.749953922556664,
-        lng: -104.98699314775921,
+        lat: 39.750953922556664,
+        lng: -104.99999314775921,
       },
       equipment: "Cam - 5",
     },

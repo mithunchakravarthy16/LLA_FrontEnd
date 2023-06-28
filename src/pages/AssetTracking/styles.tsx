@@ -140,10 +140,54 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
+    height: "10%",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
     },
+  }),
+
+  graphOneContainerStyle: (props: any) => ({
+    height: "100%",
+    padding: "10px 10px 5px 30px",
+  }),
+
+  graphOneGraphTitleContainer: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: "6px",
+  }),
+
+  graphTitleTwoStyle: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: "6px",
+  }),
+  graphTitleTwoRound: (props: any) => ({
+    width: "15px",
+    height: "15px",
+    borderRadius: "50%",
+    backgroundColor: "#D25A5A",
+    marginRight: 6,
+  }),
+  graphTwoContainerStyle: (props: any) => ({
+    height: "100%",
+    padding: "10px 10px 5px 30px",
+  }),
+  graphTitleOneRound: (props: any) => ({
+    width: "15px",
+    height: "15px",
+    borderRadius: "50%",
+    backgroundColor: "#25796D",
+    marginRight: 6,
+  }),
+  graphOneChartStyle: (props: any) => ({
+    height: "90%"
+  }),
+  graphTwoChartStyle: (props: any) => ({
+    height: "90%"
   }),
 });
 export default useStyles;

@@ -14,11 +14,16 @@ import GeneralParkingIcon from "./ParkingIcons/generalParking.svg";
 import RotationIcon from "./ParkingIcons/rotationIcon.svg";
 import VipParkingIcon from "./ParkingIcons/vipParkingIcon.svg";
 
-import Camera from "./cctv-camera.svg"
-import FireAlarm from "./firealarm.svg"
-import Siren from "./siren.svg"
-import Trolley from "./trolley.svg"
-import Unauthorised from "./unauthorised.svg"
+import Camera from "./cctv-camera.svg";
+import FireAlarm from "./firealarm.svg";
+import Siren from "./siren.svg";
+import Trolley from "./trolley.svg";
+import Unauthorised from "./unauthorised.svg";
+
+import AssetTrackedIcon from "./AssetTracking/AssetTracked.svg";
+import LocationIcon from "./AssetTracking/Location.svg";
+import OutOfGeofenceIcon from "./AssetTracking/OutOfGeofence.svg";
+import IncidentIcon from "./AssetTracking/Incident.svg";
 
 export {
   CoTwoCloudIcon,
@@ -41,4 +46,8 @@ export {
   GeneralParkingIcon,
   RotationIcon,
   VipParkingIcon,
+  AssetTrackedIcon,
+  LocationIcon,
+  OutOfGeofenceIcon,
+  IncidentIcon,
 };

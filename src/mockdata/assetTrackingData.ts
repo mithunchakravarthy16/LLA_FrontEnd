@@ -1,5 +1,10 @@
 const assetTrackingData = {
-  infoData: {},
+  infoData: {
+    assetTracked : 52,
+    location : 30,
+    outOfGeofence : 10,
+    securityIncident : 75
+  },
   analytics: {},
   notifications: {
     assetTracking: [
@@ -104,8 +109,8 @@ const assetTrackingData = {
         notificationCategory: "event",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.749147447458455,
-          lng: -105.00751795284174,
+          lat: 39.751147447458455,
+          lng: -105.00771795284174,
         },
       },
       {
