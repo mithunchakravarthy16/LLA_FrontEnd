@@ -71,23 +71,23 @@ const useStyles = makeStyles({
   itemValueStyle: (props: any) => ({
     fontSize: "16px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 26,
+      fontSize: 35,
       lineHeight: "48px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 20,
-      lineHeight: "38px",
+      fontSize: 32,
+      lineHeight: "44px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 16,
+      fontSize: 20,
       lineHeight: "28px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 14,
-      lineHeight: "22px",
+      fontSize: 18,
+      lineHeight: "24px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 12,
+      fontSize: 15,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
