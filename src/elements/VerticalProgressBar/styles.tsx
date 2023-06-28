@@ -8,7 +8,28 @@ const useStyles = makeStyles({
     fontSize: "30px",
     fontWeight: 700,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: "35px",
+      fontSize: 26,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 20,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 16,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 12,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "10px",
     },
   }),
 
@@ -17,9 +38,29 @@ const useStyles = makeStyles({
     fontSize: "14px",
     marginBottom: 4,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      fontSize: 26,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 20,
       lineHeight: "38px",
-      marginBottom: 8,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 16,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 12,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "19px",
+      marginBottom: 0,
     },
   }),
 
@@ -32,7 +73,28 @@ const useStyles = makeStyles({
     width: "80%",
     height: "22px",
     [muiTheme.breakpoints.up(3839)]: {
-      height: "47px",
+      width: "80%",
+      height: "22px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "80%",
+      height: "18px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "80%",
+      height: "18px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "80%",
+      height: "16px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      width: "80%",
+      height: "14px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "80%",
+      height: "8px",
     },
   }),
 });

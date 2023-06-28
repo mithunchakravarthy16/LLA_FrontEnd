@@ -174,6 +174,12 @@ const NotificationPanel = (props: any) => {
     }
   }, [refs, selectedRefId, selectedNotification]);
 
+  useEffect(()=>{
+    if(!searchOpen) {
+      setSearchValue(dashboardData);
+    }
+  },[searchOpen])
+  
   return (
     <>
       <div className={notificationRootContainer}>

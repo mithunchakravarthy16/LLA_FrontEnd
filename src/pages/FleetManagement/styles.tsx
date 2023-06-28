@@ -18,14 +18,59 @@ const useStyles = makeStyles({
     color: "white",
     background: "#161515",
     opacity: 1,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "calc(100vw - 200px) !important",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "calc(100vw - 130px) !important",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "calc(100vw - 100px) !important",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 80px) !important",
+    },
   }),
 
   pageHeading: (props: any) => ({
-    height: "6%",
-    paddingLeft: "15px",
     display: "flex",
-    color: "#F26522",
-    fontSize: "20px",
+    color: props?.palette?.gridViewComponentCommonStyle?.containerTitle, //"#F26522",
+    fontSize: "18px",
+    padding: 30,
+    fontFamily: "HelveticaNeue-Regular",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+      padding: 30,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+      padding: 24,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+      padding: 20,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+      padding: 16,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 13,
+      lineHeight: "20px",
+      padding: 14,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
+      padding: 12,
+    },
   }),
 
   bodyContainer: (props: any) => ({

@@ -428,7 +428,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
-                  notificationPageName={"parking"}
+                  notificationPageName={"fleetManagement"}
                 />
               </Grid>
             </Grid>
