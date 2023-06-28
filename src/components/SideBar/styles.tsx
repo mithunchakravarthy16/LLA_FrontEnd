@@ -162,8 +162,11 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       height: "125px",
     },
+    [muiTheme.breakpoints.down(1545)]: {
+      height: "90px",
+    },
     [muiTheme.breakpoints.down(1153)]: {
-      height: "80px",
+      height: "70px",
     },
     "& .MuiSvgIcon-root": {
       color: props?.palette?.sidebar?.menuActiveColor,
@@ -182,8 +185,11 @@ const useStyles = makeStyles({
       [muiTheme.breakpoints.down(1921)]: {
         width: 25,
       },
-      [muiTheme.breakpoints.down(1153)]: {
+      [muiTheme.breakpoints.down(1545)]: {
         width: 20,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        width: 15,
       },
     },
   }),
@@ -206,8 +212,11 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       height: "125px",
     },
+    [muiTheme.breakpoints.down(1545)]: {
+      height: "90px",
+    },
     [muiTheme.breakpoints.down(1153)]: {
-      height: "80px",
+      height: "70px",
     },
     "& img": {
       width: 120,
@@ -223,8 +232,11 @@ const useStyles = makeStyles({
       [muiTheme.breakpoints.down(1921)]: {
         width: 50,
       },
-      [muiTheme.breakpoints.down(1153)]: {
+      [muiTheme.breakpoints.down(1545)]: {
         width: 40,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        width: 30,
       },
     },
     "& .MuiSvgIcon-root": {
@@ -266,6 +278,12 @@ const useStyles = makeStyles({
         width: "4px",
         height: "34%",
         right: "-27px",
+        top: "5px",
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        width: "4px",
+        height: "34%",
+        right: "-31px",
         top: "5px",
       },
       [muiTheme.breakpoints.down(1153)]: {

@@ -153,10 +153,52 @@ const Parking: React.FC<any> = (props) => {
         height: 500,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 550,
+        width: 1100,
+        height: 440,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 600,
+        height: 250,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 700,
+        height: 320,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 600,
+        height: 250,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 450,
         height: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 90,
         is4kDevice: false,
       });
     }

@@ -38,6 +38,30 @@ const useStyles = makeStyles({
 
   progressBarTitleStyle: (props: any) => ({
     fontSize: "14px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 26,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 20,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 16,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 12,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "19px",
+    },
   }),
 
   progressBarContainerStyle: (props: any) => ({
@@ -45,12 +69,30 @@ const useStyles = makeStyles({
   }),
 
   itemValueStyle: (props: any) => ({
-    fontSize: "22px",
+    fontSize: "16px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 40,
-      lineHeight: "56px",
-      fontWeight: 700,
-      fontFamily: "HelveticaNeue-Regular",
+      fontSize: 26,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 20,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 16,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 12,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "19px",
     },
   }),
   imageWidthStyle: (props: any) => ({
@@ -59,6 +101,26 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.up(3839)]: {
       width: 50,
       height: 50,
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: 40,
+      height: 40,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: 30,
+      height: 30,
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: 25,
+      height: 25,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      width: 20,
+      height: 20,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: 16,
+      height: 16,
     },
   }),
   itemUnitStyle: (props: any) => ({
