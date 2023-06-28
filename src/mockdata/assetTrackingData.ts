@@ -11,13 +11,14 @@ const assetTrackingData = {
       {
         id: "lght1",
         title: "Asset Check-in Recorded",
-        subTitle: "Storage Room A.",
+        subTitle: "TR#12367 | Asset#12",
         area: "",
         entity: "",
-        venue: "Location",
+        venue: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75555358586086,
           lng: -105.01657322197286,
@@ -33,6 +34,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75729624533388,
           lng: -104.9895572496697,
@@ -48,6 +50,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75932453116013,
           lng: -105.01244836237774,
@@ -63,6 +66,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75986730174264,
           lng: -105.00059403615393,
@@ -78,6 +82,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75181100420289,
           lng: -105.01129637456289,
@@ -93,6 +98,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75515362500666,
           lng: -104.99609756758628,
@@ -108,6 +114,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "event",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.751147447458455,
           lng: -105.00771795284174,
@@ -123,6 +130,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "incident",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.755724996944544,
           lng: -105.0073944803513,
@@ -138,6 +146,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "incident",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.754096574426356,
           lng: -104.99524286694944,
@@ -153,6 +162,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "incident",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.76323809694557,
           lng: -105.00263788550286,
@@ -168,6 +178,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "incident",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.758410381562285,
           lng: -104.99914476116105,
@@ -183,6 +194,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "incident",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.758267544591504,
           lng: -104.98829377916307,
@@ -199,6 +211,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75809613983553,
           lng: -104.99754684257915,
@@ -215,6 +228,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.753039507624166,
           lng: -104.9947226143879,
@@ -230,6 +244,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75458224832903,
           lng: -105.00449593036554,
@@ -245,6 +260,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75432512727771,
           lng: -105.00505334382431,
@@ -260,6 +276,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75677237845138,
           lng: -104.99989373019561,
@@ -275,6 +292,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75978160140874,
           lng: -104.99776980796267,
@@ -290,6 +308,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75838685085751,
           lng: -105.00005180275836,
@@ -305,6 +324,7 @@ const assetTrackingData = {
         category: "asset",
         notificationCategory: "oprAlert",
         timeStamp: "09:41 AM",
+        trackerId : "TR#12345",
         location: {
           lat: 39.75722374013964,
           lng: -105.00077442018811,

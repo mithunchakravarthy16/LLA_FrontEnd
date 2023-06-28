@@ -21,6 +21,7 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import assetTrackingData from "../../mockdata/assetTrackingData";
+import GeofenceIcon from "../../assets/GeofenceIcon.svg"
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -67,6 +68,7 @@ const AssetTracking: React.FC<any> = (props) => {
     graphOneChartStyle,
     graphTwoContainerStyle,
     graphTwoChartStyle,
+    geofenceIconStyle
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
@@ -330,6 +332,10 @@ const AssetTracking: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  {/* <div className={geofenceIconStyle}> */}
+                              <img src={GeofenceIcon} className={geofenceIconStyle} alt="GeofenceIcon" />
+                  {/* </div> */}
+
                     <Map
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}

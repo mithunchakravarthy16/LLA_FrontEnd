@@ -94,6 +94,7 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelMapContainer: (props: any) => ({
+    position: "relative",
     height: "60%",
   }),
 
@@ -188,6 +189,23 @@ const useStyles = makeStyles({
   }),
   graphTwoChartStyle: (props: any) => ({
     height: "90%"
+  }),
+  geofenceIconStyle: (props: any) => ({
+    position: "absolute",
+    color: "white",
+    zIndex: 1,
+    // background: "#F26522",
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // borderRadius: "50px",
+    cursor: "pointer",
+    // padding: "15px 5px 15px 5px",
+    // width: "53px",
+    // height: "30px",
+    right:  "5px",
+    top:  "2px",
+    width : "6%"
   }),
 });
 export default useStyles;
