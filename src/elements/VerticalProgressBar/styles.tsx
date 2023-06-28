@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
-      lineHeight: "19px",
+      lineHeight: "10px",
     },
   }),
 
@@ -60,6 +60,7 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
       lineHeight: "19px",
+      marginBottom: 0,
     },
   }),
 
@@ -93,7 +94,7 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       width: "80%",
-      height: "12px",
+      height: "8px",
     },
   }),
 });

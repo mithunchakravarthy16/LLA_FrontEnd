@@ -102,7 +102,7 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelListContainer: (props: any) => ({
-    height: "20%",
+    height: "25%",
   }),
 
   graphOneContainer: (props: any) => ({
@@ -135,8 +135,8 @@ const useStyles = makeStyles({
       lineHeight: "52px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 26,
-      lineHeight: "42px",
+      fontSize: 22,
+      lineHeight: "35px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 18,
@@ -151,8 +151,8 @@ const useStyles = makeStyles({
       lineHeight: "24px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 12,
-      lineHeight: "20px",
+      fontSize: 10,
+      lineHeight: "18px",
     },
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
@@ -164,7 +164,7 @@ const useStyles = makeStyles({
       lineHeight: "48px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 26,
+      fontSize: 22,
       lineHeight: "38px",
     },
     [muiTheme.breakpoints.down(2049)]: {
@@ -180,8 +180,8 @@ const useStyles = makeStyles({
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 12,
-      lineHeight: "19px",
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
 });

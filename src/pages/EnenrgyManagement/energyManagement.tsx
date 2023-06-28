@@ -185,7 +185,7 @@ const Parking: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
-        width: 40,
+        width: 400,
         height: 180,
         is4kDevice: false,
       });
