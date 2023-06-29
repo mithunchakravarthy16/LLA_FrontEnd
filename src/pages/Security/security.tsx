@@ -187,7 +187,7 @@ const Parking: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 550,
         height: 200,
-        width1: 380,
+        width1: 300,
         height1: 280,
         is4kDevice: false,
       });
@@ -197,6 +197,38 @@ const Parking: React.FC<any> = (props) => {
         height: 200,
         width1: 250,
         height1: 280,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 460,
+        height: 150,
+        width1: 185,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 185,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 100,
+        width1: 125,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 100,
+        width1: 125,
+        height1: 140,
         is4kDevice: false,
       });
     }

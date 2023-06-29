@@ -120,7 +120,7 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelListContainer: (props: any) => ({
-    height: "20%",
+    height: "25%",
   }),
 
   graphOneContainer: (props: any) => ({
@@ -130,8 +130,7 @@ const useStyles = makeStyles({
     // borderColor: "transparent #808080 #808080 #808080",
     borderBottom: "1px solid #333333",
     borderRight: "1px solid #333333",
-    paddingLeft: "30px",
-    height: "100%",
+    padding: "18px",
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -214,11 +213,31 @@ const useStyles = makeStyles({
   }),
   graphTitle: (props: any) => ({
     fontSize: "16px",
-    padding: 16,
+    display: "flex",
+    columnGap: "30px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 40,
-      lineHeight: "56px",
-      fontWeight: 500,
+      fontSize: 30,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 22,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
 });
