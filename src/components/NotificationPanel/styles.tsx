@@ -51,6 +51,18 @@ const useStyles = makeStyles({
       fontSize: 18,
       lineHeight: "30px",
     },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 17,
+      lineHeight: "30px",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      fontSize: 16,
+      lineHeight: "30px",
+    },
+    [muiTheme.breakpoints.down(1281)]: {
+      fontSize: 16,
+      lineHeight: "30px",
+    },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 14,
       lineHeight: "16px",
@@ -453,20 +465,14 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 432px)"
           : "calc(100vh - 353px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 439px)"
+          ? "calc(100vh - 410px)"
           : "calc(100vh - 353px)",
-    },
-    [muiTheme.breakpoints.down(1601)]: {
-      height:
-        props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
-          : "calc(100vh - 320px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       height:
@@ -474,28 +480,40 @@ const useStyles = makeStyles({
           ? "calc(100vh - 425px)"
           : "calc(100vh - 340px)",
     },
+    [muiTheme.breakpoints.down(1601)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 408px)"
+          : "calc(100vh - 320px)",
+    },
     [muiTheme.breakpoints.down(1545)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 408px)"
           : "calc(100vh - 353px)",
     },
+    [muiTheme.breakpoints.down(1537)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 370px)"
+          : "calc(100vh - 353px)",
+    },
     [muiTheme.breakpoints.down(1441)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 368px)"
           : "calc(100vh - 304px)",
     },
     [muiTheme.breakpoints.down(1361)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 354px)"
           : "calc(100vh - 308px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 590px)"
+          ? "calc(100vh - 306px)"
           : "calc(100vh - 257px)",
     },
   }),

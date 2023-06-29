@@ -26,16 +26,16 @@ const useStyles = makeStyles({
       width: 52,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      width: 42,
+      width: 44,
     },
     [muiTheme.breakpoints.down(1545)]: {
-      width: 32,
+      width: 36,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      width: 22,
+      width: 28,
     },
     [muiTheme.breakpoints.down(1025)]: {
-      width: 20,
+      width: 25,
     },
   }),
   notificationPanelSection: (props: any) => ({
@@ -67,25 +67,35 @@ const useStyles = makeStyles({
       top: "116px",
       height: "calc(100vh - 216px)",
     },
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "450px",
+      top: "88px",
+      height: "calc(100vh - 190px)",
+    },
     [muiTheme.breakpoints.down(1681)]: {
       width: "450px",
-      top: "79px",
-      height: "calc(100vh - 176px)",
+      top: "88px",
+      height: "calc(100vh - 188px)",
     },
     [muiTheme.breakpoints.down(1537)]: {
       width: "400px",
-      top: "116px",
-      height: "calc(100vh - 216px)",
+      top: "80px",
+      height: "calc(100vh - 170px)",
     },
     [muiTheme.breakpoints.down(1345)]: {
-      width: "400px",
+      width: "370px",
       top: "69px",
-      height: "calc(100vh - 170px)",
+      height: "calc(100vh - 160px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       width: "320px",
-      top: "116px",
-      height: "calc(100vh - 216px)",
+      top: "68px",
+      height: "calc(100vh - 140px)",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      width: "280px",
+      top: "68px",
+      height: "calc(100vh - 140px)",
     },
   }),
 });
