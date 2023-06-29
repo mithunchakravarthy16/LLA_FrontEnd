@@ -22,7 +22,7 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 350 : 220,
     },
     [muiTheme.breakpoints.down(1025)]: {
-      minWidth: props?.pageName === "markerCallout" ? 350 : 186,
+      minWidth: props?.pageName === "markerCallout" ? 290 : 186,
     },
   }),
   collapsedListItems: (props: any) => ({
