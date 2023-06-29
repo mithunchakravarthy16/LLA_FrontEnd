@@ -91,7 +91,7 @@ const useStyles = makeStyles({
       lineHeight: "24px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 15,
+      fontSize: 14,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
@@ -128,10 +128,35 @@ const useStyles = makeStyles({
     },
   }),
   itemUnitStyle: (props: any) => ({
-    fontSize: "18px",
-    margin: "0 0 2px 2px",
-    textAlign: "end",
-    fontWeight: 700,
+    fontSize: "16px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 35,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 32,
+      lineHeight: "44px",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 24,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 18,
+      lineHeight: "24px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "19px",
+    },
   }),
 
   itemValueUnitStyle: (props: any) => ({
