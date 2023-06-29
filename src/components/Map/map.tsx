@@ -138,6 +138,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 522px)",
+        marginTop: 24,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
@@ -148,6 +149,18 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 494px)",
+        marginTop: 20,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 432px)",
+        marginTop: 20,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
@@ -160,6 +173,50 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 452px)",
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 1439) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 424px)",
+        marginTop: 18,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 1049) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 499px)",
+        marginTop: 18,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1359) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 390px)",
+        marginTop: 18,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 424px)",
+        marginTop: 18,
+        is4kDevice: false,
+      });
     } else if (window.innerHeight > 959) {
       setSelectedContainerStyle({
         width: "100%",
@@ -170,6 +227,28 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 474px)",
         is4kDevice: false,
       });
+    } else if (window.innerHeight > 863) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 408px)",
+        marginTop: 16,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 719) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 356px)",
+        marginTop: 16,
+        is4kDevice: false,
+      });
     } else if (window.innerHeight > 1023) {
       setSelectedContainerStyle({
         width: "100%",
@@ -178,6 +257,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 474px)",
+        marginTop: 12,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1279) {
@@ -188,6 +268,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 378px)",
+
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
@@ -200,16 +281,6 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 378px)",
         is4kDevice: false,
       });
-    } else if (window.innerWidth > 767) {
-      setSelectedContainerStyle({
-        width: "100%",
-
-        height:
-          mapPageName === "dashboard"
-            ? "calc(100vh - 0px)"
-            : "calc(100vh - 353px)",
-        is4kDevice: false,
-      });
     } else if (window.innerWidth > 1023) {
       setSelectedContainerStyle({
         width: "100%",
@@ -218,6 +289,17 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 294px)",
+
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 767) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 353px)",
         is4kDevice: false,
       });
     } else {
