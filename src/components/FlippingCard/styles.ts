@@ -86,7 +86,12 @@ export const RootContainer = styled("div")`
     margin-right: 12px;
   }
   @media (max-width: 1441px) {
-    min-width: 198px;
+    min-width: 190px;
+    height: 186px;
+    margin-right: 12px;
+  }
+  @media (max-width: 1367px) {
+    min-width: 185px;
     height: 186px;
     margin-right: 12px;
   }
@@ -214,7 +219,12 @@ export const CardTitle = styled("div")`
     line-height: 20px;
   }
   @media (max-width: 1345px) {
-    font-size: 9px;
+    font-size: 10px;
+    line-height: 18px;
+    margin-right: 28px;
+  }
+  @media (max-width: 1281px) {
+    font-size: 11px;
     line-height: 18px;
     margin-right: 28px;
   }
@@ -520,7 +530,7 @@ export const Label = styled("div")`
   @media (max-width: 1441px) {
     font-size: 8px;
     line-height: 22px;
-    margin-left: 7px;
+    margin-left: -5px;
   }
   @media (max-width: 1345px) {
     font-size: 7px;
@@ -582,7 +592,7 @@ export const Note = styled("div")`
     margin-left: -16px;
   }
   @media (max-width: 1441px) {
-    font-size: 8px;
+    font-size: 9px;
     line-height: 21px;
     margin-left: -16px;
   }
