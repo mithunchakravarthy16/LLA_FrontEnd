@@ -21,6 +21,7 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import assetTrackingData from "../../mockdata/assetTrackingData";
+import assetTrackingResponse from "../../mockdata/assetTrackingAPI";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg"
 
 const AssetTracking: React.FC<any> = (props) => {
