@@ -398,6 +398,8 @@ const useStyles = makeStyles({
     fontSize: "17px",
     fontWeight: 500,
     fontFamily: "HelveticaNeue-ItalicMedium",
+    maxWidth: 82,
+    wordBreak: "break-word",
     color:
       props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel, //"#B5B2B2",
     flexGrow: 1,
@@ -405,14 +407,20 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
+      maxWidth: 190,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
       lineHeight: "46px",
+      maxWidth: 190,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 15,
       lineHeight: "26px",
+      maxWidth: 100,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 13,
@@ -577,20 +585,28 @@ const useStyles = makeStyles({
 
   listItemLabelStyle: (props: any) => ({
     fontSize: "18px",
+    wordBreak: "break-word",
+    maxWidth: 82,
     color:
       props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel,
     fontFamily: "HelveticaNeue-ItalicMedium",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
+      maxWidth: 190,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
       lineHeight: "46px",
+      maxWidth: 190,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(2561)]: {
       fontSize: 15,
       lineHeight: "21px",
+      maxWidth: 100,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 15,

@@ -335,6 +335,22 @@ export const CardValuesSkewContainer = styled("div")`
   position: absolute;
 `;
 
+export const CardValuesSplitter = styled("div")`
+    width: 1px;
+    height: 110px;
+    background: #fff;
+    transform: skew(-18deg);
+    @media (max-width : 3073px) {
+        height: 110px;
+    }
+    @media (max-width : 2049px) {
+        height: 43px;
+    }
+    @media (max-width : 1153px) {
+        height: 43px;
+    }
+`;
+
 export const CardValuesContainer = styled("div")`
   padding: 10px 30px;
   color: #fff;
@@ -342,7 +358,7 @@ export const CardValuesContainer = styled("div")`
   z-index: 2000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   @media (max-width: 3073px) {
     padding: 30px 24px;
   }
@@ -370,63 +386,9 @@ export const CardValuesContainer = styled("div")`
 `;
 
 export const ValueWrapper = styled("div")`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  &::after {
-    position: absolute;
-    content: "";
-    width: 1px;
-    height: 110px;
-    background: #fff;
-    transform: rotate(18deg);
-    right: 45%;
-    top: 12px;
-    @media (max-width: 3073px) {
-      height: 110px;
-      right: 45%;
-    }
-    @media (max-width: 2561px) {
-      height: 82px;
-      right: 45%;
-    }
-    @media (max-width: 2049px) {
-      height: 43px;
-      right: 111px;
-    }
-    @media (max-width: 1681px) {
-      height: 43px;
-      right: 90px;
-    }
-    @media (max-width: 1601px) {
-      height: 43px;
-      right: 81px;
-    }
-    @media (max-width: 1537px) {
-      height: 43px;
-      right: 81px;
-    }
-    @media (max-width: 1441px) {
-      height: 43px;
-      right: 70px;
-    }
-    @media (max-width: 1345px) {
-      height: 38px;
-      right: 62px;
-    }
-    @media (max-width: 1281px) {
-      height: 38px;
-      right: 58px;
-    }
-    @media (max-width: 1153px) {
-      height: 42px;
-      right: 53px;
-    }
-    @media (max-width: 1025px) {
-      height: 36px;
-      right: 52px;
-    }
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 export const Value = styled("div")`
@@ -550,14 +512,20 @@ export const Label = styled("div")`
   }
 `;
 
-export const Note = styled("div")`
-  font-family: "HelveticaNeue-Regular";
-  font-style: italic;
-  font-size: 28px;
-  line-height: 44px;
-  color: #ffcf25;
-  margin-left: -10px;
-  @media (max-width: 3073px) {
+export const NoteContainer = styled("div")`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`;
+
+export const NoteLabel = styled("div")`
+    font-family: 'HelveticaNeue-Regular';
+    font-style: italic;
+    font-size: 28px;
+    line-height: 44px;
+    color: #FFCF25;
+    margin-left: -10px;
+    @media (max-width: 3073px) {
     font-size: 16px;
     line-height: 45px;
     margin-left: -25px;
@@ -612,4 +580,72 @@ export const Note = styled("div")`
     line-height: 18px;
     margin-left: -20px;
   }
+`;
+
+export const NoteValue = styled(NoteLabel)`
+    color: #FFF;
+    margin-left: 5px;
+
+    @media (max-width: 3073px) {
+    font-size: 16px;
+    line-height: 45px;
+    margin-left: 5px;
+  }
+  @media (max-width: 2049px) {
+    font-size: 13px;
+    line-height: 27px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1921px) {
+    font-size: 12px;
+    line-height: 27px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1793px) {
+    font-size: 10px;
+    line-height: 24px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1681px) {
+    font-size: 11px;
+    line-height: 22px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1601px) {
+    font-size: 10px;
+    line-height: 22px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1537px) {
+    font-size: 9px;
+    line-height: 21px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1441px) {
+    font-size: 9px;
+    line-height: 21px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1345px) {
+    font-size: 8px;
+    line-height: 21px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1153px) {
+    font-size: 6.5px;
+    line-height: 18px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1025px) {
+    font-size: 6px;
+    line-height: 18px;
+    margin-left: 5px;
+  }
+`;
+
+export const NoteDifferenceIndicator = styled("img")<{difference: any}>`
+    height: 45%;
+    margin-left: 5px;
+    width: auto;
+    transform: ${({difference}) => difference === '+' ? 'rotateX(180deg)' : 'none'};
 `;

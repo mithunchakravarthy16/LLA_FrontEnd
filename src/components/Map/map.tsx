@@ -98,7 +98,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 924px)",
+            : "calc(100vh - 1048px)",
+        marginTop: mapPageName === "dashboard" ? "0px" : "48px",
         is4kDevice: true,
       });
     } else if (window.innerWidth > 3071) {
@@ -108,6 +109,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 1049px)",
+
         is4kDevice: false,
       });
     } else if (window.innerHeight > 1279) {
@@ -118,6 +120,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 572px)",
+        marginTop: mapPageName === "dashboard" ? "0px" : "24px",
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2047) {

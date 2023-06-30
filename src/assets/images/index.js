@@ -10,6 +10,7 @@ import AssetHover from "./AssetHover.png";
 import EnergyHover from "./EnergyHover.png";
 import LightingHover from "./LightingHover.png";
 import FleetHover from "./FleetHover.png";
+import cardDifferenceIndicator from './CardDifferenceIndicator.png';
 
 export {
   assetTracking,
@@ -24,4 +25,5 @@ export {
   EnergyHover,
   LightingHover,
   FleetHover,
+  cardDifferenceIndicator
 };

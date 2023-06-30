@@ -24,17 +24,17 @@ const useStyles = makeStyles(
       color: "#FFFFFF",
       fontSize: "30px",
       lineHeight: "36px",
-      height: 100,
+      height: 250,
       fontFamily: "HelveticaNeue-Regular",
-      [muiTheme.breakpoints.down(3073)]: {
-        fontSize: "16px",
-        lineHeight: "24px",
-        height: 60,
+      [muiTheme.breakpoints.up(3073)]: {
+        fontSize: "28px",
+        lineHeight: "63px",
+        height: 384,
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontSize: "10px",
-        lineHeight: "19px",
-        height: 60,
+        lineHeight: "29px",
+        height: 160,
       },
     }),
     footerSectionDasbhoard: (props: any) => ({
@@ -51,6 +51,9 @@ const useStyles = makeStyles(
       lineHeight: "36px",
       height: 124,
       fontFamily: "HelveticaNeue-Regular",
+      "& img": {
+        display: "none",
+      },
       [muiTheme.breakpoints.up(3839)]: {
         fontSize: "22px",
         lineHeight: "36px",
@@ -80,67 +83,67 @@ const useStyles = makeStyles(
     footerContent: (props: any) => ({
       display: "flex",
       alignItems: "center",
+      flexDirection: "column",
     }),
     footerIconStyle: (props: any) => ({
-      padding: "0 16px",
       "& img": {
         width: 250,
         [muiTheme.breakpoints.up(3839)]: {
-          width: 250,
+          width: 550,
         },
         [muiTheme.breakpoints.down(3073)]: {
-          width: 170,
+          width: 250,
         },
         [muiTheme.breakpoints.down(2049)]: {
-          width: 140,
+          width: 200,
         },
         [muiTheme.breakpoints.down(1921)]: {
-          width: 120,
+          width: 180,
         },
         [muiTheme.breakpoints.down(1153)]: {
-          width: 100,
+          width: 150,
         },
       },
     }),
     copyrights: (props: any) => ({
       position: "relative",
       marginLeft: 12,
-      "&::before": {
-        top: "4px",
-        left: "-12px",
-        width: "3px",
-        height: "28px",
-        content: `''`,
-        position: "absolute",
-        background: "white",
-        zIndex: "-1",
-        [muiTheme.breakpoints.down(3073)]: {
-          width: "2px",
-          height: "10px",
-        },
-        [muiTheme.breakpoints.down(1921)]: {
-          width: "2px",
-          height: "10px",
-        },
-      },
-      "&::after": {
-        top: "4px",
-        right: "-10px",
-        width: "3px",
-        height: "27px",
-        content: `''`,
-        position: "absolute",
-        background: "white",
-        zIndex: "-1",
-        [muiTheme.breakpoints.down(3073)]: {
-          width: "2px",
-          height: "10px",
-        },
-        [muiTheme.breakpoints.down(1921)]: {
-          width: "2px",
-          height: "10px",
-        },
-      },
+      // "&::before": {
+      //   top: "4px",
+      //   left: "-12px",
+      //   width: "3px",
+      //   height: "28px",
+      //   content: `''`,
+      //   position: "absolute",
+      //   background: "white",
+      //   zIndex: "-1",
+      //   [muiTheme.breakpoints.down(3073)]: {
+      //     width: "2px",
+      //     height: "10px",
+      //   },
+      //   [muiTheme.breakpoints.down(1921)]: {
+      //     width: "2px",
+      //     height: "10px",
+      //   },
+      // },
+      // "&::after": {
+      //   top: "4px",
+      //   right: "-10px",
+      //   width: "3px",
+      //   height: "27px",
+      //   content: `''`,
+      //   position: "absolute",
+      //   background: "white",
+      //   zIndex: "-1",
+      //   [muiTheme.breakpoints.down(3073)]: {
+      //     width: "2px",
+      //     height: "10px",
+      //   },
+      //   [muiTheme.breakpoints.down(1921)]: {
+      //     width: "2px",
+      //     height: "10px",
+      //   },
+      // },
     }),
     allRights: (props: any) => ({
       marginLeft: 24,
@@ -149,23 +152,21 @@ const useStyles = makeStyles(
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      "& img": {
+      maxWidth: "100%",
+      [muiTheme.breakpoints.up(3839)]: {
         maxWidth: "100%",
-        [muiTheme.breakpoints.up(3839)]: {
-          maxWidth: "100%",
-        },
-        [muiTheme.breakpoints.down(3073)]: {
-          maxWidth: "70%",
-        },
-        [muiTheme.breakpoints.down(2049)]: {
-          maxWidth: "50%",
-        },
-        [muiTheme.breakpoints.down(1921)]: {
-          maxWidth: "50%",
-        },
-        [muiTheme.breakpoints.down(1153)]: {
-          maxWidth: "40%",
-        },
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        maxWidth: "70%",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        maxWidth: "50%",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        maxWidth: "50%",
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        maxWidth: "40%",
       },
     }),
   },
