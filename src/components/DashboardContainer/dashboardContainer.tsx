@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import theme from "../../theme/theme";
@@ -54,9 +56,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
-
   };
-
 
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
@@ -103,15 +103,15 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     );
   }, [dashboardData]);
 
-  useEffect(()=>{
-    if(!notificationPanelActive) {
+  useEffect(() => {
+    if (!notificationPanelActive) {
       setSearchOpen(false);
       setTabIndex(1);
       setCurrentMarker("");
       setSelectedNotification("");
       setSearchValue(dashboardData);
     }
-  },[notificationPanelActive])
+  }, [notificationPanelActive]);
 
   return (
     <>
@@ -125,7 +125,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           currentMarker={currentMarker}
           setCurrentMarker={setCurrentMarker}
           focusedCategory={focusedCategory}
-          mapPageName = {"dashboard"}
+          mapPageName={"dashboard"}
         />
       </div>
       <img

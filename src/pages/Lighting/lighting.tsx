@@ -23,7 +23,6 @@ import Chart from "elements/Chart";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 
-
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -160,19 +159,91 @@ const Parking: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1000,
-        height: 500,
+        width: 1200,
+        height: 480,
         width1: 1300,
-        height1: 500,
+        height1: 480,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
+      setSelectedWidth({
+        width: 800,
+        height: 400,
+        width1: 1000,
+        height1: 380,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 600,
+        height: 200,
+        width1: 800,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 600,
+        height: 200,
+        width1: 600,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 550,
-        height: 220,
+        height: 200,
         width1: 550,
-        height1: 220,
-        is4kDevice: true,
+        height1: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 500,
+        height: 200,
+        width1: 500,
+        height1: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 450,
+        height: 150,
+        width1: 450,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 400,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 400,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 100,
+        width1: 350,
+        height1: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 100,
+        width1: 300,
+        height1: 100,
+        is4kDevice: false,
       });
     }
   }, []);

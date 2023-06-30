@@ -60,7 +60,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "#485A6B",
+    background: "#717275",
     borderRadius: "50%",
     width: "120px",
     height: "120px",
@@ -99,6 +99,31 @@ const useStyles = makeStyles({
       fontSize: 12,
     },
   }),
+
+  avatharIconStyle: (props: any) => ({
+    cursor: "pointer",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "50px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "48px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "26px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "25px",
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      width: "25px",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "21px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "12px",
+    },
+  }),
   menuLogoSection: () => ({
     margin: 30,
     [muiTheme.breakpoints.up(3839)]: {
@@ -123,6 +148,9 @@ const useStyles = makeStyles({
       },
       [muiTheme.breakpoints.down(3073)]: {
         width: 100,
+      },
+      [muiTheme.breakpoints.down(2561)]: {
+        width: 80,
       },
       [muiTheme.breakpoints.down(2049)]: {
         width: 90,
@@ -156,9 +184,13 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       height: "200px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "120px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       height: "140px",
     },
+
     [muiTheme.breakpoints.down(1921)]: {
       height: "125px",
     },
@@ -206,6 +238,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       height: "200px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "120px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       height: "140px",
     },
@@ -225,6 +260,9 @@ const useStyles = makeStyles({
       },
       [muiTheme.breakpoints.down(3073)]: {
         width: 100,
+      },
+      [muiTheme.breakpoints.down(2561)]: {
+        width: 60,
       },
       [muiTheme.breakpoints.down(2049)]: {
         width: 60,
@@ -268,6 +306,12 @@ const useStyles = makeStyles({
         right: "-41px",
         top: "15px",
       },
+      [muiTheme.breakpoints.down(2561)]: {
+        width: "4px",
+        height: "34%",
+        right: "-62px",
+        top: "7px",
+      },
       [muiTheme.breakpoints.down(2049)]: {
         width: "4px",
         height: "34%",
@@ -289,7 +333,7 @@ const useStyles = makeStyles({
       [muiTheme.breakpoints.down(1153)]: {
         width: "4px",
         height: "34%",
-        right: "-22px",
+        right: "-27px",
         top: "2px",
       },
     },

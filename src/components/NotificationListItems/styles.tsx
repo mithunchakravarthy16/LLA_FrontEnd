@@ -5,21 +5,24 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
-    minWidth: props?.pageName === "markerCallout" ? "400px" : "380px",
+    minWidth: props?.pageName === "markerCallout" ? "350px" : "380px",
     [muiTheme.breakpoints.up(3839)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 500,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 500,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 370,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 370,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 240,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 240,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      minWidth: props?.pageName === "markerCallout" ? 749 : 220,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 220,
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      minWidth: props?.pageName === "markerCallout" ? 290 : 186,
     },
   }),
   collapsedListItems: (props: any) => ({
@@ -102,12 +105,16 @@ const useStyles = makeStyles({
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 11,
+      fontSize: 12,
       lineHeight: "18px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
       lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 9,
+      lineHeight: "15px",
     },
   }),
   collapsedlistItemRow2: (props: any) => ({
@@ -141,6 +148,10 @@ const useStyles = makeStyles({
       fontSize: 8,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      lineHeight: "13px",
+    },
   }),
   timeStampStyle: (props: any) => ({
     fontSize: 10,
@@ -169,15 +180,39 @@ const useStyles = makeStyles({
       fontSize: 8,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      lineHeight: "13px",
+    },
   }),
   expandedListItemRow2: (props: any) => ({
     fontSize: 14,
     letterSpacing: "0.5px",
     marginBottom: 12,
     fontFamily: "HelveticaNeue-ItalicMedium",
-    [muiTheme.breakpoints.down(3841)]: {
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
-      lineHeight: "48px",
+      lineHeight: "36px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 11,
+      lineHeight: "18px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
   expandedListItemRow3: (props: any) => ({
