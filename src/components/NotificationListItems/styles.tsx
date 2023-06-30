@@ -7,16 +7,22 @@ const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     minWidth: props?.pageName === "markerCallout" ? "350px" : "380px",
     [muiTheme.breakpoints.up(3839)]: {
-      minWidth: props?.pageName === "markerCallout" ? 350 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 650 : 500,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      minWidth: props?.pageName === "markerCallout" ? 350 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 400 : 500,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      minWidth: props?.pageName === "markerCallout" ? 350 : 370,
+      minWidth: props?.pageName === "markerCallout" ? 400 : 370,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      minWidth: props?.pageName === "markerCallout" ? 350 : 240,
+      minWidth: props?.pageName === "markerCallout" ? 400 : 240,
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      minWidth: props?.pageName === "markerCallout" ? 400 : 240,
+    },
+    [muiTheme.breakpoints.down(1681)]: {
+      minWidth: props?.pageName === "markerCallout" ? 400 : 240,
     },
     [muiTheme.breakpoints.down(1153)]: {
       minWidth: props?.pageName === "markerCallout" ? 350 : 220,
@@ -56,7 +62,7 @@ const useStyles = makeStyles({
       props?.pageName === "markerCallout"
         ? props?.palette?.notification?.expansionMarkerListBg
         : props?.palette?.notification?.expansionListItemBg,
-    padding: "13px",
+    padding: "4%",
     borderRadius: "10px",
     border:
       props?.pageName === "markerCallout"
