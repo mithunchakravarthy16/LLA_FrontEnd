@@ -334,6 +334,22 @@ export const CardValuesSkewContainer = styled("div")`
   position: absolute;
 `;
 
+export const CardValuesSplitter = styled("div")`
+    width: 1px;
+    height: 110px;
+    background: #fff;
+    transform: skew(-18deg);
+    @media (max-width : 3073px) {
+        height: 110px;
+    }
+    @media (max-width : 2049px) {
+        height: 43px;
+    }
+    @media (max-width : 1153px) {
+        height: 43px;
+    }
+`;
+
 export const CardValuesContainer = styled("div")`
   padding: 10px 30px;
   color: #fff;
@@ -341,7 +357,7 @@ export const CardValuesContainer = styled("div")`
   z-index: 2000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   @media (max-width: 3073px) {
     padding: 30px 24px;
   }

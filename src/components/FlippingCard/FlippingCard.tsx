@@ -20,6 +20,7 @@ import {
   NoteLabel,
   NoteValue,
   NoteDifferenceIndicator,
+  CardValuesSplitter,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import {
@@ -44,6 +45,9 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "occupied",
         value: 370,
         suffix: "",
@@ -59,6 +63,9 @@ const DEMO_VALUES: any = {
         label: "consumed",
         value: 100,
         suffix: "kWh",
+      },
+      {
+        type: 'splitter'
       },
       {
         label: "savings",
@@ -78,6 +85,9 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "alerts",
         value: 50,
         suffix: "",
@@ -93,6 +103,9 @@ const DEMO_VALUES: any = {
         label: "electricity",
         value: 16,
         suffix: "kWh",
+      },
+      {
+        type: 'splitter'
       },
       {
         label: "data",
@@ -112,6 +125,9 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "trips",
         value: 50,
         suffix: "",
@@ -127,6 +143,9 @@ const DEMO_VALUES: any = {
         label: "assets",
         value: 200,
         suffix: "",
+      },
+      {
+        type: 'splitter'
       },
       {
         label: "alerts",
@@ -255,7 +274,7 @@ const Card = ({
         <CardValuesWrapper>
           <CardValuesSkewContainer />
           <CardValuesContainer>
-            {DEMO_VALUES[card?.title].values?.map((value: any) => (
+            {DEMO_VALUES[card?.title].values?.map((value: any) => value?.type === 'splitter' ? <CardValuesSplitter /> : (
               <ValueWrapper>
                 <Value>
                   {value.value} {value.suffix}
