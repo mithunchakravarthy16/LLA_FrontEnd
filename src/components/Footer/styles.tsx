@@ -151,7 +151,7 @@ const useStyles = makeStyles(
     poweredByImage: (props: any) => ({
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-end",
+      justifyContent: "center",
       maxWidth: "100%",
       [muiTheme.breakpoints.up(3839)]: {
         maxWidth: "100%",

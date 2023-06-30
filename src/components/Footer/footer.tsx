@@ -5,6 +5,7 @@ import theme from "../../theme/theme";
 import FooterIcon from "../../assets/images/lla-logo2.png";
 import useTranslation from "localization/translations";
 import poweredBy from "../../assets/images/powered-by.svg";
+import footerText from "../../assets/footerText.svg"
 import useStyles from "./styles";
 
 const Footer = (props: any) => {

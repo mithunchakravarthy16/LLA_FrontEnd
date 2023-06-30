@@ -161,7 +161,7 @@ const SideBar = (props: SideBarProps) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [notification, setNotification] = useState(null);
 
-  const menuOptions = ["logout"];
+  const menuOptions = ["Logout"];
   const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -171,7 +171,7 @@ const SideBar = (props: SideBarProps) => {
   
 
   const handleCloseUserMenu = (menuOptions: string) => {
-    if (menuOptions === "logout") {
+    if (menuOptions === "Logout") {
       localStorage.removeItem("user");
       localStorage.clear();
       dispatch(getUserLogout());
@@ -240,10 +240,10 @@ const SideBar = (props: SideBarProps) => {
                 onClick={() => handleCloseUserMenu(menuOptions)}
               >
                 <div className={logoutSection}>
-                  {menuOptions && menuOptions === "logout" ? (
-                    <img className={logoutImg} src={Logout} alt="logout" />
+                  {menuOptions && menuOptions === "Logout" ? (
+                    <img className={logoutImg} src={Logout} alt="Logout" />
                   ) : (
-                    <img className={logoutImg} src={user} alt="logout" />
+                    <img className={logoutImg} src={user} alt="Logout" />
                   )}
 
                   <Typography className={logoutText} textAlign="center">

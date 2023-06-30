@@ -92,35 +92,35 @@ const useStyles = makeStyles({
   listItemTitle: (props: any) => ({
     fontSize: 20,
     letterSpacing: "0.5px",
-    marginBottom: 12,
+    marginBottom: "3%",
     fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "56px",
+      // lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
-      lineHeight: "46px",
+      // lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
-      lineHeight: "36px",
+      // lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 16,
-      lineHeight: "26px",
+      // lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 12,
-      lineHeight: "18px",
+      // lineHeight: "18px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
-      lineHeight: "16px",
+      // lineHeight: "16px",
     },
     [muiTheme.breakpoints.down(1025)]: {
       fontSize: 9,
-      lineHeight: "15px",
+      // lineHeight: "15px",
     },
   }),
   collapsedlistItemRow2: (props: any) => ({
@@ -192,72 +192,83 @@ const useStyles = makeStyles({
     },
   }),
   expandedListItemRow2: (props: any) => ({
-    fontSize: 14,
+    // fontSize: 14,
     letterSpacing: "0.5px",
-    marginBottom: 12,
+    marginBottom: "4%",
     fontFamily: "HelveticaNeue-ItalicMedium",
+    fontSize: 10,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      lineHeight: "56px",
+      fontSize: 24,
+      // lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 24,
-      lineHeight: "46px",
+      fontSize: 20,
+      // lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 20,
-      lineHeight: "36px",
+      fontSize: 13,
+      // lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 16,
-      lineHeight: "26px",
+      fontSize: 12,
+      // lineHeight: "21px",
     },
-    [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 11,
-      lineHeight: "18px",
+    [muiTheme.breakpoints.down(1545)]: {
+      fontSize: 8,
+      // lineHeight: "19px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
-      lineHeight: "16px",
+      fontSize: 8,
+      // lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      // lineHeight: "13px",
     },
   }),
   expandedListItemRow3: (props: any) => ({
-    fontSize: 14,
+    // fontSize: 14,
     letterSpacing: "0.5px",
-    marginBottom: 12,
+    marginBottom: "4%",
     fontFamily: "HelveticaNeue-ItalicMedium",
+    fontSize: 10,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      lineHeight: "56px",
+      fontSize: 24,
+      // lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 24,
-      lineHeight: "46px",
+      fontSize: 20,
+      // lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 20,
-      lineHeight: "36px",
+      fontSize: 13,
+      // lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 16,
-      lineHeight: "26px",
+      fontSize: 12,
+      // lineHeight: "21px",
     },
-    [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 11,
-      lineHeight: "18px",
+    [muiTheme.breakpoints.down(1545)]: {
+      fontSize: 8,
+      // lineHeight: "19px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
-      lineHeight: "16px",
+      fontSize: 8,
+      // lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      // lineHeight: "13px",
     },
   }),
   expandedListItemRow4: (props: any) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    [muiTheme.breakpoints.up(3839)]: {
-      paddingTop: "20px",
-    },
+    // paddingTop: "2%",
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   paddingTop: "20px",
+    // },
   }),
   buttonStyle: (props: any) => ({
     "& .MuiButton-contained": {
@@ -279,6 +290,7 @@ const useStyles = makeStyles({
   listItemCallout: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
+    alignItems : "center"
   }),
 });
 export default useStyles;

@@ -30,6 +30,12 @@ import {
   parking,
   security,
   fleetManagement,
+  ParkingHover,
+  SecurityHover,
+  AssetHover,
+  EnergyHover,
+  LightingHover,
+  FleetHover,
   cardDifferenceIndicator,
 } from "../../assets/images";
 
@@ -159,44 +165,6 @@ const DEMO_VALUES: any = {
   },
 };
 
-const CARD_LIST: any = [
-  {
-    title: "parking",
-    translatedTitle: "parking",
-    image: parking,
-    category: "parking",
-  },
-  {
-    title: "energy_management",
-    translatedTitle: "energyManagement",
-    image: energyManagement,
-    category: "energy",
-  },
-  {
-    title: "security",
-    translatedTitle: "security",
-    image: security,
-    category: "security",
-  },
-  {
-    title: "lighting",
-    translatedTitle: "lighting",
-    image: lighting,
-    category: "lighting",
-  },
-  {
-    title: "fleet_management",
-    translatedTitle: "fleetManagement",
-    image: fleetManagement,
-    category: "fleet",
-  },
-  {
-    title: "assets_tracking",
-    translatedTitle: "assetsTracking",
-    image: assetTracking,
-    category: "asset",
-  },
-];
 
 type CardPropType = {
   card: {
@@ -215,7 +183,9 @@ const Card = ({
   currentOpenedCard,
   setCurrentOpenedCard,
   setFocusedCategory,
+  focusedCategory
 }: CardPropType) => {
+  
   const navigate = useNavigate();
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
@@ -262,7 +232,7 @@ const Card = ({
         }}
       >
         <CardImage src={card.image} />
-        <CardTitle>{card.title.replaceAll("_", " ")}</CardTitle>
+        <CardTitle focusedCategory={focusedCategory === card?.category}>{card.title.replaceAll("_", " ")}</CardTitle>
       </ContentContainer>
       <BackContentContainer
         style={{
@@ -306,6 +276,39 @@ const Card = ({
 
 const FlippingCard = (props: any) => {
   const { focusedCategory, setFocusedCategory } = props;
+  const CARD_LIST: any = [
+    {
+      title: "parking",
+      image: focusedCategory === "parking" ? ParkingHover  : parking ,
+      category: "parking",
+    },
+    {
+      title: "energy_management",
+      image: focusedCategory === "energy" ? EnergyHover  : energyManagement,
+      category: "energy",
+    },
+    {
+      title: "security",
+      image: focusedCategory === "security" ? SecurityHover  : security,
+      category: "security",
+    },
+    {
+      title: "lighting",
+      image: focusedCategory === "lighting" ? LightingHover  : lighting,
+      category: "lighting",
+    },
+    {
+      title: "fleet_management",
+      image: focusedCategory === "fleet" ? FleetHover  : fleetManagement,
+      category: "fleet",
+    },
+    {
+      title: "assets_tracking",
+      image: focusedCategory === "asset" ? AssetHover  : assetTracking,
+      category: "asset",
+    },
+  ];
+  
   return (
     <Wrapper>
       {CARD_LIST.map((card: any) => (

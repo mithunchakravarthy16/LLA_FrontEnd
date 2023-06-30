@@ -159,7 +159,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                           height={selectedWidth?.height}
                           isVisible={true}
                           graphType={"spline"}
-                          units={"kWh"}
+                          units={""}
                           isCrosshair={false}
                           is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
