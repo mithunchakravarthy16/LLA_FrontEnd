@@ -367,7 +367,7 @@ const useStyles = makeStyles({
       width: "76px",
       height: "56px",
       fontSize: "30px",
-      top: 33,
+      top: 26,
       right: 26,
     },
   }),

@@ -464,8 +464,12 @@ const Parking: React.FC<any> = (props) => {
                                     <div className={liveContainer}>
                                       <div className={liveImgStyle}>
                                         <img
-                                          width={50}
-                                          height={30}
+                                          width={
+                                            selectedWidth?.is4kDevice ? 109 : 50
+                                          }
+                                          height={
+                                            selectedWidth?.is4kDevice ? 49 : 30
+                                          }
                                           src={LiveImg}
                                         />
                                       </div>
@@ -570,12 +574,13 @@ const Parking: React.FC<any> = (props) => {
                                             borderRadiusBottomRight: 20,
                                           },
                                         },
+
                                         xAxis: {
                                           categories: xAxisValueYear,
                                           labels: {
                                             useHTML: true,
                                             style: {
-                                              fontSize: "12px",
+                                              fontSize: selectedWidth?.is4kDevice ? "21px" : "12px",
                                               color: "white",
                                             },
                                           },
