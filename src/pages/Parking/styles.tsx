@@ -146,8 +146,11 @@ const useStyles = makeStyles({
     justifyContent: "center",
     borderRadius: "50px",
     cursor: "pointer",
-    width: "35%",
-    height: "12%",
+    width: "42%",
+    height: "11%",
+    [muiTheme.breakpoints.up(3839)]: {
+      height: "12%",
+    },
   }),
   customNotificationTabs: (props: any) => ({
     width: "85%",
@@ -172,6 +175,13 @@ const useStyles = makeStyles({
       lineHeight: "30px !important",
       // fontFamily: "HelveticaNeue-Regular",
       margin: "10px 0px 10px 0px",
+      padding: "16px 32px !important",
+      [muiTheme.breakpoints.up(3839)]: {
+        padding: "6px 24px !important",
+      },
+      [muiTheme.breakpoints.down(1793)]: {
+        padding: "inherit !important",
+      },
       "&:first-child": {
         marginRight: "0 !important",
         minWidth: "64px !important",
@@ -323,8 +333,15 @@ const useStyles = makeStyles({
     padding: "15px 5px 15px 5px",
     width: "53px",
     height: "30px",
-    right: props?.parkingLotSelectionActive ? 0 : "15px",
-    top: props?.parkingLotSelectionActive ? 0 : "7px",
+    right: props?.parkingLotSelectionActive ? 7 : "15px",
+    top: props?.parkingLotSelectionActive ? 8 : "7px",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "76px",
+      height: "56px",
+      fontSize: "30px",
+      top: 28,
+      right: 20,
+    },
   }),
   lotImageStyle: (props: any) => ({
     width: "100%",

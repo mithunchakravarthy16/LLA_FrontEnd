@@ -237,7 +237,7 @@ const Parking: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 900,
         height: 500,
-        width1: 700,
+        width1: 1200,
         height1: 480,
         is4kDevice: true,
       });
