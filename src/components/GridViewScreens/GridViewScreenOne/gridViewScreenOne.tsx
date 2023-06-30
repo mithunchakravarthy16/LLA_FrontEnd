@@ -90,8 +90,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
-        width: 410,
-        height: 160,
+        width: 380,
+        height: 280,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
