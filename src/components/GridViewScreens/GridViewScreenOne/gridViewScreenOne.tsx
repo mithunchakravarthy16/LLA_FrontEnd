@@ -68,6 +68,12 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         height: 330,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 500,
+        height: 180,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 410,
@@ -117,8 +123,14 @@ const GridViewScreenOne: React.FC<any> = (props) => {
     <>
       {/* Gride 1 */}
       {/* <Grid item xs={4} className={gridStyles}> */}
-        <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}>
-
+      <Grid
+        item
+        xs={4}
+        className={gridStyles}
+        onClick={() => {
+          handleClick("/parking");
+        }}
+      >
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
             PARKING
