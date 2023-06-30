@@ -192,6 +192,10 @@ const useStyles = makeStyles({
       fontSize: 36,
       lineHeight: "62px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 22,
+      lineHeight: "26px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 22,
       lineHeight: "38px",
@@ -252,6 +256,10 @@ const useStyles = makeStyles({
       fontSize: 24,
       lineHeight: "46px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 18,
+      lineHeight: "30px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 18,
       lineHeight: "30px",
@@ -284,6 +292,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
       lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 20,
+      lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
@@ -545,6 +557,10 @@ const useStyles = makeStyles({
       fontSize: 36,
       lineHeight: "62px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 20,
+      lineHeight: "38px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
       lineHeight: "38px",
@@ -571,6 +587,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
       lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 15,
+      lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 15,
