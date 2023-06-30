@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import theme from "../../theme/theme";
-import FooterIcon from "../../assets/images/footer-logo-1.svg";
+import FooterIcon from "../../assets/images/lla-logo2.png";
 import useTranslation from "localization/translations";
 import poweredBy from "../../assets/images/powered-by.svg";
 import useStyles from "./styles";
@@ -57,14 +57,19 @@ const Footer = (props: any) => {
       }
     >
       <div className={footerContent}>
-        <p className={poweredByImage}>
-          <img src={poweredBy} />
-        </p>
-        <p className={footerIconStyle}>
+        <div className={footerIconStyle}>
           <img src={FooterIcon} />
-        </p>
-        <p className={copyrights}>© 2023 </p>{" "}
-        <p className={allRights}>{allRightsReservedText}</p>
+        </div>
+        <div>
+          {pageName === "dashboard" ? (
+            <p>
+              powered by Liberty Latin America | Sensyon | © 2023 | All Rights
+              Reserved
+            </p>
+          ) : (
+            <p className={copyrights}>© 2023 {allRightsReservedText}</p>
+          )}
+        </div>
       </div>
     </div>
   );
