@@ -116,7 +116,7 @@ export const RootContainer = styled("div")`
 `;
 
 export const SkewContainer = styled(a.div)<{ isOpen?: boolean }>`
-  background: rgba(22, 25, 30, 0.7);
+  background: rgb(22 25 30 / 90%);
   position: absolute;
   top: 0;
   left: 0;
@@ -173,12 +173,13 @@ export const CardImage = styled("img")`
   }
 `;
 
-export const CardTitle = styled("div")`
+export const CardTitle = styled("div") <{focusedCategory:any}> ` 
   font-family: "HelveticaNeue-Regular";
   font-style: normal;
   font-size: 34px;
   line-height: 48px;
-  color: #eeeeee;
+  color : ${({focusedCategory})=>focusedCategory ? "#F26522" : "#eeeeee"};
+  /* color:  #F26522 #eeeeee; */
   text-transform: uppercase;
   margin-top: 20px;
   @media (max-width: 3073px) {

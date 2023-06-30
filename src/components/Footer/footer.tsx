@@ -5,6 +5,7 @@ import theme from "../../theme/theme";
 import FooterIcon from "../../assets/images/footer-logo-1.svg";
 import useTranslation from "localization/translations";
 import poweredBy from "../../assets/images/powered-by.svg";
+import footerText from "../../assets/footerText.svg"
 import useStyles from "./styles";
 
 const Footer = (props: any) => {
@@ -58,13 +59,13 @@ const Footer = (props: any) => {
     >
       <div className={footerContent}>
         <p className={poweredByImage}>
-          <img src={poweredBy} />
+          <img src={footerText} />
         </p>
-        <p className={footerIconStyle}>
+        {/* <p className={footerIconStyle}>
           <img src={FooterIcon} />
         </p>
         <p className={copyrights}>© 2023 </p>{" "}
-        <p className={allRights}>{allRightsReservedText}</p>
+        <p className={allRights}>{allRightsReservedText}</p> */}
       </div>
     </div>
   );
