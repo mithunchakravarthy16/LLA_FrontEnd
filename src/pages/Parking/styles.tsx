@@ -338,8 +338,8 @@ const useStyles = makeStyles({
     // right: props?.parkingLotSelectionActive ? 7 : "15px",
     // top: props?.parkingLotSelectionActive ? 8 : "7px",
     [muiTheme.breakpoints.up(3839)]: {
-      width: "76px",
-      height: "56px",
+      width: "88px",
+      height: "66px",
       fontSize: "30px",
       top: 83,
       right: 26,
@@ -364,8 +364,8 @@ const useStyles = makeStyles({
     // right: props?.parkingLotSelectionActive ? 7 : "15px",
     // top: props?.parkingLotSelectionActive ? 8 : "7px",
     [muiTheme.breakpoints.up(3839)]: {
-      width: "76px",
-      height: "56px",
+      width: "86px",
+      height: "66px",
       fontSize: "30px",
       top: 26,
       right: 26,
@@ -376,7 +376,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "-1.75%",
+    // marginTop: "-1.75%",
   }),
   liveContainer: (props: any) => ({
     display: "flex",
