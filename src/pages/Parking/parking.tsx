@@ -416,6 +416,7 @@ const Parking: React.FC<any> = (props) => {
                                       units={"%"}
                                       isCrosshair={true}
                                       crossHairLineColor={"#954EA190"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
                                       dataPoints={[
                                         {
                                           marker: {
@@ -580,7 +581,7 @@ const Parking: React.FC<any> = (props) => {
                                           labels: {
                                             useHTML: true,
                                             style: {
-                                              fontSize: selectedWidth?.is4kDevice ? "21px" : "12px",
+                                              fontSize: selectedWidth?.is4kDevice ? "30px" : "12px",
                                               color: "white",
                                             },
                                           },
