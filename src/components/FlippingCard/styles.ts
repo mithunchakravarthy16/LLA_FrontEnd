@@ -524,7 +524,7 @@ export const NoteLabel = styled("div")`
     font-size: 28px;
     line-height: 44px;
     color: #FFCF25;
-    margin-left: -10px;
+    margin-left: -35px;
     @media (max-width: 3073px) {
     font-size: 16px;
     line-height: 45px;
