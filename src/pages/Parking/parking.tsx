@@ -95,6 +95,7 @@ const Parking: React.FC<any> = (props) => {
     aqiCircleStyle,
     graphTwoHeader,
     electricity,
+    lotSelectionIconStyleClose
   } = useStyles({
     ...appTheme,
     parkingLotSelectionActive: parkingLotSelectionActive,
@@ -630,7 +631,7 @@ const Parking: React.FC<any> = (props) => {
                           }
                         />
                         <div
-                          className={lotSelectionIconStyle}
+                          className={lotSelectionIconStyleClose}
                           onClick={handleLotSelction}
                         >
                           X
