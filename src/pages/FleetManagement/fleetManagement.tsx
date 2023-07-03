@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
-  CoTwoCloudIcon,
-  VocCloudIcon,
-  AirQualityIcon,
-  PersonIcon,
+  TotalDistanceIcon,
+  IdleHoursIcon,
+  OverSpeedingIcon,
+  HarshAccelerationIcon,
+  HarshBreakingIcon,
 } from "../../assets/topPanelListIcons";
 import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
@@ -74,29 +75,29 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: CoTwoCloudIcon,
-      value: "643ppm",
-      name: "CO2 Level",
+      icon: TotalDistanceIcon,
+      value: "1237km",
+      name: "Total Distance",
     },
     {
-      icon: VocCloudIcon,
-      value: "15ppm",
-      name: "VOC Level",
+      icon: IdleHoursIcon,
+      value: "05Hrs",
+      name: "Idle Hours",
     },
     {
-      icon: AirQualityIcon,
-      value: "12µg/m³",
-      name: "PM2.5",
+      icon: OverSpeedingIcon,
+      value: "11",
+      name: "Over Speeding",
     },
     {
-      icon: AirQualityIcon,
-      value: "50µg/m³",
-      name: "PM10",
+      icon: HarshAccelerationIcon,
+      value: "05",
+      name: "Harsh Acceleration",
     },
     {
-      icon: PersonIcon,
-      value: "200",
-      name: "Wifi Users",
+      icon: HarshBreakingIcon,
+      value: "04",
+      name: "Harsh Breaking",
     },
   ];
 
@@ -200,12 +201,13 @@ const FleetManagement: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={60}
+                          percent={70}
                           strokeWidth={10}
                           trailWidth={10}
-                          strokeColor="#FFA626"
+                          strokeColor="
+                          #92C07E"
                           trailColor="#484D52"
-                          title={"Avg Dimming Level"}
+                          title={"Safety Score"}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "80%" }}>
@@ -225,7 +227,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{ height: "10%" }}
                                 className={electricity}
                               >
-                                Electricity Consumed
+                                Trips
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid
@@ -239,30 +241,30 @@ const FleetManagement: React.FC<any> = (props) => {
                                       height={selectedWidth?.height}
                                       graphType={"areaspline"}
                                       isVisible={true}
-                                      units={"kWh"}
+                                      units={""}
                                       isCrosshair={true}
-                                      crossHairLineColor={"#004F9F90"}
+                                      crossHairLineColor={"#6B70AB90"}
                                       is4kDevice={selectedWidth?.is4kDevice}
                                       dataPoints={[
                                         {
                                           marker: {
                                             enabled: false,
                                           },
-                                          lineColor: "#004F9F90",
-                                          color: "#004F9F",
+                                          lineColor: "#6B70AB90",
+                                          color: "#6B70AB",
                                           lineWidth: 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
                                               [
                                                 0,
-                                                Highcharts.color("#004F9F")
+                                                Highcharts.color("#6B70AB")
                                                   .setOpacity(0.5)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 0.5,
-                                                Highcharts.color("#004F9F")
+                                                Highcharts.color("#6B70AB")
                                                   .setOpacity(0.3)
                                                   .get("rgba"),
                                               ],
@@ -270,7 +272,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                                 1,
                                                 Highcharts.color(
                                                   selectedWidth?.is4kDevice
-                                                    ? "#004F9F"
+                                                    ? "#6B70AB"
                                                     : "#000000"
                                                 )
                                                   .setOpacity(0.05)
@@ -308,19 +310,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                       </div>
                                       <div className={liveContentLeftStyle}>
                                         <div className={liveContentValue}>
-                                          64Kw
+                                          10
                                         </div>
                                         <div className={liveContentLabel}>
-                                          CONSUMED
+                                          VEHICLES
                                         </div>
                                       </div>
                                       <div className={liveContentStyle}>
-                                        <div className={liveContentValueGreen}>
-                                          50
+                                        <div className={liveContentValue}>
+                                          13
                                         </div>
-                                        <div className={liveContentLabelGreen}>
-                                          <div>AQI</div>
-                                          <div className={aqiCircleStyle}></div>
+                                        <div className={liveContentLabel}>
+                                          TRIPS
                                         </div>
                                       </div>
                                     </div>

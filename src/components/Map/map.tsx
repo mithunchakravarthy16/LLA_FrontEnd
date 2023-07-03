@@ -507,7 +507,12 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
-    // setNotificationPanelActive(false);
+    setProgress([]);
+    setPoints([]);
+    setData([]);
+    setSelectedMarker("");
+    setSelectedListItemSource("");
+    setSelectedListItemDestination("");
   };
 
   const handleExpandListItem = () => {
@@ -695,7 +700,7 @@ const Map: React.FC<any> = (props) => {
             />
           )}
 
-          {points && points?.length > 0 && progress && (
+          {points && points?.length > 0 && progress && progress?.length > 0 && (
             <>
               <PolylineF
                 path={progress}
@@ -705,16 +710,20 @@ const Map: React.FC<any> = (props) => {
                   strokeWeight: 4,
                 }}
               />
-              {/* <MapMarker
-                mapMarker={selectedMarker}
-                toggleInfoWindow={toggleInfoWindow}
-                handleMarkerClose={handleMarkerClose}
-                handleExpandListItem={handleExpandListItem}
-                getMarkerIcon={getMarkerIcon}
-                currentMarker={currentMarker}
-                focusedCategory={focusedCategory}
-              /> */}
-              <Marker position={progress[progress.length - 1]} />
+              {selectedMarker && (
+                <MapMarker
+                  mapMarker={selectedMarker}
+                  toggleInfoWindow={toggleInfoWindow}
+                  handleMarkerClose={handleMarkerClose}
+                  handleExpandListItem={handleExpandListItem}
+                  getMarkerIcon={getMarkerIcon}
+                  currentMarker={currentMarker}
+                  focusedCategory={focusedCategory}
+                  location={progress[progress.length - 1]}
+                  pageName={"FleetManagement"}
+                />
+              )}
+              {/* <Marker position={progress[progress.length - 1]} /> */}
             </>
           )}
         </GoogleMap>
