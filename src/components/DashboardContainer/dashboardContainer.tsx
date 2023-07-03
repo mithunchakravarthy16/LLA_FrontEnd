@@ -3,7 +3,7 @@
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import {useDispatch, useSelector} from "react-redux";
-import { getNotificationData} from "redux/actions/assetNotificationAction";
+import { getNotificationData} from "redux/actions/getAllAssertNotificationAction";
 import theme from "../../theme/theme";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";

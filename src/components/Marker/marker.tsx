@@ -15,6 +15,7 @@ const MapMarker: React.FC<any> = (props) => {
     handleExpandListItem,
     getMarkerIcon,
     focusedCategory,
+    clusterer
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -37,6 +38,7 @@ const MapMarker: React.FC<any> = (props) => {
   return (
     <>
       <Marker
+      // clusterer={clusterer}
         animation={
           (focusedCategory === mapMarker?.category  && focusedCategory !== 'fleet')
             ? window.google.maps.Animation.BOUNCE 

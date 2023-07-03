@@ -59,8 +59,6 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     }
   }, []);
 
-  console.log("screenResolution", screenResolution);
-
   const tooltipOfset = [0, 10];
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];

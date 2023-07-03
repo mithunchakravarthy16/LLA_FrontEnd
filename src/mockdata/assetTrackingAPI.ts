@@ -11,15 +11,14 @@ const assetTrackingResponse = {
           "totalCount": 1,
           "eventsList": [
             {
-              "notificationId": "lght1",
+              "assetNotificationId": "lght1",
               "notificationType": "event",
               "reason": "Asset Check-in Recorded",
-              "tripId": 12345,
-              "vehicleId": 0,
-              "assetId": 12,
-              "vehicleName": "string",
-              "driverName": "string",
-              "notificationDate": "2023-06-28T09:22:50.124Z",
+              "trackerId": "TR#12367",
+              "assetId": "Asset#12",
+              "trackerName": "string",
+              "assetName": "string",
+              "notificationDate": "2023-07-03T13:15:24.236Z",
               area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
               location: {
                 lat: 39.75555358586086,
@@ -32,14 +31,13 @@ const assetTrackingResponse = {
           "totalCount": 1,
           "incidentList": [
             {
-              "notificationId": "lght12",
+              "assetNotificationId": "lght12",
               "notificationType": "incident",
               "reason": "Asset Theft Identified",
-              "tripId": 35678,
-              "vehicleId": 0,
-              "assetId": 15,
-              "vehicleName": "string",
-              "driverName": "string",
+              "trackerId": "TR#12368",
+              "assetId": "Asset#13",
+              "trackerName": "string",
+              "assetName": "string",
               "notificationDate": "2023-06-28T09:22:50.124Z",
               area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
               location: {
@@ -53,14 +51,13 @@ const assetTrackingResponse = {
           "totalCount": 1,
           "alertList": [
             {
-              "notificationId": "lght13",
+              "assetNotificationId": "lght13",
               "notificationType": "oprAlert",
               "reason": "Floodlight Maintenance",
-              "tripId": 65478,
-              "vehicleId": 0,
-              "assetId": 21,
-              "vehicleName": "string",
-              "driverName": "string",
+              "trackerId": "TR#12369",
+              "assetId": "Asset#15",
+              "trackerName": "string",
+              "assetName": "string",
               "notificationDate": "2023-06-28T09:22:50.124Z",
               area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
               location: {
