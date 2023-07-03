@@ -25,6 +25,10 @@ import IdleHoursIcon from "./idleHours.svg";
 import OverSpeedingIcon from "./overSpeeding.svg";
 import HarshAccelerationIcon from "./harshAcceleration.svg";
 import HarshBreakingIcon from "./harshBreaking.svg";
+import AssetTrackedIcon from "./AssetTracking/AssetTracked.svg";
+import LocationIcon from "./AssetTracking/Location.svg";
+import OutOfGeofenceIcon from "./AssetTracking/OutOfGeofence.svg";
+import IncidentIcon from "./AssetTracking/Incident.svg";
 
 export {
   CoTwoCloudIcon,
@@ -52,4 +56,8 @@ export {
   OverSpeedingIcon,
   HarshAccelerationIcon,
   HarshBreakingIcon,
+  AssetTrackedIcon,
+  LocationIcon,
+  OutOfGeofenceIcon,
+  IncidentIcon,
 };

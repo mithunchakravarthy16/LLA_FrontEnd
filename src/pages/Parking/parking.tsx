@@ -550,6 +550,8 @@ const Parking: React.FC<any> = (props) => {
                                           style: {
                                             color: "#fff",
                                             fontWeight: "bold",
+                                            fontSize : selectedWidth?.is4kDevice ? "40px" : "14px",
+                                            borderRadius : selectedWidth?.is4kDevice ? "10px" : "5px",
                                           },
                                           formatter: function (
                                             this: Highcharts.TooltipFormatterContextObject

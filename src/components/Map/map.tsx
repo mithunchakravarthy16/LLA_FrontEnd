@@ -49,6 +49,7 @@ import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
+import FleetHoverIcon from "../../assets/markers/fleetHover.gif";
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -60,6 +61,8 @@ const center = {
   lat: 39.75576345655451,
   lng: -105.00357749556102,
 };
+
+const libraries = ["places", "drawing"];
 
 const Map: React.FC<any> = (props) => {
   const location = useLocation();
@@ -97,7 +100,7 @@ const Map: React.FC<any> = (props) => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
-    libraries: ["places", "drawing"],
+    libraries: libraries
   });
 
   useEffect(() => {
@@ -328,7 +331,6 @@ const Map: React.FC<any> = (props) => {
     }
   }, [window.innerWidth, window.innerHeight]);
 
-  console.log(selectedContainerStyle, "selected");
 
   useEffect(() => {
     setCurrentMarker(marker);
@@ -381,10 +383,10 @@ const Map: React.FC<any> = (props) => {
 
   const getMarkerIcon = (
     category: string,
-    notificationCategory: string,
+    notificationType: string,
     id: string
   ) => {
-    switch (notificationCategory) {
+    switch (notificationType) {
       case "event": {
         switch (category) {
           case "parking":

@@ -2,6 +2,8 @@
 
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
+import {useDispatch, useSelector} from "react-redux";
+import { getNotificationData} from "redux/actions/assetNotificationAction";
 import theme from "../../theme/theme";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
@@ -58,6 +60,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setNotificationPanelActive(!notificationPanelActive);
   };
 
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    let payload:any = {};
+    dispatch(getNotificationData(payload))
+  },[])
+
+  const assetNotificationResponse = useSelector((state:any)=>state.assetNotification.assetNotificationData);
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
   let timeArrayNew: any = [];

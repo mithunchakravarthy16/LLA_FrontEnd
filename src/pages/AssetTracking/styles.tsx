@@ -94,6 +94,7 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelMapContainer: (props: any) => ({
+    position: "relative",
     height: "60%",
   }),
 
@@ -140,10 +141,71 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
+    height: "10%",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
     },
+  }),
+
+  graphOneContainerStyle: (props: any) => ({
+    height: "100%",
+    padding: "10px 10px 5px 30px",
+  }),
+
+  graphOneGraphTitleContainer: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: "6px",
+  }),
+
+  graphTitleTwoStyle: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: "6px",
+  }),
+  graphTitleTwoRound: (props: any) => ({
+    width: "15px",
+    height: "15px",
+    borderRadius: "50%",
+    backgroundColor: "#D25A5A",
+    marginRight: 6,
+  }),
+  graphTwoContainerStyle: (props: any) => ({
+    height: "100%",
+    padding: "10px 10px 5px 30px",
+  }),
+  graphTitleOneRound: (props: any) => ({
+    width: "15px",
+    height: "15px",
+    borderRadius: "50%",
+    backgroundColor: "#25796D",
+    marginRight: 6,
+  }),
+  graphOneChartStyle: (props: any) => ({
+    height: "90%"
+  }),
+  graphTwoChartStyle: (props: any) => ({
+    height: "90%"
+  }),
+  geofenceIconStyle: (props: any) => ({
+    position: "absolute",
+    color: "white",
+    zIndex: 1,
+    // background: "#F26522",
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // borderRadius: "50px",
+    cursor: "pointer",
+    // padding: "15px 5px 15px 5px",
+    // width: "53px",
+    // height: "30px",
+    right:  "5px",
+    top:  "2px",
+    width : "5%"
   }),
 });
 export default useStyles;

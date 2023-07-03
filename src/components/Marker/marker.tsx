@@ -87,14 +87,14 @@ const MapMarker: React.FC<any> = (props) => {
         onClick={() => {
           toggleInfoWindow(
             mapMarker.id,
-            mapMarker.notificationCategory,
+            mapMarker.notificationType,
             mapMarker?.location
           );
         }}
         icon={{
           url: getMarkerIcon(
             mapMarker.category,
-            mapMarker.notificationCategory,
+            mapMarker.notificationType,
             mapMarker.id
           ),
           scaledSize: new window.google.maps.Size(
