@@ -70,7 +70,7 @@ const useStyles = makeStyles({
 
   containerTitleScreenFive: (props: any) => ({
     paddingBottom: "15px",
-    height: "15%",
+    height: "13%",
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
     fontSize: "18px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -104,7 +104,38 @@ const useStyles = makeStyles({
   }),
 
   subContainerScreenFive: (props: any) => ({
-    height: "85%",
+    height: "87%",
+  }),
+
+  dotContainerStyle: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: "10px",
+  }),
+
+  overspeedingDotStyle: (props: any) => ({
+    width: "10px",
+    height: "10px",
+    borderRadius: "50%",
+    backgroundColor: "#C39C66",
+
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "20px",
+      height: "20px",
+    },
+  }),
+
+  harshBreakingDotStyle: (props: any) => ({
+    width: "10px",
+    height: "10px",
+    borderRadius: "50%",
+    backgroundColor: "#26428E",
+
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "20px",
+      height: "20px",
+    },
   }),
 
   childSubContainer: (props: any) => ({
