@@ -7,8 +7,9 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  OverlayViewF,
+  PolylineF,
   InfoWindowF,
+  MarkerF,
 } from "@react-google-maps/api";
 import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
@@ -84,6 +85,15 @@ const Map: React.FC<any> = (props) => {
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>();
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
+  const [selectedMarker, setSelectedMarker] = useState<any>();
+  const [selectedListItemSource, setSelectedListItemSource] = useState<any>();
+  const [selectedListItemDestination, setSelectedListItemDestination] =
+    useState<any>();
+  const [progress, setProgress] = useState<any>([]);
+  let [points, setPoints] = useState<any>([]);
+  let [data, setData] = useState<any>(points);
+  const velocity: any = 50;
+  const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
@@ -120,8 +130,7 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 582px)",
         is4kDevice: false,
       });
-    }
-    else  {
+    } else {
       setSelectedContainerStyle({
         width: "100%",
 
@@ -136,7 +145,14 @@ const Map: React.FC<any> = (props) => {
 
   useEffect(() => {
     setCurrentMarker(marker);
+    const selectMarker = markers?.find((item: any) => item.id === marker);
+    setSelectedMarker(selectMarker);
   }, [marker]);
+
+  useEffect(() => {
+    setSelectedListItemSource(selectedMarker?.source);
+    setSelectedListItemDestination(selectedMarker?.destination);
+  }, [selectedMarker]);
 
   useEffect(() => {
     if (currentMarker) {
@@ -311,6 +327,134 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
   };
 
+  // Moving Marker code
+
+  const calculatePath = () => {
+    data = points.map((coordinates: any, i: any, array: any) => {
+      if (i === 0) {
+        return { ...coordinates, distance: 0 }; // it begins here!
+      }
+      const { lat: lat1, lng: lng1 } = coordinates;
+      const latLong1 = new window.google.maps.LatLng(lat1, lng1);
+
+      const { lat: lat2, lng: lng2 } = array[0];
+      const latLong2 = new window.google.maps.LatLng(lat2, lng2);
+
+      // in meters:
+      const distance =
+        window.google.maps.geometry.spherical.computeDistanceBetween(
+          latLong1,
+          latLong2
+        );
+      return { ...coordinates, distance };
+    });
+    setData(data);
+  };
+
+  const getDistance = () => {
+    const date: any = new Date();
+    const differentInTime = (date - initialDate) / 1000; // pass to seconds
+    return differentInTime * velocity; // d = v*t -- thanks Newton!
+  };
+
+  const moveObject = () => {
+    const distance = getDistance();
+    if (!distance) {
+      return;
+    }
+    let progress = data.filter(
+      (coordinates: any) => coordinates.distance < distance
+    );
+
+    const nextLine = data.find(
+      (coordinates: any) => coordinates.distance > distance
+    );
+
+    if (!nextLine) {
+      setProgress(progress);
+      // window.clearInterval(interval);
+      return; // it's the end!
+    }
+    const lastLine = progress[progress.length - 1];
+
+    const lastLineLatLng = new window.google.maps.LatLng(
+      lastLine.lat,
+      lastLine.lng
+    );
+
+    const nextLineLatLng = new window.google.maps.LatLng(
+      nextLine.lat,
+      nextLine.lng
+    );
+
+    // distance of this line
+    const totalDistance = nextLine.distance - lastLine.distance;
+    const percentage = (distance - lastLine.distance) / totalDistance;
+
+    const position = window.google.maps.geometry.spherical.interpolate(
+      lastLineLatLng,
+      nextLineLatLng,
+      percentage
+    );
+
+    const angle = window.google.maps.geometry.spherical.computeHeading(
+      lastLineLatLng,
+      nextLineLatLng
+    );
+    const actualAngle = angle - 90;
+
+    // const marker = document.querySelector(`[src="${movingMarker}"]`);
+
+    // if (marker) {
+    //   // when it hasn't loaded, it's null
+    //   marker.style.transform = `rotate(${actualAngle}deg)`;
+    // }
+    progress = progress.concat(position);
+
+    setProgress(progress);
+  };
+
+  const fetchDirection = async () => {
+    const directionService = new window.google.maps.DirectionsService();
+
+    const results = await directionService.route({
+      origin: selectedListItemSource,
+      destination: selectedListItemDestination,
+      travelMode: window.google.maps.TravelMode.DRIVING,
+    });
+
+    setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
+  };
+
+  useEffect(() => {
+    if (points?.length > 0) {
+      calculatePath();
+    }
+  }, [points]);
+
+  useEffect(() => {
+    if (points?.length > 0) {
+      const timer = setInterval(() => {
+        moveObject();
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (selectedListItemSource && selectedListItemDestination) {
+      fetchDirection();
+    }
+  }, [selectedListItemSource, selectedListItemDestination]);
+
+  let lineSymbol = {
+    path: "M 0,-1 0,1",
+    strokeOpacity: 10,
+    scale: 4,
+  };
+
   return (
     <>
       {isLoaded && (
@@ -345,6 +489,47 @@ const Map: React.FC<any> = (props) => {
               </>
             );
           })}
+
+          {points && points.length > 0 && (
+            <PolylineF
+              path={points}
+              options={{
+                strokeColor: "#976C9E",
+                strokeOpacity: 10,
+                strokeWeight: 0,
+                icons: [
+                  {
+                    icon: lineSymbol,
+                    offset: "0",
+                    repeat: "20px",
+                  },
+                ],
+              }}
+            />
+          )}
+
+          {points && points?.length > 0 && progress && (
+            <>
+              <PolylineF
+                path={progress}
+                options={{
+                  strokeColor: "#73B35A",
+                  strokeOpacity: 10,
+                  strokeWeight: 4,
+                }}
+              />
+              {/* <MapMarker
+                mapMarker={selectedMarker}
+                toggleInfoWindow={toggleInfoWindow}
+                handleMarkerClose={handleMarkerClose}
+                handleExpandListItem={handleExpandListItem}
+                getMarkerIcon={getMarkerIcon}
+                currentMarker={currentMarker}
+                focusedCategory={focusedCategory}
+              /> */}
+              <Marker position={progress[progress.length - 1]} />
+            </>
+          )}
         </GoogleMap>
       )}
     </>
