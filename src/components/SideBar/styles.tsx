@@ -67,8 +67,8 @@ const useStyles = makeStyles({
     color: "white",
     fontSize: 30,
     fontFamily: "HelveticaNeue-Regular",
+    position: "relative",
     margin: 30,
-    cursor : "pointer",
     [muiTheme.breakpoints.up(3839)]: {
       width: "120px",
       height: "120px",
@@ -100,6 +100,31 @@ const useStyles = makeStyles({
       fontSize: 12,
     },
   }),
+
+  avatharIconStyle: (props: any) => ({
+    cursor: "pointer",
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "50px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "48px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "26px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "25px",
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      width: "25px",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "21px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "12px",
+    },
+  }),
   menuLogoSection: () => ({
     margin: 30,
     [muiTheme.breakpoints.up(3839)]: {
@@ -124,6 +149,9 @@ const useStyles = makeStyles({
       },
       [muiTheme.breakpoints.down(3073)]: {
         width: 100,
+      },
+      [muiTheme.breakpoints.down(2561)]: {
+        width: 80,
       },
       [muiTheme.breakpoints.down(2049)]: {
         width: 90,
@@ -157,9 +185,13 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       height: "200px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "120px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       height: "140px",
     },
+
     [muiTheme.breakpoints.down(1921)]: {
       height: "125px",
     },
@@ -207,6 +239,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       height: "200px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "120px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       height: "140px",
     },
@@ -226,6 +261,9 @@ const useStyles = makeStyles({
       },
       [muiTheme.breakpoints.down(3073)]: {
         width: 100,
+      },
+      [muiTheme.breakpoints.down(2561)]: {
+        width: 60,
       },
       [muiTheme.breakpoints.down(2049)]: {
         width: 60,
@@ -269,6 +307,12 @@ const useStyles = makeStyles({
         right: "-41px",
         top: "15px",
       },
+      [muiTheme.breakpoints.down(2561)]: {
+        width: "4px",
+        height: "34%",
+        right: "-62px",
+        top: "7px",
+      },
       [muiTheme.breakpoints.down(2049)]: {
         width: "4px",
         height: "34%",
@@ -290,7 +334,7 @@ const useStyles = makeStyles({
       [muiTheme.breakpoints.down(1153)]: {
         width: "4px",
         height: "34%",
-        right: "-22px",
+        right: "-27px",
         top: "2px",
       },
     },
@@ -298,5 +342,86 @@ const useStyles = makeStyles({
   customTooltip: () => ({
     background: "black !important",
   }),
+
+  customMenu: (props: any) => ({
+    zIndex: " 1501 !important",
+    
+    [muiTheme.breakpoints.up(3839)]: {
+      left: "4.5% !important",
+    top: "-1.5% !important",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      left: "4% !important",
+      top: "-3.5% !important",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      left: "4% !important",
+    top: "-2.9% !important",
+    },
+    left: "4% !important",
+      top: "-3.5% !important",
+   
+    "& .MuiMenu-list": {
+      background: `#fff !important`,
+      marginLeft: "15px !important",
+      borderRadius: "12px !important",
+      border: `2px solid ${props?.palette?.header?.menuBorder}`,
+      boxShadow: `0px 4px 15px ${props?.palette?.header?.boxShadow}`,
+      maxWidth: "157px",
+    },
+    "& .MuiPaper-root": {
+      background: "none !important",
+      boxShadow: "none !important",
+      minWidth: "8%",
+    },
+    "& .MuiList-root": {
+      
+      "&::after": {
+        width: "10%",
+        height: "25%",
+        content: '""',
+        transform: "rotate(135deg)",
+        boxSizing: "border-box",
+        backgroundColor: `#fff !important`,
+        position: "absolute",
+        left: "-6%",
+        top: "38%",
+        border: `2px solid ${props?.palette?.header?.menuBorder}`,
+        borderStyle: "solid",
+        borderWidth: "0px 2px 2px 0px",
+      },
+    },
+    "& .MuiButtonBase-root": {
+      
+      padding: "12px 16px !important",
+      background: "transparent !important",
+      "&:hover": {
+        background: "transparent !important",
+      },
+    },
+  }),
+
+  logoutSection: (props: any) => ({
+    display: "flex",
+    alignItems: "center",
+  }),
+  logoutImg: (props: any) => ({
+    [muiTheme.breakpoints.up(3839)]: {
+      width: 30,
+    },
+    width: 20,
+    marginRight: 7,
+  }),
+
+  logoutText: (props: any) => ({
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: "25px !important"
+    },
+    fontSize: "14px !important",
+    fontWeight: "700 !important",
+    fontFamily: "Poppins !important",
+    color: props?.palette?.header?.subTitle2,
+  }),
+
 });
 export default useStyles;

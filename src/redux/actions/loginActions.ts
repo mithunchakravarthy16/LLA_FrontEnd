@@ -17,9 +17,9 @@ export const setUserLogin = (loginData: any) => ({
   loginData,
 });
 
-export const getUserLogout = (payload: any) => ({
+export const getUserLogout = () => ({
   type: login.GET_USER_LOGOUT,
-  payload: payload,
+  payload: { logout: true },
 });
 
 export const setUserLogout = (logout: any) => ({

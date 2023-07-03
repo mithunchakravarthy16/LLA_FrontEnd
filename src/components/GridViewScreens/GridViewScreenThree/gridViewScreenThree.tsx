@@ -57,22 +57,53 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         height: 200,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 700,
+        height: 200,
+        is4kDevice: false,
+        xAxisFontSize: "11px"
+      });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 550,
         height: 100,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 1919) {
+      setSelectedWidth({
+        width: 550,
+        height: 240,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 550,
-        height: 100,
+        height: 170,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1679) {
+      setSelectedWidth({
+        width: 450,
+        height: 220,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedWidth({
+        width: 440,
+        height: 200,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
         width: 400,
         height: 90,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1399) {
+      setSelectedWidth({
+        width: 380,
+        height: 220,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1343) {
@@ -84,20 +115,22 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
         width: 350,
-        height: 64,
+        height: 164,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
       setSelectedWidth({
         width: 300,
-        height: 60,
+        height: 140,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1023) {
       setSelectedWidth({
-        width: 240,
-        height: 60,
+        width: 280,
+        height: 140,
         is4kDevice: false,
+        tickInterval: 12,
+        xAxisFontSize: "8px"
       });
     }
   }, []);
@@ -155,6 +188,8 @@ const GridViewScreenThree: React.FC<any> = (props) => {
               isCrosshair={true}
               crossHairLineColor={"#637ED190"}
               is4kDevice={selectedWidth?.is4kDevice}
+              tickInterval={selectedWidth?.tickInterval}
+              xAxisFontSize={selectedWidth?.xAxisFontSize}
               dataPoints={[
                 {
                   marker: {

@@ -8,24 +8,24 @@ const useStyles = makeStyles({
     fontSize: "30px",
     fontWeight: 700,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 26,
-      lineHeight: "48px",
+      fontSize: 36,
+      lineHeight: "55px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 20,
-      lineHeight: "38px",
+      fontSize: 30,
+      lineHeight: "44px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 16,
+      fontSize: 20,
       lineHeight: "28px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 14,
+      fontSize: 18,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 12,
-      lineHeight: "22px",
+      fontSize: 15,
+      lineHeight: "25px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
@@ -38,12 +38,16 @@ const useStyles = makeStyles({
     fontSize: "14px",
     marginBottom: 4,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 26,
+      fontSize: 30,
       lineHeight: "48px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 20,
+      fontSize: 24,
       lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 16,
+      lineHeight: "28px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 16,
@@ -57,6 +61,14 @@ const useStyles = makeStyles({
       fontSize: 12,
       lineHeight: "22px",
     },
+    [muiTheme.breakpoints.down(1367)]: {
+      fontSize: 11,
+      lineHeight: "14px",
+    },
+    [muiTheme.breakpoints.down(1281)]: {
+      fontSize: 11,
+      lineHeight: "14px",
+    },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
       lineHeight: "19px",
@@ -67,6 +79,7 @@ const useStyles = makeStyles({
   progressBarContainer: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
   }),
 
   progressBarStyle: (props: any) => ({
@@ -74,11 +87,11 @@ const useStyles = makeStyles({
     height: "22px",
     [muiTheme.breakpoints.up(3839)]: {
       width: "80%",
-      height: "22px",
+      height: "40px",
     },
     [muiTheme.breakpoints.down(3073)]: {
       width: "80%",
-      height: "18px",
+      height: "32px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       width: "80%",

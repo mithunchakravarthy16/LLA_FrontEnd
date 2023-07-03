@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
@@ -32,7 +34,6 @@ import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
 
 HC_rounded(Highcharts);
-
 
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -94,6 +95,7 @@ const Parking: React.FC<any> = (props) => {
     aqiCircleStyle,
     graphTwoHeader,
     electricity,
+    lotSelectionIconStyleClose
   } = useStyles({
     ...appTheme,
     parkingLotSelectionActive: parkingLotSelectionActive,
@@ -234,17 +236,83 @@ const Parking: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1000,
-        height: 440,
-        width2 : 1000,
-        height2 : 440
+        width: 900,
+        height: 500,
+        width1: 1200,
+        height1: 480,
+        is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 498,
-        height: 220,
-        width2 : 658,
-        height2 : 220
+        width: 900,
+        height: 400,
+        width1: 500,
+        height1: 380,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 700,
+        height: 200,
+        width1: 700,
+        height1: 230,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 600,
+        height: 200,
+        width1: 600,
+        height1: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+        width1: 550,
+        height1: 250,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 500,
+        height: 200,
+        width1: 500,
+        height1: 250,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 460,
+        height: 150,
+        width1: 460,
+        height1: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 400,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 100,
+        width1: 350,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 100,
+        width1: 300,
+        height1: 120,
+        is4kDevice: false,
       });
     }
   }, []);
@@ -281,7 +349,6 @@ const Parking: React.FC<any> = (props) => {
     xAxisNewValue.length - 6,
     xAxisNewValue.length
   );
-
 
   return (
     <>
@@ -349,6 +416,7 @@ const Parking: React.FC<any> = (props) => {
                                       units={"%"}
                                       isCrosshair={true}
                                       crossHairLineColor={"#954EA190"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
                                       dataPoints={[
                                         {
                                           marker: {
@@ -397,8 +465,12 @@ const Parking: React.FC<any> = (props) => {
                                     <div className={liveContainer}>
                                       <div className={liveImgStyle}>
                                         <img
-                                          width={50}
-                                          height={30}
+                                          width={
+                                            selectedWidth?.is4kDevice ? 109 : 50
+                                          }
+                                          height={
+                                            selectedWidth?.is4kDevice ? 49 : 30
+                                          }
                                           src={LiveImg}
                                         />
                                       </div>
@@ -459,10 +531,10 @@ const Parking: React.FC<any> = (props) => {
                                           marginLeft: 0,
                                           marginRight: 0,
                                           // marginBottom: 10,
-                                          height: selectedWidth?.height2,
-                                          width: selectedWidth?.width2,
+                                          height: selectedWidth?.height1,
+                                          width: selectedWidth?.width1,
                                           reflow: true,
-                                          borderRadius : 10
+                                          borderRadius: 10,
                                         },
 
                                         title: false,
@@ -478,6 +550,8 @@ const Parking: React.FC<any> = (props) => {
                                           style: {
                                             color: "#fff",
                                             fontWeight: "bold",
+                                            fontSize : selectedWidth?.is4kDevice ? "40px" : "14px",
+                                            borderRadius : selectedWidth?.is4kDevice ? "10px" : "5px",
                                           },
                                           formatter: function (
                                             this: Highcharts.TooltipFormatterContextObject
@@ -491,7 +565,7 @@ const Parking: React.FC<any> = (props) => {
                                             </td>
                                           </tr>
                                         </table>`;
-                                            } 
+                                            }
                                           },
                                         },
                                         plotOptions: {
@@ -503,12 +577,13 @@ const Parking: React.FC<any> = (props) => {
                                             borderRadiusBottomRight: 20,
                                           },
                                         },
+
                                         xAxis: {
                                           categories: xAxisValueYear,
                                           labels: {
                                             useHTML: true,
                                             style: {
-                                              fontSize: "12px",
+                                              fontSize: selectedWidth?.is4kDevice ? "30px" : "12px",
                                               color: "white",
                                             },
                                           },
@@ -534,8 +609,6 @@ const Parking: React.FC<any> = (props) => {
                                           minorTickLength: 0,
                                           tickLength: 0,
                                         },
-
-                                       
                                       }}
                                     />
                                   </Grid>
@@ -566,7 +639,7 @@ const Parking: React.FC<any> = (props) => {
                           }
                         />
                         <div
-                          className={lotSelectionIconStyle}
+                          className={lotSelectionIconStyleClose}
                           onClick={handleLotSelction}
                         >
                           X

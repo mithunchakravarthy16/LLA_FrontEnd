@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Box, Drawer } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import theme from "../../theme/theme";
 import Tooltip from "elements/Tooltip";
 import LogoIcon from "../../assets/logo.svg";
@@ -17,6 +17,11 @@ import SettingsIcon from "../../assets/settings.svg";
 import SettingsActiveIcon from "../../assets/SettingsActive.svg";
 import AvatarIcon from "../../assets/AvatarIcon.svg";
 import useTranslation from "localization/translations";
+import Menu from "@mui/material/Menu";
+import Typography from "@mui/material/Typography";
+import MenuItem from "@mui/material/MenuItem";
+import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
+import Logout from "../../assets/logout.svg";
 import useStyles from "./styles";
 
 interface SideBarProps {}
@@ -53,8 +58,7 @@ const SideBar = (props: SideBarProps) => {
           location?.pathname === "/security" ||
           location?.pathname === "/lighting" ||
           location?.pathname === "/fleetManagement" ||
-          location?.pathname === "/assetTracking"
-          )
+          location?.pathname === "/assetTracking")
           ? GridViewActiveIcon
           : GridViewIcon,
       id: 1,
@@ -104,6 +108,11 @@ const SideBar = (props: SideBarProps) => {
     customTooltip,
     avatharSection,
     sidebarSection,
+    avatharIconStyle,
+    customMenu,
+    logoutSection,
+    logoutImg,
+    logoutText,
   } = useStyles(appTheme);
   const navigate = useNavigate();
 
@@ -149,6 +158,29 @@ const SideBar = (props: SideBarProps) => {
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
 
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const menuOptions = ["Logout"];
+  const handleOpenUserMenu = (event: any) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const dispatch = useDispatch();
+
+  
+
+  const handleCloseUserMenu = (menuOptions: string) => {
+    if (menuOptions === "Logout") {
+      localStorage.removeItem("user");
+      localStorage.clear();
+      dispatch(getUserLogout());
+      dispatch(setUserLogin({}));
+      navigate("/login");
+    }
+    setAnchorElUser(null);
+  };
+
   return (
     <Box component={"nav"} className={sidebarSection}>
       <Drawer open variant="permanent" className={sideNavigation}>
@@ -180,12 +212,49 @@ const SideBar = (props: SideBarProps) => {
             );
           })}
         </div>
-        <div className={avatharSection}>
+        <div className={avatharSection} >
           {/* <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
             0
           )}`}</div> */}
-          <img src={AvatarIcon} alt="AvatarIcon" width={45} />
+          <img src={AvatarIcon} alt="AvatarIcon" className={avatharIconStyle} onClick={handleOpenUserMenu}/>
+          <Menu
+          className={customMenu}
+          sx={{ mt: "25px" }}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          anchorEl={anchorElUser}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          {menuOptions &&
+            menuOptions.length > 0 &&
+            menuOptions.map((menuOptions) => (
+              <MenuItem
+                key={menuOptions}
+                onClick={() => handleCloseUserMenu(menuOptions)}
+              >
+                <div className={logoutSection}>
+                  {menuOptions && menuOptions === "Logout" ? (
+                    <img className={logoutImg} src={Logout} alt="Logout" />
+                  ) : (
+                    <img className={logoutImg} src={user} alt="Logout" />
+                  )}
+
+                  <Typography className={logoutText} textAlign="center">
+                    {menuOptions}
+                  </Typography>
+                </div>
+              </MenuItem>
+            ))}
+        </Menu>
         </div>
+        
       </Drawer>
     </Box>
   );

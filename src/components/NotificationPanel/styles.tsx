@@ -13,7 +13,7 @@ const useStyles = makeStyles({
       margin: "26px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      margin: "0 20px 20px 20px",
+      margin: "10px 20px 20px 20px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       margin: "20px ",
@@ -49,6 +49,18 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1545)]: {
       fontSize: 18,
+      lineHeight: "30px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 17,
+      lineHeight: "30px",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      fontSize: 16,
+      lineHeight: "30px",
+    },
+    [muiTheme.breakpoints.down(1281)]: {
+      fontSize: 16,
       lineHeight: "30px",
     },
     [muiTheme.breakpoints.down(1153)]: {
@@ -104,6 +116,9 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       width: 16,
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      width: 12,
     },
   }),
   notificationCloseIcon: (props: any) => ({
@@ -330,46 +345,64 @@ const useStyles = makeStyles({
     borderRadius: 6,
     height: "48px",
     [muiTheme.breakpoints.up(3839)]: {
-      height: 70,
+      height: 84,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      height: 60,
+      height: 70,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      height: 50,
+      height: 56,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      height: 40,
+      height: 46,
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      height: 48,
     },
     [muiTheme.breakpoints.down(1545)]: {
-      height: 35,
+      height: 38,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      height: 30,
+      height: 32,
     },
     "& .MuiIconButton-root": {
       marginRight: 7,
-      [muiTheme.breakpoints.down(3841)]: {
+      [muiTheme.breakpoints.up(3839)]: {
         marginRight: 15,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        marginRight: 13,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        marginRight: 12,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        marginRight: 11,
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        marginRight: 10,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        marginRight: 9,
       },
       "& img": {
         [muiTheme.breakpoints.up(3839)]: {
-          height: 30,
+          width: 40,
         },
         [muiTheme.breakpoints.down(3073)]: {
-          height: 26,
+          width: 36,
         },
         [muiTheme.breakpoints.down(2049)]: {
-          height: 22,
+          width: 32,
         },
         [muiTheme.breakpoints.down(1921)]: {
-          height: 16,
+          width: 22,
         },
         [muiTheme.breakpoints.down(1545)]: {
-          height: 14,
+          width: 17,
         },
         [muiTheme.breakpoints.down(1153)]: {
-          height: 12,
+          width: 12,
         },
       },
     },
@@ -379,11 +412,11 @@ const useStyles = makeStyles({
       lineHeight: "52px",
       fontFamily: "HelveticaNeue-Regular",
       [muiTheme.breakpoints.up(3839)]: {
-        fontSize: "24px",
+        fontSize: "30px",
         lineHeight: "52px",
       },
       [muiTheme.breakpoints.down(3073)]: {
-        fontSize: "20px",
+        fontSize: "24px",
         lineHeight: "48px",
       },
       [muiTheme.breakpoints.down(2049)]: {
@@ -406,28 +439,82 @@ const useStyles = makeStyles({
     },
   }),
   notificationListItemSection: (props: any) => ({
-    height: "calc(100vh - 365px)",
+    height:
+      props?.notificationPageName === "dashboard"
+        ? "calc(100vh - 365px)"
+        : "calc(100vh - 400px)",
     overflowY: "scroll",
-    [muiTheme.breakpoints.down(3841)]: {
-      height: "calc(100vh - 694px)",
-    },
     [muiTheme.breakpoints.up(3839)]: {
-      height: "calc(100vh - 694px)",
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 684px)"
+          : "calc(100vh - 590px)",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      height: "calc(100vh - 694px)",
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 624px)"
+          : "calc(100vh - 482px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      height: "calc(100vh - 392px)",
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 450px)"
+          : "calc(100vh - 353px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      height: "calc(100vh - 392px)",
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 432px)"
+          : "calc(100vh - 353px)",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 410px)"
+          : "calc(100vh - 338px)",
+    },
+    [muiTheme.breakpoints.down(1681)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 425px)"
+          : "calc(100vh - 340px)",
+    },
+    [muiTheme.breakpoints.down(1601)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 408px)"
+          : "calc(100vh - 320px)",
     },
     [muiTheme.breakpoints.down(1545)]: {
-      height: "calc(100vh - 298px)",
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 408px)"
+          : "calc(100vh - 353px)",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 370px)"
+          : "calc(100vh - 312px)",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 368px)"
+          : "calc(100vh - 304px)",
+    },
+    [muiTheme.breakpoints.down(1361)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 354px)"
+          : "calc(100vh - 308px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      height: "calc(100vh - 298px)",
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 306px)"
+          : "calc(100vh - 257px)",
     },
   }),
 });

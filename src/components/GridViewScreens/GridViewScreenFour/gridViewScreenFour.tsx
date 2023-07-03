@@ -73,6 +73,12 @@ const GridViewScreenFour: React.FC<any> = (props) => {
         height: 150,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 500,
+        height: 70,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 400,
@@ -81,8 +87,8 @@ const GridViewScreenFour: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
-        width: 400,
-        height: 70,
+        width: 350,
+        height: 140,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
@@ -153,7 +159,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                           height={selectedWidth?.height}
                           isVisible={true}
                           graphType={"spline"}
-                          units={"kWh"}
+                          units={""}
                           isCrosshair={false}
                           is4kDevice={selectedWidth?.is4kDevice}
                           dataPoints={[
