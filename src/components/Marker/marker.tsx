@@ -40,7 +40,7 @@ const MapMarker: React.FC<any> = (props) => {
         animation={
           (focusedCategory === mapMarker?.category  && focusedCategory !== 'fleet')
             ? window.google.maps.Animation.BOUNCE 
-            : undefined
+            : undefined 
         }
         position={
           //   mapMarker?.category === "fleet" ? movingMarker : mapMarker?.location
@@ -49,14 +49,14 @@ const MapMarker: React.FC<any> = (props) => {
         onClick={() => {
           toggleInfoWindow(
             mapMarker.id,
-            mapMarker.notificationCategory,
+            mapMarker.notificationType,
             mapMarker?.location
           );
         }}
         icon={{
           url: getMarkerIcon(
             mapMarker.category,
-            mapMarker.notificationCategory,
+            mapMarker.notificationType,
             mapMarker.id
           ),
           scaledSize: new window.google.maps.Size(

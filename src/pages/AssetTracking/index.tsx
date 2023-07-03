@@ -1,2 +1,2 @@
-import AssetTracking from "./assetTracking1";
+import AssetTracking from "./assetTracking";
 export default AssetTracking;

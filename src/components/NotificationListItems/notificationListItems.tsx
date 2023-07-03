@@ -18,7 +18,7 @@ const NotificationListItems = (props: any) => {
       entity,
       venue,
       category,
-      notificationCategory,
+      notificationType,
       currentTimeStamp,
       equipment,
       subTitle,
@@ -87,6 +87,64 @@ const NotificationListItems = (props: any) => {
       });
     }
   }, []);
+
+  if(category === "asset") {
+    return (
+      <>
+        <div
+          className={rootContainer}
+          onClick={() => handleExpandListItem(id)}
+          ref={refs && refs[id]}
+        >
+          {selectedNotification === id || pageName === "markerCallout" ? (
+            <div className={expandedListItems}>
+              {pageName === "markerCallout" ? (
+                <div className={listItemCallout}>
+                  <div className={listItemTitle}>{title}</div>
+                  <div className={markerCloseIcon} onClick={handleMarkerClose}>
+                    <img
+                      src={CloseIcon}
+                      width={selectedWidth?.is4kDevice ? 40 : 20}
+                      height={selectedWidth?.is4kDevice ? 40 : 20}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className={listItemTitle}>{title}</div>
+              )}
+              <div className={expandedListItemRow2}>
+              </div>
+              <div className={expandedListItemRow3}>
+                {equipment && `${equipment} | `}
+                {subTitle ? subTitle : area}
+              </div>
+              {venue && <div className={expandedListItemRow3}>{venue}</div>}
+  
+              <div className={expandedListItemRow4}>
+                <div className={buttonStyle}>
+                  <Button variant="contained" handleClick={() => null}>
+                 {category === "asset" ? "View Details" : "Take Action"}   
+                  </Button>
+                </div>
+                <div className={timeStampStyle}>{currentTimeStamp}</div>
+              </div>
+            </div>
+          ) : (
+            <div className={collapsedListItems}>
+              <div className={listItemTitle}>{title}</div>
+              <div className={collapsedlistItemRow2}>
+                <div className={listItemSubTitle}>
+                  {equipment && `${equipment} | `}
+                  {subTitle ? subTitle : area}
+                </div>
+                <div className={timeStampStyle}>{currentTimeStamp}</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

@@ -16,7 +16,7 @@ const assetTrackingData = {
         entity: "",
         venue: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -32,7 +32,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -48,7 +48,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -64,7 +64,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -80,7 +80,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -96,7 +96,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -112,7 +112,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -128,7 +128,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -144,7 +144,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -160,7 +160,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -176,7 +176,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -192,7 +192,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -209,7 +209,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -226,7 +226,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -242,7 +242,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -258,7 +258,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -274,7 +274,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -290,7 +290,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -306,7 +306,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {
@@ -322,7 +322,7 @@ const assetTrackingData = {
         entity: "",
         venue: "Location",
         category: "asset",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         trackerId : "TR#12345",
         location: {

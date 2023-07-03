@@ -7,7 +7,7 @@ const dashboardList = {
       entity: "LPN: ADL-D21| Sot - 18",
       venue: "",
       category: "parking",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75932453116013,
@@ -21,7 +21,7 @@ const dashboardList = {
       entity: "LPN: 510-IBD | Spot - 05",
       venue: "",
       category: "parking",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75986730174264,
@@ -35,7 +35,7 @@ const dashboardList = {
       entity: "",
       venue: "",
       category: "energy",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75181100420289,
@@ -50,7 +50,7 @@ const dashboardList = {
       entity: "",
       venue: "",
       category: "energy",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75515362500666,
@@ -65,7 +65,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "security",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.762147447458455,
@@ -80,7 +80,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "security",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75181100420289,
@@ -96,7 +96,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75555358586086,
@@ -111,7 +111,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75729624533388,
@@ -125,7 +125,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75561104947772,
@@ -139,7 +139,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.755314112781264,
@@ -153,7 +153,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "fleet",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.753650251934815,
@@ -167,7 +167,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "fleet",
-      notificationCategory: "event",
+      notificationType: "event",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75118245909654,
@@ -181,7 +181,7 @@ const dashboardList = {
       entity: "LPN: ADL-D21| Sot - 18",
       venue: "",
       category: "parking",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.76323809694557,
@@ -195,7 +195,7 @@ const dashboardList = {
       entity: "LPN: 510-IBD | Spot - 05",
       venue: "",
       category: "parking",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.758410381562285,
@@ -209,7 +209,7 @@ const dashboardList = {
       entity: "LPN: ABL-C31| Sot - 28",
       venue: "",
       category: "parking",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.76146903388253,
@@ -223,7 +223,7 @@ const dashboardList = {
       entity: "LPN: 510-IBD | Spot - 05",
       venue: "",
       category: "parking",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.758186488708766,
@@ -237,7 +237,7 @@ const dashboardList = {
       entity: "",
       venue: "",
       category: "energy",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.758267544591504,
@@ -252,7 +252,7 @@ const dashboardList = {
       entity: "",
       venue: "",
       category: "energy",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.751982493422706,
@@ -267,7 +267,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "security",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.7519538545636,
@@ -282,7 +282,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "security",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.755724996944544,
@@ -298,7 +298,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.755724996944544,
@@ -313,7 +313,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.754096574426356,
@@ -327,7 +327,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75263953217147,
@@ -341,7 +341,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.7519824246002,
@@ -355,7 +355,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "fleet",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75681059056824,
@@ -369,7 +369,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "fleet",
-      notificationCategory: "incident",
+      notificationType: "incident",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.7620097754289,
@@ -383,7 +383,7 @@ const dashboardList = {
       entity: "Parking lot C spot13",
       venue: "",
       category: "parking",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75423942004732,
@@ -397,7 +397,7 @@ const dashboardList = {
       entity: "Parking lot B spot18",
       venue: "",
       category: "parking",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75883889069712,
@@ -411,7 +411,7 @@ const dashboardList = {
       entity: "",
       venue: "",
       category: "energy",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.76092426375837,
@@ -426,7 +426,7 @@ const dashboardList = {
       entity: "",
       venue: "",
       category: "energy",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75509648755221,
@@ -441,7 +441,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "security",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.750953922556664,
@@ -456,7 +456,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "security",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.7541537127103,
@@ -472,7 +472,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75809613983553,
@@ -487,7 +487,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.753039507624166,
@@ -502,7 +502,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "lighting",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.7575679010206,
@@ -516,7 +516,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75458224832903,
@@ -530,7 +530,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75432512727771,
@@ -544,7 +544,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "asset",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75934117067896,
@@ -558,7 +558,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "fleet",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75677237845138,
@@ -572,7 +572,7 @@ const dashboardList = {
       entity: "",
       venue: "Location",
       category: "fleet",
-      notificationCategory: "oprAlert",
+      notificationType: "oprAlert",
       timeStamp: "09:41 AM",
       location: {
         lat: 39.75978160140874,
@@ -586,7 +586,7 @@ const dashboardList = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76085047577622,

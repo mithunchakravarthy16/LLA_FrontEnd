@@ -11,7 +11,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75555358586086,
@@ -26,7 +26,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75729624533388,
@@ -41,7 +41,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75932453116013,
@@ -56,7 +56,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75986730174264,
@@ -71,7 +71,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -86,7 +86,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75515362500666,
@@ -102,7 +102,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749147447458455,
@@ -117,7 +117,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -132,7 +132,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755314112781264,
@@ -147,7 +147,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -162,7 +162,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.754096574426356,
@@ -177,7 +177,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76323809694557,
@@ -193,7 +193,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758410381562285,
@@ -209,7 +209,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758267544591504,
@@ -226,7 +226,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749982493422706,
@@ -243,7 +243,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519538545636,
@@ -259,7 +259,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -276,7 +276,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75263953217147,
@@ -293,7 +293,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519824246002,
@@ -308,7 +308,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.74963757446337,
@@ -323,7 +323,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.721761171764804,
@@ -338,7 +338,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.72278858360459,
@@ -353,7 +353,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75809613983553,
@@ -369,7 +369,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.753039507624166,
@@ -384,7 +384,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75458224832903,
@@ -401,7 +401,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75432512727771,
@@ -418,7 +418,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75677237845138,
@@ -435,7 +435,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75978160140874,
@@ -451,7 +451,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75838685085751,
@@ -468,7 +468,7 @@ const lightingData = {
         entity: "",
         venue: "Location",
         category: "lighting",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75722374013964,

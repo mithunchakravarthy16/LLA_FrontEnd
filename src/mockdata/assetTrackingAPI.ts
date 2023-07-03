@@ -8,7 +8,7 @@ const assetTrackingResponse = {
     analytics: {},
     notifications: {
         "events": {
-          "totalCount": 0,
+          "totalCount": 1,
           "eventsList": [
             {
               "notificationId": "lght1",
@@ -29,7 +29,7 @@ const assetTrackingResponse = {
           ]
         },
         "incidents": {
-          "totalCount": 0,
+          "totalCount": 1,
           "incidentList": [
             {
               "notificationId": "lght12",
@@ -50,7 +50,7 @@ const assetTrackingResponse = {
           ]
         },
         "alerts": {
-          "totalCount": 0,
+          "totalCount": 1,
           "alertList": [
             {
               "notificationId": "lght13",

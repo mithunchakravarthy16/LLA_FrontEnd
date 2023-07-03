@@ -205,7 +205,7 @@ const useStyles = makeStyles({
     // height: "30px",
     right:  "5px",
     top:  "2px",
-    width : "6%"
+    width : "5%"
   }),
 });
 export default useStyles;
