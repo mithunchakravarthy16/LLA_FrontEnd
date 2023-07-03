@@ -33,16 +33,16 @@ const useStyles = makeStyles({
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1545)]: {
-      fontSize: 11,
+      fontSize: props.pageName === "parking" ? 14 : 11,
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1281)]: {
-      fontSize: 9,
+      fontSize: props.pageName === "parking" ? 13 : 11,
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 8,
-      lineHeight: "19px",
+      fontSize: props.pageName === "parking" ? 12 : 11,
+      lineHeight: "21px",
     },
   }),
   labelCountStyle: (props: any) => ({

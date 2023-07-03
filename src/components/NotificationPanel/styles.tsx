@@ -450,11 +450,18 @@ const useStyles = makeStyles({
           ? "calc(100vh - 684px)"
           : "calc(100vh - 590px)",
     },
+
     [muiTheme.breakpoints.down(3073)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 624px)"
           : "calc(100vh - 482px)",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      height:
+        props?.notificationPageName === "dashboard"
+          ? "calc(100vh - 501px)"
+          : "calc(100vh - 590px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
       height:
