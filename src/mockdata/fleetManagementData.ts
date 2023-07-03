@@ -11,7 +11,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75555358586086,
@@ -26,7 +26,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75729624533388,
@@ -41,7 +41,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75932453116013,
@@ -56,7 +56,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75986730174264,
@@ -71,7 +71,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -86,7 +86,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75515362500666,
@@ -101,7 +101,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749147447458455,
@@ -116,7 +116,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -131,7 +131,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755314112781264,
@@ -146,7 +146,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -161,7 +161,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.754096574426356,
@@ -176,7 +176,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76323809694557,
@@ -191,7 +191,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758410381562285,
@@ -206,7 +206,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758267544591504,
@@ -221,7 +221,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749982493422706,
@@ -236,7 +236,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519538545636,
@@ -251,7 +251,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -266,7 +266,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75263953217147,
@@ -281,7 +281,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75809613983553,
@@ -296,7 +296,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.753039507624166,
@@ -311,7 +311,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75458224832903,
@@ -326,7 +326,7 @@ const fleetManagementData = {
         entity: "",
         venue: "Location",
         category: "fleet",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75432512727771,

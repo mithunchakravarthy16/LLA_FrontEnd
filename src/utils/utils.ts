@@ -6,11 +6,11 @@ export const formatttedDashboardNotification = (
   let notiIncidentArray: any = [];
   let notiOprAlertArray: any = [];
   data?.map((value: any, index: number) => {
-    if (value?.notificationCategory === "event") {
+    if (value?.notificationType === "event") {
       notiEventArray.push(value);
-    } else if (value?.notificationCategory === "incident") {
+    } else if (value?.notificationType === "incident") {
       notiIncidentArray.push(value);
-    } else if (value?.notificationCategory === "oprAlert") {
+    } else if (value?.notificationType === "oprAlert") {
       notiOprAlertArray.push(value);
     }
   });
@@ -31,11 +31,11 @@ export const formatttedDashboardNotificationCount = (data: any) => {
   let notiIncidentArray: any = [];
   let notiOprAlertArray: any = [];
   data?.map((value: any, index: number) => {
-    if (value?.notificationCategory === "event") {
+    if (value?.notificationType === "event") {
       notiEventArray.push(value);
-    } else if (value?.notificationCategory === "incident") {
+    } else if (value?.notificationType === "incident") {
       notiIncidentArray.push(value);
-    } else if (value?.notificationCategory === "oprAlert") {
+    } else if (value?.notificationType === "oprAlert") {
       notiOprAlertArray.push(value);
     }
   });

@@ -10,7 +10,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -25,7 +25,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75515362500666,
@@ -40,7 +40,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75932453116013,
@@ -55,7 +55,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749147447458455,
@@ -70,7 +70,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -85,7 +85,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75555358586086,
@@ -100,7 +100,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75729624533388,
@@ -115,7 +115,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "event",
+        notificationType: "event",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75061104947772,
@@ -130,7 +130,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758267544591504,
@@ -145,7 +145,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749982493422706,
@@ -160,7 +160,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76323809694557,
@@ -175,7 +175,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758410381562285,
@@ -190,7 +190,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519538545636,
@@ -205,7 +205,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -220,7 +220,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -235,7 +235,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.754096574426356,
@@ -250,7 +250,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75263953217147,
@@ -265,7 +265,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75908549267099,
@@ -280,7 +280,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519824246002,
@@ -295,7 +295,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75599253953202,
@@ -310,7 +310,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "incident",
+        notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.756726612981204,
@@ -325,7 +325,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76092426375837,
@@ -340,7 +340,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75509648755221,
@@ -355,7 +355,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749953922556664,
@@ -370,7 +370,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7541537127103,
@@ -385,7 +385,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75809613983553,
@@ -400,7 +400,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.753039507624166,
@@ -415,7 +415,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75458224832903,
@@ -430,7 +430,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75432512727771,
@@ -445,7 +445,7 @@ const energyManagementData = {
         entity: "",
         venue: "",
         category: "energy",
-        notificationCategory: "oprAlert",
+        notificationType: "oprAlert",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75978160140874,

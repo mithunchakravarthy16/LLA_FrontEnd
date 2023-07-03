@@ -3,25 +3,28 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
-  PowerConsumtionIcon,
-  TemperatureIcon,
-  WaterConsumption,
-  IncomeIcon,
-  SubtractIcon,
+  AssetTrackedIcon,
+  LocationIcon,
+  OutOfGeofenceIcon,
+  IncidentIcon,
 } from "../../assets/topPanelListIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import Map from "components/Map";
 import moment from "moment";
-import Highcharts from "highcharts";
 import Chart from "elements/Chart";
+import Highcharts from "highcharts";
 import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import assetTrackingData from "../../mockdata/assetTrackingData";
+import assetTrackingResponse from "mockdata/assetTrackingAPI";
+import GeofenceIcon from "../../assets/GeofenceIcon.svg";
+import {useDispatch, useSelector} from "react-redux";
+import { getNotificationData} from "redux/actions/assetNotificationAction";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -29,6 +32,7 @@ const AssetTracking: React.FC<any> = (props) => {
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
+  const [notificationArray, setNotificationArray] = useState<any>([]);
   useEffect(() => {
     switch (selectedTheme) {
       case "light":
@@ -60,37 +64,74 @@ const AssetTracking: React.FC<any> = (props) => {
     notificationPanelGrid,
     graphTwoHeader,
     screenFiveGraphTitleStyle,
+    graphOneContainerStyle,
+    graphOneGraphTitleContainer,
+    graphTitleOneRound,
+    graphTitleTwoStyle,
+    graphTitleTwoRound,
+    graphOneChartStyle,
+    graphTwoContainerStyle,
+    graphTwoChartStyle,
+    geofenceIconStyle
   } = useStyles(appTheme);
+
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    let payload:any = {};
+    dispatch(getNotificationData(payload))
+  },[])
+
+  const assetNotificationResponse = useSelector((state:any)=>state.assetNotification.assetNotificationData);
+
+  const assetNotificationList = assetNotificationResponse.notifications;
+
+  useEffect(() => {
+    const { events, incidents, alerts } = assetNotificationList;
+    const combinedNotifications: any = [];
+
+    events?.eventsList?.forEach((event: any, index: number) => {
+      combinedNotifications.push({ ...event, category : "asset", title : event?.reason, id : event?.notificationId });
+    });
+
+    incidents?.incidentList?.forEach((incidents: any, index: number) => {
+      combinedNotifications.push({ ...incidents, category : "asset", title : incidents?.reason, id : incidents?.notificationId  });
+    });
+
+    alerts?.alertList?.forEach((alerts: any, index: number) => {
+      combinedNotifications.push({ ...alerts, category : "asset", title : alerts?.reason, id : alerts?.notificationId  });
+    });
+
+    const dataValue: any = combinedNotifications?.map(
+      (value: any, index: number) => {
+        return { ...value, index: index + 1 };
+      }
+    );
+    setNotificationArray(dataValue)
+  }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
     {
-      icon: PowerConsumtionIcon,
-      value: "200kWh",
-      name: "Electricity Consumed",
+      icon: AssetTrackedIcon,
+      value: assetTrackingData?.infoData?.assetTracked,
+      name: "Asset Tracked",
     },
     {
-      icon: TemperatureIcon,
-      value: "100kWh",
-      name: "HVAC",
+      icon: LocationIcon,
+      value: assetTrackingData?.infoData?.location,
+      name: "Location",
     },
     {
-      icon: WaterConsumption,
-      value: "1480KL",
-      name: "Water Consumption",
+      icon: OutOfGeofenceIcon,
+      value: assetTrackingData?.infoData?.outOfGeofence,
+      name: "Out of Geofence",
     },
     {
-      icon: IncomeIcon,
-      value: "500$",
-      name: "Cost Saved",
-    },
-    {
-      icon: SubtractIcon,
-      value: "50Kg",
-      name: "CO2 Emission",
+      icon: IncidentIcon,
+      value: assetTrackingData?.infoData?.securityIncident,
+      name: "Security Incident",
     },
   ];
-
-  // Notification Data
 
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
@@ -99,50 +140,27 @@ const AssetTracking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-  const dashboardArray = assetTrackingData?.notifications?.assetTracking;
-  let currentTimeStampValue;
-  let timeArrayNew: any = [];
-  for (let i = 0; i < dashboardArray?.length; i++) {
-    currentTimeStampValue = moment()
-      .subtract({
-        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
-        minutes: i + 59,
-        seconds: i + 49,
-      })
-      .format("MM-DD-YYYY | h:mm A");
-    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
-  }
-
-  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
-    Object.assign({}, item, dashboardArray[i])
-  );
-
-  const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
   const [notificationCount, setNotificationCount] = useState<any>(
-    formatttedDashboardNotificationCount(dashboardDataList)
+    [assetNotificationList?.events?.totalCount,
+      assetNotificationList?.incidents?.totalCount,
+      assetNotificationList?.alerts?.totalCount]
   );
 
   useEffect(() => {
     setDashboardData(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedDashboardNotification(notificationArray, tabIndex)
     );
-    setSearchValue(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+    setSearchValue(formatttedDashboardNotification(notificationArray, tabIndex)
     );
-  }, [tabIndex]);
-
-  useEffect(() => {
-    setNotificationCount(
-      formatttedDashboardNotificationCount(dashboardDataList)
-    );
-  }, [dashboardData]);
+  }, [notificationArray, tabIndex]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -161,6 +179,7 @@ const AssetTracking: React.FC<any> = (props) => {
       });
     }
   }, []);
+
 
   return (
     <>
@@ -186,7 +205,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={30}
+                          percent={70}
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
@@ -198,74 +217,43 @@ const AssetTracking: React.FC<any> = (props) => {
                         <Grid
                           container
                           xs={12}
-                          style={{
-                            height: "100%",
-                            padding: "10px 10px 5px 30px",
-                          }}
+                          className={graphOneContainerStyle}
                         >
                           <Grid
                             item
                             xs={12}
                             className={screenFiveGraphTitleStyle}
-                            style={{ height: "10%" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                columnGap: "6px",
-                              }}
-                            >
+                            <div className={graphOneGraphTitleContainer}>
                               <div
-                                style={{
-                                  width: "18px",
-                                  height: "18px",
-                                  borderRadius: "50%",
-                                  backgroundColor: "#BD8C52",
-                                  marginRight: 6,
-                                }}
+                                className={graphTitleOneRound}
+                                style={{}}
                               ></div>
                               <div>Active Tracker</div>
                             </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                columnGap: "6px",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  width: "18px",
-                                  height: "18px",
-                                  borderRadius: "50%",
-                                  backgroundColor: "#5F3B6C",
-                                  marginRight: 6,
-                                }}
-                              ></div>
+                            <div className={graphTitleTwoStyle}>
+                              <div className={graphTitleTwoRound}></div>
                               <div>In-Active Tracker</div>
                             </div>
                           </Grid>
-                          <Grid item xs={12} style={{ height: "90%" }}>
+                          <Grid item xs={12} className={graphOneChartStyle}>
                             <Chart
                               width={selectedWidth?.width}
                               height={selectedWidth?.height}
                               isVisible={true}
                               graphType={"spline"}
-                              units={"kWh"}
+                              units={""}
                               isCrosshair={true}
                               crossHairLineColor={"#E5FAF6"}
                               is4kDevice={selectedWidth?.is4kDevice}
-                              tooltip={"shared"}
+                              // tooltip={"shared"}
                               dataPoints={[
                                 {
                                   marker: {
                                     enabled: false,
                                   },
-                                  lineColor: "#BD8C52",
-                                  color: "#BD8C52",
+                                  lineColor: "#25796D",
+                                  color: "#25796D",
                                   lineWidth: 2,
                                   data: [
                                     0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4, 8, 6,
@@ -276,8 +264,8 @@ const AssetTracking: React.FC<any> = (props) => {
                                   marker: {
                                     enabled: false,
                                   },
-                                  lineColor: "#5F3B6C",
-                                  color: "#5F3B6C",
+                                  lineColor: "#D25A5A",
+                                  color: "#D25A5A",
                                   lineWidth: 2,
                                   data: [
                                     1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3,
@@ -294,32 +282,57 @@ const AssetTracking: React.FC<any> = (props) => {
                         <Grid
                           container
                           xs={12}
-                          style={{
-                            height: "100%",
-                            padding: "10px 10px 5px 30px",
-                          }}
+                          className={graphTwoContainerStyle}
+                          style={{}}
                         >
                           <Grid item xs={12} className={graphTwoHeader}>
                             Incidents
                           </Grid>
-                          <Grid item xs={12} style={{ height: "90%" }}>
+                          <Grid item xs={12} className={graphTwoChartStyle}>
                             <Chart
                               width={selectedWidth?.width}
                               height={selectedWidth?.height}
-                              graphType={"spline"}
+                              graphType={"areaspline"}
                               isVisible={true}
-                              units={"KL"}
+                              units={""}
                               isCrosshair={true}
-                              crossHairLineColor={"#47A899"}
+                              crossHairLineColor={"#EE3E35"}
                               is4kDevice={selectedWidth?.is4kDevice}
                               dataPoints={[
                                 {
                                   marker: {
                                     enabled: false,
                                   },
-                                  lineColor: "#47A89990",
-                                  color: "#47A899",
+                                  lineColor: "#EE3E3590",
+                                  color: "#EE3E35",
                                   lineWidth: 2,
+                                  fillColor: {
+                                    linearGradient: [0, 0, 0, 200],
+                                    stops: [
+                                      [
+                                        0,
+                                        Highcharts.color("#C3362F")
+                                          .setOpacity(0.5)
+                                          .get("rgba"),
+                                      ],
+                                      [
+                                        0.5,
+                                        Highcharts.color("#C3362F")
+                                          .setOpacity(0.3)
+                                          .get("rgba"),
+                                      ],
+                                      [
+                                        1,
+                                        Highcharts.color(
+                                          selectedWidth?.is4kDevice
+                                            ? "#C3362F"
+                                            : "#000000"
+                                        )
+                                          .setOpacity(0.05)
+                                          .get("rgba"),
+                                      ],
+                                    ],
+                                  },
                                   data: [
                                     1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6, 4, 7,
                                     5, 4, 2, 8, 4, 3, 4, 1, 4,
@@ -334,8 +347,12 @@ const AssetTracking: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  {/* <div className={geofenceIconStyle}> */}
+                              <img src={GeofenceIcon} className={geofenceIconStyle} alt="GeofenceIcon" />
+                  {/* </div> */}
+
                     <Map
-                      markers={dashboardDataList}
+                      markers={notificationArray}
                       setNotificationPanelActive={setNotificationPanelActive}
                       setSelectedNotification={setSelectedNotification}
                       marker={selectedNotification}
