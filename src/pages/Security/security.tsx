@@ -163,16 +163,72 @@ const Parking: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 1300,
         height: 500,
-        width1: 640,
+        width1: 700,
         height1: 480,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 654,
-        height: 240,
-        width1: 327,
-        height1: 240,
+        width: 900,
+        height: 400,
+        width1: 500,
+        height1: 380,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 600,
+        height: 200,
+        width1: 400,
+        height1: 280,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+        width1: 300,
+        height1: 280,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 500,
+        height: 200,
+        width1: 250,
+        height1: 280,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 460,
+        height: 150,
+        width1: 185,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 185,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 100,
+        width1: 125,
+        height1: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 100,
+        width1: 125,
+        height1: 140,
         is4kDevice: false,
       });
     }

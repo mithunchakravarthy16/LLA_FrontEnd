@@ -16,7 +16,11 @@ import {
   ValueWrapper,
   Value,
   Label,
-  Note,
+  NoteContainer,
+  NoteLabel,
+  NoteValue,
+  NoteDifferenceIndicator,
+  CardValuesSplitter,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import {
@@ -26,6 +30,13 @@ import {
   parking,
   security,
   fleetManagement,
+  ParkingHover,
+  SecurityHover,
+  AssetHover,
+  EnergyHover,
+  LightingHover,
+  FleetHover,
+  cardDifferenceIndicator,
 } from "../../assets/images";
 
 /*
@@ -40,12 +51,17 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "occupied",
         value: 370,
         suffix: "",
       },
     ],
-    note: "19.5 hrs saved",
+    noteLabel: "Drive hours saved",
+    noteValue: "19.5",
+    noteDifference: "+"
   },
   energy_management: {
     values: [
@@ -55,12 +71,17 @@ const DEMO_VALUES: any = {
         suffix: "kWh",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "savings",
         value: 15,
         suffix: "%",
       },
     ],
-    note: "20Kg CO2 Emmission Reduced",
+    noteLabel: "Energy Consumed",
+    noteValue: "100kWh",
+    noteDifference: "-"
   },
   security: {
     values: [
@@ -70,12 +91,17 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "alerts",
         value: 50,
         suffix: "",
       },
     ],
-    note: "15% Issues Resolved",
+    noteLabel: "Security Breaches Avoided",
+    noteValue: "20",
+    noteDifference: "+"
   },
   lighting: {
     values: [
@@ -85,12 +111,17 @@ const DEMO_VALUES: any = {
         suffix: "kWh",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "data",
         value: 1,
         suffix: "TB",
       },
     ],
-    note: "PM2.5 - 458 | PM2.5 - 458",
+    noteLabel: "Electricity Consumed",
+    noteValue: "16kWh",
+    noteDifference: "-"
   },
   fleet_management: {
     values: [
@@ -100,12 +131,17 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "trips",
         value: 50,
         suffix: "",
       },
     ],
-    note: "20Kg CO2 Emmission Reduced",
+    noteLabel: "Trips Completed",
+    noteValue: "20",
+    noteDifference: "+"
   },
   assets_tracking: {
     values: [
@@ -115,47 +151,20 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
+        type: 'splitter'
+      },
+      {
         label: "alerts",
         value: 50,
         suffix: "",
       },
     ],
-    note: "200 Asset’s Location Changed",
+    noteLabel: "Location Changed",
+    noteValue: "30",
+    noteDifference: "-"
   },
 };
 
-const CARD_LIST: any = [
-  {
-    title: "parking",
-    image: parking,
-    category: "parking",
-  },
-  {
-    title: "energy_management",
-    image: energyManagement,
-    category: "energy",
-  },
-  {
-    title: "security",
-    image: security,
-    category: "security",
-  },
-  {
-    title: "lighting",
-    image: lighting,
-    category: "lighting",
-  },
-  {
-    title: "fleet_management",
-    image: fleetManagement,
-    category: "fleet",
-  },
-  {
-    title: "assets_tracking",
-    image: assetTracking,
-    category: "asset",
-  },
-];
 
 type CardPropType = {
   card: {
@@ -174,7 +183,9 @@ const Card = ({
   currentOpenedCard,
   setCurrentOpenedCard,
   setFocusedCategory,
+  focusedCategory
 }: CardPropType) => {
+  
   const navigate = useNavigate();
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
@@ -221,7 +232,7 @@ const Card = ({
         }}
       >
         <CardImage src={card.image} />
-        <CardTitle>{card.title.replaceAll("_", " ")}</CardTitle>
+        <CardTitle focusedCategory={focusedCategory === card?.category}>{card.title.replaceAll("_", " ")}</CardTitle>
       </ContentContainer>
       <BackContentContainer
         style={{
@@ -233,7 +244,7 @@ const Card = ({
         <CardValuesWrapper>
           <CardValuesSkewContainer />
           <CardValuesContainer>
-            {DEMO_VALUES[card?.title].values?.map((value: any) => (
+            {DEMO_VALUES[card?.title].values?.map((value: any) => value?.type === 'splitter' ? <CardValuesSplitter /> : (
               <ValueWrapper>
                 <Value>
                   {value.value} {value.suffix}
@@ -243,12 +254,21 @@ const Card = ({
             ))}
           </CardValuesContainer>
         </CardValuesWrapper>
-        <Note>
-          {
-            //ts-ignore
-            DEMO_VALUES[card?.title]?.note
-          }
-        </Note>
+        <NoteContainer>
+          <NoteLabel>
+            {
+              //ts-ignore
+              DEMO_VALUES[card?.title]?.noteLabel
+            }
+          </NoteLabel>
+          <NoteValue>
+            {
+              //ts-ignore
+              DEMO_VALUES[card?.title]?.noteValue
+            }
+          </NoteValue>
+          <NoteDifferenceIndicator src={cardDifferenceIndicator} difference={DEMO_VALUES[card?.title]?.noteDifference} />
+        </NoteContainer>
       </BackContentContainer>
     </RootContainer>
   );
@@ -256,6 +276,39 @@ const Card = ({
 
 const FlippingCard = (props: any) => {
   const { focusedCategory, setFocusedCategory } = props;
+  const CARD_LIST: any = [
+    {
+      title: "parking",
+      image: focusedCategory === "parking" ? ParkingHover  : parking ,
+      category: "parking",
+    },
+    {
+      title: "energy_management",
+      image: focusedCategory === "energy" ? EnergyHover  : energyManagement,
+      category: "energy",
+    },
+    {
+      title: "security",
+      image: focusedCategory === "security" ? SecurityHover  : security,
+      category: "security",
+    },
+    {
+      title: "lighting",
+      image: focusedCategory === "lighting" ? LightingHover  : lighting,
+      category: "lighting",
+    },
+    {
+      title: "fleet_management",
+      image: focusedCategory === "fleet" ? FleetHover  : fleetManagement,
+      category: "fleet",
+    },
+    {
+      title: "assets_tracking",
+      image: focusedCategory === "asset" ? AssetHover  : assetTracking,
+      category: "asset",
+    },
+  ];
+  
   return (
     <Wrapper>
       {CARD_LIST.map((card: any) => (

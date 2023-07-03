@@ -53,6 +53,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
     lastweekBodySubContainer,
   } = useStyles(appTheme);
 
+
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
   useEffect(() => {
@@ -68,16 +69,41 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         height: 330,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 540,
+        height: 180,
+        is4kDevice: false,
+        xAxisFontSize: "13px"
+      });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 410,
         height: 180,
         is4kDevice: false,
       });
-    } else if (window.innerWidth > 1791) {
+    } else if (window.innerWidth > 1919) {
       setSelectedWidth({
         width: 410,
-        height: 160,
+        height: 220,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 380,
+        height: 280,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1679) {
+      setSelectedWidth({
+        width: 350,
+        height: 210,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedWidth({
+        width: 340,
+        height: 170,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
@@ -85,6 +111,20 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         width: 300,
         height: 160,
         is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 300,
+        height: 180,
+        is4kDevice: false,
+        tickInterval: 12
+      });
+    } else if (window.innerWidth > 1399) {
+      setSelectedWidth({
+        width: 280,
+        height: 210,
+        is4kDevice: false,
+        tickInterval: 12
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
@@ -94,9 +134,10 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
-        width: 250,
-        height: 130,
+        width: 265,
+        height: 150,
         is4kDevice: false,
+        tickInterval: 12
       });
     } else if (window.innerWidth > 1151) {
       setSelectedWidth({
@@ -106,19 +147,27 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1023) {
       setSelectedWidth({
-        width: 180,
-        height: 80,
+        width: 215,
+        height: 120,
         is4kDevice: false,
+        tickInterval: 12,
+        xAxisFontSize: "8px"
       });
     }
-  }, []);
+  }, [window.innerWidth]);
 
   return (
     <>
       {/* Gride 1 */}
       {/* <Grid item xs={4} className={gridStyles}> */}
-        <Grid item xs={4} className={gridStyles} onClick={()=>{handleClick("/parking")}}>
-
+      <Grid
+        item
+        xs={4}
+        className={gridStyles}
+        onClick={() => {
+          handleClick("/parking");
+        }}
+      >
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
             PARKING
@@ -143,6 +192,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       isCrosshair={true}
                       crossHairLineColor={"#73B35A90"}
                       is4kDevice={selectedWidth?.is4kDevice}
+                      tickInterval={selectedWidth?.tickInterval}
+                      xAxisFontSize={selectedWidth?.xAxisFontSize}
                       dataPoints={[
                         {
                           marker: {

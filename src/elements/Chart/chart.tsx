@@ -18,6 +18,8 @@ const Chart: React.FC<any> = (props) => {
     crossHairLineColor,
     is4kDevice,
     tooltip,
+    tickInterval,
+    xAxisFontSize,
   } = props;
 
   const [toolTipBg, setToolTipBg] = useState<string>();
@@ -196,7 +198,7 @@ const Chart: React.FC<any> = (props) => {
               (is4kDevice && location.pathname === "/lighting")
               ? 8
               : 12
-            : 6,
+            : tickInterval ? tickInterval : 8,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -209,7 +211,7 @@ const Chart: React.FC<any> = (props) => {
             useHTML: true,
             overflow: "justify",
             style: {
-              fontSize: is4kDevice ? "30px" : "10px",
+              fontSize: is4kDevice ? "30px" : xAxisFontSize ? xAxisFontSize : "10px",
               color: "white",
             },
           },

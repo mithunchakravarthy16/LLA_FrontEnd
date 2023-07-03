@@ -38,8 +38,8 @@ const MapMarker: React.FC<any> = (props) => {
     <>
       <Marker
         animation={
-          focusedCategory === mapMarker?.category
-            ? window.google.maps.Animation.BOUNCE
+          (focusedCategory === mapMarker?.category  && focusedCategory !== 'fleet')
+            ? window.google.maps.Animation.BOUNCE 
             : undefined
         }
         position={

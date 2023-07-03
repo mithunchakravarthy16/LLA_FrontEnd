@@ -67,6 +67,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         height: 100,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 550,
+        height: 80,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 400,
@@ -79,10 +85,28 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         height: 100,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 1679) {
+      setSelectedWidth({
+        width: 350,
+        height: 90,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedWidth({
+        width: 320,
+        height: 80,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
         width: 300,
         height: 90,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1399) {
+      setSelectedWidth({
+        width: 270,
+        height: 80,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1343) {
@@ -106,7 +130,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1023) {
       setSelectedWidth({
         width: 200,
-        height: 35,
+        height: 50,
         is4kDevice: false,
       });
     }
