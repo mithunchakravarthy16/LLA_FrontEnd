@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect, createRef } from "react";
 import Tabs from "elements/Tabs";
 import NotificationListItems from "components/NotificationListItems";
@@ -25,7 +27,7 @@ const NotificationPanel = (props: any) => {
     setCurrentMarker,
     notificationPageName,
     setParkingLotIndex,
-    setParkingLotSelectionActive
+    setParkingLotSelectionActive,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -58,7 +60,11 @@ const NotificationPanel = (props: any) => {
     tabSection,
     searchClass,
     notificationListItemSection,
-  } = useStyles({ ...appTheme, tabIndex: tabIndex, notificationPageName : notificationPageName });
+  } = useStyles({
+    ...appTheme,
+    tabIndex: tabIndex,
+    notificationPageName: notificationPageName,
+  });
 
   const {
     notificationText,
@@ -107,7 +113,6 @@ const NotificationPanel = (props: any) => {
     },
   ];
 
-
   const handleTabs = (index: number) => {
     setTabIndex(index);
     setSearchOpen(false);
@@ -117,9 +122,9 @@ const NotificationPanel = (props: any) => {
 
   const handleExpandListItem = (id: any) => {
     setSelectedNotification(selectedNotification === id ? "" : id);
-    if(notificationPageName && notificationPageName === 'parking') {
+    if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);
-      setParkingLotSelectionActive(false)
+      setParkingLotSelectionActive(false);
     }
   };
 
@@ -174,12 +179,12 @@ const NotificationPanel = (props: any) => {
     }
   }, [refs, selectedRefId, selectedNotification]);
 
-  useEffect(()=>{
-    if(!searchOpen) {
+  useEffect(() => {
+    if (!searchOpen) {
       setSearchValue(dashboardData);
     }
-  },[searchOpen])
-  
+  }, [searchOpen]);
+
   return (
     <>
       <div className={notificationRootContainer}>
@@ -223,6 +228,7 @@ const NotificationPanel = (props: any) => {
             tabsList={tabsList}
             handleTabs={handleTabs}
             dashboardNotificationClassName={customNotificationTabs}
+            pageName={"dashboard"}
           />
         </div>
         <div className={notificationListItemSection}>

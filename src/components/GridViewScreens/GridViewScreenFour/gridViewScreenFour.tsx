@@ -286,7 +286,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         direction="column"
                       >
                         <div className={listItemValueStyle}>643ppm</div>
-                        <div className={listItemLabelStyle}>CO2Level</div>
+                        <div className={listItemLabelStyle}>
+                          <p>CO2</p> <p>Level</p>
+                        </div>
                       </Grid>
                       <Grid
                         item

@@ -30,7 +30,10 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const { listCount, tabLabel, labelCountStyle } = useStyles(appTheme);
+  const { listCount, tabLabel, labelCountStyle } = useStyles({
+    appTheme,
+    pageName: pageName,
+  });
 
   const [value, setValue] = useState<any>();
 
