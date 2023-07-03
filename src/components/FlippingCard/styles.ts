@@ -66,6 +66,10 @@ export const RootContainer = styled("div")`
     min-width: 260px;
     height: 186px;
   }
+  @media (max-width: 2561px) {
+    min-width: 350px;
+    height: 300px;
+  }
   @media (max-width: 1793px) {
     min-width: 240px;
     height: 186px;
@@ -173,12 +177,12 @@ export const CardImage = styled("img")`
   }
 `;
 
-export const CardTitle = styled("div") <{focusedCategory:any}> ` 
+export const CardTitle = styled("div")<{ focusedCategory: any }>`
   font-family: "HelveticaNeue-Regular";
   font-style: normal;
   font-size: 34px;
   line-height: 48px;
-  color : ${({focusedCategory})=>focusedCategory ? "#F26522" : "#eeeeee"};
+  color: ${({ focusedCategory }) => (focusedCategory ? "#F26522" : "#eeeeee")};
   /* color:  #F26522 #eeeeee; */
   text-transform: uppercase;
   margin-top: 20px;
@@ -336,19 +340,19 @@ export const CardValuesSkewContainer = styled("div")`
 `;
 
 export const CardValuesSplitter = styled("div")`
-    width: 1px;
+  width: 1px;
+  height: 110px;
+  background: #fff;
+  transform: skew(-18deg);
+  @media (max-width: 3073px) {
     height: 110px;
-    background: #fff;
-    transform: skew(-18deg);
-    @media (max-width : 3073px) {
-        height: 110px;
-    }
-    @media (max-width : 2049px) {
-        height: 43px;
-    }
-    @media (max-width : 1153px) {
-        height: 43px;
-    }
+  }
+  @media (max-width: 2049px) {
+    height: 43px;
+  }
+  @media (max-width: 1153px) {
+    height: 43px;
+  }
 `;
 
 export const CardValuesContainer = styled("div")`
@@ -386,9 +390,9 @@ export const CardValuesContainer = styled("div")`
 `;
 
 export const ValueWrapper = styled("div")`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Value = styled("div")`
@@ -513,19 +517,19 @@ export const Label = styled("div")`
 `;
 
 export const NoteContainer = styled("div")`
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
 `;
 
 export const NoteLabel = styled("div")`
-    font-family: 'HelveticaNeue-Regular';
-    font-style: italic;
-    font-size: 28px;
-    line-height: 44px;
-    color: #FFCF25;
-    margin-left: -35px;
-    @media (max-width: 3073px) {
+  font-family: "HelveticaNeue-Regular";
+  font-style: italic;
+  font-size: 28px;
+  line-height: 44px;
+  color: #ffcf25;
+  margin-left: -35px;
+  @media (max-width: 3073px) {
     font-size: 16px;
     line-height: 45px;
     margin-left: -25px;
@@ -583,10 +587,10 @@ export const NoteLabel = styled("div")`
 `;
 
 export const NoteValue = styled(NoteLabel)`
-    color: #FFF;
-    margin-left: 5px;
+  color: #fff;
+  margin-left: 5px;
 
-    @media (max-width: 3073px) {
+  @media (max-width: 3073px) {
     font-size: 16px;
     line-height: 45px;
     margin-left: 5px;
@@ -643,9 +647,10 @@ export const NoteValue = styled(NoteLabel)`
   }
 `;
 
-export const NoteDifferenceIndicator = styled("img")<{difference: any}>`
-    height: 45%;
-    margin-left: 5px;
-    width: auto;
-    transform: ${({difference}) => difference === '+' ? 'rotateX(180deg)' : 'none'};
+export const NoteDifferenceIndicator = styled("img")<{ difference: any }>`
+  height: 45%;
+  margin-left: 5px;
+  width: auto;
+  transform: ${({ difference }) =>
+    difference === "+" ? "rotateX(180deg)" : "none"};
 `;

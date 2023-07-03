@@ -298,7 +298,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>300kWh</div>
                         <div className={listItemLabelStyle}>
-                          Energy Consumption
+                          <p>Energy</p> <p>Consumption</p>
                         </div>
                       </Grid>
                       <Grid
@@ -308,7 +308,9 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                         className={rightListItemStyle}
                       >
                         <div className={listItemValueStyle}>30%</div>
-                        <div className={listItemLabelStyle}>Energy Saved</div>
+                        <div className={listItemLabelStyle}>
+                          <p>Energy</p> <p>Saved</p>
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -317,7 +319,9 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                         className={rightListItemStyleLastChild}
                       >
                         <div className={listItemValueStyle}>$500</div>
-                        <div className={listItemLabelStyle}>Cost Saved</div>
+                        <div className={listItemLabelStyle}>
+                          <p>Cost</p> <p>Saved</p>
+                        </div>
                       </Grid>
                     </Grid>
                   </Grid>

@@ -62,7 +62,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         width: 700,
         height: 200,
         is4kDevice: false,
-        xAxisFontSize: "11px"
+        xAxisFontSize: "11px",
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
@@ -130,7 +130,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         height: 140,
         is4kDevice: false,
         tickInterval: 12,
-        xAxisFontSize: "8px"
+        xAxisFontSize: "8px",
       });
     }
   }, []);
@@ -160,19 +160,20 @@ const GridViewScreenThree: React.FC<any> = (props) => {
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>19</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Fire Detection
+                  <p>Fire</p> <p>Detection</p>
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
                 <div className={horizantalDataGridValueStyle}>18</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Tempering Alarm
+                  <p>Tempering </p>
+                  <p>Alarm</p>
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
                 <div className={horizantalDataGridValueStyle}>05</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Unauthorised Access
+                  <p>Unauthorised</p> <p>Access</p>
                 </div>
               </div>
             </div>

@@ -53,7 +53,6 @@ const GridViewScreenOne: React.FC<any> = (props) => {
     lastweekBodySubContainer,
   } = useStyles(appTheme);
 
-
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         width: 540,
         height: 180,
         is4kDevice: false,
-        xAxisFontSize: "13px"
+        xAxisFontSize: "13px",
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
@@ -117,14 +116,14 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         width: 300,
         height: 180,
         is4kDevice: false,
-        tickInterval: 12
+        tickInterval: 12,
       });
     } else if (window.innerWidth > 1399) {
       setSelectedWidth({
         width: 280,
         height: 210,
         is4kDevice: false,
-        tickInterval: 12
+        tickInterval: 12,
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
@@ -137,7 +136,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         width: 265,
         height: 150,
         is4kDevice: false,
-        tickInterval: 12
+        tickInterval: 12,
       });
     } else if (window.innerWidth > 1151) {
       setSelectedWidth({
@@ -151,7 +150,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         height: 120,
         is4kDevice: false,
         tickInterval: 12,
-        xAxisFontSize: "8px"
+        xAxisFontSize: "8px",
       });
     }
   }, [window.innerWidth]);
@@ -275,7 +274,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>10Hrs</div>
                         <div className={listItemLabelStyle}>
-                          Avg.Parking Hrs.
+                          Avg. <p>Parking Hrs.</p>
                         </div>
                       </Grid>
                       <Grid
@@ -285,7 +284,9 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                         className={rightListItemStyle}
                       >
                         <div className={listItemValueStyle}>1.5</div>
-                        <div className={listItemLabelStyle}>Rotation Index</div>
+                        <div className={listItemLabelStyle}>
+                          <p>Rotation</p> <p>Index</p>
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -295,7 +296,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>20Kg</div>
                         <div className={listItemLabelStyle}>
-                          Carbon Emission
+                          <p>Carbon</p> <p>Emission</p>
                         </div>
                       </Grid>
                     </Grid>

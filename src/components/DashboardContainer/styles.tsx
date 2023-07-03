@@ -57,6 +57,11 @@ const useStyles = makeStyles({
       width: "822px",
       top: "180px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      width: "636px",
+      top: "116px",
+      height: "calc(100vh - 244px)",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       width: "550px",
       top: "116px",
