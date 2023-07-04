@@ -20,6 +20,11 @@ import Siren from "./siren.svg";
 import Trolley from "./trolley.svg";
 import Unauthorised from "./unauthorised.svg";
 
+import TotalDistanceIcon from "./totalDistance.svg";
+import IdleHoursIcon from "./idleHours.svg";
+import OverSpeedingIcon from "./overSpeeding.svg";
+import HarshAccelerationIcon from "./harshAcceleration.svg";
+import HarshBreakingIcon from "./harshBreaking.svg";
 import AssetTrackedIcon from "./AssetTracking/AssetTracked.svg";
 import LocationIcon from "./AssetTracking/Location.svg";
 import OutOfGeofenceIcon from "./AssetTracking/OutOfGeofence.svg";
@@ -46,6 +51,11 @@ export {
   GeneralParkingIcon,
   RotationIcon,
   VipParkingIcon,
+  TotalDistanceIcon,
+  IdleHoursIcon,
+  OverSpeedingIcon,
+  HarshAccelerationIcon,
+  HarshBreakingIcon,
   AssetTrackedIcon,
   LocationIcon,
   OutOfGeofenceIcon,

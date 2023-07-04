@@ -278,7 +278,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         className={rightListItemStyle}
                       >
                         <div className={listItemValueStyle}>1237Km</div>
-                        <div className={listItemLabelStyle}>Total Distance</div>
+                        <div className={listItemLabelStyle}>
+                          <p>Total</p> <p>Distance</p>
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -288,7 +290,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>5Hrs</div>
                         <div className={listItemLabelStyle}>
-                          Total Idling Hours
+                          <p>Total</p> <p>Idling Hours</p>
                         </div>
                       </Grid>
                     </Grid>

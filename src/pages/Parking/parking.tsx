@@ -49,6 +49,8 @@ const Parking: React.FC<any> = (props) => {
   const [parkingLotSelectionActive, setParkingLotSelectionActive] =
     useState<boolean>(false);
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -95,7 +97,7 @@ const Parking: React.FC<any> = (props) => {
     aqiCircleStyle,
     graphTwoHeader,
     electricity,
-    lotSelectionIconStyleClose
+    lotSelectionIconStyleClose,
   } = useStyles({
     ...appTheme,
     parkingLotSelectionActive: parkingLotSelectionActive,
@@ -238,40 +240,54 @@ const Parking: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 900,
         height: 500,
-        width1: 1200,
+        width1: 1300,
         height1: 480,
+        width2: 50,
         is4kDevice: true,
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
         width: 900,
         height: 400,
-        width1: 500,
-        height1: 380,
+        width1: 1000,
+        height1: 480,
+        width2: 50,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
         width: 700,
         height: 200,
-        width1: 700,
+        width1: 840,
         height1: 230,
+        width2: 35,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 600,
-        height: 200,
-        width1: 600,
-        height1: 200,
+        height: 300,
+        width1: 700,
+        height1: 300,
+        width2: 30,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 550,
-        height: 200,
-        width1: 550,
+        height: 250,
+        width1: 600,
         height1: 250,
+        width2: 25,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1679) {
+      setSelectedWidth({
+        width: 500,
+        height: 250,
+        width1: 500,
+        height1: 230,
+        width2: 25,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
@@ -279,7 +295,8 @@ const Parking: React.FC<any> = (props) => {
         width: 500,
         height: 200,
         width1: 500,
-        height1: 250,
+        height1: 200,
+        width2: 25,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1439) {
@@ -288,6 +305,7 @@ const Parking: React.FC<any> = (props) => {
         height: 150,
         width1: 460,
         height1: 200,
+        width2: 25,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1279) {
@@ -296,6 +314,7 @@ const Parking: React.FC<any> = (props) => {
         height: 150,
         width1: 400,
         height1: 180,
+        width2: 25,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
@@ -304,6 +323,7 @@ const Parking: React.FC<any> = (props) => {
         height: 100,
         width1: 350,
         height1: 140,
+        width2: 15,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1023) {
@@ -312,6 +332,7 @@ const Parking: React.FC<any> = (props) => {
         height: 100,
         width1: 300,
         height1: 120,
+        width2: 15,
         is4kDevice: false,
       });
     }
@@ -550,8 +571,13 @@ const Parking: React.FC<any> = (props) => {
                                           style: {
                                             color: "#fff",
                                             fontWeight: "bold",
-                                            fontSize : selectedWidth?.is4kDevice ? "40px" : "14px",
-                                            borderRadius : selectedWidth?.is4kDevice ? "10px" : "5px",
+                                            fontSize: selectedWidth?.is4kDevice
+                                              ? "40px"
+                                              : "14px",
+                                            borderRadius:
+                                              selectedWidth?.is4kDevice
+                                                ? "10px"
+                                                : "5px",
                                           },
                                           formatter: function (
                                             this: Highcharts.TooltipFormatterContextObject
@@ -570,7 +596,7 @@ const Parking: React.FC<any> = (props) => {
                                         },
                                         plotOptions: {
                                           column: {
-                                            pointWidth: 25,
+                                            pointWidth: selectedWidth?.width2,
                                             borderRadiusTopLeft: 20,
                                             borderRadiusTopRight: 20,
                                             borderRadiusBottomLeft: 20,
@@ -583,7 +609,10 @@ const Parking: React.FC<any> = (props) => {
                                           labels: {
                                             useHTML: true,
                                             style: {
-                                              fontSize: selectedWidth?.is4kDevice ? "30px" : "12px",
+                                              fontSize:
+                                                selectedWidth?.is4kDevice
+                                                  ? "30px"
+                                                  : "12px",
                                               color: "white",
                                             },
                                           },
@@ -637,6 +666,7 @@ const Parking: React.FC<any> = (props) => {
                           dashboardNotificationClassName={
                             customNotificationTabs
                           }
+                          pageName={"parking"}
                         />
                         <div
                           className={lotSelectionIconStyleClose}
@@ -655,6 +685,8 @@ const Parking: React.FC<any> = (props) => {
                         setTabIndex={setTabIndex}
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
+                        setIsMarkerClicked={setIsMarkerClicked}
+
                       />
                     ) : (
                       <div className={lotImageStyle}>

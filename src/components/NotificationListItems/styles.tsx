@@ -10,7 +10,7 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 650 : 500,
     },
     [muiTheme.breakpoints.down(3073)]: {
-      minWidth: props?.pageName === "markerCallout" ? 400 : 500,
+      minWidth: props?.pageName === "markerCallout" ? 650 : 500,
     },
     [muiTheme.breakpoints.down(2049)]: {
       minWidth: props?.pageName === "markerCallout" ? 400 : 370,
@@ -290,7 +290,7 @@ const useStyles = makeStyles({
   listItemCallout: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
-    alignItems : "center"
+    alignItems: "center",
   }),
 });
 export default useStyles;

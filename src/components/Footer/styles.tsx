@@ -38,7 +38,7 @@ const useStyles = makeStyles(
       },
     }),
     footerSectionDasbhoard: (props: any) => ({
-      background: "rgba(30, 31, 39, 1)",
+      background: "rgba(30, 31, 39, 0.9)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",

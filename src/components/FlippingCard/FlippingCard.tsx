@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState } from "react";
 import { useSpring } from "@react-spring/web";
 import {
@@ -21,6 +23,7 @@ import {
   NoteValue,
   NoteDifferenceIndicator,
   CardValuesSplitter,
+  InnerCardWrapper,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import {
@@ -51,7 +54,7 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
-        type: 'splitter'
+        type: "splitter",
       },
       {
         label: "occupied",
@@ -61,7 +64,7 @@ const DEMO_VALUES: any = {
     ],
     noteLabel: "Drive hours saved",
     noteValue: "19.5",
-    noteDifference: "+"
+    noteDifference: "+",
   },
   energy_management: {
     values: [
@@ -71,7 +74,7 @@ const DEMO_VALUES: any = {
         suffix: "kWh",
       },
       {
-        type: 'splitter'
+        type: "splitter",
       },
       {
         label: "savings",
@@ -81,7 +84,7 @@ const DEMO_VALUES: any = {
     ],
     noteLabel: "Energy Consumed",
     noteValue: "100kWh",
-    noteDifference: "-"
+    noteDifference: "-",
   },
   security: {
     values: [
@@ -91,7 +94,7 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
-        type: 'splitter'
+        type: "splitter",
       },
       {
         label: "alerts",
@@ -101,7 +104,7 @@ const DEMO_VALUES: any = {
     ],
     noteLabel: "Security Breaches Avoided",
     noteValue: "20",
-    noteDifference: "+"
+    noteDifference: "+",
   },
   lighting: {
     values: [
@@ -111,7 +114,7 @@ const DEMO_VALUES: any = {
         suffix: "kWh",
       },
       {
-        type: 'splitter'
+        type: "splitter",
       },
       {
         label: "data",
@@ -121,7 +124,7 @@ const DEMO_VALUES: any = {
     ],
     noteLabel: "Electricity Consumed",
     noteValue: "16kWh",
-    noteDifference: "-"
+    noteDifference: "-",
   },
   fleet_management: {
     values: [
@@ -131,7 +134,7 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
-        type: 'splitter'
+        type: "splitter",
       },
       {
         label: "trips",
@@ -141,7 +144,7 @@ const DEMO_VALUES: any = {
     ],
     noteLabel: "Trips Completed",
     noteValue: "20",
-    noteDifference: "+"
+    noteDifference: "+",
   },
   assets_tracking: {
     values: [
@@ -151,7 +154,7 @@ const DEMO_VALUES: any = {
         suffix: "",
       },
       {
-        type: 'splitter'
+        type: "splitter",
       },
       {
         label: "alerts",
@@ -161,10 +164,9 @@ const DEMO_VALUES: any = {
     ],
     noteLabel: "Location Changed",
     noteValue: "30",
-    noteDifference: "-"
+    noteDifference: "-",
   },
 };
-
 
 type CardPropType = {
   card: {
@@ -183,9 +185,8 @@ const Card = ({
   currentOpenedCard,
   setCurrentOpenedCard,
   setFocusedCategory,
-  focusedCategory
+  focusedCategory,
 }: CardPropType) => {
-  
   const navigate = useNavigate();
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
@@ -231,8 +232,12 @@ const Card = ({
           opacity: contentTransform.opacity.to((o) => 1 - o),
         }}
       >
-        <CardImage src={card.image} />
-        <CardTitle focusedCategory={focusedCategory === card?.category}>{card.title.replaceAll("_", " ")}</CardTitle>
+        <InnerCardWrapper>
+          <CardImage src={card.image} />
+          <CardTitle focusedCategory={focusedCategory === card?.category}>
+            {card.title.replaceAll("_", " ")}
+          </CardTitle>
+        </InnerCardWrapper>
       </ContentContainer>
       <BackContentContainer
         style={{
@@ -244,14 +249,18 @@ const Card = ({
         <CardValuesWrapper>
           <CardValuesSkewContainer />
           <CardValuesContainer>
-            {DEMO_VALUES[card?.title].values?.map((value: any) => value?.type === 'splitter' ? <CardValuesSplitter /> : (
-              <ValueWrapper>
-                <Value>
-                  {value.value} {value.suffix}
-                </Value>
-                <Label>{value.label}</Label>
-              </ValueWrapper>
-            ))}
+            {DEMO_VALUES[card?.title].values?.map((value: any) =>
+              value?.type === "splitter" ? (
+                <CardValuesSplitter />
+              ) : (
+                <ValueWrapper>
+                  <Value>
+                    {value.value} {value.suffix}
+                  </Value>
+                  <Label>{value.label}</Label>
+                </ValueWrapper>
+              )
+            )}
           </CardValuesContainer>
         </CardValuesWrapper>
         <NoteContainer>
@@ -267,7 +276,10 @@ const Card = ({
               DEMO_VALUES[card?.title]?.noteValue
             }
           </NoteValue>
-          <NoteDifferenceIndicator src={cardDifferenceIndicator} difference={DEMO_VALUES[card?.title]?.noteDifference} />
+          <NoteDifferenceIndicator
+            src={cardDifferenceIndicator}
+            difference={DEMO_VALUES[card?.title]?.noteDifference}
+          />
         </NoteContainer>
       </BackContentContainer>
     </RootContainer>
@@ -279,36 +291,36 @@ const FlippingCard = (props: any) => {
   const CARD_LIST: any = [
     {
       title: "parking",
-      image: focusedCategory === "parking" ? ParkingHover  : parking ,
+      image: focusedCategory === "parking" ? ParkingHover : parking,
       category: "parking",
     },
     {
       title: "energy_management",
-      image: focusedCategory === "energy" ? EnergyHover  : energyManagement,
+      image: focusedCategory === "energy" ? EnergyHover : energyManagement,
       category: "energy",
     },
     {
       title: "security",
-      image: focusedCategory === "security" ? SecurityHover  : security,
+      image: focusedCategory === "security" ? SecurityHover : security,
       category: "security",
     },
     {
       title: "lighting",
-      image: focusedCategory === "lighting" ? LightingHover  : lighting,
+      image: focusedCategory === "lighting" ? LightingHover : lighting,
       category: "lighting",
     },
     {
       title: "fleet_management",
-      image: focusedCategory === "fleet" ? FleetHover  : fleetManagement,
+      image: focusedCategory === "fleet" ? FleetHover : fleetManagement,
       category: "fleet",
     },
     {
       title: "assets_tracking",
-      image: focusedCategory === "asset" ? AssetHover  : assetTracking,
+      image: focusedCategory === "asset" ? AssetHover : assetTracking,
       category: "asset",
     },
   ];
-  
+
   return (
     <Wrapper>
       {CARD_LIST.map((card: any) => (

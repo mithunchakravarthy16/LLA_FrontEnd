@@ -82,6 +82,14 @@ const Login = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (inCorrectCredentials) {
+      setTimeout(() => {
+        setInCorrectCredentials(false);
+      }, 3000);
+    }
+  }, [inCorrectCredentials]);
+
   const formik = useFormik({
     initialValues: {
       userid: "",
@@ -98,7 +106,7 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       if (
-        (values?.userid).toLowerCase() === "sensyonadmin" &&
+        values?.userid === "sensyonadmin" &&
         values?.password === "sensyon@2023#"
       ) {
         let payload = {
@@ -146,11 +154,13 @@ const Login = () => {
                     <form onSubmit={formik.handleSubmit}>
                       <div className={welcomeSection}>
                         <p className={welcomeContent}>Sign In</p>
-                        {inCorrectCredentials && (
-                          <div className={incorrectCredential}>
-                            Incorrect User Credentials
-                          </div>
-                        )}
+                        {formik.values.userid &&
+                          formik.values.password &&
+                          inCorrectCredentials && (
+                            <div className={incorrectCredential}>
+                              Incorrect User Credentials
+                            </div>
+                          )}
                       </div>
 
                       <div>

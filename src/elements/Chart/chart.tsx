@@ -20,6 +20,7 @@ const Chart: React.FC<any> = (props) => {
     tooltip,
     tickInterval,
     xAxisFontSize,
+    pageName,
   } = props;
 
   const [toolTipBg, setToolTipBg] = useState<string>();
@@ -191,14 +192,24 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          categories: lastTwntyTwoHours,
+          categories:
+            pageName === "FleetManagement"
+              ? ["06/14", "06/15", "06/16", "06/17", "06/18", "06/19", "06/20"]
+              : lastTwntyTwoHours,
           tickInterval: is4kDevice
             ? (is4kDevice && location.pathname === "/energyManagement") ||
               (is4kDevice && location.pathname === "/security") ||
-              (is4kDevice && location.pathname === "/lighting")
-              ? 8
+              (is4kDevice && location.pathname === "/lighting") ||
+              (is4kDevice && location.pathname === "/fleetManagement")
+              ? pageName === "FleetManagement"
+                ? graphType === "area" || graphType === "spline"
+                  ? 2
+                  : 1
+                : 8
               : 12
-            : tickInterval ? tickInterval : 8,
+            : tickInterval
+            ? tickInterval
+            : 8,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -211,7 +222,11 @@ const Chart: React.FC<any> = (props) => {
             useHTML: true,
             overflow: "justify",
             style: {
-              fontSize: is4kDevice ? "30px" : xAxisFontSize ? xAxisFontSize : "10px",
+              fontSize: is4kDevice
+                ? "30px"
+                : xAxisFontSize
+                ? xAxisFontSize
+                : "10px",
               color: "white",
             },
           },
