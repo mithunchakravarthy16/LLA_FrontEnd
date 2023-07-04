@@ -122,6 +122,7 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
+    borderRight: "1px solid #333333",
     borderBottom: "1px solid #333333",
     height: "100%",
   }),
@@ -235,6 +236,35 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
+    },
+  }),
+  screenFiveGraphTitleStyle: (props: any) => ({
+    fontSize: "16px",
+    display: "flex",
+    columnGap: "30px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 22,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
 });

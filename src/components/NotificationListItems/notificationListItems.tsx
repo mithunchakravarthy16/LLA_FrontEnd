@@ -22,6 +22,7 @@ const NotificationListItems = (props: any) => {
       currentTimeStamp,
       equipment,
       subTitle,
+      location,
       assetId,
       trackerId,
     },
@@ -169,7 +170,11 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
             )}
             <div className={expandedListItemRow2}>
-              {category === "parking" ? `Vehicle LPN : ${entity}` : `${entity}`}{" "}
+              {category === "parking"
+                ? `Vehicle LPN : ${entity}`
+                : category === "fleet"
+                ? `Lat:${location?.lat}, Lng:${location?.lng}`
+                : `${entity}`}{" "}
             </div>
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}
