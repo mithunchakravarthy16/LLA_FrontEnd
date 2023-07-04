@@ -80,6 +80,7 @@ const Map: React.FC<any> = (props) => {
     focusedCategory,
     mapPageName,
     setIsMarkerClicked,
+    tabIndex,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -116,6 +117,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 924px)",
         is4kDevice: true,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 3071) {
       setSelectedContainerStyle({
@@ -125,6 +127,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 1049px)",
         is4kDevice: false,
+        is3kDevice: true,
       });
     } else if (window.innerHeight > 1279) {
       setSelectedContainerStyle({
@@ -135,6 +138,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 572px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 2047) {
       setSelectedContainerStyle({
@@ -145,6 +149,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 522px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
       setSelectedContainerStyle({
@@ -155,6 +160,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 522px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
       setSelectedContainerStyle({
@@ -165,6 +171,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 494px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1599) {
       setSelectedContainerStyle({
@@ -175,6 +182,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 432px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
       setSelectedContainerStyle({
@@ -185,6 +193,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 452px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1439) {
       setSelectedContainerStyle({
@@ -195,6 +204,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 424px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerHeight > 1049) {
       setSelectedContainerStyle({
@@ -205,6 +215,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 499px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1359) {
       setSelectedContainerStyle({
@@ -215,6 +226,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 390px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1343) {
       setSelectedContainerStyle({
@@ -225,6 +237,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 424px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerHeight > 959) {
       setSelectedContainerStyle({
@@ -235,6 +248,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 474px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerHeight > 863) {
       setSelectedContainerStyle({
@@ -245,6 +259,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 408px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerHeight > 719) {
       setSelectedContainerStyle({
@@ -255,6 +270,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 356px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerHeight > 1023) {
       setSelectedContainerStyle({
@@ -265,6 +281,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 474px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerHeight > 599) {
       setSelectedContainerStyle({
@@ -275,6 +292,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 313px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1279) {
       setSelectedContainerStyle({
@@ -286,6 +304,7 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 378px)",
 
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
       setSelectedContainerStyle({
@@ -296,6 +315,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 378px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 1023) {
       setSelectedContainerStyle({
@@ -307,6 +327,7 @@ const Map: React.FC<any> = (props) => {
             : "calc(100vh - 294px)",
 
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else if (window.innerWidth > 767) {
       setSelectedContainerStyle({
@@ -317,6 +338,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 353px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     } else {
       setSelectedContainerStyle({
@@ -327,6 +349,7 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : "calc(100vh - 400px)",
         is4kDevice: false,
+        is3kDevice: false,
       });
     }
   }, [window.innerWidth, window.innerHeight]);
@@ -338,8 +361,17 @@ const Map: React.FC<any> = (props) => {
   }, [marker]);
 
   useEffect(() => {
-    setSelectedListItemSource(selectedMarker?.source);
-    setSelectedListItemDestination(selectedMarker?.destination);
+    if (selectedMarker) {
+      setSelectedListItemSource(selectedMarker?.source);
+      setSelectedListItemDestination(selectedMarker?.destination);
+    } else {
+      setProgress([]);
+      setPoints([]);
+      setData([]);
+      setSelectedMarker("");
+      setSelectedListItemSource("");
+      setSelectedListItemDestination("");
+    }
   }, [selectedMarker]);
 
   useEffect(() => {
@@ -526,6 +558,15 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
   };
 
+  useEffect(() => {
+    setProgress([]);
+    setPoints([]);
+    setData([]);
+    setSelectedMarker("");
+    setSelectedListItemSource("");
+    setSelectedListItemDestination("");
+  }, [tabIndex]);
+
   // Moving Marker code
 
   const calculatePath = () => {
@@ -676,6 +717,8 @@ const Map: React.FC<any> = (props) => {
           zoom={
             selectedContainerStyle?.is4kDevice
               ? 16.2
+              : selectedContainerStyle?.is3kDevice
+              ? 16.4
               : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
@@ -701,6 +744,7 @@ const Map: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
                         clusterer={clusterer}
+                        location={singleMarker?.location}
                       />
                     </>
                   );
@@ -747,6 +791,7 @@ const Map: React.FC<any> = (props) => {
                           currentMarker={selectedMarker}
                           focusedCategory={focusedCategory}
                           location={progress[progress.length - 1]}
+                          direction={"NE"}
                           pageName={"FleetManagement"}
                         />
                       )}

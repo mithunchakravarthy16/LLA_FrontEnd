@@ -2,8 +2,8 @@
 
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
-import {useDispatch, useSelector} from "react-redux";
-import { getNotificationData} from "redux/actions/getAllAssertNotificationAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
 import theme from "../../theme/theme";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
@@ -63,12 +63,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    let payload:any = {};
-    dispatch(getNotificationData(payload))
-  },[])
+  useEffect(() => {
+    let payload: any = {};
+    dispatch(getNotificationData(payload));
+  }, []);
 
-  const assetNotificationResponse = useSelector((state:any)=>state.assetNotification.assetNotificationData);
+  const assetNotificationResponse = useSelector(
+    (state: any) => state.assetNotification.assetNotificationData
+  );
   const dashboardArray = dashboardList?.dashboard;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
@@ -125,12 +127,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
-  useEffect(()=>{
-    if(searchOpen && isMarkerClicked) {
+  useEffect(() => {
+    if (searchOpen && isMarkerClicked) {
       setSearchOpen(false);
       setSearchValue(dashboardData);
     }
-  },[isMarkerClicked, searchOpen, dashboardData])
+  }, [isMarkerClicked, searchOpen, dashboardData]);
 
   return (
     <>
@@ -146,6 +148,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           focusedCategory={focusedCategory}
           mapPageName={"dashboard"}
           setIsMarkerClicked={setIsMarkerClicked}
+          tabIndex={tabIndex}
         />
       </div>
       <img

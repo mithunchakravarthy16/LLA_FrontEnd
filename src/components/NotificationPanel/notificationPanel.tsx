@@ -28,7 +28,7 @@ const NotificationPanel = (props: any) => {
     notificationPageName,
     setParkingLotIndex,
     setParkingLotSelectionActive,
-    isMarkerClicked
+    isMarkerClicked,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(

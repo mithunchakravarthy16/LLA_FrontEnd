@@ -5,6 +5,8 @@ import Grid from "@mui/material/Grid";
 import Button from "elements/Button";
 import theme from "../../theme/theme";
 import CloseIcon from "../../assets/markers/closeIcon.svg";
+import VideoIcon from "../../assets/videoIcon.svg";
+import FleetManagementCloseIcon from "../../assets/fleetManagementCloseIcon.svg";
 import useStyles from "./styles";
 
 const NotificationListItems = (props: any) => {
@@ -25,6 +27,8 @@ const NotificationListItems = (props: any) => {
       location,
       assetId,
       trackerId,
+      vehicleId,
+      tripId,
     },
     handleExpandListItem,
     selectedNotification,
@@ -71,6 +75,8 @@ const NotificationListItems = (props: any) => {
     buttonStyle,
     markerCloseIcon,
     listItemCallout,
+    defaultListItem,
+    markerCloseIcon1,
   } = useStyles({ ...appTheme, pageName: pageName });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -138,6 +144,88 @@ const NotificationListItems = (props: any) => {
                   {trackerId && trackerId} {assetId && ` | ${assetId}`}
                 </div>
                 <div className={timeStampStyle}>{currentTimeStamp}</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  if (category === "fleet") {
+    return (
+      <>
+        <div
+          className={rootContainer}
+          onClick={() => handleExpandListItem(id)}
+          ref={refs && refs[id]}
+        >
+          {selectedNotification === id || pageName === "markerCallout" ? (
+            <div className={expandedListItems}>
+              {pageName === "markerCallout" ? (
+                <>
+                  <div className={markerCloseIcon1} onClick={handleMarkerClose}>
+                    <img
+                      src={FleetManagementCloseIcon}
+                      width={selectedWidth?.is4kDevice ? 20 : 10}
+                      height={selectedWidth?.is4kDevice ? 20 : 10}
+                    />
+                  </div>
+                  <div className={listItemCallout}>
+                    <div className={listItemTitle}>{title}</div>
+                    <div className={markerCloseIcon}>
+                      <img
+                        src={VideoIcon}
+                        width={selectedWidth?.is4kDevice ? 55 : 20}
+                        height={selectedWidth?.is4kDevice ? 55 : 20}
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className={defaultListItem}>
+                  <div className={listItemTitle}>{title}</div>
+                  <div>
+                    <img
+                      src={VideoIcon}
+                      width={selectedWidth?.is4kDevice ? 55 : 20}
+                      height={selectedWidth?.is4kDevice ? 55 : 20}
+                    />
+                  </div>
+                </div>
+              )}
+              <div className={expandedListItemRow2}>
+                {`Lat:${location?.lat}, Lng:${location?.lng}`}
+              </div>
+              <div className={expandedListItemRow3}>
+                {`Vehicle#${vehicleId} | Driver-Mike Ross | Trip#${tripId}`}
+              </div>
+              <div className={expandedListItemRow4}>
+                <div className={buttonStyle}>
+                  <Button variant="contained" handleClick={() => null}>
+                    {"View Details"}
+                  </Button>
+                </div>
+                <div className={timeStampStyle}>{"06-12-2023 | 9:00 AM"}</div>
+              </div>
+            </div>
+          ) : (
+            <div className={collapsedListItems}>
+              <div className={defaultListItem}>
+                <div className={listItemTitle}>{title}</div>
+                <div className={markerCloseIcon}>
+                  <img
+                    src={VideoIcon}
+                    width={selectedWidth?.is4kDevice ? 55 : 20}
+                    height={selectedWidth?.is4kDevice ? 55 : 20}
+                  />
+                </div>
+              </div>
+              <div className={collapsedlistItemRow2}>
+                <div className={listItemSubTitle}>
+                  {`Vehicle#${vehicleId} , Driver-${assetId}`}
+                </div>
+                <div className={timeStampStyle}>{"06-12-2023 | 9:00 AM"}</div>
               </div>
             </div>
           )}
