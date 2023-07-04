@@ -216,7 +216,11 @@ const FleetManagement: React.FC<any> = (props) => {
     }
   }, []);
 
-  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(true);
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+
+  const handleViewDetails = () => {
+    setShowInfoDialogue(true);
+  };
 
   return (
     <>
@@ -540,6 +544,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      handleViewDetails={handleViewDetails}
                     />
                   </Grid>
                 </Grid>
@@ -558,21 +563,16 @@ const FleetManagement: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  handleViewDetails={handleViewDetails}
                 />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      {
-        
-        showInfoDialogue && (
-          <InfoDialogFleetManagement
-            setShowInfoDialogue={setShowInfoDialogue}
-           
-          />
-        )
-      }
+      {showInfoDialogue && (
+        <InfoDialogFleetManagement setShowInfoDialogue={setShowInfoDialogue} />
+      )}
     </>
   );
 };

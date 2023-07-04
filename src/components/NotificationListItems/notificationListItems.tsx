@@ -35,6 +35,7 @@ const NotificationListItems = (props: any) => {
     refs,
     pageName,
     handleMarkerClose,
+    handleViewDetails,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -202,7 +203,7 @@ const NotificationListItems = (props: any) => {
               </div>
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
-                  <Button variant="contained" handleClick={() => null}>
+                  <Button variant="contained" handleClick={handleViewDetails}>
                     {"View Details"}
                   </Button>
                 </div>
