@@ -110,6 +110,8 @@ const Parking: React.FC<any> = (props) => {
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
 
   const dashboardArray = securityData?.notifications?.security;
   let currentTimeStampValue;
@@ -401,6 +403,7 @@ const Parking: React.FC<any> = (props) => {
                       setTabIndex={setTabIndex}
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
+                      setIsMarkerClicked={setIsMarkerClicked}
                     />
                   </Grid>
                 </Grid>

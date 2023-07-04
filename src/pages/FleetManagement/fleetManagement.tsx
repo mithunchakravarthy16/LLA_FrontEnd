@@ -108,7 +108,8 @@ const FleetManagement: React.FC<any> = (props) => {
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
-
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  
   const dashboardArray = parkingData?.notifications?.fleetData;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
@@ -410,6 +411,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       setTabIndex={setTabIndex}
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
+                      setIsMarkerClicked={setIsMarkerClicked}
                     />
                   </Grid>
                 </Grid>

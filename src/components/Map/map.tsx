@@ -9,6 +9,8 @@ import {
   Marker,
   OverlayViewF,
   InfoWindowF,
+  MarkerClusterer,
+  MarkerClustererF
 } from "@react-google-maps/api";
 import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
@@ -61,7 +63,7 @@ const center = {
   lng: -105.00357749556102,
 };
 
-const libraries = ["places", "drawing"];
+const libraries =  ["places", "drawing"];
 
 const Map: React.FC<any> = (props) => {
   const location = useLocation();
@@ -76,6 +78,7 @@ const Map: React.FC<any> = (props) => {
     setCurrentMarker,
     focusedCategory,
     mapPageName,
+    setIsMarkerClicked
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -90,7 +93,7 @@ const Map: React.FC<any> = (props) => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
-    libraries: libraries
+    libraries: libraries,
   });
 
   useEffect(() => {
@@ -101,8 +104,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 1048px)",
-        marginTop: mapPageName === "dashboard" ? "0px" : "48px",
+            : "calc(100vh - 924px)",
         is4kDevice: true,
       });
     } else if (window.innerWidth > 3071) {
@@ -112,7 +114,6 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 1049px)",
-
         is4kDevice: false,
       });
     } else if (window.innerHeight > 1279) {
@@ -123,7 +124,6 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 572px)",
-        marginTop: mapPageName === "dashboard" ? "0px" : "24px",
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2047) {
@@ -321,7 +321,6 @@ const Map: React.FC<any> = (props) => {
     }
   }, [window.innerWidth, window.innerHeight]);
 
-
   useEffect(() => {
     setCurrentMarker(marker);
   }, [marker]);
@@ -366,10 +365,10 @@ const Map: React.FC<any> = (props) => {
 
   const getMarkerIcon = (
     category: string,
-    notificationType: string,
+    notificationCategory: string,
     id: string
   ) => {
-    switch (notificationType) {
+    switch (notificationCategory) {
       case "event": {
         switch (category) {
           case "parking":
@@ -393,7 +392,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
-            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            return  currentMarker === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
         }
@@ -421,6 +421,7 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
             return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
@@ -450,6 +451,7 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
+            // return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
             return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
@@ -472,6 +474,7 @@ const Map: React.FC<any> = (props) => {
   };
 
   const toggleInfoWindow = (markerId: string, type: string, location: any) => {
+    setIsMarkerClicked(true)
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
@@ -490,6 +493,7 @@ const Map: React.FC<any> = (props) => {
 
   const handleMarkerClose = () => {
     setSelectedNotification("");
+    setIsMarkerClicked(false)
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
     // setNotificationPanelActive(false);
@@ -517,8 +521,11 @@ const Map: React.FC<any> = (props) => {
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
         >
+          <MarkerClustererF >
+            {(clusterer:any)=>(
+            <div>
           {markers?.map((singleMarker: any) => {
-            if (!window.google) return null;
+            // if (!window.google) return null;
             return (
               <>
                 <MapMarker
@@ -529,10 +536,14 @@ const Map: React.FC<any> = (props) => {
                   getMarkerIcon={getMarkerIcon}
                   currentMarker={currentMarker}
                   focusedCategory={focusedCategory}
+                  clusterer={clusterer}
                 />
               </>
             );
           })}
+          </div>
+          )}
+          </MarkerClustererF>
         </GoogleMap>
       )}
     </>

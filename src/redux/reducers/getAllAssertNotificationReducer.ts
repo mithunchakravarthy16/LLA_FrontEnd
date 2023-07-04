@@ -1,4 +1,4 @@
-import assetNotification from "redux/actions/assetNotificationAction";
+import assetNotification from "redux/actions/getAllAssertNotificationAction";
 
 const initialState ={
     assetNotificationData : {}
