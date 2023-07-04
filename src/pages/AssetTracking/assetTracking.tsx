@@ -24,7 +24,10 @@ import assetTrackingData from "../../mockdata/assetTrackingData";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import {useDispatch, useSelector} from "react-redux";
-import { getNotificationData} from "redux/actions/assetNotificationAction";
+import { getNotificationData} from "redux/actions/getAllAssertNotificationAction";
+import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
+import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
+import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -78,28 +81,44 @@ const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    let payload:any = {};
-    dispatch(getNotificationData(payload))
+    let notificationPayload:any = {};
+    dispatch(getNotificationData(notificationPayload))
+
+    let activeInactiveTrackerPayload:any = {};
+    dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload))
+
+    let incidentCountPayload:any ={};
+    dispatch(getAssetIncidentCount(incidentCountPayload));
+
+    let overallAssetDetailPayload :any ={};
+    dispatch(getOverallTrackerDetail(overallAssetDetailPayload))
   },[])
 
-  const assetNotificationResponse = useSelector((state:any)=>state.assetNotification.assetNotificationData);
 
-  const assetNotificationList = assetNotificationResponse.notifications;
+
+  const assetNotificationResponse = useSelector((state:any)=>state?.assetNotification?.assetNotificationData);
+  const assetNotificationList = assetNotificationResponse?.notifications;
+
+  const assetTrackerData = useSelector((state:any)=>state?.assetActiveInactiveTracker?.assetTrackerData);
+
+  const assetIncidentCount = useSelector((state:any)=>state?.assetIncidentCount?.assetIncidentCountValue);
+
+  const overallAssetDetails = useSelector((state:any)=>state?.assetOverallTrackerDetails?.overallTrackerDetail);
 
   useEffect(() => {
     const { events, incidents, alerts } = assetNotificationList;
     const combinedNotifications: any = [];
 
     events?.eventsList?.forEach((event: any, index: number) => {
-      combinedNotifications.push({ ...event, category : "asset", title : event?.reason, id : event?.notificationId });
+      combinedNotifications.push({ ...event, category : "asset", title : event?.reason, id : event?.assetNotificationId });
     });
 
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
-      combinedNotifications.push({ ...incidents, category : "asset", title : incidents?.reason, id : incidents?.notificationId  });
+      combinedNotifications.push({ ...incidents, category : "asset", title : incidents?.reason, id : incidents?.assetNotificationId  });
     });
 
     alerts?.alertList?.forEach((alerts: any, index: number) => {
-      combinedNotifications.push({ ...alerts, category : "asset", title : alerts?.reason, id : alerts?.notificationId  });
+      combinedNotifications.push({ ...alerts, category : "asset", title : alerts?.reason, id : alerts?.assetNotificationId  });
     });
 
     const dataValue: any = combinedNotifications?.map(
@@ -113,22 +132,22 @@ const AssetTracking: React.FC<any> = (props) => {
   const topPanelListItems: any[] = [
     {
       icon: AssetTrackedIcon,
-      value: assetTrackingData?.infoData?.assetTracked,
+      value: overallAssetDetails?.assetTrackedCount,
       name: "Asset Tracked",
     },
     {
       icon: LocationIcon,
-      value: assetTrackingData?.infoData?.location,
+      value: overallAssetDetails?.locationChangeCount,
       name: "Location",
     },
     {
       icon: OutOfGeofenceIcon,
-      value: assetTrackingData?.infoData?.outOfGeofence,
+      value: overallAssetDetails?.outOfGeofenceCount,
       name: "Out of Geofence",
     },
     {
       icon: IncidentIcon,
-      value: assetTrackingData?.infoData?.securityIncident,
+      value: overallAssetDetails?.incidientCount,
       name: "Security Incident",
     },
   ];
@@ -147,6 +166,9 @@ const AssetTracking: React.FC<any> = (props) => {
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
+
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
 
   const [notificationCount, setNotificationCount] = useState<any>(
     [assetNotificationList?.events?.totalCount,
@@ -205,7 +227,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={70}
+                          percent={overallAssetDetails?.activeTrackerPercentage}
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
@@ -359,6 +381,8 @@ const AssetTracking: React.FC<any> = (props) => {
                       setTabIndex={setTabIndex}
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
+                      setIsMarkerClicked={setIsMarkerClicked}
+
                     />
                   </Grid>
                 </Grid>

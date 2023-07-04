@@ -10,6 +10,8 @@ import {
   PolylineF,
   InfoWindowF,
   MarkerF,
+  MarkerClusterer,
+  MarkerClustererF,
 } from "@react-google-maps/api";
 import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
@@ -77,6 +79,7 @@ const Map: React.FC<any> = (props) => {
     setCurrentMarker,
     focusedCategory,
     mapPageName,
+    setIsMarkerClicked,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -111,8 +114,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 1048px)",
-        marginTop: mapPageName === "dashboard" ? "0px" : "48px",
+            : "calc(100vh - 924px)",
         is4kDevice: true,
       });
     } else if (window.innerWidth > 3071) {
@@ -122,7 +124,6 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 1049px)",
-
         is4kDevice: false,
       });
     } else if (window.innerHeight > 1279) {
@@ -133,7 +134,6 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : "calc(100vh - 572px)",
-        marginTop: mapPageName === "dashboard" ? "0px" : "24px",
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2047) {
@@ -382,10 +382,10 @@ const Map: React.FC<any> = (props) => {
 
   const getMarkerIcon = (
     category: string,
-    notificationType: string,
+    notificationCategory: string,
     id: string
   ) => {
-    switch (notificationType) {
+    switch (notificationCategory) {
       case "event": {
         console.log("category", category);
         switch (category) {
@@ -410,6 +410,7 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
             return currentMarker === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
@@ -438,6 +439,7 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
             return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
@@ -467,6 +469,7 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
+            // return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
             return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
@@ -489,6 +492,7 @@ const Map: React.FC<any> = (props) => {
   };
 
   const toggleInfoWindow = (markerId: string, type: string, location: any) => {
+    setIsMarkerClicked(true);
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
@@ -507,6 +511,7 @@ const Map: React.FC<any> = (props) => {
 
   const handleMarkerClose = () => {
     setSelectedNotification("");
+    setIsMarkerClicked(false);
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
     setProgress([]);
@@ -680,67 +685,77 @@ const Map: React.FC<any> = (props) => {
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
         >
-          {markers?.map((singleMarker: any) => {
-            if (!window.google) return null;
-            return (
-              <>
-                <MapMarker
-                  mapMarker={singleMarker}
-                  toggleInfoWindow={toggleInfoWindow}
-                  handleMarkerClose={handleMarkerClose}
-                  handleExpandListItem={handleExpandListItem}
-                  getMarkerIcon={getMarkerIcon}
-                  currentMarker={currentMarker}
-                  focusedCategory={focusedCategory}
-                />
-              </>
-            );
-          })}
+          <MarkerClustererF>
+            {(clusterer: any) => (
+              <div>
+                {markers?.map((singleMarker: any) => {
+                  // if (!window.google) return null;
+                  return (
+                    <>
+                      <MapMarker
+                        mapMarker={singleMarker}
+                        toggleInfoWindow={toggleInfoWindow}
+                        handleMarkerClose={handleMarkerClose}
+                        handleExpandListItem={handleExpandListItem}
+                        getMarkerIcon={getMarkerIcon}
+                        currentMarker={currentMarker}
+                        focusedCategory={focusedCategory}
+                        clusterer={clusterer}
+                      />
+                    </>
+                  );
+                })}
 
-          {points && points.length > 0 && (
-            <PolylineF
-              path={points}
-              options={{
-                strokeColor: "#976C9E",
-                strokeOpacity: 10,
-                strokeWeight: 0,
-                icons: [
-                  {
-                    icon: lineSymbol,
-                    offset: "0",
-                    repeat: "20px",
-                  },
-                ],
-              }}
-            />
-          )}
+                {points && points.length > 0 && (
+                  <PolylineF
+                    path={points}
+                    options={{
+                      strokeColor: "#976C9E",
+                      strokeOpacity: 10,
+                      strokeWeight: 0,
+                      icons: [
+                        {
+                          icon: lineSymbol,
+                          offset: "0",
+                          repeat: "20px",
+                        },
+                      ],
+                    }}
+                  />
+                )}
 
-          {points && points?.length > 0 && progress && progress?.length > 0 && (
-            <>
-              <PolylineF
-                path={progress}
-                options={{
-                  strokeColor: "#73B35A",
-                  strokeOpacity: 10,
-                  strokeWeight: 4,
-                }}
-              />
-              {selectedMarker && (
-                <MapMarker
-                  mapMarker={selectedMarker}
-                  toggleInfoWindow={toggleInfoWindow}
-                  handleMarkerClose={handleMarkerClose}
-                  handleExpandListItem={handleExpandListItem}
-                  getMarkerIcon={getMarkerIcon}
-                  currentMarker={selectedMarker}
-                  focusedCategory={focusedCategory}
-                  location={progress[progress.length - 1]}
-                  pageName={"FleetManagement"}
-                />
-              )}
-              {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
-            </>
-          )}
+                {points &&
+                  points?.length > 0 &&
+                  progress &&
+                  progress?.length > 0 && (
+                    <>
+                      <PolylineF
+                        path={progress}
+                        options={{
+                          strokeColor: "#73B35A",
+                          strokeOpacity: 10,
+                          strokeWeight: 4,
+                        }}
+                      />
+                      {selectedMarker && (
+                        <MapMarker
+                          mapMarker={selectedMarker}
+                          toggleInfoWindow={toggleInfoWindow}
+                          handleMarkerClose={handleMarkerClose}
+                          handleExpandListItem={handleExpandListItem}
+                          getMarkerIcon={getMarkerIcon}
+                          currentMarker={selectedMarker}
+                          focusedCategory={focusedCategory}
+                          location={progress[progress.length - 1]}
+                          pageName={"FleetManagement"}
+                        />
+                      )}
+                      {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
+                    </>
+                  )}
+              </div>
+            )}
+          </MarkerClustererF>
         </GoogleMap>
       )}
     </>

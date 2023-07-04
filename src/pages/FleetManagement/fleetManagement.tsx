@@ -167,7 +167,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
-
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
@@ -534,6 +534,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       setTabIndex={setTabIndex}
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
+                      setIsMarkerClicked={setIsMarkerClicked}
                     />
                   </Grid>
                 </Grid>

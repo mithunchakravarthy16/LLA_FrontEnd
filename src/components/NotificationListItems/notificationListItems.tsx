@@ -23,6 +23,8 @@ const NotificationListItems = (props: any) => {
       equipment,
       subTitle,
       location,
+      assetId,
+      trackerId,
     },
     handleExpandListItem,
     selectedNotification,
@@ -113,10 +115,9 @@ const NotificationListItems = (props: any) => {
               ) : (
                 <div className={listItemTitle}>{title}</div>
               )}
-              <div className={expandedListItemRow2}></div>
+              <div className={expandedListItemRow2}>{area}</div>
               <div className={expandedListItemRow3}>
-                {equipment && `${equipment} | `}
-                {subTitle ? subTitle : area}
+                {trackerId && trackerId} {assetId && ` | ${assetId}`}
               </div>
               {venue && <div className={expandedListItemRow3}>{venue}</div>}
 
@@ -134,8 +135,7 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
               <div className={collapsedlistItemRow2}>
                 <div className={listItemSubTitle}>
-                  {equipment && `${equipment} | `}
-                  {subTitle ? subTitle : area}
+                  {trackerId && trackerId} {assetId && ` | ${assetId}`}
                 </div>
                 <div className={timeStampStyle}>{currentTimeStamp}</div>
               </div>
