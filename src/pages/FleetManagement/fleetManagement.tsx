@@ -24,6 +24,7 @@ import Chart from "elements/Chart";
 import theme from "../../theme/theme";
 import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
+import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 
 const FleetManagement: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -212,6 +213,8 @@ const FleetManagement: React.FC<any> = (props) => {
       });
     }
   }, []);
+
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(true);
 
   return (
     <>
@@ -559,6 +562,15 @@ const FleetManagement: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      {
+        
+        showInfoDialogue && (
+          <InfoDialogFleetManagement
+            setShowInfoDialogue={setShowInfoDialogue}
+           
+          />
+        )
+      }
     </>
   );
 };
