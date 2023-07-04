@@ -46,7 +46,11 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogAssetTracking: React.FC<any> = (props) => {
-  const { setIsInfoWindowActive, packageData } = props;
+  const {
+    setIsInfoWindowActive,
+    packageData,
+    infoWindowNotificationListItems,
+  } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -64,6 +68,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     leftPanelLoopSection,
     leftPanelChild1,
     leftPanelChild2,
+    notificationListContainer,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -115,15 +120,18 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     { label: "Assets ID", value: 12 },
   ];
 
-  const assetCenterLeftSectionData = [{ label: "Section", value: "Sec 01" },
-  { label: "Storage Location", value: "C17#456" },
-  { label: "Tracker Status", value: "Active" },
-  { label: "Geofence", value: "With in Geofence" },];
+  const assetCenterLeftSectionData = [
+    { label: "Section", value: "Sec 01" },
+    { label: "Storage Location", value: "C17#456" },
+    { label: "Tracker Status", value: "Active" },
+    { label: "Geofence", value: "With in Geofence" },
+  ];
 
   const assetCenterRightSectionData = [
-  { label: "Battery", value: "83%" },
-  { label: "Temperature", value: "24°C" },
-  { label: "Humidity", value: "96%" },];
+    { label: "Battery", value: "83%" },
+    { label: "Temperature", value: "24°C" },
+    { label: "Humidity", value: "96%" },
+  ];
 
   return (
     <>
@@ -165,11 +173,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
               <Grid container xs={12}>
                 <Grid
                   container
-                  xs={9}
+                  xs={8.7}
                   className={assetInfoLeftPanelMain}
-                  // style={{
-                  //   flexDirection: "column",
-                  // }}
+                  style={{
+                    marginRight: "2%",
+                  }}
                 >
                   <Grid className={assetInfoLeftPanelTop}>
                     <div>
@@ -190,37 +198,98 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     </div>
                   </Grid>
                   <Grid className={assetInfoLeftPanelCenter}>
-                    <div style={{width : "40%"}}>
-                      {assetCenterLeftSectionData?.map((data:any, index:any)=>{
-                        return(
-                          <div key={index} style={{display : "flex", justifyContent:"space-between", width : "100%",  lineHeight : "50px"}}>
-                            <div style={{width : "50%", color:"#808080"}}>{data?.label}</div>
-                            <div style={{width : "50%"}}>{data?.value}</div>
-                          </div>
-                        )
-                      })}
+                    <div style={{ width: "40%" }}>
+                      {assetCenterLeftSectionData?.map(
+                        (data: any, index: any) => {
+                          return (
+                            <div
+                              key={index}
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                width: "100%",
+                                lineHeight: "50px",
+                              }}
+                            >
+                              <div style={{ width: "50%", color: "#808080" }}>
+                                {data?.label}
+                              </div>
+                              <div style={{ width: "50%" }}>{data?.value}</div>
+                            </div>
+                          );
+                        }
+                      )}
                     </div>
-                    <div style={{ borderRight: `1px dashed #808080`, // Specify your desired color and border style
-      opacity: "0.5",}}></div>
-                    <div style={{width : "40%"}}>
-                      {assetCenterRightSectionData?.map((data:any, index:any)=>{
-                        return(
-                          <div key={index} style={{display : "flex", justifyContent:"space-between",  width : "100%", lineHeight : "50px"}}>
-                            <div style={{width : "50%", color:"#808080"}}>{data?.label}</div>
-                            <div style={{width : "50%"}}>{data?.value}</div>
-                          </div>
-                        )
-                      })}
+                    <div
+                      style={{
+                        borderRight: `1px dashed #808080`, // Specify your desired color and border style
+                        opacity: "0.5",
+                      }}
+                    ></div>
+                    <div style={{ width: "40%" }}>
+                      {assetCenterRightSectionData?.map(
+                        (data: any, index: any) => {
+                          return (
+                            <div
+                              key={index}
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                width: "100%",
+                                lineHeight: "50px",
+                              }}
+                            >
+                              <div style={{ width: "50%", color: "#808080" }}>
+                                {data?.label}
+                              </div>
+                              <div style={{ width: "50%" }}>{data?.value}</div>
+                            </div>
+                          );
+                        }
+                      )}
                     </div>
                   </Grid>
                   <Grid className={assetInfoLeftPanelBottom}>
-                    <CustomizedSteppers
-                      packagaeData={packageData}
-                    />
+                    <CustomizedSteppers packagaeData={packageData} />
                   </Grid>
                 </Grid>
                 <Grid item xs={3} className={assetInfoRightPanelMain}>
-                  Right
+                  <Grid item xs={12} className={notificationListContainer}>
+                    <Grid container xs={12} rowGap={1.5}>
+                      {infoWindowNotificationListItems &&
+                        infoWindowNotificationListItems?.length > 0 &&
+                        infoWindowNotificationListItems?.map((item: any) => (
+                          <Grid
+                            item
+                            xs={12}
+                            display="flex"
+                            direction="column"
+                            rowGap={2}
+                            style={{
+                              padding: "5% 4%",
+                              border: "1px solid #333333",
+                              borderRadius: "5px",
+                              background: "#131313",
+                            }}
+                          >
+                            <div style={{ fontSize: "18px" }}>
+                              {item?.title}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: "12px",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                fontStyle: "italic",
+                              }}
+                            >
+                              <div>{item?.details} </div>
+                              <div>{item?.timeStamp}</div>
+                            </div>
+                          </Grid>
+                        ))}
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

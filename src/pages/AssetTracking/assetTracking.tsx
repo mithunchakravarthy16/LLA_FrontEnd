@@ -227,46 +227,120 @@ const AssetTracking: React.FC<any> = (props) => {
   }, []);
 
   const handleAssetInfoWindow = () => {
-    setIsInfoWindowActive(true)
-  }
+    setIsInfoWindowActive(true);
+  };
 
   const packageData = [
     {
-        "id": "1",
-        "packageStage": "Equipment Arrived",
-        "timeStamp": "06-20-2023 9.00AM",
-        "status": "Completed"
+      id: "1",
+      packageStage: "Equipment Arrived",
+      timeStamp: "06-20-2023 9.00AM",
+      status: "Completed",
     },
     {
-        "id": "2",
-        "packageStage": "Initial Scan",
-        "timeStamp": "06-20-2023 10.30AM",
-        "status": "Completed"
+      id: "2",
+      packageStage: "Initial Scan",
+      timeStamp: "06-20-2023 10.30AM",
+      status: "Completed",
     },
     {
-        "id": "3",
-        "packageStage": "Inbound Staging & Tagging",
-        "timeStamp": "06-20-2023 12.30PM",
-        "status": "In progress"
+      id: "3",
+      packageStage: "Inbound Staging & Tagging",
+      timeStamp: "06-20-2023 12.30PM",
+      status: "In progress",
     },
     {
-        "id": "4",
-        "packageStage": "Allocated Space",
-        "timeStamp": "06-20-2023 1.30PM",
-        "status": "In progress"
-    }, {
-      "id": "5",
-      "packageStage": "Tracking Active",
-      "timeStamp": "06-20-2023 3.00PM",
-      "status": "Completed"
-  },
-  {
-      "id": "6",
-      "packageStage": "1411 Wynkoop St, Zone 1, LLA BUILDING",
-      "timeStamp": "06-23-2023 04.30PM",
-      "status": "Completed"
-  },
-]
+      id: "4",
+      packageStage: "Allocated Space",
+      timeStamp: "06-20-2023 1.30PM",
+      status: "In progress",
+    },
+    {
+      id: "5",
+      packageStage: "Tracking Active",
+      timeStamp: "06-20-2023 3.00PM",
+      status: "Completed",
+    },
+    {
+      id: "6",
+      packageStage: "1411 Wynkoop St, Zone 1, LLA BUILDING",
+      timeStamp: "06-23-2023 04.30PM",
+      status: "Completed",
+    },
+  ];
+
+  const infoWindowNotificationListItems: any[] = [
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+  ];
 
   return (
     <>
@@ -452,9 +526,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
                     />
-                   
                   </Grid>
-                 
                 </Grid>
               </Grid>
               <Grid item xs={3} className={notificationPanelGrid}>
@@ -477,7 +549,13 @@ const AssetTracking: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
-      { isInfoWindowActive && <InfoDialogAssetTracking setIsInfoWindowActive={setIsInfoWindowActive} packageData={packageData}/>}
+      {isInfoWindowActive && (
+        <InfoDialogAssetTracking
+          setIsInfoWindowActive={setIsInfoWindowActive}
+          packageData={packageData}
+          infoWindowNotificationListItems={infoWindowNotificationListItems}
+        />
+      )}
     </>
   );
 };

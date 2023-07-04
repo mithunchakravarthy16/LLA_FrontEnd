@@ -18,6 +18,7 @@ const MapMarker: React.FC<any> = (props) => {
     location,
     pageName,
     clusterer,
+    handleViewDetails,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -71,6 +72,7 @@ const MapMarker: React.FC<any> = (props) => {
               pageName={"markerCallout"}
               handleMarkerClose={handleMarkerClose}
               handleExpandListItem={handleExpandListItem}
+              handleViewDetails={handleViewDetails}
             />
           </InfoWindowF>
         )}

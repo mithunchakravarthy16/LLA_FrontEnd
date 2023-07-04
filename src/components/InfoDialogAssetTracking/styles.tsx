@@ -14,12 +14,12 @@ const useStyles = makeStyles(() => ({
 
   headerTabContainerStyle: (props: any) => ({
     display: "flex",
-    width: "25%",
+    width: "21%",
     justifyContent: "space-between",
     alignItems: "center",
     // marginLeft: "20px",
     fontSize: "1em",
-    fontWeight: 500,
+    fontWeight: 600,
     letterSpacing: "0.75px",
   }),
 
@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
     background: "#090A0C",
     borderRadius: "10px",
     padding: "2%",
-    width: "100%"
+    width: "100%",
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
     // flex: 1
@@ -58,14 +58,13 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flex: "1",
     justifyContent: "space-between",
-    margin : "3% 0"
+    margin: "3% 0",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     // flex: 1,
     // padding: "5%",
-    width : "100%"
+    width: "100%",
   }),
-  assetInfoRightPanelMain: (props: any) => ({}),
   leftPanelSection: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
@@ -75,7 +74,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     position: "relative",
-    flex : 1,
+    flex: 1,
     "&::after": {
       content: '""',
       position: "absolute",
@@ -85,7 +84,7 @@ const useStyles = makeStyles(() => ({
       borderRight: `1px dashed #808080`, // Specify your desired color and border style
       opacity: "0.5",
     },
-    "&:last-child" : {
+    "&:last-child": {
       "&::after": {
         content: '""',
         position: "absolute",
@@ -95,10 +94,24 @@ const useStyles = makeStyles(() => ({
         borderRight: "none", // Specify your desired color and border style
         opacity: "0.4",
       },
-    }
+    },
   }),
   leftPanelChild1: (props: any) => ({}),
   leftPanelChild2: (props: any) => ({ color: "#F26522" }),
+  assetInfoRightPanelMain: (props: any) => ({
+    height: "calc(100vh  - 205px)",
+    border: "1px solid rgb(51, 51, 51)",
+    padding: "1%",
+    background: "rgb(22, 21, 21)",
+  }),
+  notificationListContainer: (props: any) => ({
+    height: "100%",
+    overflowY: "auto",
+
+    "&::-webkit-scrollbar": {
+      width: 0,
+    },
+  }),
 }));
 
 export default useStyles;

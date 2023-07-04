@@ -5,10 +5,17 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
-
+import {
+  CoTwoCloudIcon,
+  VocCloudIcon,
+  AirQualityIcon,
+  PersonIcon,
+} from "../../assets/topPanelListIcons";
 import { CloseIcon } from "../../assets/fleetInfoDialogueIcons";
 
 import useStyles from "./styles";
+import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
+import FleetInfoDialogueViolationContainer from "components/FleetInfoDialogueViolationContainer";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -21,8 +28,9 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     marginTop: "0px !important",
   },
   "& .MuiPaper-root": {
-    maxHeight: "calc(100% - 150px)",
-    minHeight: "calc(100% - 150px)",
+    // maxHeight: "calc(100% - 150px)",
+    // minHeight: "calc(100% - 150px)",
+    height: "80vh",
     width: "70vw",
     maxWidth: "1772px",
     background: `#1A1919 !important`,
@@ -51,8 +59,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
-  const { headerStyle, headerTabContainerStyle, headerTabStyle } =
-    useStyles({...appTheme, tabIndex: tabIndex});
+  const { headerStyle, headerTabContainerStyle, headerTabStyle, violationListContainer } = useStyles({
+    ...appTheme,
+    tabIndex: tabIndex,
+  });
 
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -71,8 +81,6 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         break;
     }
   }, [selectedTheme]);
-
-  
 
   const [open, setOpen] = useState(!false);
 
@@ -96,24 +104,73 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     setTabIndex(index);
   };
 
+  const topPanelListItems: any[] = [
+    {
+      icon: CoTwoCloudIcon,
+      value: "04",
+      name: "Stops",
+      title: "Stops",
+    },
+    {
+      icon: VocCloudIcon,
+      value: "30%",
+      name: "Trip Completion",
+      title: "Trip Completion",
+    },
+    {
+      icon: AirQualityIcon,
+      value: "100Km",
+      name: "Distance Covered",
+      title: "Distance Covered",
+    },
+    {
+      icon: AirQualityIcon,
+      value: "1Hr",
+      name: "Total Time",
+      title: "Total Time",
+    },
+    {
+      icon: PersonIcon,
+      value: "10",
+      name: "Violations",
+      title: "Violations",
+    },
+  ];
+
+  const violationListItems: any[] = [
+    {      
+      title: "Over Speeding",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {      
+      title: "Harsh Breaking",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {      
+      title: "Harsh Acceleration",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {      
+      title: "Cornering",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {      
+      title: "Cornering",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {      
+      title: "Harsh Acceleration",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {      
+      title: "Over Speeding",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+  ];
+
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        <div className={headerStyle}>
-          <div className={headerTabContainerStyle}>
-            {tabsList?.map((item: any) => (
-              <div
-                className={headerTabStyle}
-                style={{color: tabIndex ===  item?.val ? "#F2601F" : "#5F5F5F"}}
-                onClick={() => {
-                  handleHeaderTab(item?.val);
-                }}
-              >
-                {item?.name}
-              </div>
-            ))}
-          </div>
-        </div>
         <div>
           <IconButton
             aria-label="close"
@@ -125,19 +182,63 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               color: "#fff",
             }}
           >
-            <img width={10} height={10} src={CloseIcon} />
+            <img width={20} height={20} src={CloseIcon} />
           </IconButton>
         </div>
 
-        <Grid container xs={12}>
-            <Grid item xs={12}>Status Bar</Grid>
-            <Grid item xs={12}>
-              <Grid container xs={12}>
-                <Grid item xs={2}>Route Details</Grid>
-                <Grid item xs={7}>Google Map</Grid>
-                <Grid item xs={3}>Violation</Grid>
+        <Grid container xs={12} style={{ height: "100%" }}>
+          <Grid item xs={12} className={headerStyle}>
+            <Grid container xs={4} className={headerTabContainerStyle}>
+              {tabsList?.map((item: any) => (
+                <Grid
+                  item
+                  className={headerTabStyle}
+                  style={{
+                    color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
+                  }}
+                  onClick={() => {
+                    handleHeaderTab(item?.val);
+                  }}
+                >
+                  {item?.name}
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item xs={12} style={{ height: "10%" }}>
+            <TopPanelListItemContainerInfoDialogue
+              topPanelListItems={topPanelListItems}
+              percent={60}
+              strokeWidth={10}
+              trailWidth={10}
+              strokeColor="#92C07E"
+              trailColor="#484D52"
+              title={"Safety Score"}
+              pageName={"fleetInfoDialogue"}
+              horizontalProgressBarTitlePosition={"down"}
+            />
+          </Grid>
+          <Grid item xs={12} style={{ height: "80%", paddingTop: "1%" }}>
+            <Grid container xs={12} style={{ height: "100%" }}>
+              <Grid
+                item
+                xs={2}
+                style={{ height: "100%", border: "1px solid #333333" }}
+              >
+                Route Details
+              </Grid>
+              <Grid item xs={7} style={{ height: "100%", padding: "0 0.5%"}}>
+                <Grid style={{ height: "100%", border: "1px solid #333333" }} item xs={12}>Google Map</Grid>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                style={{ height: "100%", border: "1px solid #333333", padding: "1%", background: "#161515" }}
+              >
+                <FleetInfoDialogueViolationContainer violationListItems={violationListItems}/>
               </Grid>
             </Grid>
+          </Grid>
         </Grid>
       </DialogWrapper>
     </>

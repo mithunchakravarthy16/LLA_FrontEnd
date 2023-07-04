@@ -29,6 +29,7 @@ const NotificationPanel = (props: any) => {
     setParkingLotIndex,
     setParkingLotSelectionActive,
     isMarkerClicked,
+    handleViewDetails,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -263,6 +264,7 @@ const NotificationPanel = (props: any) => {
                   handleExpandListItem={handleExpandListItem}
                   selectedNotification={selectedNotification}
                   refs={refs}
+                  handleViewDetails={handleViewDetails}
                 />
               );
             })
