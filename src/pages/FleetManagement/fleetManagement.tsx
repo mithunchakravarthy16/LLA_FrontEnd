@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import {
   TotalDistanceIcon,
@@ -18,10 +19,10 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
-import parkingData from "../../mockdata/fleetManagementData";
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
+import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 
 const FleetManagement: React.FC<any> = (props) => {
@@ -71,7 +72,68 @@ const FleetManagement: React.FC<any> = (props) => {
     aqiCircleStyle,
     graphTwoHeader,
     electricity,
+    screenFiveGraphTitleStyle,
   } = useStyles(appTheme);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let payload: any = {};
+    dispatch(getFleetManagementNotificationData(payload));
+  }, []);
+
+  const fleetManagementNotificationResponse = useSelector(
+    (state: any) =>
+      state.fleetManagementNotification.fleetManagementNotificationData
+  );
+
+  console.log(
+    "fleetManagementNotificationResponse",
+    fleetManagementNotificationResponse
+  );
+  const [notificationArray, setNotificationArray] = useState<any>([]);
+
+  const fleetManagementNotificationList =
+    fleetManagementNotificationResponse.notifications;
+
+  useEffect(() => {
+    const { events, incidents, alerts } = fleetManagementNotificationList;
+    const combinedNotifications: any = [];
+
+    events?.eventsList?.forEach((event: any, index: number) => {
+      combinedNotifications.push({
+        ...event,
+        category: "fleet",
+        title: event?.reason,
+        id: event?.notificationId,
+      });
+    });
+
+    incidents?.incidentList?.forEach((incidents: any, index: number) => {
+      combinedNotifications.push({
+        ...incidents,
+        category: "fleet",
+        title: incidents?.reason,
+        id: incidents?.notificationId,
+      });
+    });
+
+    alerts?.alertList?.forEach((alerts: any, index: number) => {
+      combinedNotifications.push({
+        ...alerts,
+        category: "fleet",
+        title: alerts?.reason,
+        id: alerts?.notificationId,
+      });
+    });
+
+    const dataValue: any = combinedNotifications?.map(
+      (value: any, index: number) => {
+        return { ...value, index: index + 1 };
+      }
+    );
+    setNotificationArray(dataValue);
+  }, [fleetManagementNotificationList]);
 
   const topPanelListItems: any[] = [
     {
@@ -110,52 +172,30 @@ const FleetManagement: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-  const dashboardArray = parkingData?.notifications?.fleetData;
-  let currentTimeStampValue;
-  let timeArrayNew: any = [];
-  for (let i = 0; i < dashboardArray?.length; i++) {
-    currentTimeStampValue = moment()
-      .subtract({
-        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
-        minutes: i + 59,
-        seconds: i + 49,
-      })
-      .format("MM-DD-YYYY | h:mm A");
-    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
-  }
-
-  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
-    Object.assign({}, item, dashboardArray[i])
-  );
-
   const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
-  const [notificationCount, setNotificationCount] = useState<any>(
-    formatttedDashboardNotificationCount(dashboardDataList)
-  );
+  const [notificationCount, setNotificationCount] = useState<any>([
+    fleetManagementNotificationList?.events?.totalCount,
+    fleetManagementNotificationList?.incidents?.totalCount,
+    fleetManagementNotificationList?.alerts?.totalCount,
+  ]);
+
+  const [selectedWidth, setSelectedWidth] = useState<any>();
 
   useEffect(() => {
     setDashboardData(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedDashboardNotification(notificationArray, tabIndex)
     );
     setSearchValue(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedDashboardNotification(notificationArray, tabIndex)
     );
-  }, [tabIndex]);
-
-  useEffect(() => {
-    setNotificationCount(
-      formatttedDashboardNotificationCount(dashboardDataList)
-    );
-  }, [dashboardData]);
-
-  const [selectedWidth, setSelectedWidth] = useState<any>();
+  }, [notificationArray, tabIndex]);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -245,6 +285,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                       isCrosshair={true}
                                       crossHairLineColor={"#6B70AB90"}
                                       is4kDevice={selectedWidth?.is4kDevice}
+                                      pageName={"FleetManagement"}
                                       dataPoints={[
                                         {
                                           marker: {
@@ -280,10 +321,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                               ],
                                             ],
                                           },
-                                          data: [
-                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          ],
+                                          data: [1, 4, 3, 5, 4, 6, 8],
                                         },
                                       ]}
                                     />
@@ -330,7 +368,7 @@ const FleetManagement: React.FC<any> = (props) => {
                               </Grid>
                             </Grid>
                           </Grid>
-                          <Grid item xs={6} className={graphTwoContainer}>
+                          <Grid item xs={3} className={graphTwoContainer}>
                             <Grid
                               container
                               xs={12}
@@ -340,38 +378,39 @@ const FleetManagement: React.FC<any> = (props) => {
                               }}
                             >
                               <Grid item xs={12} className={graphTwoHeader}>
-                                Air Quality Index
+                                Distance Travelled
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Chart
                                   width={selectedWidth?.width1}
                                   height={selectedWidth?.height1}
-                                  graphType={"areaspline"}
+                                  graphType={"area"}
                                   isVisible={true}
                                   units={""}
                                   isCrosshair={true}
-                                  crossHairLineColor={"#50A02890"}
+                                  crossHairLineColor={"#712C7D90"}
                                   is4kDevice={selectedWidth?.is4kDevice}
+                                  pageName={"FleetManagement"}
                                   dataPoints={[
                                     {
                                       marker: {
                                         enabled: false,
                                       },
-                                      lineColor: "#50A02890",
-                                      color: "#50A028",
+                                      lineColor: "#712C7D90",
+                                      color: "#712C7D",
                                       lineWidth: 2,
                                       fillColor: {
                                         linearGradient: [0, 0, 0, 200],
                                         stops: [
                                           [
                                             0,
-                                            Highcharts.color("#50A028")
+                                            Highcharts.color("#712C7D")
                                               .setOpacity(0.5)
                                               .get("rgba"),
                                           ],
                                           [
                                             0.5,
-                                            Highcharts.color("#50A028")
+                                            Highcharts.color("#712C7D")
                                               .setOpacity(0.3)
                                               .get("rgba"),
                                           ],
@@ -379,7 +418,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                             1,
                                             Highcharts.color(
                                               selectedWidth?.is4kDevice
-                                                ? "#50A028"
+                                                ? "#712C7D"
                                                 : "#000000"
                                             )
                                               .setOpacity(0.05)
@@ -387,10 +426,98 @@ const FleetManagement: React.FC<any> = (props) => {
                                           ],
                                         ],
                                       },
-                                      data: [
-                                        1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6,
-                                        4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                      ],
+                                      data: [1, 4, 3, 5, 4, 6, 8],
+                                    },
+                                  ]}
+                                />
+                              </Grid>
+                              <Grid />
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={3} className={graphTwoContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid
+                                item
+                                xs={12}
+                                className={screenFiveGraphTitleStyle}
+                                style={{ height: "10%" }}
+                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    columnGap: "6px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "18px",
+                                      height: "18px",
+                                      borderRadius: "50%",
+                                      backgroundColor: "#73B35A",
+                                      marginRight: 6,
+                                    }}
+                                  ></div>
+                                  <div>Drive Hrs</div>
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    columnGap: "6px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "18px",
+                                      height: "18px",
+                                      borderRadius: "50%",
+                                      backgroundColor: "#6B70AB",
+                                      marginRight: 6,
+                                    }}
+                                  ></div>
+                                  <div>Idle Hrs</div>
+                                </div>
+                              </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Chart
+                                  width={selectedWidth?.width}
+                                  height={selectedWidth?.height}
+                                  isVisible={true}
+                                  graphType={"spline"}
+                                  units={"Hrs"}
+                                  isCrosshair={true}
+                                  crossHairLineColor={"#E5FAF6"}
+                                  is4kDevice={selectedWidth?.is4kDevice}
+                                  tooltip={"shared"}
+                                  pageName={"FleetManagement"}
+                                  dataPoints={[
+                                    {
+                                      marker: {
+                                        enabled: false,
+                                      },
+                                      lineColor: "#73B35A",
+                                      color: "#73B35A",
+                                      lineWidth: 2,
+                                      data: [0, 1, 6, 6, 9, 5, 5],
+                                    },
+                                    {
+                                      marker: {
+                                        enabled: false,
+                                      },
+                                      lineColor: "#6B70AB",
+                                      color: "#6B70AB",
+                                      lineWidth: 2,
+                                      data: [1, 4, 3, 5, 4, 2, 8],
                                     },
                                   ]}
                                 />
@@ -404,7 +531,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
                     <Map
-                      markers={dashboardDataList}
+                      markers={notificationArray}
                       setNotificationPanelActive={setNotificationPanelActive}
                       setSelectedNotification={setSelectedNotification}
                       marker={selectedNotification}
