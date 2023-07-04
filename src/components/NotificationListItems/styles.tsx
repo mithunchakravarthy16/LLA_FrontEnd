@@ -292,5 +292,19 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     alignItems: "center",
   }),
+  defaultListItem: (props: any) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  }),
+  markerCloseIcon1: (props: any) => ({
+    margin: "4px 0px 0px 0px",
+    padding: "0px 0px 0px 5px",
+    fontFamily: "HelveticaNeue-Regular",
+    position: "relative",
+    top: "-13px",
+    display: "flex",
+    justifyContent: "end",
+  }),
 });
 export default useStyles;

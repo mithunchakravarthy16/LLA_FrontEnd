@@ -99,42 +99,44 @@ const FleetManagement: React.FC<any> = (props) => {
     fleetManagementNotificationResponse.notifications;
 
   useEffect(() => {
-    const { events, incidents, alerts } = fleetManagementNotificationList;
-    const combinedNotifications: any = [];
+    if (fleetManagementNotificationList) {
+      const { events, incidents, alerts } = fleetManagementNotificationList;
+      const combinedNotifications: any = [];
 
-    events?.eventsList?.forEach((event: any, index: number) => {
-      combinedNotifications.push({
-        ...event,
-        category: "fleet",
-        title: event?.reason,
-        id: event?.notificationId,
+      events?.eventsList?.forEach((event: any, index: number) => {
+        combinedNotifications.push({
+          ...event,
+          category: "fleet",
+          title: event?.reason,
+          id: event?.notificationId,
+        });
       });
-    });
 
-    incidents?.incidentList?.forEach((incidents: any, index: number) => {
-      combinedNotifications.push({
-        ...incidents,
-        category: "fleet",
-        title: incidents?.reason,
-        id: incidents?.notificationId,
+      incidents?.incidentList?.forEach((incidents: any, index: number) => {
+        combinedNotifications.push({
+          ...incidents,
+          category: "fleet",
+          title: incidents?.reason,
+          id: incidents?.notificationId,
+        });
       });
-    });
 
-    alerts?.alertList?.forEach((alerts: any, index: number) => {
-      combinedNotifications.push({
-        ...alerts,
-        category: "fleet",
-        title: alerts?.reason,
-        id: alerts?.notificationId,
+      alerts?.alertList?.forEach((alerts: any, index: number) => {
+        combinedNotifications.push({
+          ...alerts,
+          category: "fleet",
+          title: alerts?.reason,
+          id: alerts?.notificationId,
+        });
       });
-    });
 
-    const dataValue: any = combinedNotifications?.map(
-      (value: any, index: number) => {
-        return { ...value, index: index + 1 };
-      }
-    );
-    setNotificationArray(dataValue);
+      const dataValue: any = combinedNotifications?.map(
+        (value: any, index: number) => {
+          return { ...value, index: index + 1 };
+        }
+      );
+      setNotificationArray(dataValue);
+    }
   }, [fleetManagementNotificationList]);
 
   const topPanelListItems: any[] = [
@@ -183,9 +185,9 @@ const FleetManagement: React.FC<any> = (props) => {
   );
 
   const [notificationCount, setNotificationCount] = useState<any>([
-    fleetManagementNotificationList?.events?.totalCount,
-    fleetManagementNotificationList?.incidents?.totalCount,
-    fleetManagementNotificationList?.alerts?.totalCount,
+    fleetManagementNotificationList?.events?.eventsList?.length,
+    fleetManagementNotificationList?.incidents?.incidentList?.length,
+    fleetManagementNotificationList?.alerts?.alertList?.length,
   ]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -380,7 +382,11 @@ const FleetManagement: React.FC<any> = (props) => {
     }
   }, []);
 
-  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(true);
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+
+  const handleViewDetails = () => {
+    setShowInfoDialogue(true);
+  };
 
   return (
     <>
@@ -694,6 +700,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      handleViewDetails={handleViewDetails}
                     />
                   </Grid>
                 </Grid>
@@ -712,21 +719,16 @@ const FleetManagement: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  handleViewDetails={handleViewDetails}
                 />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      {
-        
-        showInfoDialogue && (
-          <InfoDialogFleetManagement
-            setShowInfoDialogue={setShowInfoDialogue}
-           
-          />
-        )
-      }
+      {showInfoDialogue && (
+        <InfoDialogFleetManagement setShowInfoDialogue={setShowInfoDialogue} />
+      )}
     </>
   );
 };
