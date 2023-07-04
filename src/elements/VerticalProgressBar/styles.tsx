@@ -34,9 +34,10 @@ const useStyles = makeStyles({
   }),
 
   progressBarTitle: (props: any) => ({
-    padding: "0 0 5px 5px",
+    padding: props?.pageName && props?.pageName === "fleetInfoDialogue" ? "5px 0 0 5px" : "0 0 5px 5px",
     fontSize: "14px",
-    marginBottom: 4,
+    color: props?.pageName && props?.pageName === "fleetInfoDialogue" ? "#909090" : "unset",
+    marginBottom: props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "48px",

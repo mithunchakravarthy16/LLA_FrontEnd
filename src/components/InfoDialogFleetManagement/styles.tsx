@@ -9,17 +9,15 @@ const useStyles = makeStyles(() => ({
     // lineHeight: "27px",
     // textTransform: "uppercase",
     display: "flex",
-    marginBottom: 30,
+    height: "10%",
   }),
 
   headerTabContainerStyle: (props: any) => ({
     display: "flex",
-    width: "40%",
     justifyContent: "space-between",
     alignItems: "center",
     marginLeft: "20px",
-    fontSize: "1em",
-    
+    fontSize: "20px",
   }),
 
   headerTabStyle: (props: any) => ({
@@ -33,12 +31,16 @@ const useStyles = makeStyles(() => ({
     // [`&:not(:nth-child(${parseInt(props?.tabIndex)+1}))`]: {
     //   color: "#5F5F5F",
     // },
-
   }),
 
-  
+  violationListContainer: (props: any) => ({
+    height: "95%",
+    overflowY: "auto",
 
-  
+    "&::-webkit-scrollbar": {
+      width: 0,
+    },
+  }),
 }));
 
 export default useStyles;
