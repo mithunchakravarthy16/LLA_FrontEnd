@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
     background: "#161515",
-    height: "100vh",
+    // height: "100vh",
   }),
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
-      height: "calc(100vh - 124px)",
+      height: "calc(100vh - 123px)",
     },
     [muiTheme.breakpoints.down(3073)]: {
       width: "calc(100vw - 200px) !important",
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: "calc(100vw - 100px) !important",
-      height: "calc(100vh - 60px)",
+      height: "calc(100vh - 59px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       width: "calc(100vw - 80px) !important",
