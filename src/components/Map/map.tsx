@@ -63,6 +63,8 @@ const center = {
   lng: -105.00357749556102,
 };
 
+const libraries =  ["places", "drawing"];
+
 const Map: React.FC<any> = (props) => {
   const location = useLocation();
 
@@ -76,6 +78,7 @@ const Map: React.FC<any> = (props) => {
     setCurrentMarker,
     focusedCategory,
     mapPageName,
+    setIsMarkerClicked
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -90,7 +93,7 @@ const Map: React.FC<any> = (props) => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
-    libraries: ["places", "drawing"],
+    libraries: libraries,
   });
 
   useEffect(() => {
@@ -471,6 +474,7 @@ const Map: React.FC<any> = (props) => {
   };
 
   const toggleInfoWindow = (markerId: string, type: string, location: any) => {
+    setIsMarkerClicked(true)
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
@@ -489,6 +493,7 @@ const Map: React.FC<any> = (props) => {
 
   const handleMarkerClose = () => {
     setSelectedNotification("");
+    setIsMarkerClicked(false)
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
     // setNotificationPanelActive(false);

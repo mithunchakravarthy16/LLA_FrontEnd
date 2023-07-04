@@ -167,6 +167,9 @@ const AssetTracking: React.FC<any> = (props) => {
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
+
   const [notificationCount, setNotificationCount] = useState<any>(
     [assetNotificationList?.events?.totalCount,
       assetNotificationList?.incidents?.totalCount,
@@ -378,6 +381,8 @@ const AssetTracking: React.FC<any> = (props) => {
                       setTabIndex={setTabIndex}
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
+                      setIsMarkerClicked={setIsMarkerClicked}
+
                     />
                   </Grid>
                 </Grid>

@@ -49,6 +49,8 @@ const Parking: React.FC<any> = (props) => {
   const [parkingLotSelectionActive, setParkingLotSelectionActive] =
     useState<boolean>(false);
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -683,6 +685,8 @@ const Parking: React.FC<any> = (props) => {
                         setTabIndex={setTabIndex}
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
+                        setIsMarkerClicked={setIsMarkerClicked}
+
                       />
                     ) : (
                       <div className={lotImageStyle}>

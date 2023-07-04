@@ -36,6 +36,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [currentMarker, setCurrentMarker] = useState<any>("");
   const [currentOpenedCard, setCurrentOpenedCard] = useState<any>("");
   const [focusedCategory, setFocusedCategory] = useState<any>("");
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -105,6 +106,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setSearchValue(
       formatttedDashboardNotification(dashboardDataList, tabIndex)
     );
+    setSearchOpen(false);
   }, [tabIndex]);
 
   useEffect(() => {
@@ -123,6 +125,13 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
+  useEffect(()=>{
+    if(searchOpen && isMarkerClicked) {
+      setSearchOpen(false);
+      setSearchValue(dashboardData);
+    }
+  },[isMarkerClicked, searchOpen, dashboardData])
+
   return (
     <>
       <div className={dashboardRightPanelStyle}>
@@ -136,6 +145,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           setCurrentMarker={setCurrentMarker}
           focusedCategory={focusedCategory}
           mapPageName={"dashboard"}
+          setIsMarkerClicked={setIsMarkerClicked}
         />
       </div>
       <img
@@ -168,6 +178,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             setSearchValue={setSearchValue}
             setCurrentMarker={setCurrentMarker}
             notificationPageName={"dashboard"}
+            isMarkerClicked={isMarkerClicked}
           />
         </div>
       )}

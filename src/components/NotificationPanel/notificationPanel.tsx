@@ -28,6 +28,7 @@ const NotificationPanel = (props: any) => {
     notificationPageName,
     setParkingLotIndex,
     setParkingLotSelectionActive,
+    isMarkerClicked
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -152,10 +153,13 @@ const NotificationPanel = (props: any) => {
   const handleCloseIcon = () => {
     setSearchValue(dashboardData);
     setSelectedNotification("");
+    setSearchOpen(false);
   };
 
   const handleSearchCloseIcon = () => {
     setSearchOpen(false);
+    setSearchValue(dashboardData);
+    setSelectedNotification("");
   };
 
   const refs =
