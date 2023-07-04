@@ -23,11 +23,12 @@ import {
 import assetTrackingData from "../../mockdata/assetTrackingData";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
-import {useDispatch, useSelector} from "react-redux";
-import { getNotificationData} from "redux/actions/getAllAssertNotificationAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
+import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -75,50 +76,71 @@ const AssetTracking: React.FC<any> = (props) => {
     graphOneChartStyle,
     graphTwoContainerStyle,
     graphTwoChartStyle,
-    geofenceIconStyle
+    geofenceIconStyle,
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    let notificationPayload:any = {};
-    dispatch(getNotificationData(notificationPayload))
+  useEffect(() => {
+    let notificationPayload: any = {};
+    dispatch(getNotificationData(notificationPayload));
 
-    let activeInactiveTrackerPayload:any = {};
-    dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload))
+    let activeInactiveTrackerPayload: any = {};
+    dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload));
 
-    let incidentCountPayload:any ={};
+    let incidentCountPayload: any = {};
     dispatch(getAssetIncidentCount(incidentCountPayload));
 
-    let overallAssetDetailPayload :any ={};
-    dispatch(getOverallTrackerDetail(overallAssetDetailPayload))
-  },[])
+    let overallAssetDetailPayload: any = {};
+    dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
+  }, []);
 
-
-
-  const assetNotificationResponse = useSelector((state:any)=>state?.assetNotification?.assetNotificationData);
+  const assetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetNotificationData
+  );
   const assetNotificationList = assetNotificationResponse?.notifications;
 
-  const assetTrackerData = useSelector((state:any)=>state?.assetActiveInactiveTracker?.assetTrackerData);
+  const assetTrackerData = useSelector(
+    (state: any) => state?.assetActiveInactiveTracker?.assetTrackerData
+  );
 
-  const assetIncidentCount = useSelector((state:any)=>state?.assetIncidentCount?.assetIncidentCountValue);
+  const assetIncidentCount = useSelector(
+    (state: any) => state?.assetIncidentCount?.assetIncidentCountValue
+  );
 
-  const overallAssetDetails = useSelector((state:any)=>state?.assetOverallTrackerDetails?.overallTrackerDetail);
+  const overallAssetDetails = useSelector(
+    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
+  );
 
   useEffect(() => {
     const { events, incidents, alerts } = assetNotificationList;
     const combinedNotifications: any = [];
 
     events?.eventsList?.forEach((event: any, index: number) => {
-      combinedNotifications.push({ ...event, category : "asset", title : event?.reason, id : event?.assetNotificationId });
+      combinedNotifications.push({
+        ...event,
+        category: "asset",
+        title: event?.reason,
+        id: event?.assetNotificationId,
+      });
     });
 
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
-      combinedNotifications.push({ ...incidents, category : "asset", title : incidents?.reason, id : incidents?.assetNotificationId  });
+      combinedNotifications.push({
+        ...incidents,
+        category: "asset",
+        title: incidents?.reason,
+        id: incidents?.assetNotificationId,
+      });
     });
 
     alerts?.alertList?.forEach((alerts: any, index: number) => {
-      combinedNotifications.push({ ...alerts, category : "asset", title : alerts?.reason, id : alerts?.assetNotificationId  });
+      combinedNotifications.push({
+        ...alerts,
+        category: "asset",
+        title: alerts?.reason,
+        id: alerts?.assetNotificationId,
+      });
     });
 
     const dataValue: any = combinedNotifications?.map(
@@ -126,7 +148,7 @@ const AssetTracking: React.FC<any> = (props) => {
         return { ...value, index: index + 1 };
       }
     );
-    setNotificationArray(dataValue)
+    setNotificationArray(dataValue);
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
@@ -159,7 +181,7 @@ const AssetTracking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-    const [searchValue, setSearchValue] = useState<any>(
+  const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
@@ -169,18 +191,20 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
+  const [notificationCount, setNotificationCount] = useState<any>([
+    assetNotificationList?.events?.totalCount,
+    assetNotificationList?.incidents?.totalCount,
+    assetNotificationList?.alerts?.totalCount,
+  ]);
 
-  const [notificationCount, setNotificationCount] = useState<any>(
-    [assetNotificationList?.events?.totalCount,
-      assetNotificationList?.incidents?.totalCount,
-      assetNotificationList?.alerts?.totalCount]
-  );
+  const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
 
   useEffect(() => {
     setDashboardData(
       formatttedDashboardNotification(notificationArray, tabIndex)
     );
-    setSearchValue(formatttedDashboardNotification(notificationArray, tabIndex)
+    setSearchValue(
+      formatttedDashboardNotification(notificationArray, tabIndex)
     );
   }, [notificationArray, tabIndex]);
 
@@ -202,6 +226,47 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, []);
 
+  const handleAssetInfoWindow = () => {
+    setIsInfoWindowActive(true)
+  }
+
+  const packageData = [
+    {
+        "id": "1",
+        "packageStage": "Equipment Arrived",
+        "timeStamp": "06-20-2023 9.00AM",
+        "status": "Completed"
+    },
+    {
+        "id": "2",
+        "packageStage": "Initial Scan",
+        "timeStamp": "06-20-2023 10.30AM",
+        "status": "Completed"
+    },
+    {
+        "id": "3",
+        "packageStage": "Inbound Staging & Tagging",
+        "timeStamp": "06-20-2023 12.30PM",
+        "status": "In progress"
+    },
+    {
+        "id": "4",
+        "packageStage": "Allocated Space",
+        "timeStamp": "06-20-2023 1.30PM",
+        "status": "In progress"
+    }, {
+      "id": "5",
+      "packageStage": "Tracking Active",
+      "timeStamp": "06-20-2023 3.00PM",
+      "status": "Completed"
+  },
+  {
+      "id": "6",
+      "packageStage": "1411 Wynkoop St, Zone 1, LLA BUILDING",
+      "timeStamp": "06-23-2023 04.30PM",
+      "status": "Completed"
+  },
+]
 
   return (
     <>
@@ -368,10 +433,14 @@ const AssetTracking: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
+
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                  {/* <div className={geofenceIconStyle}> */}
-                              <img src={GeofenceIcon} className={geofenceIconStyle} alt="GeofenceIcon" />
-                  {/* </div> */}
+                    <img
+                      src={GeofenceIcon}
+                      className={geofenceIconStyle}
+                      alt="GeofenceIcon"
+                      onClick={handleAssetInfoWindow}
+                    />
 
                     <Map
                       markers={notificationArray}
@@ -382,9 +451,10 @@ const AssetTracking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
-
                     />
+                   
                   </Grid>
+                 
                 </Grid>
               </Grid>
               <Grid item xs={3} className={notificationPanelGrid}>
@@ -407,6 +477,7 @@ const AssetTracking: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      { isInfoWindowActive && <InfoDialogAssetTracking setIsInfoWindowActive={setIsInfoWindowActive} packageData={packageData}/>}
     </>
   );
 };

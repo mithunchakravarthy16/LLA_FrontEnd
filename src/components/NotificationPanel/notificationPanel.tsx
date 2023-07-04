@@ -28,7 +28,7 @@ const NotificationPanel = (props: any) => {
     notificationPageName,
     setParkingLotIndex,
     setParkingLotSelectionActive,
-    isMarkerClicked
+    isMarkerClicked,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -141,6 +141,24 @@ const NotificationPanel = (props: any) => {
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
         value?.area
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.subTitle
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.trackerId
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.assetId
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.entity
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.venue
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.equipment
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase())
       );
