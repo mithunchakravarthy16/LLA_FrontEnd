@@ -70,6 +70,14 @@ export const RootContainer = styled("div")`
     min-width: 350px;
     height: 300px;
   }
+  @media (max-width: 2049px) {
+    min-width: 280px;
+    height: 210px;
+  }
+  @media (max-width: 1921px) {
+    min-width: 260px;
+    height: 200px;
+  }
   @media (max-width: 1793px) {
     min-width: 240px;
     height: 186px;
