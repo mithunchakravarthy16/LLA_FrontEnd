@@ -51,6 +51,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
     lastweekBodyContainer,
     lastweekBodySubContainer,
     screenFiveGraphTitleStyle,
+    dotContainerStyle,
+    overspeedingDotStyle,
+    harshBreakingDotStyle,
   } = useStyles(appTheme);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -146,40 +149,12 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenFiveGraphTitleStyle}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            columnGap: "6px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "10px",
-                              height: "10px",
-                              borderRadius: "50%",
-                              backgroundColor: "#C39C66",
-                            }}
-                          ></div>
+                        <div className={dotContainerStyle}>
+                          <div className={overspeedingDotStyle}></div>
                           <div>Overspeeding</div>
                         </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            columnGap: "6px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "10px",
-                              height: "10px",
-                              borderRadius: "50%",
-                              backgroundColor: "#26428E",
-                            }}
-                          ></div>
+                        <div className={dotContainerStyle}>
+                          <div className={harshBreakingDotStyle}></div>
                           <div>Harsh Breaking</div>
                         </div>
                       </Grid>
@@ -303,7 +278,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         className={rightListItemStyle}
                       >
                         <div className={listItemValueStyle}>1237Km</div>
-                        <div className={listItemLabelStyle}>Total Distance</div>
+                        <div className={listItemLabelStyle}>
+                          <p>Total</p> <p>Distance</p>
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -313,7 +290,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>5Hrs</div>
                         <div className={listItemLabelStyle}>
-                          Total Idling Hours
+                          <p>Total</p> <p>Idling Hours</p>
                         </div>
                       </Grid>
                     </Grid>

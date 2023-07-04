@@ -133,19 +133,20 @@ const GridViewScreenSix: React.FC<any> = (props) => {
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>52</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Assets Tracked
+                  <p>Assets</p> <p>Tracked</p>
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
                 <div className={horizantalDataGridValueStyle}>30</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Location Changes
+                  <p>Location</p> <p>Changes</p>
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
                 <div className={horizantalDataGridValueStyle}>10</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  Out Of Geofence
+                  <p>Out Of</p>
+                  <p> Geofence</p>
                 </div>
               </div>
             </div>
