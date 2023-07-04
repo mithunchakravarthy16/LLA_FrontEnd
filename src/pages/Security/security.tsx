@@ -112,7 +112,6 @@ const Parking: React.FC<any> = (props) => {
   const [currentMarker, setCurrentMarker] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
-
   const dashboardArray = securityData?.notifications?.security;
   let currentTimeStampValue;
   let timeArrayNew: any = [];
@@ -183,6 +182,14 @@ const Parking: React.FC<any> = (props) => {
         height: 200,
         width1: 400,
         height1: 280,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 600,
+        height: 200,
+        width1: 250,
+        height1: 250,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {

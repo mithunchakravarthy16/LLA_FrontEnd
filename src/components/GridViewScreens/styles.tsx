@@ -748,7 +748,7 @@ const useStyles = makeStyles({
     textAlign: "center",
     rowGap: "10px",
     position: "relative",
-    padding: "0px 40px",
+    padding: "0px 10px",
     "&::after": {
       content: '""',
       position: "absolute",
