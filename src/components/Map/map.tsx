@@ -82,6 +82,7 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked,
     tabIndex,
     handleViewDetails,
+    handleAssetViewDetails
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -756,6 +757,7 @@ const Map: React.FC<any> = (props) => {
                         focusedCategory={focusedCategory}
                         clusterer={clusterer}
                         location={singleMarker?.location}
+                        handleAssetViewDetails={handleAssetViewDetails}
                       />
                     </>
                   );

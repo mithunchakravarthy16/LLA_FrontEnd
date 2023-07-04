@@ -226,7 +226,7 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, []);
 
-  const handleAssetInfoWindow = () => {
+  const handleAssetViewDetails = () => {
     setIsInfoWindowActive(true);
   };
 
@@ -513,7 +513,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       src={GeofenceIcon}
                       className={geofenceIconStyle}
                       alt="GeofenceIcon"
-                      onClick={handleAssetInfoWindow}
+                      // onClick={handleAssetInfoWindow}
                     />
 
                     <Map
@@ -525,6 +525,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      handleAssetViewDetails={handleAssetViewDetails}
                     />
                   </Grid>
                 </Grid>
@@ -543,6 +544,7 @@ const AssetTracking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  handleAssetViewDetails={handleAssetViewDetails}
                 />
               </Grid>
             </Grid>
