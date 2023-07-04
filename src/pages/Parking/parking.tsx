@@ -51,7 +51,6 @@ const Parking: React.FC<any> = (props) => {
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
-
   useEffect(() => {
     switch (selectedTheme) {
       case "light":
@@ -270,6 +269,15 @@ const Parking: React.FC<any> = (props) => {
         width1: 700,
         height1: 300,
         width2: 30,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+        width1: 600,
+        height1: 200,
+        width2: 20,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
@@ -686,7 +694,6 @@ const Parking: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
                         setIsMarkerClicked={setIsMarkerClicked}
-
                       />
                     ) : (
                       <div className={lotImageStyle}>

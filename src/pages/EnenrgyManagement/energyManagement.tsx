@@ -166,6 +166,12 @@ const Parking: React.FC<any> = (props) => {
         height: 230,
         is4kDevice: false,
       });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 580,
@@ -392,7 +398,6 @@ const Parking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
-
                     />
                   </Grid>
                 </Grid>

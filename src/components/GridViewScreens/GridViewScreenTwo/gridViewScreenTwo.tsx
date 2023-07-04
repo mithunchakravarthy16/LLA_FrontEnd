@@ -79,6 +79,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         height: 100,
         is4kDevice: false,
       });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 400,
+        height: 90,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 400,

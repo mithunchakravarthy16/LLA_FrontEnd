@@ -152,6 +152,16 @@ const Map: React.FC<any> = (props) => {
         is4kDevice: false,
         is3kDevice: false,
       });
+    } else if (window.innerHeight > 936) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 451px)",
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1791) {
       setSelectedContainerStyle({
         width: "100%",
@@ -291,7 +301,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 313px)",
+            : "calc(100vh - 286px)",
         is4kDevice: false,
         is3kDevice: false,
       });

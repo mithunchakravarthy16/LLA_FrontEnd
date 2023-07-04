@@ -74,6 +74,11 @@ const FleetManagement: React.FC<any> = (props) => {
     graphTwoHeader,
     electricity,
     screenFiveGraphTitleStyle,
+    graphContainerHeaderOne,
+    graphContainerHeaderTwo,
+    graphContainerHeaderThree,
+    driveDot,
+    driveDotOne,
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -199,20 +204,181 @@ const FleetManagement: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1000,
-        height: 500,
-        width1: 600,
+        width: 1200,
+        height: 480,
+        width1: 650,
         height1: 500,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 550,
-        height: 220,
-        width1: 550,
-        height1: 220,
-        is4kDevice: true,
+        width: 800,
+        height: 500,
+        width1: 480,
+        height1: 500,
+        is4kDevice: false,
       });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 690,
+        height: 230,
+        width1: 400,
+        height1: 230,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 560,
+        height: 270,
+        width1: 300,
+        height1: 270,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1919) {
+      setSelectedWidth({
+        width: 500,
+        height: 210,
+        width1: 250,
+        height1: 210,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 500,
+        height: 240,
+        width1: 250,
+        height1: 240,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedWidth({
+        width: 500,
+        height: 210,
+        width1: 250,
+        height1: 210,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 500,
+        height: 230,
+        width1: 250,
+        height1: 230,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 450,
+        height: 210,
+        width1: 225,
+        height1: 210,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1359) {
+      setSelectedWidth({
+        width: 370,
+        height: 180,
+        width1: 200,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 400,
+        height: 190,
+        width1: 200,
+        height1: 190,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 767) {
+      setSelectedWidth({
+        width: 300,
+        height: 160,
+        width1: 150,
+        height1: 160,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 599) {
+      setSelectedWidth({
+        width: 350,
+        height: 120,
+        width1: 200,
+        height1: 120,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 190,
+        width1: 200,
+        height1: 190,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 150,
+        width1: 175,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 130,
+        width1: 150,
+        height1: 130,
+        is4kDevice: false,
+      });
+      // else if (window.innerHeight > 1279) {
+      //   setSelectedWidth({
+      //     width: 600,
+      //     height: 260,
+      //     width1: 300,
+      //     height1: 260,
+      //     is4kDevice: false,
+      //   });
+      // }
+      //  else if (window.innerHeight > 1049) {
+      //   setSelectedWidth({
+      //     width: 550,
+      //     height: 220,
+      //     width1: 290,
+      //     height1: 220,
+      //     is4kDevice: false,
+      //   });
+      // } else if (window.innerHeight > 959) {
+      //   setSelectedWidth({
+      //     width: 350,
+      //     height: 220,
+      //     width1: 200,
+      //     height1: 220,
+      //     is4kDevice: false,
+      //   });
+      // } else if (window.innerHeight > 936) {
+      //   setSelectedWidth({
+      //     width: 500,
+      //     height: 180,
+      //     width1: 250,
+      //     height1: 180,
+      //     is4kDevice: false,
+      //   });
+      // } else if (window.innerHeight > 767) {
+      //   setSelectedWidth({
+      //     width: 300,
+      //     height: 160,
+      //     width1: 150,
+      //     height1: 160,
+      //     is4kDevice: false,
+      //   });
+      // } else if (window.innerHeight > 599) {
+      //   setSelectedWidth({
+      //     width: 350,
+      //     height: 120,
+      //     width1: 200,
+      //     height1: 120,
+      //     is4kDevice: false,
+      //   });
     }
   }, []);
 
@@ -263,18 +429,17 @@ const FleetManagement: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                padding: "10px 10px 5px 30px",
+                                position: "relative",
                               }}
                             >
+                              <Grid item xs={12} className={electricity}>
+                                Trips
+                              </Grid>
                               <Grid
                                 item
                                 xs={12}
-                                style={{ height: "10%" }}
-                                className={electricity}
+                                className={graphContainerHeaderOne}
                               >
-                                Trips
-                              </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid
                                   container
                                   xs={12}
@@ -379,13 +544,17 @@ const FleetManagement: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                padding: "10px 10px 5px 30px",
+                                position: "relative",
                               }}
                             >
                               <Grid item xs={12} className={graphTwoHeader}>
                                 Distance Travelled
                               </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
+                              <Grid
+                                item
+                                xs={12}
+                                className={graphContainerHeaderTwo}
+                              >
                                 <Chart
                                   width={selectedWidth?.width1}
                                   height={selectedWidth?.height1}
@@ -445,14 +614,13 @@ const FleetManagement: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                padding: "10px 10px 5px 30px",
+                                position: "relative",
                               }}
                             >
                               <Grid
                                 item
                                 xs={12}
                                 className={screenFiveGraphTitleStyle}
-                                style={{ height: "10%" }}
                               >
                                 <div
                                   style={{
@@ -462,15 +630,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                     columnGap: "6px",
                                   }}
                                 >
-                                  <div
-                                    style={{
-                                      width: "18px",
-                                      height: "18px",
-                                      borderRadius: "50%",
-                                      backgroundColor: "#73B35A",
-                                      marginRight: 6,
-                                    }}
-                                  ></div>
+                                  <div className={driveDot}></div>
                                   <div>Drive Hrs</div>
                                 </div>
                                 <div
@@ -481,19 +641,15 @@ const FleetManagement: React.FC<any> = (props) => {
                                     columnGap: "6px",
                                   }}
                                 >
-                                  <div
-                                    style={{
-                                      width: "18px",
-                                      height: "18px",
-                                      borderRadius: "50%",
-                                      backgroundColor: "#6B70AB",
-                                      marginRight: 6,
-                                    }}
-                                  ></div>
+                                  <div className={driveDotOne}></div>
                                   <div>Idle Hrs</div>
                                 </div>
                               </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
+                              <Grid
+                                item
+                                xs={12}
+                                className={graphContainerHeaderThree}
+                              >
                                 <Chart
                                   width={selectedWidth?.width1}
                                   height={selectedWidth?.height1}
