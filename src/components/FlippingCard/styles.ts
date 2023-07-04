@@ -54,14 +54,6 @@ export const RootContainer = styled("div")`
     min-width: 440px;
     height: 330px;
   }
-  @media (max-width: 2561px) {
-    min-width: 346px;
-    height: 330px;
-  }
-  @media (max-width: 2049px) {
-    min-width: 282px;
-    height: 186px;
-  }
   @media (max-width: 2921px) {
     min-width: 260px;
     height: 186px;
@@ -185,6 +177,14 @@ export const CardImage = styled("img")`
   }
 `;
 
+export const InnerCardWrapper = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 5%;
+`;
+
 export const CardTitle = styled("div")<{ focusedCategory: any }>`
   font-family: "HelveticaNeue-Regular";
   font-style: normal;
@@ -196,12 +196,10 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
   margin-top: 20px;
   @media (max-width: 3073px) {
     font-size: 24px;
-    line-height: 36px;
   }
   @media (max-width: 2561px) {
     font-size: 20px;
     line-height: 36px;
-    margin-right: 50px;
   }
   @media (max-width: 2049px) {
     font-size: 15px;
@@ -243,11 +241,11 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
   }
   @media (max-width: 1153px) {
     font-size: 9px;
-    line-height: 16px;
+    line-height: 15px;
   }
   @media (max-width: 1025px) {
     font-size: 8px;
-    line-height: 20px;
+    line-height: 13px;
   }
 `;
 
