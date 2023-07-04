@@ -37,11 +37,11 @@ const useStyles = makeStyles({
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1281)]: {
-      fontSize: props.pageName === "parking" ? 13 : 11,
+      fontSize: props.pageName === "parking" ? 13 : 10,
       lineHeight: "21px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: props.pageName === "parking" ? 12 : 11,
+      fontSize: props.pageName === "parking" ? 12 : 8,
       lineHeight: "21px",
     },
   }),
