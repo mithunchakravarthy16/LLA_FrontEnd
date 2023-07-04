@@ -100,7 +100,7 @@ const Map: React.FC<any> = (props) => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
-    libraries: libraries
+    libraries: libraries,
   });
 
   useEffect(() => {
@@ -331,7 +331,6 @@ const Map: React.FC<any> = (props) => {
     }
   }, [window.innerWidth, window.innerHeight]);
 
-
   useEffect(() => {
     setCurrentMarker(marker);
     const selectMarker = markers?.find((item: any) => item.id === marker);
@@ -388,6 +387,7 @@ const Map: React.FC<any> = (props) => {
   ) => {
     switch (notificationType) {
       case "event": {
+        console.log("category", category);
         switch (category) {
           case "parking":
             return currentMarker === id
@@ -597,7 +597,7 @@ const Map: React.FC<any> = (props) => {
     );
     const actualAngle = angle - 90;
 
-    // const marker = document.querySelector(`[src="${movingMarker}"]`);
+    // const marker = document.querySelector(`[src="${FleetEventIcon}"]`);
 
     // if (marker) {
     //   // when it hasn't loaded, it's null
@@ -647,6 +647,19 @@ const Map: React.FC<any> = (props) => {
     path: "M 0,-1 0,1",
     strokeOpacity: 10,
     scale: 4,
+  };
+
+  const icon1 = {
+    url: FleetEventIcon,
+    scaledSize:
+      window.google &&
+      window.google.maps &&
+      new window.google.maps.Size(60, 60),
+    anchor:
+      window.google &&
+      window.google.maps &&
+      new window.google.maps.Point(30, 30),
+    scale: 0.7,
   };
 
   return (
@@ -719,13 +732,13 @@ const Map: React.FC<any> = (props) => {
                   handleMarkerClose={handleMarkerClose}
                   handleExpandListItem={handleExpandListItem}
                   getMarkerIcon={getMarkerIcon}
-                  currentMarker={currentMarker}
+                  currentMarker={selectedMarker}
                   focusedCategory={focusedCategory}
                   location={progress[progress.length - 1]}
                   pageName={"FleetManagement"}
                 />
               )}
-              {/* <Marker position={progress[progress.length - 1]} /> */}
+              {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
             </>
           )}
         </GoogleMap>

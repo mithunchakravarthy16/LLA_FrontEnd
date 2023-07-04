@@ -122,6 +122,7 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
+    borderRight: "1px solid #333333",
     borderBottom: "1px solid #333333",
     height: "100%",
   }),

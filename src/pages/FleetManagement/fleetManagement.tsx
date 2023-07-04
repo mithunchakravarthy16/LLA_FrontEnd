@@ -87,10 +87,6 @@ const FleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementNotificationData
   );
 
-  console.log(
-    "fleetManagementNotificationResponse",
-    fleetManagementNotificationResponse
-  );
   const [notificationArray, setNotificationArray] = useState<any>([]);
 
   const fleetManagementNotificationList =
@@ -202,7 +198,7 @@ const FleetManagement: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 1000,
         height: 500,
-        width1: 1300,
+        width1: 600,
         height1: 500,
         is4kDevice: true,
       });
@@ -490,8 +486,8 @@ const FleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Chart
-                                  width={selectedWidth?.width}
-                                  height={selectedWidth?.height}
+                                  width={selectedWidth?.width1}
+                                  height={selectedWidth?.height1}
                                   isVisible={true}
                                   graphType={"spline"}
                                   units={"Hrs"}

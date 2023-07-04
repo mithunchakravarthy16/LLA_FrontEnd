@@ -25,7 +25,7 @@ const MapMarker: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
 
-  if (mapMarker?.category === "fleet" && pageName === "FleetManagement") {
+  if (mapMarker?.category === "fleet") {
     return (
       <>
         <Marker
@@ -35,7 +35,9 @@ const MapMarker: React.FC<any> = (props) => {
               ? window.google.maps.Animation.BOUNCE
               : undefined
           }
-          position={location}
+          position={
+            currentMarker?.id === mapMarker.id ? location : mapMarker?.location
+          }
           onClick={() => {
             toggleInfoWindow(
               mapMarker.id,
@@ -58,7 +60,7 @@ const MapMarker: React.FC<any> = (props) => {
           zIndex={currentMarker === mapMarker.id ? 1000 : 1}
         />
 
-        {currentMarker === mapMarker.id && (
+        {currentMarker?.id === mapMarker.id && (
           <InfoWindowF
             position={location}
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
