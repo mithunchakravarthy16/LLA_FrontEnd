@@ -82,7 +82,8 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked,
     tabIndex,
     handleViewDetails,
-    handleAssetViewDetails
+    handleAssetViewDetails,
+    handleVideoDetails,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
