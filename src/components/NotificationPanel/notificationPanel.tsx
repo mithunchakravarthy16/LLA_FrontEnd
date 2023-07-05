@@ -210,6 +210,13 @@ const NotificationPanel = (props: any) => {
     }
   }, [searchOpen]);
 
+  useEffect(() => {
+    if (searchOpen && isMarkerClicked) {
+      setSearchOpen(false);
+      setSearchValue(dashboardData);
+    }
+  }, [isMarkerClicked, searchOpen, dashboardData]);
+
   return (
     <>
       <div className={notificationRootContainer}>
