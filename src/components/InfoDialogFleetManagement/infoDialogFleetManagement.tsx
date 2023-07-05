@@ -19,6 +19,9 @@ import {
 import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
 import FleetInfoDialogueViolationContainer from "components/FleetInfoDialogueViolationContainer";
+import Map from "components/Map";
+import Stepper from "elements/Stepper";
+import routeDetails from "mockdata/tripDetails";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -33,7 +36,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiPaper-root": {
     // maxHeight: "calc(100% - 150px)",
     // minHeight: "calc(100% - 150px)",
-    
+
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
@@ -58,7 +61,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogFleetManagement: React.FC<any> = (props) => {
-  const { setShowInfoDialogue } = props;
+  const { setShowInfoDialogue, selectedMarker, is4kDevice } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -76,6 +79,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
+
+  const [currentMarker, setCurrentMarker] = useState<any>("");
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -97,6 +104,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     if (tabIndex === 2) {
     }
   }, [tabIndex]);
+
+  useEffect(() => {
+    setCurrentMarker(selectedMarker);
+    setSelectedNotification(selectedMarker?.id);
+  }, [selectedMarker]);
 
   const handleClose = () => {
     setOpen(!open);
@@ -121,23 +133,49 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const topPanelListItems: any[] = [
     {
       value: tabIndex === 0 ? "04" : tabIndex === 1 ? "PB1672" : "Mike Ross",
-      title: tabIndex === 0 ? "Stops" : tabIndex === 1 ? "License Plate Number" : "Driver Name",
+      title:
+        tabIndex === 0
+          ? "Stops"
+          : tabIndex === 1
+          ? "License Plate Number"
+          : "Driver Name",
     },
     {
-      value: tabIndex === 0 ? "30%" : tabIndex === 1 ? "Passenger" : "PDRV#123456",
-      title: tabIndex === 0 ? "Trip Completion" : tabIndex === 1 ? "Vehicle Type" : "Driving License",
+      value:
+        tabIndex === 0 ? "30%" : tabIndex === 1 ? "Passenger" : "PDRV#123456",
+      title:
+        tabIndex === 0
+          ? "Trip Completion"
+          : tabIndex === 1
+          ? "Vehicle Type"
+          : "Driving License",
     },
     {
       value: tabIndex === 0 ? "100Km" : tabIndex === 1 ? "5" : "4",
-      title: tabIndex === 0 ? "Distance Covered" : tabIndex === 1 ? "Total Trips" : "Total Trips",
+      title:
+        tabIndex === 0
+          ? "Distance Covered"
+          : tabIndex === 1
+          ? "Total Trips"
+          : "Total Trips",
     },
     {
       value: tabIndex === 0 ? "1Hr" : tabIndex === 1 ? "500 Km" : "600Km",
-      title: tabIndex === 0 ? "Total Time" : tabIndex === 1 ? "Total Distance" : "Total Distance Driven",
+      title:
+        tabIndex === 0
+          ? "Total Time"
+          : tabIndex === 1
+          ? "Total Distance"
+          : "Total Distance Driven",
     },
     {
       value: tabIndex === 0 ? "10" : tabIndex === 1 ? "20" : "20",
-      title: tabIndex === 0 ? "Violations" : tabIndex === 1 ? "Violations" : "Violations",
+      title:
+        tabIndex === 0
+          ? "Violations"
+          : tabIndex === 1
+          ? "Violations"
+          : "Violations",
     },
   ];
 
@@ -262,12 +300,23 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 xs={2}
                 style={{ height: "100%", border: "1px solid #333333" }}
               >
-                Route Details
+                <Stepper
+                  routeDetails={routeDetails}
+                  tripStatus={"Completed"}
+                  is4kDevice={is4kDevice}
+                />
               </Grid>
               <Grid item xs={7} style={{ height: "100%", padding: "0 1%" }}>
                 <Grid style={{ height: "100%" }} item xs={12}>
                   {tabIndex === 0 ? (
-                    "Google Map"
+                    <Map
+                      markers={[selectedMarker]}
+                      marker={selectedMarker?.id}
+                      currentMarker={selectedMarker?.id}
+                      setCurrentMarker={() => {}}
+                      focusedCategory={""}
+                      mapPageName={"fleetManagement"}
+                    />
                   ) : tabIndex === 1 ? (
                     <Grid container xs={12} style={{ height: "100%" }}>
                       <Grid item xs={12} style={{ height: "13%" }}>
@@ -292,21 +341,29 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 columnGap={2}
                                 flex={1}
                               >
-                                <div style={{width: "18%", height: "18%"}}>
+                                <div style={{ width: "18%", height: "18%" }}>
                                   <img
                                     width={"100%"}
                                     height={"100%"}
                                     src={item?.icon}
                                   />
                                 </div>
-                                <div style={{fontSize: "0.9vw"}}>{item?.value}</div>
+                                <div style={{ fontSize: "0.9vw" }}>
+                                  {item?.value}
+                                </div>
                               </Grid>
                             ))}
                         </Grid>
                       </Grid>
                       <Grid item xs={12} paddingTop={1} height={"87%"}>
                         <Grid container xs={12} height={"100%"}>
-                          <Grid item xs={12} height={"13%"} display={"flex"} alignItems={"center"}>
+                          <Grid
+                            item
+                            xs={12}
+                            height={"13%"}
+                            display={"flex"}
+                            alignItems={"center"}
+                          >
                             <Tabs
                               initialIndex={cameraTabIndex}
                               tabsList={camTabsList}
@@ -318,7 +375,12 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             />
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
-                            <img width={"100%"} height={"100%"} style={{objectFit: "cover"}} src={CamOneImg} />
+                            <img
+                              width={"100%"}
+                              height={"100%"}
+                              style={{ objectFit: "cover" }}
+                              src={CamOneImg}
+                            />
                           </Grid>
                         </Grid>
                       </Grid>
@@ -338,30 +400,41 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           }}
                         >
                           {vehicleDetailsSubTaskBarItems?.length > 0 &&
-                            vehicleDetailsSubTaskBarItems?.map((item: any, index: number) => (
-                              index < 4 &&
-                              <Grid
-                                item
-                                display={"flex"}
-                                alignItems={"center"}
-                                justifyContent={"center"}
-                                columnGap={2}
-                                flex={1}
-                              >
-                                <div style={{width: "15%", height: "15%"}}>
-                                  <img
-                                    width={"100%"}
-                                    height={"100%"}
-                                    src={item?.icon}
-                                  />
-                                </div>
-                                <div style={{fontSize: "0.9vw"}}>{item?.value}</div>
-                              </Grid>
-                            ))}
+                            vehicleDetailsSubTaskBarItems?.map(
+                              (item: any, index: number) =>
+                                index < 4 && (
+                                  <Grid
+                                    item
+                                    display={"flex"}
+                                    alignItems={"center"}
+                                    justifyContent={"center"}
+                                    columnGap={2}
+                                    flex={1}
+                                  >
+                                    <div
+                                      style={{ width: "15%", height: "15%" }}
+                                    >
+                                      <img
+                                        width={"100%"}
+                                        height={"100%"}
+                                        src={item?.icon}
+                                      />
+                                    </div>
+                                    <div style={{ fontSize: "0.9vw" }}>
+                                      {item?.value}
+                                    </div>
+                                  </Grid>
+                                )
+                            )}
                         </Grid>
                       </Grid>
                       <Grid item xs={12} paddingTop={2} height={"87%"}>
-                        <Grid container xs={12} height={"100%"} border={"1px solid #333333"}>
+                        <Grid
+                          container
+                          xs={12}
+                          height={"100%"}
+                          border={"1px solid #333333"}
+                        >
                           Circular Charts
                         </Grid>
                       </Grid>
