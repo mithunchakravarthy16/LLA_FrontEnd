@@ -25,6 +25,7 @@ import theme from "../../theme/theme";
 import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
+import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 
 const FleetManagement: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -231,9 +232,9 @@ const FleetManagement: React.FC<any> = (props) => {
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 560,
-        height: 270,
+        height: 255,
         width1: 300,
-        height1: 270,
+        height1: 255,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {
@@ -385,6 +386,8 @@ const FleetManagement: React.FC<any> = (props) => {
   }, []);
 
   const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+  const [showInfoDialogueVideo, setShowInfoDialogueVideo] =
+    useState<boolean>(false);
 
   const handleViewDetails = (data: any) => {
     setSelectedMarker(data);
@@ -735,6 +738,9 @@ const FleetManagement: React.FC<any> = (props) => {
           selectedMarker={selectedMarker}
           is4kDevice={selectedWidth?.is4kDevice}
         />
+      )}
+      {showInfoDialogueVideo && (
+        <InfoDialogFleetVideo setShowInfoDialogue={setShowInfoDialogueVideo} />
       )}
     </>
   );
