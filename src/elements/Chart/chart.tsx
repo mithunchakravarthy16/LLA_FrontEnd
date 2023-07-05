@@ -21,6 +21,7 @@ const Chart: React.FC<any> = (props) => {
     tickInterval,
     xAxisFontSize,
     pageName,
+    is2kDevice,
   } = props;
 
   const [toolTipBg, setToolTipBg] = useState<string>();
@@ -196,20 +197,22 @@ const Chart: React.FC<any> = (props) => {
             pageName === "FleetManagement"
               ? ["06/14", "06/15", "06/16", "06/17", "06/18", "06/19", "06/20"]
               : lastTwntyTwoHours,
-          tickInterval: is4kDevice
-            ? (is4kDevice && location.pathname === "/energyManagement") ||
-              (is4kDevice && location.pathname === "/security") ||
-              (is4kDevice && location.pathname === "/lighting") ||
-              (is4kDevice && location.pathname === "/fleetManagement")
-              ? pageName === "FleetManagement"
-                ? graphType === "area" || graphType === "spline"
-                  ? 2
-                  : 1
-                : 8
-              : 12
-            : tickInterval
-            ? tickInterval
-            : 8,
+          tickInterval:
+            is4kDevice || is2kDevice
+              ? (is4kDevice && location.pathname === "/energyManagement") ||
+                (is4kDevice && location.pathname === "/security") ||
+                (is4kDevice && location.pathname === "/lighting") ||
+                (is4kDevice && location.pathname === "/fleetManagement") ||
+                (is2kDevice && location.pathname === "/fleetManagement")
+                ? pageName === "FleetManagement"
+                  ? graphType === "area" || graphType === "spline"
+                    ? 2
+                    : 1
+                  : 8
+                : 12
+              : tickInterval
+              ? tickInterval
+              : 8,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
