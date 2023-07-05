@@ -369,9 +369,6 @@ const TripDetailsMap: React.FC<any> = (props) => {
     }
   }, [window.innerWidth, window.innerHeight]);
 
-  console.log("markers", markers);
-  console.log("marker", marker);
-  console.log("currentMarker", currentMarker);
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex(
@@ -403,47 +400,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
           : 15
       );
     }
-    // setCurrentMarker(marker);
-    // const selectMarker = markers?.find((item: any) => item.id === marker);
-    // setSelectedMarker(selectMarker);
   }, [marker, currentMarker]);
-
-  //   useEffect(() => {
-  //     if (selectedMarker) {
-  //       setSelectedListItemSource(selectedMarker?.source);
-  //       setSelectedListItemDestination(selectedMarker?.destination);
-  //     } else {
-  //       setProgress([]);
-  //       setPoints([]);
-  //       setData([]);
-  //       setSelectedMarker("");
-  //       setSelectedListItemSource("");
-  //       setSelectedListItemDestination("");
-  //     }
-  //   }, [selectedMarker]);
-
-  //   useEffect(() => {
-  //     if (currentMarker) {
-  //       const index = markers.findIndex((marker) => marker.id === currentMarker);
-  //       map?.setZoom(
-  //         selectedContainerStyle?.is4kDevice
-  //           ? 16.2
-  //           : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-  //           ? 15
-  //           : 15
-  //       );
-  //       map?.panTo(markers[index]?.location);
-  //     } else {
-  //       map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
-  //       map?.setZoom(
-  //         selectedContainerStyle?.is4kDevice
-  //           ? 16.2
-  //           : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-  //           ? 15
-  //           : 15
-  //       );
-  //     }
-  //   }, [currentMarker]);
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
