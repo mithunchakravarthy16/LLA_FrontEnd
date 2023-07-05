@@ -229,9 +229,9 @@ const FleetManagement: React.FC<any> = (props) => {
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 560,
-        height: 270,
+        height: 255,
         width1: 300,
-        height1: 270,
+        height1: 255,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {

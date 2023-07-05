@@ -23,8 +23,8 @@ import {
 import assetTrackingData from "../../mockdata/assetTrackingData";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
-import {useDispatch, useSelector} from "react-redux";
-import { getNotificationData} from "redux/actions/getAllAssertNotificationAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
@@ -75,50 +75,71 @@ const AssetTracking: React.FC<any> = (props) => {
     graphOneChartStyle,
     graphTwoContainerStyle,
     graphTwoChartStyle,
-    geofenceIconStyle
+    geofenceIconStyle,
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    let notificationPayload:any = {};
-    dispatch(getNotificationData(notificationPayload))
+  useEffect(() => {
+    let notificationPayload: any = {};
+    dispatch(getNotificationData(notificationPayload));
 
-    let activeInactiveTrackerPayload:any = {};
-    dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload))
+    let activeInactiveTrackerPayload: any = {};
+    dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload));
 
-    let incidentCountPayload:any ={};
+    let incidentCountPayload: any = {};
     dispatch(getAssetIncidentCount(incidentCountPayload));
 
-    let overallAssetDetailPayload :any ={};
-    dispatch(getOverallTrackerDetail(overallAssetDetailPayload))
-  },[])
+    let overallAssetDetailPayload: any = {};
+    dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
+  }, []);
 
-
-
-  const assetNotificationResponse = useSelector((state:any)=>state?.assetNotification?.assetNotificationData);
+  const assetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetNotificationData
+  );
   const assetNotificationList = assetNotificationResponse?.notifications;
 
-  const assetTrackerData = useSelector((state:any)=>state?.assetActiveInactiveTracker?.assetTrackerData);
+  const assetTrackerData = useSelector(
+    (state: any) => state?.assetActiveInactiveTracker?.assetTrackerData
+  );
 
-  const assetIncidentCount = useSelector((state:any)=>state?.assetIncidentCount?.assetIncidentCountValue);
+  const assetIncidentCount = useSelector(
+    (state: any) => state?.assetIncidentCount?.assetIncidentCountValue
+  );
 
-  const overallAssetDetails = useSelector((state:any)=>state?.assetOverallTrackerDetails?.overallTrackerDetail);
+  const overallAssetDetails = useSelector(
+    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
+  );
 
   useEffect(() => {
     const { events, incidents, alerts } = assetNotificationList;
     const combinedNotifications: any = [];
 
     events?.eventsList?.forEach((event: any, index: number) => {
-      combinedNotifications.push({ ...event, category : "asset", title : event?.reason, id : event?.assetNotificationId });
+      combinedNotifications.push({
+        ...event,
+        category: "asset",
+        title: event?.reason,
+        id: event?.assetNotificationId,
+      });
     });
 
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
-      combinedNotifications.push({ ...incidents, category : "asset", title : incidents?.reason, id : incidents?.assetNotificationId  });
+      combinedNotifications.push({
+        ...incidents,
+        category: "asset",
+        title: incidents?.reason,
+        id: incidents?.assetNotificationId,
+      });
     });
 
     alerts?.alertList?.forEach((alerts: any, index: number) => {
-      combinedNotifications.push({ ...alerts, category : "asset", title : alerts?.reason, id : alerts?.assetNotificationId  });
+      combinedNotifications.push({
+        ...alerts,
+        category: "asset",
+        title: alerts?.reason,
+        id: alerts?.assetNotificationId,
+      });
     });
 
     const dataValue: any = combinedNotifications?.map(
@@ -126,7 +147,7 @@ const AssetTracking: React.FC<any> = (props) => {
         return { ...value, index: index + 1 };
       }
     );
-    setNotificationArray(dataValue)
+    setNotificationArray(dataValue);
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
@@ -159,7 +180,7 @@ const AssetTracking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
 
-    const [searchValue, setSearchValue] = useState<any>(
+  const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
@@ -169,18 +190,18 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
-
-  const [notificationCount, setNotificationCount] = useState<any>(
-    [assetNotificationList?.events?.totalCount,
-      assetNotificationList?.incidents?.totalCount,
-      assetNotificationList?.alerts?.totalCount]
-  );
+  const [notificationCount, setNotificationCount] = useState<any>([
+    assetNotificationList?.events?.totalCount,
+    assetNotificationList?.incidents?.totalCount,
+    assetNotificationList?.alerts?.totalCount,
+  ]);
 
   useEffect(() => {
     setDashboardData(
       formatttedDashboardNotification(notificationArray, tabIndex)
     );
-    setSearchValue(formatttedDashboardNotification(notificationArray, tabIndex)
+    setSearchValue(
+      formatttedDashboardNotification(notificationArray, tabIndex)
     );
   }, [notificationArray, tabIndex]);
 
@@ -189,19 +210,126 @@ const AssetTracking: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1300,
-        height: 500,
+        width: 1250,
+        height: 480,
+        width1: 1250,
+        height1: 480,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
+      setSelectedWidth({
+        width: 1000,
+        height: 500,
+        width1: 1000,
+        height1: 500,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 820,
+        height: 180,
+        width1: 820,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 630,
+        height: 220,
+        width1: 630,
+        height1: 220,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1919) {
+      setSelectedWidth({
+        width: 620,
+        height: 205,
+        width1: 620,
+        height1: 205,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 560,
+        height: 240,
+        width1: 560,
+        height1: 240,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1679) {
       setSelectedWidth({
         width: 550,
+        height: 210,
+        width1: 550,
+        height1: 210,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedWidth({
+        width: 500,
+        height: 190,
+        width1: 500,
+        height1: 190,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 500,
         height: 200,
+        width1: 500,
+        height1: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 450,
+        height: 190,
+        width1: 450,
+        height1: 190,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1359) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 400,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 400,
+        height: 180,
+        width1: 400,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 100,
+        width1: 400,
+        height1: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 150,
+        width1: 350,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 110,
+        width1: 300,
+        height1: 110,
         is4kDevice: false,
       });
     }
   }, []);
-
 
   return (
     <>
@@ -312,8 +440,8 @@ const AssetTracking: React.FC<any> = (props) => {
                           </Grid>
                           <Grid item xs={12} className={graphTwoChartStyle}>
                             <Chart
-                              width={selectedWidth?.width}
-                              height={selectedWidth?.height}
+                              width={selectedWidth?.width1}
+                              height={selectedWidth?.height1}
                               graphType={"areaspline"}
                               isVisible={true}
                               units={""}
@@ -369,9 +497,13 @@ const AssetTracking: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                  {/* <div className={geofenceIconStyle}> */}
-                              <img src={GeofenceIcon} className={geofenceIconStyle} alt="GeofenceIcon" />
-                  {/* </div> */}
+                    {/* <div className={geofenceIconStyle}> */}
+                    <img
+                      src={GeofenceIcon}
+                      className={geofenceIconStyle}
+                      alt="GeofenceIcon"
+                    />
+                    {/* </div> */}
 
                     <Map
                       markers={notificationArray}
@@ -382,7 +514,6 @@ const AssetTracking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
-
                     />
                   </Grid>
                 </Grid>
