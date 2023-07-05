@@ -39,7 +39,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     maxWidth: "75vw",
     background: `#1A1919 !important`,
     color: "#fff",
-    padding: 14,
+    padding: "1%",
     // [muiTheme.breakpoints.up(5759)]: {
     //   maxHeight: "calc(100% - 370px)",
     //   minHeight: "calc(100% - 370px)",
@@ -210,12 +210,16 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
             onClick={handleClose}
             sx={{
               position: "absolute",
-              right: 10,
-              top: 10,
-              color: "#fff",
+              padding: "0.5%",
+              right: "0.1%",
+              top: "2.5%",
+              color: "transparent",
+              width: "4.2%",
+              height: "4.2%",
+              transition: "none",
             }}
           >
-            <img width={20} height={20} src={CloseIcon} />
+            <img width={"100%"} height={"100%"} src={CloseIcon} />
           </IconButton>
         </div>
 
