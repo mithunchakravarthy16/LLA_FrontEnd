@@ -53,8 +53,8 @@ const GridViewScreenSix: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 550,
-        height: 200,
+        width: 830,
+        height: 600,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2559) {
@@ -65,26 +65,32 @@ const GridViewScreenSix: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 500,
-        height: 150,
+        width: 560,
+        height: 300,
         is4kDevice: false,
       });
-    } else if (window.innerWidth > 1791) {
+    } else if (window.innerWidth > 1919) {
       setSelectedWidth({
-        width: 500,
-        height: 250,
+        width: 530,
+        height: 220,
+        is4kDevice: false,
+      });
+    }  else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 490,
+        height: 290,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
-        width: 400,
-        height: 140,
+        width: 420,
+        height: 210,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
-        width: 350,
-        height: 120,
+        width: 370,
+        height: 190,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1279) {

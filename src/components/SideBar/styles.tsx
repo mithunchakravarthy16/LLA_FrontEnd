@@ -24,6 +24,10 @@ const useStyles = makeStyles({
         height: "calc(100vh - 44px)",
         width: "180px",
       },
+      [muiTheme.breakpoints.down(2561)]: {
+        height: "calc(100vh - 44px)",
+        width: "130px",
+      },
       [muiTheme.breakpoints.down(2049)]: {
         height: "calc(100vh - 44px)",
         width: "130px",
@@ -32,9 +36,21 @@ const useStyles = makeStyles({
         height: "calc(100vh - 44px)",
         width: "100px",
       },
-      [muiTheme.breakpoints.down(1153)]: {
+      [muiTheme.breakpoints.down(1793)]: {
+        height: "calc(100vh - 44px)",
+        width: "90px",
+      },
+      [muiTheme.breakpoints.down(1537)]: {
         height: "calc(100vh - 44px)",
         width: "80px",
+      },
+      [muiTheme.breakpoints.down(1345)]: {
+        height: "calc(100vh - 44px)",
+        width: "70px",
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        height: "calc(100vh - 44px)",
+        width: "60px",
       },
     },
   }),
@@ -46,14 +62,26 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       width: "180px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      width: "130px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       width: "130px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: "100px",
     },
-    [muiTheme.breakpoints.down(1153)]: {
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "90px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
       width: "80px",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "70px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "60px",
     },
   }),
   avatharSection: (props: any) => ({
@@ -93,10 +121,22 @@ const useStyles = makeStyles({
       margin: 12,
       fontSize: 12,
     },
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "42px",
+      height: "42px",
+      margin: 10,
+      fontSize: 12,
+    },
+    [muiTheme.breakpoints.down(1545)]: {
+      width: "38px",
+      height: "38px",
+      margin: 10,
+      fontSize: 12,
+    },
     [muiTheme.breakpoints.down(1153)]: {
       width: "30px",
       height: "30px",
-      margin: 12,
+      margin: 10,
       fontSize: 12,
     },
   }),
@@ -139,8 +179,17 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       margin: 12,
     },
-    [muiTheme.breakpoints.down(1153)]: {
+    [muiTheme.breakpoints.down(1793)]: {
       margin: 10,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      margin: 8,
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      margin: 8,
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      margin: 8,
     },
     "& img": {
       width: 140,
@@ -158,6 +207,15 @@ const useStyles = makeStyles({
       },
       [muiTheme.breakpoints.down(1921)]: {
         width: 75,
+      },
+      [muiTheme.breakpoints.down(1793)]: {
+        width: 55,
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        width: 45,
+      },
+      [muiTheme.breakpoints.down(1345)]: {
+        width: 40,
       },
       [muiTheme.breakpoints.down(1153)]: {
         width: 40,
@@ -310,8 +368,8 @@ const useStyles = makeStyles({
       [muiTheme.breakpoints.down(2561)]: {
         width: "4px",
         height: "34%",
-        right: "-62px",
-        top: "7px",
+        right: "-37px",
+        top: "10px",
       },
       [muiTheme.breakpoints.down(2049)]: {
         width: "4px",
@@ -325,16 +383,28 @@ const useStyles = makeStyles({
         right: "-27px",
         top: "5px",
       },
+      [muiTheme.breakpoints.down(1793)]: {
+        width: "4px",
+        height: "34%",
+        right: "-22px",
+        top: "5px",
+      },
       [muiTheme.breakpoints.down(1545)]: {
         width: "4px",
         height: "34%",
-        right: "-31px",
+        right: "-22px",
+        top: "5px",
+      },
+      [muiTheme.breakpoints.down(1345)]: {
+        width: "4px",
+        height: "34%",
+        right: "-15px",
         top: "5px",
       },
       [muiTheme.breakpoints.down(1153)]: {
         width: "4px",
         height: "34%",
-        right: "-27px",
+        right: "-17px",
         top: "2px",
       },
     },
@@ -345,10 +415,10 @@ const useStyles = makeStyles({
 
   customMenu: (props: any) => ({
     zIndex: " 1501 !important",
-    
+
     [muiTheme.breakpoints.up(3839)]: {
       left: "4.5% !important",
-    top: "-1.5% !important",
+      top: "-1.5% !important",
     },
     [muiTheme.breakpoints.down(1921)]: {
       left: "4% !important",
@@ -356,11 +426,11 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1793)]: {
       left: "4% !important",
-    top: "-2.9% !important",
+      top: "-2.9% !important",
     },
     left: "4% !important",
-      top: "-3.5% !important",
-   
+    top: "-3.5% !important",
+
     "& .MuiMenu-list": {
       background: `#fff !important`,
       marginLeft: "15px !important",
@@ -375,7 +445,6 @@ const useStyles = makeStyles({
       minWidth: "8%",
     },
     "& .MuiList-root": {
-      
       "&::after": {
         width: "10%",
         height: "25%",
@@ -392,7 +461,6 @@ const useStyles = makeStyles({
       },
     },
     "& .MuiButtonBase-root": {
-      
       padding: "12px 16px !important",
       background: "transparent !important",
       "&:hover": {
@@ -415,13 +483,12 @@ const useStyles = makeStyles({
 
   logoutText: (props: any) => ({
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: "25px !important"
+      fontSize: "25px !important",
     },
     fontSize: "14px !important",
     fontWeight: "700 !important",
     fontFamily: "Poppins !important",
     color: props?.palette?.header?.subTitle2,
   }),
-
 });
 export default useStyles;

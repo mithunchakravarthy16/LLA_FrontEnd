@@ -54,7 +54,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
         width: 800,
-        height: 200,
+        height: 550,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2559) {
@@ -67,13 +67,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 550,
-        height: 100,
-        is4kDevice: false,
-      });
-    } else if (window.innerHeight > 936) {
-      setSelectedWidth({
-        width: 500,
-        height: 120,
+        height: 300,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {
@@ -84,8 +78,8 @@ const GridViewScreenThree: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
-        width: 550,
-        height: 170,
+        width: 480,
+        height: 300,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
@@ -102,8 +96,8 @@ const GridViewScreenThree: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
-        width: 400,
-        height: 90,
+        width: 420,
+        height: 200,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1399) {
@@ -114,14 +108,14 @@ const GridViewScreenThree: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
-        width: 350,
-        height: 70,
+        width: 365,
+        height: 170,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
         width: 350,
-        height: 164,
+        height: 100,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
@@ -138,7 +132,13 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         tickInterval: 12,
         xAxisFontSize: "8px",
       });
-    }
+    }else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 500,
+        height: 120,
+        is4kDevice: false,
+      });
+    } 
   }, []);
 
   return (
