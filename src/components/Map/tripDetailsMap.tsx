@@ -14,6 +14,7 @@ import {
   MarkerClustererF,
 } from "@react-google-maps/api";
 import MapMarker from "components/Marker";
+import TripDetailsMarker from "components/Marker/tripDetailsMarker";
 import customMapStyles from "./customMapStyles";
 import theme from "../../theme/theme";
 import appData from "../../data/appData";
@@ -51,7 +52,7 @@ import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
-import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
+import FleetHoverIcon from "../../assets/markers/fleetHover.gif";
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -66,7 +67,7 @@ const center = {
 
 const libraries = ["places", "drawing"];
 
-const Map: React.FC<any> = (props) => {
+const TripDetailsMap: React.FC<any> = (props) => {
   const location = useLocation();
 
   const {
@@ -82,7 +83,6 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked,
     tabIndex,
     handleViewDetails,
-    handleAssetViewDetails,
     handleVideoDetails,
   } = props;
 
@@ -141,18 +141,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 579px)",
-        is4kDevice: false,
-        is3kDevice: false,
-      });
-    } else if (window.innerWidth > 2559) {
-      setSelectedContainerStyle({
-        width: "100%",
-
-        height:
-          mapPageName === "dashboard"
-            ? "calc(100vh - 0px)"
-            : "calc(100vh - 531px)",
+            : "calc(100vh - 572px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -163,19 +152,9 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 505px)",
+            : "calc(100vh - 522px)",
         is4kDevice: false,
         is3kDevice: false,
-      });
-    } else if (window.innerHeight > 1023) {
-      setSelectedContainerStyle({
-        width: "100%",
-
-        height:
-          mapPageName === "dashboard"
-            ? "calc(100vh - 0px)"
-            : "calc(100vh - 459px)",
-        is4kDevice: false,
       });
     } else if (window.innerHeight > 936) {
       setSelectedContainerStyle({
@@ -184,7 +163,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 430px)",
+            : "calc(100vh - 451px)",
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
@@ -194,7 +173,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 499px)",
+            : "calc(100vh - 522px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -205,7 +184,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 470px)",
+            : "calc(100vh - 494px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -216,7 +195,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 416px)",
+            : "calc(100vh - 432px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -227,7 +206,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 431px)",
+            : "calc(100vh - 452px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -238,7 +217,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 406px)",
+            : "calc(100vh - 424px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -260,7 +239,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 356px)",
+            : "calc(100vh - 390px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -271,7 +250,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 384px)",
+            : "calc(100vh - 424px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -315,7 +294,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 420px)",
+            : "calc(100vh - 474px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -337,7 +316,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 358px)",
+            : "calc(100vh - 378px)",
 
         is4kDevice: false,
         is3kDevice: false,
@@ -349,7 +328,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 320px)",
+            : "calc(100vh - 378px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -360,7 +339,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 272px)",
+            : "calc(100vh - 294px)",
 
         is4kDevice: false,
         is3kDevice: false,
@@ -391,28 +370,10 @@ const Map: React.FC<any> = (props) => {
   }, [window.innerWidth, window.innerHeight]);
 
   useEffect(() => {
-    setCurrentMarker(marker);
-    const selectMarker = markers?.find((item: any) => item.id === marker);
-    setSelectedMarker(selectMarker);
-  }, [marker]);
-
-  useEffect(() => {
-    if (selectedMarker) {
-      setSelectedListItemSource(selectedMarker?.source);
-      setSelectedListItemDestination(selectedMarker?.destination);
-    } else {
-      setProgress([]);
-      setPoints([]);
-      setData([]);
-      setSelectedMarker("");
-      setSelectedListItemSource("");
-      setSelectedListItemDestination("");
-    }
-  }, [selectedMarker]);
-
-  useEffect(() => {
     if (currentMarker) {
-      const index = markers.findIndex((marker) => marker.id === currentMarker);
+      const index = markers.findIndex(
+        (marker) => marker.id === currentMarker?.id
+      );
       map?.setZoom(
         selectedContainerStyle?.is4kDevice
           ? 16.2
@@ -421,7 +382,15 @@ const Map: React.FC<any> = (props) => {
           : 15
       );
       map?.panTo(markers[index]?.location);
+      setSelectedListItemSource(currentMarker?.source);
+      setSelectedListItemDestination(currentMarker?.destination);
     } else {
+      setProgress([]);
+      setPoints([]);
+      setData([]);
+      setSelectedMarker("");
+      setSelectedListItemSource("");
+      setSelectedListItemDestination("");
       map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
       map?.setZoom(
         selectedContainerStyle?.is4kDevice
@@ -431,7 +400,7 @@ const Map: React.FC<any> = (props) => {
           : 15
       );
     }
-  }, [currentMarker]);
+  }, [marker, currentMarker]);
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
@@ -690,15 +659,17 @@ const Map: React.FC<any> = (props) => {
   };
 
   const fetchDirection = async () => {
-    const directionService = new window.google.maps.DirectionsService();
+    if (currentMarker?.source?.lat) {
+      const directionService = new window.google.maps.DirectionsService();
 
-    const results = await directionService.route({
-      origin: selectedListItemSource,
-      destination: selectedListItemDestination,
-      travelMode: window.google.maps.TravelMode.DRIVING,
-    });
+      const results = await directionService.route({
+        origin: currentMarker?.source,
+        destination: currentMarker?.destination,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      });
 
-    setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
+      setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
+    }
   };
 
   useEffect(() => {
@@ -719,10 +690,10 @@ const Map: React.FC<any> = (props) => {
   }, [data]);
 
   useEffect(() => {
-    if (selectedListItemSource && selectedListItemDestination) {
+    if (currentMarker) {
       fetchDirection();
     }
-  }, [selectedListItemSource, selectedListItemDestination]);
+  }, [currentMarker]);
 
   let lineSymbol = {
     path: "M 0,-1 0,1",
@@ -770,7 +741,7 @@ const Map: React.FC<any> = (props) => {
                   // if (!window.google) return null;
                   return (
                     <>
-                      <MapMarker
+                      <TripDetailsMarker
                         mapMarker={singleMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -780,7 +751,6 @@ const Map: React.FC<any> = (props) => {
                         focusedCategory={focusedCategory}
                         clusterer={clusterer}
                         location={singleMarker?.location}
-                        handleAssetViewDetails={handleAssetViewDetails}
                       />
                     </>
                   );
@@ -817,22 +787,22 @@ const Map: React.FC<any> = (props) => {
                           strokeWeight: 4,
                         }}
                       />
-                      {selectedMarker && (
-                        <MapMarker
-                          mapMarker={selectedMarker}
+                      {
+                        <TripDetailsMarker
+                          mapMarker={currentMarker}
                           toggleInfoWindow={toggleInfoWindow}
                           handleMarkerClose={handleMarkerClose}
                           handleExpandListItem={handleExpandListItem}
                           getMarkerIcon={getMarkerIcon}
-                          currentMarker={selectedMarker}
+                          currentMarker={currentMarker}
                           focusedCategory={focusedCategory}
                           location={progress[progress.length - 1]}
                           direction={"NE"}
-                          pageName={"FleetManagement"}
+                          pageName={""}
                           handleViewDetails={handleViewDetails}
                           handleVideoDetails={handleVideoDetails}
                         />
-                      )}
+                      }
                       {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
                     </>
                   )}
@@ -845,4 +815,4 @@ const Map: React.FC<any> = (props) => {
   );
 };
 
-export default Map;
+export default TripDetailsMap;
