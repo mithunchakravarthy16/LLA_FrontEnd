@@ -54,8 +54,12 @@ const MapMarker: React.FC<any> = (props) => {
               mapMarker.id
             ),
             scaledSize: new window.google.maps.Size(
-              window.innerWidth > 3839 ? 160.5 : 60.5,
-              window.innerWidth > 3839 ? 160.5 : 60.5
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5,
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5
             ),
           }}
           key={mapMarker.id}
@@ -104,8 +108,8 @@ const MapMarker: React.FC<any> = (props) => {
             mapMarker.id
           ),
           scaledSize: new window.google.maps.Size(
-            window.innerWidth > 3839 ? 160.5 : 60.5,
-            window.innerWidth > 3839 ? 160.5 : 60.5
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
           ),
         }}
         key={mapMarker.id}

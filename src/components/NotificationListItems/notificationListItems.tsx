@@ -203,7 +203,10 @@ const NotificationListItems = (props: any) => {
               </div>
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
-                  <Button variant="contained" handleClick={handleViewDetails}>
+                  <Button
+                    variant="contained"
+                    handleClick={() => handleViewDetails(data)}
+                  >
                     {"View Details"}
                   </Button>
                 </div>

@@ -116,6 +116,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
+            : mapPageName === "fleetManagement"
+            ? "calc(100vh - 800px)"
             : "calc(100vh - 924px)",
         is4kDevice: true,
         is3kDevice: false,
@@ -430,7 +432,6 @@ const Map: React.FC<any> = (props) => {
   ) => {
     switch (notificationCategory) {
       case "event": {
-        console.log("category", category);
         switch (category) {
           case "parking":
             return currentMarker === id

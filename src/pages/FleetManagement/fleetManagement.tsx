@@ -192,6 +192,8 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
+  const [selectedMarker, setSelectedMarker] = useState<any>();
+
   useEffect(() => {
     setDashboardData(
       formatttedDashboardNotification(notificationArray, tabIndex)
@@ -384,7 +386,8 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
 
-  const handleViewDetails = () => {
+  const handleViewDetails = (data: any) => {
+    setSelectedMarker(data);
     setShowInfoDialogue(true);
   };
 
@@ -727,7 +730,11 @@ const FleetManagement: React.FC<any> = (props) => {
         </Grid>
       </Grid>
       {showInfoDialogue && (
-        <InfoDialogFleetManagement setShowInfoDialogue={setShowInfoDialogue} />
+        <InfoDialogFleetManagement
+          setShowInfoDialogue={setShowInfoDialogue}
+          selectedMarker={selectedMarker}
+          is4kDevice={selectedWidth?.is4kDevice}
+        />
       )}
     </>
   );
