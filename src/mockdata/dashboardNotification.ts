@@ -232,7 +232,7 @@ const dashboardList = {
     },
     {
       id: "eng3",
-      title: "Gas Leak Detected",
+      title: "High Energy Consumption",
       area: "Building C",
       entity: "",
       venue: "",
@@ -277,7 +277,7 @@ const dashboardList = {
     },
     {
       id: "sec4",
-      title: "Cybersecurity Breach Detected",
+      title: "Tailgating",
       area: "Zone 2",
       entity: "",
       venue: "Location",
@@ -292,8 +292,8 @@ const dashboardList = {
     },
     {
       id: "lght3",
-      title: "Smart Lights Power Outage",
-      subTitle: "",
+      title: "Low Humidity",
+      subTitle: "Humidity-20%",
       area: "OutDoor",
       entity: "",
       venue: "Location",
@@ -307,8 +307,8 @@ const dashboardList = {
     },
     {
       id: "lght4",
-      title: "Lights Connectivity Issue",
-      subTitle: "",
+      title: "High Electricity Consumption",
+      subTitle: "Light Pole-6",
       area: "OutDoor",
       entity: "",
       venue: "Location",

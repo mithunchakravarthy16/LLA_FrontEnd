@@ -30,6 +30,7 @@ const NotificationPanel = (props: any) => {
     setParkingLotSelectionActive,
     isMarkerClicked,
     handleViewDetails,
+    handleAssetViewDetails,
     handleVideoDetails,
   } = props;
 
@@ -139,10 +140,28 @@ const NotificationPanel = (props: any) => {
     const tabData = dashboardData;
     let searchResult = tabData?.filter((value: any) => {
       return (
-        value?.title
+        value?.title?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.area
+        value?.area?.toString()
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.subTitle?.toString()
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.trackerId?.toString()
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.assetId?.toString()
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.entity?.toString()
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.venue?.toString()
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.equipment?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase())
       );
@@ -248,6 +267,7 @@ const NotificationPanel = (props: any) => {
                   selectedNotification={selectedNotification}
                   refs={refs}
                   handleViewDetails={handleViewDetails}
+                  handleAssetViewDetails={handleAssetViewDetails}
                   handleVideoDetails={handleVideoDetails}
                 />
               );

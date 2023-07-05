@@ -3,6 +3,12 @@
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
+const responsiveWidth = (width: number) => {
+  console.log("WIDTH", width);
+  console.log("RESULT WIDTH", (width*window.innerWidth)/3840)
+  return (width*window.innerWidth)/3840
+}
+
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
@@ -26,14 +32,26 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       width: "calc(100vw - 200px) !important",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      width: "calc(100vw - 130px) !important",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       width: "calc(100vw - 130px) !important",
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: "calc(100vw - 100px) !important",
     },
-    [muiTheme.breakpoints.down(1153)]: {
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "calc(100vw - 90px) !important",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
       width: "calc(100vw - 80px) !important",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "calc(100vw - 70px) !important",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 60px) !important",
     },
   }),
 
@@ -438,48 +456,13 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     cursor: "pointer",
-    width: 122,
-    height: 122,
+    width: responsiveWidth(122),
+    height: responsiveWidth(122),
+    fontSize: responsiveWidth(40),
     right: 15,
     top: 7,
     borderRadius: "50%",
-    [muiTheme.breakpoints.up(3839)]: {
-      width: 122,
-      height: 122,
-      borderRadius: "50%",
-      fontSize: 40,
-      right: 0,
-    },
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 44,
-      lineHeight: "72px",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 36,
-      lineHeight: "62px",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 22,
-      lineHeight: "26px",
-      width: 75,
-      height: 75,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 22,
-      lineHeight: "38px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 20,
-      lineHeight: "34px",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 18,
-      lineHeight: "27px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 16,
-      lineHeight: "16px",
-    },
+    
   }),
 
   lotSelectionIconStyleClose: (props: any) => ({
@@ -490,51 +473,52 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: 122,
-    height: 122,
+    width: responsiveWidth(122),
+    height: responsiveWidth(122),
+    fontSize: responsiveWidth(40),
     right: 15,
-    top: 7,
+    top: 10,
     borderRadius: "50%",
     cursor: "pointer",
-    [muiTheme.breakpoints.up(3839)]: {
-      width: 122,
-      height: 122,
-      borderRadius: "50%",
-      fontSize: 40,
-      right: 0,
-    },
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 44,
-      lineHeight: "72px",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 36,
-      lineHeight: "62px",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 22,
-      lineHeight: "26px",
-      width: 75,
-      height: 75,
-      top: 5,
-      right: 5,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 22,
-      lineHeight: "38px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 20,
-      lineHeight: "34px",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 18,
-      lineHeight: "27px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 16,
-      lineHeight: "16px",
-    },
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   width: 122,
+    //   height: 122,
+    //   borderRadius: "50%",
+    //   fontSize: 40,
+    //   right: 0,
+    // },
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   fontSize: 44,
+    //   lineHeight: "72px",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   fontSize: 36,
+    //   lineHeight: "62px",
+    // },
+    // [muiTheme.breakpoints.down(2561)]: {
+    //   fontSize: 22,
+    //   lineHeight: "26px",
+    //   width: 75,
+    //   height: 75,
+    //   top: 5,
+    //   right: 5,
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   fontSize: 22,
+    //   lineHeight: "38px",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   fontSize: 20,
+    //   lineHeight: "34px",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   fontSize: 18,
+    //   lineHeight: "27px",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   fontSize: 16,
+    //   lineHeight: "16px",
+    // },
   }),
   lotImageStyle: (props: any) => ({
     width: "100%",

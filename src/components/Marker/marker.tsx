@@ -21,6 +21,7 @@ const MapMarker: React.FC<any> = (props) => {
     pageName,
     clusterer,
     handleViewDetails,
+    handleAssetViewDetails,
     handleVideoDetails,
   } = props;
 
@@ -72,22 +73,22 @@ const MapMarker: React.FC<any> = (props) => {
           zIndex={currentMarker === mapMarker.id ? 1000 : 1}
         />
 
-        {currentMarker?.id === mapMarker.id &&
-          pageName === "FleetManagement" && (
-            <InfoWindowF
-              position={location}
-              options={{ pixelOffset: new google.maps.Size(0, -20) }}
-            >
-              <NotificationListItems
-                data={mapMarker}
-                pageName={"markerCallout"}
-                handleMarkerClose={handleMarkerClose}
-                handleExpandListItem={handleExpandListItem}
-                handleViewDetails={handleViewDetails}
-                handleVideoDetails={handleVideoDetails}
-              />
-            </InfoWindowF>
-          )}
+        {currentMarker?.id === mapMarker.id && (
+          <InfoWindowF
+            position={location}
+            options={{ pixelOffset: new google.maps.Size(0, -20) }}
+          >
+            <NotificationListItems
+              data={mapMarker}
+              pageName={"markerCallout"}
+              handleMarkerClose={handleMarkerClose}
+              handleExpandListItem={handleExpandListItem}
+              handleAssetViewDetails={handleAssetViewDetails}
+              handleViewDetails={handleViewDetails}
+              handleVideoDetails={handleVideoDetails}
+            />
+          </InfoWindowF>
+        )}
       </>
     );
   }
@@ -134,6 +135,7 @@ const MapMarker: React.FC<any> = (props) => {
             pageName={"markerCallout"}
             handleMarkerClose={handleMarkerClose}
             handleExpandListItem={handleExpandListItem}
+            handleAssetViewDetails={handleAssetViewDetails}
           />
         </InfoWindowF>
       )}

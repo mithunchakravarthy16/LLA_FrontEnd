@@ -15,6 +15,7 @@ import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
+import Grid from "@mui/material/Grid";
 import useStyles from "./styles";
 
 interface DashboardContainerProps {
@@ -136,55 +137,72 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   return (
     <>
-      <div className={dashboardRightPanelStyle}>
-        <Map
-          markers={dashboardDataList}
-          setNotificationPanelActive={setNotificationPanelActive}
-          setSelectedNotification={setSelectedNotification}
-          marker={selectedNotification}
-          setTabIndex={setTabIndex}
-          currentMarker={currentMarker}
-          setCurrentMarker={setCurrentMarker}
+      <Grid container xs={12}>
+        <Grid item xs={12}>
+         
+          <Grid item xs={12}>
+            {" "}
+            <div className={dashboardRightPanelStyle}>
+              <Map
+                markers={dashboardDataList}
+                setNotificationPanelActive={setNotificationPanelActive}
+                setSelectedNotification={setSelectedNotification}
+                marker={selectedNotification}
+                setTabIndex={setTabIndex}
+                currentMarker={currentMarker}
+                setCurrentMarker={setCurrentMarker}
+                focusedCategory={focusedCategory}
+                mapPageName={"dashboard"}
+                setIsMarkerClicked={setIsMarkerClicked}
+                tabIndex={tabIndex}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            {" "}
+            <img
+              src={
+                notificationPanelActive
+                  ? NotificationActiveIcon
+                  : NotificationIcon
+              }
+              alt="Notificaion Icon"
+              onClick={onHandleBellIcon}
+              className={notificationIconSection}
+            />
+          </Grid>
+          <FlippingCard
+          currentOpenedCard={currentOpenedCard}
+          setCurrentOpenedCard={setCurrentOpenedCard}
           focusedCategory={focusedCategory}
-          mapPageName={"dashboard"}
-          setIsMarkerClicked={setIsMarkerClicked}
-          tabIndex={tabIndex}
+          setFocusedCategory={setFocusedCategory}
         />
-      </div>
-      <img
-        src={
-          notificationPanelActive ? NotificationActiveIcon : NotificationIcon
-        }
-        alt="Notificaion Icon"
-        onClick={onHandleBellIcon}
-        className={notificationIconSection}
-      />
-      <FlippingCard
-        currentOpenedCard={currentOpenedCard}
-        setCurrentOpenedCard={setCurrentOpenedCard}
-        focusedCategory={focusedCategory}
-        setFocusedCategory={setFocusedCategory}
-      />
-      {notificationPanelActive && (
-        <div className={notificationPanelSection}>
-          <NotificationPanel
-            setNotificationPanelActive={setNotificationPanelActive}
-            dashboardData={dashboardData}
-            tabIndex={tabIndex}
-            setTabIndex={setTabIndex}
-            notificationCount={notificationCount}
-            selectedNotification={selectedNotification}
-            setSelectedNotification={setSelectedNotification}
-            searchOpen={searchOpen}
-            setSearchOpen={setSearchOpen}
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            setCurrentMarker={setCurrentMarker}
-            notificationPageName={"dashboard"}
-            isMarkerClicked={isMarkerClicked}
-          />
-        </div>
-      )}
+          <Grid item xs={4}>
+            {notificationPanelActive && (
+              <div className={notificationPanelSection} style={{width : "23%"}}>
+                <NotificationPanel
+                  setNotificationPanelActive={setNotificationPanelActive}
+                  dashboardData={dashboardData}
+                  tabIndex={tabIndex}
+                  setTabIndex={setTabIndex}
+                  notificationCount={notificationCount}
+                  selectedNotification={selectedNotification}
+                  setSelectedNotification={setSelectedNotification}
+                  searchOpen={searchOpen}
+                  setSearchOpen={setSearchOpen}
+                  searchValue={searchValue}
+                  setSearchValue={setSearchValue}
+                  setCurrentMarker={setCurrentMarker}
+                  notificationPageName={"dashboard"}
+                  isMarkerClicked={isMarkerClicked}
+                />
+              </div>
+            )}
+          </Grid>
+        </Grid>
+
+        
+      </Grid>
     </>
   );
 };
