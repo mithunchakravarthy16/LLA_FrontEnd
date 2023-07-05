@@ -455,8 +455,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
-            return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
-            // return currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
         }
@@ -484,8 +484,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
-            return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
-            // return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
         }
@@ -514,8 +514,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
-            return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
-            // return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            // return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
         }

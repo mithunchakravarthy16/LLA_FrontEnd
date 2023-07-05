@@ -177,9 +177,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           focusedCategory={focusedCategory}
           setFocusedCategory={setFocusedCategory}
         />
-          <Grid item xs={2.5}>
+          <Grid item xs={4}>
             {notificationPanelActive && (
-              <div className={notificationPanelSection}>
+              <div className={notificationPanelSection} style={{width : "23%"}}>
                 <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}

@@ -7,7 +7,7 @@ import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
 import { CloseIcon } from "../../assets/fleetInfoDialogueIcons";
 import useStyles from "./styles";
-import CustomizedSteppers from "elements/Stepper";
+import CustomizedSteppers from "elements/HorizontalStepper";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
