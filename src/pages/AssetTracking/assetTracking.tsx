@@ -213,14 +213,122 @@ const AssetTracking: React.FC<any> = (props) => {
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
-        width: 1300,
-        height: 500,
+        width: 1250,
+        height: 480,
+        width1: 1250,
+        height1: 480,
         is4kDevice: true,
       });
-    } else if (window.innerWidth < 3839) {
+    } else if (window.innerWidth > 3071) {
+      setSelectedWidth({
+        width: 1000,
+        height: 500,
+        width1: 1000,
+        height1: 500,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2559) {
+      setSelectedWidth({
+        width: 820,
+        height: 180,
+        width1: 820,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 630,
+        height: 220,
+        width1: 630,
+        height1: 220,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1919) {
+      setSelectedWidth({
+        width: 620,
+        height: 205,
+        width1: 620,
+        height1: 205,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 560,
+        height: 240,
+        width1: 560,
+        height1: 240,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1679) {
       setSelectedWidth({
         width: 550,
+        height: 210,
+        width1: 550,
+        height1: 210,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1599) {
+      setSelectedWidth({
+        width: 500,
+        height: 190,
+        width1: 500,
+        height1: 190,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 500,
         height: 200,
+        width1: 500,
+        height1: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1439) {
+      setSelectedWidth({
+        width: 450,
+        height: 190,
+        width1: 450,
+        height1: 190,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1359) {
+      setSelectedWidth({
+        width: 400,
+        height: 150,
+        width1: 400,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 400,
+        height: 180,
+        width1: 400,
+        height1: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 400,
+        height: 100,
+        width1: 400,
+        height1: 100,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 150,
+        width1: 350,
+        height1: 150,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 110,
+        width1: 300,
+        height1: 110,
         is4kDevice: false,
       });
     }
@@ -451,8 +559,8 @@ const AssetTracking: React.FC<any> = (props) => {
                           </Grid>
                           <Grid item xs={12} className={graphTwoChartStyle}>
                             <Chart
-                              width={selectedWidth?.width}
-                              height={selectedWidth?.height}
+                              width={selectedWidth?.width1}
+                              height={selectedWidth?.height1}
                               graphType={"areaspline"}
                               isVisible={true}
                               units={""}

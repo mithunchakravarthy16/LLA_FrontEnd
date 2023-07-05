@@ -96,6 +96,7 @@ const useStyles = makeStyles({
   bodyLeftTopPanelMapContainer: (props: any) => ({
     position: "relative",
     height: "60%",
+    borderTop: "1px solid rgb(51, 51, 51)",
   }),
 
   bodyLeftTopPanelSubContainer: (props: any) => ({
@@ -103,7 +104,7 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelListContainer: (props: any) => ({
-    height: "20%",
+    height: "25%",
   }),
 
   graphOneContainer: (props: any) => ({
@@ -131,20 +132,62 @@ const useStyles = makeStyles({
     border: "1px solid #333333",
   }),
   graphTwoHeader: (props: any) => ({
-    height: "10%",
+    fontSize: "16px",
+    display: "flex",
+    padding: 10,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "70px",
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 22,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
     fontSize: "16px",
     display: "flex",
+    padding: 10,
     columnGap: "30px",
-    height: "10%",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "56px",
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 22,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
     },
   }),
 
@@ -185,10 +228,10 @@ const useStyles = makeStyles({
     marginRight: 6,
   }),
   graphOneChartStyle: (props: any) => ({
-    height: "90%"
+    height: "90%",
   }),
   graphTwoChartStyle: (props: any) => ({
-    height: "90%"
+    height: "90%",
   }),
   geofenceIconStyle: (props: any) => ({
     position: "absolute",
@@ -203,9 +246,9 @@ const useStyles = makeStyles({
     // padding: "15px 5px 15px 5px",
     // width: "53px",
     // height: "30px",
-    right:  "5px",
-    top:  "2px",
-    width : "5%"
+    right: "5px",
+    top: "2px",
+    width: "5%",
   }),
 });
 export default useStyles;

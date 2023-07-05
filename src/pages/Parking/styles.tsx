@@ -98,6 +98,7 @@ const useStyles = makeStyles({
   bodyLeftTopPanelMapContainer: (props: any) => ({
     position: "relative",
     height: "60%",
+    borderTop: "1px solid rgb(51, 51, 51)",
   }),
 
   bodyLeftTopPanelSubContainer: (props: any) => ({

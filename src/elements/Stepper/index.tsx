@@ -1,2 +1,2 @@
-import CustomizedSteppers from "./stepper";
-export default CustomizedSteppers;
+import Stepper from './stepper';
+export default Stepper;

@@ -1,5 +1,6 @@
 //@ts-nocheck
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Marker, InfoWindowF } from "@react-google-maps/api";
 
 import theme from "../../theme/theme";
@@ -7,6 +8,7 @@ import NotificationListItems from "components/NotificationListItems";
 import useStyles from "./styles";
 
 const MapMarker: React.FC<any> = (props) => {
+  const locations = useLocation();
   const {
     mapMarker,
     currentMarker,
@@ -19,7 +21,8 @@ const MapMarker: React.FC<any> = (props) => {
     pageName,
     clusterer,
     handleViewDetails,
-    handleAssetViewDetails
+    handleAssetViewDetails,
+    handleVideoDetails,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -28,7 +31,10 @@ const MapMarker: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
 
-  if (mapMarker?.category === "fleet") {
+  if (
+    mapMarker?.category === "fleet" &&
+    locations?.pathname === "/fleetManagement"
+  ) {
     return (
       <>
         <Marker
@@ -55,8 +61,12 @@ const MapMarker: React.FC<any> = (props) => {
               mapMarker.id
             ),
             scaledSize: new window.google.maps.Size(
-              window.innerWidth > 3839 ? 160.5 : 60.5,
-              window.innerWidth > 3839 ? 160.5 : 60.5
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5,
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5
             ),
           }}
           key={mapMarker.id}
@@ -74,6 +84,8 @@ const MapMarker: React.FC<any> = (props) => {
               handleMarkerClose={handleMarkerClose}
               handleExpandListItem={handleExpandListItem}
               handleAssetViewDetails={handleAssetViewDetails}
+              handleViewDetails={handleViewDetails}
+              handleVideoDetails={handleVideoDetails}
             />
           </InfoWindowF>
         )}
@@ -105,8 +117,8 @@ const MapMarker: React.FC<any> = (props) => {
             mapMarker.id
           ),
           scaledSize: new window.google.maps.Size(
-            window.innerWidth > 3839 ? 160.5 : 60.5,
-            window.innerWidth > 3839 ? 160.5 : 60.5
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
           ),
         }}
         key={mapMarker.id}
