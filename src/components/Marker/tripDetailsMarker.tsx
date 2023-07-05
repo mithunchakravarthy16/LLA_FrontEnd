@@ -7,7 +7,7 @@ import theme from "../../theme/theme";
 import NotificationListItems from "components/NotificationListItems";
 import useStyles from "./styles";
 
-const MapMarker: React.FC<any> = (props) => {
+const TripDetailsMarker: React.FC<any> = (props) => {
   const locations = useLocation();
   const {
     mapMarker,
@@ -30,10 +30,7 @@ const MapMarker: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
 
-  if (
-    mapMarker?.category === "fleet" &&
-    locations?.pathname === "/fleetManagement"
-  ) {
+  if (mapMarker?.category === "fleet") {
     return (
       <>
         <Marker
@@ -141,4 +138,4 @@ const MapMarker: React.FC<any> = (props) => {
   );
 };
 
-export default MapMarker;
+export default TripDetailsMarker;

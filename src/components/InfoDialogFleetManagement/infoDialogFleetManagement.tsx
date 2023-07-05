@@ -20,6 +20,7 @@ import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
 import FleetInfoDialogueViolationContainer from "components/FleetInfoDialogueViolationContainer";
 import Map from "components/Map";
+import TripDetailsMap from "components/Map/tripDetailsMap";
 import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
 
@@ -309,13 +310,17 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               <Grid item xs={7} style={{ height: "100%", padding: "0 1%" }}>
                 <Grid style={{ height: "100%" }} item xs={12}>
                   {tabIndex === 0 ? (
-                    <Map
+                    <TripDetailsMap
                       markers={[selectedMarker]}
                       marker={selectedMarker?.id}
-                      currentMarker={selectedMarker?.id}
+                      currentMarker={selectedMarker}
                       setCurrentMarker={() => {}}
                       focusedCategory={""}
                       mapPageName={"fleetManagement"}
+                      setIsMarkerClicked={setIsMarkerClicked}
+                      setSelectedNotification={() => {}}
+                      setNotificationPanelActive={() => {}}
+                      setTabIndex={() => {}}
                     />
                   ) : tabIndex === 1 ? (
                     <Grid container xs={12} style={{ height: "100%" }}>
