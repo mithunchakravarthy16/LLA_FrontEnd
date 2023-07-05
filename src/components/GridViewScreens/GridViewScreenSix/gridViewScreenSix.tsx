@@ -56,6 +56,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         width: 830,
         height: 600,
         is4kDevice: false,
+        xAxisFontSize: "22px",
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -168,6 +169,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
               isCrosshair={true}
               crossHairLineColor={"#ABCD9890"}
               is4kDevice={selectedWidth?.is4kDevice}
+              xAxisFontSize={selectedWidth?.xAxisFontSize}
               dataPoints={[
                 {
                   marker: {
