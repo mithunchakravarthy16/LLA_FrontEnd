@@ -64,8 +64,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 700,
-        height: 330,
+        width: 630, 
+        height: 530,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2559) {
@@ -78,25 +78,19 @@ const GridViewScreenOne: React.FC<any> = (props) => {
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 410,
-        height: 180,
+        height: 280,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {
       setSelectedWidth({
         width: 410,
-        height: 220,
+        height: 200,
         is4kDevice: false,
       });
-    } else if (window.innerHeight > 936) {
+    }  else if (window.innerWidth > 1791) {
       setSelectedWidth({
-        width: 410,
-        height: 180,
-        is4kDevice: false,
-      });
-    } else if (window.innerWidth > 1791) {
-      setSelectedWidth({
-        width: 380,
-        height: 280,
+        width: 350,
+        height: 300,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
@@ -113,8 +107,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
-        width: 300,
-        height: 160,
+        width: 320,
+        height: 210,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1439) {
@@ -133,9 +127,10 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
-        width: 250,
-        height: 150,
+        width: 280,
+        height: 170,
         is4kDevice: false,
+        xAxisFontSize: "8px",
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
@@ -157,6 +152,12 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         is4kDevice: false,
         tickInterval: 12,
         xAxisFontSize: "8px",
+      });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 410,
+        height: 180,
+        is4kDevice: false,
       });
     }
   }, [window.innerWidth, window.innerHeight]);
