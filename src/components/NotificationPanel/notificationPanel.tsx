@@ -140,28 +140,28 @@ const NotificationPanel = (props: any) => {
     const tabData = dashboardData;
     let searchResult = tabData?.filter((value: any) => {
       return (
-        value?.title
+        value?.title.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.area
+        value?.area.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.subTitle
+        value?.subTitle.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.trackerId
+        value?.trackerId.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.assetId
+        value?.assetId?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.entity
+        value?.entity.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.venue
+        value?.venue.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.equipment
+        value?.equipment.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase())
       );
