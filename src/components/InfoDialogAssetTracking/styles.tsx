@@ -14,11 +14,11 @@ const useStyles = makeStyles(() => ({
 
   headerTabContainerStyle: (props: any) => ({
     display: "flex",
-    width: "21%",
+    width: "14vw",
     justifyContent: "space-between",
     alignItems: "center",
     // marginLeft: "20px",
-    fontSize: "1em",
+    fontSize: "0.8vw",
     fontWeight: 600,
     letterSpacing: "0.75px",
   }),
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    lineHeight: "37px",
+    lineHeight: "5vh",
   }),
   assetInfoLeftPanelTop: (props: any) => ({
     // flex: 1,
@@ -49,6 +49,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
+    height : "14vh"
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
     // flex: 1
@@ -59,6 +60,8 @@ const useStyles = makeStyles(() => ({
     flex: "1",
     justifyContent: "space-between",
     margin: "3% 0",
+    height :"50%",
+    fontSize : "1vw"
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     // flex: 1,
@@ -96,8 +99,8 @@ const useStyles = makeStyles(() => ({
       },
     },
   }),
-  leftPanelChild1: (props: any) => ({}),
-  leftPanelChild2: (props: any) => ({ color: "#F26522" }),
+  leftPanelChild1: (props: any) => ({ fontSize : "0.9vw"}),
+  leftPanelChild2: (props: any) => ({ color: "#F26522", fontSize : "0.9vw" }),
   assetInfoRightPanelMain: (props: any) => ({
     height: "calc(100vh  - 205px)",
     border: "1px solid rgb(51, 51, 51)",

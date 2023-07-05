@@ -21,9 +21,9 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
   "& .MuiPaper-root": {
     maxHeight: "calc(100% - 150px)",
-    minHeight: "calc(100% - 150px)",
+    minHeight: "calc(100% - 100px)",
     width: "70vw",
-    maxWidth: "1772px",
+    maxWidth: "100vw",
     background: `#1A1919 !important`,
     color: "#fff",
     padding: "1.2%",
