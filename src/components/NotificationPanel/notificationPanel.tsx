@@ -30,6 +30,7 @@ const NotificationPanel = (props: any) => {
     setParkingLotSelectionActive,
     isMarkerClicked,
     handleViewDetails,
+    handleAssetViewDetails,
     handleVideoDetails,
   } = props;
 
@@ -144,6 +145,24 @@ const NotificationPanel = (props: any) => {
           .includes(searchText?.toString()?.toLowerCase()) ||
         value?.area
           ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.subTitle
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.trackerId
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.assetId
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.entity
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.venue
+          ?.toLowerCase()
+          .includes(searchText?.toString()?.toLowerCase()) ||
+        value?.equipment
+          ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase())
       );
     });
@@ -248,6 +267,7 @@ const NotificationPanel = (props: any) => {
                   selectedNotification={selectedNotification}
                   refs={refs}
                   handleViewDetails={handleViewDetails}
+                  handleAssetViewDetails={handleAssetViewDetails}
                   handleVideoDetails={handleVideoDetails}
                 />
               );

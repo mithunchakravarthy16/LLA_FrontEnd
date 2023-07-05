@@ -19,24 +19,36 @@ export const Wrapper = styled("div")`
     bottom: 130px;
   }
   @media (max-width: 2561px) {
-    left: 282px;
-    bottom: 130px;
+    left: 274px;
+    bottom: 78px;
   }
   @media (max-width: 2049px) {
-    left: 180px;
-    bottom: 100px;
+    left: 202px;
+    bottom: 66px;
   }
   @media (max-width: 1921px) {
     left: 180px;
     bottom: 80px;
   }
+  @media (max-width: 1793px) {
+    left: 180px;
+    bottom: 70px;
+  }
   @media (max-width: 1681px) {
     left: 150px;
     bottom: 90px;
   }
+  @media (max-width: 1536px) {
+    left: 150px;
+    bottom: 60px;
+  }
+  @media (max-width: 1345px) {
+    left: 150px;
+    bottom: 60px;
+  }
   @media (max-width: 1153px) {
     left: 137px;
-    bottom: 70px;
+    bottom: 50px;
   }
   @media (max-width: 1025px) {
     left: 122px;

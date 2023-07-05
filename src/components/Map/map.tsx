@@ -51,7 +51,7 @@ import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
-import FleetHoverIcon from "../../assets/markers/fleetHover.gif";
+import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -82,7 +82,7 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked,
     tabIndex,
     handleViewDetails,
-    handleVideoDetails,
+    handleAssetViewDetails
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -140,7 +140,18 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 572px)",
+            : "calc(100vh - 579px)",
+        is4kDevice: false,
+        is3kDevice: false,
+      });
+    } else if (window.innerWidth > 2559) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 531px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -151,9 +162,19 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 522px)",
+            : "calc(100vh - 505px)",
         is4kDevice: false,
         is3kDevice: false,
+      });
+    } else if (window.innerHeight > 1023) {
+      setSelectedContainerStyle({
+        width: "100%",
+
+        height:
+          mapPageName === "dashboard"
+            ? "calc(100vh - 0px)"
+            : "calc(100vh - 459px)",
+        is4kDevice: false,
       });
     } else if (window.innerHeight > 936) {
       setSelectedContainerStyle({
@@ -162,7 +183,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 451px)",
+            : "calc(100vh - 430px)",
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
@@ -172,7 +193,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 522px)",
+            : "calc(100vh - 499px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -183,7 +204,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 494px)",
+            : "calc(100vh - 470px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -194,7 +215,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 432px)",
+            : "calc(100vh - 416px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -205,7 +226,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 452px)",
+            : "calc(100vh - 431px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -216,7 +237,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 424px)",
+            : "calc(100vh - 406px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -238,7 +259,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 390px)",
+            : "calc(100vh - 356px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -249,7 +270,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 424px)",
+            : "calc(100vh - 384px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -293,7 +314,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 474px)",
+            : "calc(100vh - 420px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -315,7 +336,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 378px)",
+            : "calc(100vh - 358px)",
 
         is4kDevice: false,
         is3kDevice: false,
@@ -327,7 +348,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 378px)",
+            : "calc(100vh - 320px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -338,7 +359,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 294px)",
+            : "calc(100vh - 272px)",
 
         is4kDevice: false,
         is3kDevice: false,
@@ -758,6 +779,7 @@ const Map: React.FC<any> = (props) => {
                         focusedCategory={focusedCategory}
                         clusterer={clusterer}
                         location={singleMarker?.location}
+                        handleAssetViewDetails={handleAssetViewDetails}
                       />
                     </>
                   );
