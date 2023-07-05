@@ -659,15 +659,17 @@ const TripDetailsMap: React.FC<any> = (props) => {
   };
 
   const fetchDirection = async () => {
-    const directionService = new window.google.maps.DirectionsService();
+    if (currentMarker?.source?.lat) {
+      const directionService = new window.google.maps.DirectionsService();
 
-    const results = await directionService.route({
-      origin: currentMarker?.source,
-      destination: currentMarker?.destination,
-      travelMode: window.google.maps.TravelMode.DRIVING,
-    });
+      const results = await directionService.route({
+        origin: currentMarker?.source,
+        destination: currentMarker?.destination,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      });
 
-    setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
+      setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
+    }
   };
 
   useEffect(() => {

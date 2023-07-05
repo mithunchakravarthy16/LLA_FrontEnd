@@ -220,6 +220,7 @@ const FleetManagement: React.FC<any> = (props) => {
         width1: 480,
         height1: 500,
         is4kDevice: false,
+        is2kDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -239,11 +240,12 @@ const FleetManagement: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1919) {
       setSelectedWidth({
-        width: 500,
-        height: 210,
-        width1: 250,
-        height1: 210,
+        width: 530,
+        height: 250,
+        width1: 350,
+        height1: 250,
         is4kDevice: false,
+        is2kDevice: true,
       });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
@@ -466,6 +468,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                       isCrosshair={true}
                                       crossHairLineColor={"#6B70AB90"}
                                       is4kDevice={selectedWidth?.is4kDevice}
+                                      is2kDevice={selectedWidth?.is2kDevice}
                                       pageName={"FleetManagement"}
                                       dataPoints={[
                                         {
@@ -575,6 +578,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                   isCrosshair={true}
                                   crossHairLineColor={"#712C7D90"}
                                   is4kDevice={selectedWidth?.is4kDevice}
+                                  is2kDevice={selectedWidth?.is2kDevice}
                                   pageName={"FleetManagement"}
                                   dataPoints={[
                                     {
@@ -670,6 +674,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                   isCrosshair={true}
                                   crossHairLineColor={"#E5FAF6"}
                                   is4kDevice={selectedWidth?.is4kDevice}
+                                  is2kDevice={selectedWidth?.is2kDevice}
                                   tooltip={"shared"}
                                   pageName={"FleetManagement"}
                                   dataPoints={[
