@@ -737,7 +737,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
           <MarkerClustererF>
             {(clusterer: any) => (
               <div>
-                {markers?.map((singleMarker: any) => {
+                {/* {markers?.map((singleMarker: any) => {
                   // if (!window.google) return null;
                   return (
                     <>
@@ -754,7 +754,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
                       />
                     </>
                   );
-                })}
+                })} */}
 
                 {points && points.length > 0 && (
                   <PolylineF
