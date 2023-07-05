@@ -23,7 +23,7 @@ const useStyles = makeStyles(
       },
 
       "& .MuiStepConnector-line": {
-        marginTop: "75px", // To positio5n the line lower
+        marginTop: "8.5vh", // To positio5n the line lower
         border: `1px solid #F26522`,
         // borderBottom: "3px dashed #456EFF",
         // borderTop: "0px",
@@ -31,10 +31,12 @@ const useStyles = makeStyles(
       "& .MuiStepLabel-alternativeLabel": {
         color: `#FFF !important`,
         paddingBottom: "4px",
-        [muiTheme.breakpoints.down(1437)]: {
-          fontSize: " 10px !important",
-          // fontFamily: `'Nunito Sans', sans-serif !important`,
-        },
+        marginTop : "1vh",
+        fontSize : "0.6vw"
+        // [muiTheme.breakpoints.down(1437)]: {
+        //   fontSize: " 10px !important",
+        //   // fontFamily: `'Nunito Sans', sans-serif !important`,
+        // },
         
       },
     }),
@@ -43,14 +45,14 @@ const useStyles = makeStyles(
     typographySx: (props: any) => ({
       align: "center",
       padding: "3px 0px",
-      fontSize: "14px !important",
+      fontSize: "0.7vw !important",
       // fontFamily: `'Nunito Sans', sans-serif !important`,
       
-      minHeight: "66px !important",
-      [muiTheme.breakpoints.down(1437)]: {
-        fontSize: " 10px !important",
-        minHeight: "30px !important",
-      },
+      minHeight: "6vh !important",
+      // [muiTheme.breakpoints.down(1437)]: {
+      //   fontSize: " 10px !important",
+      //   minHeight: "30px !important",
+      // },
     }),
   }),
   { index: 1 }
@@ -63,9 +65,10 @@ export const ColorlibStepIconRoot = styled("div")<
 >(({ theme, ownerState, purpleShades, colorWhite, greenShade }) => ({
   zIndex: 1,
   color: colorWhite,
-
-  width: 50,
-  height: 50,
+  minWidth : "1.5vw",
+  minHeight : "2.5vh",
+  // width: 50,
+  // height: 50,
   display: "flex",
   borderRadius: "50%",
   boxShadow:  "0px 0px 0px 8px rgba(0,79,159,0.5)",
@@ -74,8 +77,10 @@ export const ColorlibStepIconRoot = styled("div")<
   backgroundColor: purpleShades,
   ...(ownerState.active && {
     // backgroundColor: greenShade,
-    width: 50,
-    height: 50,
+    minWidth : "1.5vw",
+    minHeight : "2.5vh",
+    // width: 50,
+    // height: 50,
     backgroundImage : `url("${PackageActiveIcon}")`,
     boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
     backgroundRepeat:"no-repeat",
@@ -83,15 +88,18 @@ export const ColorlibStepIconRoot = styled("div")<
     backgroundColor: "transparent",
     border : "none",
     borderRadius: "none",
+    marginTop : "-1.05vh"
   }),
   ...(ownerState.completed && {
+    minWidth : "2vw",
+    minHeight : "2vh",
     width: 30,
     height: 30,
     backgroundColor: purpleShades,
   }),
-  [muiTheme.breakpoints.down(1437)]: {
-    width: 15,
-    height: 15,
-    border: `2px solid ${colorWhite}`,
-  },
+  // [muiTheme.breakpoints.down(1437)]: {
+  //   width: 15,
+  //   height: 15,
+  //   border: `2px solid ${colorWhite}`,
+  // },
 }));

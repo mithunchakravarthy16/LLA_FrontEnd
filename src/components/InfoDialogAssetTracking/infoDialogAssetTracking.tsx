@@ -198,7 +198,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     </div>
                   </Grid>
                   <Grid className={assetInfoLeftPanelCenter}>
-                    <div style={{ width: "40%" }}>
+                    <div style={{ width: "40%", display : "flex", flexDirection : "column", justifyContent : "space-around" }}>
                       {assetCenterLeftSectionData?.map(
                         (data: any, index: any) => {
                           return (
@@ -226,7 +226,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         opacity: "0.5",
                       }}
                     ></div>
-                    <div style={{ width: "40%" }}>
+                    <div style={{ width: "40%", display : "flex", flexDirection : "column", justifyContent : "space-around" }}>
                       {assetCenterRightSectionData?.map(
                         (data: any, index: any) => {
                           return (
@@ -256,6 +256,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                 <Grid item xs={3} className={assetInfoRightPanelMain}>
                   <Grid item xs={12} className={notificationListContainer}>
                     <Grid container xs={12} rowGap={1.5}>
+
+                      
                       {infoWindowNotificationListItems &&
                         infoWindowNotificationListItems?.length > 0 &&
                         infoWindowNotificationListItems?.map((item: any) => (
@@ -272,12 +274,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               background: "#131313",
                             }}
                           >
-                            <div style={{ fontSize: "18px" }}>
+                            <div  style={{ fontSize: "0.9vw" }}>
                               {item?.title}
                             </div>
                             <div
                               style={{
-                                fontSize: "12px",
+                                fontSize: "0.7vw",
                                 display: "flex",
                                 justifyContent: "space-between",
                                 fontStyle: "italic",

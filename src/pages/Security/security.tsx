@@ -282,7 +282,7 @@ const Parking: React.FC<any> = (props) => {
                           height={selectedWidth?.height}
                           graphType={"areaspline"}
                           isVisible={true}
-                          units={"%"}
+                          units={""}
                           isCrosshair={true}
                           crossHairLineColor={"#73B35A90"}
                           is4kDevice={selectedWidth?.is4kDevice}

@@ -60,8 +60,8 @@ const useStyles = makeStyles(() => ({
     flex: "1",
     justifyContent: "space-between",
     margin: "3% 0",
-    height :"50%",
-    fontSize : "1vw"
+    height :"42%",
+    fontSize : "0.9vw"
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     // flex: 1,
