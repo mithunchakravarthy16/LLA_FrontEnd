@@ -25,6 +25,7 @@ import theme from "../../theme/theme";
 import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
+import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 
 const FleetManagement: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -383,7 +384,8 @@ const FleetManagement: React.FC<any> = (props) => {
   }, []);
 
   const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
-
+  const [showInfoDialogueVideo, setShowInfoDialogueVideo] = useState<boolean>(true);
+  
   const handleViewDetails = () => {
     setShowInfoDialogue(true);
   };
@@ -729,6 +731,11 @@ const FleetManagement: React.FC<any> = (props) => {
       {showInfoDialogue && (
         <InfoDialogFleetManagement setShowInfoDialogue={setShowInfoDialogue} />
       )}
+      {showInfoDialogueVideo && (
+        <InfoDialogFleetVideo setShowInfoDialogue={setShowInfoDialogueVideo} />
+      )}
+
+
     </>
   );
 };
