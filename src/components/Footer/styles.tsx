@@ -49,19 +49,24 @@ const useStyles = makeStyles(
         lineHeight: "28px",
         height: 158,
       },
+      [muiTheme.breakpoints.down(1793)]: {
+        fontSize: "6px",
+        lineHeight: "19px",
+        height: 158,
+      },
       [muiTheme.breakpoints.down(1367)]: {
-        fontSize: "9px",
-        lineHeight: "20px",
+        fontSize: "6px",
+        lineHeight: "19px",
         height: 104,
       },
       [muiTheme.breakpoints.down(1361)]: {
-        fontSize: "9px",
-        lineHeight: "20px",
+        fontSize: "6px",
+        lineHeight: "19px",
         height: 108,
       },
       [muiTheme.breakpoints.down(1345)]: {
-        fontSize: "9px",
-        lineHeight: "28px",
+        fontSize: "6px",
+        lineHeight: "19px",
         height: 128,
       },
       [muiTheme.breakpoints.down(1281)]: {
@@ -81,7 +86,7 @@ const useStyles = makeStyles(
       },
     }),
     footerSectionDasbhoard: (props: any) => ({
-      background: "rgba(30, 31, 39, 0.9)",
+      background: "rgba(30, 31, 39, 1)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
