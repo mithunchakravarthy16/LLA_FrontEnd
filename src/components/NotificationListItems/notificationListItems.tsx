@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "elements/Button";
 import theme from "../../theme/theme";
@@ -10,6 +11,7 @@ import FleetManagementCloseIcon from "../../assets/fleetManagementCloseIcon.svg"
 import useStyles from "./styles";
 
 const NotificationListItems = (props: any) => {
+  const locations = useLocation();
   const {
     data,
     data: {
@@ -36,6 +38,7 @@ const NotificationListItems = (props: any) => {
     pageName,
     handleMarkerClose,
     handleViewDetails,
+    handleVideoDetails,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -153,7 +156,7 @@ const NotificationListItems = (props: any) => {
     );
   }
 
-  if (category === "fleet") {
+  if (category === "fleet" && locations?.pathname === "/fleetManagement") {
     return (
       <>
         <div
@@ -174,7 +177,10 @@ const NotificationListItems = (props: any) => {
                   </div>
                   <div className={listItemCallout}>
                     <div className={listItemTitle}>{title}</div>
-                    <div className={markerCloseIcon}>
+                    <div
+                      className={markerCloseIcon}
+                      onClick={(e: any) => handleVideoDetails(e)}
+                    >
                       <img
                         src={VideoIcon}
                         width={selectedWidth?.is4kDevice ? 55 : 20}
@@ -186,7 +192,7 @@ const NotificationListItems = (props: any) => {
               ) : (
                 <div className={defaultListItem}>
                   <div className={listItemTitle}>{title}</div>
-                  <div>
+                  <div onClick={(e: any) => handleVideoDetails(e)}>
                     <img
                       src={VideoIcon}
                       width={selectedWidth?.is4kDevice ? 55 : 20}
@@ -217,7 +223,10 @@ const NotificationListItems = (props: any) => {
             <div className={collapsedListItems}>
               <div className={defaultListItem}>
                 <div className={listItemTitle}>{title}</div>
-                <div className={markerCloseIcon}>
+                <div
+                  className={markerCloseIcon}
+                  onClick={(e: any) => handleVideoDetails(e)}
+                >
                   <img
                     src={VideoIcon}
                     width={selectedWidth?.is4kDevice ? 55 : 20}
@@ -262,11 +271,7 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
             )}
             <div className={expandedListItemRow2}>
-              {category === "parking"
-                ? `Vehicle LPN : ${entity}`
-                : category === "fleet"
-                ? `Lat:${location?.lat}, Lng:${location?.lng}`
-                : `${entity}`}{" "}
+              {category === "parking" ? `Vehicle LPN : ${entity}` : `${entity}`}{" "}
             </div>
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}

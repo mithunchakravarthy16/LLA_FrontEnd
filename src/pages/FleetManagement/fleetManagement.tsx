@@ -394,6 +394,11 @@ const FleetManagement: React.FC<any> = (props) => {
     setShowInfoDialogue(true);
   };
 
+  const handleVideoDetails = (event: any) => {
+    event.stopPropagation();
+    setShowInfoDialogueVideo(true);
+  };
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -707,6 +712,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
                       handleViewDetails={handleViewDetails}
+                      handleVideoDetails={handleVideoDetails}
                     />
                   </Grid>
                 </Grid>
@@ -726,6 +732,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
                   handleViewDetails={handleViewDetails}
+                  handleVideoDetails={handleVideoDetails}
                 />
               </Grid>
             </Grid>

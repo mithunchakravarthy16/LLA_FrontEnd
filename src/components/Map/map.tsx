@@ -82,6 +82,7 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked,
     tabIndex,
     handleViewDetails,
+    handleVideoDetails,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -806,6 +807,7 @@ const Map: React.FC<any> = (props) => {
                           direction={"NE"}
                           pageName={"FleetManagement"}
                           handleViewDetails={handleViewDetails}
+                          handleVideoDetails={handleVideoDetails}
                         />
                       )}
                       {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
