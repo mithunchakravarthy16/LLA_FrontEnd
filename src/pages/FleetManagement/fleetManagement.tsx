@@ -241,9 +241,9 @@ const FleetManagement: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1919) {
       setSelectedWidth({
         width: 530,
-        height: 250,
+        height: 230,
         width1: 350,
-        height1: 250,
+        height1: 230,
         is4kDevice: false,
         is2kDevice: true,
       });
