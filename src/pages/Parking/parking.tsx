@@ -265,19 +265,10 @@ const Parking: React.FC<any> = (props) => {
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
         width: 600,
-        height: 300,
+        height: 250,
         width1: 700,
-        height1: 300,
+        height1: 250,
         width2: 30,
-        is4kDevice: false,
-      });
-    } else if (window.innerHeight > 936) {
-      setSelectedWidth({
-        width: 550,
-        height: 200,
-        width1: 600,
-        height1: 200,
-        width2: 20,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
@@ -312,6 +303,15 @@ const Parking: React.FC<any> = (props) => {
         width: 460,
         height: 150,
         width1: 460,
+        height1: 200,
+        width2: 25,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1399) {
+      setSelectedWidth({
+        width: 380,
+        height: 150,
+        width1: 380,
         height1: 200,
         width2: 25,
         is4kDevice: false,
@@ -724,6 +724,7 @@ const Parking: React.FC<any> = (props) => {
                   notificationPageName={"parking"}
                   setParkingLotIndex={setParkingLotIndex}
                   setParkingLotSelectionActive={setParkingLotSelectionActive}
+                  isMarkerClicked={isMarkerClicked}
                 />
               </Grid>
             </Grid>

@@ -1,0 +1,87 @@
+//@ts-nocheck
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Marker, InfoWindowF } from "@react-google-maps/api";
+
+import theme from "../../theme/theme";
+import NotificationListItems from "components/NotificationListItems";
+import useStyles from "./styles";
+
+const TripDetailsMarker: React.FC<any> = (props) => {
+  const locations = useLocation();
+  const {
+    mapMarker,
+    currentMarker,
+    toggleInfoWindow,
+    handleMarkerClose,
+    handleExpandListItem,
+    getMarkerIcon,
+    focusedCategory,
+    location,
+    pageName,
+    clusterer,
+    handleViewDetails,
+    handleVideoDetails,
+  } = props;
+
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")!)
+  );
+  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {} = useStyles(appTheme);
+
+  return (
+    <>
+      <Marker
+        animation={
+          focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
+            ? window.google.maps.Animation.BOUNCE
+            : undefined
+        }
+        position={
+          currentMarker?.id === mapMarker.id && location?.lat && location?.lng
+            ? location
+            : mapMarker?.location
+        }
+        onClick={() => {
+          toggleInfoWindow(
+            mapMarker.id,
+            mapMarker.notificationType,
+            mapMarker?.location
+          );
+        }}
+        icon={{
+          url: getMarkerIcon(
+            mapMarker.category,
+            mapMarker.notificationType,
+            mapMarker.id
+          ),
+          scaledSize: new window.google.maps.Size(
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+          ),
+        }}
+        key={mapMarker.id}
+        zIndex={currentMarker === mapMarker.id ? 1000 : 1}
+      />
+
+      {currentMarker?.id === mapMarker.id && pageName === "FleetManagement" && (
+        <InfoWindowF
+          position={location?.lat && location?.lng && location}
+          options={{ pixelOffset: new google.maps.Size(0, -20) }}
+        >
+          <NotificationListItems
+            data={mapMarker}
+            pageName={"markerCallout"}
+            handleMarkerClose={handleMarkerClose}
+            handleExpandListItem={handleExpandListItem}
+            handleViewDetails={handleViewDetails}
+            handleVideoDetails={handleVideoDetails}
+          />
+        </InfoWindowF>
+      )}
+    </>
+  );
+};
+
+export default TripDetailsMarker;

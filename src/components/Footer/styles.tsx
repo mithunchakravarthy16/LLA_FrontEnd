@@ -22,19 +22,62 @@ const useStyles = makeStyles(
       zIndex: "1111111",
       width: "100vw",
       color: "#FFFFFF",
-      fontSize: "30px",
-      lineHeight: "36px",
       height: 250,
       fontFamily: "HelveticaNeue-Regular",
-      [muiTheme.breakpoints.up(3073)]: {
-        fontSize: "28px",
-        lineHeight: "63px",
-        height: 384,
+      [muiTheme.breakpoints.up(3839)]: {
+        fontSize: "24px",
+        lineHeight: "52px",
+        height: 358,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        fontSize: "13px",
+        lineHeight: "30px",
+        height: 258,
+      },
+      [muiTheme.breakpoints.down(2561)]: {
+        fontSize: "11px",
+        lineHeight: "30px",
+        height: 168,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: "10px",
+        lineHeight: "28px",
+        height: 158,
       },
       [muiTheme.breakpoints.down(1921)]: {
-        fontSize: "10px",
-        lineHeight: "29px",
-        height: 160,
+        fontSize: "9px",
+        lineHeight: "28px",
+        height: 158,
+      },
+      [muiTheme.breakpoints.down(1367)]: {
+        fontSize: "9px",
+        lineHeight: "20px",
+        height: 104,
+      },
+      [muiTheme.breakpoints.down(1361)]: {
+        fontSize: "9px",
+        lineHeight: "20px",
+        height: 108,
+      },
+      [muiTheme.breakpoints.down(1345)]: {
+        fontSize: "9px",
+        lineHeight: "28px",
+        height: 128,
+      },
+      [muiTheme.breakpoints.down(1281)]: {
+        fontSize: "5px",
+        lineHeight: "11px",
+        height: 60,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        fontSize: "7px",
+        lineHeight: "19px",
+        height: 90,
+      },
+      [muiTheme.breakpoints.down(1025)]: {
+        fontSize: "4px",
+        lineHeight: "12px",
+        height: 70,
       },
     }),
     footerSectionDasbhoard: (props: any) => ({
@@ -47,37 +90,42 @@ const useStyles = makeStyles(
       zIndex: "1",
       width: "100vw",
       color: "#FFFFFF",
-      fontSize: "22px",
+      fontSize: "20px",
       lineHeight: "36px",
-      height: 124,
+      height: 82,
       fontFamily: "HelveticaNeue-Regular",
       "& img": {
         display: "none",
       },
       [muiTheme.breakpoints.up(3839)]: {
-        fontSize: "22px",
+        fontSize: "20px",
         lineHeight: "36px",
-        height: 124,
+        height: 82,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontSize: "16px",
         lineHeight: "27px",
-        height: 96,
+        height: 82,
+      },
+      [muiTheme.breakpoints.down(2561)]: {
+        fontSize: "12px",
+        lineHeight: "17px",
+        height: 50,
       },
       [muiTheme.breakpoints.down(2049)]: {
         fontSize: "11px",
         lineHeight: "17px",
-        height: 60,
+        height: 40,
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontSize: "11px",
         lineHeight: "17px",
-        height: 60,
+        height: 40,
       },
       [muiTheme.breakpoints.down(1153)]: {
-        fontSize: "10px",
+        fontSize: "8px",
         lineHeight: "18px",
-        height: 48,
+        height: 28,
       },
     }),
     footerContent: (props: any) => ({
@@ -98,16 +146,22 @@ const useStyles = makeStyles(
           width: 200,
         },
         [muiTheme.breakpoints.down(1921)]: {
-          width: 180,
+          width: 160,
+        },
+        [muiTheme.breakpoints.down(1281)]: {
+          width: 60,
         },
         [muiTheme.breakpoints.down(1153)]: {
-          width: 150,
+          width: 140,
+        },
+        [muiTheme.breakpoints.down(1025)]: {
+          width: 80,
         },
       },
     }),
     copyrights: (props: any) => ({
       position: "relative",
-      marginLeft: 12,
+
       // "&::before": {
       //   top: "4px",
       //   left: "-12px",

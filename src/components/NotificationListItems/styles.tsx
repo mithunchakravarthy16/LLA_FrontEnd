@@ -6,6 +6,7 @@ import muiTheme from "../../theme/muiTheme";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     minWidth: props?.pageName === "markerCallout" ? "350px" : "380px",
+    paddingRight : props?.pageName === "markerCallout" ? "" : "10px",
     [muiTheme.breakpoints.up(3839)]: {
       minWidth: props?.pageName === "markerCallout" ? 650 : 500,
     },

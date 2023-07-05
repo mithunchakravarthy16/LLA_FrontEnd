@@ -63,8 +63,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 640,
-        height: 100,
+        width: 620,
+        height: 170,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2559) {
@@ -75,20 +75,20 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 400,
+        width: 420,
         height: 100,
         is4kDevice: false,
       });
-    } else if (window.innerHeight > 936) {
+    }  else if (window.innerWidth > 1919) {
       setSelectedWidth({
-        width: 400,
+        width: 410,
         height: 90,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
-        width: 400,
-        height: 100,
+        width: 380,
+        height: 110,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
@@ -105,7 +105,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
-        width: 300,
+        width: 320,
         height: 90,
         is4kDevice: false,
       });
@@ -117,14 +117,14 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
-        width: 250,
+        width: 270,
         height: 70,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
         width: 250,
-        height: 64,
+        height: 50,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
@@ -137,6 +137,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 200,
         height: 50,
+        is4kDevice: false,
+      });
+    }else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 400,
+        height: 90,
         is4kDevice: false,
       });
     }
