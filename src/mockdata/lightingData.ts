@@ -156,8 +156,8 @@ const lightingData = {
       },
       {
         id: "lght12",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
+        title: "High Electricity Consumption",
+        subTitle: "Light Pole-1",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -171,8 +171,8 @@ const lightingData = {
       },
       {
         id: "lght13",
-        title: "Lights Firmware Update",
-        subTitle: "Introduce new features and enhance performance",
+        title: "Hazardous AQI",
+        subTitle: "AQI-200, Light Pole-3",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -186,9 +186,8 @@ const lightingData = {
       },
       {
         id: "lght14",
-        title: "Malfunctioning Spotlight",
-        subTitle: "Spotlight not focusing properly",
-
+        title: "High Temperature",
+        subTitle: "Temp 104 °F",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -202,9 +201,8 @@ const lightingData = {
       },
       {
         id: "lght15",
-        title: "Uneven Street Lighting",
-        subTitle: "Inconsistent brightness along the street",
-
+        title: "Weak Signal Strength",
+        subTitle: "Wifi#23, Light Pole-2",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -218,11 +216,9 @@ const lightingData = {
       },
       {
         id: "lght16",
-        title: "Flashing Neon Sign",
-        subTitle: "Neon sign flashing abnormally",
-
+        title: "High CO2 Level",
+        subTitle: "CO2 Level-1501,Light Pole-2",
         area: "OutDoor",
-
         entity: "",
         venue: "Location",
         category: "lighting",
@@ -235,11 +231,9 @@ const lightingData = {
       },
       {
         id: "lght17",
-        title: "Broken Street Lamp",
-        subTitle: "Non-functional street lamp",
-
+        title: "Low Bandwidth",
+        subTitle: "Wifi#23,Light Pole-3",
         area: "OutDoor",
-
         entity: "",
         venue: "Location",
         category: "lighting",
@@ -252,9 +246,8 @@ const lightingData = {
       },
       {
         id: "lght18",
-        title: "Flickering Lights",
-        subTitle: "Lights intermittently turning on and off",
-
+        title: "Low Humidity",
+        subTitle: "Humidity-20%",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -268,11 +261,9 @@ const lightingData = {
       },
       {
         id: "lght19",
-        title: "Dimmed Lights",
-        subTitle: "Reduced brightness in specific areas",
-
+        title: "High Electricity Consumption",
+        subTitle: "Light Pole-6",
         area: "OutDoor",
-
         entity: "",
         venue: "Location",
         category: "lighting",
@@ -285,11 +276,9 @@ const lightingData = {
       },
       {
         id: "lght20",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
-
+        title: "Weak Signal Strength",
+        subTitle: "Wifi#13, Light Pole-8",
         area: "OutDoor",
-
         entity: "",
         venue: "Location",
         category: "lighting",
@@ -302,8 +291,8 @@ const lightingData = {
       },
       {
         id: "lght91",
-        title: "Smart Lights Power Outage",
-        subTitle: "Outdoor smart lights are temporarily unavailable",
+        title: "High CO2 Level",
+        subTitle: "CO2 Level-101,Light Pole-8",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -317,8 +306,8 @@ const lightingData = {
       },
       {
         id: "lght92",
-        title: "Lights Connectivity Issue",
-        subTitle: "Causing disruptions in lighting patterns",
+        title: "High Temperature",
+        subTitle: "Temp 104 °F",
         area: "OutDoor",
         entity: "",
         venue: "Location",
@@ -332,8 +321,8 @@ const lightingData = {
       },
       {
         id: "lght93",
-        title: "Lights Firmware Update",
-        subTitle: "Introduce new features and enhance performance",
+        title: "Hazardous AQI",
+        subTitle: "AQI-300, Light Pole-1",
         area: "OutDoor",
         entity: "",
         venue: "Location",
