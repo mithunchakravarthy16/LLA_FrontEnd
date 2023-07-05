@@ -128,12 +128,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
-  useEffect(() => {
-    if (searchOpen && isMarkerClicked) {
-      setSearchOpen(false);
-      setSearchValue(dashboardData);
-    }
-  }, [isMarkerClicked, searchOpen, dashboardData]);
+
 
   return (
     <>

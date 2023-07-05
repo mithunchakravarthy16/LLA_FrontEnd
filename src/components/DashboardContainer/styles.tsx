@@ -66,7 +66,7 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(2049)]: {
       // width: "550px",
       top: "116px",
-      height: "calc(100vh - 216px)",
+      height: "calc(100vh - 190px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       // width: "450px",
@@ -86,12 +86,12 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1537)]: {
       // width: "400px",
       top: "80px",
-      height: "calc(100vh - 170px)",
+      height: "calc(100vh - 140px)",
     },
     [muiTheme.breakpoints.down(1345)]: {
       // width: "370px",
       top: "69px",
-      height: "calc(100vh - 160px)",
+      height: "calc(100vh - 127px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       // width: "320px",

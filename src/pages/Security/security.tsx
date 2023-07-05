@@ -429,6 +429,7 @@ const Parking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  isMarkerClicked={isMarkerClicked}
                 />
               </Grid>
             </Grid>

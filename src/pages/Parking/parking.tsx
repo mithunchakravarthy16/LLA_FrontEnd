@@ -724,6 +724,7 @@ const Parking: React.FC<any> = (props) => {
                   notificationPageName={"parking"}
                   setParkingLotIndex={setParkingLotIndex}
                   setParkingLotSelectionActive={setParkingLotSelectionActive}
+                  isMarkerClicked={isMarkerClicked}
                 />
               </Grid>
             </Grid>
