@@ -30,6 +30,7 @@ const NotificationPanel = (props: any) => {
     setParkingLotSelectionActive,
     isMarkerClicked,
     handleViewDetails,
+    handleVideoDetails,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -247,6 +248,7 @@ const NotificationPanel = (props: any) => {
                   selectedNotification={selectedNotification}
                   refs={refs}
                   handleViewDetails={handleViewDetails}
+                  handleVideoDetails={handleVideoDetails}
                 />
               );
             })
