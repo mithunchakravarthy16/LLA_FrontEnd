@@ -24,14 +24,26 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(3073)]: {
       width: "calc(100vw - 200px) !important",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      width: "calc(100vw - 130px) !important",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       width: "calc(100vw - 130px) !important",
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: "calc(100vw - 100px) !important",
     },
-    [muiTheme.breakpoints.down(1153)]: {
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "calc(100vw - 90px) !important",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
       width: "calc(100vw - 80px) !important",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "calc(100vw - 70px) !important",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 60px) !important",
     },
   }),
 
