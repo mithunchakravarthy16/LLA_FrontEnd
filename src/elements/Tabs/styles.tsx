@@ -45,6 +45,16 @@ const useStyles = makeStyles({
       lineHeight: "21px",
     },
   }),
+
+  tabLabelFleetInfoDialogue: (props: any) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "0.8vw",
+   
+  }),
+
   labelCountStyle: (props: any) => ({
     padding: "0px 15px",
     background: props?.palette?.notification?.tabTextColor,

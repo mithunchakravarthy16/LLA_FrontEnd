@@ -6,12 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
 import {
-  CoTwoCloudIcon,
-  VocCloudIcon,
-  AirQualityIcon,
-  PersonIcon,
-} from "../../assets/topPanelListIcons";
-import { CloseIcon } from "../../assets/fleetInfoDialogueIcons";
+  CloseIcon,
+  SpeedometerIcon,
+  DistinationLocationIcon,
+  FuelIcon,
+  IncidentIcon,
+  SpeedLimitIcon,
+  CamOneImg,
+  TripStatusIcon,
+} from "../../assets/fleetInfoDialogueIcons";
 
 import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
@@ -30,9 +33,10 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiPaper-root": {
     // maxHeight: "calc(100% - 150px)",
     // minHeight: "calc(100% - 150px)",
+    
     height: "80vh",
-    width: "70vw",
-    maxWidth: "1772px",
+    minWidth: "75vw",
+    maxWidth: "75vw",
     background: `#1A1919 !important`,
     color: "#fff",
     padding: 14,
@@ -59,7 +63,12 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
-  const { headerStyle, headerTabContainerStyle, headerTabStyle, violationListContainer } = useStyles({
+  const {
+    headerStyle,
+    headerTabContainerStyle,
+    headerTabStyle,
+    customNotificationTabs,
+  } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
   });
@@ -100,73 +109,97 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     { name: "Driver Detail", val: 2 },
   ];
 
+  const camTabsList = [
+    { name: "CAM 1", val: 0 },
+    { name: "CAM 2", val: 1 },
+  ];
+
   const handleHeaderTab = (index: number) => {
     setTabIndex(index);
   };
 
   const topPanelListItems: any[] = [
     {
-      icon: CoTwoCloudIcon,
-      value: "04",
-      name: "Stops",
-      title: "Stops",
+      value: tabIndex === 0 ? "04" : tabIndex === 1 ? "PB1672" : "Mike Ross",
+      title: tabIndex === 0 ? "Stops" : tabIndex === 1 ? "License Plate Number" : "Driver Name",
     },
     {
-      icon: VocCloudIcon,
-      value: "30%",
-      name: "Trip Completion",
-      title: "Trip Completion",
+      value: tabIndex === 0 ? "30%" : tabIndex === 1 ? "Passenger" : "PDRV#123456",
+      title: tabIndex === 0 ? "Trip Completion" : tabIndex === 1 ? "Vehicle Type" : "Driving License",
     },
     {
-      icon: AirQualityIcon,
-      value: "100Km",
-      name: "Distance Covered",
-      title: "Distance Covered",
+      value: tabIndex === 0 ? "100Km" : tabIndex === 1 ? "5" : "4",
+      title: tabIndex === 0 ? "Distance Covered" : tabIndex === 1 ? "Total Trips" : "Total Trips",
     },
     {
-      icon: AirQualityIcon,
-      value: "1Hr",
-      name: "Total Time",
-      title: "Total Time",
+      value: tabIndex === 0 ? "1Hr" : tabIndex === 1 ? "500 Km" : "600Km",
+      title: tabIndex === 0 ? "Total Time" : tabIndex === 1 ? "Total Distance" : "Total Distance Driven",
     },
     {
-      icon: PersonIcon,
-      value: "10",
-      name: "Violations",
-      title: "Violations",
+      value: tabIndex === 0 ? "10" : tabIndex === 1 ? "20" : "20",
+      title: tabIndex === 0 ? "Violations" : tabIndex === 1 ? "Violations" : "Violations",
     },
   ];
 
   const violationListItems: any[] = [
-    {      
+    {
       title: "Over Speeding",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
-    {      
+    {
       title: "Harsh Breaking",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
-    {      
+    {
       title: "Harsh Acceleration",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
-    {      
+    {
       title: "Cornering",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
-    {      
+    {
       title: "Cornering",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
-    {      
+    {
       title: "Harsh Acceleration",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
-    {      
+    {
       title: "Over Speeding",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
   ];
+
+  const vehicleDetailsSubTaskBarItems: any[] = [
+    {
+      icon: tabIndex === 1 ? SpeedometerIcon : TripStatusIcon,
+      value: tabIndex === 1 ? "90kph" : "On Trip",
+    },
+    {
+      icon: tabIndex === 1 ? DistinationLocationIcon : SpeedometerIcon,
+      value: tabIndex === 1 ? "100Km" : "90kph",
+    },
+    {
+      icon: tabIndex === 1 ? FuelIcon : DistinationLocationIcon,
+      value: tabIndex === 1 ? "5Gal" : "100Km",
+    },
+    {
+      icon: tabIndex === 1 ? IncidentIcon : IncidentIcon,
+      value: tabIndex === 1 ? "10" : "10",
+    },
+    {
+      icon: SpeedLimitIcon,
+      value: "70%",
+    },
+  ];
+
+  const [cameraTabIndex, setCameraTabIndex] = useState<number>(0);
+
+  const handleTabs = (index: number) => {
+    setCameraTabIndex(index);
+  };
 
   return (
     <>
@@ -208,7 +241,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           <Grid item xs={12} style={{ height: "10%" }}>
             <TopPanelListItemContainerInfoDialogue
               topPanelListItems={topPanelListItems}
-              percent={60}
+              percent={tabIndex === 0 ? 70 : tabIndex === 1 ? 85 : 70}
               strokeWidth={10}
               trailWidth={10}
               strokeColor="#92C07E"
@@ -227,15 +260,124 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               >
                 Route Details
               </Grid>
-              <Grid item xs={7} style={{ height: "100%", padding: "0 0.5%"}}>
-                <Grid style={{ height: "100%", border: "1px solid #333333" }} item xs={12}>Google Map</Grid>
+              <Grid item xs={7} style={{ height: "100%", padding: "0 1%" }}>
+                <Grid style={{ height: "100%" }} item xs={12}>
+                  {tabIndex === 0 ? (
+                    "Google Map"
+                  ) : tabIndex === 1 ? (
+                    <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid item xs={12} style={{ height: "13%" }}>
+                        <Grid
+                          container
+                          xs={12}
+                          justifyContent={"space-between"}
+                          alignItems={"center"}
+                          style={{
+                            height: "100%",
+                            background: "#161515",
+                            border: "1px solid #333333",
+                          }}
+                        >
+                          {vehicleDetailsSubTaskBarItems?.length > 0 &&
+                            vehicleDetailsSubTaskBarItems?.map((item: any) => (
+                              <Grid
+                                item
+                                display={"flex"}
+                                alignItems={"center"}
+                                justifyContent={"center"}
+                                columnGap={2}
+                                flex={1}
+                              >
+                                <div style={{width: "18%", height: "18%"}}>
+                                  <img
+                                    width={"100%"}
+                                    height={"100%"}
+                                    src={item?.icon}
+                                  />
+                                </div>
+                                <div style={{fontSize: "0.9vw"}}>{item?.value}</div>
+                              </Grid>
+                            ))}
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12} paddingTop={1} height={"87%"}>
+                        <Grid container xs={12} height={"100%"}>
+                          <Grid item xs={12} height={"13%"} display={"flex"} alignItems={"center"}>
+                            <Tabs
+                              initialIndex={cameraTabIndex}
+                              tabsList={camTabsList}
+                              handleTabs={handleTabs}
+                              dashboardNotificationClassName={
+                                customNotificationTabs
+                              }
+                              pageName={"fleetInfoDialogue"}
+                            />
+                          </Grid>
+                          <Grid item xs={12} height={"87%"} paddingTop={1}>
+                            <img width={"100%"} height={"100%"} style={{objectFit: "cover"}} src={CamOneImg} />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  ) : (
+                    <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid item xs={12} style={{ height: "13%" }}>
+                        <Grid
+                          container
+                          xs={12}
+                          justifyContent={"space-between"}
+                          alignItems={"center"}
+                          style={{
+                            height: "100%",
+                            background: "#161515",
+                            border: "1px solid #333333",
+                          }}
+                        >
+                          {vehicleDetailsSubTaskBarItems?.length > 0 &&
+                            vehicleDetailsSubTaskBarItems?.map((item: any, index: number) => (
+                              index < 4 &&
+                              <Grid
+                                item
+                                display={"flex"}
+                                alignItems={"center"}
+                                justifyContent={"center"}
+                                columnGap={2}
+                                flex={1}
+                              >
+                                <div style={{width: "15%", height: "15%"}}>
+                                  <img
+                                    width={"100%"}
+                                    height={"100%"}
+                                    src={item?.icon}
+                                  />
+                                </div>
+                                <div style={{fontSize: "0.9vw"}}>{item?.value}</div>
+                              </Grid>
+                            ))}
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12} paddingTop={2} height={"87%"}>
+                        <Grid container xs={12} height={"100%"} border={"1px solid #333333"}>
+                          Circular Charts
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  )}
+                </Grid>
               </Grid>
               <Grid
                 item
                 xs={3}
-                style={{ height: "100%", border: "1px solid #333333", padding: "1%", background: "#161515" }}
+                style={{
+                  height: "100%",
+                  border: "1px solid #333333",
+                  padding: "1%",
+                  background: "#161515",
+                }}
               >
-                <FleetInfoDialogueViolationContainer violationListItems={violationListItems}/>
+                <FleetInfoDialogueViolationContainer
+                  violationListItems={violationListItems}
+                />
               </Grid>
             </Grid>
           </Grid>

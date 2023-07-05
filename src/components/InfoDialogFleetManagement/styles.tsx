@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     marginLeft: "20px",
-    fontSize: "20px",
+    fontSize: "1.1vw",
   }),
 
   headerTabStyle: (props: any) => ({
@@ -41,6 +41,55 @@ const useStyles = makeStyles(() => ({
       width: 0,
     },
   }),
+
+  customNotificationTabs: (props: any) => ({
+    "& .MuiTabs-flexContainer": {
+      display: "flex",
+      flexDirection: "row",
+      columnGap: 55,
+    },
+
+    "& .MuiButtonBase-root": {
+      textTransform: "unset",
+      marginRight: "0 !important",
+      // minWidth: "64px !important",
+      padding: "0px !important",
+    },
+
+    "& .MuiTab-root": {
+      fontSize: "1.8vh !important",
+      
+      fontWeight: "600 !important",
+     minWidth: "unset",
+      "&:first-child": {
+       
+        color: `#5F5F5F !important`,
+      },
+      "&:first-child.Mui-selected": {
+        color: `#6BA044 !important`,
+      },
+      "&:nth-child(2)": {
+       
+        color: `#5F5F5F !important`,
+      },
+      "&:nth-child(2).Mui-selected": {
+        color: `#6BA044 !important`,
+      },
+      "&:nth-child(3)": {
+       
+        color: `#5F5F5F !important`,
+      },
+      "&:nth-child(3).Mui-selected": {
+        color: `#6BA044 !important`,
+      },
+    },
+    "& .MuiTabs-root .MuiTabs-indicator": {
+      background: "#6BA044",
+      height: "4px",
+      borderRadius: "2px"
+    },
+  }),
+
 }));
 
 export default useStyles;

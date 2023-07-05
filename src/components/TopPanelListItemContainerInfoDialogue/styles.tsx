@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   topPanelListItemStyle: (props: any) => ({
     alignItems: "flex-start",
     justifyContent: "center",
-    padding: "15px 0px 15px 20px",
+    padding: "1% 0 1% 2%",
     position: "relative",
     "&::after": {
       content: '""',
@@ -69,39 +69,39 @@ const useStyles = makeStyles({
   }),
 
   itemValueStyle: (props: any) => ({
-    fontSize: "16px",
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 35,
-      lineHeight: "48px",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 32,
-      lineHeight: "44px",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 24,
-      lineHeight: "28px",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 20,
-      lineHeight: "28px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 18,
-      lineHeight: "24px",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 14,
-      lineHeight: "22px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
-      lineHeight: "19px",
-    },
+    fontSize: "1vw",
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   fontSize: 35,
+    //   lineHeight: "48px",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   fontSize: 32,
+    //   lineHeight: "44px",
+    // },
+    // [muiTheme.breakpoints.down(2561)]: {
+    //   fontSize: 24,
+    //   lineHeight: "28px",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   fontSize: 20,
+    //   lineHeight: "28px",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   fontSize: 18,
+    //   lineHeight: "24px",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   fontSize: 14,
+    //   lineHeight: "22px",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   fontSize: 10,
+    //   lineHeight: "19px",
+    // },
   }),
 
   itemTitleStyle: (props: any) => ({
-    fontSize: "14px",
+    fontSize: "0.8vw",
     color: "#909090",
     // [muiTheme.breakpoints.up(3839)]: {
     //   fontSize: 35,
