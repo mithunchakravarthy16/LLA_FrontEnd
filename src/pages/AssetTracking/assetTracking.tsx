@@ -28,6 +28,7 @@ import { getNotificationData } from "redux/actions/getAllAssertNotificationActio
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
+import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -196,6 +197,8 @@ const AssetTracking: React.FC<any> = (props) => {
     assetNotificationList?.alerts?.totalCount,
   ]);
 
+  const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
+
   useEffect(() => {
     setDashboardData(
       formatttedDashboardNotification(notificationArray, tabIndex)
@@ -330,6 +333,122 @@ const AssetTracking: React.FC<any> = (props) => {
       });
     }
   }, []);
+
+  const handleAssetViewDetails = () => {
+    setIsInfoWindowActive(true);
+  };
+
+  const packageData = [
+    {
+      id: "1",
+      packageStage: "Equipment Arrived",
+      timeStamp: "06-20-2023 9.00AM",
+      status: "Completed",
+    },
+    {
+      id: "2",
+      packageStage: "Initial Scan",
+      timeStamp: "06-20-2023 10.30AM",
+      status: "Completed",
+    },
+    {
+      id: "3",
+      packageStage: "Inbound Staging & Tagging",
+      timeStamp: "06-20-2023 12.30PM",
+      status: "In progress",
+    },
+    {
+      id: "4",
+      packageStage: "Allocated Space",
+      timeStamp: "06-20-2023 1.30PM",
+      status: "In progress",
+    },
+    {
+      id: "5",
+      packageStage: "Tracking Active",
+      timeStamp: "06-20-2023 3.00PM",
+      status: "Completed",
+    },
+    {
+      id: "6",
+      packageStage: "1411 Wynkoop St, Zone 1, LLA BUILDING",
+      timeStamp: "06-23-2023 04.30PM",
+      status: "Completed",
+    },
+  ];
+
+  const infoWindowNotificationListItems: any[] = [
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Out of Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+    {
+      title: "Within Geofence",
+      details: "TR#12367 | Asset#12",
+      timeStamp : "06-12-2023 | 9:00 AM"
+    },
+  ];
 
   return (
     <>
@@ -496,14 +615,14 @@ const AssetTracking: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
+
                   <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
-                    {/* <div className={geofenceIconStyle}> */}
                     <img
                       src={GeofenceIcon}
                       className={geofenceIconStyle}
                       alt="GeofenceIcon"
+                      // onClick={handleAssetInfoWindow}
                     />
-                    {/* </div> */}
 
                     <Map
                       markers={notificationArray}
@@ -514,6 +633,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      handleAssetViewDetails={handleAssetViewDetails}
                     />
                   </Grid>
                 </Grid>
@@ -532,12 +652,20 @@ const AssetTracking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  handleAssetViewDetails={handleAssetViewDetails}
                 />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
+      {isInfoWindowActive && (
+        <InfoDialogAssetTracking
+          setIsInfoWindowActive={setIsInfoWindowActive}
+          packageData={packageData}
+          infoWindowNotificationListItems={infoWindowNotificationListItems}
+        />
+      )}
     </>
   );
 };

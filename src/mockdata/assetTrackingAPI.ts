@@ -7,67 +7,322 @@ const assetTrackingResponse = {
     },
     analytics: {},
     notifications: {
-        "events": {
-          "totalCount": 1,
-          "eventsList": [
-            {
-              "assetNotificationId": "lght1",
-              "notificationType": "event",
-              "reason": "Asset Check-in Recorded",
-              "trackerId": "TR#12367",
-              "assetId": "Asset#12",
-              "trackerName": "string",
-              "assetName": "string",
-              "notificationDate": "2023-07-03T13:15:24.236Z",
-              area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
-              location: {
-                lat: 39.75555358586086,
-                lng: -105.01657322197286,
-              },
-            }
-          ]
-        },
-        "incidents": {
-          "totalCount": 1,
-          "incidentList": [
-            {
-              "assetNotificationId": "lght12",
-              "notificationType": "incident",
-              "reason": "Asset Theft Identified",
-              "trackerId": "TR#12368",
-              "assetId": "Asset#13",
-              "trackerName": "string",
-              "assetName": "string",
-              "notificationDate": "2023-06-28T09:22:50.124Z",
-              area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
-              location: {
-                lat: 39.75729624533388,
-                lng: -104.9895572496697,
-              },
-            }
-          ]
-        },
-        "alerts": {
-          "totalCount": 1,
-          "alertList": [
-            {
-              "assetNotificationId": "lght13",
-              "notificationType": "oprAlert",
-              "reason": "Floodlight Maintenance",
-              "trackerId": "TR#12369",
-              "assetId": "Asset#15",
-              "trackerName": "string",
-              "assetName": "string",
-              "notificationDate": "2023-06-28T09:22:50.124Z",
-              area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
-              location: {
-                lat: 39.75932453116013,
-                lng: -105.01244836237774,
-              },
-            }
-          ]
-        }
+      "events": {
+        "totalCount": 9,
+        "eventsList": [
+          {
+            "assetNotificationId": "ast1",
+            "notificationType": "event",
+            "reason": "Asset Check-in Recorded",
+            "trackerId": "TR#12367",
+            "assetId": "Asset#12",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75555358586086,
+              lng: -105.01657322197286,
+            },
+          },
+          {
+            "assetNotificationId": "ast2",
+            "notificationType": "event",
+            "reason": "Asset Check-out Recorded",
+            "trackerId": "TR#2367",
+            "assetId": "Asset#82",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "1305-255 North Denver, Denver, CO 80205, USA",
+            location: {
+              lat: 39.75729624533388,
+              lng: -104.9895572496697,
+            },
+          },
+          {
+            "assetNotificationId": "ast3",
+            "notificationType": "event",
+            "reason": "Asset Maintenance Initiated",
+            "trackerId": "TR#1267",
+            "assetId": "Asset#72",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "2945 Umatilla St, Denver, CO 80211, USA",
+            location: {
+              lat: 39.75932453116013,
+              lng: -105.01244836237774,
+            },
+          },
+          {
+            "assetNotificationId": "ast4",
+            "notificationType": "event",
+            "reason": "Asset Tracking Software Updating",
+            "trackerId": "TR#1767",
+            "assetId": "Asset#92",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "3187-3055 Little Raven St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75986730174264,
+              lng: -105.00059403615393,
+            },
+          },
+          {
+            "assetNotificationId": "ast5",
+            "notificationType": "event",
+            "reason": "Asset Transfer Completed",
+            "trackerId": "TR#2367",
+            "assetId": "Asset#42",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "S Platte River Trail, Denver, CO 80204, USA",
+            location: {
+              lat: 39.75181100420289,
+              lng: -105.01129637456289,
+            },
+          },
+          {
+            "assetNotificationId": "ast6",
+            "notificationType": "event",
+            "reason": "Asset Transfer Initiated",
+            "trackerId": "TR#167",
+            "assetId": "Asset#52",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "Parking lot, 1901 Wazee St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75515362500666,
+              lng: -104.99609756758628,
+            },
+          },
+          {
+            "assetNotificationId": "ast7",
+            "notificationType": "event",
+            "reason": "a.	Asset Tracking Tag Added",
+            "trackerId": "TR#367",
+            "assetId": "Asset#12",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75555358586086,
+              lng: -105.01657322197286,
+            },
+          },
+          {
+            "assetNotificationId": "ast8",
+            "notificationType": "event",
+            "reason": "Asset Tracking Tag Added",
+            "trackerId": "TR#2267",
+            "assetId": "Asset#112",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "1981 Blake St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75446897081743,
+              lng: -104.99462775240605,
+            },
+          },
+          {
+            "assetNotificationId": "ast9",
+            "notificationType": "event",
+            "reason": "Asset Check-in Recorded",
+            "trackerId": "TR#12777",
+            "assetId": "Asset#02",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-07-03T13:15:24.236Z",
+            area: "1600 20th St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75524430200669,
+              lng: -104.99584016131921,
+            },
+          }
+        ]
+      },
+      "incidents": {
+        "totalCount": 7,
+        "incidentList": [
+          {
+            "assetNotificationId": "ast12",
+            "notificationType": "incident",
+            "reason": "Asset Theft Identified",
+            "trackerId": "TR#12368",
+            "assetId": "Asset#13",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75729624533388,
+              lng: -104.9895572496697,
+            },
+          },
+          {
+            "assetNotificationId": "ast13",
+            "notificationType": "incident",
+            "reason": "Asset Misplacement Identified",
+            "trackerId": "TR#1268",
+            "assetId": "Asset#14",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "QX4V+72Q Denver, Colorado, USA",
+            location: {
+              lat: 39.755724996944544,
+              lng: -105.0073944803513,
+            },
+          },
+          {
+            "assetNotificationId": "ast14",
+            "notificationType": "incident",
+            "reason": "Asset Loss Reported",
+            "trackerId": "TR#1368",
+            "assetId": "Asset#23",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "2905 Inca St #4019, Denver, CO 80202, USA",
+            location: {
+              lat: 39.758410381562285,
+              lng: -104.99914476116105,
+            },
+          },
+          {
+            "assetNotificationId": "ast15",
+            "notificationType": "incident",
+            "reason": "Asset Tracking Tag Damaged",
+            "trackerId": "TR#2308",
+            "assetId": "Asset#18",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "1451 24th St #432, Denver, CO 80205, USA",
+            location: {
+              lat: 39.758267544591504,
+              lng: -104.98829377916307,
+            },
+          },
+          {
+            "assetNotificationId": "ast16",
+            "notificationType": "incident",
+            "reason": "Asset Tracking Tag Malfunctioned",
+            "trackerId": "TR#1068",
+            "assetId": "Asset#19",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "2121 Delgany St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75809613983553,
+              lng: -104.99754684257915,
+            },
+          },
+          {
+            "assetNotificationId": "ast17",
+            "notificationType": "incident",
+            "reason": "Asset Tampering Incident Detecte",
+            "trackerId": "TR#12108",
+            "assetId": "Asset#20",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "1451 24th St #432, Denver, CO 80205, USA",
+            location: {
+              lat: 39.758267544591504,
+              lng: -104.98829377916307,
+            },
+          },
+          {
+            "assetNotificationId": "ast18",
+            "notificationType": "incident",
+            "reason": "Asset Damage Reported",
+            "trackerId": "TR#18368",
+            "assetId": "Asset#93",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "Lower Highland, Denver, CO 80211, USA",
+            location: {
+              lat: 39.76323809694557,
+              lng: -105.00263788550286,
+            },
+          },
+        ]
+      },
+      "alerts": {
+        "totalCount": 4,
+        "alertList": [
+          {
+            "assetNotificationId": "ast23",
+            "notificationType": "oprAlert",
+            "reason": "Floodlight Maintenance",
+            "trackerId": "TR#12209",
+            "assetId": "Asset#25",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75932453116013,
+              lng: -105.01244836237774,
+            },
+          },
+          {
+            "assetNotificationId": "ast24",
+            "notificationType": "oprAlert",
+            "reason": "Asset Tracking System Data Processing Delay",
+            "trackerId": "TR#12369",
+            "assetId": "Asset#15",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "2975 Huron St #115, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75978160140874,
+              lng: -104.99776980796267,
+            },
+          },
+          {
+            "assetNotificationId": "ast25",
+            "notificationType": "oprAlert",
+            "reason": "Asset Tracking Gateways Enabled",
+            "trackerId": "TR#12119",
+            "assetId": "Asset#65",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "2050-1980 19th St, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75722374013964,
+             lng: -105.00077442018811,
+            },
+          },
+          {
+            "assetNotificationId": "lght13",
+            "notificationType": "oprAlert",
+            "reason": "Asset Tracking Gateways Disabled",
+            "trackerId": "TR#10069",
+            "assetId": "Asset#75",
+            "trackerName": "string",
+            "assetName": "string",
+            "notificationDate": "2023-06-28T09:22:50.124Z",
+            area: "1969-2031 16th St Mall, Denver, CO 80202, USA",
+            location: {
+              lat: 39.75375121273463,
+              lng: -105.00332786577579,
+            },
+          }
+        ]
       }
+    }
   };
   
   export default assetTrackingResponse;

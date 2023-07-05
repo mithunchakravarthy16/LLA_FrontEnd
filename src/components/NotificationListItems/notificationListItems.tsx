@@ -38,6 +38,7 @@ const NotificationListItems = (props: any) => {
     pageName,
     handleMarkerClose,
     handleViewDetails,
+    handleAssetViewDetails,
     handleVideoDetails,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
@@ -133,8 +134,8 @@ const NotificationListItems = (props: any) => {
 
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
-                  <Button variant="contained" handleClick={() => null}>
-                    {category === "asset" ? "View Details" : "Take Action"}
+                  <Button variant="contained" handleClick={handleAssetViewDetails}>
+                    View Details
                   </Button>
                 </div>
                 <div className={timeStampStyle}>{currentTimeStamp}</div>

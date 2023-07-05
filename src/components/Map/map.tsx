@@ -51,7 +51,7 @@ import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
-import FleetHoverIcon from "../../assets/markers/fleetHover.gif";
+import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -82,7 +82,7 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked,
     tabIndex,
     handleViewDetails,
-    handleVideoDetails,
+    handleAssetViewDetails
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -758,6 +758,7 @@ const Map: React.FC<any> = (props) => {
                         focusedCategory={focusedCategory}
                         clusterer={clusterer}
                         location={singleMarker?.location}
+                        handleAssetViewDetails={handleAssetViewDetails}
                       />
                     </>
                   );
