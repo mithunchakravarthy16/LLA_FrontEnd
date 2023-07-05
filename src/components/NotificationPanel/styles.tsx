@@ -448,80 +448,80 @@ const useStyles = makeStyles({
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 684px)"
-          : "calc(100vh - 590px)",
+          : "calc(100vh - 511px)",
     },
 
     [muiTheme.breakpoints.down(3073)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 624px)"
-          : "calc(100vh - 482px)",
+          : "calc(100vh - 461px)",
     },
     [muiTheme.breakpoints.down(2561)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 501px)"
-          : "calc(100vh - 590px)",
+          : "calc(100vh - 410px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 450px)"
-          : "calc(100vh - 353px)",
+          : "calc(100vh - 326px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 432px)"
-          : "calc(100vh - 353px)",
+          : "calc(100vh - 313px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 410px)"
-          : "calc(100vh - 338px)",
+          : "calc(100vh - 289px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 425px)"
-          : "calc(100vh - 340px)",
+          : "calc(100vh - 298px)",
     },
     [muiTheme.breakpoints.down(1601)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 408px)"
-          : "calc(100vh - 320px)",
+          : "calc(100vh - 300px)",
     },
     [muiTheme.breakpoints.down(1545)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 408px)"
-          : "calc(100vh - 353px)",
+          : "calc(100vh - 325px)",
     },
     [muiTheme.breakpoints.down(1537)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 370px)"
-          : "calc(100vh - 312px)",
+          : "calc(100vh - 270px)",
     },
     [muiTheme.breakpoints.down(1441)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 368px)"
-          : "calc(100vh - 304px)",
+          : "calc(100vh - 269px)",
     },
     [muiTheme.breakpoints.down(1361)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 354px)"
-          : "calc(100vh - 308px)",
+          : "calc(100vh - 259px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 306px)"
-          : "calc(100vh - 257px)",
+          : "calc(100vh - 232px)",
     },
   }),
 });

@@ -23,10 +23,13 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 400 : 240,
     },
     [muiTheme.breakpoints.down(1681)]: {
-      minWidth: props?.pageName === "markerCallout" ? 400 : 240,
+      minWidth: props?.pageName === "markerCallout" ? 350 : 240,
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      minWidth: props?.pageName === "markerCallout" ? 340 : 240,
     },
     [muiTheme.breakpoints.down(1153)]: {
-      minWidth: props?.pageName === "markerCallout" ? 350 : 220,
+      minWidth: props?.pageName === "markerCallout" ? 330 : 220,
     },
     [muiTheme.breakpoints.down(1025)]: {
       minWidth: props?.pageName === "markerCallout" ? 290 : 186,
