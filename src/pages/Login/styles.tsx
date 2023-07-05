@@ -51,6 +51,10 @@ const useStyles = makeStyles(() => ({
       maxWidth: "460px !important",
       padding: "40px ",
     },
+    [muiTheme.breakpoints.down(1281)]: {
+      maxWidth: "460px !important",
+      padding: "16px ",
+    },
     [muiTheme.breakpoints.down(1153)]: {
       maxWidth: "460px !important",
       padding: "32px 20px ",
@@ -100,6 +104,9 @@ const useStyles = makeStyles(() => ({
     },
     [muiTheme.breakpoints.down(1921)]: {
       marginBottom: 20,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      marginBottom: 6,
     },
   }),
   incorrectCredential: () => ({
@@ -176,6 +183,9 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(1921)]: {
       marginBottom: 20,
     },
+    [muiTheme.breakpoints.down(1537)]: {
+      marginBottom: 6,
+    },
   }),
   inputFieldPassword: (props: any) => ({
     marginBottom: 67,
@@ -208,6 +218,9 @@ const useStyles = makeStyles(() => ({
     },
     [muiTheme.breakpoints.down(1921)]: {
       marginBottom: 20,
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      marginBottom: 6,
     },
   }),
   radioButtonSection: (props: any) => ({

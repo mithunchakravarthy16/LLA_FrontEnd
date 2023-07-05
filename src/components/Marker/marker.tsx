@@ -21,6 +21,7 @@ const MapMarker: React.FC<any> = (props) => {
     pageName,
     clusterer,
     handleViewDetails,
+    handleAssetViewDetails,
     handleVideoDetails,
   } = props;
 
@@ -82,6 +83,7 @@ const MapMarker: React.FC<any> = (props) => {
               pageName={"markerCallout"}
               handleMarkerClose={handleMarkerClose}
               handleExpandListItem={handleExpandListItem}
+              handleAssetViewDetails={handleAssetViewDetails}
               handleViewDetails={handleViewDetails}
               handleVideoDetails={handleVideoDetails}
             />
@@ -133,6 +135,7 @@ const MapMarker: React.FC<any> = (props) => {
             pageName={"markerCallout"}
             handleMarkerClose={handleMarkerClose}
             handleExpandListItem={handleExpandListItem}
+            handleAssetViewDetails={handleAssetViewDetails}
           />
         </InfoWindowF>
       )}

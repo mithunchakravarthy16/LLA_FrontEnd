@@ -16,23 +16,39 @@ const useStyles = makeStyles({
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
-      height: "calc(100vh - 123px)",
+      height: "calc(100vh - 80px)",
     },
     [muiTheme.breakpoints.down(3073)]: {
       width: "calc(100vw - 200px) !important",
-      height: "calc(100vh - 96px)",
+      height: "calc(100vh - 80px)",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      width: "calc(100vw - 130px) !important",
+      height: "calc(100vh - 49px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
       width: "calc(100vw - 130px) !important",
-      height: "calc(100vh - 60px)",
+      height: "calc(100vh - 40px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: "calc(100vw - 100px) !important",
-      height: "calc(100vh - 59px)",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "calc(100vw - 90px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      width: "calc(100vw - 80px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "calc(100vw - 70px) !important",
+      height: "calc(100vh - 40px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      width: "calc(100vw - 80px) !important",
-      height: "calc(100vh - 48px)",
+      width: "calc(100vw - 60px) !important",
+      height: "calc(100vh - 28px)",
     },
 
     "& > .MuiGrid-item:first-child": {

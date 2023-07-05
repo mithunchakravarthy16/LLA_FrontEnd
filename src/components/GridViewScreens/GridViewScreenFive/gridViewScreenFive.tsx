@@ -112,7 +112,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
         width: 250,
-        height: 100,
+        height: 80,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
