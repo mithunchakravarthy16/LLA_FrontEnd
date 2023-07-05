@@ -28,7 +28,7 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
   return (
     <>
       <Grid container xs={12} style={{ height: "100%" }}>
-        <Grid item xs={12} style={{ height: "5%" }}>
+        <Grid item xs={12} style={{ height: "5%", fontSize: "0.9vw" }}>
           VIOLATIONS
         </Grid>
         <Grid item xs={12} className={violationListContainer}>
@@ -49,8 +49,8 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
                     background: "#131313",
                   }}
                 >
-                  <div style={{ fontSize: "18px" }}>{item?.title}</div>
-                  <div style={{ fontSize: "13px", fontStyle: "italic" }}>
+                  <div style={{ fontSize: "0.9vw" }}>{item?.title}</div>
+                  <div style={{ fontSize: "0.7vw", fontStyle: "italic", fontWeight: 100 }}>
                   {item?.details}
                   </div>
                 </Grid>
