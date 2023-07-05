@@ -70,7 +70,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
         width: 600,
-        height: 150,
+        height: 390,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2559) {
@@ -81,33 +81,34 @@ const GridViewScreenFour: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 400,
-        height: 70,
+        width: 410,
+        height: 200,
         is4kDevice: false,
       });
-    } else if (window.innerHeight > 936) {
+    }  else if (window.innerWidth > 1919) {
       setSelectedWidth({
-        width: 400,
-        height: 60,
-        is4kDevice: false,
-      });
-    } else if (window.innerWidth > 1791) {
-      setSelectedWidth({
-        width: 350,
+        width: 420,
         height: 140,
+        is4kDevice: false,
+      });
+    }  else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 355,
+        height: 200,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
       setSelectedWidth({
-        width: 300,
-        height: 70,
+        width: 324,
+        height: 140,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
-        width: 250,
+        width: 280,
         height: 100,
         is4kDevice: false,
+        xAxisFontSize: "8px",
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
@@ -125,6 +126,12 @@ const GridViewScreenFour: React.FC<any> = (props) => {
       setSelectedWidth({
         width: 170,
         height: 70,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 400,
+        height: 60,
         is4kDevice: false,
       });
     }
@@ -168,6 +175,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                           units={""}
                           isCrosshair={false}
                           is4kDevice={selectedWidth?.is4kDevice}
+                          xAxisFontSize={selectedWidth?.xAxisFontSize}
                           dataPoints={[
                             {
                               marker: {
