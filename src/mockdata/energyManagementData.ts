@@ -125,7 +125,7 @@ const energyManagementData = {
       },
       {
         id: "eng11",
-        title: "Gas Leak Detected",
+        title: "High Voltage",
         area: "Building C",
         entity: "",
         venue: "",
@@ -140,7 +140,7 @@ const energyManagementData = {
       },
       {
         id: "eng12",
-        title: "High Energy Consumption Detected",
+        title: "High Energy Consumption",
         area: "Zone A",
         entity: "",
         venue: "",
@@ -170,7 +170,7 @@ const energyManagementData = {
       },
       {
         id: "eng14",
-        title: "Gas Leak Detected",
+        title: "Low Voltage",
         area: "Zone A",
         entity: "",
         venue: "",
@@ -185,7 +185,7 @@ const energyManagementData = {
       },
       {
         id: "eng15",
-        title: "Equipment Failure",
+        title: "High Voltage",
         area: "Building A",
         entity: "",
         venue: "",
@@ -215,7 +215,7 @@ const energyManagementData = {
       },
       {
         id: "eng17",
-        title: "Gas Leak Detected",
+        title: "High Voltage",
         area: "Building H",
         entity: "",
         venue: "",
@@ -260,7 +260,7 @@ const energyManagementData = {
       },
       {
         id: "eng69",
-        title: "Equipment Failure",
+        title: "High Energy Consumption",
         area: "Building A",
         entity: "",
         venue: "",
@@ -275,7 +275,7 @@ const energyManagementData = {
       },
       {
         id: "eng20",
-        title: "Gas Leak Detected",
+        title: "Carbon Emissions Increased",
         area: "Building C",
         entity: "",
         venue: "",
@@ -314,13 +314,13 @@ const energyManagementData = {
         timeStamp: "09:41 AM",
         location: {
           lat: 39.756726612981204,
-          lng:  -105.00150064550958,
+          lng: -105.00150064550958,
         },
         equipment: "Equip - 3",
       },
       {
         id: "eng21",
-        title: "Unusual Power Fluctuations Detected",
+        title: "Unusual Power Fluctuations",
         area: "Zone B",
         entity: "",
         venue: "",
@@ -365,7 +365,7 @@ const energyManagementData = {
       },
       {
         id: "eng25",
-        title: "Unusual Power Fluctuations Detected",
+        title: "Unusual Power Fluctuations",
         area: "Zone B",
         entity: "",
         venue: "",
@@ -395,7 +395,7 @@ const energyManagementData = {
       },
       {
         id: "eng27",
-        title: "Unusual Power Fluctuations Detected",
+        title: "Unusual Power Fluctuations",
         area: "Zone B",
         entity: "",
         venue: "",
@@ -425,7 +425,7 @@ const energyManagementData = {
       },
       {
         id: "eng29",
-        title: "Unusual Power Fluctuations Detected",
+        title: "Unusual Power Fluctuations",
         area: "Zone A",
         entity: "",
         venue: "",

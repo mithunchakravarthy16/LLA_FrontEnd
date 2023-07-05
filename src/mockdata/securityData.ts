@@ -125,7 +125,7 @@ const securityData = {
       },
       {
         id: "sec12",
-        title: "Cybersecurity Breach Detected",
+        title: "Tempering Alarm",
         area: "Zone 2",
         entity: "",
         venue: "Location",
@@ -155,7 +155,7 @@ const securityData = {
       },
       {
         id: "sec14",
-        title: " Suspicious Package found",
+        title: "Tailgating",
         area: "Lobby Area 1",
         entity: "",
         venue: "Location",
@@ -230,7 +230,7 @@ const securityData = {
       },
       {
         id: "sec19",
-        title: "Cybersecurity Breach Detected",
+        title: "Low Humidity",
         area: "Zone 2",
         entity: "",
         venue: "Location",
@@ -245,7 +245,7 @@ const securityData = {
       },
       {
         id: "sec20",
-        title: " Suspicious Package found",
+        title: "Fire Detection",
         area: "Lobby Area 2",
         entity: "",
         venue: "Location",
@@ -275,7 +275,7 @@ const securityData = {
       },
       {
         id: "sec82",
-        title: "Cybersecurity Breach Detected",
+        title: "Fire Detection",
         area: "Zone 5",
         entity: "",
         venue: "Location",
