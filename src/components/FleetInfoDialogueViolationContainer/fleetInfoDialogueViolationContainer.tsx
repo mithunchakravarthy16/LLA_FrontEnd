@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { Fragment, useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import theme from "../../theme/theme";
@@ -22,13 +24,18 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
         break;
     }
   }, [selectedTheme]);
-  const { violationListContainer } = useStyles(appTheme);
+  const {
+    violationListContainer,
+    violationHeading,
+    listItemTitle,
+    listItemDescription,
+  } = useStyles(appTheme);
   const { violationListItems } = props;
 
   return (
     <>
       <Grid container xs={12} style={{ height: "100%" }}>
-        <Grid item xs={12} style={{ height: "5%", fontSize: "0.9vw" }}>
+        <Grid item xs={12} className={violationHeading}>
           VIOLATIONS
         </Grid>
         <Grid item xs={12} className={violationListContainer}>
@@ -49,10 +56,8 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
                     background: "#131313",
                   }}
                 >
-                  <div style={{ fontSize: "0.9vw" }}>{item?.title}</div>
-                  <div style={{ fontSize: "0.7vw", fontStyle: "italic", fontWeight: 100 }}>
-                  {item?.details}
-                  </div>
+                  <div className={listItemTitle}>{item?.title}</div>
+                  <div className={listItemDescription}>{item?.details}</div>
                 </Grid>
               ))}
           </Grid>

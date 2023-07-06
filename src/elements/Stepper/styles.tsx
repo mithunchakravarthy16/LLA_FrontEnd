@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import muiTheme from "theme/muiTheme";
 
@@ -10,7 +12,7 @@ const useStyles = makeStyles({
       display: "none",
     },
     "& .MuiTimelineContent-root": {
-      padding: "6px 0 6px 16px",
+      padding: "0.2vw 0 0.2vw 0.8vw",
     },
     "& .MuiTimelineDot-defaultGrey": {
       backgroundColor: "unset !important",
@@ -35,64 +37,43 @@ const useStyles = makeStyles({
     },
   }),
   routeDetailasContainer: (props: any) => ({
-    padding: "25px",
-    border: "1px solid #808080",
-    background: "#161515",
-    borderRadius: "5px",
-    cursor: "pointer",
-    borderTopLeftRadius: "0px !important",
-    borderBottomLeftRadius: "0px !important",
-    height: "calc(100vh - 400px)",
+    // padding: "1%",
+    // border: "1px solid #808080",
+    // background: "#161515",
+    // borderRadius: "5px",
+    // cursor: "pointer",
+    // borderTopLeftRadius: "0px !important",
+    // borderBottomLeftRadius: "0px !important",
+    height: "100%",
     overflow: "auto",
     boxSizing: "border-box",
-    [muiTheme.breakpoints.up(3839)]: {
-      height: "calc(100vh - 800px)",
-    },
   }),
   routesHeading: (props: any) => ({
+    height: "5%",
+    fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: 20,
-    fontWeight: 500,
-    margin: "0 0 10px 0",
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 36,
-      lineHeight: "43px",
-    },
+    textTransform: "uppercase",
   }),
   routeName: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: 11,
-    lineHeight: "15px",
-    marginBottom: 10,
-    color: "#AFAFAF",
+    fontSize: "0.5vw",
+    lineHeight: "2vh",
     fontWeight: 300,
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 28,
-      marginBottom: 30,
-    },
+    color: "#AFAFAF",
   }),
   routeArea: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: 12,
-    lineHeight: "16px",
-    marginBottom: 10,
+    fontSize: "0.7vw",
     fontWeight: 500,
     color: "#FFFFFF",
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      marginBottom: 30,
-    },
+    lineHeight: "2vh",
   }),
   routeTimestamp: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: 9,
-    lineHeight: "12px",
-    marginBottom: 1,
-    color: "#FFFFFF",
+    fontSize: "0.5vw",
+    lineHeight: "2vh",
     fontWeight: 300,
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 24,
-    },
+    color: "#AFAFAF",
   }),
   routeNameSpan: (props: any) => ({
     background: "#FB4A4A",
@@ -100,11 +81,10 @@ const useStyles = makeStyles({
     padding: 2,
     color: "#fff",
     marginLeft: 10,
-    fontSize: 10,
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 20,
-      padding: "10px",
-    },
+    fontFamily: "HelveticaNeue-Regular",
+    fontSize: "0.5vw",
+    lineHeight: "2vh",
+    fontWeight: 300,
   }),
   routeNameSpanNextStop: (props: any) => ({
     background: "#79BE6D",

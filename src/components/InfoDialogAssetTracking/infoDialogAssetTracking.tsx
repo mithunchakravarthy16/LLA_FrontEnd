@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import { Grid, Button } from "@mui/material";
@@ -22,19 +24,12 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     marginTop: "0px !important",
   },
   "& .MuiPaper-root": {
-    // maxHeight: "calc(100% - 150px)",
-    // minHeight: "calc(100% - 150px)",
-
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
     background: `#1A1919 !important`,
     color: "#fff",
     padding: "1%",
-    // [muiTheme.breakpoints.up(5759)]: {
-    //   maxHeight: "calc(100% - 370px)",
-    //   minHeight: "calc(100% - 370px)",
-    // },
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
@@ -75,6 +70,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     buttonContainer,
     cancelButtonContainer,
     updateButtonContainer,
+    vehicleTitle,
+    assetTrackingTitle,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -116,19 +113,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const [checked, setChecked] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (tabIndex === 2) {
-    }
-  }, [tabIndex]);
-
   const handleClose = () => {
     setOpen(!open);
     setIsInfoWindowActive(false);
   };
-
-  const handleResetClick = () => {};
-
-  const handleSaveClick = () => {};
 
   const tabsList = [
     { name: "ASSET DETAILS", val: 0 },
@@ -305,263 +293,286 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     polygonData?.setMap(null);
   };
 
+  const handleResetClick = () => {};
+
+  const handleSaveClick = () => {};
+
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        <div className={headerStyle}>
-          <div className={headerTabContainerStyle}>
-            {tabsList?.map((item: any) => (
-              <div
-                className={headerTabStyle}
-                style={{
-                  color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
-                }}
-                onClick={() => {
-                  handleHeaderTab(item?.val);
-                }}
-              >
-                {item?.name}
-              </div>
-            ))}
-          </div>
-        </div>
         <div>
           <IconButton
             aria-label="close"
             onClick={handleClose}
             sx={{
               position: "absolute",
-              right: 10,
-              top: 10,
-              color: "#fff",
+              padding: "0.5%",
+              right: "0.1%",
+              top: "2.5%",
+              color: "transparent",
+              width: "4.2%",
+              height: "4.2%",
+              transition: "none",
             }}
           >
-            <img width={10} height={10} src={CloseIcon} />
+            <img width={"100%"} height={"100%"} src={CloseIcon} />
           </IconButton>
         </div>
-        {tabIndex === 0 && (
-          <Grid container xs={12}>
-            <Grid item xs={12}>
-              <Grid container xs={12}>
+        <Grid container xs={12} style={{ height: "100%" }}>
+          <Grid item xs={12} className={headerStyle}>
+            <Grid container xs={3} className={headerTabContainerStyle}>
+              {tabsList?.map((item: any) => (
                 <Grid
-                  container
-                  xs={8.7}
-                  className={assetInfoLeftPanelMain}
+                  item
+                  className={headerTabStyle}
                   style={{
-                    marginRight: "2%",
+                    color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
+                  }}
+                  onClick={() => {
+                    handleHeaderTab(item?.val);
                   }}
                 >
-                  <Grid className={assetInfoLeftPanelTop}>
-                    <div>
-                      <div className={leftPanelSection} style={{}}>
-                        {assetInfoTopPanelData?.map((data: any, index: any) => {
-                          return (
-                            <div className={leftPanelLoopSection} key={index}>
-                              <div className={leftPanelChild1}>
-                                {data?.value}
-                              </div>
-                              <div className={leftPanelChild2} style={{}}>
-                                {data?.label}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </Grid>
-                  <Grid className={assetInfoLeftPanelCenter}>
-                    <div
-                      style={{
-                        width: "40%",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-around",
-                      }}
-                    >
-                      {assetCenterLeftSectionData?.map(
-                        (data: any, index: any) => {
-                          return (
-                            <div
-                              key={index}
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                width: "100%",
-                                lineHeight: "50px",
-                              }}
-                            >
-                              <div style={{ width: "50%", color: "#808080" }}>
-                                {data?.label}
-                              </div>
-                              <div style={{ width: "50%" }}>{data?.value}</div>
-                            </div>
-                          );
-                        }
-                      )}
-                    </div>
-                    <div
-                      style={{
-                        borderRight: `1px dashed #808080`, // Specify your desired color and border style
-                        opacity: "0.5",
-                      }}
-                    ></div>
-                    <div
-                      style={{
-                        width: "40%",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-around",
-                      }}
-                    >
-                      {assetCenterRightSectionData?.map(
-                        (data: any, index: any) => {
-                          return (
-                            <div
-                              key={index}
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                width: "100%",
-                                lineHeight: "50px",
-                              }}
-                            >
-                              <div style={{ width: "50%", color: "#808080" }}>
-                                {data?.label}
-                              </div>
-                              <div style={{ width: "50%" }}>{data?.value}</div>
-                            </div>
-                          );
-                        }
-                      )}
-                    </div>
-                  </Grid>
-                  <Grid className={assetInfoLeftPanelBottom}>
-                    <CustomizedSteppers packagaeData={packageData} />
-                  </Grid>
+                  {item?.name}
                 </Grid>
-                <Grid item xs={3} className={assetInfoRightPanelMain}>
-                  <Grid item xs={12} className={notificationListContainer}>
-                    <Grid container xs={12} rowGap={1.5}>
-                      {infoWindowNotificationListItems &&
-                        infoWindowNotificationListItems?.length > 0 &&
-                        infoWindowNotificationListItems?.map((item: any) => (
-                          <Grid
-                            item
-                            xs={12}
-                            display="flex"
-                            direction="column"
-                            rowGap={2}
-                            style={{
-                              padding: "5% 4%",
-                              border: "1px solid #333333",
-                              borderRadius: "5px",
-                              background: "#131313",
-                            }}
-                          >
-                            <div style={{ fontSize: "0.9vw" }}>
-                              {item?.title}
-                            </div>
-                            <div
-                              style={{
-                                fontSize: "0.7vw",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                fontStyle: "italic",
-                              }}
-                            >
-                              <div>{item?.details} </div>
-                              <div>{item?.timeStamp}</div>
-                            </div>
-                          </Grid>
-                        ))}
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item xs={12} style={{ height: "94%", paddingTop: "1%" }}>
+            {tabIndex === 0 && (
+              <Grid container xs={12} style={{ height: "100%" }}>
+                <Grid item xs={12} style={{ height: "100%" }}>
+                  <Grid container xs={12} style={{ height: "100%" }}>
+                    <Grid
+                      container
+                      xs={8.7}
+                      className={assetInfoLeftPanelMain}
+                      style={{
+                        marginRight: "2%",
+                      }}
+                    >
+                      <Grid className={assetInfoLeftPanelTop}>
+                        <div>
+                          <div className={leftPanelSection} style={{}}>
+                            {assetInfoTopPanelData?.map(
+                              (data: any, index: any) => {
+                                return (
+                                  <div
+                                    className={leftPanelLoopSection}
+                                    key={index}
+                                  >
+                                    <div className={leftPanelChild1}>
+                                      {data?.value}
+                                    </div>
+                                    <div className={leftPanelChild2} style={{}}>
+                                      {data?.label}
+                                    </div>
+                                  </div>
+                                );
+                              }
+                            )}
+                          </div>
+                        </div>
+                      </Grid>
+                      <Grid className={assetInfoLeftPanelCenter}>
+                        <div
+                          style={{
+                            padding: " 3%",
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          {assetCenterLeftSectionData?.map(
+                            (data: any, index: any) => {
+                              return (
+                                <div
+                                  key={index}
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    lineHeight: "50px",
+                                  }}
+                                >
+                                  <div
+                                    style={{ width: "50%", color: "#808080" }}
+                                  >
+                                    {data?.label}
+                                  </div>
+                                  <div style={{ width: "50%" }}>
+                                    {data?.value}
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
+                        <div
+                          style={{
+                            borderRight: `1px dashed #808080`, // Specify your desired color and border style
+                            opacity: "0.5",
+                          }}
+                        ></div>
+                        <div
+                          style={{
+                            padding: "3%",
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          {assetCenterRightSectionData?.map(
+                            (data: any, index: any) => {
+                              return (
+                                <div
+                                  key={index}
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    lineHeight: "50px",
+                                  }}
+                                >
+                                  <div
+                                    style={{ width: "50%", color: "#808080" }}
+                                  >
+                                    {data?.label}
+                                  </div>
+                                  <div style={{ width: "50%" }}>
+                                    {data?.value}
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
+                      </Grid>
+                      <Grid className={assetInfoLeftPanelBottom}>
+                        <CustomizedSteppers packagaeData={packageData} />
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={3} className={assetInfoRightPanelMain}>
+                      <Grid item xs={12} className={notificationListContainer}>
+                        <Grid container xs={12} rowGap={1.5}>
+                          {infoWindowNotificationListItems &&
+                            infoWindowNotificationListItems?.length > 0 &&
+                            infoWindowNotificationListItems?.map(
+                              (item: any) => (
+                                <Grid
+                                  item
+                                  xs={12}
+                                  display="flex"
+                                  direction="column"
+                                  rowGap={2}
+                                  style={{
+                                    padding: "5% 4%",
+                                    border: "1px solid #333333",
+                                    borderRadius: "5px",
+                                    background: "#131313",
+                                  }}
+                                >
+                                  <div className={vehicleTitle}>
+                                    {item?.title}
+                                  </div>
+                                  <div className={assetTrackingTitle}>
+                                    <div>{item?.details} </div>
+                                    <div>{item?.timeStamp}</div>
+                                  </div>
+                                </Grid>
+                              )
+                            )}
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
+            )}
           </Grid>
-        )}
-        {tabIndex === 1 && (
-          <Grid container>
-            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-              <Geofence
-                is4kDevice={selectedWidth?.is4kDevice}
-                isCircleDrawing={isCircleDrawing}
-                setIsCircleDrawing={setIsCircleDrawing}
-                setIsDrawingEnable={setIsDrawingEnable}
-                circleRadius={circleRadius}
-                circleCenter={circleCenter}
-                setCircleRadius={setCircleRadius}
-                setCircleCenter={setCircleCenter}
-                handleCircleLatChange={handleCircleLatChange}
-                setCircleRadiusUnits={setCircleRadiusUnits}
-                circleRadiusUnits={circleRadiusUnits}
-                isOutsideGeofenceChecked={isOutsideGeofenceChecked}
-                isBackGeofenceChecked={isBackGeofenceChecked}
-                setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
-                setIsBackGeofenceChecked={setIsBackGeofenceChecked}
-                setGeofenceType={setGeofenceType}
-                geofenceType={geofenceType}
-                radiusType={radiusType}
-                setRadiusType={setRadiusType}
-                setPolygonPath={setPolygonPath}
-                checked={checked}
-                isDisabled={isDisabled}
-                setChecked={setChecked}
-                setIsDisabled={setIsDisabled}
-                polygonPath={polygonPath}
-                handleGeofencePolygonClick={handleGeofencePolygonClick}
-                handleGeofenceCircleClick={handleGeofenceCircleClick}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
-              <Map
-                markers={[]}
-                marker={""}
-                currentMarker={""}
-                setCurrentMarker={() => {}}
-                focusedCategory={""}
-                mapPageName={"Asset Tracking"}
-                setIsMarkerClicked={() => {}}
-                setSelectedNotification={() => {}}
-                setNotificationPanelActive={() => {}}
-                setTabIndex={() => {}}
-                isDrawingEnable={isDrawingEnable}
-                isCircleDrawing={isCircleDrawing}
-                setCircleData={setCircleData}
-                setCircleRadius={setCircleRadius}
-                setCircleCenter={setCircleCenter}
-                setPolygonPath={setPolygonPath}
-                setPolygonData={setPolygonData}
-                setIsCircleDrawing={setIsCircleDrawing}
-                setIsDrawingEnable={setIsDrawingEnable}
-                circleRadius={circleRadius}
-                circleCenter={circleCenter}
-                handleGeofenceCircleDrag={handleCircleDrag}
-                setCircleRadiusUnits={setCircleRadiusUnits}
-                circleRadiusUnits={circleRadiusUnits}
-                polygonPath={polygonPath}
-                // markerArray={[selectedViewDetailsData]}
-                onCircleCompleteLocation={onCircleCompleteLocation}
-                onPolygonCompleteLocation={onPolygonCompleteLocation}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <div className={buttonContainer}>
-                <div className={cancelButtonContainer}>
-                  <Button variant="outlined" onClick={handleResetClick}>
-                    RESET
-                  </Button>
+          {tabIndex === 1 && (
+            <Grid container>
+              <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                <Geofence
+                  is4kDevice={selectedWidth?.is4kDevice}
+                  isCircleDrawing={isCircleDrawing}
+                  setIsCircleDrawing={setIsCircleDrawing}
+                  setIsDrawingEnable={setIsDrawingEnable}
+                  circleRadius={circleRadius}
+                  circleCenter={circleCenter}
+                  setCircleRadius={setCircleRadius}
+                  setCircleCenter={setCircleCenter}
+                  handleCircleLatChange={handleCircleLatChange}
+                  setCircleRadiusUnits={setCircleRadiusUnits}
+                  circleRadiusUnits={circleRadiusUnits}
+                  isOutsideGeofenceChecked={isOutsideGeofenceChecked}
+                  isBackGeofenceChecked={isBackGeofenceChecked}
+                  setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
+                  setIsBackGeofenceChecked={setIsBackGeofenceChecked}
+                  setGeofenceType={setGeofenceType}
+                  geofenceType={geofenceType}
+                  radiusType={radiusType}
+                  setRadiusType={setRadiusType}
+                  setPolygonPath={setPolygonPath}
+                  checked={checked}
+                  isDisabled={isDisabled}
+                  setChecked={setChecked}
+                  setIsDisabled={setIsDisabled}
+                  polygonPath={polygonPath}
+                  handleGeofencePolygonClick={handleGeofencePolygonClick}
+                  handleGeofenceCircleClick={handleGeofenceCircleClick}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                <Map
+                  markers={[]}
+                  marker={""}
+                  currentMarker={""}
+                  setCurrentMarker={() => {}}
+                  focusedCategory={""}
+                  mapPageName={"Asset Tracking"}
+                  setIsMarkerClicked={() => {}}
+                  setSelectedNotification={() => {}}
+                  setNotificationPanelActive={() => {}}
+                  setTabIndex={() => {}}
+                  isDrawingEnable={isDrawingEnable}
+                  isCircleDrawing={isCircleDrawing}
+                  setCircleData={setCircleData}
+                  setCircleRadius={setCircleRadius}
+                  setCircleCenter={setCircleCenter}
+                  setPolygonPath={setPolygonPath}
+                  setPolygonData={setPolygonData}
+                  setIsCircleDrawing={setIsCircleDrawing}
+                  setIsDrawingEnable={setIsDrawingEnable}
+                  circleRadius={circleRadius}
+                  circleCenter={circleCenter}
+                  handleGeofenceCircleDrag={handleCircleDrag}
+                  setCircleRadiusUnits={setCircleRadiusUnits}
+                  circleRadiusUnits={circleRadiusUnits}
+                  polygonPath={polygonPath}
+                  // markerArray={[selectedViewDetailsData]}
+                  onCircleCompleteLocation={onCircleCompleteLocation}
+                  onPolygonCompleteLocation={onPolygonCompleteLocation}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <div className={buttonContainer}>
+                  <div className={cancelButtonContainer}>
+                    <Button variant="outlined" onClick={handleResetClick}>
+                      RESET
+                    </Button>
+                  </div>
+                  <div className={updateButtonContainer}>
+                    <Button variant="contained" onClick={handleSaveClick}>
+                      SAVE
+                    </Button>
+                  </div>
                 </div>
-                <div className={updateButtonContainer}>
-                  <Button variant="contained" onClick={handleSaveClick}>
-                    SAVE
-                  </Button>
-                </div>
-              </div>
+              </Grid>
             </Grid>
-          </Grid>
-        )}
+          )}
+        </Grid>
       </DialogWrapper>
     </>
   );

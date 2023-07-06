@@ -483,10 +483,9 @@ const Parking: React.FC<any> = (props) => {
                                               ],
                                               [
                                                 0.8,
-                                                Highcharts.color(
-                                                  appTheme?.palette
-                                                    ?.gridViewComponentGraphsColor
-                                                    ?.highChartsGradient
+                                                Highcharts.color( '#ffbbcc'
+                                                  // appTheme?.palette?.gridViewComponentGraphsColor
+                                                  //   ?.highChartsGradient
                                                 )
                                                   .setOpacity(0)
                                                   .get("rgba"),

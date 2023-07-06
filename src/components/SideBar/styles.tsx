@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   root: (props: any) => ({}),
   sideNavigation: (props: any) => ({
     "& .MuiDrawer-paper": {
-      background: "#333333",
+      background: props.palette.sidebar.sidebarBg,
       borderRight: "0 !important",
       borderRadius: "0px",
       padding: "22px 2px",
