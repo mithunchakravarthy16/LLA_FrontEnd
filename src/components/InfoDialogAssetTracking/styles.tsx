@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
-    height: "14%",
+    height: "15%",
     marginBottom: "4%",
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
@@ -61,12 +61,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-    height: "35%",
+    height: "50%",
     marginottom: "4vh",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     width: "100%",
-    height: "48%",
+    height: "30%",
   }),
   leftPanelSection: (props: any) => ({
     display: "flex",

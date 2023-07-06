@@ -230,6 +230,7 @@ const Parking: React.FC<any> = (props) => {
 
   const handleLotSelction = () => {
     setParkingLotSelectionActive(!parkingLotSelectionActive);
+    setSelectedNotification("");
   };
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
