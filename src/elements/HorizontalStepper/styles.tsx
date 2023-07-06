@@ -1,3 +1,5 @@
+/** @format */
+
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import muiTheme from "theme/muiTheme";
@@ -7,16 +9,14 @@ const useStyles = makeStyles(
   () => ({
     root: (props: any) => ({
       flexGrow: 1,
-
     }),
 
     stepperSx: (props: any) => ({
-      "& .MuiStep-root" : {
-          padding : "0 3%",
-          fontFamily : "Helvetica",
-          
+      "& .MuiStep-root": {
+        padding: "0 3%",
+        fontFamily: "HelveticaNeue-Regular !important",
       },
-      
+
       "& .MuiStepConnector-root": {
         left: "calc(-50% + 14px)",
         right: "calc(50% + 14px)",
@@ -31,13 +31,14 @@ const useStyles = makeStyles(
       "& .MuiStepLabel-alternativeLabel": {
         color: `#FFF !important`,
         paddingBottom: "4px",
-        marginTop : "1vh",
-        fontSize : "0.6vw"
+        marginTop: "1vh",
+        fontSize: "0.6vw",
+        fontFamily: "HelveticaNeue-Regular !important",
+
         // [muiTheme.breakpoints.down(1437)]: {
         //   fontSize: " 10px !important",
         //   // fontFamily: `'Nunito Sans', sans-serif !important`,
         // },
-        
       },
     }),
 
@@ -46,8 +47,10 @@ const useStyles = makeStyles(
       align: "center",
       padding: "3px 0px",
       fontSize: "0.7vw !important",
+      fontFamily: "HelveticaNeue-Regular !important",
+
       // fontFamily: `'Nunito Sans', sans-serif !important`,
-      
+
       minHeight: "6vh !important",
       // [muiTheme.breakpoints.down(1437)]: {
       //   fontSize: " 10px !important",
@@ -65,34 +68,34 @@ export const ColorlibStepIconRoot = styled("div")<
 >(({ theme, ownerState, purpleShades, colorWhite, greenShade }) => ({
   zIndex: 1,
   color: colorWhite,
-  minWidth : "1.5vw",
-  minHeight : "2.5vh",
+  minWidth: "1.5vw",
+  minHeight: "2.5vh",
   // width: 50,
   // height: 50,
   display: "flex",
   borderRadius: "50%",
-  boxShadow:  "0px 0px 0px 8px rgba(0,79,159,0.5)",
+  boxShadow: "0px 0px 0px 8px rgba(0,79,159,0.5)",
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: purpleShades,
   ...(ownerState.active && {
     // backgroundColor: greenShade,
-    minWidth : "1.5vw",
-    minHeight : "2.5vh",
+    minWidth: "1.5vw",
+    minHeight: "2.5vh",
     // width: 50,
     // height: 50,
-    backgroundImage : `url("${PackageActiveIcon}")`,
+    backgroundImage: `url("${PackageActiveIcon}")`,
     boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
-    backgroundRepeat:"no-repeat",
-    backgroundSize : "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain",
     backgroundColor: "transparent",
-    border : "none",
+    border: "none",
     borderRadius: "none",
-    marginTop : "-1.05vh"
+    marginTop: "-1.05vh",
   }),
   ...(ownerState.completed && {
-    minWidth : "2vw",
-    minHeight : "2vh",
+    minWidth: "2vw",
+    minHeight: "2vh",
     width: 30,
     height: 30,
     backgroundColor: purpleShades,
