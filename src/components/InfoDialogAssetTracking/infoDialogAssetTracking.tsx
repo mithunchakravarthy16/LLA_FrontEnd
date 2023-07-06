@@ -490,88 +490,88 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                 </Grid>
               </Grid>
             )}
+            {tabIndex === 1 && (
+              <Grid container>
+                <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                  <Geofence
+                    is4kDevice={selectedWidth?.is4kDevice}
+                    isCircleDrawing={isCircleDrawing}
+                    setIsCircleDrawing={setIsCircleDrawing}
+                    setIsDrawingEnable={setIsDrawingEnable}
+                    circleRadius={circleRadius}
+                    circleCenter={circleCenter}
+                    setCircleRadius={setCircleRadius}
+                    setCircleCenter={setCircleCenter}
+                    handleCircleLatChange={handleCircleLatChange}
+                    setCircleRadiusUnits={setCircleRadiusUnits}
+                    circleRadiusUnits={circleRadiusUnits}
+                    isOutsideGeofenceChecked={isOutsideGeofenceChecked}
+                    isBackGeofenceChecked={isBackGeofenceChecked}
+                    setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
+                    setIsBackGeofenceChecked={setIsBackGeofenceChecked}
+                    setGeofenceType={setGeofenceType}
+                    geofenceType={geofenceType}
+                    radiusType={radiusType}
+                    setRadiusType={setRadiusType}
+                    setPolygonPath={setPolygonPath}
+                    checked={checked}
+                    isDisabled={isDisabled}
+                    setChecked={setChecked}
+                    setIsDisabled={setIsDisabled}
+                    polygonPath={polygonPath}
+                    handleGeofencePolygonClick={handleGeofencePolygonClick}
+                    handleGeofenceCircleClick={handleGeofenceCircleClick}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                  <Map
+                    markers={[]}
+                    marker={""}
+                    currentMarker={""}
+                    setCurrentMarker={() => {}}
+                    focusedCategory={""}
+                    mapPageName={"Asset Tracking"}
+                    setIsMarkerClicked={() => {}}
+                    setSelectedNotification={() => {}}
+                    setNotificationPanelActive={() => {}}
+                    setTabIndex={() => {}}
+                    isDrawingEnable={isDrawingEnable}
+                    isCircleDrawing={isCircleDrawing}
+                    setCircleData={setCircleData}
+                    setCircleRadius={setCircleRadius}
+                    setCircleCenter={setCircleCenter}
+                    setPolygonPath={setPolygonPath}
+                    setPolygonData={setPolygonData}
+                    setIsCircleDrawing={setIsCircleDrawing}
+                    setIsDrawingEnable={setIsDrawingEnable}
+                    circleRadius={circleRadius}
+                    circleCenter={circleCenter}
+                    handleGeofenceCircleDrag={handleCircleDrag}
+                    setCircleRadiusUnits={setCircleRadiusUnits}
+                    circleRadiusUnits={circleRadiusUnits}
+                    polygonPath={polygonPath}
+                    // markerArray={[selectedViewDetailsData]}
+                    onCircleCompleteLocation={onCircleCompleteLocation}
+                    onPolygonCompleteLocation={onPolygonCompleteLocation}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <div className={buttonContainer}>
+                    <div className={cancelButtonContainer}>
+                      <Button variant="outlined" onClick={handleResetClick}>
+                        RESET
+                      </Button>
+                    </div>
+                    <div className={updateButtonContainer}>
+                      <Button variant="contained" onClick={handleSaveClick}>
+                        SAVE
+                      </Button>
+                    </div>
+                  </div>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
-          {tabIndex === 1 && (
-            <Grid container>
-              <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                <Geofence
-                  is4kDevice={selectedWidth?.is4kDevice}
-                  isCircleDrawing={isCircleDrawing}
-                  setIsCircleDrawing={setIsCircleDrawing}
-                  setIsDrawingEnable={setIsDrawingEnable}
-                  circleRadius={circleRadius}
-                  circleCenter={circleCenter}
-                  setCircleRadius={setCircleRadius}
-                  setCircleCenter={setCircleCenter}
-                  handleCircleLatChange={handleCircleLatChange}
-                  setCircleRadiusUnits={setCircleRadiusUnits}
-                  circleRadiusUnits={circleRadiusUnits}
-                  isOutsideGeofenceChecked={isOutsideGeofenceChecked}
-                  isBackGeofenceChecked={isBackGeofenceChecked}
-                  setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
-                  setIsBackGeofenceChecked={setIsBackGeofenceChecked}
-                  setGeofenceType={setGeofenceType}
-                  geofenceType={geofenceType}
-                  radiusType={radiusType}
-                  setRadiusType={setRadiusType}
-                  setPolygonPath={setPolygonPath}
-                  checked={checked}
-                  isDisabled={isDisabled}
-                  setChecked={setChecked}
-                  setIsDisabled={setIsDisabled}
-                  polygonPath={polygonPath}
-                  handleGeofencePolygonClick={handleGeofencePolygonClick}
-                  handleGeofenceCircleClick={handleGeofenceCircleClick}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
-                <Map
-                  markers={[]}
-                  marker={""}
-                  currentMarker={""}
-                  setCurrentMarker={() => {}}
-                  focusedCategory={""}
-                  mapPageName={"Asset Tracking"}
-                  setIsMarkerClicked={() => {}}
-                  setSelectedNotification={() => {}}
-                  setNotificationPanelActive={() => {}}
-                  setTabIndex={() => {}}
-                  isDrawingEnable={isDrawingEnable}
-                  isCircleDrawing={isCircleDrawing}
-                  setCircleData={setCircleData}
-                  setCircleRadius={setCircleRadius}
-                  setCircleCenter={setCircleCenter}
-                  setPolygonPath={setPolygonPath}
-                  setPolygonData={setPolygonData}
-                  setIsCircleDrawing={setIsCircleDrawing}
-                  setIsDrawingEnable={setIsDrawingEnable}
-                  circleRadius={circleRadius}
-                  circleCenter={circleCenter}
-                  handleGeofenceCircleDrag={handleCircleDrag}
-                  setCircleRadiusUnits={setCircleRadiusUnits}
-                  circleRadiusUnits={circleRadiusUnits}
-                  polygonPath={polygonPath}
-                  // markerArray={[selectedViewDetailsData]}
-                  onCircleCompleteLocation={onCircleCompleteLocation}
-                  onPolygonCompleteLocation={onPolygonCompleteLocation}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <div className={buttonContainer}>
-                  <div className={cancelButtonContainer}>
-                    <Button variant="outlined" onClick={handleResetClick}>
-                      RESET
-                    </Button>
-                  </div>
-                  <div className={updateButtonContainer}>
-                    <Button variant="contained" onClick={handleSaveClick}>
-                      SAVE
-                    </Button>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          )}
         </Grid>
       </DialogWrapper>
     </>
