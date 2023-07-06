@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import { padding } from "@mui/system";
 // import muiTheme from "theme/muiTheme";
@@ -12,12 +14,16 @@ const useStyles = makeStyles(() => ({
     marginBottom: "1.25%",
   }),
 
+  vehicleTitle: (props: any) => ({
+    fontSize: "0.9vw",
+  }),
+
   headerTabContainerStyle: (props: any) => ({
     display: "flex",
     width: "14vw",
     justifyContent: "space-between",
     alignItems: "center",
-    // marginLeft: "20px",
+    fontFamily: "HelveticaNeue-Regular",
     fontSize: "0.8vw",
     fontWeight: 600,
     letterSpacing: "0.75px",
@@ -49,7 +55,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
-    height : "14vh"
+    height: "14vh",
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
     // flex: 1
@@ -60,8 +66,8 @@ const useStyles = makeStyles(() => ({
     flex: "1",
     justifyContent: "space-between",
     margin: "3% 0",
-    height :"42%",
-    fontSize : "0.9vw"
+    height: "42%",
+    fontSize: "0.9vw",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     // flex: 1,
@@ -99,8 +105,8 @@ const useStyles = makeStyles(() => ({
       },
     },
   }),
-  leftPanelChild1: (props: any) => ({ fontSize : "0.9vw"}),
-  leftPanelChild2: (props: any) => ({ color: "#F26522", fontSize : "0.9vw" }),
+  leftPanelChild1: (props: any) => ({ fontSize: "0.9vw" }),
+  leftPanelChild2: (props: any) => ({ color: "#F26522", fontSize: "0.9vw" }),
   assetInfoRightPanelMain: (props: any) => ({
     height: "calc(100vh  - 205px)",
     border: "1px solid rgb(51, 51, 51)",
