@@ -92,6 +92,20 @@ const Map: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const { googleMapStyle, footerSection } = useStyles(appTheme);
 
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
+
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>();
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
@@ -467,7 +481,8 @@ const Map: React.FC<any> = (props) => {
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
-      styles: customMapStyles,
+      styles: selectedTheme === "light" ? [] : customMapStyles,
+      
     };
     return {
       ...defaultMapOptions,
