@@ -465,7 +465,13 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             )}
                         </Grid>
                       </Grid>
-                      <Grid item xs={12} paddingTop={2} height={"87%"}>
+                      <Grid
+                        item
+                        xs={12}
+                        marginTop={"2%"}
+                        height={"85%"}
+                        border={"1px solid #333333"}
+                      >
                         <Grid
                           container
                           xs={12}
@@ -473,7 +479,6 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           alignItems="center"
                           spacing={2}
                           height={"100%"}
-                          border={"1px solid #333333"}
                         >
                           <Grid item>
                             <CircularProgressBar

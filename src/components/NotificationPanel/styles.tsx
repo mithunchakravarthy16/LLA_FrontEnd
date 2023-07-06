@@ -473,7 +473,7 @@ const useStyles = makeStyles({
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 432px)"
-          : "calc(100vh - 313px)",
+          : "calc(100vh - 293px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       height:
