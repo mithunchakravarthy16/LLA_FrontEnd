@@ -112,6 +112,20 @@ const Map: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const { googleMapStyle, footerSection } = useStyles(appTheme);
 
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
+
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>();
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
@@ -493,7 +507,7 @@ const Map: React.FC<any> = (props) => {
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
-      styles: customMapStyles,
+      styles: selectedTheme === "light" ? [] : customMapStyles,
     };
     return {
       ...defaultMapOptions,
@@ -896,6 +910,10 @@ const Map: React.FC<any> = (props) => {
     handleGeofenceCircleDrag(center);
   };
 
+  function handleZoomChanged() {
+    // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
+  }
+
   return (
     <>
       {isLoaded && (
@@ -910,11 +928,12 @@ const Map: React.FC<any> = (props) => {
               : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
-              : 15.4
+              : 15
           }
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
+          onZoomChanged={handleZoomChanged}
         >
           <DrawingManager
             drawingMode={

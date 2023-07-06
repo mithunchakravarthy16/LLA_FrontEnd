@@ -58,9 +58,9 @@ const Settings = () => {
 
     <div>Change Theme</div>
     <select value={selectedTheme} onChange={(e) => handleTheme(e.target.value)}>
-      <option value="light">Light theme</option>       
+      <option value="default">Default theme</option>       
+      <option value="light">Light theme</option>
       <option value="dark">Dark theme</option>
-      <option value="default">Default theme</option>
     </select> <br /><br />
 
     <div>Change Language</div>
