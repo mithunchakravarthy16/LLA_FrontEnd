@@ -33,6 +33,7 @@
     "react-card-flip": "^1.2.0",
     "react-customizable-progressbar": "^1.2.0",
     "react-dom": "^18.2.0",
+    "react-icomoon": "^2.5.7",
     "react-localization": "^1.0.19",
     "react-minimal-pie-chart": "^8.4.0",
     "react-player": "^2.12.0",

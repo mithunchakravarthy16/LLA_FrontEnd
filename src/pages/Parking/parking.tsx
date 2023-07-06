@@ -271,6 +271,15 @@ const Parking: React.FC<any> = (props) => {
         width2: 30,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 1919) {
+      setSelectedWidth({
+        width: 500,
+        height: 200,
+        width1: 600,
+        height1: 200,
+        width2: 30,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 550,
@@ -314,6 +323,15 @@ const Parking: React.FC<any> = (props) => {
         width1: 380,
         height1: 200,
         width2: 25,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 599) {
+      setSelectedWidth({
+        width: 300,
+        height: 100,
+        width1: 400,
+        height1: 120,
+        width2: 15,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1279) {

@@ -15,6 +15,7 @@ import {
   CamOneImg,
   TripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
+import CircularProgressBar from "elements/CircularProgressBar";
 
 import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
@@ -23,6 +24,7 @@ import Map from "components/Map";
 import TripDetailsMap from "components/Map/tripDetailsMap";
 import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
+import useWindowDimensions from "hooks/useWindowDimensions";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -240,6 +242,28 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     setCameraTabIndex(index);
   };
 
+  const { width, height }: any = useWindowDimensions();
+
+  const getSpeedometerDimensions = () => {
+    if (width < 1664) {
+      return {
+        radius: 40,
+        cut: 65,
+        rotate: 105,
+        stroke: 7,
+        iconSize: 17,
+      };
+    } else {
+      return {
+        radius: 50,
+        cut: 60,
+        rotate: 120,
+        stroke: 10,
+        iconSize: 20,
+      };
+    }
+  };
+
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
@@ -437,10 +461,164 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                         <Grid
                           container
                           xs={12}
+                          justifyContent="center"
+                          alignItems="center"
+                          spacing={2}
                           height={"100%"}
                           border={"1px solid #333333"}
                         >
-                          Circular Charts
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Driving Score"
+                              icon="driving-score"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Harsh Acceleration"
+                              icon="harsh-acceleration"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Corner"
+                              icon="corner"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Over Speeding"
+                              icon="overspeeding"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Harsh Braking"
+                              icon="harsh-braking"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Idle Hours"
+                              icon="idle-hours"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Fatigue"
+                              icon="fatigue"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={75}
+                              totalValue={110}
+                              label="Driving Score"
+                              icon="driving-score"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color="#74BA69"
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={"#161515"}
+                            />
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
