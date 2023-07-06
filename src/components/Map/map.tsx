@@ -800,7 +800,27 @@ const Map: React.FC<any> = (props) => {
               <div>
                 {markers?.map((singleMarker: any) => {
                   // if (!window.google) return null;
-                  if (currentMarker !== singleMarker?.id) {
+                  if (
+                    currentMarker !== singleMarker?.id &&
+                    location?.pathname === "/fleetManagement"
+                  ) {
+                    return (
+                      <>
+                        <MapMarker
+                          mapMarker={singleMarker}
+                          toggleInfoWindow={toggleInfoWindow}
+                          handleMarkerClose={handleMarkerClose}
+                          handleExpandListItem={handleExpandListItem}
+                          getMarkerIcon={getMarkerIcon}
+                          currentMarker={currentMarker}
+                          focusedCategory={focusedCategory}
+                          clusterer={clusterer}
+                          location={singleMarker?.location}
+                          handleAssetViewDetails={handleAssetViewDetails}
+                        />
+                      </>
+                    );
+                  } else {
                     return (
                       <>
                         <MapMarker
