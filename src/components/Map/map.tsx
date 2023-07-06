@@ -768,22 +768,24 @@ const Map: React.FC<any> = (props) => {
               <div>
                 {markers?.map((singleMarker: any) => {
                   // if (!window.google) return null;
-                  return (
-                    <>
-                      <MapMarker
-                        mapMarker={singleMarker}
-                        toggleInfoWindow={toggleInfoWindow}
-                        handleMarkerClose={handleMarkerClose}
-                        handleExpandListItem={handleExpandListItem}
-                        getMarkerIcon={getMarkerIcon}
-                        currentMarker={currentMarker}
-                        focusedCategory={focusedCategory}
-                        clusterer={clusterer}
-                        location={singleMarker?.location}
-                        handleAssetViewDetails={handleAssetViewDetails}
-                      />
-                    </>
-                  );
+                  if (currentMarker !== singleMarker?.id) {
+                    return (
+                      <>
+                        <MapMarker
+                          mapMarker={singleMarker}
+                          toggleInfoWindow={toggleInfoWindow}
+                          handleMarkerClose={handleMarkerClose}
+                          handleExpandListItem={handleExpandListItem}
+                          getMarkerIcon={getMarkerIcon}
+                          currentMarker={currentMarker}
+                          focusedCategory={focusedCategory}
+                          clusterer={clusterer}
+                          location={singleMarker?.location}
+                          handleAssetViewDetails={handleAssetViewDetails}
+                        />
+                      </>
+                    );
+                  }
                 })}
 
                 {points && points.length > 0 && (

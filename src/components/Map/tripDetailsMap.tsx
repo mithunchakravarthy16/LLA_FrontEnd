@@ -645,7 +645,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
       lastLineLatLng,
       nextLineLatLng
     );
-    const actualAngle = angle - 90;
+    // const actualAngle = angle - 90;
 
     // const marker = document.querySelector(`[src="${FleetEventIcon}"]`);
 
@@ -737,25 +737,6 @@ const TripDetailsMap: React.FC<any> = (props) => {
           <MarkerClustererF>
             {(clusterer: any) => (
               <div>
-                {/* {markers?.map((singleMarker: any) => {
-                  // if (!window.google) return null;
-                  return (
-                    <>
-                      <TripDetailsMarker
-                        mapMarker={singleMarker}
-                        toggleInfoWindow={toggleInfoWindow}
-                        handleMarkerClose={handleMarkerClose}
-                        handleExpandListItem={handleExpandListItem}
-                        getMarkerIcon={getMarkerIcon}
-                        currentMarker={currentMarker}
-                        focusedCategory={focusedCategory}
-                        clusterer={clusterer}
-                        location={singleMarker?.location}
-                      />
-                    </>
-                  );
-                })} */}
-
                 {points && points.length > 0 && (
                   <PolylineF
                     path={points}
@@ -803,7 +784,6 @@ const TripDetailsMap: React.FC<any> = (props) => {
                           handleVideoDetails={handleVideoDetails}
                         />
                       }
-                      {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
                     </>
                   )}
               </div>
