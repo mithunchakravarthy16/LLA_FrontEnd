@@ -5,7 +5,7 @@ let theme = {
   defaultTheme: {
     palette: {     
       sidebar: {
-        sidebarBg: colorCodes.colorBlue      
+        sidebarBg: colorCodes.darkBlackShade      
       },  
       notification:{
         listItemBorder: '',
@@ -18,7 +18,7 @@ let theme = {
   lightTheme: {
     palette: {     
       sidebar: {
-        sidebarBg: colorCodes.colorGreen      
+        sidebarBg: colorCodes.deepBlue   
       },
       notification:{ listItemBorder: '', tabListCountColor:''}      
     },
