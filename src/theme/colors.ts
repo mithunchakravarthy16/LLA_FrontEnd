@@ -39,8 +39,7 @@ let colorCodes = {
   semiTransparentLimeGreen : "rgba(128, 196, 59, 0.5)",
   deepBlue: "#1d2c4d",
   charCoalBlack: "#151A1F",
-  navyBlue : "#38526B",
-  
+  navyBlue : "#38526B",  
   vibrantBlueGreen: "#3DFFDC",
   vibrantBlueGreenOpacity: "#3DFFDC90",
   goldenYellow: "#EEC225",
@@ -62,6 +61,8 @@ let colorCodes = {
   darkOrangeShade : "#CD5209",
   darkGreyBalckShade : "#1A1B22",
   darkBlackShade2: '#090A0C',
-  markerCallOutGrey: 'rgba(45, 47, 52, 0.85)'
+  markerCallOutGrey: 'rgba(45, 47, 52, 0.85)',
+  sunRiseOrange: `linear-gradient(to bottom, #EF4136 0%, #F26522 100%)`,
+  whiteShadesOfOrange: "#FFC6BA",
 };
 export default colorCodes;

@@ -22,6 +22,18 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
 import Logout from "../../assets/logout.svg";
+import {
+  LightHomeNormal,
+  LightHomeActive,
+  LightGridNormal,
+  LightGridActive,
+  LightBirdNormal,
+  LightBirdActive,
+  LightSettingNormal,
+  LightSettingActive,
+  LightAvatarIcon,
+  DefaultAvatarIcon,
+} from "../../assets/sideBarIcons";
 import useStyles from "./styles";
 
 interface SideBarProps {}
@@ -41,10 +53,11 @@ const SideBar = (props: SideBarProps) => {
 
   const array = [
     {
-      image:
+      image: 
         activePage === 0 && location?.pathname === "/home"
-          ? HomeActiveIcon
-          : HomeIcon,
+          ? selectedTheme === "light" ? LightHomeActive  : HomeActiveIcon
+          : selectedTheme === "light" ? LightHomeNormal : HomeIcon        
+          ,
       id: 0,
       path: "/home",
       title: homeText,
@@ -59,8 +72,8 @@ const SideBar = (props: SideBarProps) => {
           location?.pathname === "/lighting" ||
           location?.pathname === "/fleetManagement" ||
           location?.pathname === "/assetTracking")
-          ? GridViewActiveIcon
-          : GridViewIcon,
+          ? selectedTheme === "light" ? LightGridActive : GridViewActiveIcon
+          : selectedTheme === "light" ? LightGridNormal : GridViewIcon,
       id: 1,
       path: "/gridView",
       title: gridsViewText,
@@ -68,8 +81,8 @@ const SideBar = (props: SideBarProps) => {
     {
       image:
         activePage === 2 && location?.pathname === "/birdsView"
-          ? BirdsViewActiveIcon
-          : BirdsViewIcon,
+          ? selectedTheme === "light" ? LightBirdActive : BirdsViewActiveIcon
+          : selectedTheme === "light" ? LightBirdNormal : BirdsViewIcon,
       id: 2,
       path: "/birdsView",
       title: birdsViewText,
@@ -77,8 +90,8 @@ const SideBar = (props: SideBarProps) => {
     {
       image:
         activePage === 3 && location?.pathname === "/settings"
-          ? SettingsActiveIcon
-          : SettingsIcon,
+          ? selectedTheme === "light" ? LightSettingActive : SettingsActiveIcon
+          : selectedTheme === "light" ? LightSettingNormal : SettingsIcon,
       id: 3,
       path: "/settings",
       title: settingsText,
@@ -216,7 +229,7 @@ const SideBar = (props: SideBarProps) => {
           {/* <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
             0
           )}`}</div> */}
-          <img src={AvatarIcon} alt="AvatarIcon" className={avatharIconStyle} onClick={handleOpenUserMenu}/>
+          <img width={"100%"} height={"100%"} src={selectedTheme === "light" ? LightAvatarIcon : DefaultAvatarIcon} alt="AvatarIcon" className={avatharIconStyle} onClick={handleOpenUserMenu}/>
           <Menu
           className={customMenu}
           sx={{ mt: "25px" }}
