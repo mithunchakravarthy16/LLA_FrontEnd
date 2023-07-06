@@ -143,27 +143,27 @@ const useStyles = makeStyles({
 
   avatharIconStyle: (props: any) => ({
     cursor: "pointer",
-    [muiTheme.breakpoints.up(3839)]: {
-      width: "50px",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      width: "48px",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      width: "26px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      width: "25px",
-    },
-    [muiTheme.breakpoints.down(1545)]: {
-      width: "25px",
-    },
-    [muiTheme.breakpoints.down(1345)]: {
-      width: "21px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      width: "12px",
-    },
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   width: "50px",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   width: "48px",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   width: "26px",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   width: "25px",
+    // },
+    // [muiTheme.breakpoints.down(1545)]: {
+    //   width: "25px",
+    // },
+    // [muiTheme.breakpoints.down(1345)]: {
+    //   width: "21px",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   width: "12px",
+    // },
   }),
   menuLogoSection: () => ({
     margin: 30,
@@ -455,7 +455,7 @@ const useStyles = makeStyles({
         position: "absolute",
         left: "-6%",
         top: "38%",
-        border: `2px solid ${props?.palette?.header?.menuBorder}`,
+        border: `2px solid #fff`,
         borderStyle: "solid",
         borderWidth: "0px 2px 2px 0px",
       },
