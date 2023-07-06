@@ -16,17 +16,15 @@ const useStyles = makeStyles({
       right: 0,
       height: "60%", // Specify the desired length of the bottom border
       borderRight: `1px dashed #808080`, // Specify your desired color and border style
-      opacity: "0.4",
+      opacity: 0.6,
     },
   }),
-
-  
 
   bodyLeftTopPanelListSubContainer: (props: any) => ({
     // border: "1px solid #808080",
     height: "100%",
     border: "1px solid  #333333",
-    background: "#161515"
+    background: "#161515",
   }),
 
   progressBarContainer: (props: any) => ({
@@ -70,69 +68,15 @@ const useStyles = makeStyles({
 
   itemValueStyle: (props: any) => ({
     fontSize: "1vw",
-    // [muiTheme.breakpoints.up(3839)]: {
-    //   fontSize: 35,
-    //   lineHeight: "48px",
-    // },
-    // [muiTheme.breakpoints.down(3073)]: {
-    //   fontSize: 32,
-    //   lineHeight: "44px",
-    // },
-    // [muiTheme.breakpoints.down(2561)]: {
-    //   fontSize: 24,
-    //   lineHeight: "28px",
-    // },
-    // [muiTheme.breakpoints.down(2049)]: {
-    //   fontSize: 20,
-    //   lineHeight: "28px",
-    // },
-    // [muiTheme.breakpoints.down(1921)]: {
-    //   fontSize: 18,
-    //   lineHeight: "24px",
-    // },
-    // [muiTheme.breakpoints.down(1537)]: {
-    //   fontSize: 14,
-    //   lineHeight: "22px",
-    // },
-    // [muiTheme.breakpoints.down(1153)]: {
-    //   fontSize: 10,
-    //   lineHeight: "19px",
-    // },
+    marginBottom: "0.2vh",
+    fontFamily: "HelveticaNeue-Regular",
   }),
 
   itemTitleStyle: (props: any) => ({
     fontSize: "0.8vw",
     color: "#909090",
-    // [muiTheme.breakpoints.up(3839)]: {
-    //   fontSize: 35,
-    //   lineHeight: "48px",
-    // },
-    // [muiTheme.breakpoints.down(3073)]: {
-    //   fontSize: 32,
-    //   lineHeight: "44px",
-    // },
-    // [muiTheme.breakpoints.down(2561)]: {
-    //   fontSize: 24,
-    //   lineHeight: "28px",
-    // },
-    // [muiTheme.breakpoints.down(2049)]: {
-    //   fontSize: 20,
-    //   lineHeight: "28px",
-    // },
-    // [muiTheme.breakpoints.down(1921)]: {
-    //   fontSize: 18,
-    //   lineHeight: "24px",
-    // },
-    // [muiTheme.breakpoints.down(1537)]: {
-    //   fontSize: 14,
-    //   lineHeight: "22px",
-    // },
-    // [muiTheme.breakpoints.down(1153)]: {
-    //   fontSize: 10,
-    //   lineHeight: "19px",
-    // },
+    fontFamily: "HelveticaNeue-Regular",
   }),
-
 
   imageWidthStyle: (props: any) => ({
     width: 30,

@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import { padding } from "@mui/system";
 // import muiTheme from "theme/muiTheme";
@@ -18,6 +20,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     marginLeft: "20px",
     fontSize: "1.1vw",
+    fontFamily: "HelveticaNeue-Regular",
   }),
 
   headerTabStyle: (props: any) => ({
@@ -58,25 +61,22 @@ const useStyles = makeStyles(() => ({
 
     "& .MuiTab-root": {
       fontSize: "1.8vh !important",
-      
+
       fontWeight: "600 !important",
-     minWidth: "unset",
+      minWidth: "unset",
       "&:first-child": {
-       
         color: `#5F5F5F !important`,
       },
       "&:first-child.Mui-selected": {
         color: `#6BA044 !important`,
       },
       "&:nth-child(2)": {
-       
         color: `#5F5F5F !important`,
       },
       "&:nth-child(2).Mui-selected": {
         color: `#6BA044 !important`,
       },
       "&:nth-child(3)": {
-       
         color: `#5F5F5F !important`,
       },
       "&:nth-child(3).Mui-selected": {
@@ -86,10 +86,9 @@ const useStyles = makeStyles(() => ({
     "& .MuiTabs-root .MuiTabs-indicator": {
       background: "#6BA044",
       height: "4px",
-      borderRadius: "2px"
+      borderRadius: "2px",
     },
   }),
-
 }));
 
 export default useStyles;
