@@ -141,7 +141,7 @@ const Map: React.FC<any> = (props) => {
             : mapPageName === "fleetManagement"
             ? "calc(100vh - 800px)"
             : mapPageName === "Asset Tracking"
-            ? "calc(100vh - 650px)"
+            ? "calc(100vh - 700px)"
             : "calc(100vh - 924px)",
         is4kDevice: true,
         is3kDevice: false,

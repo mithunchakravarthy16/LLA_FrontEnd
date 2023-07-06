@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
     },
     "& .MuiOutlinedInput-input": {
       width: "278px !important",
-      height: "40px !important",
+      height: "30px !important",
       padding: "10px 10px 10px 20px!important",
       fontSize: "1vw",
       color: " #ffffff !important",
@@ -54,9 +54,9 @@ const useStyles = makeStyles(() => ({
         height: "80px !important",
         padding: "20px 20px 20px 30px!important",
       },
-      [muiTheme.breakpoints.up(1919)]: {
-        height: "30px !important",
-      },
+      // [muiTheme.breakpoints.up(1919)]: {
+      //   height: "30px !important",
+      // },
     },
     "& .Mui-disabled": {
       color: "#9C9C9C !important",
@@ -87,7 +87,7 @@ const useStyles = makeStyles(() => ({
     },
     "& .MuiOutlinedInput-input": {
       width: "120px !important",
-      height: "40px !important",
+      height: "30px !important",
       padding: "10px 10px 10px 20px!important",
       fontSize: "1vw",
       color: " #ffffff !important",
@@ -96,9 +96,9 @@ const useStyles = makeStyles(() => ({
         height: "80px !important",
         padding: "20px 20px 20px 30px!important",
       },
-      [muiTheme.breakpoints.up(1919)]: {
-        height: "30px !important",
-      },
+      // [muiTheme.breakpoints.up(1919)]: {
+      //   height: "30px !important",
+      // },
     },
     "& .Mui-disabled": {
       color: "#9C9C9C !important",
@@ -132,7 +132,7 @@ const useStyles = makeStyles(() => ({
     height: "calc(100vh - 432px)",
     position: "relative",
     [muiTheme.breakpoints.up(3839)]: {
-      height: "calc(100vh - 700px)",
+      height: "calc(100vh - 750px)",
       padding: "25px 30px",
     },
     [muiTheme.breakpoints.down(3071)]: {
