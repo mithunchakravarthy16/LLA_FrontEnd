@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { padding } from "@mui/system";
-// import muiTheme from "theme/muiTheme";
+import muiTheme from "theme/muiTheme";
 
 const useStyles = makeStyles(() => ({
   headerStyle: (props: any) => ({
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
-    height : "14vh"
+    height: "14vh",
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
     // flex: 1
@@ -60,8 +60,8 @@ const useStyles = makeStyles(() => ({
     flex: "1",
     justifyContent: "space-between",
     margin: "3% 0",
-    height :"42%",
-    fontSize : "0.9vw"
+    height: "42%",
+    fontSize: "0.9vw",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     // flex: 1,
@@ -99,8 +99,8 @@ const useStyles = makeStyles(() => ({
       },
     },
   }),
-  leftPanelChild1: (props: any) => ({ fontSize : "0.9vw"}),
-  leftPanelChild2: (props: any) => ({ color: "#F26522", fontSize : "0.9vw" }),
+  leftPanelChild1: (props: any) => ({ fontSize: "0.9vw" }),
+  leftPanelChild2: (props: any) => ({ color: "#F26522", fontSize: "0.9vw" }),
   assetInfoRightPanelMain: (props: any) => ({
     height: "calc(100vh  - 205px)",
     border: "1px solid rgb(51, 51, 51)",
@@ -113,6 +113,57 @@ const useStyles = makeStyles(() => ({
 
     "&::-webkit-scrollbar": {
       width: 0,
+    },
+  }),
+  buttonContainer: (props: any) => ({
+    padding: "0 0 15px 15px",
+    display: "flex",
+    justifyContent: "end",
+    position: "absolute",
+    bottom: "0",
+    right: "20px",
+    [muiTheme.breakpoints.up(3839)]: {
+      right: "35px",
+      bottom: "8px",
+    },
+  }),
+  cancelButtonContainer: (props: any) => ({
+    paddingRight: "16px",
+    "& .MuiButtonBase-root": {
+      color: "#fff",
+      border: "1px solid #363636",
+      borderRadius: "5px",
+      fontSize: "14px",
+      lineHeight: "19px",
+      fontFamily: "HelveticaNeue-Regular",
+      fontWeight: 700,
+      "&:hover": {
+        border: "1px solid #363636",
+      },
+      [muiTheme.breakpoints.up(3839)]: {
+        height: "100px",
+        width: "310px",
+        fontSize: "1vw",
+      },
+    },
+  }),
+  updateButtonContainer: (props: any) => ({
+    "& .MuiButtonBase-root": {
+      color: "#fff",
+      background: "#F26522",
+      borderRadius: "5px",
+      fontSize: "14px",
+      lineHeight: "19px",
+      fontFamily: "HelveticaNeue-Regular",
+      fontWeight: 700,
+      "&:hover": {
+        background: "#F26522",
+      },
+      [muiTheme.breakpoints.up(3839)]: {
+        height: "100px",
+        width: "310px",
+        fontSize: "1vw",
+      },
     },
   }),
 }));

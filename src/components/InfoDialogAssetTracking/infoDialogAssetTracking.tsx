@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
+import { Grid, Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
@@ -8,6 +8,8 @@ import customTheme from "../../theme/theme";
 import { CloseIcon } from "../../assets/fleetInfoDialogueIcons";
 import useStyles from "./styles";
 import CustomizedSteppers from "elements/HorizontalStepper";
+import Map from "components/Map";
+import Geofence from "components/Geofence";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -20,14 +22,15 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     marginTop: "0px !important",
   },
   "& .MuiPaper-root": {
-    maxHeight: "calc(100% - 150px)",
-    minHeight: "calc(100% - 100px)",
-    width: "70vw",
-    maxWidth: "100vw",
+    // maxHeight: "calc(100% - 150px)",
+    // minHeight: "calc(100% - 150px)",
+
+    height: "80vh",
+    minWidth: "75vw",
+    maxWidth: "75vw",
     background: `#1A1919 !important`,
     color: "#fff",
-    padding: "1.2%",
-    fontFamily: "Helvetica",
+    padding: "1%",
     // [muiTheme.breakpoints.up(5759)]: {
     //   maxHeight: "calc(100% - 370px)",
     //   minHeight: "calc(100% - 370px)",
@@ -69,6 +72,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     leftPanelChild1,
     leftPanelChild2,
     notificationListContainer,
+    buttonContainer,
+    cancelButtonContainer,
+    updateButtonContainer,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -93,6 +99,22 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   const [open, setOpen] = useState(!false);
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+  const [isDrawingEnable, setIsDrawingEnable] = useState<boolean>(false);
+  const [isCircleDrawing, setIsCircleDrawing] = useState<boolean>(false);
+  const [polygonData, setPolygonData] = useState<any>(null);
+  const [circleData, setCircleData] = useState<any>(null);
+  const [circleRadius, setCircleRadius] = useState<any>(null);
+  const [circleCenter, setCircleCenter] = useState<any>(null);
+  const [polygonPath, setPolygonPath] = useState<any>(null);
+  const [circleRadiusUnits, setCircleRadiusUnits] = useState<any>(null);
+  const [isOutsideGeofenceChecked, setIsOutsideGeofenceChecked] =
+    useState<boolean>();
+  const [isBackGeofenceChecked, setIsBackGeofenceChecked] = useState<boolean>();
+  const [geofenceType, setGeofenceType] = useState<string>();
+  const [radiusType, setRadiusType] = useState<string>();
+  const [checked, setChecked] = useState<boolean>(true);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   useEffect(() => {
     if (tabIndex === 2) {
@@ -103,6 +125,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setOpen(!open);
     setIsInfoWindowActive(false);
   };
+
+  const handleResetClick = () => {};
+
+  const handleSaveClick = () => {};
 
   const tabsList = [
     { name: "ASSET DETAILS", val: 0 },
@@ -132,6 +158,152 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     { label: "Temperature", value: "24°C" },
     { label: "Humidity", value: "96%" },
   ];
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setSelectedWidth({
+        width: 1300,
+        height: 500,
+        is4kDevice: true,
+      });
+    } else if (window.innerWidth > 3071) {
+      setSelectedWidth({
+        width: 900,
+        height: 400,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 2047) {
+      setSelectedWidth({
+        width: 600,
+        height: 230,
+        is4kDevice: false,
+      });
+    } else if (window.innerHeight > 936) {
+      setSelectedWidth({
+        width: 550,
+        height: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1791) {
+      setSelectedWidth({
+        width: 580,
+        height: 220,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1535) {
+      setSelectedWidth({
+        width: 480,
+        height: 200,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1359) {
+      setSelectedWidth({
+        width: 400,
+        height: 160,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1343) {
+      setSelectedWidth({
+        width: 430,
+        height: 180,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1279) {
+      setSelectedWidth({
+        width: 390,
+        height: 160,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1151) {
+      setSelectedWidth({
+        width: 350,
+        height: 140,
+        is4kDevice: false,
+      });
+    } else if (window.innerWidth > 1023) {
+      setSelectedWidth({
+        width: 300,
+        height: 90,
+        is4kDevice: false,
+      });
+    }
+  }, []);
+
+  const onCircleCompleteLocation = (
+    centerCoOrdinates: any,
+    drawRadius: any
+  ) => {
+    const startLatLng = new google.maps.LatLng(centerCoOrdinates);
+    // const circle = new window.google.maps.Circle({
+    //   center: startLatLng,
+    //   radius: drawRadius,
+    // })
+    //   .getBounds()
+    //   ?.contains(selectedViewDetailsData?.location);
+
+    // if (circle) {
+    //   setIsGeofenceLocation(true);
+    // } else {
+    //   setIsGeofenceLocation(false);
+    // }
+  };
+
+  const onPolygonCompleteLocation = (path: any) => {
+    const polygon = new window.google.maps.Polygon({
+      paths: path,
+    });
+
+    // const contains = window.google.maps.geometry.poly.containsLocation(
+    //   new window.google.maps.LatLng(
+    //     selectedViewDetailsData?.location?.lat,
+    //     selectedViewDetailsData?.location?.lng
+    //   ),
+    //   polygon
+    // );
+
+    // if (contains) {
+    //   setIsGeofenceLocation(true);
+    // } else {
+    //   setIsGeofenceLocation(false);
+    // }
+  };
+
+  const handleCircleDrag = (centerCoOrdinates: any) => {
+    polygonData?.setMap(null);
+    circleData?.setMap(null);
+    const startLatLng = new google.maps.LatLng(centerCoOrdinates);
+    // const circle = new window.google.maps.Circle({
+    //   center: startLatLng,
+    //   radius: circleRadius,
+    // })
+    //   .getBounds()
+    //   ?.contains(selectedViewDetailsData?.location);
+
+    // if (circle) {
+    //   setIsGeofenceLocation(true);
+    // } else {
+    //   setIsGeofenceLocation(false);
+    // }
+  };
+
+  const handleCircleLatChange = () => {
+    polygonData?.setMap(null);
+    circleData?.setMap(null);
+  };
+
+  const handleGeofencePolygonClick = () => {
+    setIsCircleDrawing(false);
+    setIsDisabled(true);
+    circleData?.setMap(null);
+    polygonData?.setMap(null);
+  };
+
+  const handleGeofenceCircleClick = () => {
+    setIsCircleDrawing(true);
+    setIsDisabled(true);
+    circleData?.setMap(null);
+    polygonData?.setMap(null);
+  };
 
   return (
     <>
@@ -198,7 +370,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     </div>
                   </Grid>
                   <Grid className={assetInfoLeftPanelCenter}>
-                    <div style={{ width: "40%", display : "flex", flexDirection : "column", justifyContent : "space-around" }}>
+                    <div
+                      style={{
+                        width: "40%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-around",
+                      }}
+                    >
                       {assetCenterLeftSectionData?.map(
                         (data: any, index: any) => {
                           return (
@@ -226,7 +405,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         opacity: "0.5",
                       }}
                     ></div>
-                    <div style={{ width: "40%", display : "flex", flexDirection : "column", justifyContent : "space-around" }}>
+                    <div
+                      style={{
+                        width: "40%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-around",
+                      }}
+                    >
                       {assetCenterRightSectionData?.map(
                         (data: any, index: any) => {
                           return (
@@ -256,8 +442,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                 <Grid item xs={3} className={assetInfoRightPanelMain}>
                   <Grid item xs={12} className={notificationListContainer}>
                     <Grid container xs={12} rowGap={1.5}>
-
-                      
                       {infoWindowNotificationListItems &&
                         infoWindowNotificationListItems?.length > 0 &&
                         infoWindowNotificationListItems?.map((item: any) => (
@@ -274,7 +458,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               background: "#131313",
                             }}
                           >
-                            <div  style={{ fontSize: "0.9vw" }}>
+                            <div style={{ fontSize: "0.9vw" }}>
                               {item?.title}
                             </div>
                             <div
@@ -294,6 +478,87 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
+            </Grid>
+          </Grid>
+        )}
+        {tabIndex === 1 && (
+          <Grid container>
+            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+              <Geofence
+                is4kDevice={selectedWidth?.is4kDevice}
+                isCircleDrawing={isCircleDrawing}
+                setIsCircleDrawing={setIsCircleDrawing}
+                setIsDrawingEnable={setIsDrawingEnable}
+                circleRadius={circleRadius}
+                circleCenter={circleCenter}
+                setCircleRadius={setCircleRadius}
+                setCircleCenter={setCircleCenter}
+                handleCircleLatChange={handleCircleLatChange}
+                setCircleRadiusUnits={setCircleRadiusUnits}
+                circleRadiusUnits={circleRadiusUnits}
+                isOutsideGeofenceChecked={isOutsideGeofenceChecked}
+                isBackGeofenceChecked={isBackGeofenceChecked}
+                setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
+                setIsBackGeofenceChecked={setIsBackGeofenceChecked}
+                setGeofenceType={setGeofenceType}
+                geofenceType={geofenceType}
+                radiusType={radiusType}
+                setRadiusType={setRadiusType}
+                setPolygonPath={setPolygonPath}
+                checked={checked}
+                isDisabled={isDisabled}
+                setChecked={setChecked}
+                setIsDisabled={setIsDisabled}
+                polygonPath={polygonPath}
+                handleGeofencePolygonClick={handleGeofencePolygonClick}
+                handleGeofenceCircleClick={handleGeofenceCircleClick}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+              <Map
+                markers={[]}
+                marker={""}
+                currentMarker={""}
+                setCurrentMarker={() => {}}
+                focusedCategory={""}
+                mapPageName={"Asset Tracking"}
+                setIsMarkerClicked={() => {}}
+                setSelectedNotification={() => {}}
+                setNotificationPanelActive={() => {}}
+                setTabIndex={() => {}}
+                isDrawingEnable={isDrawingEnable}
+                isCircleDrawing={isCircleDrawing}
+                setCircleData={setCircleData}
+                setCircleRadius={setCircleRadius}
+                setCircleCenter={setCircleCenter}
+                setPolygonPath={setPolygonPath}
+                setPolygonData={setPolygonData}
+                setIsCircleDrawing={setIsCircleDrawing}
+                setIsDrawingEnable={setIsDrawingEnable}
+                circleRadius={circleRadius}
+                circleCenter={circleCenter}
+                handleGeofenceCircleDrag={handleCircleDrag}
+                setCircleRadiusUnits={setCircleRadiusUnits}
+                circleRadiusUnits={circleRadiusUnits}
+                polygonPath={polygonPath}
+                // markerArray={[selectedViewDetailsData]}
+                onCircleCompleteLocation={onCircleCompleteLocation}
+                onPolygonCompleteLocation={onPolygonCompleteLocation}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <div className={buttonContainer}>
+                <div className={cancelButtonContainer}>
+                  <Button variant="outlined" onClick={handleResetClick}>
+                    RESET
+                  </Button>
+                </div>
+                <div className={updateButtonContainer}>
+                  <Button variant="contained" onClick={handleSaveClick}>
+                    SAVE
+                  </Button>
+                </div>
+              </div>
             </Grid>
           </Grid>
         )}
