@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -74,6 +76,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     headerTabContainerStyle,
     headerTabStyle,
     customNotificationTabs,
+    TabvalueTitle,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -288,7 +291,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
 
         <Grid container xs={12} style={{ height: "100%" }}>
           <Grid item xs={12} className={headerStyle}>
-            <Grid container xs={4} className={headerTabContainerStyle}>
+            <Grid container xs={5} className={headerTabContainerStyle}>
               {tabsList?.map((item: any) => (
                 <Grid
                   item
@@ -322,8 +325,13 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
             <Grid container xs={12} style={{ height: "100%" }}>
               <Grid
                 item
-                xs={2}
-                style={{ height: "100%", border: "1px solid #333333" }}
+                xs={2.3}
+                style={{
+                  height: "100%",
+                  border: "1px solid #333333",
+                  background: "rgb(22, 21, 21)",
+                  padding: " 1%",
+                }}
               >
                 <Stepper
                   routeDetails={routeDetails}
@@ -331,7 +339,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   is4kDevice={is4kDevice}
                 />
               </Grid>
-              <Grid item xs={7} style={{ height: "100%", padding: "0 1%" }}>
+              <Grid item xs={6.7} style={{ height: "100%", padding: "0 1%" }}>
                 <Grid style={{ height: "100%" }} item xs={12}>
                   {tabIndex === 0 ? (
                     <TripDetailsMap
@@ -377,7 +385,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                     src={item?.icon}
                                   />
                                 </div>
-                                <div style={{ fontSize: "0.9vw" }}>
+                                <div className={TabvalueTitle}>
                                   {item?.value}
                                 </div>
                               </Grid>
@@ -449,7 +457,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                         src={item?.icon}
                                       />
                                     </div>
-                                    <div style={{ fontSize: "0.9vw" }}>
+                                    <div className={TabvalueTitle}>
                                       {item?.value}
                                     </div>
                                   </Grid>

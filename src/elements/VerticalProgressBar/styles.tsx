@@ -7,6 +7,8 @@ const useStyles = makeStyles({
   label: (props: any) => ({
     fontSize: "30px",
     fontWeight: 700,
+    fontFamily: "HelveticaNeue-Regular",
+
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 36,
       lineHeight: "55px",
@@ -34,10 +36,18 @@ const useStyles = makeStyles({
   }),
 
   progressBarTitle: (props: any) => ({
-    padding: props?.pageName && props?.pageName === "fleetInfoDialogue" ? "5px 0 0 5px" : "0 0 5px 5px",
+    padding:
+      props?.pageName && props?.pageName === "fleetInfoDialogue"
+        ? "5px 0 0 5px"
+        : "0 0 5px 5px",
     fontSize: "14px",
-    color: props?.pageName && props?.pageName === "fleetInfoDialogue" ? "#909090" : "unset",
-    marginBottom: props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
+    color:
+      props?.pageName && props?.pageName === "fleetInfoDialogue"
+        ? "#909090"
+        : "unset",
+    marginBottom:
+      props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
+    fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "48px",
