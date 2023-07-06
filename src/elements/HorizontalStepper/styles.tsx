@@ -91,8 +91,8 @@ export const ColorlibStepIconRoot = styled("div")<
     marginTop : "-1.05vh"
   }),
   ...(ownerState.completed && {
-    minWidth : "2vw",
-    minHeight : "2vh",
+    minWidth : "1vw",
+    // minHeight : "2vh",
     width: 30,
     height: 30,
     backgroundColor: purpleShades,
