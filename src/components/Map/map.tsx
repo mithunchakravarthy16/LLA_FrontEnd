@@ -790,6 +790,11 @@ const Map: React.FC<any> = (props) => {
     scale: 0.7,
   };
 
+  function handleZoomChanged(){
+    // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
+  }
+
+
   return (
     <>
       {isLoaded && (
@@ -804,11 +809,12 @@ const Map: React.FC<any> = (props) => {
               : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
-              : 15.4
+              : 15
           }
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
+          onZoomChanged={handleZoomChanged}
         >
           <MarkerClustererF>
             {(clusterer: any) => (

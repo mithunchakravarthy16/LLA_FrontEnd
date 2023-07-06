@@ -80,8 +80,8 @@ export const ColorlibStepIconRoot = styled("div")<
   backgroundColor: purpleShades,
   ...(ownerState.active && {
     // backgroundColor: greenShade,
-    minWidth: "1.5vw",
-    minHeight: "2.5vh",
+    minWidth: "1.8vw",
+    minHeight: "5vh",
     // width: 50,
     // height: 50,
     backgroundImage: `url("${PackageActiveIcon}")`,
@@ -92,12 +92,13 @@ export const ColorlibStepIconRoot = styled("div")<
     border: "none",
     borderRadius: "none",
     marginTop: "-1.05vh",
+    backgroundPosition : "center"
   }),
   ...(ownerState.completed && {
-    minWidth: "2vw",
+    minWidth: "1vw",
     minHeight: "2vh",
-    width: 30,
-    height: 30,
+    // width: 30,
+    // height: 30,
     backgroundColor: purpleShades,
   }),
   // [muiTheme.breakpoints.down(1437)]: {
