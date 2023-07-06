@@ -110,7 +110,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       formatttedDashboardNotification(dashboardDataList, tabIndex)
     );
     setSearchOpen(false);
-  }, [tabIndex]);
+  }, []);
 
   useEffect(() => {
     setNotificationCount(
@@ -128,13 +128,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
-
-
   return (
     <>
       <Grid container xs={12}>
         <Grid item xs={12}>
-         
           <Grid item xs={12}>
             {" "}
             <div className={dashboardRightPanelStyle}>
@@ -167,14 +164,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             />
           </Grid>
           <FlippingCard
-          currentOpenedCard={currentOpenedCard}
-          setCurrentOpenedCard={setCurrentOpenedCard}
-          focusedCategory={focusedCategory}
-          setFocusedCategory={setFocusedCategory}
-        />
+            currentOpenedCard={currentOpenedCard}
+            setCurrentOpenedCard={setCurrentOpenedCard}
+            focusedCategory={focusedCategory}
+            setFocusedCategory={setFocusedCategory}
+          />
           <Grid item xs={4}>
             {notificationPanelActive && (
-              <div className={notificationPanelSection} style={{width : "23%"}}>
+              <div
+                className={notificationPanelSection}
+                style={{ width: "23%" }}
+              >
                 <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}
@@ -195,8 +195,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             )}
           </Grid>
         </Grid>
-
-        
       </Grid>
     </>
   );
