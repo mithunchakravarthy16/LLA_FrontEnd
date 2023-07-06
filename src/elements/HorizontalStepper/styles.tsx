@@ -20,6 +20,7 @@ const useStyles = makeStyles(
       "& .MuiStepConnector-root": {
         left: "calc(-50% + 14px)",
         right: "calc(50% + 14px)",
+        top : "1.7vh"
       },
 
       "& .MuiStepConnector-line": {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(
       "& .MuiStepLabel-alternativeLabel": {
         color: `#FFF !important`,
         paddingBottom: "4px",
-        marginTop: "1vh",
+        // marginTop: "1vh",
         fontSize: "0.6vw",
         fontFamily: "HelveticaNeue-Regular !important",
 
@@ -48,7 +49,7 @@ const useStyles = makeStyles(
       padding: "3px 0px",
       fontSize: "0.7vw !important",
       fontFamily: "HelveticaNeue-Regular !important",
-
+      height : "9vh",
       // fontFamily: `'Nunito Sans', sans-serif !important`,
 
       minHeight: "6vh !important",
@@ -80,7 +81,7 @@ export const ColorlibStepIconRoot = styled("div")<
   backgroundColor: purpleShades,
   ...(ownerState.active && {
     // backgroundColor: greenShade,
-    minWidth: "1.8vw",
+    minWidth: "1.5vw",
     minHeight: "5vh",
     // width: 50,
     // height: 50,
@@ -91,8 +92,20 @@ export const ColorlibStepIconRoot = styled("div")<
     backgroundColor: "transparent",
     border: "none",
     borderRadius: "none",
-    marginTop: "-1.05vh",
-    backgroundPosition : "center"
+    marginTop: "-3vh",
+    backgroundPosition : "bottom",
+    "& .MuiStepLabel-alternativeLabel": {
+      color: `#FFF !important`,
+      paddingBottom: "4px",
+      marginTop: "1vh",
+      fontSize: "0.6vw",
+      fontFamily: "HelveticaNeue-Regular !important",
+
+      // [muiTheme.breakpoints.down(1437)]: {
+      //   fontSize: " 10px !important",
+      //   // fontFamily: `'Nunito Sans', sans-serif !important`,
+      // },
+    },
   }),
   ...(ownerState.completed && {
     minWidth: "1vw",
@@ -100,6 +113,17 @@ export const ColorlibStepIconRoot = styled("div")<
     // width: 30,
     // height: 30,
     backgroundColor: purpleShades,
+    "& .MuiStepLabel-alternativeLabel": {
+      color: `#FFF !important`,
+      paddingBottom: "4px",
+
+
+      // [muiTheme.breakpoints.down(1437)]: {
+      //   fontSize: " 10px !important",
+      //   // fontFamily: `'Nunito Sans', sans-serif !important`,
+      // },
+    },
+    
   }),
   // [muiTheme.breakpoints.down(1437)]: {
   //   width: 15,
