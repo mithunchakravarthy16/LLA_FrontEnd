@@ -246,7 +246,7 @@ const useStyles = makeStyles({
     },
   }),
 
-  liveContentValueGreen: (props: any) => ({
+  liveContentValueGreen: (props: any) => ({ 
     fontSize: "22px",
     fontWeight: 700,
     color: props?.palette?.gridViewComponentCommonStyle?.liveContentValueGreen, //"#80C53B",
@@ -355,7 +355,10 @@ const useStyles = makeStyles({
   lastweekTitleStyle: (props: any) => ({
     fontWeight: 500,
     fontSize: "18px",
-    color: "#82BA6D",
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
+    color: props?.palette?.gridViewComponentCommonStyle?.todayTitleTextColor, // "#82BA6D",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -441,7 +444,7 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontFamily: "HelveticaNeue-ItalicMedium",
     wordBreak: "break-word",
-    color: "rgba(181, 178, 178, 1)",
+    color: props?.palette?.gridViewComponentCommonStyle?.verticalBarLabelColor, // "rgba(181, 178, 178, 1)",
     flexGrow: 1,
     flex: 1,
     [muiTheme.breakpoints.up(3839)]: {
@@ -580,6 +583,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     rowGap: "5px",
     position: "relative",
+    
     "&::after": {
       content: '""',
       position: "absolute",
@@ -630,7 +634,7 @@ const useStyles = makeStyles({
   listItemLabelStyle: (props: any) => ({
     fontSize: "18px",
     wordBreak: "break-word",
-    color: "rgba(181, 178, 178, 1)",
+    color: props?.palette?.gridViewComponentCommonStyle?.verticalBarLabelColor, // "rgba(181, 178, 178, 1)",
     fontFamily: "HelveticaNeue-ItalicMedium",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
