@@ -4,9 +4,9 @@ const useStyles = makeStyles(() => ({
   customTextField: (props: any) => ({
     marginTop: "5px",
     "& .MuiInputBase-root.MuiOutlinedInput-root": {
-      border: "1px solid #DDDDDD",
+      // border: "1px solid #838383",
       borderRadius: "6px",
-      background: "#000000",
+      background: "#333333",
       "& .MuiInputBase-input": {
         color: "#FFFFFF",
         "-webkit-text-fill-color": "#FFFFFF",
@@ -14,6 +14,9 @@ const useStyles = makeStyles(() => ({
     },
     "& .MuiOutlinedInput-input": {
       padding: "10px !important",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      border: "1px solid #838383",
     },
   }),
 }));

@@ -261,10 +261,11 @@ const useStyles = makeStyles(() => ({
   geofenceSwitch: (props: any) => ({
     "& .Mui-checked": {
       color: "#FFFFFF !important",
-      [muiTheme.breakpoints.up(3839)]: {},
+      [muiTheme.breakpoints.down(3071)]: {},
     },
     "& .Mui-checked+.MuiSwitch-track": {
       backgroundColor: "#F26522 !important",
+      opacity: "1 !important",
     },
     "& .MuiSwitch-track": {
       backgroundColor: "#808080 !important",

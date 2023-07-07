@@ -20,6 +20,8 @@ import useTranslation from "../../localization/translations";
 import ExclamationIcon from "../../assets/exclamationIcon.svg";
 import customTheme from "../../theme/theme";
 import useStyles from "./styles";
+import styled from "styled-components";
+import muiTheme from "theme/muiTheme";
 
 const Geofence: React.FC<any> = (props: any) => {
   const {
@@ -267,6 +269,52 @@ const Geofence: React.FC<any> = (props: any) => {
     setSearchData([...searchData, ...deletedData]);
   };
 
+  const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
+    width: "2.5vw",
+    height: "2.5vh",
+    padding: "0px",
+    borderRadius: "50px",
+    "& .MuiSwitch-switchBase": {
+      margin: 1,
+      padding: 0,
+      transform: "translateX(6px)",
+      [muiTheme.breakpoints.up(3839)]: {
+        left: "2px",
+        top: "8px",
+      },
+      [muiTheme.breakpoints.up(3071)]: {
+        top: "10px",
+        left: "-4px",
+      },
+      [muiTheme.breakpoints.down(3070)]: {
+        top: "4px",
+        left: "-4px",
+      },
+      "&.Mui-checked": {
+        transform: "translateX(30px)",
+        [muiTheme.breakpoints.up(3839)]: {
+          left: "22px",
+          top: "8px",
+        },
+        [muiTheme.breakpoints.up(3071)]: {
+          top: "10px",
+          left: "10px",
+        },
+        [muiTheme.breakpoints.down(3070)]: {
+          top: "4px",
+          left: "-4px",
+        },
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      width: "1vw",
+      height: "1.5vh",
+      position: "relative",
+    },
+    "& .MuiSwitch-track": {
+      borderRadius: 20 / 2,
+    },
+  }));
   return (
     <>
       <div className={mainContainer}>
@@ -274,7 +322,11 @@ const Geofence: React.FC<any> = (props: any) => {
           <div className={geofenceContainer}>
             <div className={geoFenceTitle}>{"Enabled Geofence"}</div>
             <div className={geofenceSwitch}>
-              <Switch checked={checked} onChange={handleChange} />
+              <MuiSwitchLarge
+                checked={checked}
+                onChange={handleChange}
+                size="medium"
+              />
             </div>
           </div>
         ) : (
