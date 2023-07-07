@@ -1,0 +1,2 @@
+import InfoDialogGeofenceAssetTracking from "./infoDialogGeofenceAssetTracking";
+export default InfoDialogGeofenceAssetTracking;

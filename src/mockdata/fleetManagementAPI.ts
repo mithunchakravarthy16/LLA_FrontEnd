@@ -222,6 +222,14 @@ const fleetManagementResponse = {
             lat: 39.755724996944544,
             lng: -105.0073944803513,
           },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
+          },
         },
         {
           notificationId: "lght22",
@@ -237,6 +245,14 @@ const fleetManagementResponse = {
           location: {
             lat: 39.754096574426356,
             lng: -104.99524286694944,
+          },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
           },
         },
         {
@@ -254,6 +270,14 @@ const fleetManagementResponse = {
             lat: 39.76323809694557,
             lng: -105.00263788550286,
           },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
+          },
         },
         {
           notificationId: "lght24",
@@ -269,6 +293,14 @@ const fleetManagementResponse = {
           location: {
             lat: 39.758410381562285,
             lng: -104.99914476116105,
+          },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
           },
         },
         {
@@ -286,6 +318,14 @@ const fleetManagementResponse = {
             lat: 39.758267544591504,
             lng: -104.98829377916307,
           },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
+          },
         },
         {
           notificationId: "lght26",
@@ -301,6 +341,14 @@ const fleetManagementResponse = {
           location: {
             lat: 39.749982493422706,
             lng: -104.99238147786095,
+          },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
           },
         },
       ],
@@ -323,6 +371,14 @@ const fleetManagementResponse = {
             lat: 39.7519538545636,
             lng: -105.00639113612544,
           },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
+          },
         },
         {
           notificationId: "lght34",
@@ -338,6 +394,14 @@ const fleetManagementResponse = {
           location: {
             lat: 39.7519538545636,
             lng: -105.00639113612544,
+          },
+          source: {
+            lat: 39.755724996944544,
+            lng: -105.0073944803513,
+          },
+          destination: {
+            lat: 39.759768335113314,
+            lng: -105.01250229489693,
           },
         },
       ],

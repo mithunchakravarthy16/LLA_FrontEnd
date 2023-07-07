@@ -53,26 +53,20 @@ const Login = () => {
   const {
     loginBannerSection,
     loginFormSection,
-    loginBannerTitle,
-    loginBannerBorder,
-    loginBannerDescription,
-    loginBannerContent,
-    logoSection,
     welcomeSection,
     welcomeContent,
     formTitle,
     inputTitle,
     inputField,
     inputFieldPassword,
-    radioButtonSection,
     loginButton,
     innerForm,
-    copyRights,
     formikErrorClass,
     outlineInputField,
     incorrectCredential,
     llaLogoSection,
     formSection,
+    innerPaddingBox,
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -139,7 +133,7 @@ const Login = () => {
             xl={12}
             className={loginBannerSection}
           >
-            <div>
+            <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>
                   <img src={llaLogo} />

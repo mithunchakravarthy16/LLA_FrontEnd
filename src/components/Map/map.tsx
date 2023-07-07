@@ -12,9 +12,13 @@ import {
   MarkerF,
   MarkerClusterer,
   MarkerClustererF,
+  DrawingManager,
+  Circle,
+  Polygon,
 } from "@react-google-maps/api";
 import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
+import customLightThemeMapStyles from "./customLightThemeMapStyles";
 import theme from "../../theme/theme";
 import appData from "../../data/appData";
 import NotificationListItems from "components/NotificationListItems";
@@ -84,6 +88,23 @@ const Map: React.FC<any> = (props) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
+    isDrawingEnable,
+    isCircleDrawing,
+    setCircleData,
+    setCircleRadius,
+    setCircleCenter,
+    setIsCircleDrawing,
+    setIsDrawingEnable,
+    setPolygonPath,
+    setPolygonData,
+    circleRadius,
+    circleCenter,
+    handleGeofenceCircleDrag,
+    circleRadiusUnits,
+    setCircleRadiusUnits,
+    polygonPath,
+    onCircleCompleteLocation,
+    onPolygonCompleteLocation,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -134,6 +155,8 @@ const Map: React.FC<any> = (props) => {
             ? "calc(100vh - 0px)"
             : mapPageName === "fleetManagement"
             ? "calc(100vh - 800px)"
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 700px)"
             : "calc(100vh - 924px)",
         is4kDevice: true,
         is3kDevice: false,
@@ -198,6 +221,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 350px)"
             : "calc(100vh - 459px)",
         is4kDevice: false,
       });
@@ -208,6 +233,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 300px)"
             : "calc(100vh - 430px)",
         is4kDevice: false,
       });
@@ -481,8 +508,8 @@ const Map: React.FC<any> = (props) => {
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
-      styles: selectedTheme === "light" ? [] : customMapStyles,
-      
+      styles:
+        selectedTheme === "light" ? customLightThemeMapStyles : customMapStyles,
     };
     return {
       ...defaultMapOptions,
@@ -790,10 +817,104 @@ const Map: React.FC<any> = (props) => {
     scale: 0.7,
   };
 
-  function handleZoomChanged(){
+  const options: any = {
+    drawingControl: false,
+    drawingControlOptions: {
+      drawingModes: [
+        window &&
+          window.google &&
+          window.google.maps &&
+          window.google.maps.drawing &&
+          window.google.maps.drawing.OverlayType.POLYGON,
+        window &&
+          window.google &&
+          window.google.maps &&
+          window.google.maps.drawing &&
+          window.google.maps.drawing.OverlayType.CIRCLE,
+      ],
+    },
+    polygonOptions: {
+      fillColor: "#F26522",
+      fillOpacity: 0.5,
+      strokeWeight: 2,
+      strokeColor: "#F26522",
+      clickable: false,
+      editable: false,
+      geodesic: false,
+      visible: true,
+      zIndex: 1,
+    },
+    circleOptions: {
+      fillColor: `#F26522`,
+      fillOpacity: 0.5,
+      strokeWeight: 2,
+      strokeColor: "#F26522",
+      clickable: false,
+      editable: false,
+      zIndex: 1,
+    },
+  };
+
+  const drawModeOptions: any = [
+    window &&
+      window.google &&
+      window.google.maps &&
+      window.google.maps.drawing &&
+      window.google.maps.drawing.OverlayType.POLYGON,
+    window &&
+      window.google &&
+      window.google.maps &&
+      window.google.maps.drawing &&
+      window.google.maps.drawing.OverlayType.CIRCLE,
+  ];
+
+  const onPolygonComplete = (data: any) => {
+    let array: [] = data.getPath().getArray();
+    let points: any = [];
+    array.forEach((item: any) => {
+      points.push({ lat: item.lat(), lng: item.lng() });
+    });
+    setPolygonData(data);
+    setPolygonPath(points);
+    onPolygonCompleteLocation(points);
+  };
+
+  const onCircleComplete = (data: any) => {
+    if (isCircleDrawing) {
+      setCircleRadius(data.getRadius());
+      setCircleCenter({
+        lat: data.getCenter().lat(),
+        lng: data.getCenter().lng(),
+      });
+      setCircleRadiusUnits(data.getRadius());
+      setCircleData(data);
+    }
+    const centerCoOrdinates = {
+      lat: data.getCenter().lat(),
+      lng: data.getCenter().lng(),
+    };
+    onCircleCompleteLocation(centerCoOrdinates, data.getRadius());
+  };
+
+  const handleOverlayComplete = () => {
+    setIsDrawingEnable(false);
+  };
+
+  const handleCircleDrag = (event: any) => {
+    setCircleCenter({
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    });
+    const center = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    };
+    handleGeofenceCircleDrag(center);
+  };
+
+  function handleZoomChanged() {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
-
 
   return (
     <>
@@ -816,27 +937,97 @@ const Map: React.FC<any> = (props) => {
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
         >
+          <DrawingManager
+            drawingMode={
+              isDrawingEnable
+                ? isCircleDrawing
+                  ? drawModeOptions[1]
+                  : drawModeOptions[0]
+                : null
+            }
+            onPolygonComplete={onPolygonComplete}
+            onCircleComplete={onCircleComplete}
+            onOverlayComplete={handleOverlayComplete}
+            options={options}
+          />
+          {circleRadiusUnits !== null && (
+            <Circle
+              radius={circleRadiusUnits}
+              center={circleCenter}
+              visible={true}
+              onDragEnd={handleCircleDrag}
+              options={{
+                fillColor: "#F26522",
+                fillOpacity: 0.3,
+                strokeWeight: 2,
+                strokeColor: "#F26522",
+                clickable: tabIndex === 0 ? false : true,
+                editable: false,
+                draggable: true,
+                zIndex: 1,
+              }}
+            />
+          )}
+          {polygonPath?.length > 0 && (
+            <Polygon
+              path={polygonPath}
+              options={{
+                fillColor: "#F26522",
+                fillOpacity: 0.3,
+                strokeWeight: 2,
+                strokeColor: "#F26522",
+                clickable: false,
+                editable: false,
+                geodesic: false,
+                visible: true,
+                draggable: false,
+                zIndex: 1,
+              }}
+            />
+          )}
           <MarkerClustererF>
             {(clusterer: any) => (
               <div>
                 {markers?.map((singleMarker: any) => {
                   // if (!window.google) return null;
-                  return (
-                    <>
-                      <MapMarker
-                        mapMarker={singleMarker}
-                        toggleInfoWindow={toggleInfoWindow}
-                        handleMarkerClose={handleMarkerClose}
-                        handleExpandListItem={handleExpandListItem}
-                        getMarkerIcon={getMarkerIcon}
-                        currentMarker={currentMarker}
-                        focusedCategory={focusedCategory}
-                        clusterer={clusterer}
-                        location={singleMarker?.location}
-                        handleAssetViewDetails={handleAssetViewDetails}
-                      />
-                    </>
-                  );
+                  if (
+                    currentMarker !== singleMarker?.id &&
+                    location?.pathname === "/fleetManagement"
+                  ) {
+                    return (
+                      <>
+                        <MapMarker
+                          mapMarker={singleMarker}
+                          toggleInfoWindow={toggleInfoWindow}
+                          handleMarkerClose={handleMarkerClose}
+                          handleExpandListItem={handleExpandListItem}
+                          getMarkerIcon={getMarkerIcon}
+                          currentMarker={currentMarker}
+                          focusedCategory={focusedCategory}
+                          clusterer={clusterer}
+                          location={singleMarker?.location}
+                          handleAssetViewDetails={handleAssetViewDetails}
+                        />
+                      </>
+                    );
+                  } else if (location?.pathname !== "/fleetManagement") {
+                    return (
+                      <>
+                        <MapMarker
+                          mapMarker={singleMarker}
+                          toggleInfoWindow={toggleInfoWindow}
+                          handleMarkerClose={handleMarkerClose}
+                          handleExpandListItem={handleExpandListItem}
+                          getMarkerIcon={getMarkerIcon}
+                          currentMarker={currentMarker}
+                          focusedCategory={focusedCategory}
+                          clusterer={clusterer}
+                          location={singleMarker?.location}
+                          handleAssetViewDetails={handleAssetViewDetails}
+                        />
+                      </>
+                    );
+                  }
                 })}
 
                 {points && points.length > 0 && (

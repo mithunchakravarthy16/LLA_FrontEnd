@@ -8,6 +8,7 @@ import LightSettingNormal from "./lightSettingNormal.svg";
 import LightSettingActive from "./lightSettingActive.svg";
 import LightAvatarIcon from "./lightAvatarIcon.svg";
 import DefaultAvatarIcon from "./defaultAvatarIcon.svg";
+import LibertyLatinAmericalogo from "./libertyLatinAmericalogo.svg";
 
 export {
   LightHomeNormal,
@@ -20,4 +21,5 @@ export {
   LightSettingActive,
   LightAvatarIcon,
   DefaultAvatarIcon,
+  LibertyLatinAmericalogo,
 };
