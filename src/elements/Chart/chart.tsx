@@ -62,6 +62,7 @@ const Chart: React.FC<any> = (props) => {
   return (
     <HighchartsReact
       highcharts={Highcharts}
+      containerProps={{ style: { height: "100%", width : "100%"} }}
       options={{
         chart: {
           type: graphType,
@@ -99,7 +100,7 @@ const Chart: React.FC<any> = (props) => {
           style: {
             color: "#fff",
             fontWeight: "bold",
-            fontSize: is4kDevice ? "40px" : "15px",
+            fontSize: "0.7vw",
           },
           formatter: function (
             this: Highcharts.TooltipFormatterContextObject
@@ -137,7 +138,7 @@ const Chart: React.FC<any> = (props) => {
                             <td 
                             style="font-weight: 100;
                             line-height:10px;
-                            font-size: ${is4kDevice ? "40px" : "14px"};
+                            font-size:  0.9vw;
                             color:#FFFFFF;
                             background-color:#050F1B;
                             padding:20px;
@@ -223,14 +224,14 @@ const Chart: React.FC<any> = (props) => {
 
           labels: {
             useHTML: true,
-            overflow: "justify",
+            // overflow: "justify",
             style: {
-              fontSize: is4kDevice
-                ? "30px"
-                : xAxisFontSize
-                ? xAxisFontSize
-                : "10px",
+              fontSize: "0.7vw",
+              textOverflow: 'none',
+              autoRotation: false,
+
               color: "white",
+              
             },
           },
           gridLineWidth: 0,

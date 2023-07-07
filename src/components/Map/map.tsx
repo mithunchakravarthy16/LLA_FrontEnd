@@ -145,6 +145,11 @@ const Map: React.FC<any> = (props) => {
     libraries: libraries,
   });
 
+  const parkingMapContainerStyle = {
+    width: "100%",
+    height :"60vh"
+  };
+
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedContainerStyle({
@@ -920,7 +925,7 @@ const Map: React.FC<any> = (props) => {
     <>
       {isLoaded && (
         <GoogleMap
-          mapContainerStyle={selectedContainerStyle}
+          mapContainerStyle={mapPageName === "parking" ? parkingMapContainerStyle : selectedContainerStyle}
           center={location?.pathname === "/home" ? defaultCenter : center}
           zoom={
             selectedContainerStyle?.is4kDevice
