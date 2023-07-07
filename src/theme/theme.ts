@@ -1,8 +1,6 @@
 import { color } from "@mui/system";
 import colorCodes from "./colors";
 
-console.log("colorCodes.colorWhite", colorCodes.colorWhite)
-
 let theme = {
   defaultTheme: { 
     palette: {     
