@@ -76,9 +76,13 @@ let colorCodes = {
   redColorShades2: "#FBCEBC",
   tabSelectedOrange: "#E53433",
   notificationExpandedBgLight: "#8B8C8C",
-  notificationCalloutBg: "#1d2d38",
+  notificationCalloutBg: "#090A0C",
+  notificationMarkerCalloutBg: "rgba(29, 45, 56, 0.5)",
   flippingCardBgDark: "rgb(22, 25, 30, 0.9)",
   flippingCardBgLight: "rgba(211, 211, 211, 0.70)",
   flippingCardDarkTextColor: "#EEEEEE",
+  darkBlack: "#0E0E0E",
+  lightWhite: "#EEEEEE",
+  notificationPanelShadowColor: "rgba(161, 161, 161, 0.20)"
 };
 export default colorCodes;
