@@ -246,7 +246,7 @@ const useStyles = makeStyles({
     },
   }),
 
-  liveContentValueGreen: (props: any) => ({ 
+  liveContentValueGreen: (props: any) => ({
     fontSize: "22px",
     fontWeight: 700,
     color: props?.palette?.gridViewComponentCommonStyle?.liveContentValueGreen, //"#80C53B",
@@ -583,11 +583,11 @@ const useStyles = makeStyles({
     justifyContent: "center",
     rowGap: "5px",
     position: "relative",
-    
+
     "&::after": {
       content: '""',
       position: "absolute",
-      bottom: 0,
+      bottom: "-3vh",
       left: "25%",
       width: "50%", // Specify the desired length of the bottom border
       borderBottom: `1px dashed ${props?.palette?.gridViewComponentCommonStyle?.rightListItemBorder}`, // Specify your desired color and border style
