@@ -64,6 +64,15 @@ let colorCodes = {
   markerCallOutGrey: 'rgba(45, 47, 52, 0.85)',
   sunRiseOrange: `linear-gradient(to bottom, #EF4136 0%, #F26522 100%)`,
   whiteShadesOfOrange: "#FFC6BA",
-  orngeLinearGradient: `linear-gradient(to right, #E35A0B 0%, #C65009 100%)`
+  orngeLinearGradient: `linear-gradient(to right, #E35A0B 0%, #C65009 100%)`,
+  whiteShades: "#F5F5F5",
+  blackShades: "#161515",
+  redShades: "#EB575F",
+  blueShades: "#3F4684",
+  whiteShades2: "#FFFEF9",
+  mdGray: "#808080",
+  greenColorShades: "#82BA6D",
+  redColorShades: "#F1624C",
+  redColorShades2: "#FBCEBC",
 };
 export default colorCodes;

@@ -294,7 +294,16 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   className={lastweekContainer}
                 >
                   <Grid item xs={12} className={lastweekTitleStyle}>
-                    Today
+                  <div
+                      style={{
+                        background:
+                          appTheme?.palette?.gridViewComponentCommonStyle
+                            ?.todayTitleBgColor,
+                            padding: "3%",
+                      }}
+                    >
+                      Today
+                    </div>
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>
                     <Grid
