@@ -822,6 +822,8 @@ const Map: React.FC<any> = (props) => {
     scale: 0.7,
   };
 
+  // geofence code -- start
+
   const options: any = {
     drawingControl: false,
     drawingControlOptions: {
@@ -916,6 +918,8 @@ const Map: React.FC<any> = (props) => {
     };
     handleGeofenceCircleDrag(center);
   };
+
+  // geofence code -- end
 
   function handleZoomChanged() {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
