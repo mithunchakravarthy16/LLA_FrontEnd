@@ -7,7 +7,8 @@ import muiTheme from "theme/muiTheme";
 const useStyles = makeStyles(() => ({
   headerStyle: (props: any) => ({
     display: "flex",
-    height: "6%",
+    color: "#F26522",
+    fontSize: "1vw",
   }),
 
   vehicleTitle: (props: any) => ({
@@ -50,7 +51,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
-    height: "15%",
+    height: "14%",
     marginBottom: "4%",
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
@@ -61,12 +62,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-    height: "50%",
+    height: "35%",
     marginottom: "4vh",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     width: "100%",
-    height: "30%",
+    height: "48%",
   }),
   leftPanelSection: (props: any) => ({
     display: "flex",
