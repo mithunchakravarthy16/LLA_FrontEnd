@@ -107,7 +107,6 @@ const useStyles = makeStyles({
 
   bodyLeftTopPanelMapContainer: (props: any) => ({
     height: "60%",
-    borderTop: "1px solid rgb(51, 51, 51)",
   }),
 
   bodyLeftTopPanelSubContainer: (props: any) => ({
@@ -133,8 +132,6 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom: "1px solid #333333",
-
-    height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({

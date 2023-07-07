@@ -74,7 +74,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1919) {
       setSelectedWidth({
         width: 550,
-        height: 240,
+        height: 220,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
@@ -133,13 +133,13 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         tickInterval: 12,
         xAxisFontSize: "8px",
       });
-    }else if (window.innerHeight > 936) {
+    } else if (window.innerHeight > 936) {
       setSelectedWidth({
         width: 500,
         height: 120,
         is4kDevice: false,
       });
-    } 
+    }
   }, []);
 
   return (
