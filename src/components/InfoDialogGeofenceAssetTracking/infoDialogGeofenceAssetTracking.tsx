@@ -317,6 +317,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                   polygonPath={polygonPath}
                   handleGeofencePolygonClick={handleGeofencePolygonClick}
                   handleGeofenceCircleClick={handleGeofenceCircleClick}
+                  isGeofence={true}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
