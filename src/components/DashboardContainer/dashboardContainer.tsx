@@ -86,11 +86,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state.assetNotification.assetNotificationData
   );
 
-  const [dashboardNotificationList, setDashboardNotificationList] = useState<any>([
-    ...formatttedAssetAPINotification(assetNotificationResponse?.notifications),
-    ...formatttedDashboardAPINotificaiton(dashboardNotification?.notifications),
-    ...formatttedFleetAPINotification(fleetManagementNotificationResponse?.notifications),
-  ]);
+  const [dashboardNotificationList, setDashboardNotificationList] = useState<any>([]);
 
   useEffect(() => {
     if (assetNotificationResponse && fleetManagementNotificationResponse) {

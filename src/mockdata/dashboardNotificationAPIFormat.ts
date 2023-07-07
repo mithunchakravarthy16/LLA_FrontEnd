@@ -381,7 +381,7 @@ const dashboardNotification = {
             },
           },
           {
-            id: "lght6",
+            id: "lght123586",
             title: "Air Quality Index Alert",
             subTitle: "",
             area: "OutDoor",

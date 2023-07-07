@@ -930,10 +930,11 @@ const Map: React.FC<any> = (props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={
-            mapPageName === "parking" ||
+           ( mapPageName === "parking" ||
             mapPageName === "energy" ||
             mapPageName === "security" ||
-            mapPageName === "fleet"
+            mapPageName === "fleet" || mapPageName === "lighting"
+            || mapPageName === "asset"   )       
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }

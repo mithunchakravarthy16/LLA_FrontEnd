@@ -243,6 +243,7 @@ const Parking: React.FC<any> = (props) => {
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
+                      style={{ height: "100%" }}
                     >
                       <Grid
                         item
@@ -438,47 +439,47 @@ const Parking: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "59%" }}
-                  >
-                    <Map
-                      mapPageName={"energy"}
-                      markers={dashboardDataList}
-                      setNotificationPanelActive={setNotificationPanelActive}
-                      setSelectedNotification={setSelectedNotification}
-                      marker={selectedNotification}
-                      setTabIndex={setTabIndex}
-                      currentMarker={currentMarker}
-                      setCurrentMarker={setCurrentMarker}
-                      setIsMarkerClicked={setIsMarkerClicked}
-                    />
-                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3} className={notificationPanelGrid}>
-                <NotificationPanel
+              <Grid
+                item
+                xs={12}
+                className={bodyLeftTopPanelMapContainer}
+                style={{ height: "59%" }}
+              >
+                <Map
+                  mapPageName={"energy"}
+                  markers={dashboardDataList}
                   setNotificationPanelActive={setNotificationPanelActive}
-                  dashboardData={dashboardData}
-                  tabIndex={tabIndex}
-                  setTabIndex={setTabIndex}
-                  notificationCount={notificationCount}
-                  selectedNotification={selectedNotification}
                   setSelectedNotification={setSelectedNotification}
-                  searchOpen={searchOpen}
-                  setSearchOpen={setSearchOpen}
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
+                  marker={selectedNotification}
+                  setTabIndex={setTabIndex}
+                  currentMarker={currentMarker}
                   setCurrentMarker={setCurrentMarker}
-                  isMarkerClicked={isMarkerClicked}
+                  setIsMarkerClicked={setIsMarkerClicked}
                 />
               </Grid>
             </Grid>
           </Grid>
+          <Grid item xs={3} className={notificationPanelGrid}>
+            <NotificationPanel
+              setNotificationPanelActive={setNotificationPanelActive}
+              dashboardData={dashboardData}
+              tabIndex={tabIndex}
+              setTabIndex={setTabIndex}
+              notificationCount={notificationCount}
+              selectedNotification={selectedNotification}
+              setSelectedNotification={setSelectedNotification}
+              searchOpen={searchOpen}
+              setSearchOpen={setSearchOpen}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              setCurrentMarker={setCurrentMarker}
+              isMarkerClicked={isMarkerClicked}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </Grid>{" "}
     </>
   );
 };

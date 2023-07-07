@@ -108,7 +108,7 @@ const useStyles = makeStyles({
   bodyLeftTopPanelMapContainer: (props: any) => ({
     position: "relative",
     height: "60%",
-    borderTop: "1px solid rgb(51, 51, 51)",
+    // borderTop: "1px solid rgb(51, 51, 51)",
   }),
 
   bodyLeftTopPanelSubContainer: (props: any) => ({
@@ -173,34 +173,34 @@ const useStyles = makeStyles({
     },
   }),
   screenFiveGraphTitleStyle: (props: any) => ({
-    fontSize: "16px",
+    fontSize: "0.8vw",
     display: "flex",
-    padding: 10,
+    // padding: 10,
     columnGap: "30px",
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
-      lineHeight: "48px",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 22,
-      lineHeight: "38px",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 18,
-      lineHeight: "28px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 16,
-      lineHeight: "22px",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 14,
-      lineHeight: "22px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
-      lineHeight: "16px",
-    },
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   fontSize: 30,
+    //   lineHeight: "48px",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   fontSize: 22,
+    //   lineHeight: "38px",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   fontSize: 18,
+    //   lineHeight: "28px",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   fontSize: 16,
+    //   lineHeight: "22px",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   fontSize: 14,
+    //   lineHeight: "22px",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   fontSize: 10,
+    //   lineHeight: "16px",
+    // },
   }),
 
   graphOneContainerStyle: (props: any) => ({
@@ -229,8 +229,8 @@ const useStyles = makeStyles({
     marginRight: 6,
   }),
   graphTwoContainerStyle: (props: any) => ({
-    height: "100%",
-    padding: "10px 10px 5px 30px",
+    // height: "100%",
+    paddingLeft: "10px",
   }),
   graphTitleOneRound: (props: any) => ({
     width: "15px",
