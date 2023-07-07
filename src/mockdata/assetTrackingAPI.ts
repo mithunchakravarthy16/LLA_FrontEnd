@@ -18,7 +18,7 @@ const assetTrackingResponse = {
             "assetId": "Asset#12",
             "trackerName": "string",
             "assetName": "string",
-            "notificationDate": "2023-07-03T13:15:24.236Z",
+            "notificationDate": "2023-07-06T13:15:24.236Z",
             area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
             location: {
               lat: 39.75555358586086,
@@ -158,7 +158,7 @@ const assetTrackingResponse = {
             "assetId": "Asset#13",
             "trackerName": "string",
             "assetName": "string",
-            "notificationDate": "2023-06-28T09:22:50.124Z",
+            "notificationDate": "2023-07-28T09:22:50.124Z",
             area: "1605-1555 Wynkoop St, Denver, CO 80202, USA",
             location: {
               lat: 39.75729624533388,

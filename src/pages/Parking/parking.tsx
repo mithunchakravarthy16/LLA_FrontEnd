@@ -406,19 +406,21 @@ const Parking: React.FC<any> = (props) => {
             PARKING
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}>
-              <Grid item xs={9} className={bodyLeftContainer}>
+            <Grid container xs={12} className={bodySubContainer} style={{height : "93vh"}}>
+              <Grid item xs={9} className={bodyLeftContainer} >
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer}>
+                  <Grid item xs={12} className={bodyLeftTopPanelContainer} style={{height : "29%"}}>
                     <Grid
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
+                      style={{height : "100%"}}
                     >
                       <Grid
                         item
                         xs={12}
                         className={bodyLeftTopPanelListContainer}
+                        // style={{height : "30%"}}
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
@@ -430,8 +432,8 @@ const Parking: React.FC<any> = (props) => {
                           title={"Occupancy"}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{ height: "80%" }}>
-                        <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid item xs={12} style={{ height: "70%" }}>
+                        <Grid container xs={12} style={{ height: "25vh" }}>
                           <Grid item xs={6} className={graphOneContainer}>
                             <Grid
                               container
@@ -455,10 +457,11 @@ const Parking: React.FC<any> = (props) => {
                                   xs={12}
                                   style={{ height: "100%" }}
                                 >
-                                  <Grid item xs={9} style={{ height: "100%" }}>
+                                  <Grid item xs={9} style={{  height: "21vh", width : "80vw"  }}>
                                     <Chart
-                                      width={selectedWidth?.width}
-                                      height={selectedWidth?.height}
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
+                                      containerProps={{ style: { height: "100%", width : "100%"} }}
                                       graphType={"areaspline"}
                                       isVisible={true}
                                       units={"%"}
@@ -560,15 +563,17 @@ const Parking: React.FC<any> = (props) => {
                               >
                                 Parking Violation
                               </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
+                              <Grid item xs={12} >
                                 <Grid
                                   container
                                   xs={12}
-                                  style={{ height: "100%" }}
+                                  style={{ height: "90%" }}
                                 >
-                                  <Grid item xs={12} style={{ height: "100%" }}>
+                                  <Grid item xs={12} style={{  height: "21vh", width : "80vw"  }}>
                                     <HighchartsReact
                                       highcharts={Highcharts}
+                                      containerProps={{ style: { height: "100%", width : "100%" } }}
+
                                       options={{
                                         chart: {
                                           type: "column",
@@ -578,8 +583,8 @@ const Parking: React.FC<any> = (props) => {
                                           marginLeft: 0,
                                           marginRight: 0,
                                           // marginBottom: 10,
-                                          height: selectedWidth?.height1,
-                                          width: selectedWidth?.width1,
+                                          // height: selectedWidth?.height1,
+                                          // width: selectedWidth?.width1,
                                           reflow: true,
                                           borderRadius: 10,
                                         },
@@ -597,9 +602,7 @@ const Parking: React.FC<any> = (props) => {
                                           style: {
                                             color: "#fff",
                                             fontWeight: "bold",
-                                            fontSize: selectedWidth?.is4kDevice
-                                              ? "40px"
-                                              : "14px",
+                                            fontSize: "0.7vw",
                                             borderRadius:
                                               selectedWidth?.is4kDevice
                                                 ? "10px"
@@ -635,10 +638,7 @@ const Parking: React.FC<any> = (props) => {
                                           labels: {
                                             useHTML: true,
                                             style: {
-                                              fontSize:
-                                                selectedWidth?.is4kDevice
-                                                  ? "30px"
-                                                  : "12px",
+                                              fontSize:"0.7vw",                                               
                                               color: "white",
                                             },
                                           },
@@ -675,7 +675,7 @@ const Parking: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}  style={{height : "59%"}}>
                     {!parkingLotSelectionActive ? (
                       <div
                         className={lotSelectionIconStyle}
@@ -703,6 +703,7 @@ const Parking: React.FC<any> = (props) => {
                       </div>
                     )}
                     {parkingLotIndex === 0 ? (
+                      // <Grid style={{height : "60vh"}}>
                       <Map
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}
@@ -712,7 +713,9 @@ const Parking: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
                         setIsMarkerClicked={setIsMarkerClicked}
+                        mapPageName={"parking"}
                       />
+                      // </Grid>
                     ) : (
                       <div className={lotImageStyle}>
                         <img
@@ -725,7 +728,7 @@ const Parking: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3} className={notificationPanelGrid}>
+              <Grid item xs={3} className={notificationPanelGrid} style={{height : "100%"}}>
                 <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}
