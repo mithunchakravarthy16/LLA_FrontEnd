@@ -59,12 +59,12 @@ const GridViewScreenOne: React.FC<any> = (props) => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
         width: 820,
-        height: 440,
+        height: 420,
         is4kDevice: true,
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 625, 
+        width: 625,
         height: 540,
         is4kDevice: false,
         xAxisFontSize: "20px",
@@ -84,14 +84,14 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1919) {
       setSelectedWidth({
-        width: 410,
-        height: 200,
+        width: 430,
+        height: 220,
         is4kDevice: false,
       });
-    }  else if (window.innerWidth > 1791) {
+    } else if (window.innerWidth > 1791) {
       setSelectedWidth({
-        width: 350,
-        height: 300,
+        width: 400,
+        height: 280,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
