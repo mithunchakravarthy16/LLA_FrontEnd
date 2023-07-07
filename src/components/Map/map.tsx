@@ -925,7 +925,9 @@ const Map: React.FC<any> = (props) => {
     <>
       {isLoaded && (
         <GoogleMap
-          mapContainerStyle={mapPageName === "parking" ? parkingMapContainerStyle : selectedContainerStyle}
+          mapContainerStyle={(mapPageName === "parking" || mapPageName === "energy" || mapPageName === "lighting"
+            || mapPageName === "asset"          
+          ) ? parkingMapContainerStyle : selectedContainerStyle}
           center={location?.pathname === "/home" ? defaultCenter : center}
           zoom={
             selectedContainerStyle?.is4kDevice
