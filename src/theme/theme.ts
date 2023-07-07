@@ -2,15 +2,15 @@ import { color } from "@mui/system";
 import colorCodes from "./colors";
 
 let theme = {
-  defaultTheme: {
+  defaultTheme: { 
     palette: {     
       sidebar: {
         sidebarBg: colorCodes.darkBlackShade,
            
       },  
       notification:{
-        listItemBorder: '',
-        tabListCountColor:''
+        listItemBorder: colorCodes?.darkGreyBalckShade,
+        tabListCountColor:colorCodes?.greyColor2,
       }  
     },
     spacing: 5,
@@ -21,7 +21,10 @@ let theme = {
       sidebar: {
         sidebarBg: colorCodes.sunRiseOrange,    
       },
-      notification:{ listItemBorder: '', tabListCountColor:''}      
+      notification:{
+        listItemBorder: colorCodes?.darkGreyBalckShade,
+        tabListCountColor:colorCodes?.greyColor2,
+      }      
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
@@ -31,7 +34,10 @@ let theme = {
       sidebar: {
         sidebarBg: colorCodes.colorBlack      
       },    
-      notification:{ listItemBorder: '', tabListCountColor:''}  
+      notification:{
+        listItemBorder: colorCodes?.darkGreyBalckShade,
+        tabListCountColor:colorCodes?.greyColor2,
+      }  
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
