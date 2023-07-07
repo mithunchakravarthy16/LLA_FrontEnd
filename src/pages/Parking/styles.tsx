@@ -4,8 +4,6 @@ import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
 const responsiveWidth = (width: number) => {
-  console.log("WIDTH", width);
-  console.log("RESULT WIDTH", (width*window.innerWidth)/3840)
   return (width*window.innerWidth)/3840
 }
 

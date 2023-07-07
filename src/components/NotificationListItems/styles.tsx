@@ -35,8 +35,9 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 290 : 186,
     },
   }),
-  collapsedListItems: (props: any) => ({
-    background: props?.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
+  collapsedListItems: (props: any) => {
+    return ({
+    background: props.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
     padding: "13px",
     borderRadius: "10px",
     border: `2px solid ${props?.palette?.notification?.listItemBg}`,
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1153)]: {
       marginBottom: "12px",
     },
-  }),
+  })},
   expandedListItems: (props: any) => ({
     background:
       props?.pageName === "markerCallout"
@@ -98,6 +99,7 @@ const useStyles = makeStyles({
     letterSpacing: "0.5px",
     marginBottom: "3%",
     fontFamily: "HelveticaNeue-Regular",
+    color: props?.palette?.notification?.listItemContent,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       // lineHeight: "56px",
@@ -134,6 +136,7 @@ const useStyles = makeStyles({
   listItemSubTitle: (props: any) => ({
     fontSize: 14,
     fontFamily: "HelveticaNeue-ItalicMedium",
+    color: props?.palette?.notification?.listItemContent,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -166,6 +169,7 @@ const useStyles = makeStyles({
   timeStampStyle: (props: any) => ({
     fontSize: 10,
     fontFamily: "HelveticaNeue-Regular",
+    color: props?.palette?.notification?.listItemContent,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 24,
       lineHeight: "56px",
