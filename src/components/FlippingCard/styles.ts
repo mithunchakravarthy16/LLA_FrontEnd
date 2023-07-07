@@ -168,6 +168,7 @@ export const ContentContainer = styled(a.div)`
   position: absolute;
   top: 0;
   left: 0;
+  padding-left: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
