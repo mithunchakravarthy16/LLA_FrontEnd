@@ -9,6 +9,8 @@ let theme = {
            
       },  
       notification:{
+        notificationBg: colorCodes?.darkBlack,
+        notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes?.darkGreyBalckShade,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
@@ -16,7 +18,9 @@ let theme = {
         listItemContent: colorCodes.colorWhite,
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
-        expansionMarkerListBg: colorCodes?.notificationCalloutBg
+        expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
+        expansionListItemBorder: colorCodes?.tabSelectedOrange,
+        listItemBg: colorCodes?.darkBlackShade,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient
@@ -85,6 +89,8 @@ let theme = {
         sidebarBg: colorCodes.sunRiseOrange,    
       },
       notification:{
+        notificationBg: colorCodes?.lightWhite,
+        notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes.colorWhite,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
@@ -92,7 +98,9 @@ let theme = {
         listItemContent: colorCodes.darkBlackShade,
         notificationPanelTitle: colorCodes?.darkBlackShade,
         expansionListItemBg: colorCodes?.notificationExpandedBgLight,
-        expansionMarkerListBg: colorCodes?.notificationExpandedBgLight
+        expansionMarkerListBg: colorCodes?.notificationExpandedBgLight,
+        expansionListItemBorder: colorCodes?.tabSelectedOrange,
+        listItemBg: colorCodes?.mdGray
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
@@ -160,6 +168,8 @@ let theme = {
         sidebarBg: colorCodes.colorBlack      
       },    
       notification:{
+        notificationBg: colorCodes?.darkBlack,
+        notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes?.darkGreyBalckShade,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
@@ -167,7 +177,9 @@ let theme = {
         listItemContent: colorCodes.colorWhite,
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
-        expansionMarkerListBg: colorCodes?.notificationCalloutBg
+        expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
+        expansionListItemBorder: colorCodes?.tabSelectedOrange,
+        listItemBg: colorCodes?.darkBlackShade,
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
