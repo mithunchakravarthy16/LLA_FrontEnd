@@ -4,19 +4,27 @@ import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
+import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
 import theme from "../../theme/theme";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
 import {
+  formatttedAssetAPINotification,
+  formatttedDashboardAPINotificaiton,
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
+  formatttedFleetAPINotification,
 } from "../../utils/utils";
 import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
 import Grid from "@mui/material/Grid";
+import dashboardNotification from "mockdata/dashboardNotificationAPIFormat";
 import useStyles from "./styles";
+import fleetManagementResponse from "mockdata/fleetManagementAPI";
+import assetTrackingResponse from "mockdata/assetTrackingAPI"
+
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -38,6 +46,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [currentOpenedCard, setCurrentOpenedCard] = useState<any>("");
   const [focusedCategory, setFocusedCategory] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -65,58 +74,74 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let payload: any = {};
-    dispatch(getNotificationData(payload));
+    let assetPayload: any = {};
+    dispatch(getNotificationData(assetPayload));
+    let fleetPayload: any = {};
+    dispatch(getFleetManagementNotificationData(fleetPayload));
   }, []);
 
-  const assetNotificationResponse = useSelector(
-    (state: any) => state.assetNotification.assetNotificationData
-  );
-  const dashboardArray = dashboardList?.dashboard;
-  let currentTimeStampValue;
-  let timeArrayNew: any = [];
-  for (let i = 0; i < dashboardArray?.length; i++) {
-    currentTimeStampValue = moment()
-      .subtract({
-        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
-        minutes: i + 59,
-        seconds: i + 49,
-      })
-      .format("MM-DD-YYYY | h:mm A");
-    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
-  }
+  // const fleetManagementNotificationResponse = useSelector(
+  //   (state: any) =>
+  //     state.fleetManagementNotification.fleetManagementNotificationData
+  // ); fleetManagementResponse
+  
+  const fleetManagementNotificationResponse  = fleetManagementResponse;
 
-  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
-    Object.assign({}, item, dashboardArray[i])
+  // const assetNotificationResponse = useSelector(
+  //   (state: any) => state.assetNotification.assetNotificationData
+  // );
+
+  const assetNotificationResponse = assetTrackingResponse
+
+  const [dashboardNotificationList, setDashboardNotificationList] = useState<any>([]);
+
+  useEffect(() => {
+    if (assetNotificationResponse && fleetManagementNotificationResponse) {
+      let assetNotiData: any = formatttedAssetAPINotification(
+        assetNotificationResponse?.notifications
+      );
+      let dashboardNotiData: any = formatttedDashboardAPINotificaiton(
+        dashboardNotification?.notifications
+      );
+      let fleetNotiData: any = formatttedFleetAPINotification(
+        fleetManagementNotificationResponse?.notifications
+      );
+      let consolidatedData = [
+        ...assetNotiData,
+        ...dashboardNotiData,
+        ...fleetNotiData,
+      ];
+      setDashboardNotificationList(consolidatedData)
+    }
+  }, [assetNotificationResponse, fleetManagementNotificationResponse]);
+
+  const [notificationCount, setNotificationCount] = useState<any>( assetNotificationResponse && fleetManagementNotificationResponse &&
+    formatttedDashboardNotificationCount(dashboardNotificationList)
   );
+
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(dashboardNotificationList)
+    );
+  }, [dashboardNotificationList]);
+
 
   const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedDashboardNotification(dashboardNotificationList, tabIndex)
   );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
-  );
-
-  const [notificationCount, setNotificationCount] = useState<any>(
-    formatttedDashboardNotificationCount(dashboardDataList)
+    formatttedDashboardNotification(dashboardNotificationList, tabIndex)
   );
 
   useEffect(() => {
     setDashboardData(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedDashboardNotification(dashboardNotificationList, tabIndex)
     );
     setSearchValue(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedDashboardNotification(dashboardNotificationList, tabIndex)
     );
-    setSearchOpen(false);
-  }, [tabIndex]);
-
-  useEffect(() => {
-    setNotificationCount(
-      formatttedDashboardNotificationCount(dashboardDataList)
-    );
-  }, [dashboardData]);
+  }, [dashboardNotificationList, tabIndex]);
 
   useEffect(() => {
     if (!notificationPanelActive) {
@@ -136,7 +161,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             {" "}
             <div className={dashboardRightPanelStyle}>
               <Map
-                markers={dashboardDataList}
+                markers={dashboardNotificationList}
                 setNotificationPanelActive={setNotificationPanelActive}
                 setSelectedNotification={setSelectedNotification}
                 marker={selectedNotification}

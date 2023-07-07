@@ -261,10 +261,11 @@ const useStyles = makeStyles(() => ({
   geofenceSwitch: (props: any) => ({
     "& .Mui-checked": {
       color: "#FFFFFF !important",
-      [muiTheme.breakpoints.up(3839)]: {},
+      [muiTheme.breakpoints.down(3071)]: {},
     },
     "& .Mui-checked+.MuiSwitch-track": {
       backgroundColor: "#F26522 !important",
+      opacity: "1 !important",
     },
     "& .MuiSwitch-track": {
       backgroundColor: "#808080 !important",
@@ -278,6 +279,46 @@ const useStyles = makeStyles(() => ({
     paddingBottom: "20px",
     [muiTheme.breakpoints.down(3071)]: {
       paddingBottom: "10px",
+    },
+  }),
+  selectedAssetsContainer: (props: any) => ({
+    color: "#FFFFFF !important",
+    fontSize: "1vw",
+    fontFamily: "HelveticaNeue-Regular",
+    fontWeight: 300,
+    marginTop: "20px",
+    backgroundColor: "#242424",
+    display: "flex",
+    justifyContent: "center",
+    padding: "50px",
+    [muiTheme.breakpoints.up(3839)]: {
+      padding: "80px",
+    },
+    [muiTheme.breakpoints.down(3071)]: {
+      marginTop: "10px",
+    },
+  }),
+  searchContainer: (props: any) => ({
+    padding: "0px",
+  }),
+  assetsList: (props: any) => ({
+    // display: "flex",
+    // justifyContent: "center",
+    border: "1px solid #8F8F8F",
+    height: " 100px",
+    alignItems: "center",
+    background: "#535252",
+  }),
+  assetsListItems: (props: any) => ({
+    display: "flex",
+    border: "1px solid #8F8F8F",
+    height: " 100px",
+    background: "#535252",
+    padding: "15px 20px",
+    "& .MuiChip-root": {
+      backgroundColor: "#333333 !important",
+      borderRadius: "15px",
+      color: "#FFFFFF",
     },
   }),
 }));

@@ -265,14 +265,15 @@ const Parking: React.FC<any> = (props) => {
             LIGHTING
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}>
+            <Grid container xs={12} className={bodySubContainer}   style={{ height: "93vh" }}>
               <Grid item xs={9} className={bodyLeftContainer}>
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer}>
+                  <Grid item xs={12} className={bodyLeftTopPanelContainer}   style={{ height: "29%" }}>
                     <Grid
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
+                      style={{height : "100%"}}
                     >
                       <Grid
                         item
@@ -289,8 +290,8 @@ const Parking: React.FC<any> = (props) => {
                           title={"Avg Dimming Level"}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{ height: "80%" }}>
-                        <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid item xs={12} style={{ height: "70%" }}>
+                        <Grid container xs={12} style={{ height: "25vh" }}>
                           <Grid item xs={6} className={graphOneContainer}>
                             <Grid
                               container
@@ -303,21 +304,26 @@ const Parking: React.FC<any> = (props) => {
                               <Grid
                                 item
                                 xs={12}
-                                style={{ height: "10%" }}
+                                // style={{ height: "10%" }}
                                 className={electricity}
                               >
                                 Electricity Consumed
                               </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
+                              <Grid item xs={12} 
+                              // style={{ height: "90%" }}
+                              >
                                 <Grid
                                   container
                                   xs={12}
                                   style={{ height: "100%" }}
                                 >
-                                  <Grid item xs={9} style={{ height: "100%" }}>
+                                  <Grid item xs={9} style={{ height: "18vh", width: "80vw" }}>
                                     <Chart
-                                      width={selectedWidth?.width}
-                                      height={selectedWidth?.height}
+                                    containerProps={{
+                                      style: { height: "100%", width: "100%" },
+                                    }}
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
                                       graphType={"areaspline"}
                                       isVisible={true}
                                       units={"kWh"}
@@ -419,13 +425,20 @@ const Parking: React.FC<any> = (props) => {
                                 padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <Grid item xs={12} className={graphTwoHeader}>
+                              <Grid item xs={12} className={graphTwoHeader}  style={{ height: "10%" }}>
                                 Air Quality Index
                               </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
+
+                              <Grid item xs={12} >
+                            <Grid container xs={12} style={{ height: "90%" }}>
+
+                              <Grid item xs={12}  style={{ height: "21vh", width: "80vw" }}>
                                 <Chart
-                                  width={selectedWidth?.width1}
-                                  height={selectedWidth?.height1}
+                                  // width={selectedWidth?.width1}
+                                  // height={selectedWidth?.height1}
+                                  containerProps={{
+                                    style: { height: "100%", width: "100%" },
+                                  }}
                                   graphType={"areaspline"}
                                   isVisible={true}
                                   units={""}
@@ -475,6 +488,8 @@ const Parking: React.FC<any> = (props) => {
                                   ]}
                                 />
                               </Grid>
+                              </Grid>
+                              </Grid>
                               <Grid />
                             </Grid>
                           </Grid>
@@ -482,7 +497,7 @@ const Parking: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}  style={{ height: "59%" }}>
                     <Map
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}
@@ -492,6 +507,7 @@ const Parking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      mapPageName={"lighting"}
                     />
                   </Grid>
                 </Grid>

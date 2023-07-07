@@ -20,6 +20,10 @@ let theme = {
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationCalloutBg
       },
+      ,
+      login: {
+        boxTopLineStyle: colorCodes?.orngeLinearGradient
+      },
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
@@ -46,7 +50,10 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
         textColor: colorCodes?.darkBlackShade,
-      }      
+      },
+      login: {
+        boxTopLineStyle: colorCodes?.orngeLinearGradient
+      }
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
@@ -69,7 +76,10 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
-      }  
+      },
+      login: {
+        boxTopLineStyle: colorCodes?.orngeLinearGradient
+      }
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },

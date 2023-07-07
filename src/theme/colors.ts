@@ -70,5 +70,6 @@ let colorCodes = {
   flippingCardBgDark: "rgb(22, 25, 30, 0.9)",
   flippingCardBgLight: "rgba(211, 211, 211, 0.70)",
   flippingCardDarkTextColor: "#EEEEEE",
+  orngeLinearGradient: `linear-gradient(to right, #E35A0B 0%, #C65009 100%)`
 };
 export default colorCodes;

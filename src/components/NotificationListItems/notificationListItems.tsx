@@ -148,7 +148,10 @@ const NotificationListItems = (props: any) => {
 
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
-                  <Button variant="contained" handleClick={handleAssetViewDetails}>
+                  <Button
+                    variant="contained"
+                    handleClick={() => handleAssetViewDetails(data)}
+                  >
                     View Details
                   </Button>
                 </div>
@@ -286,7 +289,7 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
             )}
             <div className={expandedListItemRow2}>
-              {category === "parking" ? `Vehicle : ${entity}` : `${entity}`}{" "}
+              {category === "parking" ? `Vehicle  : ${entity}` : `${entity}`}{" "}
             </div>
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}

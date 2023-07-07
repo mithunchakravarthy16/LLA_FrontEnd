@@ -383,11 +383,21 @@ const useStyles = makeStyles({
   }),
 
   lastweekBodyContainer: (props: any) => ({
-    height: "90%",
+    height: "96%",
+    alignItems: "end",
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "93%",
+      alignItems: "end",
+    },
   }),
 
   lastweekBodySubContainer: (props: any) => ({
-    height: "100%",
+    height: "95%",
+    alignItems: "end",
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "94%",
+      alignItems: "end",
+    },
   }),
 
   horizantalDataGridStyle: (props: any) => ({
@@ -431,33 +441,42 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontFamily: "HelveticaNeue-ItalicMedium",
     wordBreak: "break-word",
-    color:
-      props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel, //"#B5B2B2",
+    color: "rgba(181, 178, 178, 1)",
     flexGrow: 1,
     flex: 1,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "36px",
+      // maxWidth: 190,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
-      lineHeight: "46px",
+      lineHeight: "26px",
+      // maxWidth: 190,
+      wordBreak: "break-word",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 15,
+      lineHeight: "17px",
+      // maxWidth: 100,
+      wordBreak: "break-word",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 15,
-      lineHeight: "26px",
+      lineHeight: "17px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 13,
-      lineHeight: "21px",
+      lineHeight: "17px",
     },
-    [muiTheme.breakpoints.down(1153)]: {
+    [muiTheme.breakpoints.down(1545)]: {
       fontSize: 10,
-      lineHeight: "16px",
+      lineHeight: "14px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 9,
-      lineHeight: "16px",
+      lineHeight: "14px",
     },
   }),
 
@@ -551,7 +570,7 @@ const useStyles = makeStyles({
   }),
 
   gridStyles: (props: any) => ({
-    padding: "3vh 3vh 1vh 3vh",
+    padding: "1.8vh",
     height: "50%",
   }),
 
@@ -611,8 +630,7 @@ const useStyles = makeStyles({
   listItemLabelStyle: (props: any) => ({
     fontSize: "18px",
     wordBreak: "break-word",
-    color:
-      props?.palette?.gridViewComponentCommonStyle?.horizantalDataGridLabel,
+    color: "rgba(181, 178, 178, 1)",
     fontFamily: "HelveticaNeue-ItalicMedium",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,

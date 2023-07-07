@@ -11,7 +11,7 @@ const fleetManagementResponse = {
       totalCount: 1,
       eventsList: [
         {
-          notificationId: "lght1",
+          notificationId: "fleet111",
           notificationType: "event",
           reason: "Shuttle Arrived",
           tripId: 1245,
@@ -35,7 +35,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght2",
+          notificationId: "fleet2",
           notificationType: "event",
           reason: "Shuttle Departed",
           tripId: 1845,
@@ -59,7 +59,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght3",
+          notificationId: "fleet56",
           notificationType: "event",
           reason: "Shuttle Service Resumed",
           tripId: 465,
@@ -83,7 +83,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght4",
+          notificationId: "fleet44",
           notificationType: "event",
           reason: "Increased Service Frequency",
           tripId: 965,
@@ -107,7 +107,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght5",
+          notificationId: "fleet115",
           notificationType: "event",
           reason: "GPS Tracker Device Added",
           tripId: 1965,
@@ -131,7 +131,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght6",
+          notificationId: "fleet126",
           notificationType: "event",
           reason: "GPS Tracker Device Replaced",
           tripId: 1725,
@@ -155,7 +155,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght7",
+          notificationId: "fleet7896",
           notificationType: "event",
           reason: "GPS Tracker Device Removed",
           tripId: 725,
@@ -179,7 +179,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght8",
+          notificationId: "fleet128",
           notificationType: "event",
           reason: "Shuttle Service Resumed",
           tripId: 705,
@@ -208,7 +208,7 @@ const fleetManagementResponse = {
       totalCount: 1,
       incidentList: [
         {
-          notificationId: "lght12",
+          notificationId: "fleet3612",
           notificationType: "incident",
           reason: "Service Disruptions Expected",
           tripId: 35678,
@@ -232,7 +232,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght22",
+          notificationId: "fleet822",
           notificationType: "incident",
           reason: "Shuttle Breakdown",
           tripId: 1256,
@@ -256,7 +256,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght23",
+          notificationId: "fleet23",
           notificationType: "incident",
           reason: "Shuttle Driver Misconduct",
           tripId: 1856,
@@ -280,7 +280,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght24",
+          notificationId: "fleet24",
           notificationType: "incident",
           reason: "Mechanical Issue Detected",
           tripId: 156,
@@ -304,7 +304,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght25",
+          notificationId: "fleet25",
           notificationType: "incident",
           reason: "Temporary Bus Stop Relocation",
           tripId: 856,
@@ -328,7 +328,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght26",
+          notificationId: "fleet26",
           notificationType: "incident",
           reason: "Temporary Bus Stop Closure",
           tripId: 1956,
@@ -357,7 +357,7 @@ const fleetManagementResponse = {
       totalCount: 1,
       alertList: [
         {
-          notificationId: "lght33",
+          notificationId: "fleet33",
           notificationType: "oprAlert",
           reason: "Severe Weather Advisory",
           tripId: 65478,
@@ -381,7 +381,7 @@ const fleetManagementResponse = {
           },
         },
         {
-          notificationId: "lght34",
+          notificationId: "fleet34",
           notificationType: "oprAlert",
           reason: "Severe Weather Advisory",
           tripId: 65478,

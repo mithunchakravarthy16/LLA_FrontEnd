@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, IconButton, Switch } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Switch,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Chip,
+} from "@mui/material";
 import CheckBox from "elements/Checkbox";
 import TextField from "elements/TextField";
+import InputSearch from "elements/InputSearch";
 import CircleActiveIcon from "../../assets/Circular_Active.svg";
 import CircleInActiveIcon from "../../assets/Circular_InActive.svg";
 import PolygonActiveIcon from "../../assets/Polygon_Active.svg";
@@ -11,6 +20,8 @@ import useTranslation from "../../localization/translations";
 import ExclamationIcon from "../../assets/exclamationIcon.svg";
 import customTheme from "../../theme/theme";
 import useStyles from "./styles";
+import styled from "styled-components";
+import muiTheme from "theme/muiTheme";
 
 const Geofence: React.FC<any> = (props: any) => {
   const {
@@ -39,6 +50,7 @@ const Geofence: React.FC<any> = (props: any) => {
     polygonPath,
     handleGeofenceCircleClick,
     handleGeofencePolygonClick,
+    isGeofence,
   } = props;
 
   const [isCircleEnbled, setIsCircleEnbled] = useState<boolean>(false);
@@ -68,6 +80,10 @@ const Geofence: React.FC<any> = (props: any) => {
     geofenceType,
     customTextFieldLatitude,
     geoFenceTitle1,
+    selectedAssetsContainer,
+    searchContainer,
+    assetsList,
+    assetsListItems,
   } = useStyles(appTheme);
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -75,6 +91,9 @@ const Geofence: React.FC<any> = (props: any) => {
   );
   const [radius, setRadius] = useState<any>();
   const [circleLatLng, setCircleLatLng] = useState<any>();
+  const [selectedAssetValue, setSelectedAssetValue] = useState<any>("");
+  const [searchData, setSearchData] = useState<any>([]);
+  const [searchSelectedData, setSearchSelectedData] = useState<any>([]);
   const {} = useTranslation();
 
   useEffect(() => {
@@ -197,15 +216,176 @@ const Geofence: React.FC<any> = (props: any) => {
   //   localStorage.setItem("dashboardViewDetails", JSON.stringify(data));
   // };
 
+  const selectAssetsList = [
+    { label: "Assets#1", value: "Assets#1" },
+    { label: "Assets#2", value: "Assets#2" },
+    { label: "Assets#3", value: "Assets#3" },
+    { label: "Assets#4", value: "Assets#4" },
+    { label: "Assets#5", value: "Assets#5" },
+  ];
+
+  const selectAssetsList1 = [
+    { label: "Assets#1", value: "Assets#1" },
+    { label: "Assets#2", value: "Assets#2" },
+    { label: "Assets#3", value: "Assets#3" },
+    { label: "Assets#4", value: "Assets#4" },
+    { label: "Assets#5", value: "Assets#5" },
+  ];
+
+  const handleSearch = (e: any) => {
+    setSelectedAssetValue(e.target.value);
+
+    let searchResult = selectAssetsList?.filter((data: any) => {
+      return data?.value
+        ?.toString()
+        .toLowerCase()
+        .includes(e.target.value?.toString().toLowerCase());
+    });
+
+    setSearchData(searchResult);
+  };
+
+  const handleListItemClick = (e: any, value: string) => {
+    const data: any = {
+      key: value,
+      label: value,
+    };
+
+    setSearchSelectedData([...searchSelectedData, data]);
+    setSearchData((prev: any) => {
+      return prev.filter((item: any) => item?.value !== value);
+    });
+  };
+
+  const handleDelete = (key: string) => () => {
+    const deletedData = selectAssetsList1?.filter(
+      (item: any) => item?.value === key
+    );
+
+    const removedData = searchSelectedData?.filter(
+      (item: any) => item?.key !== key
+    );
+    setSearchSelectedData(removedData);
+    setSearchData([...searchData, ...deletedData]);
+  };
+
+  const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
+    width: "2.5vw",
+    height: "2.5vh",
+    padding: "0px",
+    borderRadius: "50px",
+    "& .MuiSwitch-switchBase": {
+      margin: 1,
+      padding: 0,
+      transform: "translateX(6px)",
+      [muiTheme.breakpoints.up(3839)]: {
+        left: "2px",
+        top: "8px",
+      },
+      [muiTheme.breakpoints.up(3071)]: {
+        top: "10px",
+        left: "-4px",
+      },
+      [muiTheme.breakpoints.down(3070)]: {
+        top: "4px",
+        left: "-4px",
+      },
+      "&.Mui-checked": {
+        transform: "translateX(30px)",
+        [muiTheme.breakpoints.up(3839)]: {
+          left: "22px",
+          top: "8px",
+        },
+        [muiTheme.breakpoints.up(3071)]: {
+          top: "10px",
+          left: "10px",
+        },
+        [muiTheme.breakpoints.down(3070)]: {
+          top: "4px",
+          left: "-4px",
+        },
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      width: "1vw",
+      height: "1.5vh",
+      position: "relative",
+    },
+    "& .MuiSwitch-track": {
+      borderRadius: 20 / 2,
+    },
+  }));
   return (
     <>
       <div className={mainContainer}>
-        <div className={geofenceContainer}>
-          <div className={geoFenceTitle}>{"Enabled Geofence"}</div>
-          <div className={geofenceSwitch}>
-            <Switch checked={checked} onChange={handleChange} />
+        {!isGeofence ? (
+          <div className={geofenceContainer}>
+            <div className={geoFenceTitle}>{"Enabled Geofence"}</div>
+            <div className={geofenceSwitch}>
+              <MuiSwitchLarge
+                checked={checked}
+                onChange={handleChange}
+                size="medium"
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          <>
+            <div className={searchContainer}>
+              <InputSearch
+                searchValue={selectedAssetValue}
+                handleSearch={(e: any) => handleSearch(e)}
+              />
+            </div>
+            {selectedAssetValue?.length > 0 && (
+              <div className={assetsList}>
+                {searchData?.length > 0 ? (
+                  searchData?.map((item: any, idx: number) => {
+                    return (
+                      <ListItem
+                        key={idx}
+                        component="div"
+                        disablePadding
+                        onClick={(e: any) =>
+                          handleListItemClick(e, item?.value)
+                        }
+                      >
+                        <ListItemButton>
+                          <ListItemText primary={item?.value} />
+                        </ListItemButton>
+                      </ListItem>
+                    );
+                  })
+                ) : selectedAssetValue?.length > 0 ? (
+                  <ListItem component="div" disablePadding>
+                    <ListItemButton>
+                      <ListItemText primary={"No Records Found"} />
+                    </ListItemButton>
+                  </ListItem>
+                ) : null}
+              </div>
+            )}
+            <div className={searchContainer}>
+              {searchSelectedData?.length === 0 ? (
+                <div className={selectedAssetsContainer}>No Assets Select</div>
+              ) : (
+                <div className={assetsListItems}>
+                  {searchSelectedData?.map((data: any) => {
+                    return (
+                      <div style={{ paddingRight: "15px" }}>
+                        <Chip
+                          label={data.label}
+                          onDelete={handleDelete(data?.key)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            {/* <div className={selectedAssetsContainer}>No Assets Select</div> */}
+          </>
+        )}
         <div className={geofenceTypes}>
           <div className={geofenceType}>Geofence Type</div>
           <div className={geofenceMainTypes}>
