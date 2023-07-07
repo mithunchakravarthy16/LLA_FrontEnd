@@ -29,6 +29,7 @@ import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTr
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
+import InfoDialogGeofenceAssetTracking from "components/InfoDialogGeofenceAssetTracking";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -198,6 +199,8 @@ const AssetTracking: React.FC<any> = (props) => {
   ]);
 
   const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
+  const [isGeofenceInfoWindowActive, setIsGeofenceInfoWindowActive] =
+    useState<boolean>(false);
 
   useEffect(() => {
     setDashboardData(
@@ -381,74 +384,78 @@ const AssetTracking: React.FC<any> = (props) => {
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Out of Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
     {
       title: "Within Geofence",
       details: "TR#12367 | Asset#12",
-      timeStamp : "06-12-2023 | 9:00 AM"
+      timeStamp: "06-12-2023 | 9:00 AM",
     },
   ];
+
+  const handleAssetInfoWindow = () => {
+    setIsGeofenceInfoWindowActive(true);
+  };
 
   return (
     <>
@@ -621,7 +628,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       src={GeofenceIcon}
                       className={geofenceIconStyle}
                       alt="GeofenceIcon"
-                      // onClick={handleAssetInfoWindow}
+                      onClick={handleAssetInfoWindow}
                     />
 
                     <Map
@@ -664,6 +671,11 @@ const AssetTracking: React.FC<any> = (props) => {
           setIsInfoWindowActive={setIsInfoWindowActive}
           packageData={packageData}
           infoWindowNotificationListItems={infoWindowNotificationListItems}
+        />
+      )}
+      {isGeofenceInfoWindowActive && (
+        <InfoDialogGeofenceAssetTracking
+          setIsGeofenceInfoWindowActive={setIsGeofenceInfoWindowActive}
         />
       )}
     </>

@@ -160,6 +160,7 @@ export const CardImage = styled("img")`
   width: 140px;
   height: auto;
   margin: 10px;
+  margin-left: 1vw;
   @media (max-width: 3073px) {
     width: 110px;
   }
@@ -194,7 +195,7 @@ export const InnerCardWrapper = styled("div")`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-right: 5%;
+  margin-right: 2vw;
 `;
 
 export const CardTitle = styled("div")<{ focusedCategory: any }>`
@@ -207,22 +208,22 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
   text-transform: uppercase;
   margin-top: 20px;
   @media (max-width: 3073px) {
-    font-size: 24px;
+    font-size: 25px;
   }
   @media (max-width: 2561px) {
     font-size: 20px;
     line-height: 36px;
   }
   @media (max-width: 2049px) {
-    font-size: 15px;
+    font-size: 17px;
     line-height: 27px;
   }
   @media (max-width: 1921px) {
-    font-size: 13px;
+    font-size: 16px;
     line-height: 24px;
   }
   @media (max-width: 1793px) {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 24px;
   }
   @media (max-width: 1681px) {

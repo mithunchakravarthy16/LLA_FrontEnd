@@ -10,7 +10,7 @@ const useStyles = makeStyles({
       background: props.palette.sidebar.sidebarBg,
       borderRight: "0 !important",
       borderRadius: "0px",
-      padding: "22px 2px",
+      padding: props?.selectedTheme === "light" ? "0 0.1% 10% 0.1%" : "22px 2px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -222,6 +222,30 @@ const useStyles = makeStyles({
       },
     },
   }),
+
+  menuLogoLightThemeSection: ()=>({   
+        width: "70%",        
+        backgroundColor: "#fff",
+        position: "relative",
+        padding: " 10% 10% 0% 10%",    
+        
+        // borderBottomRightRadius: "45%",
+        // borderBottomLeftRadius: "45%",    
+      
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        bottom: "-36%",
+        left: 0,
+        width: "100%",
+        height: "80%",
+        backgroundColor: "#fff",
+        borderRadius: "0 0 50% 50%",
+        zIndex: "-1",
+      }
+
+  }),
+
   menuIconSection: () => ({
     flex: 1,
     display: "flex",

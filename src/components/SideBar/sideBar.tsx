@@ -33,6 +33,7 @@ import {
   LightSettingActive,
   LightAvatarIcon,
   DefaultAvatarIcon,
+  LibertyLatinAmericalogo,
 } from "../../assets/sideBarIcons";
 import useStyles from "./styles";
 
@@ -53,11 +54,14 @@ const SideBar = (props: SideBarProps) => {
 
   const array = [
     {
-      image: 
+      image:
         activePage === 0 && location?.pathname === "/home"
-          ? selectedTheme === "light" ? LightHomeActive  : HomeActiveIcon
-          : selectedTheme === "light" ? LightHomeNormal : HomeIcon        
-          ,
+          ? selectedTheme === "light"
+            ? LightHomeActive
+            : HomeActiveIcon
+          : selectedTheme === "light"
+          ? LightHomeNormal
+          : HomeIcon,
       id: 0,
       path: "/home",
       title: homeText,
@@ -72,8 +76,12 @@ const SideBar = (props: SideBarProps) => {
           location?.pathname === "/lighting" ||
           location?.pathname === "/fleetManagement" ||
           location?.pathname === "/assetTracking")
-          ? selectedTheme === "light" ? LightGridActive : GridViewActiveIcon
-          : selectedTheme === "light" ? LightGridNormal : GridViewIcon,
+          ? selectedTheme === "light"
+            ? LightGridActive
+            : GridViewActiveIcon
+          : selectedTheme === "light"
+          ? LightGridNormal
+          : GridViewIcon,
       id: 1,
       path: "/gridView",
       title: gridsViewText,
@@ -81,8 +89,12 @@ const SideBar = (props: SideBarProps) => {
     {
       image:
         activePage === 2 && location?.pathname === "/birdsView"
-          ? selectedTheme === "light" ? LightBirdActive : BirdsViewActiveIcon
-          : selectedTheme === "light" ? LightBirdNormal : BirdsViewIcon,
+          ? selectedTheme === "light"
+            ? LightBirdActive
+            : BirdsViewActiveIcon
+          : selectedTheme === "light"
+          ? LightBirdNormal
+          : BirdsViewIcon,
       id: 2,
       path: "/birdsView",
       title: birdsViewText,
@@ -90,8 +102,12 @@ const SideBar = (props: SideBarProps) => {
     {
       image:
         activePage === 3 && location?.pathname === "/settings"
-          ? selectedTheme === "light" ? LightSettingActive : SettingsActiveIcon
-          : selectedTheme === "light" ? LightSettingNormal : SettingsIcon,
+          ? selectedTheme === "light"
+            ? LightSettingActive
+            : SettingsActiveIcon
+          : selectedTheme === "light"
+          ? LightSettingNormal
+          : SettingsIcon,
       id: 3,
       path: "/settings",
       title: settingsText,
@@ -126,7 +142,8 @@ const SideBar = (props: SideBarProps) => {
     logoutSection,
     logoutImg,
     logoutText,
-  } = useStyles(appTheme);
+    menuLogoLightThemeSection,
+  } = useStyles({...appTheme, selectedTheme: selectedTheme});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -181,8 +198,6 @@ const SideBar = (props: SideBarProps) => {
 
   const dispatch = useDispatch();
 
-  
-
   const handleCloseUserMenu = (menuOptions: string) => {
     if (menuOptions === "Logout") {
       localStorage.removeItem("user");
@@ -197,9 +212,15 @@ const SideBar = (props: SideBarProps) => {
   return (
     <Box component={"nav"} className={sidebarSection}>
       <Drawer open variant="permanent" className={sideNavigation}>
-        <div className={menuLogoSection}>
-          <img src={LogoIcon} />
-        </div>
+        {selectedTheme === "light" ? (
+          <div className={menuLogoLightThemeSection}>
+            <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
+          </div>
+        ) : (
+          <div className={menuLogoSection}>
+            <img src={LogoIcon} />
+          </div>
+        )}
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
             return (
@@ -225,49 +246,57 @@ const SideBar = (props: SideBarProps) => {
             );
           })}
         </div>
-        <div className={avatharSection} >
+        <div className={avatharSection}>
           {/* <div>{`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(
             0
           )}`}</div> */}
-          <img width={"100%"} height={"100%"} src={selectedTheme === "light" ? LightAvatarIcon : DefaultAvatarIcon} alt="AvatarIcon" className={avatharIconStyle} onClick={handleOpenUserMenu}/>
+          <img
+            width={"100%"}
+            height={"100%"}
+            src={
+              selectedTheme === "light" ? LightAvatarIcon : DefaultAvatarIcon
+            }
+            alt="AvatarIcon"
+            className={avatharIconStyle}
+            onClick={handleOpenUserMenu}
+          />
           <Menu
-          className={customMenu}
-          sx={{ mt: "25px" }}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          anchorEl={anchorElUser}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
-        >
-          {menuOptions &&
-            menuOptions.length > 0 &&
-            menuOptions.map((menuOptions) => (
-              <MenuItem
-                key={menuOptions}
-                onClick={() => handleCloseUserMenu(menuOptions)}
-              >
-                <div className={logoutSection}>
-                  {menuOptions && menuOptions === "Logout" ? (
-                    <img className={logoutImg} src={Logout} alt="Logout" />
-                  ) : (
-                    <img className={logoutImg} src={user} alt="Logout" />
-                  )}
+            className={customMenu}
+            sx={{ mt: "25px" }}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            anchorEl={anchorElUser}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {menuOptions &&
+              menuOptions.length > 0 &&
+              menuOptions.map((menuOptions) => (
+                <MenuItem
+                  key={menuOptions}
+                  onClick={() => handleCloseUserMenu(menuOptions)}
+                >
+                  <div className={logoutSection}>
+                    {menuOptions && menuOptions === "Logout" ? (
+                      <img className={logoutImg} src={Logout} alt="Logout" />
+                    ) : (
+                      <img className={logoutImg} src={user} alt="Logout" />
+                    )}
 
-                  <Typography className={logoutText} textAlign="center">
-                    {menuOptions}
-                  </Typography>
-                </div>
-              </MenuItem>
-            ))}
-        </Menu>
+                    <Typography className={logoutText} textAlign="center">
+                      {menuOptions}
+                    </Typography>
+                  </div>
+                </MenuItem>
+              ))}
+          </Menu>
         </div>
-        
       </Drawer>
     </Box>
   );

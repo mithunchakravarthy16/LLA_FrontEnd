@@ -150,8 +150,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
-
-
   return (
     <>
       <Grid container xs={12}>
