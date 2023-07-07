@@ -65,7 +65,7 @@ const MainLayout = (props: any) => {
               style={{
                 flexGrow: 1,
                 overflow: "auto",
-                minHeight: "100%",
+                minHeight: "99.99vh",
               }}
             >
               <Outlet />
