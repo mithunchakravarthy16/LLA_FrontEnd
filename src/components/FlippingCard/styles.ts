@@ -6,9 +6,6 @@ import theme from "../../theme/theme";
 
 let currentTheme: any = {}
 
-
-console.log("FLIPPING CARD THEME", theme);
-
 switch (JSON.parse(localStorage.getItem("theme")!)) {
   case "light":
     currentTheme = theme?.lightTheme;

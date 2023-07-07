@@ -56,18 +56,10 @@ const useStyles = makeStyles({
   }),
 
   tabLabelText: (props: any) => {
-    console.log(
-      "COLOR PROPERTY",
-      props?.appTheme?.palette?.notification?.listItemLabel
-    );
     return { color: props?.appTheme?.palette?.notification?.listItemLabel };
   },
 
   tabLabelTextSelected: (props: any) => {
-    console.log(
-      "COLOR PROPERTY",
-      props?.appTheme?.palette?.notification?.listItemLabel
-    );
     return {
       color: props?.appTheme?.palette?.notification?.listItemLabelSelected,
     };

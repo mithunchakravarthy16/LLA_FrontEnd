@@ -36,7 +36,6 @@ const useStyles = makeStyles({
     },
   }),
   collapsedListItems: (props: any) => {
-    console.log("LIST ITEM COLOR", props?.palette?.notification?.listItemContent)
     return ({
     background: props.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
     padding: "13px",

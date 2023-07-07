@@ -46,8 +46,6 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     setValue(initialIndex);
   }, [initialIndex]);
 
-  console.log("INDICATOR COLOR", appTheme?.palette?.notification?.listItemLabelSelected)
-
   return (
     <Grid container>
       <Grid item xs={12}>
