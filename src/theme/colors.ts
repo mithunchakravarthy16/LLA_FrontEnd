@@ -74,5 +74,11 @@ let colorCodes = {
   greenColorShades: "#82BA6D",
   redColorShades: "#F1624C",
   redColorShades2: "#FBCEBC",
+  tabSelectedOrange: "#E53433",
+  notificationExpandedBgLight: "#8B8C8C",
+  notificationCalloutBg: "#1d2d38",
+  flippingCardBgDark: "rgb(22, 25, 30, 0.9)",
+  flippingCardBgLight: "rgba(211, 211, 211, 0.70)",
+  flippingCardDarkTextColor: "#EEEEEE",
 };
 export default colorCodes;

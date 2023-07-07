@@ -1,3 +1,5 @@
+/** @format */
+
 import { makeStyles } from "@mui/styles";
 import muiTheme from "theme/muiTheme";
 
@@ -31,38 +33,32 @@ const useStyles = makeStyles(() => ({
     "& .MuiFormControlLabel-label": {
       fontFamily: "HelveticaNeue-Regular",
       fontWeight: 400,
-      fontSize: "0.8vw",
+      fontSize: "0.6vw",
     },
   }),
   customTextField: (props: any) => ({
     marginTop: "5px",
+    "& .MuiFormControl-root": {
+      width: "100%",
+    },
     "& .MuiInputBase-root.MuiOutlinedInput-root": {
-      background: "#333333",
+      background: "transparent !important",
       color: " #ffffff !important",
     },
     "& .MuiOutlinedInput-notchedOutline": {
       borderColor: "#838383 !important",
     },
     "& .MuiOutlinedInput-input": {
-      width: "278px !important",
-      height: "30px !important",
-      padding: "10px 10px 10px 20px!important",
-      fontSize: "1vw",
+      fontSize: "0.7vw",
       color: " #ffffff !important",
-      [muiTheme.breakpoints.up(3839)]: {
-        width: "578px !important",
-        height: "80px !important",
-        padding: "20px 20px 20px 30px!important",
-      },
-      // [muiTheme.breakpoints.up(1919)]: {
-      //   height: "30px !important",
-      // },
+      padding: "0.5vw",
     },
     "& .Mui-disabled": {
       color: "#9C9C9C !important",
       WebkitTextFillColor: "#9C9C9C !important",
     },
     "& .MuiInputBase-root": {
+      background: "transparent !important",
       "& input[type=number]": {
         "-moz-appearance": "textfield",
       },
@@ -77,7 +73,10 @@ const useStyles = makeStyles(() => ({
     },
   }),
   customTextFieldLatitude: (props: any) => ({
-    marginTop: "5px",
+    marginBottom: "1vh",
+    "& .MuiFormControl-root": {
+      width: "100%",
+    },
     "& .MuiInputBase-root.MuiOutlinedInput-root": {
       background: "#333333",
       color: " #ffffff !important",
@@ -86,19 +85,9 @@ const useStyles = makeStyles(() => ({
       borderColor: "#838383 !important",
     },
     "& .MuiOutlinedInput-input": {
-      width: "120px !important",
-      height: "30px !important",
-      padding: "10px 10px 10px 20px!important",
-      fontSize: "1vw",
+      fontSize: "0.7vw",
       color: " #ffffff !important",
-      [muiTheme.breakpoints.up(3839)]: {
-        width: "250px !important",
-        height: "80px !important",
-        padding: "20px 20px 20px 30px!important",
-      },
-      // [muiTheme.breakpoints.up(1919)]: {
-      //   height: "30px !important",
-      // },
+      padding: "0.5vw",
     },
     "& .Mui-disabled": {
       color: "#9C9C9C !important",
@@ -128,44 +117,47 @@ const useStyles = makeStyles(() => ({
   }),
   mainContainer: (props: any) => ({
     background: "#333333",
-    marginRight: "20px !important",
-    height: "calc(100vh - 432px)",
+    marginRight: "0.8vw",
     position: "relative",
+    padding: "1vw",
+    borderRadius: "15px",
+    height: "96%",
+  }),
+  mainGeofenceContainer: (props: any) => ({
+    background: "#333333",
+    marginRight: "0.8vw",
+    position: "relative",
+    padding: "1vw",
+    borderRadius: "15px",
+    height: "calc(100vh - 348px)",
+    overflow: "auto",
     [muiTheme.breakpoints.up(3839)]: {
-      height: "calc(100vh - 750px)",
-      padding: "25px 30px",
+      height: "calc(100vh - 770px)",
     },
-    [muiTheme.breakpoints.down(3071)]: {
-      height: "calc(100vh - 320px)",
-      padding: "10px",
+    [muiTheme.breakpoints.down(3073)]: {
+      height: "calc(100vh - 760px)",
     },
-    [muiTheme.breakpoints.between(1920, 1080)]: {
-      height: "calc(100vh - 320px)",
-      padding: "10px",
+    [muiTheme.breakpoints.down(2049)]: {
+      height: "calc(100vh - 460px)",
     },
-    [muiTheme.breakpoints.down(1437)]: {
-      height: "calc(100vh - 357px)",
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "calc(100vh - 394px)",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      height: "calc(100vh - 401px)",
     },
   }),
   geofenceContainer: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
-    padding: "15px 0",
-    [muiTheme.breakpoints.down(3071)]: {
-      padding: "15px 0 0 0",
-    },
+    marginBottom: "0.5vh",
   }),
   geofenceTypes: (props: any) => ({
-    padding: "20px 15px 0 15px",
-    [muiTheme.breakpoints.up(3839)]: {
-      padding: "30px 15px 0 0",
-    },
-    [muiTheme.breakpoints.down(3071)]: {
-      padding: "10px 0 0 0",
-    },
+    marginTop: "1vw",
   }),
   geofenceMainTypes: (props: any) => ({
     display: "flex",
+    marginBottom: "0.5vh",
   }),
   geofenceCircleType: (props: any) => ({
     paddingTop: "10px",
@@ -188,83 +180,50 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
   }),
   geofenceTextContainer: (props: any) => ({
-    paddingTop: "30px",
-    [muiTheme.breakpoints.up(3839)]: {
-      paddingTop: "30px",
-    },
-    [muiTheme.breakpoints.down(3071)]: {
-      paddingTop: "10px",
-    },
+    marginTop: "2vh",
   }),
   circleContainer: (props: any) => ({
-    padding: "12px",
     display: "flex",
     justifyContent: "space-between",
-    [muiTheme.breakpoints.up(3839)]: {
-      padding: "30px 0 30px 0 !important",
-    },
-    [muiTheme.breakpoints.down(3071)]: {
-      padding: "12px 0 0 0",
-    },
   }),
-  circularRadius: (props: any) => ({
-    padding: "12px",
-    [muiTheme.breakpoints.down(3071)]: {
-      padding: "12px 0 0 0",
-    },
-  }),
+  circularRadius: (props: any) => ({}),
   notifyContainer: (props: any) => ({
-    paddingTop: "30px",
-    [muiTheme.breakpoints.down(3071)]: {
-      paddingTop: "10px",
-    },
+    marginTop: "3vh",
   }),
   polygonTextContainer: (props: any) => ({
     display: "flex",
     alignItems: "center",
+    marginTop: "2vh",
   }),
   polygonText: (props: any) => ({
     paddingLeft: "10px",
-    fontSize: "0.65vw",
-    fontFamily: "HelveticaNeue-Regular",
-    fontWeight: 400,
-    fontStyle: "italic",
-    paddingTop: "30px",
-    [muiTheme.breakpoints.down(3071)]: {
-      paddingTop: "10px",
-    },
+    fontSize: "0.5vw",
+    fontFamily: "HelveticaNeue-italicMedium",
+    fontWeight: 300,
   }),
   geoFenceTitle: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
-    fontSize: "1.2vw",
-    lineHeight: " 24px",
+    fontSize: "1vw",
+    lineHeight: "3vh",
     color: props?.palette?.geofence?.geofenceTitle,
-    [muiTheme.breakpoints.up(3839)]: {
-      lineHeight: " 48px",
-    },
   }),
   geoFenceTitle1: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
-    fontSize: "1.2vw",
-    lineHeight: " 24px",
-    paddingTop: "30px",
+    fontSize: "1vw",
     color: props?.palette?.geofence?.geofenceTitle,
-    [muiTheme.breakpoints.up(3839)]: {
-      lineHeight: " 48px",
-    },
-    [muiTheme.breakpoints.down(3071)]: {
-      paddingTop: "10px",
-    },
+    marginTop: "2vh",
+    marginBottom: "2vh",
   }),
   geofenceSwitch: (props: any) => ({
     "& .Mui-checked": {
       color: "#FFFFFF !important",
-      [muiTheme.breakpoints.up(3839)]: {},
+      [muiTheme.breakpoints.down(3071)]: {},
     },
     "& .Mui-checked+.MuiSwitch-track": {
       backgroundColor: "#F26522 !important",
+      opacity: "1 !important",
     },
     "& .MuiSwitch-track": {
       backgroundColor: "#808080 !important",
@@ -272,13 +231,10 @@ const useStyles = makeStyles(() => ({
   }),
   geofenceType: (props: any) => ({
     color: "#FF7A00 !important",
-    fontSize: "1vw",
+    fontSize: "0.6vw",
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
-    paddingBottom: "20px",
-    [muiTheme.breakpoints.down(3071)]: {
-      paddingBottom: "10px",
-    },
+    paddingBottom: "1vh",
   }),
   selectedAssetsContainer: (props: any) => ({
     color: "#FFFFFF !important",
@@ -304,7 +260,8 @@ const useStyles = makeStyles(() => ({
     // display: "flex",
     // justifyContent: "center",
     border: "1px solid #8F8F8F",
-    height: " 100px",
+    height: " 10vh",
+    overflow: "auto",
     alignItems: "center",
     background: "#535252",
   }),

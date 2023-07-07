@@ -22,6 +22,9 @@ import dashboardList from "mockdata/dashboardNotification";
 import Grid from "@mui/material/Grid";
 import dashboardNotification from "mockdata/dashboardNotificationAPIFormat";
 import useStyles from "./styles";
+import fleetManagementResponse from "mockdata/fleetManagementAPI";
+import assetTrackingResponse from "mockdata/assetTrackingAPI"
+
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -77,20 +80,20 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     dispatch(getFleetManagementNotificationData(fleetPayload));
   }, []);
 
-  const fleetManagementNotificationResponse = useSelector(
-    (state: any) =>
-      state.fleetManagementNotification.fleetManagementNotificationData
-  );
+  // const fleetManagementNotificationResponse = useSelector(
+  //   (state: any) =>
+  //     state.fleetManagementNotification.fleetManagementNotificationData
+  // ); fleetManagementResponse
+  
+  const fleetManagementNotificationResponse  = fleetManagementResponse;
 
-  const assetNotificationResponse = useSelector(
-    (state: any) => state.assetNotification.assetNotificationData
-  );
+  // const assetNotificationResponse = useSelector(
+  //   (state: any) => state.assetNotification.assetNotificationData
+  // );
 
-  const [dashboardNotificationList, setDashboardNotificationList] = useState<any>([
-    ...formatttedAssetAPINotification(assetNotificationResponse?.notifications),
-    ...formatttedDashboardAPINotificaiton(dashboardNotification?.notifications),
-    ...formatttedFleetAPINotification(fleetManagementNotificationResponse?.notifications),
-  ]);
+  const assetNotificationResponse = assetTrackingResponse
+
+  const [dashboardNotificationList, setDashboardNotificationList] = useState<any>([]);
 
   useEffect(() => {
     if (assetNotificationResponse && fleetManagementNotificationResponse) {
@@ -112,7 +115,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [assetNotificationResponse, fleetManagementNotificationResponse]);
 
-  const [notificationCount, setNotificationCount] = useState<any>(
+  const [notificationCount, setNotificationCount] = useState<any>( assetNotificationResponse && fleetManagementNotificationResponse &&
     formatttedDashboardNotificationCount(dashboardNotificationList)
   );
 

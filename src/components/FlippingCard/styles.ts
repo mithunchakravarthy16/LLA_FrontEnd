@@ -2,6 +2,21 @@
 
 import { styled } from "@mui/material/styles";
 import { a } from "@react-spring/web";
+import theme from "../../theme/theme";
+
+let currentTheme: any = {}
+
+switch (JSON.parse(localStorage.getItem("theme")!)) {
+  case "light":
+    currentTheme = theme?.lightTheme;
+    break;
+  case "dark":
+    currentTheme = theme?.darkTheme;
+    break;
+  default:
+    currentTheme = theme?.defaultTheme;
+    break;
+}
 
 export const Wrapper = styled("div")`
   position: absolute;
@@ -132,7 +147,7 @@ export const RootContainer = styled("div")`
 `;
 
 export const SkewContainer = styled(a.div)<{ isOpen?: boolean }>`
-  background: rgb(22 25 30 / 90%);
+  background: ${(currentTheme?.palette?.flippingCard.background)};
   position: absolute;
   top: 0;
   left: 0;
@@ -150,6 +165,7 @@ export const ContentContainer = styled(a.div)`
   position: absolute;
   top: 0;
   left: 0;
+  padding-left: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,7 +219,7 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
   font-style: normal;
   font-size: 34px;
   line-height: 48px;
-  color: ${({ focusedCategory }) => (focusedCategory ? "#F26522" : "#eeeeee")};
+  color: ${({ focusedCategory }) => (focusedCategory ? "#F26522" : currentTheme?.palette?.flippingCard?.textColor)};
   /* color:  #F26522 #eeeeee; */
   text-transform: uppercase;
   margin-top: 20px;

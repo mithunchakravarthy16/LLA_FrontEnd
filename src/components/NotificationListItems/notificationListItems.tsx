@@ -66,6 +66,20 @@ const NotificationListItems = (props: any) => {
   //     }
   //   }, [selectedTheme]);
 
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
+
   const {
     rootContainer,
     collapsedListItems,

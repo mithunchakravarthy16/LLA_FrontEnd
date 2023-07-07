@@ -161,7 +161,7 @@ const Map: React.FC<any> = (props) => {
             : mapPageName === "fleetManagement"
             ? "calc(100vh - 800px)"
             : mapPageName === "Asset Tracking"
-            ? "calc(100vh - 700px)"
+            ? "calc(100vh - 708px)"
             : "calc(100vh - 924px)",
         is4kDevice: true,
         is3kDevice: false,
@@ -172,6 +172,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 750px)"
             : "calc(100vh - 1049px)",
         is4kDevice: false,
         is3kDevice: true,
@@ -183,6 +185,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 422px)"
             : "calc(100vh - 579px)",
         is4kDevice: false,
         is3kDevice: false,
@@ -205,9 +209,9 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 505px)",
-        is4kDevice: false,
-        is3kDevice: false,
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 500px)"
+            : "calc(100vh - 1049px)",
       });
     } else if (window.innerHeight > 1119) {
       setSelectedContainerStyle({
@@ -216,6 +220,8 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
+            : mapPageName === "Asset Tracking"
+            ? "calc(100vh - 368px)"
             : "calc(100vh - 469px)",
         is4kDevice: false,
       });
@@ -227,7 +233,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : mapPageName === "Asset Tracking"
-            ? "calc(100vh - 350px)"
+            ? "calc(100vh - 362px)"
             : "calc(100vh - 459px)",
         is4kDevice: false,
       });
@@ -239,7 +245,7 @@ const Map: React.FC<any> = (props) => {
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
             : mapPageName === "Asset Tracking"
-            ? "calc(100vh - 300px)"
+            ? "calc(100vh - 360px)"
             : "calc(100vh - 430px)",
         is4kDevice: false,
       });
@@ -556,8 +562,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
-            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
-            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            // return currentMarker === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
         }
@@ -585,8 +591,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
-            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
-            return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            // return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
         }
@@ -615,8 +621,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
-            // return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
-            return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            // return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
         }
@@ -930,10 +936,11 @@ const Map: React.FC<any> = (props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={
-            mapPageName === "parking" ||
+           ( mapPageName === "parking" ||
             mapPageName === "energy" ||
             mapPageName === "security" ||
-            mapPageName === "fleet"
+            mapPageName === "fleet" || mapPageName === "lighting"
+            || mapPageName === "asset"   )       
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
