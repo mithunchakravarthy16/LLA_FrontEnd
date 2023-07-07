@@ -272,7 +272,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
               position: "absolute",
               padding: "0.5%",
               right: "0.1%",
-              top: "2.5%",
+              top: "1.5%",
               color: "transparent",
               width: "4.2%",
               height: "4.2%",

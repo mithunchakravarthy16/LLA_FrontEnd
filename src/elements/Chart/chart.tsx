@@ -3,6 +3,7 @@ import HighchartsReact from "highcharts-react-official";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import muiTheme from "theme/muiTheme";
+import theme from "../../theme/theme";
 import moment from "moment";
 
 const Chart: React.FC<any> = (props) => {
@@ -23,6 +24,25 @@ const Chart: React.FC<any> = (props) => {
     pageName,
     is2kDevice,
   } = props;
+
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")!)
+  );
+  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
 
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
@@ -230,7 +250,7 @@ const Chart: React.FC<any> = (props) => {
               textOverflow: 'none',
               autoRotation: false,
 
-              color: "white",
+              color: appTheme?.palette?.chart?.xAxisTextColor,
               
             },
           },

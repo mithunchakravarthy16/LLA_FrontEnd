@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     // fontFamily: "HelveticaNeue-Regular",
     fontSize: 16,
+
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -52,12 +53,119 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     fontSize: "0.8vw",
-   
   }),
+
+  tabLabelText: (props: any) => {
+    return { color: props?.appTheme?.palette?.notification?.listItemLabel };
+  },
+
+  tabLabelTextSelected: (props: any) => {
+    return {
+      color: props?.appTheme?.palette?.notification?.listItemLabelSelected,
+    };
+  },
+
+  tabCountContainer: (props: any) => {
+    return {
+      width: 45,
+      fontWeight: 500,
+      fontSize: "16px",
+      lineHeight: "28px",
+      background: "#5B5B5B",
+      borderRadius: "30px",
+      color: "#B7B6B6",
+      marginBottom: 6,
+      [muiTheme.breakpoints.up(3839)]: {
+        fontSize: "30px",
+        lineHeight: "50px",
+        marginBottom: 16,
+        width: 90,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        fontSize: "24px",
+        lineHeight: "42px",
+        marginBottom: 16,
+        width: 90,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: "18px",
+        lineHeight: "36px",
+        marginBottom: 16,
+        width: 70,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        fontSize: "14px",
+        lineHeight: "27px",
+        marginBottom: 16,
+        width: 60,
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        fontSize: "11px",
+        lineHeight: "21px",
+        marginBottom: 16,
+        width: 40,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        fontSize: "10px",
+        lineHeight: "16px",
+        marginBottom: 16,
+        width: 35,
+      },
+    };
+  },
+
+  tabCountContainerSelected: (props: any) => {
+    return {
+      width: 45,
+      fontWeight: 500,
+      fontSize: "16px",
+      lineHeight: "28px",
+      background: props?.appTheme?.palette?.notification?.listItemLabelSelected,
+      borderRadius: "30px",
+      color: "#B7B6B6",
+      marginBottom: 6,
+      [muiTheme.breakpoints.up(3839)]: {
+        fontSize: "30px",
+        lineHeight: "50px",
+        marginBottom: 16,
+        width: 90,
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        fontSize: "24px",
+        lineHeight: "42px",
+        marginBottom: 16,
+        width: 90,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: "18px",
+        lineHeight: "36px",
+        marginBottom: 16,
+        width: 70,
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        fontSize: "14px",
+        lineHeight: "27px",
+        marginBottom: 16,
+        width: 60,
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        fontSize: "11px",
+        lineHeight: "21px",
+        marginBottom: 16,
+        width: 40,
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        fontSize: "10px",
+        lineHeight: "16px",
+        marginBottom: 16,
+        width: 35,
+      },
+    };
+  },
 
   labelCountStyle: (props: any) => ({
     padding: "0px 15px",
-    background: props?.palette?.notification?.tabTextColor,
+    background: props?.appTheme?.palette?.notification?.tabTextColor,
     borderRadius: "11px",
   }),
   listCount: (props: any) => ({}),

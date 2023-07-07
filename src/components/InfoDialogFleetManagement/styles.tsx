@@ -12,6 +12,8 @@ const useStyles = makeStyles(() => ({
     // textTransform: "uppercase",
     display: "flex",
     height: "10%",
+    fontSize: "1vw",
+    fontFamily: "HelveticaNeue-Regular",
   }),
   TabvalueTitle: (props: any) => ({
     fontSize: "0.9vw",

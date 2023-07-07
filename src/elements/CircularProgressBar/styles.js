@@ -53,7 +53,7 @@ export const ValueContainer = styled("div")`
     justify-content: center;
     align-items: center;
     top: 50%;
-    left: 33%;
+    left: 37%;
     transform: translateY(-50%) translateX(50%);
 `;
 

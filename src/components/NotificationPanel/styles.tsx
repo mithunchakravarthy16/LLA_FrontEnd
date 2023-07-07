@@ -31,6 +31,7 @@ const useStyles = makeStyles({
     fontSize: 22,
     fontFamily: "HelveticaNeue-Regular",
     width: "80%",
+    color: props?.palette?.notification?.notificationPanelTitle,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 44,
       lineHeight: "72px",
@@ -325,10 +326,10 @@ const useStyles = makeStyles({
     "& .MuiTabs-root .MuiTabs-indicator": {
       background:
         props?.tabIndex === 0
-          ? `${props?.palette?.notification?.eventColor} !important`
+          ? `${props?.palette?.notification?.listItemLabelSelected} !important`
           : props?.tabIndex === 1
-          ? `${props?.palette?.notification?.incidentColor} !important`
-          : `${props?.palette?.notification?.oprAlertColor} !important`,
+          ? `${props?.palette?.notification?.listItemLabelSelected} !important`
+          : `${props?.palette?.notification?.listItemLabelSelected} !important`,
       height: "6px",
       borderRadius: 6,
       textTransform: "uppercase",
