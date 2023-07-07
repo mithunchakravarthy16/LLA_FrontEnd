@@ -272,7 +272,7 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
             )}
             <div className={expandedListItemRow2}>
-              {category === "parking" ? `Vehicle : ${entity}` : `${entity}`}{" "}
+              {category === "parking" ? `Vehicle  : ${entity}` : `${entity}`}{" "}
             </div>
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}
