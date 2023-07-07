@@ -133,8 +133,6 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom: "1px solid #333333",
-
-    height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({

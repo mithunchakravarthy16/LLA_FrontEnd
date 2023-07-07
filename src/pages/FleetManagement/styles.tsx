@@ -13,6 +13,35 @@ const useStyles = makeStyles({
       width: "calc(100vw - 200px) !important",
     },
   }),
+  graphTitle: (props: any) => ({
+    fontSize: "16px",
+    display: "flex",
+    columnGap: "30px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 22,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
+    },
+  }),
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
@@ -156,30 +185,10 @@ const useStyles = makeStyles({
 
   liveImgStyle: (props: any) => ({
     position: "absolute",
-    top: "-15px",
-    left: "20px",
+    top: "-1vh",
+    left: "1vh",
     "& img": {
-      [muiTheme.breakpoints.up(3839)]: {
-        width: 50,
-      },
-      [muiTheme.breakpoints.down(3073)]: {
-        width: 50,
-      },
-      [muiTheme.breakpoints.down(2561)]: {
-        width: 40,
-      },
-      [muiTheme.breakpoints.down(2049)]: {
-        width: 35,
-      },
-      [muiTheme.breakpoints.down(1921)]: {
-        width: 30,
-      },
-      [muiTheme.breakpoints.down(1537)]: {
-        width: 25,
-      },
-      [muiTheme.breakpoints.down(1153)]: {
-        width: 25,
-      },
+      width: "2.5vw",
     },
   }),
 
@@ -334,79 +343,79 @@ const useStyles = makeStyles({
   }),
 
   graphContainerHeaderOne: (props: any) => ({
-    height: "90%",
-    marginTop: "6%",
-    [muiTheme.breakpoints.up(3839)]: {
-      marginTop: "6% !important",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      marginTop: "7% !important",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      marginTop: "3% !important",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      marginTop: "4% !important",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      marginTop: "4% !important",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      marginTop: "4% !important",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      marginTop: "4% !important",
-    },
+    // height: "90%",
+    // marginTop: "6%",
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   marginTop: "6% !important",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   marginTop: "7% !important",
+    // },
+    // [muiTheme.breakpoints.down(2561)]: {
+    //   marginTop: "3% !important",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   marginTop: "4% !important",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   marginTop: "4% !important",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   marginTop: "4% !important",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   marginTop: "4% !important",
+    // },
   }),
   graphContainerHeaderTwo: (props: any) => ({
-    height: "90%",
-    marginTop: "10%",
-    [muiTheme.breakpoints.up(3839)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      marginTop: "13% !important",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      marginTop: "13% !important",
-    },
+    // height: "90%",
+    // marginTop: "10%",
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(2561)]: {
+    //   marginTop: "13% !important",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   marginTop: "13% !important",
+    // },
   }),
   graphContainerHeaderThree: (props: any) => ({
-    height: "90%",
-    marginTop: "10%",
-    [muiTheme.breakpoints.up(3839)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      marginTop: "13% !important",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      marginTop: "10% !important",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      marginTop: "13% !important",
-    },
+    // height: "90%",
+    // marginTop: "10%",
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(2561)]: {
+    //   marginTop: "13% !important",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   marginTop: "10% !important",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   marginTop: "13% !important",
+    // },
   }),
 
   graphTwoHeader: (props: any) => ({
@@ -514,9 +523,6 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
-    position: "absolute",
-    top: "4%",
-    left: "3%",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "48px",

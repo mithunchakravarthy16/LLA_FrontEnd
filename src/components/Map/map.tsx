@@ -147,7 +147,7 @@ const Map: React.FC<any> = (props) => {
 
   const parkingMapContainerStyle = {
     width: "100%",
-    height :"60vh"
+    height: "60vh",
   };
 
   useEffect(() => {
@@ -822,6 +822,8 @@ const Map: React.FC<any> = (props) => {
     scale: 0.7,
   };
 
+  // geofence code -- start
+
   const options: any = {
     drawingControl: false,
     drawingControlOptions: {
@@ -917,6 +919,8 @@ const Map: React.FC<any> = (props) => {
     handleGeofenceCircleDrag(center);
   };
 
+  // geofence code -- end
+
   function handleZoomChanged() {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
@@ -925,9 +929,15 @@ const Map: React.FC<any> = (props) => {
     <>
       {isLoaded && (
         <GoogleMap
-          mapContainerStyle={(mapPageName === "parking" || mapPageName === "energy" || mapPageName === "lighting"
-            || mapPageName === "asset"          
-          ) ? parkingMapContainerStyle : selectedContainerStyle}
+          mapContainerStyle={
+           ( mapPageName === "parking" ||
+            mapPageName === "energy" ||
+            mapPageName === "security" ||
+            mapPageName === "fleet" || mapPageName === "lighting"
+            || mapPageName === "asset"   )       
+              ? parkingMapContainerStyle
+              : selectedContainerStyle
+          }
           center={location?.pathname === "/home" ? defaultCenter : center}
           zoom={
             selectedContainerStyle?.is4kDevice

@@ -251,10 +251,20 @@ const Parking: React.FC<any> = (props) => {
             SECURITY
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}>
+            <Grid
+              container
+              xs={12}
+              className={bodySubContainer}
+              style={{ height: "93vh" }}
+            >
               <Grid item xs={9} className={bodyLeftContainer}>
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelContainer}
+                    style={{ height: "29%" }}
+                  >
                     <Grid
                       container
                       xs={12}
@@ -275,134 +285,215 @@ const Parking: React.FC<any> = (props) => {
                           title={"Issues Resolved"}
                         />
                       </Grid>
-                      <Grid item xs={6} className={graphOneContainer}>
-                        <div className={graphTitle}>Security</div>
-                        <Chart
-                          width={selectedWidth?.width}
-                          height={selectedWidth?.height}
-                          graphType={"areaspline"}
-                          isVisible={true}
-                          units={""}
-                          isCrosshair={true}
-                          crossHairLineColor={"#73B35A90"}
-                          is4kDevice={selectedWidth?.is4kDevice}
-                          dataPoints={[
-                            {
-                              marker: {
-                                enabled: false,
-                              },
-                              lineColor: "#73B35A90",
-                              color: "#73B35A",
-                              lineWidth: 2,
-                              fillColor: {
-                                linearGradient: [0, 0, 0, 200],
-                                stops: [
-                                  [
-                                    0,
-                                    Highcharts.color("#73B35A")
-                                      .setOpacity(0.6)
-                                      .get("rgba"),
-                                  ],
-                                  [
-                                    1,
-                                    Highcharts.color(
-                                      selectedWidth?.is4kDevice
-                                        ? "#73B35A"
-                                        : "#000000"
-                                    )
-                                      .setOpacity(0)
-                                      .get("rgba"),
-                                  ],
-                                ],
-                              },
-                              data: [
-                                1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5,
-                                4, 2, 8, 4, 3, 4, 1, 4,
-                              ],
-                            },
-                          ]}
-                        />
-                      </Grid>
-                      <Grid item xs={6} className={graphTwoContainer}>
-                        <Chart
-                          width={selectedWidth?.width1}
-                          height={selectedWidth?.height1}
-                          graphType={"pie"}
-                          isVisible={true}
-                          units="%"
-                          // units={"%"}
-                          // isCrosshair={true}
-                          // crossHairLineColor={"#73B35A90"}
-                          dataPoints={[
-                            {
-                              borderWidth: 0,
-                              colorByPoint: true,
-                              type: "pie",
-                              size: "100%",
-                              innerSize: "80%",
-                              showInLegend: true,
-                              // dataLabels: {
-                              //   enabled: true,
-                              //   crop: false,
-                              //   distance: "-10%",
-                              //   style: {
-                              //     fontWeight: "bold",
-                              //     fontSize: "16px",
-                              //   },
-                              //   connectorWidth: 0,
-                              // },
-                              colors: [
-                                "#C64640",
-                                "#F89863",
-                                "#B3D2A1",
-                                "#FDC270",
-                                "#9191C1",
-                              ],
-                              // data: [37, 15, 16, 17, 15],
-                              data: [
-                                {
-                                  name: "Intrusion",
-                                  y: 37,
-                                },
-                                {
-                                  name: "Fire Detection",
-                                  y: 37,
-                                },
-                                {
-                                  name: "Tampering Alarm",
-                                  y: 37,
-                                },
-                                {
-                                  name: "Unauthorised Access",
-                                  y: 37,
-                                },
-                                {
-                                  name: "Tailgating",
-                                  y: 37,
-                                },
-                              ],
-                            },
-                          ]}
-                        />
-                        <Grid
-                          direction="column"
-                          className={pieChartLegendContainer}
-                        >
-                          {PIECHART_LEGEND.map((legend) => (
-                            <div className={legendIdentifierContainer}>
-                              <div
-                                className={legendColorBox}
-                                style={{ backgroundColor: legend.background }}
-                              ></div>
-                              <div className={legendText}>{legend.name}</div>
-                            </div>
-                          ))}
+                      <Grid item xs={12} style={{ height: "70%" }}>
+                        <Grid container xs={12} style={{ height: "25vh" }}>
+                          <Grid item xs={6} className={graphOneContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid item xs={12} style={{ height: "10%" }}>
+                                <div className={graphTitle}>Security</div>
+                              </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      graphType={"areaspline"}
+                                      isVisible={true}
+                                      units={""}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#73B35A90"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#73B35A90",
+                                          color: "#73B35A",
+                                          lineWidth: 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [
+                                                0,
+                                                Highcharts.color("#73B35A")
+                                                  .setOpacity(0.6)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
+                                                Highcharts.color(
+                                                  selectedWidth?.is4kDevice
+                                                    ? "#73B35A"
+                                                    : "#000000"
+                                                )
+                                                  .setOpacity(0)
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          data: [
+                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={6} className={graphTwoContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{
+                                    height: "100%",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={7}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width1}
+                                      // height={selectedWidth?.height1}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      graphType={"pie"}
+                                      isVisible={true}
+                                      units="%"
+                                      // units={"%"}
+                                      // isCrosshair={true}
+                                      // crossHairLineColor={"#73B35A90"}
+                                      dataPoints={[
+                                        {
+                                          borderWidth: 0,
+                                          colorByPoint: true,
+                                          type: "pie",
+                                          size: "100%",
+                                          innerSize: "80%",
+                                          showInLegend: true,
+                                          // dataLabels: {
+                                          //   enabled: true,
+                                          //   crop: false,
+                                          //   distance: "-10%",
+                                          //   style: {
+                                          //     fontWeight: "bold",
+                                          //     fontSize: "16px",
+                                          //   },
+                                          //   connectorWidth: 0,
+                                          // },
+                                          colors: [
+                                            "#C64640",
+                                            "#F89863",
+                                            "#B3D2A1",
+                                            "#FDC270",
+                                            "#9191C1",
+                                          ],
+                                          // data: [37, 15, 16, 17, 15],
+                                          data: [
+                                            {
+                                              name: "Intrusion",
+                                              y: 37,
+                                            },
+                                            {
+                                              name: "Fire Detection",
+                                              y: 37,
+                                            },
+                                            {
+                                              name: "Tampering Alarm",
+                                              y: 37,
+                                            },
+                                            {
+                                              name: "Unauthorised Access",
+                                              y: 37,
+                                            },
+                                            {
+                                              name: "Tailgating",
+                                              y: 37,
+                                            },
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    xs={5}
+                                    direction="column"
+                                    className={pieChartLegendContainer}
+                                  >
+                                    {PIECHART_LEGEND.map((legend) => (
+                                      <div
+                                        className={legendIdentifierContainer}
+                                      >
+                                        <div
+                                          className={legendColorBox}
+                                          style={{
+                                            backgroundColor: legend.background,
+                                          }}
+                                        ></div>
+                                        <div className={legendText}>
+                                          {legend.name}
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelMapContainer}
+                    style={{ height: "59%" }}
+                  >
                     <Map
+                      mapPageName={"security"}
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}
                       setSelectedNotification={setSelectedNotification}

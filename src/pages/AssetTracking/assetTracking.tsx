@@ -212,6 +212,7 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [notificationArray, tabIndex]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
+  const [selectedMarker, setSelectedMarker] = useState<any>();
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -337,8 +338,9 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, []);
 
-  const handleAssetViewDetails = () => {
+  const handleAssetViewDetails = (data: any) => {
     setIsInfoWindowActive(true);
+    setSelectedMarker(data);
   };
 
   const packageData = [
@@ -712,6 +714,7 @@ const AssetTracking: React.FC<any> = (props) => {
           setIsInfoWindowActive={setIsInfoWindowActive}
           packageData={packageData}
           infoWindowNotificationListItems={infoWindowNotificationListItems}
+          selectedMarker={selectedMarker}
         />
       )}
       {isGeofenceInfoWindowActive && (

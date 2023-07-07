@@ -243,8 +243,7 @@ const Parking: React.FC<any> = (props) => {
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
-                      style={{height : "100%"}}
-
+                      style={{ height: "100%" }}
                     >
                       <Grid
                         item
@@ -263,215 +262,224 @@ const Parking: React.FC<any> = (props) => {
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
                         <Grid container xs={12} style={{ height: "25vh" }}>
-                      <Grid item xs={6} className={graphOneContainer}>
-                        <Grid
-                          container
-                          xs={12}
-                          style={{
-                            height: "100%",
-                            padding: "10px 10px 5px 30px",
-                          }}
-                        >
-                          <Grid
-                            item
-                            xs={12}
-                            className={screenFiveGraphTitleStyle}
-                            style={{ height: "10%" }}
-                          >
-                            <div
+                          <Grid item xs={6} className={graphOneContainer}>
+                            <Grid
+                              container
+                              xs={12}
                               style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                columnGap: "6px",
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <div
-                                style={{
-                                  width: "18px",
-                                  height: "18px",
-                                  borderRadius: "50%",
-                                  backgroundColor: "#BD8C52",
-                                  marginRight: 6,
-                                }}
-                              ></div>
-                              <div>Electricity Consumption </div>
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                columnGap: "6px",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  width: "18px",
-                                  height: "18px",
-                                  borderRadius: "50%",
-                                  backgroundColor: "#5F3B6C",
-                                  marginRight: 6,
-                                }}
-                              ></div>
-                              <div>HVAC</div>
-                            </div>
-                          </Grid>
-                          <Grid item xs={12} style={{ height: "90%" }}>
-                            <Grid container xs={12} style={{ height: "100%" }}>
                               <Grid
                                 item
                                 xs={12}
-                                style={{ height: "21vh", width: "80vw" }}
+                                className={screenFiveGraphTitleStyle}
+                                style={{ height: "10%" }}
                               >
-                                <Chart
-                                  // width={selectedWidth?.width}
-                                  // height={selectedWidth?.height}
-                                  containerProps={{
-                                    style: { height: "100%", width: "100%" },
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    columnGap: "6px",
                                   }}
-                                  isVisible={true}
-                                  graphType={"spline"}
-                                  units={"kWh"}
-                                  isCrosshair={true}
-                                  crossHairLineColor={"#E5FAF6"}
-                                  is4kDevice={selectedWidth?.is4kDevice}
-                                  tooltip={"shared"}
-                                  dataPoints={[
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#BD8C52",
-                                      color: "#BD8C52",
-                                      lineWidth: 2,
-                                      data: [
-                                        0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4,
-                                        8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                      ],
-                                    },
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#5F3B6C",
-                                      color: "#5F3B6C",
-                                      lineWidth: 2,
-                                      data: [
-                                        1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1,
-                                        4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                      ],
-                                    },
-                                  ]}
-                                />
+                                >
+                                  <div
+                                    style={{
+                                      width: "18px",
+                                      height: "18px",
+                                      borderRadius: "50%",
+                                      backgroundColor: "#BD8C52",
+                                      marginRight: 6,
+                                    }}
+                                  ></div>
+                                  <div>Electricity Consumption </div>
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    columnGap: "6px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "18px",
+                                      height: "18px",
+                                      borderRadius: "50%",
+                                      backgroundColor: "#5F3B6C",
+                                      marginRight: 6,
+                                    }}
+                                  ></div>
+                                  <div>HVAC</div>
+                                </div>
                               </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      isVisible={true}
+                                      graphType={"spline"}
+                                      units={"kWh"}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#E5FAF6"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      tooltip={"shared"}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#BD8C52",
+                                          color: "#BD8C52",
+                                          lineWidth: 2,
+                                          data: [
+                                            0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+                                            4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                          ],
+                                        },
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#5F3B6C",
+                                          color: "#5F3B6C",
+                                          lineWidth: 2,
+                                          data: [
+                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid />
                             </Grid>
                           </Grid>
-                          <Grid />
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={6} className={graphTwoContainer}>
-                        <Grid
-                          container
-                          xs={12}
-                          style={{
-                            height: "100%",
-                            padding: "10px 10px 5px 30px",
-                          }}
-                        >
-                          <Grid
-                            item
-                            xs={12}
-                            style={{ height: "10%" }}
-                            className={graphTwoHeader}
-                          >
-                            Water Consumption
-                          </Grid>
-                          <Grid item xs={12} >
-                            <Grid container xs={12} style={{ height: "90%" }}>
-                              <Grid
-                                item
-                                xs={12}
-                                style={{ height: "21vh", width: "80vw" }}
-                              >
-                                <Chart
-                                  // width={selectedWidth?.width}
-                                  // height={selectedWidth?.height}
-                                  containerProps={{
-                                    style: { height: "100%", width: "100%" },
-                                  }}
-                                  graphType={"spline"}
-                                  isVisible={true}
-                                  units={"KL"}
-                                  isCrosshair={true}
-                                  crossHairLineColor={"#47A899"}
-                                  is4kDevice={selectedWidth?.is4kDevice}
-                                  dataPoints={[
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#47A89990",
-                                      color: "#47A899",
-                                      lineWidth: 2,
-                                      data: [
-                                        1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6,
-                                        4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                      ],
-                                    },
-                                  ]}
-                                />
+                          <Grid item xs={6} className={graphTwoContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              style={{
+                                height: "100%",
+                                padding: "10px 10px 5px 30px",
+                              }}
+                            >
+                              <Grid item xs={12} className={graphTwoHeader}>
+                                Water Consumption
                               </Grid>
+                              <Grid item xs={12} style={{ height: "90%" }}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      graphType={"spline"}
+                                      isVisible={true}
+                                      units={"KL"}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#47A899"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#47A89990",
+                                          color: "#47A899",
+                                          lineWidth: 2,
+                                          data: [
+                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid />
                             </Grid>
                           </Grid>
-                          <Grid />
                         </Grid>
                       </Grid>
-                      </Grid>
                     </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "59%" }}
-                  >
-                    <Map
-                      mapPageName={"energy"}
-                      markers={dashboardDataList}
-                      setNotificationPanelActive={setNotificationPanelActive}
-                      setSelectedNotification={setSelectedNotification}
-                      marker={selectedNotification}
-                      setTabIndex={setTabIndex}
-                      currentMarker={currentMarker}
-                      setCurrentMarker={setCurrentMarker}
-                      setIsMarkerClicked={setIsMarkerClicked}
-                    />
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3} className={notificationPanelGrid}>
-                <NotificationPanel
+              <Grid
+                item
+                xs={12}
+                className={bodyLeftTopPanelMapContainer}
+                style={{ height: "59%" }}
+              >
+                <Map
+                  mapPageName={"energy"}
+                  markers={dashboardDataList}
                   setNotificationPanelActive={setNotificationPanelActive}
-                  dashboardData={dashboardData}
-                  tabIndex={tabIndex}
-                  setTabIndex={setTabIndex}
-                  notificationCount={notificationCount}
-                  selectedNotification={selectedNotification}
                   setSelectedNotification={setSelectedNotification}
-                  searchOpen={searchOpen}
-                  setSearchOpen={setSearchOpen}
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
+                  marker={selectedNotification}
+                  setTabIndex={setTabIndex}
+                  currentMarker={currentMarker}
                   setCurrentMarker={setCurrentMarker}
-                  isMarkerClicked={isMarkerClicked}
+                  setIsMarkerClicked={setIsMarkerClicked}
                 />
               </Grid>
             </Grid>
           </Grid>
+          <Grid item xs={3} className={notificationPanelGrid}>
+            <NotificationPanel
+              setNotificationPanelActive={setNotificationPanelActive}
+              dashboardData={dashboardData}
+              tabIndex={tabIndex}
+              setTabIndex={setTabIndex}
+              notificationCount={notificationCount}
+              selectedNotification={selectedNotification}
+              setSelectedNotification={setSelectedNotification}
+              searchOpen={searchOpen}
+              setSearchOpen={setSearchOpen}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              setCurrentMarker={setCurrentMarker}
+              isMarkerClicked={isMarkerClicked}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </Grid>{" "}
     </>
   );
 };

@@ -48,6 +48,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setIsInfoWindowActive,
     packageData,
     infoWindowNotificationListItems,
+    selectedMarker,
   } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -112,6 +113,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const [radiusType, setRadiusType] = useState<string>();
   const [checked, setChecked] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isGeofenceLocation, setIsGeofenceLocation] = useState<boolean>(false);
 
   const handleClose = () => {
     setOpen(!open);
@@ -222,18 +224,18 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     drawRadius: any
   ) => {
     const startLatLng = new google.maps.LatLng(centerCoOrdinates);
-    // const circle = new window.google.maps.Circle({
-    //   center: startLatLng,
-    //   radius: drawRadius,
-    // })
-    //   .getBounds()
-    //   ?.contains(selectedViewDetailsData?.location);
+    const circle = new window.google.maps.Circle({
+      center: startLatLng,
+      radius: drawRadius,
+    })
+      .getBounds()
+      ?.contains(selectedMarker?.location);
 
-    // if (circle) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
+    if (circle) {
+      setIsGeofenceLocation(true);
+    } else {
+      setIsGeofenceLocation(false);
+    }
   };
 
   const onPolygonCompleteLocation = (path: any) => {
@@ -241,37 +243,37 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
       paths: path,
     });
 
-    // const contains = window.google.maps.geometry.poly.containsLocation(
-    //   new window.google.maps.LatLng(
-    //     selectedViewDetailsData?.location?.lat,
-    //     selectedViewDetailsData?.location?.lng
-    //   ),
-    //   polygon
-    // );
+    const contains = window.google.maps.geometry.poly.containsLocation(
+      new window.google.maps.LatLng(
+        selectedMarker?.location?.lat,
+        selectedMarker?.location?.lng
+      ),
+      polygon
+    );
 
-    // if (contains) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
+    if (contains) {
+      setIsGeofenceLocation(true);
+    } else {
+      setIsGeofenceLocation(false);
+    }
   };
 
   const handleCircleDrag = (centerCoOrdinates: any) => {
     polygonData?.setMap(null);
     circleData?.setMap(null);
     const startLatLng = new google.maps.LatLng(centerCoOrdinates);
-    // const circle = new window.google.maps.Circle({
-    //   center: startLatLng,
-    //   radius: circleRadius,
-    // })
-    //   .getBounds()
-    //   ?.contains(selectedViewDetailsData?.location);
+    const circle = new window.google.maps.Circle({
+      center: startLatLng,
+      radius: circleRadius,
+    })
+      .getBounds()
+      ?.contains(selectedMarker?.location);
 
-    // if (circle) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
+    if (circle) {
+      setIsGeofenceLocation(true);
+    } else {
+      setIsGeofenceLocation(false);
+    }
   };
 
   const handleCircleLatChange = () => {
@@ -525,7 +527,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                   <Map
-                    markers={[]}
+                    markers={[selectedMarker]}
                     marker={""}
                     currentMarker={""}
                     setCurrentMarker={() => {}}
