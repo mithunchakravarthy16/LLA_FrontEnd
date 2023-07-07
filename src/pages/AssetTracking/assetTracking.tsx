@@ -41,9 +41,11 @@ const AssetTracking: React.FC<any> = (props) => {
   useEffect(() => {
     switch (selectedTheme) {
       case "light":
+        // @ts-ignore
         setAppTheme(theme?.lightTheme);
         break;
       case "dark":
+        // @ts-ignore
         setAppTheme(theme?.darkTheme);
         break;
       default:

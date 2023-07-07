@@ -20,7 +20,6 @@ let theme = {
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationCalloutBg
       },
-      ,
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient
       },
