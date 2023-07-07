@@ -467,14 +467,16 @@ const AssetTracking: React.FC<any> = (props) => {
             ASSET TRACKING
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}>
+            <Grid container xs={12} className={bodySubContainer}  style={{ height: "93vh" }}>
               <Grid item xs={9} className={bodyLeftContainer}>
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer}>
+                  <Grid item xs={12} className={bodyLeftTopPanelContainer} style={{ height: "29%" }}>
                     <Grid
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
+                      style={{height : "100%"}}
+
                     >
                       <Grid
                         item
@@ -491,16 +493,23 @@ const AssetTracking: React.FC<any> = (props) => {
                           title={"Active Trackers"}
                         />
                       </Grid>
+                      <Grid item xs={12} style={{ height: "100%" }}>
+                        <Grid container xs={12} style={{ height: "25vh" }}>
                       <Grid item xs={6} className={graphOneContainer}>
                         <Grid
                           container
                           xs={12}
-                          className={graphOneContainerStyle}
+                          // className={graphOneContainerStyle}
+                          style={{
+                            height: "100%",
+                            paddingLeft: "10px",
+                          }}
                         >
                           <Grid
                             item
                             xs={12}
                             className={screenFiveGraphTitleStyle}
+                            style={{minHeight : "3vh"}}
                           >
                             <div className={graphOneGraphTitleContainer}>
                               <div
@@ -514,10 +523,22 @@ const AssetTracking: React.FC<any> = (props) => {
                               <div>In-Active Tracker</div>
                             </div>
                           </Grid>
-                          <Grid item xs={12} className={graphOneChartStyle}>
+                          {/* <Grid item xs={12} className={graphOneChartStyle}> */}
+                          <Grid item xs={12} 
+                              style={{ height: "90%" }}
+                              >
+                                <Grid
+                                  container
+                                  xs={12}
+                                  // style={{ height: "100%" }}
+                                >
+                                  <Grid item xs={12} style={{ height: "21vh", width: "80vw" }}>
                             <Chart
-                              width={selectedWidth?.width}
-                              height={selectedWidth?.height}
+                              // width={selectedWidth?.width}
+                              // height={selectedWidth?.height}
+                              containerProps={{
+                                style: { height: "100%", width: "100%" },
+                              }}
                               isVisible={true}
                               graphType={"spline"}
                               units={""}
@@ -553,6 +574,8 @@ const AssetTracking: React.FC<any> = (props) => {
                               ]}
                             />
                           </Grid>
+                          </Grid>
+                          </Grid>
                           <Grid />
                         </Grid>
                       </Grid>
@@ -563,13 +586,27 @@ const AssetTracking: React.FC<any> = (props) => {
                           className={graphTwoContainerStyle}
                           style={{}}
                         >
-                          <Grid item xs={12} className={graphTwoHeader}>
+                          <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center" }}  >
                             Incidents
                           </Grid>
-                          <Grid item xs={12} className={graphTwoChartStyle}>
+                          {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
+                          <Grid item xs={12}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "90%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
                             <Chart
-                              width={selectedWidth?.width1}
-                              height={selectedWidth?.height1}
+                              // width={selectedWidth?.width1}
+                              // height={selectedWidth?.height1}
+                              containerProps={{
+                                style: { height: "100%", width: "100%" },
+                              }}
                               graphType={"areaspline"}
                               isVisible={true}
                               units={""}
@@ -618,21 +655,24 @@ const AssetTracking: React.FC<any> = (props) => {
                                 },
                               ]}
                             />
+                              </Grid>
+                              </Grid>
                           </Grid>
                           <Grid />
                         </Grid>
                       </Grid>
                     </Grid>
+                    </Grid>
+                    </Grid>
                   </Grid>
 
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}   style={{ height: "60%" }}>
                     <img
                       src={GeofenceIcon}
                       className={geofenceIconStyle}
                       alt="GeofenceIcon"
                       onClick={handleAssetInfoWindow}
                     />
-
                     <Map
                       markers={notificationArray}
                       setNotificationPanelActive={setNotificationPanelActive}
@@ -643,6 +683,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
                       handleAssetViewDetails={handleAssetViewDetails}
+                      mapPageName={"asset"}
                     />
                   </Grid>
                 </Grid>
