@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -84,6 +86,7 @@ const Geofence: React.FC<any> = (props: any) => {
     searchContainer,
     assetsList,
     assetsListItems,
+    mainGeofenceContainer,
   } = useStyles(appTheme);
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -317,16 +320,12 @@ const Geofence: React.FC<any> = (props: any) => {
   }));
   return (
     <>
-      <div className={mainContainer}>
+      <div className={isGeofence ? mainGeofenceContainer : mainContainer}>
         {!isGeofence ? (
           <div className={geofenceContainer}>
             <div className={geoFenceTitle}>{"Enabled Geofence"}</div>
             <div className={geofenceSwitch}>
-              <MuiSwitchLarge
-                checked={checked}
-                onChange={handleChange}
-                size="medium"
-              />
+              <Switch size="medium" checked={checked} onChange={handleChange} />
             </div>
           </div>
         ) : (
@@ -433,7 +432,7 @@ const Geofence: React.FC<any> = (props: any) => {
           <>
             <div className={geoFenceTitle1}>Center Location</div>
             <div className={circleContainer}>
-              <div>
+              <div style={{ marginRight: "1vw" }}>
                 <div className={geofenceType}>Latitude</div>
                 <div className={customTextFieldLatitude}>
                   <TextField
