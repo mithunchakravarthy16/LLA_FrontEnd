@@ -17,20 +17,11 @@ const useStyles = makeStyles(() => ({
     backgroundRepeat: "no-repeat",
     height: "100vh",
     display: "flex",
-    alignItems: "center",
+    alignItems: "baseline",
     justifyContent: "center",
   }),
-  loginBannerTitle: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
-    fontWeight: " 700",
-    fontSize: "40px",
-    lineHeight: "60px",
-    color: props?.palette?.login?.loginBannerTitle,
-    [muiTheme.breakpoints.down(3073)]: {
-      fontSize: "28px",
-      lineHeight: "40px",
-      fontWeight: " 600",
-    },
+  innerPaddingBox: (props: any) => ({
+    paddingTop: "12vh",
   }),
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(45px)",
@@ -44,8 +35,12 @@ const useStyles = makeStyles(() => ({
     padding: "80px",
     margin: "0 auto",
     [muiTheme.breakpoints.down(3073)]: {
+      width: "856px !important",
+      padding: "100px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
       maxWidth: "460px !important",
-      padding: "60px 40px ",
+      padding: "40px ",
     },
     [muiTheme.breakpoints.down(1921)]: {
       maxWidth: "460px !important",
@@ -71,36 +66,15 @@ const useStyles = makeStyles(() => ({
       zIndex: "-1",
     },
   }),
-  innerForm: (props: any) => ({
-    // maxWidth: "440px !important",
-  }),
-  loginBannerBorder: (props: any) => ({}),
-  loginBannerDescription: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
-    fontWeight: " 500",
-    fontSize: "20px",
-    lineHeight: "30px",
-    color: props?.palette?.login?.loginBannerTitle,
-    marginTop: 45,
-    textAlign: "center",
-    [muiTheme.breakpoints.down(3073)]: {
-      fontWeight: " 500",
-      fontSize: "16px",
-      lineHeight: "24px",
-    },
-  }),
-  loginBannerContent: (props: any) => ({
-    width: 510,
-  }),
-  logoSection: (props: any) => ({
-    textAlign: "center",
-    marginBottom: 54,
-  }),
+  innerForm: (props: any) => ({}),
   welcomeSection: (props: any) => ({
     textAlign: "center",
     marginBottom: 67,
     [muiTheme.breakpoints.down(3073)]: {
       marginBottom: 37,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      marginBottom: 27,
     },
     [muiTheme.breakpoints.down(1921)]: {
       marginBottom: 20,
@@ -122,8 +96,13 @@ const useStyles = makeStyles(() => ({
     color: props?.palette?.login?.loginBannerTitle,
     textAlign: "left",
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: "28px",
-      lineHeight: "38px",
+      fontFamily: "HelveticaNeue-Regular",
+      fontSize: "56px",
+      lineHeight: "82px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: "24px",
+      lineHeight: "30px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: "18px",
@@ -139,10 +118,18 @@ const useStyles = makeStyles(() => ({
     color: props?.palette?.login?.inputTitle,
     marginBottom: 24,
     [muiTheme.breakpoints.down(3073)]: {
+      fontFamily: "HelveticaNeue-Regular",
+      fontWeight: " 500",
+      fontSize: "30px",
+      lineHeight: "36px",
+      color: props?.palette?.login?.inputTitle,
+      marginBottom: 24,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
       fontWeight: " 500",
       fontSize: "16px",
       lineHeight: "24px",
-      marginBottom: 6,
+      marginBottom: 12,
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontWeight: " 500",
@@ -165,10 +152,18 @@ const useStyles = makeStyles(() => ({
         opacity: 1,
       },
       [muiTheme.breakpoints.down(3073)]: {
+        fontFamily: "HelveticaNeue-Regular",
         fontWeight: " 500",
-        fontSize: "16px",
-        lineHeight: "24px",
-        padding: 16,
+        fontSize: "40px",
+        lineHeight: "48px",
+        color: "white",
+        padding: 36,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontWeight: " 500",
+        fontSize: "22px",
+        lineHeight: "30px",
+        padding: 20,
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontWeight: " 500",
@@ -178,7 +173,10 @@ const useStyles = makeStyles(() => ({
       },
     },
     [muiTheme.breakpoints.down(3073)]: {
-      marginBottom: 37,
+      marginBottom: 67,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      marginBottom: 32,
     },
     [muiTheme.breakpoints.down(1921)]: {
       marginBottom: 20,
@@ -201,10 +199,18 @@ const useStyles = makeStyles(() => ({
         opacity: 1,
       },
       [muiTheme.breakpoints.down(3073)]: {
+        fontFamily: "HelveticaNeue-Regular",
         fontWeight: " 500",
-        fontSize: "16px",
-        lineHeight: "24px",
-        padding: 16,
+        fontSize: "40px",
+        lineHeight: "48px",
+        color: "white",
+        padding: 36,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontWeight: " 500",
+        fontSize: "22px",
+        lineHeight: "30px",
+        padding: 20,
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontWeight: " 500",
@@ -214,28 +220,16 @@ const useStyles = makeStyles(() => ({
       },
     },
     [muiTheme.breakpoints.down(3073)]: {
-      marginBottom: 37,
+      marginBottom: 67,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      marginBottom: 32,
     },
     [muiTheme.breakpoints.down(1921)]: {
       marginBottom: 20,
     },
     [muiTheme.breakpoints.down(1537)]: {
       marginBottom: 6,
-    },
-  }),
-  radioButtonSection: (props: any) => ({
-    marginBottom: 50,
-    "& .MuiRadio-root": {
-      "&.Mui-checked": {
-        color: props?.palette?.login?.loginButton,
-      },
-    },
-    "& .MuiFormControlLabel-label": {
-      fontFamily: "HelveticaNeue-Regular",
-      fontWeight: " 500",
-      fontSize: "16px",
-      lineHeight: "24px",
-      color: props?.palette?.login?.inputPlaceholder,
     },
   }),
   loginButton: (props: any) => ({
@@ -251,8 +245,12 @@ const useStyles = makeStyles(() => ({
       letterSpacing: " 0.2em",
       textTransform: "uppercase",
       [muiTheme.breakpoints.down(3073)]: {
-        fontSize: "20px",
-        lineHeight: "30px",
+        fontSize: "32px",
+        lineHeight: "82px",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: "22px",
+        lineHeight: "40px",
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontSize: "16px",
@@ -265,23 +263,6 @@ const useStyles = makeStyles(() => ({
         fontSize: "40px",
         lineHeight: "90px",
       },
-    },
-  }),
-  copyRights: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
-    fontWeight: " 500",
-    fontSize: "16px",
-    lineHeight: "24px",
-    color: props?.palette?.login?.copyRight,
-    position: "absolute",
-    bottom: "38px",
-    "& span": {
-      color: props?.palette?.login?.loginBoxId + "!important",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      fontWeight: " 500",
-      fontSize: "12px",
-      lineHeight: "20px",
     },
   }),
   formikErrorClass: (props: any) => ({
@@ -314,9 +295,14 @@ const useStyles = makeStyles(() => ({
     margin: "0 auto",
     marginBottom: 32,
     [muiTheme.breakpoints.down(3073)]: {
+      width: 200,
+      margin: "0 auto",
+      marginBottom: 32,
+    },
+    [muiTheme.breakpoints.down(2049)]: {
       width: 100,
       margin: "0 auto",
-      marginBottom: 28,
+      marginBottom: 18,
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: 100,
@@ -342,7 +328,12 @@ const useStyles = makeStyles(() => ({
         marginBottom: 70,
       },
       [muiTheme.breakpoints.down(3073)]: {
-        maxWidth: "70%",
+        maxWidth: "100%",
+        margin: "0 auto",
+        marginBottom: 70,
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        maxWidth: "50%",
         margin: "0 auto",
         marginBottom: 28,
       },

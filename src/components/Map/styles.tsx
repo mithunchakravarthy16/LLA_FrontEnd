@@ -24,10 +24,7 @@ const useStyles = makeStyles({
       background: `#1D2D38 !important`, //markerInfoWindowBg
     },
     "& .gm-style-iw-t": {
-      bottom: "66px !important",
-      [muiTheme.breakpoints.up(3839)]: {
-        bottom: "160px !important",
-      },
+      bottom: "9vh !important",
     },
     "& .gm-style-iw-t > div > button": {
       display: "none !important",
@@ -35,7 +32,7 @@ const useStyles = makeStyles({
 
     "& .gm-style-iw": {
       background: `#1D2D38 !important`,
-      borderRadius: "15px",
+      borderRadius: "10px",
       // boxShadow: `0 2px 7px 1px ${props?.palette?.dashboardList?.lightShadeGray1}`,
       fontSize: "13px",
       fontWeight: 300,

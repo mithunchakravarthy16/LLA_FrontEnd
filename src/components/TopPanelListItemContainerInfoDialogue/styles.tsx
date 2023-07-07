@@ -73,7 +73,7 @@ const useStyles = makeStyles({
   }),
 
   itemTitleStyle: (props: any) => ({
-    fontSize: "0.8vw",
+    fontSize: "0.7vw",
     color: "#909090",
     fontFamily: "HelveticaNeue-Regular",
   }),

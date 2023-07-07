@@ -5,7 +5,8 @@ import theme from "../../theme/theme";
 import FooterIcon from "../../assets/images/lla-logo2.png";
 import useTranslation from "localization/translations";
 import poweredBy from "../../assets/images/powered-by.svg";
-import footerText from "../../assets/footerText.svg"
+import footerText from "../../assets/footerText.svg";
+import FooterCopyrights from "../../assets/images/copyrightsImg.svg";
 import useStyles from "./styles";
 
 const Footer = (props: any) => {
@@ -30,14 +31,11 @@ const Footer = (props: any) => {
   const { pageName } = props;
 
   const {
-    loaderStyle,
     footerSection,
     footerContent,
     footerIconStyle,
-    copyrights,
-    allRights,
     footerSectionDasbhoard,
-    poweredByImage,
+    footerCopyrightsImg,
   } = useStyles(appTheme);
 
   const { poweredByText, allRightsReservedText, titleText, subTitleText } =
@@ -68,7 +66,7 @@ const Footer = (props: any) => {
               Reserved
             </p>
           ) : (
-            <p className={copyrights}>© 2023 {allRightsReservedText}</p>
+            <img className={footerCopyrightsImg} src={FooterCopyrights} />
           )}
         </div>
       </div>
