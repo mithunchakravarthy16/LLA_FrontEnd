@@ -64,5 +64,11 @@ let colorCodes = {
   markerCallOutGrey: 'rgba(45, 47, 52, 0.85)',
   sunRiseOrange: `linear-gradient(to bottom, #EF4136 0%, #F26522 100%)`,
   whiteShadesOfOrange: "#FFC6BA",
+  tabSelectedOrange: "#E53433",
+  notificationExpandedBgLight: "#8B8C8C",
+  notificationCalloutBg: "#1d2d38",
+  flippingCardBgDark: "rgb(22, 25, 30, 0.9)",
+  flippingCardBgLight: "rgba(211, 211, 211, 0.70)",
+  flippingCardDarkTextColor: "#EEEEEE",
 };
 export default colorCodes;

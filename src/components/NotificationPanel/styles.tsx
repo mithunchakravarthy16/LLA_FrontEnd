@@ -31,6 +31,7 @@ const useStyles = makeStyles({
     fontSize: 22,
     fontFamily: "HelveticaNeue-Regular",
     width: "80%",
+    color: props?.palette?.notification?.notificationPanelTitle,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 44,
       lineHeight: "72px",

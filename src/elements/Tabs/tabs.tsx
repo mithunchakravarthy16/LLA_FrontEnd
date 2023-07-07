@@ -30,7 +30,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const { listCount, tabLabel, labelCountStyle, tabLabelFleetInfoDialogue } = useStyles({
+  const { listCount, tabLabel, labelCountStyle, tabLabelFleetInfoDialogue, tabLabelText, tabLabelTextSelected, tabCountContainer, tabCountContainerSelected } = useStyles({
     appTheme,
     pageName: pageName,
   });
@@ -46,6 +46,8 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     setValue(initialIndex);
   }, [initialIndex]);
 
+  console.log("INDICATOR COLOR", appTheme?.palette?.notification?.listItemLabelSelected)
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -53,7 +55,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor="secondary"
+            indicatorColor={"primary"}
           >
             {tabsList.map((item: any, index: number) => (
               <Tab
@@ -63,11 +65,11 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                   <div className={pageName === "fleetInfoDialogue" ? tabLabelFleetInfoDialogue :  tabLabel}>
                     {(item?.count || item?.count === 0) && (
                       <div className={listCount}>
-                        <div className="count">{item?.count}</div>
+                        <div className={value === index ? tabCountContainerSelected : tabCountContainer}>{item?.count}</div>
                       </div>
                     )}
 
-                    <div>{item?.name}</div>
+                    <div className={value !== index ? tabLabelText : tabLabelTextSelected} >{item?.name}</div>
                   </div>
                 }
               />
