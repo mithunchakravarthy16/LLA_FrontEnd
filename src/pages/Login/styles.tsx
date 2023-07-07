@@ -24,9 +24,9 @@ const useStyles = makeStyles(() => ({
     paddingTop: "12vh",
   }),
   loginFormSection: (props: any) => ({
-    backdropFilter: "blur(45px)",
+    backdropFilter: "blur(0px)",
     borderRadius: "24px",
-    background: "rgba(51, 51, 51, 0.6)",
+    background: "#33333360", //rgba(51, 51, 51, 0.6)
     color: props?.palette?.login?.loginBannerTitle,
     display: "flex",
     alignItems: "center",
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
       height: "8px",
       content: `''`,
       position: "absolute",
-      backgroundColor: props?.palette?.sidebar?.menuColor,
+      background: props?.palette?.login?.boxTopLineStyle, 
       borderBottomLeftRadius: "6px",
       borderBottomRightRadius: "6px",
       zIndex: "-1",
@@ -93,7 +93,7 @@ const useStyles = makeStyles(() => ({
     fontFamily: "HelveticaNeue-Regular",
     fontSize: "56px",
     lineHeight: "82px",
-    color: props?.palette?.login?.loginBannerTitle,
+    color: "#ffffff",
     textAlign: "left",
     [muiTheme.breakpoints.down(3073)]: {
       fontFamily: "HelveticaNeue-Regular",
@@ -115,14 +115,14 @@ const useStyles = makeStyles(() => ({
     fontWeight: " 500",
     fontSize: "30px",
     lineHeight: "36px",
-    color: props?.palette?.login?.inputTitle,
+    color: "#FF7A00",
     marginBottom: 24,
     [muiTheme.breakpoints.down(3073)]: {
       fontFamily: "HelveticaNeue-Regular",
       fontWeight: " 500",
       fontSize: "30px",
       lineHeight: "36px",
-      color: props?.palette?.login?.inputTitle,
+      color: "#FF7A00",
       marginBottom: 24,
     },
     [muiTheme.breakpoints.down(2049)]: {
@@ -146,6 +146,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "40px",
       lineHeight: "48px",
       color: "white",
+      
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
@@ -235,7 +236,7 @@ const useStyles = makeStyles(() => ({
   loginButton: (props: any) => ({
     marginTop: 18,
     "& .MuiButtonBase-root": {
-      background: props?.palette?.login?.loginButton,
+      background: "#F26522",
       borderRadius: "5px",
       fontFamily: "HelveticaNeue-Regular",
       fontSize: "32px",
@@ -257,7 +258,7 @@ const useStyles = makeStyles(() => ({
         lineHeight: "21px",
       },
       "&:hover": {
-        background: props?.palette?.login?.loginButton,
+        background: "#F26522",
       },
       "&:-webkit-autofill::first-line": {
         fontSize: "40px",
