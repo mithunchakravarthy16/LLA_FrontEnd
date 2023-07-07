@@ -11,6 +11,9 @@ let theme = {
       notification:{
         listItemBorder: '',
         tabListCountColor:''
+      },
+      login: {
+        boxTopLineStyle: colorCodes?.orngeLinearGradient
       }  
     },
     spacing: 5,
@@ -21,7 +24,10 @@ let theme = {
       sidebar: {
         sidebarBg: colorCodes.sunRiseOrange,    
       },
-      notification:{ listItemBorder: '', tabListCountColor:''}      
+      notification:{ listItemBorder: '', tabListCountColor:''},
+      login: {
+        boxTopLineStyle: colorCodes?.orngeLinearGradient
+      }    
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
@@ -31,7 +37,10 @@ let theme = {
       sidebar: {
         sidebarBg: colorCodes.colorBlack      
       },    
-      notification:{ listItemBorder: '', tabListCountColor:''}  
+      notification:{ listItemBorder: '', tabListCountColor:''},
+      login: {
+        boxTopLineStyle: colorCodes?.orngeLinearGradient
+      }  
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
