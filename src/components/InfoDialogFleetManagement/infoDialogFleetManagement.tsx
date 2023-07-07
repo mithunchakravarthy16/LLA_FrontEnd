@@ -250,19 +250,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const getSpeedometerDimensions = () => {
     if (width < 1664) {
       return {
-        radius: 40,
+        radius: 60,
         cut: 65,
         rotate: 105,
-        stroke: 7,
-        iconSize: 17,
+        stroke: 8,
+        iconSize: 24,
       };
     } else {
       return {
-        radius: 50,
+        radius: 70,
         cut: 60,
         rotate: 120,
-        stroke: 10,
-        iconSize: 20,
+        stroke: 11,
+        iconSize: 27,
       };
     }
   };
@@ -475,10 +475,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                         <Grid
                           container
                           xs={12}
-                          justifyContent="center"
-                          alignItems="center"
-                          spacing={2}
                           height={"100%"}
+                          sx={{display: "flex", alignItems: "center", justifyContent: "center"}}
                         >
                           <Grid item>
                             <CircularProgressBar
