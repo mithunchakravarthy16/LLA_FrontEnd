@@ -136,6 +136,36 @@ const useStyles = makeStyles({
     height: "25%",
   }),
 
+  screenFiveGraphTitleStyle: (props: any) => ({
+    fontSize: "16px",
+    display: "flex",
+    columnGap: "30px",
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      lineHeight: "48px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 22,
+      lineHeight: "38px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      lineHeight: "16px",
+    },
+  }),
+
   graphOneContainer: (props: any) => ({
     // border: "none",
     // borderWidth: "1px",
@@ -143,7 +173,6 @@ const useStyles = makeStyles({
     // borderColor: "transparent #808080 #808080 #808080",
     borderBottom: "1px solid #333333",
     borderRight: "1px solid #333333",
-    padding: "18px",
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -152,7 +181,6 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
     borderBottom: "1px solid #333333",
-    height: "80%",
     display: "flex",
     alignItems: "center",
   }),
@@ -160,7 +188,6 @@ const useStyles = makeStyles({
   pieChartLegendContainer: {
     display: "flex",
     flexDirection: "column",
-    paddingLeft: "10%",
   },
 
   legendIdentifierContainer: {

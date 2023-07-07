@@ -383,13 +383,20 @@ const useStyles = makeStyles({
   }),
 
   lastweekBodyContainer: (props: any) => ({
-    height: "100%",
+    height: "96%",
+    alignItems: "end",
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "93%",
+      alignItems: "end",
+    },
   }),
 
   lastweekBodySubContainer: (props: any) => ({
-    height: "100%",
+    height: "95%",
+    alignItems: "end",
     [muiTheme.breakpoints.down(1921)]: {
-      height: "98%",
+      height: "94%",
+      alignItems: "end",
     },
   }),
 
@@ -563,7 +570,7 @@ const useStyles = makeStyles({
   }),
 
   gridStyles: (props: any) => ({
-    padding: "2vh",
+    padding: "1.8vh",
     height: "50%",
   }),
 

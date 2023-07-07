@@ -80,6 +80,7 @@ const FleetManagement: React.FC<any> = (props) => {
     graphContainerHeaderThree,
     driveDot,
     driveDotOne,
+    graphTitle,
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -409,10 +410,20 @@ const FleetManagement: React.FC<any> = (props) => {
             FLEET MANAGEMENT
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}>
+            <Grid
+              container
+              xs={12}
+              className={bodySubContainer}
+              style={{ height: "93vh" }}
+            >
               <Grid item xs={9} className={bodyLeftContainer}>
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelContainer}
+                    style={{ height: "29%" }}
+                  >
                     <Grid
                       container
                       xs={12}
@@ -434,34 +445,45 @@ const FleetManagement: React.FC<any> = (props) => {
                           title={"Safety Score"}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{ height: "80%" }}>
-                        <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid item xs={12} style={{ height: "70%" }}>
+                        <Grid container xs={12} style={{ height: "25vh" }}>
                           <Grid item xs={6} className={graphOneContainer}>
                             <Grid
                               container
                               xs={12}
                               style={{
                                 height: "100%",
-                                position: "relative",
+                                padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <Grid item xs={12} className={electricity}>
-                                Trips
+                              <Grid item xs={12} style={{ height: "10%" }}>
+                                <div className={graphTitle}>Trips</div>
                               </Grid>
                               <Grid
                                 item
                                 xs={12}
                                 className={graphContainerHeaderOne}
+                                style={{ height: "90%" }}
                               >
                                 <Grid
                                   container
                                   xs={12}
                                   style={{ height: "100%" }}
                                 >
-                                  <Grid item xs={9} style={{ height: "100%" }}>
+                                  <Grid
+                                    item
+                                    xs={9}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
                                     <Chart
-                                      width={selectedWidth?.width}
-                                      height={selectedWidth?.height}
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
                                       graphType={"areaspline"}
                                       isVisible={true}
                                       units={""}
@@ -515,7 +537,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                     xs={3}
                                     style={{
                                       height: "100%",
-                                      padding: "0px 0px 15px 36px",
+                                      padding: "2%",
                                     }}
                                   >
                                     <div className={liveContainer}>
@@ -558,67 +580,89 @@ const FleetManagement: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                position: "relative",
+                                padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <Grid item xs={12} className={graphTwoHeader}>
-                                Distance Travelled
+                              <Grid item xs={12} style={{ height: "10%" }}>
+                                <div className={graphTitle}>
+                                  {" "}
+                                  Distance Travelled
+                                </div>
                               </Grid>
                               <Grid
                                 item
                                 xs={12}
                                 className={graphContainerHeaderTwo}
+                                style={{ height: "90%" }}
                               >
-                                <Chart
-                                  width={selectedWidth?.width1}
-                                  height={selectedWidth?.height1}
-                                  graphType={"area"}
-                                  isVisible={true}
-                                  units={""}
-                                  isCrosshair={true}
-                                  crossHairLineColor={"#712C7D90"}
-                                  is4kDevice={selectedWidth?.is4kDevice}
-                                  is2kDevice={selectedWidth?.is2kDevice}
-                                  pageName={"FleetManagement"}
-                                  dataPoints={[
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#712C7D90",
-                                      color: "#712C7D",
-                                      lineWidth: 2,
-                                      fillColor: {
-                                        linearGradient: [0, 0, 0, 200],
-                                        stops: [
-                                          [
-                                            0,
-                                            Highcharts.color("#712C7D")
-                                              .setOpacity(0.5)
-                                              .get("rgba"),
-                                          ],
-                                          [
-                                            0.5,
-                                            Highcharts.color("#712C7D")
-                                              .setOpacity(0.3)
-                                              .get("rgba"),
-                                          ],
-                                          [
-                                            1,
-                                            Highcharts.color(
-                                              selectedWidth?.is4kDevice
-                                                ? "#712C7D"
-                                                : "#000000"
-                                            )
-                                              .setOpacity(0.05)
-                                              .get("rgba"),
-                                          ],
-                                        ],
-                                      },
-                                      data: [1, 4, 3, 5, 4, 6, 8],
-                                    },
-                                  ]}
-                                />
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width1}
+                                      // height={selectedWidth?.height1}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      graphType={"area"}
+                                      isVisible={true}
+                                      units={""}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#712C7D90"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      is2kDevice={selectedWidth?.is2kDevice}
+                                      pageName={"FleetManagement"}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#712C7D90",
+                                          color: "#712C7D",
+                                          lineWidth: 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [
+                                                0,
+                                                Highcharts.color("#712C7D")
+                                                  .setOpacity(0.5)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                0.5,
+                                                Highcharts.color("#712C7D")
+                                                  .setOpacity(0.3)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
+                                                Highcharts.color(
+                                                  selectedWidth?.is4kDevice
+                                                    ? "#712C7D"
+                                                    : "#000000"
+                                                )
+                                                  .setOpacity(0.05)
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          data: [1, 4, 3, 5, 4, 6, 8],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
                               </Grid>
                               <Grid />
                             </Grid>
@@ -629,13 +673,14 @@ const FleetManagement: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                position: "relative",
+                                padding: "10px 10px 5px 30px",
                               }}
                             >
                               <Grid
                                 item
                                 xs={12}
                                 className={screenFiveGraphTitleStyle}
+                                style={{ height: "10%" }}
                               >
                                 <div
                                   style={{
@@ -664,40 +709,59 @@ const FleetManagement: React.FC<any> = (props) => {
                                 item
                                 xs={12}
                                 className={graphContainerHeaderThree}
+                                style={{ height: "90%" }}
                               >
-                                <Chart
-                                  width={selectedWidth?.width1}
-                                  height={selectedWidth?.height1}
-                                  isVisible={true}
-                                  graphType={"spline"}
-                                  units={"Hrs"}
-                                  isCrosshair={true}
-                                  crossHairLineColor={"#E5FAF6"}
-                                  is4kDevice={selectedWidth?.is4kDevice}
-                                  is2kDevice={selectedWidth?.is2kDevice}
-                                  tooltip={"shared"}
-                                  pageName={"FleetManagement"}
-                                  dataPoints={[
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#73B35A",
-                                      color: "#73B35A",
-                                      lineWidth: 2,
-                                      data: [0, 1, 6, 6, 9, 5, 5],
-                                    },
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#6B70AB",
-                                      color: "#6B70AB",
-                                      lineWidth: 2,
-                                      data: [1, 4, 3, 5, 4, 2, 8],
-                                    },
-                                  ]}
-                                />
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "100%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width1}
+                                      // height={selectedWidth?.height1}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      isVisible={true}
+                                      graphType={"spline"}
+                                      units={"Hrs"}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#E5FAF6"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      is2kDevice={selectedWidth?.is2kDevice}
+                                      tooltip={"shared"}
+                                      pageName={"FleetManagement"}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#73B35A",
+                                          color: "#73B35A",
+                                          lineWidth: 2,
+                                          data: [0, 1, 6, 6, 9, 5, 5],
+                                        },
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#6B70AB",
+                                          color: "#6B70AB",
+                                          lineWidth: 2,
+                                          data: [1, 4, 3, 5, 4, 2, 8],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
                               </Grid>
                               <Grid />
                             </Grid>
@@ -706,8 +770,14 @@ const FleetManagement: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelMapContainer}
+                    style={{ height: "59%" }}
+                  >
                     <Map
+                      mapPageName={"fleet"}
                       markers={notificationArray}
                       setNotificationPanelActive={setNotificationPanelActive}
                       setSelectedNotification={setSelectedNotification}
