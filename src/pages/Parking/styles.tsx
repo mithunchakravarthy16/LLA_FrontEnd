@@ -165,6 +165,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
     width: 769,
     height: 129,
+    paddingLeft: 15,
     [muiTheme.breakpoints.up(3839)]: {
       width: 769,
       height: 129,
@@ -475,7 +476,8 @@ const useStyles = makeStyles({
     height: responsiveWidth(122),
     fontSize: responsiveWidth(40),
     right: 15,
-    top: 10,
+    top: "50%",
+    transform: "translateY(-50%)",
     borderRadius: "50%",
     cursor: "pointer",
     // [muiTheme.breakpoints.up(3839)]: {
