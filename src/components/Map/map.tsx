@@ -18,6 +18,7 @@ import {
 } from "@react-google-maps/api";
 import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
+import customLightThemeMapStyles from "./customLightThemeMapStyles";
 import theme from "../../theme/theme";
 import appData from "../../data/appData";
 import NotificationListItems from "components/NotificationListItems";
@@ -507,7 +508,8 @@ const Map: React.FC<any> = (props) => {
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
-      styles: selectedTheme === "light" ? [] : customMapStyles,
+      styles:
+        selectedTheme === "light" ? customLightThemeMapStyles : customMapStyles,
     };
     return {
       ...defaultMapOptions,

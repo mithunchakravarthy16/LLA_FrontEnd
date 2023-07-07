@@ -105,6 +105,7 @@ const useStyles = makeStyles({
 
   subContainerScreenFive: (props: any) => ({
     height: "87%",
+    marginTop: "2%",
   }),
 
   dotContainerStyle: (props: any) => ({
