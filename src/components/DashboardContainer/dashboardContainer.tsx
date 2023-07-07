@@ -110,7 +110,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       formatttedDashboardNotification(dashboardDataList, tabIndex)
     );
     setSearchOpen(false);
-  }, []);
+  }, [tabIndex]);
 
   useEffect(() => {
     setNotificationCount(
