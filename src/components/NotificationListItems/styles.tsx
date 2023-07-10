@@ -64,9 +64,10 @@ const useStyles = makeStyles({
   })},
   expandedListItems: (props: any) => ({
     background:
-      props?.pageName === "markerCallout"
-        ? props?.palette?.notification?.expansionMarkerListBg
+      props?.pageName === "markerCallout" 
+        ? props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg
         : props?.palette?.notification?.expansionListItemBg,
+        backdropFilter: props?.mapPageName === "dashboard" ? "blur(2.5px)" : "none",
     padding: "4%",
     borderRadius: "10px",
     border:
@@ -279,7 +280,7 @@ const useStyles = makeStyles({
     // },
   }),
   buttonStyle: (props: any) => ({
-    "& .MuiButton-contained": {
+    "& .MuiButton-contained": { 
       backgroundColor: props?.palette?.notification?.listItemLabelSelected,
       [muiTheme.breakpoints.up(3839)]: {
         minWidth: "223px",
@@ -287,6 +288,9 @@ const useStyles = makeStyles({
         fontSize: "30px !important",
         fontFamily: "HelveticaNeue-Regular",
         fontWeight: 500,
+      },
+      "&:hover": {
+        background: props?.palette?.notification?.listItemLabelSelected,
       },
     },
   }),

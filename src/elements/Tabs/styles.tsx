@@ -65,6 +65,12 @@ const useStyles = makeStyles({
     };
   },
 
+  fleetInfoDialogueTabLabelTextSelected: (props: any) => {
+    return {
+      color: "#6BA044",
+    };
+  },
+
   tabCountContainer: (props: any) => {
     return {
       width: 45,

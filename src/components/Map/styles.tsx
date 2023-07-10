@@ -19,9 +19,10 @@ const useStyles = makeStyles({
     "& .gm-style .gm-style-iw-c": {
       left: "0 !important",
       maxWidth: "749px !important",
+      backgroundColor: "unset !important"
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
-      background: `#1D2D38 !important`, //markerInfoWindowBg
+      background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
     },
     "& .gm-style-iw-t": {
       bottom: "9vh !important",
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     },
 
     "& .gm-style-iw": {
-      background: `#1D2D38 !important`,
+      //background: "#1D2D38",
       borderRadius: "10px",
       // boxShadow: `0 2px 7px 1px ${props?.palette?.dashboardList?.lightShadeGray1}`,
       fontSize: "13px",

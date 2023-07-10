@@ -7,6 +7,9 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
+import ReactPlayer from "react-player";
+import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4"; 
+import FleetSampleVideoTwo from "../../assets/fleetVideos/vehicleEntered.mp4";
 import {
   CloseIcon,
   SpeedometerIcon,
@@ -18,7 +21,6 @@ import {
   TripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
 import CircularProgressBar from "elements/CircularProgressBar";
-
 import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
 import FleetInfoDialogueViolationContainer from "components/FleetInfoDialogueViolationContainer";
@@ -27,8 +29,6 @@ import TripDetailsMap from "components/Map/tripDetailsMap";
 import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
 import useWindowDimensions from "hooks/useWindowDimensions";
-import ReactPlayer from "react-player";
-import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -415,7 +415,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 flex={1}
                               >
                                 <div style={{ width: "18%", height: "18%" }}>
-                                  <img
+                                  <img 
                                     width={"100%"}
                                     height={"100%"}
                                     src={item?.icon}
@@ -448,19 +448,15 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             />
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
-                            <ReactPlayer
-                              muted
-                              playing
-                              loop={true}
-                              controls={true}
-                              url={
-                                cameraTabIndex === 0
-                                  ? FleetSampleVideo
-                                  : FleetSampleVideo
-                              }
-                              width="100%"
-                              height="100%"
-                            />
+                          <ReactPlayer
+                                    muted
+                                    playing
+                                    loop={true}
+                                    controls={true}
+                                    url={cameraTabIndex === 0 ? FleetSampleVideo : FleetSampleVideoTwo}
+                                    width="100%"
+                                    height="100%"
+                                  />
                           </Grid>
                         </Grid>
                       </Grid>

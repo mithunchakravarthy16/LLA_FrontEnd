@@ -30,7 +30,17 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const { listCount, tabLabel, labelCountStyle, tabLabelFleetInfoDialogue, tabLabelText, tabLabelTextSelected, tabCountContainer, tabCountContainerSelected } = useStyles({
+  const {
+    listCount,
+    tabLabel,
+    labelCountStyle,
+    tabLabelFleetInfoDialogue,
+    tabLabelText,
+    tabLabelTextSelected,
+    tabCountContainer,
+    tabCountContainerSelected,
+    fleetInfoDialogueTabLabelTextSelected,
+  } = useStyles({
     appTheme,
     pageName: pageName,
   });
@@ -60,17 +70,30 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                 key={index}
                 value={pageName === "sendConfig" ? item?.val : index}
                 label={
-                  <div className={pageName === "fleetInfoDialogue" ? tabLabelFleetInfoDialogue :  tabLabel}>
+                  <div
+                    className={
+                      pageName === "fleetInfoDialogue"
+                        ? tabLabelFleetInfoDialogue
+                        : tabLabel
+                    }
+                  >
                     {(item?.count || item?.count === 0) && (
-                      <div >
+                      <div>
                         {/* <div className={value === index ? tabCountContainerSelected : tabCountContainer}>{item?.count}</div> */}
                         <div className="count">{item?.count}</div>
                       </div>
                     )}
 
                     {/* <div className={value !== index ? tabLabelText : tabLabelTextSelected} >{item?.name}</div> */}
-                    <div>{item?.name}</div>
-
+                    <div
+                      className={
+                        value === index &&
+                        pageName === "fleetInfoDialogue" ?
+                        fleetInfoDialogueTabLabelTextSelected : ""
+                      }
+                    >
+                      {item?.name}
+                    </div>
                   </div>
                 }
               />
