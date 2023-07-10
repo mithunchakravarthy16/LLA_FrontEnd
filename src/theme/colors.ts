@@ -86,5 +86,9 @@ let colorCodes = {
   lightWhite: "#EEEEEE",
   notificationPanelShadowColor: "rgba(161, 161, 161, 0.20)",
   orangeDarkShades: "#D6550A",
+  green:'#1E9C09',
+  orange: '#FF5910',
+  red: '#FF1926'
+  
 };
 export default colorCodes;

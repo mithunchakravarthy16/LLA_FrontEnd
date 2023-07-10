@@ -22,6 +22,9 @@ let theme = {
         dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.darkBlackShade,
+        eventColor: colorCodes?.green,
+        oprAlertColor: colorCodes?.orange,
+        incidentColor: colorCodes?.red
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient
@@ -103,7 +106,10 @@ let theme = {
         expansionMarkerListBg: colorCodes?.notificationExpandedBgLight,
         dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
-        listItemBg: colorCodes?.mdGray
+        listItemBg: colorCodes?.mdGray,
+        eventColor: colorCodes?.green,
+        oprAlertColor: colorCodes?.orange,
+        incidentColor: colorCodes?.red
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
@@ -185,6 +191,9 @@ let theme = {
         dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.darkBlackShade,
+        eventColor: colorCodes?.green,
+        oprAlertColor: colorCodes?.orange,
+        incidentColor: colorCodes?.red
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,

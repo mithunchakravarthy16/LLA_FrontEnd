@@ -83,8 +83,9 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
                   offset={tooltipOfset}
                   fontSize={fontSize}
                   padding={padding}
+                  componentName={"TopPanelList"}
                 >
-                  <img className={imageWidthStyle} src={item?.icon} />
+                  <img width={"100%"} height={"100%"} src={item?.icon} />
                 </Tooltip>
               </div>
               <div className={itemValueUnitStyle}>

@@ -12,7 +12,7 @@ const useStyles = makeStyles({
       display: "none",
     },
     "& .MuiTimelineContent-root": {
-      padding: "0.2vw 0 0.2vw 0.8vw",
+      padding: "0 0 0.2vw 0.8vw",
     },
     "& .MuiTimelineDot-defaultGrey": {
       backgroundColor: "unset !important",
@@ -24,9 +24,9 @@ const useStyles = makeStyles({
       marginBottom: 0,
     },
     "& .MuiTimelineSeparator-root": {
-      height: "90px",
+      height: "80px",
       [muiTheme.breakpoints.up(3839)]: {
-        height: "200px",
+        height: "196px",
       },
       "& .MuiIcon-root": {
         [muiTheme.breakpoints.up(3839)]: {
@@ -56,7 +56,7 @@ const useStyles = makeStyles({
   }),
   routeName: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: "0.5vw",
+    fontSize: "0.6vw",
     lineHeight: "2vh",
     fontWeight: 300,
     color: "#AFAFAF",

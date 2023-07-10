@@ -159,6 +159,7 @@ const Parking: React.FC<any> = (props) => {
         width: 900,
         height: 400,
         is4kDevice: false,
+        is3kDevice: true,
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
@@ -341,6 +342,7 @@ const Parking: React.FC<any> = (props) => {
                                       isCrosshair={true}
                                       crossHairLineColor={"#E5FAF6"}
                                       is4kDevice={selectedWidth?.is4kDevice}
+                                      is3kDevice={selectedWidth?.is3kDevice}
                                       tooltip={"shared"}
                                       dataPoints={[
                                         {

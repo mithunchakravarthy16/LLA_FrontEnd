@@ -85,9 +85,11 @@ const useStyles = makeStyles(() => ({
   }),
   incorrectCredential: () => ({
     position: "absolute",
-    bottom: "-28px",
+    bottom: "-2vw",
     color: "red",
-    fontWeight: " 600",
+    fontSize: '0.9vw',
+    fontFamily: "HelveticaNeue-Regular",
+
   }),
   welcomeContent: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
@@ -142,8 +144,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
       fontFamily: "HelveticaNeue-Regular",
-      fontWeight: " 500",
-      fontSize: "40px",
+      fontSize: "0.8vw",
       lineHeight: "48px",
       color: "white",
       
@@ -190,8 +191,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
       fontFamily: "HelveticaNeue-Regular",
-      fontWeight: " 500",
-      fontSize: "40px",
+      fontSize: "0.8vw",
       lineHeight: "48px",
       color: "white",
       padding: 36,
@@ -272,10 +272,10 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     margin: 0,
     paddingTop: 5,
-    fontSize: 13,
+    fontSize: '0.7vw',
     position: "absolute",
     fontWeight: " 500",
-    bottom: "4px",
+    bottom: "0.2vw",
     left: 0,
   }),
   outlineInputField: (props: any) => ({

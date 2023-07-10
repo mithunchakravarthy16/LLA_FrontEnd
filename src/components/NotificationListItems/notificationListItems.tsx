@@ -198,7 +198,7 @@ const NotificationListItems = (props: any) => {
                     <div className={listItemTitle}>{title}</div>
                     <div
                       className={markerCloseIcon}
-                      onClick={(e: any) => handleVideoDetails(e)}
+                      onClick={(e: any) => handleVideoDetails(e, data)}
                     >
                       <img
                         src={VideoIcon}
@@ -211,7 +211,7 @@ const NotificationListItems = (props: any) => {
               ) : (
                 <div className={defaultListItem}>
                   <div className={listItemTitle}>{title}</div>
-                  <div onClick={(e: any) => handleVideoDetails(e)}>
+                  <div onClick={(e: any) => handleVideoDetails(e, data)}>
                     <img
                       src={VideoIcon}
                       width={selectedWidth?.is4kDevice ? 55 : 20}
@@ -220,9 +220,9 @@ const NotificationListItems = (props: any) => {
                   </div>
                 </div>
               )}
-              <div className={expandedListItemRow2}>
+              {/* <div className={expandedListItemRow2}>
                 {`Lat:${location?.lat}, Lng:${location?.lng}`}
-              </div>
+              </div> */}
               <div className={expandedListItemRow3}>
                 {`Vehicle#${vehicleId} | Driver-Mike Ross | Trip#${tripId}`}
               </div>
@@ -244,7 +244,7 @@ const NotificationListItems = (props: any) => {
                 <div className={listItemTitle}>{title}</div>
                 <div
                   className={markerCloseIcon}
-                  onClick={(e: any) => handleVideoDetails(e)}
+                  onClick={(e: any) => handleVideoDetails(e, data)}
                 >
                   <img
                     src={VideoIcon}
@@ -289,9 +289,11 @@ const NotificationListItems = (props: any) => {
             ) : (
               <div className={listItemTitle}>{title}</div>
             )}
-            <div className={expandedListItemRow2}>
+            {category !== "fleet" && <div className={expandedListItemRow2}>
               {category === "parking" ? `Vehicle  : ${entity}` : `${entity}`}{" "}
             </div>
+            }
+            
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}
               {subTitle ? subTitle : area}

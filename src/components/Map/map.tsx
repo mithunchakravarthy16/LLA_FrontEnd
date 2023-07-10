@@ -137,7 +137,7 @@ const Map: React.FC<any> = (props) => {
   const [progress, setProgress] = useState<any>([]);
   let [points, setPoints] = useState<any>([]);
   let [data, setData] = useState<any>(points);
-  const velocity: any = 50;
+  const velocity: any = 20;
   const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
@@ -562,8 +562,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
-           // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
-             return currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
         }
@@ -591,8 +591,8 @@ const Map: React.FC<any> = (props) => {
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
-           // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
-             return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
         }
@@ -622,7 +622,7 @@ const Map: React.FC<any> = (props) => {
               : AssetTrackingIncidentIcon;
           case "fleet":
             //return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
-             return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
         }
@@ -936,11 +936,12 @@ const Map: React.FC<any> = (props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={
-           ( mapPageName === "parking" ||
+            mapPageName === "parking" ||
             mapPageName === "energy" ||
             mapPageName === "security" ||
-            mapPageName === "fleet" || mapPageName === "lighting"
-            || mapPageName === "asset"   )       
+            mapPageName === "fleet" ||
+            mapPageName === "lighting" ||
+            mapPageName === "asset"
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
@@ -1055,25 +1056,28 @@ const Map: React.FC<any> = (props) => {
                   }
                 })}
 
-                {points && points.length > 0 && (
-                  <PolylineF
-                    path={points}
-                    options={{
-                      strokeColor: "#976C9E",
-                      strokeOpacity: 10,
-                      strokeWeight: 0,
-                      icons: [
-                        {
-                          icon: lineSymbol,
-                          offset: "0",
-                          repeat: "20px",
-                        },
-                      ],
-                    }}
-                  />
-                )}
+                {location?.pathname === "/fleetManagement" &&
+                  points &&
+                  points.length > 0 && (
+                    <PolylineF
+                      path={points}
+                      options={{
+                        strokeColor: "#976C9E",
+                        strokeOpacity: 10,
+                        strokeWeight: 0,
+                        icons: [
+                          {
+                            icon: lineSymbol,
+                            offset: "0",
+                            repeat: "20px",
+                          },
+                        ],
+                      }}
+                    />
+                  )}
 
-                {points &&
+                {location?.pathname === "/fleetManagement" &&
+                  points &&
                   points?.length > 0 &&
                   progress &&
                   progress?.length > 0 && (

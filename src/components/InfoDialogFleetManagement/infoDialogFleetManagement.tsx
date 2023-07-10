@@ -21,7 +21,6 @@ import {
   TripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
 import CircularProgressBar from "elements/CircularProgressBar";
-
 import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
 import FleetInfoDialogueViolationContainer from "components/FleetInfoDialogueViolationContainer";
@@ -251,15 +250,47 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const { width, height }: any = useWindowDimensions();
 
   const getSpeedometerDimensions = () => {
-    if (width < 1664) {
+    if (window.innerWidth > 3839) {
+      return {
+        radius: 150,
+        cut: 34,
+        rotate: 105,
+        stroke: 18,
+        iconSize: 60,
+      };
+    } else if (window.innerWidth > 3071) {
+      return {
+        radius: 120,
+        cut: 18,
+        rotate: 90,
+        stroke: 18,
+        iconSize: 45,
+      };
+    }else if (window.innerWidth > 2047) {
+      return {
+        radius: 70,
+        cut: 10,
+        rotate: 90,
+        stroke: 10,
+        iconSize: 35,
+      };
+    }else if (window.innerWidth > 1919) {
+      return {
+        radius: 70,
+        cut: 10,
+        rotate: 90,
+        stroke: 10,
+        iconSize: 35,
+      };
+    }else if (window.innerWidth > 1791) {
       return {
         radius: 60,
-        cut: 65,
-        rotate: 105,
-        stroke: 8,
-        iconSize: 24,
+        cut: 10,
+        rotate: 80,
+        stroke: 10,
+        iconSize: 25,
       };
-    } else {
+    }else {
       return {
         radius: 70,
         cut: 60,
@@ -269,6 +300,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       };
     }
   };
+
+  
 
   return (
     <>
@@ -482,7 +515,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           container
                           xs={12}
                           height={"100%"}
-                          sx={{display: "flex", alignItems: "center", justifyContent: "center"}}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
                         >
                           <Grid item>
                             <CircularProgressBar
