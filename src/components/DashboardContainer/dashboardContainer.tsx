@@ -23,8 +23,7 @@ import Grid from "@mui/material/Grid";
 import dashboardNotification from "mockdata/dashboardNotificationAPIFormat";
 import useStyles from "./styles";
 import fleetManagementResponse from "mockdata/fleetManagementAPI";
-import assetTrackingResponse from "mockdata/assetTrackingAPI"
-
+import assetTrackingResponse from "mockdata/assetTrackingAPI";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -36,6 +35,20 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
+
+  const fleetManagementNotificationResponse = useSelector(
+    (state: any) =>
+      state?.fleetManagementNotification?.fleetManagementNotificationData
+  );
+
+  // const fleetManagementNotificationResponse  = fleetManagementResponse;
+
+  const assetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetNotificationData
+  );
+
+  // const assetNotificationResponse = assetTrackingResponse;
+
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
@@ -46,7 +59,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [currentOpenedCard, setCurrentOpenedCard] = useState<any>("");
   const [focusedCategory, setFocusedCategory] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
-
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -74,49 +86,73 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let assetPayload: any = {};
+    const assetPayload: any = {};
     dispatch(getNotificationData(assetPayload));
-    let fleetPayload: any = {};
+    const fleetPayload: any = {};
     dispatch(getFleetManagementNotificationData(fleetPayload));
   }, []);
 
-  // const fleetManagementNotificationResponse = useSelector(
-  //   (state: any) =>
-  //     state.fleetManagementNotification.fleetManagementNotificationData
-  // ); fleetManagementResponse
-  
-  const fleetManagementNotificationResponse  = fleetManagementResponse;
-
-  // const assetNotificationResponse = useSelector(
-  //   (state: any) => state.assetNotification.assetNotificationData
-  // );
-
-  const assetNotificationResponse = assetTrackingResponse
-
-  const [dashboardNotificationList, setDashboardNotificationList] = useState<any>([]);
+  const [dashboardNotificationList, setDashboardNotificationList] =
+    useState<any>([]);
 
   useEffect(() => {
     if (assetNotificationResponse && fleetManagementNotificationResponse) {
-      let assetNotiData: any = formatttedAssetAPINotification(
+      const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.notifications
       );
-      let dashboardNotiData: any = formatttedDashboardAPINotificaiton(
+      const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
         dashboardNotification?.notifications
       );
-      let fleetNotiData: any = formatttedFleetAPINotification(
+      const fleetNotiData: any = formatttedFleetAPINotification(
         fleetManagementNotificationResponse?.notifications
       );
-      let consolidatedData = [
-        ...assetNotiData,
-        ...dashboardNotiData,
-        ...fleetNotiData,
-      ];
-      setDashboardNotificationList(consolidatedData)
+      if (
+        assetNotiData &&
+        assetNotiData?.length > 0 &&
+        fleetNotiData &&
+        fleetNotiData?.length > 0
+      ) {
+        const consolidatedData = [
+          ...assetNotiData,
+          ...dashboardNotiData,
+          ...fleetNotiData,
+        ];
+        setDashboardNotificationList(consolidatedData);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (assetNotificationResponse && fleetManagementNotificationResponse) {
+      const assetNotiData: any = formatttedAssetAPINotification(
+        assetNotificationResponse?.notifications
+      );
+      const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
+        dashboardNotification?.notifications
+      );
+      const fleetNotiData: any = formatttedFleetAPINotification(
+        fleetManagementNotificationResponse?.notifications
+      );
+      if (
+        assetNotiData &&
+        assetNotiData?.length > 0 &&
+        fleetNotiData &&
+        fleetNotiData?.length > 0
+      ) {
+        const consolidatedData = [
+          ...assetNotiData,
+          ...dashboardNotiData,
+          ...fleetNotiData,
+        ];
+        setDashboardNotificationList(consolidatedData);
+      }
     }
   }, [assetNotificationResponse, fleetManagementNotificationResponse]);
 
-  const [notificationCount, setNotificationCount] = useState<any>( assetNotificationResponse && fleetManagementNotificationResponse &&
-    formatttedDashboardNotificationCount(dashboardNotificationList)
+  const [notificationCount, setNotificationCount] = useState<any>(
+    assetNotificationResponse &&
+      fleetManagementNotificationResponse &&
+      formatttedDashboardNotificationCount(dashboardNotificationList)
   );
 
   useEffect(() => {
@@ -125,13 +161,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     );
   }, [dashboardNotificationList]);
 
-
   const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(dashboardNotificationList, tabIndex)
+    dashboardNotificationList &&
+      formatttedDashboardNotification(dashboardNotificationList, tabIndex)
   );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardNotificationList, tabIndex)
+    dashboardNotificationList &&
+      formatttedDashboardNotification(dashboardNotificationList, tabIndex)
   );
 
   useEffect(() => {
