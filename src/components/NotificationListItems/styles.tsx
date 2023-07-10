@@ -280,6 +280,7 @@ const useStyles = makeStyles({
   }),
   buttonStyle: (props: any) => ({
     "& .MuiButton-contained": {
+      backgroundColor: props?.palette?.notification?.listItemLabelSelected,
       [muiTheme.breakpoints.up(3839)]: {
         minWidth: "223px",
         height: "70px",

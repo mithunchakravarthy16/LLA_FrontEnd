@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     background: props?.palette?.notification?.notificationBg,
     height: "calc(100vh - 332px)",
     top: "106px",
-    boxShadow: `0px 0px 20px 5px ${props?.palette?.notification?.notificationBoxShadow}`,
+    boxShadow: `0px 0px 5px 5px ${props?.palette?.notification?.notificationBoxShadow}`,
     backdropFilter: "blur(17px)",
     borderRadius: "30px",
     color: "white",

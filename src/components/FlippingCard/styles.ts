@@ -165,7 +165,6 @@ export const ContentContainer = styled(a.div)`
   position: absolute;
   top: 0;
   left: 0;
-  padding-left: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,7 +175,7 @@ export const CardImage = styled("img")`
   width: 140px;
   height: auto;
   margin: 10px;
-  margin-left: 1vw;
+  margin-left: 2vw;
   @media (max-width: 3073px) {
     width: 110px;
   }
@@ -212,6 +211,7 @@ export const InnerCardWrapper = styled("div")`
   justify-content: center;
   flex-direction: column;
   margin-right: 2vw;
+
 `;
 
 export const CardTitle = styled("div")<{ focusedCategory: any }>`
