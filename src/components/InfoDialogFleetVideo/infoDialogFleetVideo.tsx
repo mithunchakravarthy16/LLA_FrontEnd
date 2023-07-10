@@ -58,7 +58,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogFleetVideo: React.FC<any> = (props) => {
-  const { setShowInfoDialogue } = props;
+  const { setShowInfoDialogue, selectedMarker } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -119,7 +119,7 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
 
         <Grid container xs={12} style={{ height: "100%" }}>
           <Grid item xs={12} style={{ height: "10%", fontSize: "1vw" }}>
-            Overspeeding | Vehicle#12 | Driver - Mike Ross{" "}
+            {`${selectedMarker?.title} | Vehicle#${selectedMarker?.vehicleId} | Driver-Mike Ross`}
           </Grid>
           <Grid
             item

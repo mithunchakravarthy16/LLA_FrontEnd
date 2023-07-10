@@ -27,6 +27,8 @@ import TripDetailsMap from "components/Map/tripDetailsMap";
 import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
 import useWindowDimensions from "hooks/useWindowDimensions";
+import ReactPlayer from "react-player";
+import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -446,11 +448,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             />
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
-                            <img
-                              width={"100%"}
-                              height={"100%"}
-                              style={{ objectFit: "cover" }}
-                              src={CamOneImg}
+                            <ReactPlayer
+                              muted
+                              playing
+                              loop={true}
+                              controls={true}
+                              url={
+                                cameraTabIndex === 0
+                                  ? FleetSampleVideo
+                                  : FleetSampleVideo
+                              }
+                              width="100%"
+                              height="100%"
                             />
                           </Grid>
                         </Grid>
@@ -510,7 +519,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           container
                           xs={12}
                           height={"100%"}
-                          sx={{display: "flex", alignItems: "center", justifyContent: "center"}}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
                         >
                           <Grid item>
                             <CircularProgressBar
