@@ -494,13 +494,14 @@ const Map: React.FC<any> = (props) => {
     }
   }, [selectedMarker]);
 
+
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
       map?.setZoom(
-        selectedContainerStyle?.is4kDevice
+        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
           ? 16.2
-          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
+          : (selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice) && location?.pathname !== "/home"
           ? 15
           : 15
       );
@@ -508,9 +509,9 @@ const Map: React.FC<any> = (props) => {
     } else {
       map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
       map?.setZoom(
-        selectedContainerStyle?.is4kDevice
+        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
           ? 16.2
-          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
+          : (selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice) && location?.pathname !== "/home"
           ? 15
           : 15
       );
@@ -949,7 +950,7 @@ const Map: React.FC<any> = (props) => {
             selectedContainerStyle?.is4kDevice
               ? 16.2
               : selectedContainerStyle?.is3kDevice
-              ? 16.4
+              ? 16.2
               : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
