@@ -83,6 +83,10 @@ let colorCodes = {
   flippingCardDarkTextColor: "#EEEEEE",
   darkBlack: "#0E0E0E",
   lightWhite: "#EEEEEE",
-  notificationPanelShadowColor: "rgba(161, 161, 161, 0.20)"
+  notificationPanelShadowColor: "rgba(161, 161, 161, 0.20)",
+  green:'#1E9C09',
+  orange: '#FF5910',
+  red: '#FF1926'
+  
 };
 export default colorCodes;
