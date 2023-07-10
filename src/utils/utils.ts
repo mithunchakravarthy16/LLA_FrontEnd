@@ -4,8 +4,8 @@ export const formatttedDashboardNotification = (
   data: any,
   tabIndex: number
 ) => {
-
-  const sortedNotifications = data.sort((a:any, b:any) => {
+  if(data && data !== undefined) {
+  const sortedNotifications = data?.sort((a:any, b:any) => {
     if (
       moment(a?.currentTimeStamp, "MM-DD-YYYY | h:mm A").isBefore(
         moment(b?.currentTimeStamp, "MM-DD-YYYY | h:mm A")
@@ -25,11 +25,11 @@ export const formatttedDashboardNotification = (
   let notiOprAlertArray: any = [];
   sortedNotifications?.map((value: any, index: number) => {
     if (value?.notificationType === "event") {
-      notiEventArray.push(value);
+      notiEventArray?.push(value);
     } else if (value?.notificationType === "incident") {
-      notiIncidentArray.push(value);
+      notiIncidentArray?.push(value);
     } else if (value?.notificationType === "oprAlert") {
-      notiOprAlertArray.push(value);
+      notiOprAlertArray?.push(value);
     }
   });
 
@@ -41,9 +41,11 @@ export const formatttedDashboardNotification = (
     case 2:
       return notiOprAlertArray;
   }
+}
 };
 
 export const formatttedDashboardNotificationCount = (data: any) => {
+  if(data && data !== undefined) {
   let notificationCount: any = [];
   let notiEventArray: any = [];
   let notiIncidentArray: any = [];
@@ -63,6 +65,7 @@ export const formatttedDashboardNotificationCount = (data: any) => {
     notiOprAlertArray?.length,
   ];
   return notificationCount;
+}
 };
 
 export const formatttedDashboardAPINotificaiton = (data: any) => {
@@ -70,19 +73,19 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
   const combinedNotifications: any = [];
 
   events?.eventsList?.forEach((event: any, index: number) => {
-    combinedNotifications.push({
+    combinedNotifications?.push({
       ...event,
     });
   });
 
   incidents?.incidentList?.forEach((incidents: any, index: number) => {
-    combinedNotifications.push({
+    combinedNotifications?.push({
       ...incidents,
     });
   });
 
   alerts?.alertList?.forEach((alerts: any, index: number) => {
-    combinedNotifications.push({
+    combinedNotifications?.push({
       ...alerts,
     });
   });
@@ -97,7 +100,7 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
         seconds: i + 49,
       })
       .format("MM-DD-YYYY | h:mm A");
-    timeArrayNew.push({ currentTimeStamp: currentTimeStampValue });
+    timeArrayNew?.push({ currentTimeStamp: currentTimeStampValue });
   }
 
   let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
@@ -109,11 +112,12 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
 };
 
 export const formatttedAssetAPINotification = (data: any) => {
+  if(data && data !== undefined) {
   const { events, incidents, alerts } = data;
   const combinedNotifications: any = [];
 
   events?.eventsList?.forEach((event: any, index: number) => {
-    combinedNotifications.push({
+    combinedNotifications?.push({
       ...event,
       category: "asset",
       title: event?.reason,
@@ -125,7 +129,7 @@ export const formatttedAssetAPINotification = (data: any) => {
   });
 
   incidents?.incidentList?.forEach((incidents: any, index: number) => {
-    combinedNotifications.push({
+    combinedNotifications?.push({
       ...incidents,
       category: "asset",
       title: incidents?.reason,
@@ -137,7 +141,7 @@ export const formatttedAssetAPINotification = (data: any) => {
   });
 
   alerts?.alertList?.forEach((alerts: any, index: number) => {
-    combinedNotifications.push({
+    combinedNotifications?.push({
       ...alerts,
       category: "asset",
       title: alerts?.reason,
@@ -149,9 +153,11 @@ export const formatttedAssetAPINotification = (data: any) => {
   });
 
   return combinedNotifications;
+}
 };
 
 export const formatttedFleetAPINotification = (data: any) => {
+  if(data && data !== undefined) {
   const { events, incidents, alerts } = data;
   const combinedNotifications: any = [];
 
@@ -192,4 +198,5 @@ export const formatttedFleetAPINotification = (data: any) => {
   });
 
   return combinedNotifications;
+  }
 };
