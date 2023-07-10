@@ -397,9 +397,10 @@ const FleetManagement: React.FC<any> = (props) => {
     setShowInfoDialogue(true);
   };
 
-  const handleVideoDetails = (event: any) => {
+  const handleVideoDetails = (event: any, data: any) => {
     event.stopPropagation();
     setShowInfoDialogueVideo(true);
+    setSelectedMarker(data);
   };
 
   return (
@@ -822,7 +823,10 @@ const FleetManagement: React.FC<any> = (props) => {
         />
       )}
       {showInfoDialogueVideo && (
-        <InfoDialogFleetVideo setShowInfoDialogue={setShowInfoDialogueVideo} />
+        <InfoDialogFleetVideo
+          setShowInfoDialogue={setShowInfoDialogueVideo}
+          selectedMarker={selectedMarker}
+        />
       )}
     </>
   );

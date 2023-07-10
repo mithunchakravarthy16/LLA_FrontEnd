@@ -137,7 +137,7 @@ const Map: React.FC<any> = (props) => {
   const [progress, setProgress] = useState<any>([]);
   let [points, setPoints] = useState<any>([]);
   let [data, setData] = useState<any>(points);
-  const velocity: any = 50;
+  const velocity: any = 20;
   const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
