@@ -148,7 +148,66 @@ const useStyles = makeStyles({
       "&:first-child": {
         marginRight: "0 !important",
         minWidth: "64px !important",
-        color: `${props?.palette?.notification?.tabTextColor} !important`,
+        color: `${props?.palette?.notification?.listItemLabel} !important`,
+        flex: 1,
+        "& .count": {
+          width: 45,
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "28px",
+          background: `${props?.palette?.notification?.listItemLabel} !important`,
+          borderRadius: "30px",
+          color: `${props?.palette?.notification?.tabListCountColor} !important`,
+          marginBottom: 6,
+          [muiTheme.breakpoints.up(3839)]: {
+            fontSize: "30px",
+            lineHeight: "50px",
+            marginBottom: 16,
+            width: 90,
+          },
+          [muiTheme.breakpoints.down(3073)]: {
+            fontSize: "24px",
+            lineHeight: "42px",
+            marginBottom: 16,
+            width: 90,
+          },
+          [muiTheme.breakpoints.down(2049)]: {
+            fontSize: "18px",
+            lineHeight: "36px",
+            marginBottom: 16,
+            width: 70,
+          },
+          [muiTheme.breakpoints.down(1921)]: {
+            fontSize: "14px",
+            lineHeight: "27px",
+            marginBottom: 16,
+            width: 60,
+          },
+          [muiTheme.breakpoints.down(1545)]: {
+            fontSize: "11px",
+            lineHeight: "21px",
+            marginBottom: 16,
+            width: 40,
+          },
+          [muiTheme.breakpoints.down(1153)]: {
+            fontSize: "10px",
+            lineHeight: "16px",
+            marginBottom: 16,
+            width: 35,
+          },
+        },
+        "&.Mui-selected": {
+          color: `${props?.palette?.notification?.eventColor} !important`,
+          "& .count": {
+            background: `${props?.palette?.notification?.eventColor} !important`,
+            color: `${props?.palette?.notification?.listItemContent} !important`,
+          },
+        },
+      },
+      "&:nth-child(2)": {
+        marginRight: "0 !important",
+        minWidth: "64px !important",
+        color: `${props?.palette?.notification?.listItemLabel} !important`,
         flex: 1,
         "& .count": {
           width: 45,
@@ -197,76 +256,18 @@ const useStyles = makeStyles({
           },
         },
         "&.Mui-selected": {
-          color: `${props?.palette?.notification?.eventColor} !important`,
+          color: `${props?.palette?.notification?.incidentColor} !important`,
           "& .count": {
-            background: `${props?.palette?.notification?.eventColor} !important`,
-            color: `${props?.palette?.notification?.listTextColor} !important`,
+            background: `${props?.palette?.notification?.incidentColor} !important`,
+            color: `${props?.palette?.notification?.listItemContent} !important`,
           },
         },
       },
-      "&:nth-child(2)": {
-        marginRight: "0 !important",
-        minWidth: "64px !important",
-        color: `${props?.palette?.notification?.tabTextColor} !important`,
-        flex: 1,
-        "& .count": {
-          width: 45,
-          fontWeight: 500,
-          fontSize: "16px",
-          lineHeight: "28px",
-          background: "#5B5B5B",
-          borderRadius: "30px",
-          color: "#B7B6B6",
-          marginBottom: 6,
-          [muiTheme.breakpoints.up(3839)]: {
-            fontSize: "30px",
-            lineHeight: "50px",
-            marginBottom: 16,
-            width: 90,
-          },
-          [muiTheme.breakpoints.down(3073)]: {
-            fontSize: "24px",
-            lineHeight: "42px",
-            marginBottom: 16,
-            width: 90,
-          },
-          [muiTheme.breakpoints.down(2049)]: {
-            fontSize: "18px",
-            lineHeight: "36px",
-            marginBottom: 16,
-            width: 70,
-          },
-          [muiTheme.breakpoints.down(1921)]: {
-            fontSize: "14px",
-            lineHeight: "27px",
-            marginBottom: 16,
-            width: 60,
-          },
-          [muiTheme.breakpoints.down(1545)]: {
-            fontSize: "11px",
-            lineHeight: "21px",
-            marginBottom: 16,
-            width: 40,
-          },
-          [muiTheme.breakpoints.down(1153)]: {
-            fontSize: "10px",
-            lineHeight: "16px",
-            marginBottom: 16,
-            width: 35,
-          },
-        },
-      },
-      "&.Mui-selected": {
-        color: `${props?.palette?.notification?.incidentColor} !important`,
-        "& .count": {
-          background: `${props?.palette?.notification?.incidentColor} !important`,
-          color: `${props?.palette?.notification?.listTextColor} !important`,
-        },
-      },
+      
       "&:nth-child(3)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
-        color: `${props?.palette?.notification?.tabTextColor} !important`,
+        color: `${props?.palette?.notification?.listItemLabel} !important`,
         flex: 1,
         "& .count": {
           width: 45,
@@ -318,7 +319,7 @@ const useStyles = makeStyles({
           color: `${props?.palette?.notification?.oprAlertColor} !important`,
           "& .count": {
             background: `${props?.palette?.notification?.oprAlertColor} !important`,
-            color: `${props?.palette?.notification?.listTextColor} !important`,
+            color: `${props?.palette?.notification?.listItemContent} !important`,
           },
         },
       },
@@ -326,10 +327,10 @@ const useStyles = makeStyles({
     "& .MuiTabs-root .MuiTabs-indicator": {
       background:
         props?.tabIndex === 0
-          ? `${props?.palette?.notification?.listItemLabelSelected} !important`
+          ? `${props?.palette?.notification?.eventColor} !important`
           : props?.tabIndex === 1
-          ? `${props?.palette?.notification?.listItemLabelSelected} !important`
-          : `${props?.palette?.notification?.listItemLabelSelected} !important`,
+          ? `${props?.palette?.notification?.incidentColor} !important`
+          : `${props?.palette?.notification?.oprAlertColor} !important`,
       height: "6px",
       borderRadius: 6,
       textTransform: "uppercase",
@@ -439,12 +440,21 @@ const useStyles = makeStyles({
       },
     },
   }),
+  noResultFoundClass: (props:any) => ({
+fontSize: '1vw',
+padding: '1vw',
+fontFamily: "HelveticaNeue-Regular",
+
+  }),
   notificationListItemSection: (props: any) => ({
     height:
       props?.notificationPageName === "dashboard"
         ? "calc(100vh - 365px)"
         : "calc(100vh - 400px)",
     overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      width: 0,
+    },
     [muiTheme.breakpoints.up(3839)]: {
       height:
         props?.notificationPageName === "dashboard"

@@ -85,9 +85,11 @@ const useStyles = makeStyles(() => ({
   }),
   incorrectCredential: () => ({
     position: "absolute",
-    bottom: "-28px",
+    bottom: "-2vw",
     color: "red",
-    fontWeight: " 600",
+    fontSize: '0.9vw',
+    fontFamily: "HelveticaNeue-Regular",
+
   }),
   welcomeContent: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
@@ -272,10 +274,10 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     margin: 0,
     paddingTop: 5,
-    fontSize: 13,
+    fontSize: '0.9vw',
     position: "absolute",
     fontWeight: " 500",
-    bottom: "4px",
+    bottom: "0.3  vw",
     left: 0,
   }),
   outlineInputField: (props: any) => ({
