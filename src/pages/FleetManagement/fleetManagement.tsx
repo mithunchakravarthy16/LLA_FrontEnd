@@ -808,6 +808,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   setCurrentMarker={setCurrentMarker}
                   handleViewDetails={handleViewDetails}
                   handleVideoDetails={handleVideoDetails}
+                  isMarkerClicked={isMarkerClicked}
                 />
               </Grid>
             </Grid>

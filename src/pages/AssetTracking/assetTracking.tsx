@@ -705,6 +705,7 @@ const AssetTracking: React.FC<any> = (props) => {
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
                   handleAssetViewDetails={handleAssetViewDetails}
+                  isMarkerClicked={isMarkerClicked}
                 />
               </Grid>
             </Grid>
