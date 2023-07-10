@@ -212,10 +212,10 @@ const NotificationPanel = (props: any) => {
 
   useEffect(() => {
     if (searchOpen && isMarkerClicked) {
-      setSearchOpen(false);
+      setSearchOpen(!searchOpen);
       setSearchValue(dashboardData);
     }
-  }, [isMarkerClicked, searchOpen, dashboardData]);
+  }, [isMarkerClicked, searchOpen]);
 
   return (
     <>
