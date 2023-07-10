@@ -11,10 +11,10 @@ export const RootContainer = styled('div')`
 `;
 
 export const LabelText = styled('div')`
-    font-size: 10px;
-    line-height: 13.62px;
-    font-weight: 600;
+    font-size: 0.8vw;
+    margin-top: 0.5vw;
     color: #8A8A8A;
+    font-family: 'HelveticaNeue-Regular';
 `;
 
 export const LabelContainer = styled("div")`
@@ -45,16 +45,17 @@ export const IconBackDrop = styled("div")`
 
 export const ValueContainer = styled("div")`
     position: absolute;
-    font-size: 20px;
+    font-size: 1.5vw;
     line-height: 27px;
-    font-weight: 700;
     color: ${({color}) => color};
     display: flex;
     justify-content: center;
     align-items: center;
     top: 50%;
-    left: 37%;
-    transform: translateY(-50%) translateX(50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'HelveticaNeue-Regular';
+
 `;
 
 export const ProgressBarStroke = styled("div")`
