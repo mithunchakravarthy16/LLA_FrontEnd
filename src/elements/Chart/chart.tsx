@@ -133,12 +133,22 @@ const Chart: React.FC<any> = (props) => {
               switch ("graph1") {
                 case "graph1":
                   setToolTipBg(
-                    location.pathname === "/energyManagement"
+                    location.pathname === "/energyManagement" ||
+                      location.pathname === "/lighting" ||
+                      location.pathname === "/parking" ||
+                      location.pathname === "/security" ||
+                      location.pathname === "/fleetManagement" ||
+                      location.pathname === "/assetTracking"
                       ? "#050F1B"
                       : "#57585A"
                   );
                   setTBorder(
-                    location.pathname === "/energyManagement"
+                    location.pathname === "/energyManagement" ||
+                      location.pathname === "/lighting" ||
+                      location.pathname === "/parking" ||
+                      location.pathname === "/security" ||
+                      location.pathname === "/fleetManagement" ||
+                      location.pathname === "/assetTracking"
                       ? "#636363"
                       : "#57585A"
                   );

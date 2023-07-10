@@ -6,7 +6,7 @@ let theme = {
     palette: {     
       sidebar: {
         sidebarBg: colorCodes.darkBlackShade,
-           
+         menuColor: colorCodes?.orangeDarkShades  
       },  
       notification:{
         notificationBg: colorCodes?.darkBlack,
@@ -19,6 +19,7 @@ let theme = {
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
+        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.darkBlackShade,
         eventColor: colorCodes?.green,
@@ -89,7 +90,8 @@ let theme = {
   lightTheme: {
     palette: {     
       sidebar: {
-        sidebarBg: colorCodes.sunRiseOrange,    
+        sidebarBg: colorCodes.sunRiseOrange,
+        menuColor: colorCodes?.colorWhite    
       },
       notification:{
         notificationBg: colorCodes?.lightWhite,
@@ -102,6 +104,7 @@ let theme = {
         notificationPanelTitle: colorCodes?.darkBlackShade,
         expansionListItemBg: colorCodes?.notificationExpandedBgLight,
         expansionMarkerListBg: colorCodes?.notificationExpandedBgLight,
+        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.mdGray,
         eventColor: colorCodes?.green,
@@ -171,7 +174,8 @@ let theme = {
   darkTheme: {
     palette: {     
       sidebar: {
-        sidebarBg: colorCodes.colorBlack      
+        sidebarBg: colorCodes.colorBlack,
+        menuColor: colorCodes?.orangeDarkShades     
       },    
       notification:{
         notificationBg: colorCodes?.darkBlack,
@@ -184,6 +188,7 @@ let theme = {
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
+        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.darkBlackShade,
         eventColor: colorCodes?.green,
