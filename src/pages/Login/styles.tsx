@@ -274,10 +274,10 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     margin: 0,
     paddingTop: 5,
-    fontSize: '0.9vw',
+    fontSize: '0.7vw',
     position: "absolute",
     fontWeight: " 500",
-    bottom: "0.3  vw",
+    bottom: "0.2vw",
     left: 0,
   }),
   outlineInputField: (props: any) => ({
