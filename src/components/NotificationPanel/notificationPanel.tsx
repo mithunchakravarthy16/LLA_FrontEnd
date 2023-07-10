@@ -174,7 +174,6 @@ const NotificationPanel = (props: any) => {
   const handleCloseIcon = () => {
     setSearchValue(dashboardData);
     setSelectedNotification("");
-    setSearchOpen(false);
   };
 
   const handleSearchCloseIcon = () => {
