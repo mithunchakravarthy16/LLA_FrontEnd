@@ -134,7 +134,7 @@ const NotificationPanel = (props: any) => {
   };
 
   const handleSearchIcon = () => {
-    setSearchOpen(!searchOpen);
+    setSearchOpen(true);
   };
 
   const handleSearch = (searchText: any) => {
@@ -211,11 +211,11 @@ const NotificationPanel = (props: any) => {
   }, [searchOpen]);
 
   useEffect(() => {
-    if (searchOpen && isMarkerClicked) {
-      setSearchOpen(!searchOpen);
+    if (isMarkerClicked) {
+      setSearchOpen(false);
       setSearchValue(dashboardData);
     }
-  }, [isMarkerClicked, searchOpen]);
+  }, [isMarkerClicked]);
 
   return (
     <>
