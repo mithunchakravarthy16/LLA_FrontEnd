@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect,} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import theme from "../../theme/theme";
@@ -168,6 +168,13 @@ const Login = () => {
                             name="userid"
                             value={formik.values.userid}
                             onChange={formik.handleChange}
+                            autoComplete='off'
+                            inputProps={{
+                              autocomplete: 'new-password',
+                              form: {
+                                autocomplete: 'off',
+                              },
+                            }}
                           />
                           {formik.errors.userid && formik.touched.userid && (
                             <p className={formikErrorClass}>
@@ -187,6 +194,13 @@ const Login = () => {
                             name="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
+                            autoComplete='off'
+                            inputProps={{
+                              autocomplete: 'new-password',
+                              form: {
+                                autocomplete: 'off',
+                              },
+                            }}
                           />
                           {formik.errors.password &&
                             formik.touched.password && (

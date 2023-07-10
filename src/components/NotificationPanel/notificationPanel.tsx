@@ -64,6 +64,7 @@ const NotificationPanel = (props: any) => {
     tabSection,
     searchClass,
     notificationListItemSection,
+    noResultFoundClass
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -279,7 +280,7 @@ const NotificationPanel = (props: any) => {
               );
             })
           ) : (
-            <div>{noResultFound}</div>
+            <div className={noResultFoundClass}>{noResultFound}</div>
           )}
         </div>
       </div>
