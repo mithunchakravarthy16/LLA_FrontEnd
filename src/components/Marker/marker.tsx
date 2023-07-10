@@ -23,6 +23,7 @@ const MapMarker: React.FC<any> = (props) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
+    mapPageName,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -136,6 +137,7 @@ const MapMarker: React.FC<any> = (props) => {
             handleMarkerClose={handleMarkerClose}
             handleExpandListItem={handleExpandListItem}
             handleAssetViewDetails={handleAssetViewDetails}
+            mapPageName={mapPageName}
           />
         </InfoWindowF>
       )}

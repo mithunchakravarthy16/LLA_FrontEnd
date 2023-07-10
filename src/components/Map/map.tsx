@@ -111,7 +111,7 @@ const Map: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const { googleMapStyle, footerSection } = useStyles(appTheme);
+  const { googleMapStyle, footerSection } = useStyles({...appTheme, mapPageName: mapPageName});
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -1030,6 +1030,7 @@ const Map: React.FC<any> = (props) => {
                           clusterer={clusterer}
                           location={singleMarker?.location}
                           handleAssetViewDetails={handleAssetViewDetails}
+                          mapPageName={mapPageName}
                         />
                       </>
                     );
@@ -1047,6 +1048,7 @@ const Map: React.FC<any> = (props) => {
                           clusterer={clusterer}
                           location={singleMarker?.location}
                           handleAssetViewDetails={handleAssetViewDetails}
+                          mapPageName={mapPageName}
                         />
                       </>
                     );
@@ -1098,6 +1100,7 @@ const Map: React.FC<any> = (props) => {
                           pageName={"FleetManagement"}
                           handleViewDetails={handleViewDetails}
                           handleVideoDetails={handleVideoDetails}
+                          mapPageName={mapPageName} // === "dashboard"
                         />
                       )}
                       {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}

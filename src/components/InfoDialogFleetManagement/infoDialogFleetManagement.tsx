@@ -7,6 +7,9 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
+import ReactPlayer from "react-player";
+import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4"; 
+import FleetSampleVideoTwo from "../../assets/fleetVideos/vehicleEntered.mp4";
 import {
   CloseIcon,
   SpeedometerIcon,
@@ -379,7 +382,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 flex={1}
                               >
                                 <div style={{ width: "18%", height: "18%" }}>
-                                  <img
+                                  <img 
                                     width={"100%"}
                                     height={"100%"}
                                     src={item?.icon}
@@ -412,12 +415,15 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             />
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
-                            <img
-                              width={"100%"}
-                              height={"100%"}
-                              style={{ objectFit: "cover" }}
-                              src={CamOneImg}
-                            />
+                          <ReactPlayer
+                                    muted
+                                    playing
+                                    loop={true}
+                                    controls={true}
+                                    url={cameraTabIndex === 0 ? FleetSampleVideo : FleetSampleVideoTwo}
+                                    width="100%"
+                                    height="100%"
+                                  />
                           </Grid>
                         </Grid>
                       </Grid>

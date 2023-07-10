@@ -40,6 +40,7 @@ const NotificationListItems = (props: any) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
+    mapPageName,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -96,7 +97,7 @@ const NotificationListItems = (props: any) => {
     listItemCallout,
     defaultListItem,
     markerCloseIcon1,
-  } = useStyles({ ...appTheme, pageName: pageName });
+  } = useStyles({ ...appTheme, pageName: pageName, mapPageName: mapPageName, });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 

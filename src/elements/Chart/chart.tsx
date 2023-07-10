@@ -82,7 +82,7 @@ const Chart: React.FC<any> = (props) => {
   return (
     <HighchartsReact
       highcharts={Highcharts}
-      containerProps={{ style: { height: "100%", width : "100%"} }}
+      containerProps={{ style: { height: "100%", width: "100%" } }}
       options={{
         chart: {
           type: graphType,
@@ -132,12 +132,22 @@ const Chart: React.FC<any> = (props) => {
               switch ("graph1") {
                 case "graph1":
                   setToolTipBg(
-                    location.pathname === "/energyManagement"
+                    location.pathname === "/energyManagement" ||
+                      location.pathname === "/lighting" ||
+                      location.pathname === "/parking" ||
+                      location.pathname === "/security" ||
+                      location.pathname === "/fleetManagement" ||
+                      location.pathname === "/assetTracking"
                       ? "#050F1B"
                       : "#57585A"
                   );
                   setTBorder(
-                    location.pathname === "/energyManagement"
+                    location.pathname === "/energyManagement" ||
+                      location.pathname === "/lighting" ||
+                      location.pathname === "/parking" ||
+                      location.pathname === "/security" ||
+                      location.pathname === "/fleetManagement" ||
+                      location.pathname === "/assetTracking"
                       ? "#636363"
                       : "#57585A"
                   );
@@ -247,11 +257,10 @@ const Chart: React.FC<any> = (props) => {
             // overflow: "justify",
             style: {
               fontSize: "0.7vw",
-              textOverflow: 'none',
+              textOverflow: "none",
               autoRotation: false,
 
               color: appTheme?.palette?.chart?.xAxisTextColor,
-              
             },
           },
           gridLineWidth: 0,
