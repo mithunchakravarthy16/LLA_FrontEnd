@@ -23,6 +23,7 @@ const Chart: React.FC<any> = (props) => {
     xAxisFontSize,
     pageName,
     is2kDevice,
+    is3kDevice,
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -82,7 +83,7 @@ const Chart: React.FC<any> = (props) => {
   return (
     <HighchartsReact
       highcharts={Highcharts}
-      containerProps={{ style: { height: "100%", width : "100%"} }}
+      containerProps={{ style: { height: "100%", width: "100%" } }}
       options={{
         chart: {
           type: graphType,
@@ -161,7 +162,9 @@ const Chart: React.FC<any> = (props) => {
                             font-size:  0.9vw;
                             color:#FFFFFF;
                             background-color:#050F1B;
-                            padding:20px;
+                            padding:${
+                              is4kDevice || is3kDevice ? "20px" : "5px"
+                            };
                             vertical-align:middle;
                             border-radius:${is4kDevice ? "10px" : "5px"};
                             border: 0.5px solid #636363
@@ -247,11 +250,10 @@ const Chart: React.FC<any> = (props) => {
             // overflow: "justify",
             style: {
               fontSize: "0.7vw",
-              textOverflow: 'none',
+              textOverflow: "none",
               autoRotation: false,
 
               color: appTheme?.palette?.chart?.xAxisTextColor,
-              
             },
           },
           gridLineWidth: 0,

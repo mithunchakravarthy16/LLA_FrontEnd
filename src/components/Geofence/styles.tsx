@@ -264,13 +264,16 @@ const useStyles = makeStyles(() => ({
     overflow: "auto",
     alignItems: "center",
     background: "#535252",
+    marginBottom: "10px",
   }),
   assetsListItems: (props: any) => ({
     display: "flex",
     border: "1px solid #8F8F8F",
-    height: " 100px",
+    height: "100px",
     background: "#535252",
-    padding: "15px 20px",
+    padding: "15px 10px 0 15px",
+    marginTop: "10px",
+    flexWrap: "wrap",
     "& .MuiChip-root": {
       backgroundColor: "#333333 !important",
       borderRadius: "15px",

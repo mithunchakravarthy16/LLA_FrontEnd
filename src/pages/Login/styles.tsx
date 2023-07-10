@@ -144,8 +144,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
       fontFamily: "HelveticaNeue-Regular",
-      fontWeight: " 500",
-      fontSize: "40px",
+      fontSize: "0.8vw",
       lineHeight: "48px",
       color: "white",
       
@@ -192,8 +191,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
       fontFamily: "HelveticaNeue-Regular",
-      fontWeight: " 500",
-      fontSize: "40px",
+      fontSize: "0.8vw",
       lineHeight: "48px",
       color: "white",
       padding: 36,

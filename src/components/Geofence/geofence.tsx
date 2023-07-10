@@ -53,6 +53,12 @@ const Geofence: React.FC<any> = (props: any) => {
     handleGeofenceCircleClick,
     handleGeofencePolygonClick,
     isGeofence,
+    handleSearch,
+    handleListItemClick,
+    handleDelete,
+    selectedAssetValue,
+    searchData,
+    searchSelectedData,
   } = props;
 
   const [isCircleEnbled, setIsCircleEnbled] = useState<boolean>(false);
@@ -94,9 +100,6 @@ const Geofence: React.FC<any> = (props: any) => {
   );
   const [radius, setRadius] = useState<any>();
   const [circleLatLng, setCircleLatLng] = useState<any>();
-  const [selectedAssetValue, setSelectedAssetValue] = useState<any>("");
-  const [searchData, setSearchData] = useState<any>([]);
-  const [searchSelectedData, setSearchSelectedData] = useState<any>([]);
   const {} = useTranslation();
 
   useEffect(() => {
@@ -219,59 +222,6 @@ const Geofence: React.FC<any> = (props: any) => {
   //   localStorage.setItem("dashboardViewDetails", JSON.stringify(data));
   // };
 
-  const selectAssetsList = [
-    { label: "Assets#1", value: "Assets#1" },
-    { label: "Assets#2", value: "Assets#2" },
-    { label: "Assets#3", value: "Assets#3" },
-    { label: "Assets#4", value: "Assets#4" },
-    { label: "Assets#5", value: "Assets#5" },
-  ];
-
-  const selectAssetsList1 = [
-    { label: "Assets#1", value: "Assets#1" },
-    { label: "Assets#2", value: "Assets#2" },
-    { label: "Assets#3", value: "Assets#3" },
-    { label: "Assets#4", value: "Assets#4" },
-    { label: "Assets#5", value: "Assets#5" },
-  ];
-
-  const handleSearch = (e: any) => {
-    setSelectedAssetValue(e.target.value);
-
-    let searchResult = selectAssetsList?.filter((data: any) => {
-      return data?.value
-        ?.toString()
-        .toLowerCase()
-        .includes(e.target.value?.toString().toLowerCase());
-    });
-
-    setSearchData(searchResult);
-  };
-
-  const handleListItemClick = (e: any, value: string) => {
-    const data: any = {
-      key: value,
-      label: value,
-    };
-
-    setSearchSelectedData([...searchSelectedData, data]);
-    setSearchData((prev: any) => {
-      return prev.filter((item: any) => item?.value !== value);
-    });
-  };
-
-  const handleDelete = (key: string) => () => {
-    const deletedData = selectAssetsList1?.filter(
-      (item: any) => item?.value === key
-    );
-
-    const removedData = searchSelectedData?.filter(
-      (item: any) => item?.key !== key
-    );
-    setSearchSelectedData(removedData);
-    setSearchData([...searchData, ...deletedData]);
-  };
-
   const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
     width: "2.5vw",
     height: "2.5vh",
@@ -345,9 +295,7 @@ const Geofence: React.FC<any> = (props: any) => {
                         key={idx}
                         component="div"
                         disablePadding
-                        onClick={(e: any) =>
-                          handleListItemClick(e, item?.value)
-                        }
+                        onClick={(e: any) => handleListItemClick(e, item)}
                       >
                         <ListItemButton>
                           <ListItemText primary={item?.value} />

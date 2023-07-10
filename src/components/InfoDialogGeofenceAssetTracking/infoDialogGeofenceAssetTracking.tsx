@@ -105,6 +105,9 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
   const [radiusType, setRadiusType] = useState<string>();
   const [checked, setChecked] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [selectedAssetValue, setSelectedAssetValue] = useState<any>("");
+  const [searchData, setSearchData] = useState<any>([]);
+  const [searchSelectedData, setSearchSelectedData] = useState<any>([]);
 
   const handleClose = () => {
     setOpen(!open);
@@ -261,6 +264,130 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
 
   const handleSaveClick = () => {};
 
+  const selectAssetsList = [
+    {
+      label: "Assets#1",
+      value: "Assets#1",
+      location: {
+        lat: 39.755724996944544,
+        lng: -105.0073944803513,
+      },
+    },
+    {
+      label: "Assets#2",
+      value: "Assets#2",
+      location: {
+        lat: 39.75555358586086,
+        lng: -105.01657322197286,
+      },
+    },
+    {
+      label: "Assets#3",
+      value: "Assets#3",
+      location: {
+        lat: 39.75729624533388,
+        lng: -104.9895572496697,
+      },
+    },
+    {
+      label: "Assets#4",
+      value: "Assets#4",
+      location: {
+        lat: 39.75932453116013,
+        lng: -105.01244836237774,
+      },
+    },
+    {
+      label: "Assets#5",
+      value: "Assets#5",
+      location: {
+        lat: 39.75986730174264,
+        lng: -105.00059403615393,
+      },
+    },
+  ];
+
+  const selectAssetsList1 = [
+    {
+      label: "Assets#1",
+      value: "Assets#1",
+      location: {
+        lat: 39.755724996944544,
+        lng: -105.0073944803513,
+      },
+    },
+    {
+      label: "Assets#2",
+      value: "Assets#2",
+      location: {
+        lat: 39.75555358586086,
+        lng: -105.01657322197286,
+      },
+    },
+    {
+      label: "Assets#3",
+      value: "Assets#3",
+      location: {
+        lat: 39.75729624533388,
+        lng: -104.9895572496697,
+      },
+    },
+    {
+      label: "Assets#4",
+      value: "Assets#4",
+      location: {
+        lat: 39.75932453116013,
+        lng: -105.01244836237774,
+      },
+    },
+    {
+      label: "Assets#5",
+      value: "Assets#5",
+      location: {
+        lat: 39.75986730174264,
+        lng: -105.00059403615393,
+      },
+    },
+  ];
+
+  const handleSearch = (e: any) => {
+    setSelectedAssetValue(e.target.value);
+
+    let searchResult = selectAssetsList?.filter((data: any) => {
+      return data?.value
+        ?.toString()
+        .toLowerCase()
+        .includes(e.target.value?.toString().toLowerCase());
+    });
+
+    setSearchData(searchResult);
+  };
+
+  const handleListItemClick = (e: any, obj: any) => {
+    const data: any = {
+      key: obj?.value,
+      label: obj?.value,
+      location: obj?.location,
+    };
+
+    setSearchSelectedData([...searchSelectedData, data]);
+    setSearchData((prev: any) => {
+      return prev.filter((item: any) => item?.value !== obj?.value);
+    });
+  };
+
+  const handleDelete = (key: string) => () => {
+    const deletedData = selectAssetsList1?.filter(
+      (item: any) => item?.value === key
+    );
+
+    const removedData = searchSelectedData?.filter(
+      (item: any) => item?.key !== key
+    );
+    setSearchSelectedData(removedData);
+    setSearchData([...searchData, ...deletedData]);
+  };
+
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
@@ -318,11 +445,17 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                   handleGeofencePolygonClick={handleGeofencePolygonClick}
                   handleGeofenceCircleClick={handleGeofenceCircleClick}
                   isGeofence={true}
+                  selectedAssetValue={selectedAssetValue}
+                  searchData={searchData}
+                  searchSelectedData={searchSelectedData}
+                  handleSearch={handleSearch}
+                  handleListItemClick={handleListItemClick}
+                  handleDelete={handleDelete}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                 <Map
-                  markers={[]}
+                  markers={searchSelectedData}
                   marker={""}
                   currentMarker={""}
                   setCurrentMarker={() => {}}
