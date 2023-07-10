@@ -269,11 +269,12 @@ const useStyles = makeStyles(() => ({
   assetsListItems: (props: any) => ({
     display: "flex",
     border: "1px solid #8F8F8F",
-    height: "100px",
+    height: "4vw",
     background: "#535252",
-    padding: "15px 10px 0 15px",
-    marginTop: "10px",
+    padding: "0.2vw",
+    marginTop: "1vw",
     flexWrap: "wrap",
+    overflow: 'auto',
     "& .MuiChip-root": {
       backgroundColor: "#333333 !important",
       borderRadius: "15px",

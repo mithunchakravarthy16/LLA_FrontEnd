@@ -319,7 +319,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 <div className={assetsListItems}>
                   {searchSelectedData?.map((data: any) => {
                     return (
-                      <div style={{ paddingRight: "15px" }}>
+                      <div style={{ padding: '0.5vw' }}>
                         <Chip
                           label={data.label}
                           onDelete={handleDelete(data?.key)}
