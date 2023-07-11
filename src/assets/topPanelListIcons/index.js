@@ -36,6 +36,11 @@ import LightOverSpeedingIcon from "./lightOverSpeeding.svg";
 import LightHarshAccelerationIcon from "./lightHarshAcceleration.svg";
 import LightHarshBreakingIcon from "./lightHarshBreaking.svg";
 
+import AssetTrackedLightThemeIcon from "./AssetTrackedLightTheme.svg";
+import LocationLightThemeIcon from "./LocationLightTheme.svg";
+import OutOfGeofenceLightThemeIcon from "./OutOfGeofenceLightTheme.svg";
+import IncidentLightThemeIcon from "./IncidentLightTheme.svg";
+
 export {
   CoTwoCloudIcon,
   VocCloudIcon,
@@ -71,4 +76,8 @@ export {
   LightOverSpeedingIcon,
   LightHarshAccelerationIcon,
   LightHarshBreakingIcon,
+  AssetTrackedLightThemeIcon,
+  LocationLightThemeIcon,
+  OutOfGeofenceLightThemeIcon,
+  IncidentLightThemeIcon,
 };
