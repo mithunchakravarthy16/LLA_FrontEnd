@@ -214,9 +214,9 @@ const useStyles = makeStyles({
           fontWeight: 500,
           fontSize: "16px",
           lineHeight: "28px",
-          background: "#5B5B5B",
+          background: `${props?.palette?.notification?.listItemLabel} !important`,
           borderRadius: "30px",
-          color: "#B7B6B6",
+          color: `${props?.palette?.notification?.tabListCountColor} !important`,
           marginBottom: 6,
           [muiTheme.breakpoints.up(3839)]: {
             fontSize: "30px",
@@ -274,9 +274,9 @@ const useStyles = makeStyles({
           fontWeight: 500,
           fontSize: "16px",
           lineHeight: "28px",
-          background: "#5B5B5B",
+          background: `${props?.palette?.notification?.listItemLabel} !important`,
           borderRadius: "30px",
-          color: "#B7B6B6",
+          color: `${props?.palette?.notification?.tabListCountColor} !important`,
           marginBottom: 6,
           [muiTheme.breakpoints.up(3839)]: {
             fontSize: "30px",
@@ -338,7 +338,7 @@ const useStyles = makeStyles({
   }),
   tabSection: (props: any) => ({
     margin: "15px 0px",
-    borderBottom: " 1px solid rgb(255 255 255 / 50%)",
+    borderBottom: `1px solid ${props?.palette?.notification?.notiTabBottomBorder}`, // "1px solid rgb(255 255 255 / 50%)",
   }),
   searchClass: (props: any) => ({
     border: `1px solid ${props?.palette?.notification?.listItemBorder}`,
@@ -444,7 +444,7 @@ const useStyles = makeStyles({
 fontSize: '1vw',
 padding: '1vw',
 fontFamily: "HelveticaNeue-Regular",
-
+color: props?.palette?.notification?.noResultFoundColor,
   }),
   notificationListItemSection: (props: any) => ({
     height:

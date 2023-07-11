@@ -14,8 +14,10 @@ let theme = {
         listItemBorder: colorCodes?.darkGreyBalckShade,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
+        listItemLabelSelectedBtn: colorCodes.orangeShadeRed,
         tabListCountColor:colorCodes?.greyColor2,
         listItemContent: colorCodes.colorWhite,
+        collapsedListItemTextColor: colorCodes.colorWhite,
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
@@ -24,7 +26,10 @@ let theme = {
         listItemBg: colorCodes?.darkBlackShade,
         eventColor: colorCodes?.green,
         oprAlertColor: colorCodes?.orange,
-        incidentColor: colorCodes?.red
+        incidentColor: colorCodes?.red,
+        colorWhite: colorCodes?.colorWhite,
+        noResultFoundColor: colorCodes?.colorWhite,
+        notiTabBottomBorder: colorCodes?.whiteFade,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient
@@ -82,7 +87,11 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
-      }
+      },
+      footer: {
+        footerBg: colorCodes?.blackGrayShades,
+        footerTextColor: colorCodes?.whiteGrayShades,
+      },
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
@@ -97,19 +106,24 @@ let theme = {
         notificationBg: colorCodes?.lightWhite,
         notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes.colorWhite,
-        listItemLabel: colorCodes.greyColor,
-        listItemLabelSelected: colorCodes.tabSelectedOrange,
-        tabListCountColor:colorCodes?.greyColor2,
-        listItemContent: colorCodes.darkBlackShade,
+        listItemLabel: colorCodes?.mdGray,
+        listItemLabelSelected: colorCodes?.tabSelectedOrange,
+        listItemLabelSelectedBtn: colorCodes?.tabSelectedOrangeLight,
+        tabListCountColor:colorCodes?.colorWhite,
+        listItemContent: colorCodes.colorWhite,
+        collapsedListItemTextColor: colorCodes.darkBlackShade,
         notificationPanelTitle: colorCodes?.darkBlackShade,
         expansionListItemBg: colorCodes?.notificationExpandedBgLight,
         expansionMarkerListBg: colorCodes?.notificationExpandedBgLight,
-        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
-        expansionListItemBorder: colorCodes?.tabSelectedOrange,
+        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBgLight,
+        expansionListItemBorder: colorCodes?.tabSelectedOrangeLight,
         listItemBg: colorCodes?.mdGray,
         eventColor: colorCodes?.green,
         oprAlertColor: colorCodes?.orange,
-        incidentColor: colorCodes?.red
+        incidentColor: colorCodes?.red,
+        colorWhite: colorCodes?.colorWhite,
+        noResultFoundColor: colorCodes?.colorBlack,
+        notiTabBottomBorder: colorCodes?.grayFade
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
@@ -165,7 +179,11 @@ let theme = {
       }, 
       chart: {
         xAxisTextColor: colorCodes?.mdGray,
-      },    
+      }, 
+      footer: {
+        footerBg: colorCodes?.grayBlackShades,
+        footerTextColor: colorCodes?.grayWhiteShades,
+      },   
       },
     
     spacing: 5,
@@ -183,8 +201,10 @@ let theme = {
         listItemBorder: colorCodes?.darkGreyBalckShade,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
+        listItemLabelSelectedBtn: colorCodes.orangeShadeRed,
         tabListCountColor:colorCodes?.greyColor2,
         listItemContent: colorCodes.colorWhite,
+        collapsedListItemTextColor: colorCodes.colorWhite,
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
@@ -193,7 +213,10 @@ let theme = {
         listItemBg: colorCodes?.darkBlackShade,
         eventColor: colorCodes?.green,
         oprAlertColor: colorCodes?.orange,
-        incidentColor: colorCodes?.red
+        incidentColor: colorCodes?.red,
+        colorWhite: colorCodes?.colorWhite,
+        noResultFoundColor: colorCodes?.colorWhite,
+        notiTabBottomBorder: colorCodes?.whiteFade,
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
@@ -249,6 +272,10 @@ let theme = {
       },
       chart: {
         xAxisTextColor: colorCodes?.colorWhite,
+      },
+      footer: {
+        footerBg: colorCodes?.blackGrayShades,
+        footerTextColor: colorCodes?.whiteGrayShades,
       },  
       },
     

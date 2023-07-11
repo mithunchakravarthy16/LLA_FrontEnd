@@ -75,10 +75,12 @@ let colorCodes = {
   redColorShades: "#F1624C",
   redColorShades2: "#FBCEBC",
   tabSelectedOrange: "#E53433",
+  tabSelectedOrangeLight: "#F26522",
   notificationExpandedBgLight: "#8B8C8C",
   notificationCalloutBg: "#090A0C",
   notificationMarkerCalloutBg: "rgba(45, 47, 52, 1)",
   dashBoardNotificationMarkerCalloutBg: "rgba(45, 47, 52, 0.85)", //"#1D2D38",
+  dashBoardNotificationMarkerCalloutBgLight: "rgba(128, 128, 128, 0.85)",  
   flippingCardBgDark: "rgb(22, 25, 30, 0.9)",
   flippingCardBgLight: "rgba(211, 211, 211, 0.70)",
   flippingCardDarkTextColor: "#EEEEEE",
@@ -88,7 +90,12 @@ let colorCodes = {
   orangeDarkShades: "#D6550A",
   green:'#1E9C09',
   orange: '#FF5910',
-  red: '#FF1926'
-  
+  red: '#FF1926',
+  whiteFade: 'rgb(255 255 255 / 50%)',
+  grayFade: '#80808090',
+  blackGrayShades: "rgba(30, 31, 39, 1)",
+  grayBlackShades: "rgba(199, 199, 199, 1)",
+  whiteGrayShades: "rgba(186, 186, 186, 1)",
+  grayWhiteShades: "rgba(94, 94, 94, 1)",
 };
 export default colorCodes;
