@@ -371,7 +371,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 type={"text"}
                 disabled={!isDisabled}
                 onChange={handleGeofenceNameChange}
-                placeholder={"Enter Geofence Name"}
+                placeholder={"Enter"}
               />
             </div>
           </div>
