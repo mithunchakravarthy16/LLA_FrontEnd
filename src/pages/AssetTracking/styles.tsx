@@ -6,7 +6,7 @@ import muiTheme from "../../theme/muiTheme";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    background: "#161515",
+    background: props?.palette?.fleetManagementPage?.pageBg,
     height: "100vh",
     paddingLeft: "3.4px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
-    background: "#161515",
+    background: props?.palette?.fleetManagementPage?.pageBg, 
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -124,9 +124,9 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 #808080",
-    borderBottom: "1px solid #333333",
-    borderRight: "1px solid #333333",
-
+    borderBottom: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    borderRight: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.fleetManagementPage?.graphBg,
     height: "100%",
   }),
 
@@ -135,13 +135,14 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
-    borderBottom: "1px solid #333333",
-
+    borderBottom: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.fleetManagementPage?.graphBg,
     height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({
-    border: "1px solid #333333",
+    border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.notification?.notificationBg,
   }),
   graphTwoHeader: (props: any) => ({
     fontSize: "16px",
@@ -175,6 +176,7 @@ const useStyles = makeStyles({
   screenFiveGraphTitleStyle: (props: any) => ({
     fontSize: "0.8vw",
     display: "flex",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     // padding: 10,
     columnGap: "30px",
     // [muiTheme.breakpoints.up(3839)]: {
@@ -231,6 +233,7 @@ const useStyles = makeStyles({
   graphTwoContainerStyle: (props: any) => ({
     // height: "100%",
     paddingLeft: "10px",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
   }),
   graphTitleOneRound: (props: any) => ({
     width: "15px",
