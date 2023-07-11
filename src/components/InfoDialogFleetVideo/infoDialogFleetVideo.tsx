@@ -17,6 +17,7 @@ import {
   CamOneImg,
   TripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
+import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 
 import useStyles from "./styles";
 
@@ -37,7 +38,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "70vh",
     minWidth: "70vw",
     maxWidth: "70vw",
-    background: `#1A1919 !important`,
+    background: `${appTheme?.palette?.fleetManagementPage?.infoDialogColor} !important`,
     color: "#fff",
     padding: "2%",
     // [muiTheme.breakpoints.up(5759)]: {
@@ -69,7 +70,7 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
     headerTabStyle,
     customNotificationTabs,
     videoTitle,
-    vicheals
+    vicheals,
   } = useStyles(appTheme);
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -115,13 +116,23 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
               transition: "none",
             }}
           >
-            <img width={"100%"} height={"100%"} src={CloseIcon} />
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
           </IconButton>
         </div>
 
         <Grid container xs={12} style={{ height: "100%" }}>
-          <Grid item xs={12} style={{ height: "10%",  }}>
-            <p className={videoTitle}><span>{selectedMarker?.title}</span>  <span className={vicheals}>Vehicle# {selectedMarker?.vehicleId}</span> <span>Driver-Mike Ross</span></p>
+          <Grid item xs={12} style={{ height: "10%" }}>
+            <p className={videoTitle}>
+              <span>{selectedMarker?.title}</span>{" "}
+              <span className={vicheals}>
+                Vehicle# {selectedMarker?.vehicleId}
+              </span>{" "}
+              <span>Driver-Mike Ross</span>
+            </p>
           </Grid>
           <Grid
             item

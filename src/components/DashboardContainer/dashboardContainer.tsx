@@ -17,6 +17,8 @@ import {
 } from "../../utils/utils";
 import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
+import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
+import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
 import Grid from "@mui/material/Grid";
@@ -217,8 +219,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             <img
               src={
                 notificationPanelActive
-                  ? NotificationActiveIcon
-                  : NotificationIcon
+                  ? selectedTheme === "light" ? LightThemeNotificationIconActive : NotificationActiveIcon
+                  : selectedTheme === "light" ? LightThemeNotificationIcon : NotificationIcon
               }
               alt="Notificaion Icon"
               onClick={onHandleBellIcon}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Timeline,
   TimelineItem,
@@ -18,6 +18,24 @@ import useStyles from "./styles";
 const Stepper: React.FC<any> = (props) => {
   const { routeDetails, tripStatus, is4kDevice } = props;
   const [appTheme, setAppTheme] = useState<any>(customTheme?.defaultTheme);
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")!)
+  );
+
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(customTheme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(customTheme?.darkTheme);
+        break;
+      default:
+        setAppTheme(customTheme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
+
   const {
     stepperContainer,
     routeDetailasContainer,

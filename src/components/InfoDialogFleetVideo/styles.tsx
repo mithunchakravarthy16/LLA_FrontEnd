@@ -16,31 +16,32 @@ const useStyles = makeStyles(() => ({
     fontFamily: "HelveticaNeue-Regular",
   }),
 
-  videoTitle: (props:any) => ({
+  videoTitle: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: "0.9vw"
+    fontSize: "0.9vw",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
   }),
 
-  vicheals: (props:any) => ({
-    position: 'relative',
-    padding: '0 1%',
+  vicheals: (props: any) => ({
+    position: "relative",
+    padding: "0 1%",
     "&::before": {
-      top: '0.1vw',
-      width: '1%',
-      height: '1vw',
-      left: '2px',
+      top: "0.1vw",
+      width: "1%",
+      height: "1vw",
+      left: "2px",
       content: `''`,
       position: "absolute",
-      background: 'white', 
+      background: props?.palette?.fleetManagementPage?.topPanelTextColor,
     },
     "&::after": {
-      top: '0.1vw',
-      width: '1%',
-      height: '1vw',
-      right: '0.3vw',
+      top: "0.1vw",
+      width: "1%",
+      height: "1vw",
+      right: "0.3vw",
       content: `''`,
       position: "absolute",
-      background: 'white', 
+      background: props?.palette?.fleetManagementPage?.topPanelTextColor,
     },
   }),
 

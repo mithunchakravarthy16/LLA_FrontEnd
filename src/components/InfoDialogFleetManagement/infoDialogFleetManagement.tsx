@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
 import ReactPlayer from "react-player";
-import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4"; 
+import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4";
 import FleetSampleVideoTwo from "../../assets/fleetVideos/vehicleEntered.mp4";
 import {
   CloseIcon,
@@ -19,7 +19,14 @@ import {
   SpeedLimitIcon,
   CamOneImg,
   TripStatusIcon,
+  LightSpeedometerIcon,
+  LightFuelIcon,
+  LightIncidentIcon,
+  LightSpeedLimitIcon,
+  LightTripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
+import LightCloseIcon from "../../assets/lightCloseIcon.svg";
+import { LightTotalDistanceIcon } from "../../assets/topPanelListIcons";
 import CircularProgressBar from "elements/CircularProgressBar";
 import useStyles from "./styles";
 import TopPanelListItemContainerInfoDialogue from "components/TopPanelListItemContainerInfoDialogue";
@@ -47,7 +54,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
-    background: `#1A1919 !important`,
+    background: `${appTheme?.palette?.fleetManagementPage?.infoDialogColor} !important`,
     color: "#fff",
     padding: "1%",
     // [muiTheme.breakpoints.up(5759)]: {
@@ -220,23 +227,51 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
 
   const vehicleDetailsSubTaskBarItems: any[] = [
     {
-      icon: tabIndex === 1 ? SpeedometerIcon : TripStatusIcon,
+      icon:
+        tabIndex === 1
+          ? selectedTheme === "light"
+            ? LightSpeedometerIcon
+            : SpeedometerIcon
+          : selectedTheme === "light"
+          ? LightTripStatusIcon
+          : TripStatusIcon,
       value: tabIndex === 1 ? "90kph" : "On Trip",
     },
     {
-      icon: tabIndex === 1 ? DistinationLocationIcon : SpeedometerIcon,
+      icon:
+        tabIndex === 1
+          ? selectedTheme === "light"
+            ? LightTotalDistanceIcon
+            : DistinationLocationIcon
+          : selectedTheme === "light"
+          ? LightSpeedometerIcon
+          : SpeedometerIcon,
       value: tabIndex === 1 ? "100Km" : "90kph",
     },
     {
-      icon: tabIndex === 1 ? FuelIcon : DistinationLocationIcon,
+      icon:
+        tabIndex === 1
+          ? selectedTheme === "light"
+            ? LightFuelIcon
+            : FuelIcon
+          : selectedTheme === "light"
+          ? LightTotalDistanceIcon
+          : DistinationLocationIcon,
       value: tabIndex === 1 ? "5Gal" : "100Km",
     },
     {
-      icon: tabIndex === 1 ? IncidentIcon : IncidentIcon,
+      icon:
+        tabIndex === 1
+          ? selectedTheme === "light"
+            ? LightIncidentIcon
+            : IncidentIcon
+          : selectedTheme === "light"
+          ? LightIncidentIcon
+          : IncidentIcon,
       value: tabIndex === 1 ? "10" : "10",
     },
     {
-      icon: SpeedLimitIcon,
+      icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
       value: "70%",
     },
   ];
@@ -266,7 +301,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         stroke: 18,
         iconSize: 45,
       };
-    }else if (window.innerWidth > 2047) {
+    } else if (window.innerWidth > 2047) {
       return {
         radius: 70,
         cut: 10,
@@ -274,7 +309,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         stroke: 10,
         iconSize: 35,
       };
-    }else if (window.innerWidth > 1919) {
+    } else if (window.innerWidth > 1919) {
       return {
         radius: 70,
         cut: 10,
@@ -282,7 +317,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         stroke: 10,
         iconSize: 35,
       };
-    }else if (window.innerWidth > 1791) {
+    } else if (window.innerWidth > 1791) {
       return {
         radius: 60,
         cut: 10,
@@ -290,7 +325,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         stroke: 10,
         iconSize: 25,
       };
-    }else {
+    } else {
       return {
         radius: 70,
         cut: 60,
@@ -300,8 +335,6 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       };
     }
   };
-
-  
 
   return (
     <>
@@ -321,7 +354,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               transition: "none",
             }}
           >
-            <img width={"100%"} height={"100%"} src={CloseIcon} />
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
           </IconButton>
         </div>
 
@@ -351,7 +388,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               strokeWidth={10}
               trailWidth={10}
               strokeColor="#92C07E"
-              trailColor="#484D52"
+              trailColor={
+                appTheme?.palette?.fleetManagementPage?.dialogProgressBarBg
+              }
               title={"Safety Score"}
               pageName={"fleetInfoDialogue"}
               horizontalProgressBarTitlePosition={"down"}
@@ -364,8 +403,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 xs={2.3}
                 style={{
                   height: "100%",
-                  border: "1px solid #333333",
-                  background: "rgb(22, 21, 21)",
+                  border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                  background:
+                    appTheme?.palette?.fleetManagementPage?.routeDetailsBg,
                   padding: " 1%",
                 }}
               >
@@ -400,8 +440,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           alignItems={"center"}
                           style={{
                             height: "100%",
-                            background: "#161515",
-                            border: "1px solid #333333",
+                            background:
+                              appTheme?.palette?.fleetManagementPage
+                                ?.routeDetailsBg,
+                            border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
                           }}
                         >
                           {vehicleDetailsSubTaskBarItems?.length > 0 &&
@@ -415,7 +457,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 flex={1}
                               >
                                 <div style={{ width: "18%", height: "18%" }}>
-                                  <img 
+                                  <img
                                     width={"100%"}
                                     height={"100%"}
                                     src={item?.icon}
@@ -448,15 +490,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             />
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
-                          <ReactPlayer
-                                    muted
-                                    playing
-                                    loop={true}
-                                    controls={true}
-                                    url={cameraTabIndex === 0 ? FleetSampleVideo : FleetSampleVideoTwo}
-                                    width="100%"
-                                    height="100%"
-                                  />
+                            <ReactPlayer
+                              muted
+                              playing
+                              loop={true}
+                              controls={true}
+                              url={
+                                cameraTabIndex === 0
+                                  ? FleetSampleVideo
+                                  : FleetSampleVideoTwo
+                              }
+                              width="100%"
+                              height="100%"
+                            />
                           </Grid>
                         </Grid>
                       </Grid>
@@ -471,8 +517,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           alignItems={"center"}
                           style={{
                             height: "100%",
-                            background: "#161515",
-                            border: "1px solid #333333",
+                            background:
+                              appTheme?.palette?.fleetManagementPage
+                                ?.routeDetailsBg,
+                            border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
                           }}
                         >
                           {vehicleDetailsSubTaskBarItems?.length > 0 &&
@@ -684,9 +732,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 xs={3}
                 style={{
                   height: "100%",
-                  border: "1px solid #333333",
+                  border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                  background:
+                    appTheme?.palette?.fleetManagementPage?.violationBg,
                   padding: "1%",
-                  background: "#161515",
                 }}
               >
                 <FleetInfoDialogueViolationContainer

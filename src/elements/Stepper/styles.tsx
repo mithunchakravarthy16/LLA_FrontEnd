@@ -53,6 +53,7 @@ const useStyles = makeStyles({
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
     textTransform: "uppercase",
+    color: `${props?.palette?.fleetManagementPage?.routeDetailsTitle} !important`,
   }),
   routeName: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
@@ -65,7 +66,7 @@ const useStyles = makeStyles({
     fontFamily: "HelveticaNeue-Regular",
     fontSize: "0.7vw",
     fontWeight: 500,
-    color: "#FFFFFF",
+    color: `${props?.palette?.fleetManagementPage?.routeDetailsTitle} !important`,
     lineHeight: "2vh",
   }),
   routeTimestamp: (props: any) => ({

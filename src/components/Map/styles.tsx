@@ -19,13 +19,29 @@ const useStyles = makeStyles({
     "& .gm-style .gm-style-iw-c": {
       left: "0 !important",
       maxWidth: "749px !important",
-      backgroundColor: "unset !important"
+      backgroundColor: "unset !important",
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
-      background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
+      //background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
+      background: props?.palette?.notification?.dashBoardexpansionMarkerListBg,
     },
     "& .gm-style-iw-t": {
-      bottom: "9vh !important",
+      // bottom: "9vh !important",
+      [muiTheme.breakpoints.up(3839)]: {
+        bottom: "8vh !important",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        bottom: "7.5vh !important",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        bottom: "6vh !important",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        bottom: "7vh !important",
+      },
+      [muiTheme.breakpoints.down(1793)]: {
+        bottom: "7vh !important",
+      },
     },
     "& .gm-style-iw-t > div > button": {
       display: "none !important",

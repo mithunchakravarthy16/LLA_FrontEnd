@@ -5,6 +5,8 @@ import Tabs from "elements/Tabs";
 import NotificationListItems from "components/NotificationListItems";
 import SearchBox from "elements/SearchBox";
 import SearchIcon from "../../assets/searchIcon.svg";
+import SearchIconLighttheme from "../../assets/searchIconLighttheme.svg";
+import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconLightTheme.svg";
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
@@ -229,7 +231,7 @@ const NotificationPanel = (props: any) => {
                 handleSearch={handleSearch}
                 borderRadius={2}
                 borderColor={`1px solid ${appTheme?.palette?.notification?.listItemBorder}`}
-                fontColor={appTheme?.palette?.notification?.tabListCountColor}
+                fontColor={appTheme?.palette?.notification?.colorWhite}
                 tabIndex={tabIndex}
                 handleCloseIcon={handleCloseIcon}
                 searchIsOpen={searchOpen}
@@ -241,7 +243,7 @@ const NotificationPanel = (props: any) => {
           <div className={notificationIconSection}>
             <img
               className={notificationSearchIcon}
-              src={searchOpen ? CloseIcon : SearchIcon}
+              src={searchOpen ? selectedTheme === "light" ? NotificationCloseIconLightTheme : CloseIcon : selectedTheme === "light" ?  SearchIconLighttheme : SearchIcon }
               alt="Search"
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />

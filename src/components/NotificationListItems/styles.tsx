@@ -40,7 +40,7 @@ const useStyles = makeStyles({
     background: props.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
     padding: "13px",
     borderRadius: "10px",
-    border: `2px solid ${props?.palette?.notification?.listItemBg}`,
+    border: `1px solid ${props?.palette?.notification?.listItemBg}`,
     marginBottom: "15px",
     cursor: "pointer",
     [muiTheme.breakpoints.up(3839)]: {
@@ -65,7 +65,8 @@ const useStyles = makeStyles({
   expandedListItems: (props: any) => ({
     background:
       props?.pageName === "markerCallout" 
-        ? props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg
+        // ? props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg
+        ? props?.palette?.notification?.dashBoardexpansionMarkerListBg
         : props?.palette?.notification?.expansionListItemBg,
         backdropFilter: props?.mapPageName === "dashboard" ? "blur(2.5px)" : "none",
     padding: "4%",
@@ -133,7 +134,113 @@ const useStyles = makeStyles({
   collapsedlistItemRow2: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
+    color: props?.palette?.notification?.collapsedListItemTextColor,
   }),
+
+  collapsedListItemTitle: (props: any) => ({
+    fontSize: 20,
+    letterSpacing: "0.5px",
+    marginBottom: "3%",
+    fontFamily: "HelveticaNeue-Regular",
+    color: props?.palette?.notification?.collapsedListItemTextColor,
+    [muiTheme.breakpoints.up(3839)]: {
+      fontSize: 30,
+      // lineHeight: "56px",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      fontSize: 24,
+      // lineHeight: "46px",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      fontSize: 20,
+      // lineHeight: "36px",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      fontSize: 16,
+      // lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      fontSize: 12,
+      // lineHeight: "18px",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      fontSize: 10,
+      // lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 9,
+      // lineHeight: "15px",
+    },
+  }),
+
+    collapsedListItemSubTitle: (props: any) => ({
+      fontSize: 14,
+      fontFamily: "HelveticaNeue-ItalicMedium",
+      color: props?.palette?.notification?.collapsedListItemTextColor,
+      [muiTheme.breakpoints.up(3839)]: {
+        fontSize: 30,
+        lineHeight: "56px",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        fontSize: 24,
+        lineHeight: "46px",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: 15,
+        lineHeight: "26px",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        fontSize: 13,
+        lineHeight: "21px",
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        fontSize: 9,
+        lineHeight: "19px",
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        fontSize: 8,
+        lineHeight: "16px",
+      },
+      [muiTheme.breakpoints.down(1025)]: {
+        fontSize: 6,
+        lineHeight: "13px",
+      },
+    }),
+
+    collapsedTimeStampStyle: (props: any) => ({
+      fontSize: 10,
+      fontFamily: "HelveticaNeue-Regular",
+      color: props?.palette?.notification?.collapsedListItemTextColor,
+      [muiTheme.breakpoints.up(3839)]: {
+        fontSize: 24,
+        lineHeight: "56px",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        fontSize: 20,
+        lineHeight: "46px",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        fontSize: 13,
+        lineHeight: "26px",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        fontSize: 12,
+        lineHeight: "21px",
+      },
+      [muiTheme.breakpoints.down(1545)]: {
+        fontSize: 8,
+        lineHeight: "19px",
+      },
+      [muiTheme.breakpoints.down(1153)]: {
+        fontSize: 8,
+        lineHeight: "16px",
+      },
+      [muiTheme.breakpoints.down(1025)]: {
+        fontSize: 6,
+        lineHeight: "13px",
+      },
+    }),
+
   listItemSubTitle: (props: any) => ({
     fontSize: 14,
     fontFamily: "HelveticaNeue-ItalicMedium",
@@ -281,7 +388,7 @@ const useStyles = makeStyles({
   }),
   buttonStyle: (props: any) => ({
     "& .MuiButton-contained": { 
-      backgroundColor: props?.palette?.notification?.listItemLabelSelected,
+      backgroundColor: props?.palette?.notification?.listItemLabelSelectedBtn,
       [muiTheme.breakpoints.up(3839)]: {
         minWidth: "223px",
         height: "70px",
@@ -290,7 +397,7 @@ const useStyles = makeStyles({
         fontWeight: 500,
       },
       "&:hover": {
-        background: props?.palette?.notification?.listItemLabelSelected,
+        background: props?.palette?.notification?.listItemLabelSelectedBtn,
       },
     },
   }),
