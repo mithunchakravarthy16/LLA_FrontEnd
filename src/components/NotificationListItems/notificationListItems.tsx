@@ -8,6 +8,8 @@ import theme from "../../theme/theme";
 import CloseIcon from "../../assets/markers/closeIcon.svg";
 import VideoIcon from "../../assets/videoIcon.svg";
 import FleetManagementCloseIcon from "../../assets/fleetManagementCloseIcon.svg";
+import CalloutCloaseIcon from "../../assets/calloutCloaseIcon.svg";
+import FleetCalloutCloseIcon from "../../assets/fleetCalloutCloseIcon.svg";
 import useStyles from "./styles";
 
 const NotificationListItems = (props: any) => {
@@ -97,6 +99,9 @@ const NotificationListItems = (props: any) => {
     listItemCallout,
     defaultListItem,
     markerCloseIcon1,
+    collapsedListItemTitle,
+    collapsedListItemSubTitle,
+    collapsedTimeStampStyle,
   } = useStyles({ ...appTheme, pageName: pageName, mapPageName: mapPageName, });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -132,7 +137,7 @@ const NotificationListItems = (props: any) => {
                   <div className={listItemTitle}>{title}</div>
                   <div className={markerCloseIcon} onClick={handleMarkerClose}>
                     <img
-                      src={CloseIcon}
+                      src={selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon}
                       width={selectedWidth?.is4kDevice ? 40 : 20}
                       height={selectedWidth?.is4kDevice ? 40 : 20}
                     />
@@ -161,12 +166,12 @@ const NotificationListItems = (props: any) => {
             </div>
           ) : (
             <div className={collapsedListItems}>
-              <div className={listItemTitle}>{title}</div>
+              <div className={collapsedListItemTitle}>{title}</div>
               <div className={collapsedlistItemRow2}>
-                <div className={listItemSubTitle}>
+                <div className={collapsedListItemSubTitle}>
                   {trackerId && trackerId} {assetId && ` | ${assetId}`}
                 </div>
-                <div className={timeStampStyle}>{currentTimeStamp}</div>
+                <div className={collapsedTimeStampStyle}>{currentTimeStamp}</div>
               </div>
             </div>
           )}
@@ -189,7 +194,7 @@ const NotificationListItems = (props: any) => {
                 <>
                   <div className={markerCloseIcon1} onClick={handleMarkerClose}>
                     <img
-                      src={FleetManagementCloseIcon}
+                      src={selectedTheme === "light" ? FleetCalloutCloseIcon :  FleetManagementCloseIcon}
                       width={selectedWidth?.is4kDevice ? 20 : 10}
                       height={selectedWidth?.is4kDevice ? 20 : 10}
                     />
@@ -241,7 +246,7 @@ const NotificationListItems = (props: any) => {
           ) : (
             <div className={collapsedListItems}>
               <div className={defaultListItem}>
-                <div className={listItemTitle}>{title}</div>
+                <div className={collapsedListItemTitle}>{title}</div>
                 <div
                   className={markerCloseIcon}
                   onClick={(e: any) => handleVideoDetails(e, data)}
@@ -254,10 +259,10 @@ const NotificationListItems = (props: any) => {
                 </div>
               </div>
               <div className={collapsedlistItemRow2}>
-                <div className={listItemSubTitle}>
+                <div className={collapsedListItemSubTitle}>
                   {`Vehicle#${vehicleId} , Driver-${assetId}`}
                 </div>
-                <div className={timeStampStyle}>{"06-12-2023 | 9:00 AM"}</div>
+                <div className={collapsedTimeStampStyle}>{"06-12-2023 | 9:00 AM"}</div>
               </div>
             </div>
           )}
@@ -280,7 +285,7 @@ const NotificationListItems = (props: any) => {
                 <div className={listItemTitle}>{title}</div>
                 <div className={markerCloseIcon} onClick={handleMarkerClose}>
                   <img
-                    src={CloseIcon}
+                    src={selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon} 
                     width={selectedWidth?.is4kDevice ? 40 : 20}
                     height={selectedWidth?.is4kDevice ? 40 : 20}
                   />
@@ -311,13 +316,13 @@ const NotificationListItems = (props: any) => {
           </div>
         ) : (
           <div className={collapsedListItems}>
-            <div className={listItemTitle}>{title}</div>
+            <div className={collapsedListItemTitle}>{title}</div>
             <div className={collapsedlistItemRow2}>
-              <div className={listItemSubTitle}>
+              <div className={collapsedListItemSubTitle}>
                 {equipment && `${equipment} | `}
                 {subTitle ? subTitle : area}
               </div>
-              <div className={timeStampStyle}>{currentTimeStamp}</div>
+              <div className={collapsedTimeStampStyle}>{currentTimeStamp}</div>
             </div>
           </div>
         )}
