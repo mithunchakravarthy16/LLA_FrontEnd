@@ -55,6 +55,14 @@ const useStyles = makeStyles({
     fontSize: "0.8vw",
   }),
 
+  tabLabelParkingSlot: (props: any) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "0.8vw",   
+  }),
+
   tabLabelText: (props: any) => {
     return { color: props?.appTheme?.palette?.notification?.listItemLabel };
   },
