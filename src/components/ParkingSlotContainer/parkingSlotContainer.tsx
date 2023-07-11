@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import theme from "../../theme/theme";
 import Tabs from "elements/Tabs";
+import OrangeCircle from "../../assets/OrangeCircle.svg";
 import useStyles from "./styles";
 
 const ParkingSlotContainer = (props: any) => {
@@ -45,12 +46,24 @@ const ParkingSlotContainer = (props: any) => {
 
   return (
     <>
-        {!parkingLotSelectionActive ? (
+      {!parkingLotSelectionActive ? (
         <div className={lotSelectionIconStyle} onClick={handleLotSelction}>
-          {selectedParkingLot}
+          <img
+            src={OrangeCircle}
+            alt="OrangeCircle"
+            width={"100%"}
+            height={"100%"}
+          ></img>
+          <div style={{ position: "absolute",
+                display: "flex",
+                justifyContent: "center",
+                alignItems : "center" }}>
+            {selectedParkingLot}
+          </div>
         </div>
       ) : (
         <div className={mapFilterStyle}>
+            <div style={{width : "100%"}}>
           <Tabs
             initialIndex={parkingLotIndex}
             tabsList={tabsList}
@@ -62,7 +75,23 @@ const ParkingSlotContainer = (props: any) => {
             className={lotSelectionIconStyleClose}
             onClick={handleLotSelction}
           >
-            X
+            <img
+              src={OrangeCircle}
+              alt="OrangeCircle"
+              width={"100%"}
+              height={"100%"}
+            />
+            <div
+              style={{
+                position: "absolute",
+                display: "flex",
+                justifyContent: "center",
+                alignItems : "center"
+              }}
+            >
+              X
+            </div>
+          </div>
           </div>
         </div>
       )}

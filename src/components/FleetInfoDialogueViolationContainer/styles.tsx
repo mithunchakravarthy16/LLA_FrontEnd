@@ -9,9 +9,9 @@ const useStyles = makeStyles(
       height: "95%",
       overflowY: "auto",
 
-      "&::-webkit-scrollbar": {
-        width: 0,
-      },
+      // "&::-webkit-scrollbar": {
+      //   width: 0,
+      // },
     }),
     violationHeading: (props: any) => ({
       height: "5%",
