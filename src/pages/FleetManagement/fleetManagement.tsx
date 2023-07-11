@@ -9,6 +9,11 @@ import {
   OverSpeedingIcon,
   HarshAccelerationIcon,
   HarshBreakingIcon,
+  LightTotalDistanceIcon,
+  LightIdleHoursIcon,
+  LightOverSpeedingIcon,
+  LightHarshAccelerationIcon,
+  LightHarshBreakingIcon,
 } from "../../assets/topPanelListIcons";
 import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
@@ -143,27 +148,33 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: TotalDistanceIcon,
+      icon:
+        selectedTheme === "light" ? LightTotalDistanceIcon : TotalDistanceIcon,
       value: "1237km",
       name: "Total Distance",
     },
     {
-      icon: IdleHoursIcon,
+      icon: selectedTheme === "light" ? LightIdleHoursIcon : IdleHoursIcon,
       value: "05Hrs",
       name: "Idle Hours",
     },
     {
-      icon: OverSpeedingIcon,
+      icon:
+        selectedTheme === "light" ? LightOverSpeedingIcon : OverSpeedingIcon,
       value: "11",
       name: "Over Speeding",
     },
     {
-      icon: HarshAccelerationIcon,
+      icon:
+        selectedTheme === "light"
+          ? LightHarshAccelerationIcon
+          : HarshAccelerationIcon,
       value: "05",
       name: "Harsh Acceleration",
     },
     {
-      icon: HarshBreakingIcon,
+      icon:
+        selectedTheme === "light" ? LightHarshBreakingIcon : HarshBreakingIcon,
       value: "04",
       name: "Harsh Breaking",
     },
@@ -442,7 +453,10 @@ const FleetManagement: React.FC<any> = (props) => {
                           trailWidth={10}
                           strokeColor="
                           #92C07E"
-                          trailColor="#484D52"
+                          trailColor={
+                            appTheme?.palette?.fleetManagementPage
+                              ?.progressBarBg
+                          }
                           title={"Safety Score"}
                         />
                       </Grid>

@@ -30,6 +30,12 @@ import LocationIcon from "./AssetTracking/Location.svg";
 import OutOfGeofenceIcon from "./AssetTracking/OutOfGeofence.svg";
 import IncidentIcon from "./AssetTracking/Incident.svg";
 
+import LightTotalDistanceIcon from "./lightTotalDistance.svg";
+import LightIdleHoursIcon from "./lightIdleHours.svg";
+import LightOverSpeedingIcon from "./lightOverSpeeding.svg";
+import LightHarshAccelerationIcon from "./lightHarshAcceleration.svg";
+import LightHarshBreakingIcon from "./lightHarshBreaking.svg";
+
 export {
   CoTwoCloudIcon,
   VocCloudIcon,
@@ -60,4 +66,9 @@ export {
   LocationIcon,
   OutOfGeofenceIcon,
   IncidentIcon,
+  LightTotalDistanceIcon,
+  LightIdleHoursIcon,
+  LightOverSpeedingIcon,
+  LightHarshAccelerationIcon,
+  LightHarshBreakingIcon,
 };

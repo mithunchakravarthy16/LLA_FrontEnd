@@ -17,11 +17,13 @@ const useStyles = makeStyles(
       height: "5%",
       fontSize: "0.9vw",
       fontFamily: "HelveticaNeue-Regular",
+      color: `${props?.palette?.fleetManagementPage?.routeDetailsTitle} !important`,
     }),
     listItemTitle: (props: any) => ({
       fontSize: "0.9vw",
       fontFamily: "HelveticaNeue-Regular",
       lineHeight: "1vh",
+      color: `${props?.palette?.fleetManagementPage?.violationListTextColor}`,
     }),
     listItemDescription: (props: any) => ({
       fontSize: "0.7vw",
@@ -29,6 +31,7 @@ const useStyles = makeStyles(
       fontStyle: "italic",
       fontFamily: "HelveticaNeue-Regular",
       fontWeight: 300,
+      color: `${props?.palette?.fleetManagementPage?.violationListSubTextColor}`,
     }),
   },
   { index: 1 }

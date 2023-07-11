@@ -17,7 +17,7 @@ const useStyles = makeStyles({
       top: "20%",
       right: 0,
       height: "60%", // Specify the desired length of the bottom border
-      borderRight: `1px dashed #808080`, // Specify your desired color and border style
+      borderRight: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`, // Specify your desired color and border style
       opacity: "0.4",
     },
   }),
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   bodyLeftTopPanelListSubContainer: (props: any) => ({
     // border: "1px solid #808080",
     height: "100%",
-    border: "1px solid  #333333",
+    border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
     borderRight: "none",
   }),
 
@@ -70,6 +70,7 @@ const useStyles = makeStyles({
 
   itemValueStyle: (props: any) => ({
     fontSize: "16px",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 35,
       lineHeight: "48px",
@@ -89,6 +90,7 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 18,
       lineHeight: "24px",
+      // color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,

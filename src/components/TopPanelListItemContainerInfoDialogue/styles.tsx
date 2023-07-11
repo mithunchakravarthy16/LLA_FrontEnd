@@ -15,7 +15,7 @@ const useStyles = makeStyles({
       top: "20%",
       right: 0,
       height: "60%", // Specify the desired length of the bottom border
-      borderRight: `1px dashed #808080`, // Specify your desired color and border style
+      border: `1px dashed ${props?.palette?.fleetManagementPage?.topPanelBorder}`, // Specify your desired color and border style
       opacity: 0.6,
     },
   }),
@@ -23,8 +23,8 @@ const useStyles = makeStyles({
   bodyLeftTopPanelListSubContainer: (props: any) => ({
     // border: "1px solid #808080",
     height: "100%",
-    border: "1px solid  #333333",
-    background: "#161515",
+    border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.fleetManagementPage?.pageBg,
   }),
 
   progressBarContainer: (props: any) => ({
@@ -70,6 +70,7 @@ const useStyles = makeStyles({
     fontSize: "1vw",
     marginBottom: "0.2vh",
     fontFamily: "HelveticaNeue-Regular",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
   }),
 
   itemTitleStyle: (props: any) => ({

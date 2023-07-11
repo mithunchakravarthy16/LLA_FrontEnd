@@ -54,6 +54,7 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHover.gif";
 import useStyles from "./styles";
+import customLightThemeMapStyles from "./customLightThemeMapStyles";
 
 const defaultCenter = {
   lat: 39.75525065792099,
@@ -404,7 +405,8 @@ const TripDetailsMap: React.FC<any> = (props) => {
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
-      styles: customMapStyles,
+      styles:
+        selectedTheme === "light" ? customLightThemeMapStyles : customMapStyles,
     };
     return {
       ...defaultMapOptions,

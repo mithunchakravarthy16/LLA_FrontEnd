@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
   TabvalueTitle: (props: any) => ({
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
   }),
 
   headerTabContainerStyle: (props: any) => ({
