@@ -122,6 +122,10 @@ const useStyles = makeStyles(() => ({
     padding: "1vw",
     borderRadius: "15px",
     height: "96%",
+    overflow: 'auto',
+    [muiTheme.breakpoints.down(1921)]: {
+      height: "calc(100vh - 394px)",
+    },
   }),
   mainGeofenceContainer: (props: any) => ({
     background: "#333333",
@@ -185,6 +189,7 @@ const useStyles = makeStyles(() => ({
   circleContainer: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
+    marginBottom: '1vw'
   }),
   circularRadius: (props: any) => ({}),
   notifyContainer: (props: any) => ({
@@ -237,10 +242,9 @@ const useStyles = makeStyles(() => ({
     paddingBottom: "1vh",
   }),
   selectedAssetsContainer: (props: any) => ({
-    color: "#FFFFFF !important",
-    fontSize: "1vw",
+    color: "rgb(255, 255, 255, 0.5) !important",
+    fontSize: "0.7vw",
     fontFamily: "HelveticaNeue-Regular",
-    fontWeight: 300,
     marginTop: "20px",
     backgroundColor: "#242424",
     display: "flex",
