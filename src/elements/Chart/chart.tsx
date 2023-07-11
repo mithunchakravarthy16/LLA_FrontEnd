@@ -173,7 +173,9 @@ const Chart: React.FC<any> = (props) => {
                             color:#FFFFFF;
                             background-color:#050F1B;
                             padding:${
-                              is4kDevice || is3kDevice ? "20px" : "5px"
+                              is4kDevice || is3kDevice
+                                ? "20px"
+                                : "12px 10px 5px 10px"
                             };
                             vertical-align:middle;
                             border-radius:${is4kDevice ? "10px" : "5px"};
@@ -192,7 +194,7 @@ const Chart: React.FC<any> = (props) => {
                                   padding:${is4kDevice ? "15px" : "7px"};
                                   display:inline-block;
                                   margin-right:${is4kDevice ? "10px" : "5px"};
-                                  border-radius:${is4kDevice ? "25px" : "3px"};
+                                  border-radius:${is4kDevice ? "50%" : "50%"};
                                   "></div>` +
                                     point?.y +
                                     units +

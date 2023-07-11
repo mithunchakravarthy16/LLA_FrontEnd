@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     fontSize: "30px",
     fontWeight: 700,
     fontFamily: "HelveticaNeue-Regular",
-
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 36,
       lineHeight: "55px",
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     color:
       props?.pageName && props?.pageName === "fleetInfoDialogue"
         ? "#909090"
-        : "unset",
+        : props?.palette?.fleetManagementPage?.topPanelTextColor,
     // marginBottom:
     //   props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
     fontFamily: "HelveticaNeue-Regular",

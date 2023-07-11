@@ -17,6 +17,7 @@ import {
   CamOneImg,
   TripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
+import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 
 import useStyles from "./styles";
 
@@ -37,7 +38,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "70vh",
     minWidth: "70vw",
     maxWidth: "70vw",
-    background: `#1A1919 !important`,
+    background: `${appTheme?.palette?.fleetManagementPage?.infoDialogColor} !important`,
     color: "#fff",
     padding: "2%",
     // [muiTheme.breakpoints.up(5759)]: {
@@ -113,12 +114,26 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
               transition: "none",
             }}
           >
-            <img width={"100%"} height={"100%"} src={CloseIcon} />
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
           </IconButton>
         </div>
 
         <Grid container xs={12} style={{ height: "100%" }}>
-          <Grid item xs={12} style={{ height: "10%", fontSize: "1vw" }}>
+          <Grid
+            item
+            xs={12}
+            style={{
+              height: "10%",
+              fontSize: "1vw",
+              fontWeight: 500,
+              fontFamily: "HelveticaNeue-Regular",
+            }}
+            color={appTheme?.palette?.fleetManagementPage?.topPanelTextColor}
+          >
             {`${selectedMarker?.title} | Vehicle#${selectedMarker?.vehicleId} | Driver-Mike Ross`}
           </Grid>
           <Grid

@@ -51,9 +51,10 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
                   rowGap={2}
                   style={{
                     padding: "5% 4%",
-                    border: "1px solid #333333",
+                    border: "1px solid #808080",
                     borderRadius: "5px",
-                    background: "#131313",
+                    background:
+                      appTheme?.palette?.fleetManagementPage?.violationListBg,
                   }}
                 >
                   <div className={listItemTitle}>{item?.title}</div>

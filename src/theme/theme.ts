@@ -2,38 +2,38 @@ import { color } from "@mui/system";
 import colorCodes from "./colors";
 
 let theme = {
-  defaultTheme: { 
-    palette: {     
+  defaultTheme: {
+    palette: {
       sidebar: {
         sidebarBg: colorCodes.darkBlackShade,
-         menuColor: colorCodes?.orangeDarkShades  
-      },  
-      notification:{
+        menuColor: colorCodes?.orangeDarkShades,
+      },
+      notification: {
         notificationBg: colorCodes?.darkBlack,
         notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes?.darkGreyBalckShade,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
-        tabListCountColor:colorCodes?.greyColor2,
+        tabListCountColor: colorCodes?.greyColor2,
         listItemContent: colorCodes.colorWhite,
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
-        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
+        dashBoardexpansionMarkerListBg:
+          colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.darkBlackShade,
         eventColor: colorCodes?.green,
         oprAlertColor: colorCodes?.orange,
-        incidentColor: colorCodes?.red
+        incidentColor: colorCodes?.red,
       },
       login: {
-        boxTopLineStyle: colorCodes?.orngeLinearGradient
+        boxTopLineStyle: colorCodes?.orngeLinearGradient,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.blackShades,
         gridBorderColor: colorCodes?.blueShades,
         commonTextColor: colorCodes?.whiteShades2,
-        
       },
       gridViewComponentCommonStyle: {
         containerTitle: colorCodes.vibrantOrangeColor,
@@ -52,7 +52,7 @@ let theme = {
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
         mainSectionGridBg: colorCodes.charCoalBlack,
-        mainSectionGridBorder: colorCodes.navyBlue,        
+        mainSectionGridBorder: colorCodes.navyBlue,
       },
       gridViewComponentGraphsColor: {
         screenOneGraphLine: colorCodes.vibrantBlueGreenOpacity,
@@ -82,41 +82,57 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
-      }
+      },
+      fleetManagementPage: {
+        pageBg: colorCodes?.blackShades,
+        topPanelBorder: colorCodes?.mdGray,
+        topPanelTextColor: colorCodes?.whiteShades2,
+        infoDialogColor: colorCodes?.darkGrey1,
+        routeDetailsBg: colorCodes?.blackShades,
+        routeDetailsTitle: colorCodes?.colorWhite,
+        progressBarBg: colorCodes?.progressBar,
+        dialogProgressBarBg: colorCodes?.progressBar,
+        violationBg: colorCodes?.blackShades,
+        violationListBg: colorCodes?.darkGrey2,
+        violationListTextColor: colorCodes?.colorWhite,
+        violationListSubTextColor: colorCodes?.colorWhite,
+        listItemsBorder: colorCodes?.mdGray,
+      },
     },
     spacing: 5,
     typography: { fontFamily: "Arial" },
   },
   lightTheme: {
-    palette: {     
+    palette: {
       sidebar: {
         sidebarBg: colorCodes.sunRiseOrange,
-        menuColor: colorCodes?.colorWhite    
+        menuColor: colorCodes?.colorWhite,
       },
-      notification:{
+      notification: {
         notificationBg: colorCodes?.lightWhite,
         notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes.colorWhite,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
-        tabListCountColor:colorCodes?.greyColor2,
+        tabListCountColor: colorCodes?.greyColor2,
         listItemContent: colorCodes.darkBlackShade,
         notificationPanelTitle: colorCodes?.darkBlackShade,
         expansionListItemBg: colorCodes?.notificationExpandedBgLight,
         expansionMarkerListBg: colorCodes?.notificationExpandedBgLight,
-        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
+        dashBoardexpansionMarkerListBg:
+          colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.mdGray,
         eventColor: colorCodes?.green,
         oprAlertColor: colorCodes?.orange,
-        incidentColor: colorCodes?.red
+        incidentColor: colorCodes?.red,
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
         textColor: colorCodes?.darkBlackShade,
       },
       login: {
-        boxTopLineStyle: colorCodes?.orngeLinearGradient
+        boxTopLineStyle: colorCodes?.orngeLinearGradient,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.whiteShades,
@@ -140,7 +156,7 @@ let theme = {
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
         mainSectionGridBg: colorCodes.charCoalBlack,
-        mainSectionGridBorder: colorCodes.navyBlue,        
+        mainSectionGridBorder: colorCodes.navyBlue,
       },
       gridViewComponentGraphsColor: {
         screenOneGraphLine: colorCodes.vibrantBlueGreenOpacity,
@@ -162,45 +178,61 @@ let theme = {
         screenSixGraphLine: colorCodes.turquoiseBlueGreenOpacity,
         screenSixGraphPoint: colorCodes.turquoiseBlueGreen,
         highChartsGradient: colorCodes.colorBlack,
-      }, 
+      },
       chart: {
         xAxisTextColor: colorCodes?.mdGray,
-      },    
       },
-    
+      fleetManagementPage: {
+        pageBg: colorCodes?.whiteColor,
+        topPanelBorder: colorCodes?.mdGray,
+        topPanelTextColor: colorCodes?.darkBlackShade,
+        infoDialogColor: colorCodes?.colorWhite,
+        routeDetailsBg: colorCodes?.whiteColor1,
+        routeDetailsTitle: colorCodes?.darkBlackShade,
+        progressBarBg: colorCodes?.progressBar1,
+        dialogProgressBarBg: colorCodes?.progressBar2,
+        violationBg: colorCodes?.lightWhite,
+        violationListBg: colorCodes?.colorWhite,
+        violationListTextColor: colorCodes?.darkBlackShade,
+        violationListSubTextColor: colorCodes?.mdGray,
+        listItemsBorder: "",
+      },
+    },
+
     spacing: 5,
     typography: { fontFamily: "Arial" },
   },
   darkTheme: {
-    palette: {     
+    palette: {
       sidebar: {
         sidebarBg: colorCodes.colorBlack,
-        menuColor: colorCodes?.orangeDarkShades     
-      },    
-      notification:{
+        menuColor: colorCodes?.orangeDarkShades,
+      },
+      notification: {
         notificationBg: colorCodes?.darkBlack,
         notificationBoxShadow: colorCodes?.notificationPanelShadowColor,
         listItemBorder: colorCodes?.darkGreyBalckShade,
         listItemLabel: colorCodes.greyColor,
         listItemLabelSelected: colorCodes.tabSelectedOrange,
-        tabListCountColor:colorCodes?.greyColor2,
+        tabListCountColor: colorCodes?.greyColor2,
         listItemContent: colorCodes.colorWhite,
         notificationPanelTitle: colorCodes?.colorWhite,
         expansionListItemBg: colorCodes?.notificationCalloutBg,
         expansionMarkerListBg: colorCodes?.notificationMarkerCalloutBg,
-        dashBoardexpansionMarkerListBg: colorCodes?.dashBoardNotificationMarkerCalloutBg,
+        dashBoardexpansionMarkerListBg:
+          colorCodes?.dashBoardNotificationMarkerCalloutBg,
         expansionListItemBorder: colorCodes?.tabSelectedOrange,
         listItemBg: colorCodes?.darkBlackShade,
         eventColor: colorCodes?.green,
         oprAlertColor: colorCodes?.orange,
-        incidentColor: colorCodes?.red
+        incidentColor: colorCodes?.red,
       },
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
       },
       login: {
-        boxTopLineStyle: colorCodes?.orngeLinearGradient
+        boxTopLineStyle: colorCodes?.orngeLinearGradient,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.blackShades,
@@ -224,7 +256,7 @@ let theme = {
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
         mainSectionGridBg: colorCodes.charCoalBlack,
-        mainSectionGridBorder: colorCodes.navyBlue,        
+        mainSectionGridBorder: colorCodes.navyBlue,
       },
       gridViewComponentGraphsColor: {
         screenOneGraphLine: colorCodes.vibrantBlueGreenOpacity,
@@ -249,11 +281,26 @@ let theme = {
       },
       chart: {
         xAxisTextColor: colorCodes?.colorWhite,
-      },  
       },
-    
+      fleetManagementPage: {
+        pageBg: colorCodes?.blackShades,
+        topPanelBorder: colorCodes?.mdGray,
+        topPanelTextColor: colorCodes?.whiteShades2,
+        infoDialogColor: colorCodes?.darkGrey1,
+        routeDetailsBg: colorCodes?.blackShades,
+        routeDetailsTitle: colorCodes?.colorWhite,
+        progressBarBg: colorCodes?.progressBar,
+        dialogProgressBarBg: colorCodes?.progressBar,
+        violationBg: colorCodes?.blackShades,
+        violationListBg: colorCodes?.darkGrey2,
+        violationListTextColor: colorCodes?.colorWhite,
+        violationListSubTextColor: colorCodes?.colorWhite,
+        listItemsBorder: colorCodes?.mdGray,
+      },
+    },
+
     spacing: 5,
     typography: { fontFamily: "Arial" },
   },
-}
+};
 export default theme;
