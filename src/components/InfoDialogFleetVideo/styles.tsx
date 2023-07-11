@@ -16,6 +16,34 @@ const useStyles = makeStyles(() => ({
     fontFamily: "HelveticaNeue-Regular",
   }),
 
+  videoTitle: (props:any) => ({
+    fontFamily: "HelveticaNeue-Regular",
+    fontSize: "0.9vw"
+  }),
+
+  vicheals: (props:any) => ({
+    position: 'relative',
+    padding: '0 1%',
+    "&::before": {
+      top: '0.1vw',
+      width: '1%',
+      height: '1vw',
+      left: '2px',
+      content: `''`,
+      position: "absolute",
+      background: 'white', 
+    },
+    "&::after": {
+      top: '0.1vw',
+      width: '1%',
+      height: '1vw',
+      right: '0.3vw',
+      content: `''`,
+      position: "absolute",
+      background: 'white', 
+    },
+  }),
+
   headerTabContainerStyle: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",

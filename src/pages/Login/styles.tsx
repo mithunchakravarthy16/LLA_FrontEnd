@@ -151,7 +151,7 @@ const useStyles = makeStyles(() => ({
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
-        opacity: 1,
+        opacity: 0.5,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontFamily: "HelveticaNeue-Regular",
@@ -197,7 +197,7 @@ const useStyles = makeStyles(() => ({
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
-        opacity: 1,
+        opacity: 0.5,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontFamily: "HelveticaNeue-Regular",
