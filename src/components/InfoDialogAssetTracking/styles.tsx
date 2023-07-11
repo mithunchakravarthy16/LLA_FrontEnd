@@ -116,14 +116,15 @@ const useStyles = makeStyles(() => ({
     border: "1px solid rgb(51, 51, 51)",
     padding: "1%",
     background: "rgb(22, 21, 21)",
+    paddingRight : "0%",
   }),
   notificationListContainer: (props: any) => ({
     height: "100%",
     overflowY: "auto",
-
-    "&::-webkit-scrollbar": {
-      width: 0,
-    },
+    paddingRight: "2%",
+    // "&::-webkit-scrollbar": {
+    //   width: 0,
+    // },
   }),
   buttonContainer: (props: any) => ({
     display: "flex",
