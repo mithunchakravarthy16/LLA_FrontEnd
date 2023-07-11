@@ -188,12 +188,13 @@ const useStyles = makeStyles({
   pieChartLegendContainer: {
     display: "flex",
     flexDirection: "column",
+    justifyContent:'center',
   },
 
   legendIdentifierContainer: {
     display: "flex",
     alignItems: "center",
-    marginBottom: "10px",
+    marginBottom: "0.6vw",
   },
 
   legendColorBox: (props: any) => {
@@ -213,11 +214,11 @@ const useStyles = makeStyles({
     textTransform: "capitalize",
     marginLeft: "15px",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      fontSize: 33,
       lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 24,
+      fontSize: 27,
       lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2049)]: {

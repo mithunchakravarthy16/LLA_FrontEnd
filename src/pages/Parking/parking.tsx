@@ -32,6 +32,7 @@ import ParkingLot1 from "../../assets/parkingLot/Parking_Lot1.svg";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
+import ParkingSlotContainer from "components/ParkingSlotContainer";
 
 HC_rounded(Highcharts);
 
@@ -709,34 +710,16 @@ const Parking: React.FC<any> = (props) => {
                     className={bodyLeftTopPanelMapContainer}
                     style={{ height: "59%" }}
                   >
-                    {!parkingLotSelectionActive ? (
-                      <div
-                        className={lotSelectionIconStyle}
-                        onClick={handleLotSelction}
-                      >
-                        {selectedParkingLot}
-                      </div>
-                    ) : (
-                      <div className={mapFilterStyle}>
-                        <Tabs
-                          initialIndex={parkingLotIndex}
-                          tabsList={tabsList}
-                          handleTabs={handleParkingLot}
-                          dashboardNotificationClassName={
-                            customNotificationTabs
-                          }
-                          pageName={"parking"}
-                        />
-                        <div
-                          className={lotSelectionIconStyleClose}
-                          onClick={handleLotSelction}
-                        >
-                          X
-                        </div>
-                      </div>
-                    )}
+                    <ParkingSlotContainer
+                      parkingLotSelectionActive={parkingLotSelectionActive}
+                      parkingLotIndex={parkingLotIndex}
+                      handleLotSelction={handleLotSelction}
+                      selectedParkingLot={selectedParkingLot}
+                      handleParkingLot={handleParkingLot}
+                      tabsList={tabsList}
+                    />
+                   
                     {parkingLotIndex === 0 ? (
-                      // <Grid style={{height : "60vh"}}>
                       <Map
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}
