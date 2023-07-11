@@ -93,8 +93,8 @@ let colorCodes = {
   red: '#FF1926',
   whiteFade: 'rgb(255 255 255 / 50%)',
   grayFade: '#80808090',
-  blackGrayShades: "rgba(30, 31, 39, 1)",
-  grayBlackShades: "rgba(199, 199, 199, 1)",
+  blackGrayShades: "rgba(30, 31, 39, 0.9)",
+  grayBlackShades: "rgba(199, 199, 199, 0.9)",
   whiteGrayShades: "rgba(186, 186, 186, 1)",
   grayWhiteShades: "rgba(94, 94, 94, 1)",
 };

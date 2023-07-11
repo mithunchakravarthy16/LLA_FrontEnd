@@ -375,7 +375,7 @@ const Parking: React.FC<any> = (props) => {
                                 padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <Grid item xs={12} style={{ height: "90%" }}>
+                              <Grid item xs={12} style={{ height: "100%" }}>
                                 <Grid
                                   container
                                   xs={12}
@@ -387,8 +387,9 @@ const Parking: React.FC<any> = (props) => {
                                 >
                                   <Grid
                                     item
-                                    xs={7}
-                                    style={{ height: "21vh", width: "80vw" }}
+                                    direction="column"
+                                    xs={5}
+                                    style={{ height: "23vh", width: "80vw" }}
                                   >
                                     <Chart
                                       // width={selectedWidth?.width1}
@@ -458,8 +459,9 @@ const Parking: React.FC<any> = (props) => {
                                     />
                                   </Grid>
                                   <Grid
-                                    xs={5}
+                                    xs={7}
                                     direction="column"
+                                    style={{ height: "21vh", width: "80vw", paddingLeft: '5vw'}} 
                                     className={pieChartLegendContainer}
                                   >
                                     {PIECHART_LEGEND.map((legend) => (

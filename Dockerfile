@@ -1,10 +1,10 @@
-FROM node:14-alpine AS builder
+FROM node:16.19.0-alpine3.17 AS builder
 ENV NODE_ENV production
 # Add a work directory
 WORKDIR /app
 # Cache and Install dependencies
 COPY package.json .
-RUN npm install
+RUN npm install --force
 # Copy app files
 COPY . .
 # Build the app

@@ -478,7 +478,7 @@ color: props?.palette?.notification?.noResultFoundColor,
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 450px)"
-          : "calc(100vh - 326px)",
+          : "calc(100vh - 333px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       height:
@@ -490,7 +490,7 @@ color: props?.palette?.notification?.noResultFoundColor,
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 410px)"
-          : "calc(100vh - 289px)",
+          : "calc(100vh - 300px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       height:
