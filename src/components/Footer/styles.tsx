@@ -19,7 +19,7 @@ const useStyles = makeStyles(
       height: "24vh",
     }),
     footerSectionDasbhoard: (props: any) => ({
-      background: "rgba(30, 31, 39, 0.9)",
+      background: props?.palette?.footer?.footerBg, //"rgba(30, 31, 39, 1)", //#1E1F27
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -27,7 +27,7 @@ const useStyles = makeStyles(
       bottom: 0,
       zIndex: "1",
       width: "100vw",
-      color: "rgba(186, 186, 186, 1)",
+      color: props?.palette?.footer?.footerTextColor, //"rgba(186, 186, 186, 1)",
       fontSize: "20px",
       lineHeight: "36px",
       height: 82,

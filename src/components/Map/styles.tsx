@@ -22,7 +22,8 @@ const useStyles = makeStyles({
       backgroundColor: "unset !important"
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
-      background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
+      //background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
+      background: props?.palette?.notification?.dashBoardexpansionMarkerListBg,
     },
     "& .gm-style-iw-t": {
       bottom: "9vh !important",
