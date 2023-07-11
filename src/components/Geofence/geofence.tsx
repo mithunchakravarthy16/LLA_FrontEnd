@@ -222,7 +222,7 @@ const Geofence: React.FC<any> = (props: any) => {
   //   localStorage.setItem("dashboardViewDetails", JSON.stringify(data));
   // };
 
-  const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
+  const MuiSwitchLarge = styled(Switch)(() => ({
     width: "2.5vw",
     height: "2.5vh",
     padding: "0px",
