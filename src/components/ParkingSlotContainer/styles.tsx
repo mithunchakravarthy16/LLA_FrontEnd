@@ -44,10 +44,9 @@ const useStyles = makeStyles({
 
     "& .MuiTab-root": {
       fontWeight: "500 !important",
-      //   lineHeight: "30px !important",
       color: `#FFF !important`,
       background: "#808080",
-      borderRadius: "17px",
+      borderRadius: "1vh",
       minWidth: "3vw !important",
       minHeight: "4vh !important",
       width: "3vw !important",
