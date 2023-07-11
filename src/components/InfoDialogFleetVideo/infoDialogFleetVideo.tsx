@@ -68,6 +68,8 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
     headerTabContainerStyle,
     headerTabStyle,
     customNotificationTabs,
+    videoTitle,
+    vicheals
   } = useStyles(appTheme);
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -118,8 +120,8 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
         </div>
 
         <Grid container xs={12} style={{ height: "100%" }}>
-          <Grid item xs={12} style={{ height: "10%", fontSize: "1vw" }}>
-            {`${selectedMarker?.title} | Vehicle#${selectedMarker?.vehicleId} | Driver-Mike Ross`}
+          <Grid item xs={12} style={{ height: "10%",  }}>
+            <p className={videoTitle}><span>{selectedMarker?.title}</span>  <span className={vicheals}>Vehicle# {selectedMarker?.vehicleId}</span> <span>Driver-Mike Ross</span></p>
           </Grid>
           <Grid
             item
