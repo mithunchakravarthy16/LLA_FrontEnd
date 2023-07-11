@@ -40,6 +40,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     tabCountContainer,
     tabCountContainerSelected,
     fleetInfoDialogueTabLabelTextSelected,
+    tabLabelParkingSlot
   } = useStyles({
     appTheme,
     pageName: pageName,
@@ -73,7 +74,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                   <div
                     className={
                       pageName === "fleetInfoDialogue"
-                        ? tabLabelFleetInfoDialogue
+                        ? tabLabelFleetInfoDialogue : pageName === "parkingSlot" ? tabLabelParkingSlot 
                         : tabLabel
                     }
                   >
