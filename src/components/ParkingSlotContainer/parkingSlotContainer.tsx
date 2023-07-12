@@ -12,6 +12,7 @@ const ParkingSlotContainer = (props: any) => {
     selectedParkingLot,
     handleParkingLot,
     tabsList,
+    handleLotSelctionCloseIcon
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -73,7 +74,7 @@ const ParkingSlotContainer = (props: any) => {
           />
           <div
             className={lotSelectionIconStyleClose}
-            onClick={handleLotSelction}
+            onClick={handleLotSelctionCloseIcon}
           >
             <img
               src={OrangeCircle}

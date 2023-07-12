@@ -103,6 +103,7 @@ let theme = {
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
         graphBg: colorCodes?.blackShades,
+        securityProgressBarBg: colorCodes?.darkGrayBrownShade,
       },
       parkingPage: {
         pageBg: colorCodes?.blackShades,
@@ -253,6 +254,7 @@ let theme = {
         violationListSubTextColor: colorCodes?.mdGray,
         listItemsBorder: "",
         graphBg: colorCodes?.whiteColor1,
+        securityProgressBarBg: colorCodes?.blueShadesOfProgressBar,
       },
       assetTrackingPage: {
         pageBg: colorCodes?.colorWhite,
@@ -400,6 +402,7 @@ let theme = {
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
         graphBg: colorCodes?.blackShades,
+        securityProgressBarBg: colorCodes?.darkGrayBrownShade,
       },
       assetTrackingPage: {
         pageBg: colorCodes?.darkGrey1,

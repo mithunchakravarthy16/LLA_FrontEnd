@@ -146,8 +146,8 @@ const useStyles = makeStyles({
   }),
 
   notificationPanelGrid: (props: any) => ({
-    border: "1px solid #333333",
-  }),
+    border: `1px solid ${props?.palette?.parkingPage?.topPanelBorder}`,
+    background: props?.palette?.notification?.notificationBg,  }),
 
   mapFilterStyle: (props: any) => ({
     position: "absolute",

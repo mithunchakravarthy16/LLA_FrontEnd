@@ -113,5 +113,6 @@ let colorCodes = {
   whiteColor3: "#F9F9F9",
   orange1: "#FF7A00",
   darkGrey3: "#242424",
+  blueShadesOfProgressBar: "#43549A99"
 };
 export default colorCodes;
