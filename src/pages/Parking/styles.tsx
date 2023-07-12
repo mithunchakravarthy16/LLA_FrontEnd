@@ -10,7 +10,7 @@ const responsiveWidth = (width: number) => {
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    background: "#161515",
+    background: props?.palette?.parkingPage?.pageBg,
     height: "100vh",
     // paddingLeft: props?.parkingLotIndex === 0 ? "3.4px" : "57.4px",
     paddingLeft: "3.4px",
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
-    background: "#161515",
+    // background: "#161515",
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -546,6 +546,7 @@ const useStyles = makeStyles({
   liveContentValue: (props: any) => ({
     fontSize: "20px",
     fontWeight: 600,
+    color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -640,6 +641,7 @@ const useStyles = makeStyles({
     fontSize: "14px",
     fontWeight: 500,
     fontStyle: "italic",
+    color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 24,
       lineHeight: "56px",
@@ -730,7 +732,7 @@ const useStyles = makeStyles({
       left: "28%",
       bottom: 0,
       width: "44%", // Specify the desired length of the bottom border
-      borderBottom: `1px solid ${props?.palette?.gridViewComponentCommonStyle?.liveContentLeftBorder}`, // Specify your desired color and border style
+      borderBottom: `1px solid ${props?.palette?.parkingPage?.liveContentDividerLineColor}`, // Specify your desired color and border style
       opacity: "0.4",
     },
   }),

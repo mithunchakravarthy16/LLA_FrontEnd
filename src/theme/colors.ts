@@ -104,5 +104,10 @@ let colorCodes = {
   grayBlackShades: "rgba(199, 199, 199, 0.9)",
   whiteGrayShades: "rgba(186, 186, 186, 1)",
   grayWhiteShades: "rgba(94, 94, 94, 1)",
+  darkGrayLightShade : "#666666",
+  darkGrayBrownShade : "#484D52",
+  lightOrangelightShade : "rgba(222, 142, 23, 0.11)",
+  lightGrayLightOpacity : "rgba(222, 222, 222, 1)",
+  darkGrayLightOpacity : "rgba(68, 68, 68, 0.56)",
 };
 export default colorCodes;
