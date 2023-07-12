@@ -9,6 +9,13 @@ import {
   Trolley,
   Unauthorised,
 } from "../../assets/topPanelListIcons";
+import {
+  FireDetectionIcon,
+  TemperingAlaremIcon,
+  TailgatingIcon,
+  UnauthorizedAccessIcon,
+  CameraIcon,
+} from "../../assets/securityLightThemeIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
@@ -76,27 +83,28 @@ const Parking: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: FireAlarm,
+      icon: selectedTheme === "light" ? FireDetectionIcon : FireAlarm,
       value: "15",
       name: "Fire Detection",
     },
     {
-      icon: Siren,
+      icon: selectedTheme === "light" ? TemperingAlaremIcon : Siren,
       value: "20",
       name: "Tampering Alarm",
     },
     {
-      icon: Unauthorised,
+      icon:
+        selectedTheme === "light" ? UnauthorizedAccessIcon : Unauthorised,
       value: "14",
       name: "Unauthorised Access",
     },
     {
-      icon: Trolley,
+      icon: selectedTheme === "light" ? TailgatingIcon : Trolley,
       value: "15",
       name: "Tailgating",
     },
     {
-      icon: Camera,
+      icon: selectedTheme === "light" ? CameraIcon : Camera,
       value: "05",
       name: "Camera Occlusion",
     },
@@ -281,7 +289,10 @@ const Parking: React.FC<any> = (props) => {
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#43549A"
-                          trailColor="#484D52"
+                          trailColor={
+                            appTheme?.palette?.fleetManagementPage
+                              ?.securityProgressBarBg
+                          } //"#484D52"
                           title={"Issues Resolved"}
                         />
                       </Grid>
@@ -461,7 +472,11 @@ const Parking: React.FC<any> = (props) => {
                                   <Grid
                                     xs={7}
                                     direction="column"
-                                    style={{ height: "21vh", width: "80vw", paddingLeft: '5vw'}} 
+                                    style={{
+                                      height: "21vh",
+                                      width: "80vw",
+                                      paddingLeft: "5vw",
+                                    }}
                                     className={pieChartLegendContainer}
                                   >
                                     {PIECHART_LEGEND.map((legend) => (
@@ -523,6 +538,7 @@ const Parking: React.FC<any> = (props) => {
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
                   isMarkerClicked={isMarkerClicked}
+                  setIsMarkerClicked={setIsMarkerClicked}
                 />
               </Grid>
             </Grid>

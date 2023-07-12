@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect,} from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import theme from "../../theme/theme";
@@ -67,6 +67,7 @@ const Login = () => {
     llaLogoSection,
     formSection,
     innerPaddingBox,
+    adminPanel,
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -114,6 +115,10 @@ const Login = () => {
       }
     },
   });
+
+  const handleAdminPanel = () => {
+    navigate("/adminLogin");
+  };
 
   return (
     <>
@@ -163,16 +168,16 @@ const Login = () => {
                           <OutlinedInput
                             className={inputField}
                             fullWidth
-                            placeholder="Username@domain.com"
+                            placeholder="Username@domainname.com"
                             type="text"
                             name="userid"
                             value={formik.values.userid}
                             onChange={formik.handleChange}
-                            autoComplete='off'
+                            autoComplete="off"
                             inputProps={{
-                              autocomplete: 'new-password',
+                              autocomplete: "new-password",
                               form: {
-                                autocomplete: 'off',
+                                autocomplete: "off",
                               },
                             }}
                           />
@@ -194,11 +199,11 @@ const Login = () => {
                             name="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
-                            autoComplete='off'
+                            autoComplete="off"
                             inputProps={{
-                              autocomplete: 'new-password',
+                              autocomplete: "new-password",
                               form: {
-                                autocomplete: 'off',
+                                autocomplete: "off",
                               },
                             }}
                           />
@@ -221,6 +226,9 @@ const Login = () => {
                         <Button variant="contained" fullWidth type="submit">
                           {loginNowButton}
                         </Button>
+                      </div>
+                      <div className={adminPanel} onClick={handleAdminPanel}>
+                        Admin Panel
                       </div>
                     </form>
                   </Box>

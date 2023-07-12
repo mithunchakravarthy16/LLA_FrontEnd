@@ -12,6 +12,8 @@ import Security from "pages/Security";
 import Parking from "pages/Parking";
 import FleetManagement from "pages/FleetManagement";
 import AssetTracking from "pages/AssetTracking";
+import AdminPanel from "pages/AdminPanel";
+import AdminPanelLogin from "pages/AdminPanelLogin";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -38,7 +40,7 @@ const VIOT_Routes = () => {
         },
         {
           path: "gridView",
-          element:  <GridView />,
+          element: <GridView />,
         },
         {
           path: "birdsView",
@@ -70,13 +72,21 @@ const VIOT_Routes = () => {
         },
         {
           path: "assetTracking",
-           element: <AssetTracking />,
+          element: <AssetTracking />,
         },
       ],
     },
     {
       path: "*",
       element: <div>No Route Found</div>,
+    },
+    {
+      path: "adminPanel",
+      element: <AdminPanel />,
+    },
+    {
+      path: "adminLogin",
+      element: <AdminPanelLogin />,
     },
   ]);
 };

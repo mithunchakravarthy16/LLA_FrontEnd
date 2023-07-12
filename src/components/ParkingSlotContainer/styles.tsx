@@ -14,15 +14,19 @@ const useStyles = makeStyles({
     right: "1vh",
     top: "1vh",
     zIndex: 1,
-    background: "rgb(68, 68, 68, 0.5)",
+    background: props?.palette?.parkingPage?.parkingSlotBgColor, 
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "75px",
     cursor: "pointer",
     width: "35%",
-    height: "4vh",
-    padding: "1vh",
+    height: "8%",
+    padding: "1vh", 
+    [muiTheme.breakpoints.between(2049, 3073)]: {
+      height: "7%",
+    },
+
   }),
   customNotificationTabs: (props: any) => ({
     "& .MuiTabs-scroller": {
@@ -34,7 +38,7 @@ const useStyles = makeStyles({
       justifyContent: "space-between",
       alignItems: "center",
       width: "82%",
-      margin: "0.5vh",
+      margin: "1%",
     },
 
     "& .MuiButtonBase-root": {
@@ -44,10 +48,9 @@ const useStyles = makeStyles({
 
     "& .MuiTab-root": {
       fontWeight: "500 !important",
-      //   lineHeight: "30px !important",
       color: `#FFF !important`,
       background: "#808080",
-      borderRadius: "17px",
+      borderRadius: "1vh",
       minWidth: "3vw !important",
       minHeight: "4vh !important",
       width: "3vw !important",
@@ -77,7 +80,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     // width: "6vh",
-    height: "13%",
+    height: "12%",
     fontSize: "0.8vw",
     right: "1vh",
     // top: "50%",
