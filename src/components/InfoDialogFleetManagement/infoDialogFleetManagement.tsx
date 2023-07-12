@@ -735,7 +735,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
                   background:
                     appTheme?.palette?.fleetManagementPage?.violationBg,
-                  padding: "1%",
+                  padding: "1% 0% 1% 1%",
                 }}
               >
                 <FleetInfoDialogueViolationContainer
