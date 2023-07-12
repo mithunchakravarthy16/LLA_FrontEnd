@@ -66,7 +66,7 @@ const NotificationPanel = (props: any) => {
     tabSection,
     searchClass,
     notificationListItemSection,
-    noResultFoundClass
+    noResultFoundClass,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -143,35 +143,43 @@ const NotificationPanel = (props: any) => {
     const tabData = dashboardData;
     let searchResult = tabData?.filter((value: any) => {
       return (
-        value?.title?.toString()
+        value?.title
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.area?.toString()
+        value?.area
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.subTitle?.toString()
+        value?.subTitle
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.trackerId?.toString()
+        value?.trackerId
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.assetId?.toString()
+        value?.assetId
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.entity?.toString()
+        value?.entity
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.venue?.toString()
+        value?.venue
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.equipment?.toString()
+        value?.equipment
+          ?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase())
       );
     });
     setSearchValue(searchResult);
     setSearchOpen(true);
-    setSelectedNotification("");
+    // setSelectedNotification("");
   };
 
   const handleCloseIcon = () => {
@@ -210,7 +218,16 @@ const NotificationPanel = (props: any) => {
     if (!searchOpen) {
       setSearchValue(dashboardData);
     }
+    if (searchOpen) {
+      setSelectedNotification("");
+    }
   }, [searchOpen]);
+
+  useEffect(() => {
+    if (searchOpen && searchValue?.length === 0) {
+      setSelectedNotification("");
+    }
+  }, [searchValue]);
 
   useEffect(() => {
     if (isMarkerClicked) {
@@ -243,7 +260,15 @@ const NotificationPanel = (props: any) => {
           <div className={notificationIconSection}>
             <img
               className={notificationSearchIcon}
-              src={searchOpen ? selectedTheme === "light" ? NotificationCloseIconLightTheme : CloseIcon : selectedTheme === "light" ?  SearchIconLighttheme : SearchIcon }
+              src={
+                searchOpen
+                  ? selectedTheme === "light"
+                    ? NotificationCloseIconLightTheme
+                    : CloseIcon
+                  : selectedTheme === "light"
+                  ? SearchIconLighttheme
+                  : SearchIcon
+              }
               alt="Search"
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
