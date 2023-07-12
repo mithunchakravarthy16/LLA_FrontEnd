@@ -17,43 +17,43 @@ const useStyles = makeStyles(() => ({
     backgroundRepeat: "no-repeat",
     height: "100vh",
     display: "flex",
-    alignItems: "baseline",
+    alignItems: "center",
     justifyContent: "center",
   }),
   innerPaddingBox: (props: any) => ({
-    paddingTop: "12vh",
+    // paddingTop: "12vh",
   }),
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(0px)",
-    borderRadius: "24px",
+    borderRadius: "5px",
     background: "#FFFFFF", //rgba(51, 51, 51, 0.6)
     color: props?.palette?.login?.loginBannerTitle,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "856px !important",
-    padding: "80px",
+    width: "44.7vw !important",
+    padding: '2.2vw',
     margin: "0 auto",
-    [muiTheme.breakpoints.down(3073)]: {
-      width: "856px !important",
-      padding: "100px",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      maxWidth: "460px !important",
-      padding: "40px ",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      maxWidth: "460px !important",
-      padding: "40px ",
-    },
-    [muiTheme.breakpoints.down(1281)]: {
-      maxWidth: "460px !important",
-      padding: "16px ",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      maxWidth: "460px !important",
-      padding: "32px 20px ",
-    },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   width: "856px !important",
+    //   padding: "100px",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   maxWidth: "460px !important",
+    //   padding: "40px ",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   maxWidth: "460px !important",
+    //   padding: "40px ",
+    // },
+    // [muiTheme.breakpoints.down(1281)]: {
+    //   maxWidth: "460px !important",
+    //   padding: "16px ",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   maxWidth: "460px !important",
+    //   padding: "32px 20px ",
+    // },
     // "&::before": {
     //   top: "0",
     //   width: "90%",
@@ -92,23 +92,24 @@ const useStyles = makeStyles(() => ({
   }),
   welcomeContent: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    fontSize: "56px",
-    lineHeight: "82px",
+    fontSize: "1.3vw",
+    fontWeight: 700,
     color: "#3A345E",
     textAlign: "left",
-    [muiTheme.breakpoints.down(3073)]: {
-      fontFamily: "HelveticaNeue-Regular",
-      fontSize: "56px",
-      lineHeight: "82px",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      fontSize: "24px",
-      lineHeight: "30px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontSize: "18px",
-      lineHeight: "28px",
-    },
+    marginBottom: '3.2vh'
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   fontFamily: "HelveticaNeue-Regular",
+    //   fontSize: "56px",
+    //   lineHeight: "82px",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   fontSize: "24px",
+    //   lineHeight: "30px",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   fontSize: "18px",
+    //   lineHeight: "28px",
+    // },
   }),
 
   inputTitle: (props: any) => ({
@@ -293,31 +294,32 @@ const useStyles = makeStyles(() => ({
     },
   }),
   llaLogoSection: (props: any) => ({
-    width: 200,
-    margin: "0 auto",
-    marginBottom: 32,
-    [muiTheme.breakpoints.down(3073)]: {
-      width: 200,
-      margin: "0 auto",
-      marginBottom: 32,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      width: 100,
-      margin: "0 auto",
-      marginBottom: 18,
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      width: 100,
-      margin: "0 auto",
-      marginBottom: 18,
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      width: 70,
-      margin: "0 auto",
-      marginBottom: 12,
-    },
+    marginBottom: '6vh',
+    // width: 200,
+    // margin: "0 auto",
+    // marginBottom: 32,
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   width: 200,
+    //   margin: "0 auto",
+    //   marginBottom: 32,
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   width: 100,
+    //   margin: "0 auto",
+    //   marginBottom: 18,
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   width: 100,
+    //   margin: "0 auto",
+    //   marginBottom: 18,
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   width: 70,
+    //   margin: "0 auto",
+    //   marginBottom: 12,
+    // },
     "& img": {
-      maxWidth: "100%",
+      width: '21.6vw'
     },
   }),
   formTitle: (props: any) => ({
