@@ -117,7 +117,7 @@ const Login = () => {
   });
 
   const handleAdminPanel = () => {
-    navigate("/adminPanelLogin");
+    navigate("/adminLogin");
   };
 
   return (
