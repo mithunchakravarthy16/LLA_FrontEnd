@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
       color: "#1A1A1A !important",
     },
     "& .MuiFormControlLabel-label.Mui-disabled": {
-      color: "#ffffff !important",
+      color: props?.palette?.assetTrackingPage?.topPanelSubTextColor,
     },
     "& .Mui-disabled": {
       "& .MuiSvgIcon-root": {
@@ -34,6 +34,7 @@ const useStyles = makeStyles(() => ({
       fontFamily: "HelveticaNeue-Regular",
       fontWeight: 400,
       fontSize: "0.6vw",
+      color: props?.palette?.assetTrackingPage?.topPanelTextColor,
     },
   }),
   customTextField: (props: any) => ({
@@ -43,14 +44,14 @@ const useStyles = makeStyles(() => ({
     },
     "& .MuiInputBase-root.MuiOutlinedInput-root": {
       background: "transparent !important",
-      color: " #ffffff !important",
+      color: "#ffffff !important",
     },
     "& .MuiOutlinedInput-notchedOutline": {
       borderColor: "#838383 !important",
     },
     "& .MuiOutlinedInput-input": {
       fontSize: "0.7vw",
-      color: " #ffffff !important",
+      color: `${props?.palette?.assetTrackingPage?.topPanelSubTextColor} !important`,
       padding: "0.5vw",
     },
     "& .Mui-disabled": {
@@ -78,7 +79,7 @@ const useStyles = makeStyles(() => ({
       width: "100%",
     },
     "& .MuiInputBase-root.MuiOutlinedInput-root": {
-      background: "#333333",
+      background: "transparent !important",
       color: " #ffffff !important",
     },
     "& .MuiOutlinedInput-notchedOutline": {
@@ -86,7 +87,7 @@ const useStyles = makeStyles(() => ({
     },
     "& .MuiOutlinedInput-input": {
       fontSize: "0.7vw",
-      color: " #ffffff !important",
+      color: `${props?.palette?.assetTrackingPage?.topPanelSubTextColor} !important`,
       padding: "0.5vw",
     },
     "& .Mui-disabled": {
@@ -111,24 +112,24 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     padding: "15px",
-    background: "#151515",
+    background: props?.palette?.assetTrackingPage?.geofenceTabBg,
     alignItems: "center",
     marginLeft: "16px !important",
   }),
   mainContainer: (props: any) => ({
-    background: "#333333",
+    background: props?.palette?.assetTrackingPage?.geofenceTabBg,
     marginRight: "0.8vw",
     position: "relative",
     padding: "1vw",
     borderRadius: "15px",
     height: "96%",
-    overflow: 'auto',
+    overflow: "auto",
     [muiTheme.breakpoints.down(1921)]: {
       height: "calc(100vh - 394px)",
     },
   }),
   mainGeofenceContainer: (props: any) => ({
-    background: "#333333",
+    background: props?.palette?.assetTrackingPage?.geofenceTabBg,
     marginRight: "0.8vw",
     position: "relative",
     padding: "1vw",
@@ -173,6 +174,7 @@ const useStyles = makeStyles(() => ({
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
     paddingTop: "10px",
+    color: props?.palette?.assetTrackingPage?.topPanelTextColor,
   }),
   polygonContainer: (props: any) => ({
     display: "flex",
@@ -189,7 +191,7 @@ const useStyles = makeStyles(() => ({
   circleContainer: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: '1vw'
+    marginBottom: "1vw",
   }),
   circularRadius: (props: any) => ({}),
   notifyContainer: (props: any) => ({
@@ -205,19 +207,20 @@ const useStyles = makeStyles(() => ({
     fontSize: "0.5vw",
     fontFamily: "HelveticaNeue-italicMedium",
     fontWeight: 300,
+    color: props?.palette?.assetTrackingPage?.topPanelTextColor,
   }),
   geoFenceTitle: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
     fontSize: "1vw",
     lineHeight: "3vh",
-    color: props?.palette?.geofence?.geofenceTitle,
+    color: props?.palette?.assetTrackingPage?.topPanelTextColor,
   }),
   geoFenceTitle1: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
     fontSize: "1vw",
-    color: props?.palette?.geofence?.geofenceTitle,
+    color: props?.palette?.assetTrackingPage?.topPanelTextColor,
     marginTop: "2vh",
     marginBottom: "2vh",
   }),
@@ -235,18 +238,18 @@ const useStyles = makeStyles(() => ({
     },
   }),
   geofenceType: (props: any) => ({
-    color: "#FF7A00 !important",
+    color: props?.palette?.assetTrackingPage?.geofenceTypeTextColor,
     fontSize: "0.6vw",
     fontFamily: "HelveticaNeue-Regular",
     fontWeight: 500,
     paddingBottom: "1vh",
   }),
   selectedAssetsContainer: (props: any) => ({
-    color: "rgb(255, 255, 255, 0.5) !important",
+    color: props?.palette?.assetTrackingPage?.topPanelSubTextColor,
     fontSize: "0.7vw",
     fontFamily: "HelveticaNeue-Regular",
     marginTop: "20px",
-    backgroundColor: "#242424",
+    backgroundColor: props?.palette?.assetTrackingPage?.geofenceAssetsBg,
     display: "flex",
     justifyContent: "center",
     padding: "50px",
@@ -278,7 +281,7 @@ const useStyles = makeStyles(() => ({
     padding: "0.2vw",
     marginTop: "1vw",
     flexWrap: "wrap",
-    overflow: 'auto',
+    overflow: "auto",
     "& .MuiChip-root": {
       backgroundColor: "#333333 !important",
       borderRadius: "15px",

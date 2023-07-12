@@ -136,13 +136,15 @@ const useStyles = makeStyles(() => ({
     paddingRight: "1vw",
     "& .MuiButtonBase-root": {
       color: "#fff",
-      border: "1px solid #363636",
+      border: "none",
+      background: props?.palette?.assetTrackingPage?.geofenceRestBtnColor,
       borderRadius: "5px",
       fontSize: "0.8vw",
       padding: "1vh 2vh",
       fontFamily: "HelveticaNeue-Regular",
       "&:hover": {
-        border: "1px solid #363636",
+        border: "none",
+        background: props?.palette?.assetTrackingPage?.geofenceRestBtnColor,
       },
     },
   }),

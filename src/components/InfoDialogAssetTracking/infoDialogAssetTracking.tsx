@@ -12,6 +12,7 @@ import useStyles from "./styles";
 import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
 import Geofence from "components/Geofence";
+import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -27,7 +28,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
-    background: `#1A1919 !important`,
+    background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
     color: "#fff",
     padding: "1%",
   },
@@ -317,7 +318,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
               transition: "none",
             }}
           >
-            <img width={"100%"} height={"100%"} src={CloseIcon} />
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
           </IconButton>
         </div>
         <Grid container xs={12} style={{ height: "100%" }}>
@@ -402,7 +407,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   >
                                     {data?.label}
                                   </div>
-                                  <div style={{ width: "50%" }}>
+                                  <div
+                                    style={{
+                                      width: "50%",
+                                      color:
+                                        appTheme?.palette?.assetTrackingPage
+                                          ?.topPanelTextColor,
+                                    }}
+                                  >
                                     {data?.value}
                                   </div>
                                 </div>
@@ -443,7 +455,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   >
                                     {data?.label}
                                   </div>
-                                  <div style={{ width: "50%" }}>
+                                  <div
+                                    style={{
+                                      width: "50%",
+                                      color:
+                                        appTheme?.palette?.assetTrackingPage
+                                          ?.topPanelTextColor,
+                                    }}
+                                  >
                                     {data?.value}
                                   </div>
                                 </div>
@@ -471,9 +490,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   rowGap={2}
                                   style={{
                                     padding: "5% 4%",
-                                    border: "1px solid #333333",
+                                    border: `1px solid ${appTheme?.palette?.assetTrackingPage?.geofenceListBorder}`,
                                     borderRadius: "5px",
-                                    background: "#131313",
+                                    background:
+                                      appTheme?.palette?.assetTrackingPage
+                                        ?.geofenceListItemBg,
                                   }}
                                 >
                                   <div className={vehicleTitle}>
