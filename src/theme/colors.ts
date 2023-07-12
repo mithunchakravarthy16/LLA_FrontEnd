@@ -109,5 +109,9 @@ let colorCodes = {
   lightOrangelightShade : "rgba(222, 142, 23, 0.11)",
   lightGrayLightOpacity : "rgba(222, 222, 222, 1)",
   darkGrayLightOpacity : "rgba(68, 68, 68, 0.56)",
+  whiteColor2: "#F4F4F4",
+  whiteColor3: "#F9F9F9",
+  orange1: "#FF7A00",
+  darkGrey3: "#242424",
 };
 export default colorCodes;
