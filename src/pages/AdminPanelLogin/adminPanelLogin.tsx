@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import theme from "../../theme/theme";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import llaLogo from "../../assets/images/lla-logo.svg";
+import llaLogo from "../../assets/adminLogo.svg";
 import loginBorder from "../../assets/login-border.svg";
 import virtualIOTLogo from "../../assets/Iot-logo.svg";
 import smartLogoText from "../../assets/images/smart-logo-text.svg";
@@ -21,7 +21,7 @@ import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
 
-const Login = () => {
+const AdminPanelLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
@@ -73,7 +73,7 @@ const Login = () => {
   useEffect(() => {
     if (user && user?.userName) {
       localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
-      navigate("/home");
+      navigate("/login");
     }
   }, [user]);
 
@@ -117,7 +117,7 @@ const Login = () => {
   });
 
   const handleAdminPanel = () => {
-    navigate("/adminPanelLogin");
+    navigate("/login");
   };
 
   return (
@@ -143,16 +143,16 @@ const Login = () => {
                 <div className={llaLogoSection}>
                   <img src={llaLogo} />
                 </div>
-                <h2 className={formTitle}>
+                {/* <h2 className={formTitle}>
                   <img src={smartLogoText} />
-                </h2>
+                </h2> */}
               </div>
               <div className={loginFormSection}>
                 <Grid item xs={12} className={innerForm}>
                   <Box>
                     <form onSubmit={formik.handleSubmit}>
                       <div className={welcomeSection}>
-                        <p className={welcomeContent}>Sign In</p>
+                        <p className={welcomeContent}>WELCOME TO ADMIN PANEL</p>
                         {formik.values.userid &&
                           formik.values.password &&
                           inCorrectCredentials && (
@@ -163,12 +163,12 @@ const Login = () => {
                       </div>
 
                       <div>
-                        <p className={inputTitle}>{yourEmail}</p>
+                        <p className={inputTitle}>{"Your Email"}</p>
                         <div className={outlineInputField}>
                           <OutlinedInput
                             className={inputField}
                             fullWidth
-                            placeholder="Username@domainname.com"
+                            placeholder="john.smith@gmail.com"
                             type="text"
                             name="userid"
                             value={formik.values.userid}
@@ -224,11 +224,11 @@ const Login = () => {
                     </div> */}
                       <div className={loginButton}>
                         <Button variant="contained" fullWidth type="submit">
-                          {loginNowButton}
+                          {"Login"}
                         </Button>
                       </div>
                       <div className={adminPanel} onClick={handleAdminPanel}>
-                        Admin Panel
+                        User Login
                       </div>
                     </form>
                   </Box>
@@ -241,9 +241,9 @@ const Login = () => {
           </Grid>
         </Grid>
       </div>
-      <Footer pageName={"login"} />
+      {/* <Footer pageName={"login"} /> */}
     </>
   );
 };
 
-export default Login;
+export default AdminPanelLogin;
