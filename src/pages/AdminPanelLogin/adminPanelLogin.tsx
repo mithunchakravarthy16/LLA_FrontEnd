@@ -73,7 +73,7 @@ const AdminPanelLogin = () => {
   useEffect(() => {
     if (user && user?.userName) {
       localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
-      navigate("/login");
+      navigate("/adminPanel");
     }
   }, [user]);
 
