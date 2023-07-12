@@ -452,9 +452,9 @@ color: props?.palette?.notification?.noResultFoundColor,
         ? "calc(100vh - 365px)"
         : "calc(100vh - 400px)",
     overflowY: "scroll",
-    "&::-webkit-scrollbar": {
-      width: 0,
-    },
+    // "&::-webkit-scrollbar": {
+    //   width: 0,
+    // },
     [muiTheme.breakpoints.up(3839)]: {
       height:
         props?.notificationPageName === "dashboard"
