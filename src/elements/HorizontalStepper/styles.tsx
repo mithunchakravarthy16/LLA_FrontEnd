@@ -20,7 +20,7 @@ const useStyles = makeStyles(
       "& .MuiStepConnector-root": {
         left: "calc(-50% + 14px)",
         right: "calc(50% + 14px)",
-        top : "1.7vh"
+        top: "1.7vh",
       },
 
       "& .MuiStepConnector-line": {
@@ -30,7 +30,7 @@ const useStyles = makeStyles(
         // borderTop: "0px",
       },
       "& .MuiStepLabel-alternativeLabel": {
-        color: `#FFF !important`,
+        color: `${props?.palette?.assetTrackingPage?.topPanelSubTextColor} !important`,
         paddingBottom: "4px",
         // marginTop: "1vh",
         fontSize: "0.6vw",
@@ -49,7 +49,7 @@ const useStyles = makeStyles(
       padding: "3px 0px",
       fontSize: "0.7vw !important",
       fontFamily: "HelveticaNeue-Regular !important",
-      height : "9vh",
+      height: "9vh",
       // fontFamily: `'Nunito Sans', sans-serif !important`,
 
       minHeight: "6vh !important",
@@ -93,7 +93,7 @@ export const ColorlibStepIconRoot = styled("div")<
     border: "none",
     borderRadius: "none",
     marginTop: "-3vh",
-    backgroundPosition : "bottom",
+    backgroundPosition: "bottom",
     "& .MuiStepLabel-alternativeLabel": {
       color: `#FFF !important`,
       paddingBottom: "4px",
@@ -117,13 +117,11 @@ export const ColorlibStepIconRoot = styled("div")<
       color: `#FFF !important`,
       paddingBottom: "4px",
 
-
       // [muiTheme.breakpoints.down(1437)]: {
       //   fontSize: " 10px !important",
       //   // fontFamily: `'Nunito Sans', sans-serif !important`,
       // },
     },
-    
   }),
   // [muiTheme.breakpoints.down(1437)]: {
   //   width: 15,

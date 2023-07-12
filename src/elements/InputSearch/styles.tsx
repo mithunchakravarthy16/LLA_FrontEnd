@@ -6,10 +6,11 @@ const useStyles = makeStyles(() => ({
     "& .MuiInputBase-root.MuiOutlinedInput-root": {
       // border: "1px solid #838383",
       borderRadius: "6px",
-      background: "#333333",
+      background: `${props?.palette?.assetTrackingPage?.selectBg} !important`,
       "& .MuiInputBase-input": {
-        color: "#FFFFFF",
-        "-webkit-text-fill-color": "#FFFFFF",
+        color: props?.palette?.assetTrackingPage?.topPanelSubTextColor,
+        "-webkit-text-fill-color":
+          props?.palette?.assetTrackingPage?.topPanelSubTextColor,
       },
     },
     "& .MuiOutlinedInput-input": {

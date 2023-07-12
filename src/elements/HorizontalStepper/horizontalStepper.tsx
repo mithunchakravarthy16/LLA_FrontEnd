@@ -21,23 +21,15 @@ const ColorlibStepIcon: React.FC<any> = (props) => {
     <ColorlibStepIconRoot
       ownerState={{ completed, active }}
       className={className}
-      purpleShades={
-        "#004F9F"
-      }
+      purpleShades={"#004F9F"}
       colorWhite={"#FFF"}
-      greenShade = {"#9BF15C"} 
-      
+      greenShade={"#9BF15C"}
     />
   );
 };
 
-
-
-
-
 const CustomizedSteppers: React.FC<any> = (props) => {
-
-  const {packagaeData}= props;
+  const { packagaeData } = props;
   const packagaeDataCopy = packagaeData && packagaeData;
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
@@ -65,27 +57,26 @@ const CustomizedSteppers: React.FC<any> = (props) => {
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={ 5
-          }
+        activeStep={5}
         // connector={<ColorlibConnector />}
         // sx={stepperSx}
         className={stepperSx}
       >
         {packagaeDataCopy &&
           packagaeDataCopy.length > 0 &&
-          packagaeDataCopy.map((label : any, index : number) => (
-            <Step key={index} style={{     wordBreak: "break-word",
-          }}>
+          packagaeDataCopy.map((label: any, index: number) => (
+            <Step key={index} style={{ wordBreak: "break-word" }}>
               <Typography
                 // sx={typographySx} // For solution 2
                 align="center"
                 className={typographySx}
                 style={{
-            
-                  display : "flex",
-                  justifyContent : "center",
-                  alignItems : "center"
-              }}
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color:
+                    appTheme?.palette?.assetTrackingPage?.topPanelTextColor,
+                }}
               >
                 {label?.packageStage}
               </Typography>

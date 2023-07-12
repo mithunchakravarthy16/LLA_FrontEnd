@@ -12,6 +12,7 @@ import useStyles from "./styles";
 import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
 import Geofence from "components/Geofence";
+import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -27,7 +28,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
-    background: `#1A1919 !important`,
+    background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
     color: "#fff",
     padding: "1%",
   },
@@ -406,7 +407,11 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
               transition: "none",
             }}
           >
-            <img width={"100%"} height={"100%"} src={CloseIcon} />
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
           </IconButton>
         </div>
         <Grid container xs={12} style={{ height: "100%" }}>
