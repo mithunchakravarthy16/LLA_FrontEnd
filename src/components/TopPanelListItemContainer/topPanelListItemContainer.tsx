@@ -71,6 +71,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
         justifyContent="space-around"
         alignItems="center"
         className={bodyLeftTopPanelListSubContainer}
+        style={{    borderRight : "0px"      }}
       >
         {topPanelListItems &&
           topPanelListItems?.length > 0 &&

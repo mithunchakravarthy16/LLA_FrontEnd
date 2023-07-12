@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     right: "1vh",
     top: "1vh",
     zIndex: 1,
-    background: "rgb(68, 68, 68, 0.5)",
+    background: props?.palette?.parkingPage?.parkingSlotBgColor, 
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

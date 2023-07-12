@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     // border: "1px solid #808080",
     height: "100%",
     border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
-    borderRight: "none",
+    borderRight : "0px"
   }),
 
   progressBarContainer: (props: any) => ({
@@ -164,6 +164,7 @@ const useStyles = makeStyles({
   itemValueUnitStyle: (props: any) => ({
     display: "flex",
     alignItems: "flex-end",
+    color: props?.palette?.parkingPage?.topPanelTextColor,
   }),
 });
 export default useStyles;

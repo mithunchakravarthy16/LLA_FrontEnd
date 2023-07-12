@@ -90,7 +90,7 @@ let theme = {
       },
       fleetManagementPage: {
         pageBg: colorCodes?.blackShades,
-        topPanelBorder: colorCodes?.mdGray,
+        topPanelBorder: colorCodes?.darkBlackShade,
         topPanelTextColor: colorCodes?.whiteShades2,
         infoDialogColor: colorCodes?.darkGrey1,
         routeDetailsBg: colorCodes?.blackShades,
@@ -106,7 +106,7 @@ let theme = {
       },
       parkingPage: {
         pageBg: colorCodes?.blackShades,
-        topPanelBorder: colorCodes?.mdGray,
+        topPanelBorder: colorCodes?.darkBlackShade,
         topPanelTextColor: colorCodes?.whiteShades2,
         infoDialogColor: colorCodes?.darkGrey1,
         routeDetailsBg: colorCodes?.blackShades,
@@ -119,6 +119,11 @@ let theme = {
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
         graphBg: colorCodes?.blackShades,
+        sectionBorderColor : colorCodes?.darkBlackShade,
+        topPanelBgColor : colorCodes?.darkBlackShade,
+        liveContentDividerLineColor : colorCodes?.colorWhite,
+        progressTrailColor: colorCodes?.darkGrayBrownShade,
+        parkingSlotBgColor : colorCodes?.darkGrayLightOpacity
       },
       footer: {
         footerBg: colorCodes?.blackGrayShades,
@@ -267,7 +272,7 @@ let theme = {
       },
       parkingPage: {
         pageBg: colorCodes?.whiteColor,
-        topPanelBorder: colorCodes?.mdGray,
+        topPanelBorder: colorCodes?.darkGrayLightShade,
         topPanelTextColor: colorCodes?.darkBlackShade,
         infoDialogColor: colorCodes?.colorWhite,
         routeDetailsBg: colorCodes?.whiteColor1,
@@ -280,6 +285,11 @@ let theme = {
         violationListSubTextColor: colorCodes?.mdGray,
         listItemsBorder: "",
         graphBg: colorCodes?.whiteColor1,
+        sectionBorderColor : colorCodes?.darkBlackShade,
+        topPanelBgColor : colorCodes?.darkGrayLightShade,
+        liveContentDividerLineColor : colorCodes?.darkBlackShade,
+        progressTrailColor: colorCodes?.lightOrangelightShade,
+        parkingSlotBgColor : colorCodes?.lightGrayLightOpacity
       },
     },
 
@@ -377,7 +387,7 @@ let theme = {
       },
       fleetManagementPage: {
         pageBg: colorCodes?.blackShades,
-        topPanelBorder: colorCodes?.mdGray,
+        topPanelBorder: colorCodes?.darkBlackShade,
         topPanelTextColor: colorCodes?.whiteShades2,
         infoDialogColor: colorCodes?.darkGrey1,
         routeDetailsBg: colorCodes?.blackShades,
@@ -409,7 +419,7 @@ let theme = {
       },
       parkingPage: {
         pageBg: colorCodes?.blackShades,
-        topPanelBorder: colorCodes?.mdGray,
+        topPanelBorder: colorCodes?.darkBlackShade,
         topPanelTextColor: colorCodes?.whiteShades2,
         infoDialogColor: colorCodes?.darkGrey1,
         routeDetailsBg: colorCodes?.blackShades,
@@ -422,6 +432,11 @@ let theme = {
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
         graphBg: colorCodes?.blackShades,
+        sectionBorderColor : colorCodes?.darkBlackShade,
+        topPanelBgColor : colorCodes?.darkBlackShade,
+        liveContentDividerLineColor : colorCodes?.colorWhite,
+        progressTrailColor: colorCodes?.darkGrayBrownShade,
+        parkingSlotBgColor : colorCodes?.darkGrayLightOpacity
       },
     },
     spacing: 5,
