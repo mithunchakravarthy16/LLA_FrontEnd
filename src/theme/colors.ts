@@ -104,5 +104,11 @@ let colorCodes = {
   grayBlackShades: "rgba(199, 199, 199, 0.9)",
   whiteGrayShades: "rgba(186, 186, 186, 1)",
   grayWhiteShades: "rgba(94, 94, 94, 1)",
+  speedometerGreen: "#73B967",
+  speedometerRed: "#F15252",
+  speedometerTrackLight: "#FAFAFA",
+  speedometerTrackDark: "#20282C",
+  iconBackgroundDark: "#1A1919",
+
 };
 export default colorCodes;

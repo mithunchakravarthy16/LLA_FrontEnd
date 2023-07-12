@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import {
   RootContainer,
   LabelText,
@@ -8,6 +8,7 @@ import {
   IconBackDrop,
 } from './styles'
 import { VerticalSpace } from 'elements/Space';
+import theme from "../../theme/theme";
 import circularProgressMask from 'assets/circular-progress-mask.svg';
 import ProgressBar from 'react-customizable-progressbar';
 import CustomIcon from 'elements/Icon';
@@ -28,10 +29,15 @@ const SpeedoMeter = (props) => {
     rotate,
     strokeWidth,
     trackStrokeColor,
-    trackStrokeWidth
+    trackStrokeWidth,
+    textValue,
   } = props;
   
   const {width, height} = useWindowDimensions();
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme"))
+  );
+  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const getPointerThumb = () => {
     switch(thumbType) {
@@ -55,6 +61,20 @@ const SpeedoMeter = (props) => {
     }
   }
 
+  useEffect(() => {
+    switch (selectedTheme) {
+      case "light":
+        setAppTheme(theme?.lightTheme);
+        break;
+      case "dark":
+        setAppTheme(theme?.darkTheme);
+        break;
+      default:
+        setAppTheme(theme?.defaultTheme);
+        break;
+    }
+  }, [selectedTheme]);
+
   return (
     <RootContainer>
       <ProgressBar
@@ -70,10 +90,10 @@ const SpeedoMeter = (props) => {
         {...getPointerThumb()}
       >
         <ProgressBarStroke radius={radius} color={color} />
-        <ValueContainer color={color} >{currentValue}</ValueContainer>
+        <ValueContainer color={color} textValue={textValue} >{textValue || currentValue}</ValueContainer>
       </ProgressBar>
       <LabelContainer>
-        <IconBackDrop size={iconSize} >
+        <IconBackDrop size={iconSize} color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.background} >
           <CustomIcon icon={icon} size={iconSize} color={iconColor} />
         </IconBackDrop>
         <LabelText>{label}</LabelText>

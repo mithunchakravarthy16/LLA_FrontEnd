@@ -102,6 +102,12 @@ let theme = {
         violationListTextColor: colorCodes?.colorWhite,
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
+        circularProgressBar: {
+          background: colorCodes?.iconBackgroundDark,
+          stokeColorGreen: colorCodes?.speedometerGreen,
+          stokeColorRed: colorCodes?.speedometerRed,
+          track: colorCodes?.speedometerTrackDark,
+        },
       },
       footer: {
         footerBg: colorCodes?.blackGrayShades,
@@ -213,6 +219,12 @@ let theme = {
         violationListBg: colorCodes?.colorWhite,
         violationListTextColor: colorCodes?.darkBlackShade,
         violationListSubTextColor: colorCodes?.mdGray,
+        circularProgressBar: {
+          background: colorCodes?.colorWhite,
+          stokeColorGreen: colorCodes?.speedometerGreen,
+          stokeColorRed: colorCodes?.speedometerRed,
+          track: colorCodes?.speedometerTrackLight,
+        },
         listItemsBorder: "",
       },
     },
@@ -323,6 +335,12 @@ let theme = {
         violationListTextColor: colorCodes?.colorWhite,
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
+        circularProgressBar: {
+          background: colorCodes?.iconBackgroundDark,
+          stokeColorGreen: colorCodes?.speedometerGreen,
+          stokeColorRed: colorCodes?.speedometerRed,
+          track: colorCodes?.speedometerTrackDark,
+        },
       },
     },
     spacing: 5,
