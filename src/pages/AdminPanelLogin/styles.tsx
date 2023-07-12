@@ -1,7 +1,7 @@
 /** @format */
 
 import { makeStyles } from "@mui/styles";
-import llaBanner from "../../assets/images/login-bg1.jpg";
+import llaBanner from "../../assets/images/admin-login-bg.jpg";
 import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles(() => ({
@@ -31,8 +31,8 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "44.7vw !important",
-    padding: '2.2vw',
+    width: "28vw !important",
+    padding: "2.2vw",
     margin: "0 auto",
     // [muiTheme.breakpoints.down(3073)]: {
     //   width: "856px !important",
@@ -67,172 +67,104 @@ const useStyles = makeStyles(() => ({
     // },
   }),
   innerForm: (props: any) => ({}),
-  welcomeSection: (props: any) => ({
-    textAlign: "center",
-    marginBottom: 67,
-    [muiTheme.breakpoints.down(3073)]: {
-      marginBottom: 37,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      marginBottom: 27,
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      marginBottom: 20,
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      marginBottom: 6,
-    },
-  }),
+  welcomeSection: (props: any) => ({}),
   incorrectCredential: () => ({
     position: "absolute",
     bottom: "-2vw",
     color: "red",
     fontSize: "0.9vw",
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: `'Poppins', sans-serif`,
   }),
   welcomeContent: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: `'Poppins', sans-serif`,
     fontSize: "1.3vw",
     fontWeight: 700,
     color: "#3A345E",
     textAlign: "left",
-    marginBottom: '3.2vh'
-    // [muiTheme.breakpoints.down(3073)]: {
-    //   fontFamily: "HelveticaNeue-Regular",
-    //   fontSize: "56px",
-    //   lineHeight: "82px",
-    // },
-    // [muiTheme.breakpoints.down(2049)]: {
-    //   fontSize: "24px",
-    //   lineHeight: "30px",
-    // },
-    // [muiTheme.breakpoints.down(1921)]: {
-    //   fontSize: "18px",
-    //   lineHeight: "28px",
-    // },
+    marginBottom: "5%",
+  }),
+
+  forgotPassword: (props: any) => ({
+    fontFamily: `'Nunito Sans', sans-serif'`,
+    fontWeight: " 400",
+    fontSize: "0.8vw",
+    color: props?.palette?.login?.inputTitleColor,
+    cursor: "pointer",
+  }),
+
+  radioButtonSection: (props: any) => ({
+    marginBottom:' 6%',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    fontFamily: `'Poppins', sans-serif`,
+
+    "& .MuiRadio-root": {
+      "&.Mui-checked": {
+        color: props?.palette?.login?.loginButton,
+      },
+    },
+    "& .MuiFormControlLabel-label": {
+      fontFamily: `'Poppins', sans-serif`,
+      fontWeight: " 500",
+      fontSize: "0.8vw",
+      color: props?.palette?.login?.inputTitleColor,
+    },
+  }),
+
+  atttherate: (props: any) => ({
+    width: "1vw",
+    position: "absolute",
+    right: "2%",
+    top: "33%",
+    transform: " translate(-50%, -50%)",
   }),
 
   inputTitle: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: `'Poppins', sans-serif`,
     fontWeight: " 500",
-    fontSize: "30px",
+    fontSize: "0.8999999999999999vw",
     lineHeight: "36px",
     color: "#4A5568",
-    marginBottom: 24,
-    [muiTheme.breakpoints.down(3073)]: {
-      fontFamily: "HelveticaNeue-Regular",
-      fontWeight: " 500",
-      fontSize: "30px",
-      lineHeight: "36px",
-      color: "#4A5568",
-      marginBottom: 24,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      fontWeight: " 500",
-      fontSize: "16px",
-      lineHeight: "24px",
-      marginBottom: 12,
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      fontWeight: " 500",
-      fontSize: "14px",
-      lineHeight: "21px",
-      marginBottom: 6,
-    },
+    marginBottom: "1%",
+  }),
+  eyeOff: (props: any) => ({
+    width: "1vw",
+    position: "absolute",
+    right: "2%",
+    top: "40%",
+    transform: " translate(-50%, -50%)",
+    cursor: "pointer",
   }),
   inputField: (props: any) => ({
-    marginBottom: 67,
+    marginBottom: '6%',
     "& .MuiInputBase-input": {
-      fontFamily: "HelveticaNeue-Regular",
+      fontFamily: `'Poppins', sans-serif`,
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: "#2D3748",
-      border: "1px solid #93A8C1 !important",
+      // border: "1px solid #93A8C1 !important",
       background: "#FFFFFF !important",
       WebkitBoxShadow: "#FFFFFF !important",
-      padding: 36,
+      padding: '4%',
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 0.5,
       },
-      [muiTheme.breakpoints.down(3073)]: {
-        fontFamily: "HelveticaNeue-Regular",
-        fontWeight: " 500",
-        fontSize: "40px",
-        lineHeight: "48px",
-        color: "#2D3748",
-        padding: 36,
-      },
-      [muiTheme.breakpoints.down(2049)]: {
-        fontWeight: " 500",
-        fontSize: "22px",
-        lineHeight: "30px",
-        padding: 20,
-      },
-      [muiTheme.breakpoints.down(1921)]: {
-        fontWeight: " 500",
-        fontSize: "14px",
-        lineHeight: "21px",
-        padding: 16,
-      },
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      marginBottom: 67,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      marginBottom: 32,
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      marginBottom: 20,
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      marginBottom: 6,
     },
   }),
   inputFieldPassword: (props: any) => ({
-    marginBottom: 67,
+    marginBottom: '3%',
     "& .MuiInputBase-input": {
-      fontFamily: "HelveticaNeue-Regular",
+      fontFamily: `'Poppins', sans-serif`,
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: "#2D3748",
-      padding: 36,
+      padding: '4%',
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 0.5,
       },
-      [muiTheme.breakpoints.down(3073)]: {
-        fontFamily: "HelveticaNeue-Regular",
-        fontWeight: " 500",
-        fontSize: "40px",
-        lineHeight: "48px",
-        color: "#2D3748",
-        padding: 36,
-      },
-      [muiTheme.breakpoints.down(2049)]: {
-        fontWeight: " 500",
-        fontSize: "22px",
-        lineHeight: "30px",
-        padding: 20,
-      },
-      [muiTheme.breakpoints.down(1921)]: {
-        fontWeight: " 500",
-        fontSize: "14px",
-        lineHeight: "21px",
-        padding: 16,
-      },
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      marginBottom: 67,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      marginBottom: 32,
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      marginBottom: 20,
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      marginBottom: 6,
     },
   }),
   loginButton: (props: any) => ({
@@ -240,36 +172,21 @@ const useStyles = makeStyles(() => ({
     "& .MuiButtonBase-root": {
       background: "#0D0F36",
       borderRadius: "5px",
-      fontFamily: "HelveticaNeue-Regular",
-      fontSize: "32px",
-      lineHeight: "82px",
+      fontFamily: `'Poppins', sans-serif`,
+      fontSize: "1vw",
       color: props?.palette?.login?.loginBannerTitle,
-      padding: 12,
-      letterSpacing: " 0.2em",
-      textTransform: "uppercase",
-      [muiTheme.breakpoints.down(3073)]: {
-        fontSize: "32px",
-        lineHeight: "82px",
-      },
-      [muiTheme.breakpoints.down(2049)]: {
-        fontSize: "22px",
-        lineHeight: "40px",
-      },
-      [muiTheme.breakpoints.down(1921)]: {
-        fontSize: "16px",
-        lineHeight: "21px",
-      },
+      padding: 16,
+      textTransform: "capitalize",
       "&:hover": {
         background: "#0D0F36",
       },
       "&:-webkit-autofill::first-line": {
-        fontSize: "40px",
-        lineHeight: "90px",
+        fontSize: "1vw",
       },
     },
   }),
   formikErrorClass: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: `'Poppins', sans-serif`,
     color: "red",
     padding: 0,
     margin: 0,
@@ -294,32 +211,9 @@ const useStyles = makeStyles(() => ({
     },
   }),
   llaLogoSection: (props: any) => ({
-    marginBottom: '6vh',
-    // width: 200,
-    // margin: "0 auto",
-    // marginBottom: 32,
-    // [muiTheme.breakpoints.down(3073)]: {
-    //   width: 200,
-    //   margin: "0 auto",
-    //   marginBottom: 32,
-    // },
-    // [muiTheme.breakpoints.down(2049)]: {
-    //   width: 100,
-    //   margin: "0 auto",
-    //   marginBottom: 18,
-    // },
-    // [muiTheme.breakpoints.down(1921)]: {
-    //   width: 100,
-    //   margin: "0 auto",
-    //   marginBottom: 18,
-    // },
-    // [muiTheme.breakpoints.down(1153)]: {
-    //   width: 70,
-    //   margin: "0 auto",
-    //   marginBottom: 12,
-    // },
+    marginBottom: "6vh",
     "& img": {
-      width: '21.6vw'
+      width: "15.5vw",
     },
   }),
   formTitle: (props: any) => ({
@@ -364,7 +258,7 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     color: "#333333",
     fontSize: "1vw",
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: `'Poppins', sans-serif`,
     fontWeight: 500,
   }),
 }));

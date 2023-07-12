@@ -19,6 +19,9 @@ import * as Yup from "yup";
 import { getUserLogin } from "../../redux/actions/loginActions";
 import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
+import EyeOff from "../../assets/login/lock.svg";
+import OpenEyeIcon from "../../assets/login/lock.svg";
+import AttherateIcon from "../../assets/login/atthirate.svg";
 import Footer from "components/Footer";
 
 const AdminPanelLogin = () => {
@@ -32,6 +35,7 @@ const AdminPanelLogin = () => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [inCorrectCredentials, setInCorrectCredentials] =
     useState<boolean>(false);
@@ -68,6 +72,10 @@ const AdminPanelLogin = () => {
     formSection,
     innerPaddingBox,
     adminPanel,
+    eyeOff,
+    radioButtonSection,
+    forgotPassword,
+    atttherate
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -118,6 +126,10 @@ const AdminPanelLogin = () => {
 
   const handleAdminPanel = () => {
     navigate("/login");
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -180,7 +192,9 @@ const AdminPanelLogin = () => {
                                 autocomplete: "off",
                               },
                             }}
+                            
                           />
+                          <img className={atttherate} src={AttherateIcon} />
                           {formik.errors.userid && formik.touched.userid && (
                             <p className={formikErrorClass}>
                               {formik.errors.userid}
@@ -206,7 +220,13 @@ const AdminPanelLogin = () => {
                                 autocomplete: "off",
                               },
                             }}
+                            
                           />
+                          <img
+                                className={eyeOff}
+                                src={showPassword ? OpenEyeIcon : EyeOff}
+                                onClick={handlePasswordVisibility}
+                              />
                           {formik.errors.password &&
                             formik.touched.password && (
                               <p className={formikErrorClass}>
@@ -215,13 +235,14 @@ const AdminPanelLogin = () => {
                             )}
                         </div>
                       </div>
-                      {/* <div className={radioButtonSection}>
-                      <FormControlLabel
-                        value="rememberMe"
-                        control={<Radio />}
-                        label="Remember me"
-                      />
-                    </div> */}
+                      <div className={radioButtonSection}>
+                    <FormControlLabel
+                      value="rememberMe"
+                      control={<Radio />}
+                      label="Remember me"
+                    />
+                    <p className={forgotPassword}>Forgot Password?</p>
+                  </div>
                       <div className={loginButton}>
                         <Button variant="contained" fullWidth type="submit">
                           {"Login"}
