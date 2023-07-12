@@ -13,6 +13,7 @@ import Parking from "pages/Parking";
 import FleetManagement from "pages/FleetManagement";
 import AssetTracking from "pages/AssetTracking";
 import AdminPanel from "pages/AdminPanel";
+import AdminPanelLogin from "pages/AdminPanelLogin";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -82,6 +83,10 @@ const VIOT_Routes = () => {
     {
       path: "adminPanel",
       element: <AdminPanel />,
+    },
+    {
+      path: "adminPanelLogin",
+      element: <AdminPanelLogin />,
     },
   ]);
 };
