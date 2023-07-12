@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
       height: "8px",
       content: `''`,
       position: "absolute",
-      background: props?.palette?.login?.boxTopLineStyle, 
+      background: props?.palette?.login?.boxTopLineStyle,
       borderBottomLeftRadius: "6px",
       borderBottomRightRadius: "6px",
       zIndex: "-1",
@@ -87,9 +87,8 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     bottom: "-2vw",
     color: "red",
-    fontSize: '0.9vw',
+    fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-
   }),
   welcomeContent: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
@@ -147,7 +146,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: "white",
-      
+
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
@@ -272,7 +271,7 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     margin: 0,
     paddingTop: 5,
-    fontSize: '0.7vw',
+    fontSize: "0.7vw",
     position: "absolute",
     fontWeight: " 500",
     bottom: "0.2vw",
@@ -353,6 +352,16 @@ const useStyles = makeStyles(() => ({
   formSection: (props: any) => ({
     textAlign: "center",
     letterSpacing: "4px",
+  }),
+  adminPanel: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    padding: "30px 0 0 0",
+    cursor: "pointer",
+    color: "#FFFFFF",
+    fontSize: "1vw",
+    fontFamily: "HelveticaNeue-Regular",
+    fontWeight: 500,
   }),
 }));
 export default useStyles;
