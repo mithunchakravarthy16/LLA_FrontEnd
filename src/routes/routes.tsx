@@ -85,7 +85,7 @@ const VIOT_Routes = () => {
       element: <AdminPanel />,
     },
     {
-      path: "adminPanelLogin",
+      path: "adminLogin",
       element: <AdminPanelLogin />,
     },
   ]);
