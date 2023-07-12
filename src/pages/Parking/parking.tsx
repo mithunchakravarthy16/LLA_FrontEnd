@@ -767,6 +767,7 @@ const Parking: React.FC<any> = (props) => {
                   setParkingLotIndex={setParkingLotIndex}
                   setParkingLotSelectionActive={setParkingLotSelectionActive}
                   isMarkerClicked={isMarkerClicked}
+                  setIsMarkerClicked={setIsMarkerClicked}
                 />
               </Grid>
             </Grid>
