@@ -177,6 +177,10 @@ const useStyles = makeStyles({
       fontSize: 14,
       fontFamily: "HelveticaNeue-ItalicMedium",
       color: props?.palette?.notification?.collapsedListItemTextColor,
+      maxWidth: '10vw',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
       [muiTheme.breakpoints.up(3839)]: {
         fontSize: 30,
         lineHeight: "56px",
