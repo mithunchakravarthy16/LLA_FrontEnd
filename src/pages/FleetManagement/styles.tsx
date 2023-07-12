@@ -172,6 +172,7 @@ const useStyles = makeStyles({
 
   notificationPanelGrid: (props: any) => ({
     border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.notification?.notificationBg,
   }),
 
   liveContainer: (props: any) => ({

@@ -7,6 +7,10 @@ import {
   LocationIcon,
   OutOfGeofenceIcon,
   IncidentIcon,
+  AssetTrackedLightThemeIcon,
+  LocationLightThemeIcon,
+  OutOfGeofenceLightThemeIcon,
+  IncidentLightThemeIcon,
 } from "../../assets/topPanelListIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
@@ -156,22 +160,22 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: AssetTrackedIcon,
+      icon: selectedTheme === "light" ? AssetTrackedLightThemeIcon : AssetTrackedIcon,
       value: overallAssetDetails?.assetTrackedCount,
       name: "Asset Tracked",
     },
     {
-      icon: LocationIcon,
+      icon: selectedTheme === "light" ? LocationLightThemeIcon : LocationIcon,
       value: overallAssetDetails?.locationChangeCount,
       name: "Location",
     },
     {
-      icon: OutOfGeofenceIcon,
+      icon: selectedTheme === "light" ? OutOfGeofenceLightThemeIcon : OutOfGeofenceIcon,
       value: overallAssetDetails?.outOfGeofenceCount,
       name: "Out of Geofence",
     },
     {
-      icon: IncidentIcon,
+      icon: selectedTheme === "light" ? IncidentLightThemeIcon : IncidentIcon,
       value: overallAssetDetails?.incidientCount,
       name: "Security Incident",
     },
@@ -491,7 +495,8 @@ const AssetTracking: React.FC<any> = (props) => {
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
-                          trailColor="#484D52"
+                          trailColor={appTheme?.palette?.fleetManagementPage
+                            ?.progressBarBg}
                           title={"Active Trackers"}
                         />
                       </Grid>

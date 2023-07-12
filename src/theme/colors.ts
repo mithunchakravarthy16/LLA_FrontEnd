@@ -95,7 +95,7 @@ let colorCodes = {
   darkGrey1: "#1A1919",
   whiteColor1: "#F6F6F6",
   progressBar: "#FFFCF911",
-  progressBar1: "#75D1A511",
+  progressBar1: "#75D1A540",
   progressBar2: "#E4F5E4",
   darkGrey2: "#131313",
   whiteFade: "rgb(255 255 255 / 50%)",
