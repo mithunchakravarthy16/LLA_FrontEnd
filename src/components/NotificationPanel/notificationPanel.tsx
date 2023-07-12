@@ -34,6 +34,7 @@ const NotificationPanel = (props: any) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
+    setIsMarkerClicked
   } = props;
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -220,6 +221,7 @@ const NotificationPanel = (props: any) => {
     }
     if (searchOpen) {
       setSelectedNotification("");
+      setIsMarkerClicked(false)
     }
   }, [searchOpen]);
 
@@ -227,7 +229,7 @@ const NotificationPanel = (props: any) => {
     if (searchOpen && searchValue?.length === 0) {
       setSelectedNotification("");
     }
-  }, [searchValue]);
+  }, [searchValue ]);
 
   useEffect(() => {
     if (isMarkerClicked) {
@@ -235,6 +237,11 @@ const NotificationPanel = (props: any) => {
       setSearchValue(dashboardData);
     }
   }, [isMarkerClicked]);
+
+  useEffect(()=>{
+    setSearchOpen(false);
+    setSearchValue(dashboardData);
+  },[tabIndex])
 
   return (
     <>
