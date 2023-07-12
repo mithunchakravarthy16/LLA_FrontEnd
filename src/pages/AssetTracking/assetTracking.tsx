@@ -33,7 +33,7 @@ import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTr
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
-import InfoDialogGeofenceAssetTracking from "components/InfoDialogGeofenceAssetTracking";
+import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
 
 const AssetTracking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -711,6 +711,7 @@ const AssetTracking: React.FC<any> = (props) => {
                   setCurrentMarker={setCurrentMarker}
                   handleAssetViewDetails={handleAssetViewDetails}
                   isMarkerClicked={isMarkerClicked}
+                  setIsMarkerClicked={setIsMarkerClicked}
                 />
               </Grid>
             </Grid>

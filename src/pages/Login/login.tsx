@@ -168,7 +168,7 @@ const Login = () => {
                           <OutlinedInput
                             className={inputField}
                             fullWidth
-                            placeholder="Username@domain.com"
+                            placeholder="Username@domainname.com"
                             type="text"
                             name="userid"
                             value={formik.values.userid}

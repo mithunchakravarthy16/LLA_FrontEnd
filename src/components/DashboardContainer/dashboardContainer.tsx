@@ -22,7 +22,7 @@ import LightThemeNotificationIconActive from "../../assets/lightThemeNotificatio
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
 import Grid from "@mui/material/Grid";
-import dashboardNotification from "mockdata/dashboardNotificationAPIFormat";
+import dashboardNotification from "../../mockdata/dashboardNotificationAPIFormat";
 import useStyles from "./styles";
 import fleetManagementResponse from "mockdata/fleetManagementAPI";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
@@ -254,6 +254,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   setCurrentMarker={setCurrentMarker}
                   notificationPageName={"dashboard"}
                   isMarkerClicked={isMarkerClicked}
+                  setIsMarkerClicked={setIsMarkerClicked}
                 />
               </div>
             )}
