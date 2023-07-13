@@ -236,6 +236,7 @@ const AssetTracking: React.FC<any> = (props) => {
         width1: 1000,
         height1: 500,
         is4kDevice: false,
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -593,7 +594,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           className={graphTwoContainerStyle}
                           style={{}}
                         >
-                          <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center" }}  >
+                          <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center", fontSize : "0.8vw" }}  >
                             Incidents
                           </Grid>
                           {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
@@ -646,11 +647,9 @@ const AssetTracking: React.FC<any> = (props) => {
                                       [
                                         1,
                                         Highcharts.color(
-                                          selectedWidth?.is4kDevice
-                                            ? "#C3362F"
-                                            : "#000000"
+                                          "#C3362F"
                                         )
-                                          .setOpacity(0.05)
+                                          .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.06 : 0.02)
                                           .get("rgba"),
                                       ],
                                     ],

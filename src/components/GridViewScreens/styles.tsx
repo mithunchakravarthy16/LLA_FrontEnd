@@ -397,6 +397,10 @@ const useStyles = makeStyles({
   lastweekBodySubContainer: (props: any) => ({
     height: "95%",
     alignItems: "end",
+    [muiTheme.breakpoints.up(3839)]: {
+      height: "97%",
+      alignContent: "space-around",
+    },
     [muiTheme.breakpoints.down(1921)]: {
       height: "94%",
       alignItems: "end",

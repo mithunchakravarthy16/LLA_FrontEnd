@@ -258,6 +258,7 @@ const Parking: React.FC<any> = (props) => {
         height1: 480,
         width2: 50,
         is4kDevice: false,
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -510,17 +511,25 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0,
                                                 Highcharts.color("#954EA1")
-                                                  .setOpacity(0.9)
+                                                  .setOpacity(0.5)
                                                   .get("rgba"),
                                               ],
                                               [
-                                                0.8,
+                                                0.5,
                                                 Highcharts.color(
-                                                  "#ffbbcc"
-                                                  // appTheme?.palette?.gridViewComponentGraphsColor
-                                                  //   ?.highChartsGradient
+                                                  "#954EA1"
+                                                  
                                                 )
-                                                  .setOpacity(0)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.2)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
+                                                Highcharts.color(
+                                                   "#954EA1"
+                                                    
+                                                )
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.06 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],

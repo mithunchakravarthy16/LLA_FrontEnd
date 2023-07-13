@@ -6,7 +6,7 @@ import muiTheme from "../../theme/muiTheme";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    background: "#161515",
+    background: props?.palette?.fleetManagementPage?.pageBg, 
     height: "100vh",
     paddingLeft: "3.4px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
-    background: "#161515",
+    background: props?.palette?.fleetManagementPage?.pageBg, //"#161515",
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -124,9 +124,9 @@ const useStyles = makeStyles({
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 #808080",
 
-    borderBottom: "1px solid #333333",
+    borderBottom: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
 
-    borderRight: "1px solid #333333",
+    borderRight: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -134,17 +134,19 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
-    borderBottom: "1px solid #333333",
+    borderBottom: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
     height: "100%",
   }),
 
   notificationPanelGrid: (props: any) => ({
-    border: "1px solid #333333",
+    border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.notification?.notificationBg,
   }),
 
   liveContainer: (props: any) => ({
     display: "flex",
     height: "100%",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     flexDirection: "column",
     justifyContent: "space-around",
     backgroundColor: "#57585A20",
@@ -194,6 +196,7 @@ const useStyles = makeStyles({
 
   electricity: (props: any) => ({
     padding: 10,
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "52px",
@@ -359,6 +362,7 @@ const useStyles = makeStyles({
 
   graphTwoHeader: (props: any) => ({
     padding: 10,
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "52px",

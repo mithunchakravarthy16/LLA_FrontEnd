@@ -185,6 +185,7 @@ const Parking: React.FC<any> = (props) => {
         width1: 500,
         height1: 380,
         is4kDevice: false,
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
@@ -351,18 +352,23 @@ const Parking: React.FC<any> = (props) => {
                                             stops: [
                                               [
                                                 0,
+                                                Highcharts.color("#73B35A") 
+                                                  .setOpacity(0.5)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                0.5,
                                                 Highcharts.color("#73B35A")
-                                                  .setOpacity(0.6)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice
-                                                    ? "#73B35A"
-                                                    : "#000000"
+                                                   "#73B35A"
+                                                    
                                                 )
-                                                  .setOpacity(0)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],

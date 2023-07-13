@@ -1,5 +1,9 @@
+/** @format */
+
 import { useState, useEffect, Fragment } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Alert, Snackbar } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import Radio from "@mui/material/Radio";
@@ -14,6 +18,9 @@ import DarkIcon from "../../assets/darkIcon.svg";
 import Button from "@mui/material/Button";
 import TextField from "elements/TextField";
 import DefaultLogo from "../../assets/defaultLogo.svg";
+import logoutImg from "../../assets/login/logout.svg";
+import InfoDialogFileUpload from "components/InfoDialogFileUpload";
+import FavIcon from "../../assets/favIcon.svg";
 
 const AdminPanel = () => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -23,6 +30,20 @@ const AdminPanel = () => {
   const [selectTheme, setSelectTheme] = useState<any>("");
   const [title, setTitle] = useState<any>("");
   const [selectRadio, setSelectRadio] = useState<any>("");
+  const [uploadImage, setUploadImage] = useState<boolean>(false);
+  const [uploadImageTitle, setUploadImageTitle] = useState<string>("");
+  const [uploadImageLogo, setUploadImageLogo] = useState<string>("");
+  const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<string>("");
+  const [colorChange, setColorChange] = useState<string>("#2D3748");
+  const [footerTitle, setFooterTitle] = useState<string>("");
+  const [success, setSuccess] = useState<boolean>(false);
+  const [uploadHeaderImageLogo, setUploadHeaderImageLogo] =
+    useState<string>("");
+  const [uploadHeaderFinalImageLogo, setUploadHeaderFinalImageLogo] =
+    useState<string>("");
+  const [uploadFavIconLogo, setUploadFavIconLogo] = useState<string>("");
+  const [uploadFinalFavIconLogo, setUploadFinalFavIconLogo] =
+    useState<string>("");
   const {} = useStyles(appTheme);
 
   const {
@@ -51,6 +72,25 @@ const AdminPanel = () => {
     logoPreviewWrapper,
     logoPreviewInnercontainer,
     logoPreview,
+    cancelButton,
+    menuIconSection,
+    appearanceText,
+    appearanceSection,
+    imageAppearance,
+    appearanceTitle,
+    appearanceSite,
+    customTextField,
+    logoText,
+    logoExtension,
+    appearanceSectionCustom,
+    colorPickerSection,
+    colorPickerText,
+    colorPickerList,
+    customTextField2,
+    adminDashboard,
+    spaceBottom,
+    space,
+    logoutSection,
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -63,6 +103,13 @@ const AdminPanel = () => {
     // { name: "Font Family", id: 3 },
     // { name: "Components", id: 4 },
   ];
+  const navigate = useNavigate();
+
+  const handleCloseUserMenu = () => {
+    localStorage.removeItem("user");
+      localStorage.clear();
+      navigate("/login");
+  };
   useEffect(() => {
     setActivePage(0);
   }, []);
@@ -80,20 +127,32 @@ const AdminPanel = () => {
     },
   ];
 
+  // Theme Change
   const handleChange = (event: any) => {
     setSelectTheme(event.target.value);
   };
 
+  // Title Change
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value);
   };
 
+  // Footer Change
   const handleRadioChange = (event: any) => {
     setSelectRadio(event.target.value);
   };
 
-  const onFooterTextColorChange = (evt: any) => {};
+  // Footer Color Change
+  const onFooterTextColorChange = (evt: any) => {
+    setColorChange(evt.target.value);
+  };
 
+  // Footer title change
+  const handleFooterTitleChange = (e: any) => {
+    setFooterTitle(e.target.value);
+  };
+
+  // Save
   const handleSave = () => {
     const payload = {
       theme: selectTheme,
@@ -101,27 +160,128 @@ const AdminPanel = () => {
     };
 
     localStorage.setItem("theme", JSON.stringify(selectTheme));
+    setSuccess(true);
+  };
+
+  // success message
+  const handleClose = () => {
+    setSuccess(false);
+  };
+
+  // Logo Change
+  const onLogoChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
+  };
+
+  const handleCancelClick = () => {
+    setUploadImage(false);
+    setUploadImageLogo("");
+  };
+
+  const handleSaveClick = () => {
+    setUploadImage(false);
+    setUploadFinalImageLogo(uploadImageLogo);
+  };
+
+  const handleUploadChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadImageLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDrop = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+  };
+
+  // Header Change
+
+  const headerChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
+  };
+
+  const handleHeaderCancelClick = () => {
+    setUploadImage(false);
+    setUploadHeaderImageLogo("");
+  };
+
+  const handleHeaderSaveClick = () => {
+    setUploadImage(false);
+    setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
+  };
+
+  const handleHeaderChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadHeaderImageLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDropHeader = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadHeaderImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+  };
+
+  // Fav Icon Change
+
+  const onFavIconChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
+  };
+
+  const handleFavIconCancelClick = () => {
+    setUploadImage(false);
+    setUploadFavIconLogo("");
+  };
+
+  const handleFavIconSaveClick = () => {
+    setUploadImage(false);
+    setUploadFinalFavIconLogo(uploadFavIconLogo);
+  };
+
+  const handleFavIconChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadFavIconLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDropFavIcon = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadFavIconLogo(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
   return (
     <>
       <Fragment>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Saved Successfully.
+          </Alert>
+        </Snackbar>
         <Grid container className={adminContentPanel}>
-          <Grid item xs={12} sm={12} md={1.5} lg={1.5} xl={1.5}>
+          <Grid item xs={12} sm={12} md={1.4} lg={1.4} xl={1.4}>
             <div className={adminLeftPanelContainer}>
               <div className={adminLogo}>
-                <img src={llaLogo} width={"80%"} />
+                <img src={llaLogo} />
               </div>
               <div className={adminLeftPanel}>
                 {menuItems &&
                   menuItems.length > 0 &&
                   menuItems.map((menu: any, index: any) => {
                     return (
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
+                      <div style={{ display: "flex" }}>
                         <p>
-                          <img src={menu?.icon} />
+                          <img src={menu?.icon} className={menuIconSection} />
                         </p>
                         <p
                           key={index}
@@ -138,253 +298,295 @@ const AdminPanel = () => {
                     );
                   })}
               </div>
+              <div
+                className={logoutSection} onClick={handleCloseUserMenu}
+              >
+                <img src={logoutImg} />
+                <p>Logout</p>
+              </div>
             </div>
           </Grid>
-          <Grid item xs={12} sm={12} md={10.5} lg={10.5} xl={10.5}>
+          <Grid item xs={12} sm={12} md={10.6} lg={10.6} xl={10.6}>
             <div className={adminRightPanel}>
               <div className={innerPanel}>
                 <Grid container className={adminRightPanelHeader}>
                   <Grid item xs={6}>
                     <p className={colorSchemeHeading}>Theme Color</p>
                   </Grid>
-                  <Grid item xs={6} className={adminHeaderButtonSection}>
-                    <Button variant="outlined" className={previewButton}>
-                      Preview
-                    </Button>
-                    <Button variant="contained" className={""} disabled>
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="contained"
-                      className={updateButton}
-                      onClick={handleSave}
-                    >
-                      Save
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Grid container borderBottom={"1px solid #00000020"}>
-                  <Grid item xs={12} sm={12} md={5} lg={5} xl={5}>
-                    <div style={{ padding: "30px 0 30px 20px" }}>
-                      <div>Appearance</div>
-                      <div>
-                        <FormControl>
-                          <RadioGroup
-                            row
-                            aria-labelledby="demo-row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
-                            value={selectTheme}
-                            onChange={handleChange}
-                          >
-                            {radioButtons?.map((item: any) => {
-                              return (
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    paddingRight: "30px",
-                                    paddingTop: "30px",
-                                  }}
-                                >
-                                  <img src={item?.icon} />
-                                  <FormControlLabel
-                                    value={item?.value}
-                                    control={<Radio />}
-                                    label={item?.label}
-                                  />
-                                </div>
-                              );
-                            })}
-                          </RadioGroup>
-                        </FormControl>
-                      </div>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={7} lg={7} xl={7}>
-                    <div style={{ padding: "30px 0 30px 0px" }}>
-                      <div>Title</div>
-                      <div
-                        style={{ paddingTop: "50px", paddingBottom: "20px" }}
+                  <Grid item xs={6}>
+                    <div className={adminHeaderButtonSection}>
+                      <Button
+                        variant="outlined"
+                        className={previewButton}
+                        style={{ textTransform: "none" }}
                       >
-                        Site Title
-                      </div>
-                      <div>
-                        <TextField
-                          value={title}
-                          type={"text"}
-                          onChange={handleTitleChange}
-                          placeholder={"Enter Title"}
-                        />
-                      </div>
+                        Preview
+                      </Button>
+                      <Button
+                        variant="contained"
+                        className={cancelButton}
+                        disabled
+                        style={{ textTransform: "none" }}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="contained"
+                        className={updateButton}
+                        onClick={handleSave}
+                        style={{ textTransform: "none" }}
+                      >
+                        Save
+                      </Button>
                     </div>
                   </Grid>
                 </Grid>
-                <div style={{ padding: "30px 0 30px 20px" }}>
-                  <div>Logo</div>
-                  <div>
-                    Allowed file extension * (.jpeg, .png, .svg). Max file size
-                    5 MB.
-                  </div>
-                </div>
-                <Grid container borderBottom={"1px solid #00000020"}>
+                <div className={adminDashboard}>
                   <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={4}
-                    lg={4}
-                    xl={4}
-                    style={{ padding: "30px 0 20px 20px" }}
+                    container
+                    borderBottom={"1px solid #00000020"}
+                    className={spaceBottom}
                   >
-                    <div>Login</div>
-                    <div className={fileUploadContent}>
-                      <div className={logoPreviewWrapper}>
-                        <div className={logoPreviewInnercontainer}>
-                          <img className={logoPreview} src={DefaultLogo} />
+                    <Grid item xs={12} sm={12} md={5} lg={5} xl={5}>
+                      <div>
+                        <div className={appearanceText}>Appearance</div>
+                        <div>
+                          <FormControl>
+                            <RadioGroup
+                              row
+                              aria-labelledby="demo-row-radio-buttons-group-label"
+                              name="row-radio-buttons-group"
+                              value={selectTheme}
+                              onChange={handleChange}
+                            >
+                              {radioButtons?.map((item: any) => {
+                                return (
+                                  <div className={appearanceSection}>
+                                    <img
+                                      src={item?.icon}
+                                      className={imageAppearance}
+                                    />
+                                    <FormControlLabel
+                                      value={item?.value}
+                                      control={<Radio />}
+                                      label={item?.label}
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </RadioGroup>
+                          </FormControl>
                         </div>
                       </div>
-                      <Button
-                        variant="contained"
-                        className={updateButton}
-                        // onClick={() => onLogoChange("header")}
-                      >
-                        Change
-                      </Button>
-                    </div>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={4}
-                    lg={4}
-                    xl={4}
-                    style={{ padding: "30px 0 20px 20px" }}
-                  >
-                    <div>Header</div>
-                    <div className={fileUploadContent}>
-                      <div className={logoPreviewWrapper}>
-                        <div className={logoPreviewInnercontainer}>
-                          <img className={logoPreview} src={DefaultLogo} />
-                        </div>
-                      </div>
-                      <Button
-                        variant="contained"
-                        className={updateButton}
-                        // onClick={() => onLogoChange("header")}
-                      >
-                        Change
-                      </Button>
-                    </div>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={4}
-                    lg={4}
-                    xl={4}
-                    style={{ padding: "30px 0 20px 20px" }}
-                  >
-                    <div>Fav Icon</div>
-                    <div className={fileUploadContent}>
-                      <div className={logoPreviewWrapper}>
-                        <div className={logoPreviewInnercontainer}>
-                          <img className={logoPreview} src={DefaultLogo} />
-                        </div>
-                      </div>
-                      <Button
-                        variant="contained"
-                        className={updateButton}
-                        // onClick={() => onLogoChange("header")}
-                      >
-                        Change
-                      </Button>
-                    </div>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={4}
-                    lg={4}
-                    xl={4}
-                    style={{ padding: "30px 0 20px 20px" }}
-                  >
-                    <div>Footer</div>
-                    <div>
-                      <FormControl>
-                        <RadioGroup
-                          row
-                          aria-labelledby="demo-row-radio-buttons-group-label"
-                          name="row-radio-buttons-group"
-                          value={selectRadio}
-                          onChange={handleRadioChange}
-                        >
-                          <FormControlLabel
-                            value={"image"}
-                            control={<Radio />}
-                            label={"Image"}
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={7} lg={7} xl={7}>
+                      <div>
+                        <div className={appearanceTitle}>Title</div>
+                        <div className={appearanceSite}>Site Title</div>
+                        <div className={customTextField}>
+                          <TextField
+                            fullWidth
+                            value={title}
+                            type={"text"}
+                            onChange={handleTitleChange}
+                            placeholder={"Enter Title"}
                           />
-                          <FormControlLabel
-                            value={"text"}
-                            control={<Radio />}
-                            label={"Text"}
-                          />
-                        </RadioGroup>
-                      </FormControl>
-                    </div>
-                    {selectRadio === "image" && (
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                  <Grid container className={space}>
+                    <Grid item xs={12}>
+                      <div>
+                        <div className={logoText}>Logo</div>
+                        <div className={logoExtension}>
+                          Allowed file extension * (.jpeg, .png, .svg). Max file
+                          size 5 MB.
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    borderBottom={"1px solid #00000020"}
+                    className={spaceBottom}
+                  >
+                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <div className={appearanceText}>Login</div>
                       <div className={fileUploadContent}>
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
-                            <img className={logoPreview} src={DefaultLogo} />
-                          </div>
-                        </div>
-                        <Button
-                          variant="contained"
-                          className={updateButton}
-                          // onClick={() => onLogoChange("header")}
-                        >
-                          Upload
-                        </Button>
-                      </div>
-                    )}
-                    {selectRadio === "text" && (
-                      <div style={{ display: "flex" }}>
-                        <div style={{ paddingRight: "50px" }}>
-                          <div style={{ paddingBottom: "10px" }}>
-                            Enter Text
-                          </div>
-                          <div>
-                            <TextField
-                              value={title}
-                              type={"text"}
-                              onChange={handleTitleChange}
-                              placeholder={"Enter Title"}
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadFinalImageLogo
+                                  ? uploadFinalImageLogo
+                                  : DefaultLogo
+                              }
                             />
                           </div>
                         </div>
                         <div>
-                          <div style={{ paddingBottom: "10px" }}>
-                            Change Text Color
-                          </div>
-                          <div className={colorPickerItem}>
-                            <ColorPicker
-                              onChange={onFooterTextColorChange}
-                              value={"#2D3748"}
+                          <Button
+                            style={{ textTransform: "none" }}
+                            variant="contained"
+                            className={updateButton}
+                            onClick={() => onLogoChange("Login")}
+                          >
+                            Change
+                          </Button>
+                        </div>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <div className={appearanceText}>Header</div>
+                      <div className={fileUploadContent}>
+                        <div className={logoPreviewWrapper}>
+                          <div className={logoPreviewInnercontainer}>
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadHeaderFinalImageLogo
+                                  ? uploadHeaderFinalImageLogo
+                                  : DefaultLogo
+                              }
                             />
                           </div>
                         </div>
+                        <div>
+                          <Button
+                            style={{ textTransform: "none" }}
+                            variant="contained"
+                            className={updateButton}
+                            onClick={() => headerChange("Header")}
+                          >
+                            Change
+                          </Button>
+                        </div>
                       </div>
-                    )}
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <div className={appearanceText}>Fav Icon</div>
+                      <div className={fileUploadContent}>
+                        <div className={logoPreviewWrapper}>
+                          <div className={logoPreviewInnercontainer}>
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadFinalFavIconLogo
+                                  ? uploadFinalFavIconLogo
+                                  : FavIcon
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Button
+                            style={{ textTransform: "none" }}
+                            variant="contained"
+                            className={updateButton}
+                            onClick={() => onFavIconChange("Fav Icon")}
+                          >
+                            Change
+                          </Button>
+                        </div>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <div className={appearanceText}>Footer</div>
+                      <div>
+                        <FormControl>
+                          <RadioGroup
+                            className={appearanceSectionCustom}
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={selectRadio}
+                            onChange={handleRadioChange}
+                          >
+                            <FormControlLabel
+                              value={"image"}
+                              control={<Radio />}
+                              label={"Image"}
+                            />
+                            <FormControlLabel
+                              value={"text"}
+                              control={<Radio />}
+                              label={"Text"}
+                            />
+                          </RadioGroup>
+                        </FormControl>
+                      </div>
+                      {selectRadio === "image" && (
+                        <div className={fileUploadContent}>
+                          <div className={logoPreviewWrapper}>
+                            <div className={logoPreviewInnercontainer}>
+                              <img className={logoPreview} src={DefaultLogo} />
+                            </div>
+                          </div>
+                          <div>
+                            <Button
+                              style={{ textTransform: "none" }}
+                              variant="contained"
+                              className={updateButton}
+                              // onClick={() => onLogoChange("header")}
+                            >
+                              Upload
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                      {selectRadio === "text" && (
+                        <div className={colorPickerSection}>
+                          <div className={colorPickerText}>
+                            <div className={colorPickerList}>Enter Text</div>
+                            <div className={customTextField2}>
+                              <TextField
+                                value={footerTitle}
+                                type={"text"}
+                                onChange={handleFooterTitleChange}
+                                placeholder={"Enter Title"}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <div className={colorPickerList}>
+                              Change Text Color
+                            </div>
+                            <div className={colorPickerItem}>
+                              <ColorPicker
+                                onChange={onFooterTextColorChange}
+                                value={colorChange}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </Grid>
                   </Grid>
-                </Grid>
+                </div>
               </div>
             </div>
           </Grid>
         </Grid>
+        {uploadImage && (
+          <InfoDialogFileUpload
+            uploadImage={uploadImage}
+            uploadImageTitle={uploadImageTitle}
+            handleCancelClick={handleCancelClick}
+            handleSaveClick={handleSaveClick}
+            handleChange={handleUploadChange}
+            dropDrop={dropDrop}
+            handleHeaderCancelClick={handleHeaderCancelClick}
+            handleHeaderSaveClick={handleHeaderSaveClick}
+            handleHeaderChange={handleHeaderChange}
+            dropDropHeader={dropDropHeader}
+            handleFavIconCancelClick={handleFavIconCancelClick}
+            handleFavIconSaveClick={handleFavIconSaveClick}
+            handleFavIconChange={handleFavIconChange}
+            dropDropFavIcon={dropDropFavIcon}
+          />
+        )}
       </Fragment>
     </>
   );

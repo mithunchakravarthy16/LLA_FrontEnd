@@ -71,6 +71,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         height: 540,
         is4kDevice: false,
         xAxisFontSize: "20px",
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -217,16 +218,23 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                             stops: [
                               [
                                 0,
+                                Highcharts.color("#73B35A") 
+                                  .setOpacity(0.5)
+                                  .get("rgba"),
+                              ],
+                              [
+                                0.5,
                                 Highcharts.color("#73B35A")
-                                  .setOpacity(
-                                    selectedWidth?.is4kDevice ? 0.6 : 0.4
-                                  )
+                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
                                   .get("rgba"),
                               ],
                               [
                                 1,
-                                Highcharts.color("#73B35A")
-                                  .setOpacity(0)
+                                Highcharts.color(
+                                   "#73B35A"
+                                    
+                                )
+                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
                                   .get("rgba"),
                               ],
                             ],

@@ -22,6 +22,13 @@ import parkingData from "mockdata/lightingData";
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
+import {
+  CoTwoLevelIcon,
+  VocLevelIcon,
+  PmOneIcon,
+  PmTwoIcon,
+  WifiUserIcon,
+} from "../../assets/lightingTopPanelLightThemeIcons";
 import useStyles from "./styles";
 
 const Parking: React.FC<any> = (props) => {
@@ -76,27 +83,27 @@ const Parking: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: CoTwoCloudIcon,
+      icon: selectedTheme === "light" ? CoTwoLevelIcon : CoTwoCloudIcon,
       value: "643ppm",
       name: `${gridView.co2} ${gridView.level}`,
     },
     {
-      icon: VocCloudIcon,
+      icon: selectedTheme === "light" ? VocLevelIcon : VocCloudIcon,
       value: "15ppm",
       name: `${gridView.co2} ${gridView.level}`,
     },
     {
-      icon: AirQualityIcon,
+      icon: selectedTheme === "light" ? PmOneIcon : AirQualityIcon,
       value: "12µg/m³",
       name: gridView.pm25,
     },
     {
-      icon: AirQualityIcon,
+      icon: selectedTheme === "light" ? PmTwoIcon : AirQualityIcon,
       value: "50µg/m³",
       name: "PM10",
     },
     {
-      icon: PersonIcon,
+      icon: selectedTheme === "light" ? WifiUserIcon : PersonIcon,
       value: "200",
       name: gridView.wifiUsers,
     },
@@ -175,6 +182,7 @@ const Parking: React.FC<any> = (props) => {
         width1: 1000,
         height1: 380,
         is4kDevice: false,
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -267,15 +275,25 @@ const Parking: React.FC<any> = (props) => {
             LIGHTING
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}   style={{ height: "93vh" }}>
+            <Grid
+              container
+              xs={12}
+              className={bodySubContainer}
+              style={{ height: "93vh" }}
+            >
               <Grid item xs={9} className={bodyLeftContainer}>
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer}   style={{ height: "29%" }}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelContainer}
+                    style={{ height: "29%" }}
+                  >
                     <Grid
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
-                      style={{height : "100%"}}
+                      style={{ height: "100%" }}
                     >
                       <Grid
                         item
@@ -288,7 +306,7 @@ const Parking: React.FC<any> = (props) => {
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#FFA626"
-                          trailColor="#484D52"
+                          trailColor={selectedTheme === "light" ? "#FAEEDD" : "#484D52"}
                           title={gridView.avgDimmingLevel}
                         />
                       </Grid>
@@ -311,19 +329,28 @@ const Parking: React.FC<any> = (props) => {
                               >
                                 {gridView.electricityConsumption}
                               </Grid>
-                              <Grid item xs={12} 
-                              // style={{ height: "90%" }}
+                              <Grid
+                                item
+                                xs={12}
+                                // style={{ height: "90%" }}
                               >
                                 <Grid
                                   container
                                   xs={12}
                                   style={{ height: "100%" }}
                                 >
-                                  <Grid item xs={9} style={{ height: "18vh", width: "80vw" }}>
+                                  <Grid
+                                    item
+                                    xs={9}
+                                    style={{ height: "18vh", width: "80vw" }}
+                                  >
                                     <Chart
-                                    containerProps={{
-                                      style: { height: "100%", width: "100%" },
-                                    }}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
                                       // width={selectedWidth?.width}
                                       // height={selectedWidth?.height}
                                       graphType={"areaspline"}
@@ -352,17 +379,17 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#004F9F")
-                                                  .setOpacity(0.3)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice
+                                                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
                                                     ? "#004F9F"
                                                     : "#000000"
                                                 )
-                                                  .setOpacity(0.05)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -427,70 +454,85 @@ const Parking: React.FC<any> = (props) => {
                                 padding: "10px 10px 5px 30px",
                               }}
                             >
-                              <Grid item xs={12} className={graphTwoHeader}  style={{ height: "10%" }}>
+                              <Grid
+                                item
+                                xs={12}
+                                className={graphTwoHeader}
+                                style={{ height: "10%" }}
+                              >
                                 Air Quality Index
                               </Grid>
 
-                              <Grid item xs={12} >
-                            <Grid container xs={12} style={{ height: "90%" }}>
-
-                              <Grid item xs={12}  style={{ height: "21vh", width: "80vw" }}>
-                                <Chart
-                                  // width={selectedWidth?.width1}
-                                  // height={selectedWidth?.height1}
-                                  containerProps={{
-                                    style: { height: "100%", width: "100%" },
-                                  }}
-                                  graphType={"areaspline"}
-                                  isVisible={true}
-                                  units={""}
-                                  isCrosshair={true}
-                                  crossHairLineColor={"#50A02890"}
-                                  is4kDevice={selectedWidth?.is4kDevice}
-                                  dataPoints={[
-                                    {
-                                      marker: {
-                                        enabled: false,
-                                      },
-                                      lineColor: "#50A02890",
-                                      color: "#50A028",
-                                      lineWidth: 2,
-                                      fillColor: {
-                                        linearGradient: [0, 0, 0, 200],
-                                        stops: [
-                                          [
-                                            0,
-                                            Highcharts.color("#50A028")
-                                              .setOpacity(0.5)
-                                              .get("rgba"),
+                              <Grid item xs={12}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{ height: "90%" }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width1}
+                                      // height={selectedWidth?.height1}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      graphType={"areaspline"}
+                                      isVisible={true}
+                                      units={""}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#50A02890"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#50A02890",
+                                          color: "#50A028",
+                                          lineWidth: 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [
+                                                0,
+                                                Highcharts.color("#50A028")
+                                                  .setOpacity(0.5)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                0.5,
+                                                Highcharts.color("#50A028")
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.2)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
+                                                Highcharts.color(
+                                                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                                                    ? "#50A028"
+                                                    : "#000000"
+                                                )
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          data: [
+                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
                                           ],
-                                          [
-                                            0.5,
-                                            Highcharts.color("#50A028")
-                                              .setOpacity(0.3)
-                                              .get("rgba"),
-                                          ],
-                                          [
-                                            1,
-                                            Highcharts.color(
-                                              selectedWidth?.is4kDevice
-                                                ? "#50A028"
-                                                : "#000000"
-                                            )
-                                              .setOpacity(0.05)
-                                              .get("rgba"),
-                                          ],
-                                        ],
-                                      },
-                                      data: [
-                                        1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6,
-                                        4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                      ],
-                                    },
-                                  ]}
-                                />
-                              </Grid>
-                              </Grid>
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
                               </Grid>
                               <Grid />
                             </Grid>
@@ -499,7 +541,12 @@ const Parking: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}  style={{ height: "59%" }}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelMapContainer}
+                    style={{ height: "59%" }}
+                  >
                     <Map
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}

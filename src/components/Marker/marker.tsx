@@ -87,6 +87,7 @@ const MapMarker: React.FC<any> = (props) => {
               handleAssetViewDetails={handleAssetViewDetails}
               handleViewDetails={handleViewDetails}
               handleVideoDetails={handleVideoDetails}
+              notificationPageName = {mapPageName}
             />
           </InfoWindowF>
         )}

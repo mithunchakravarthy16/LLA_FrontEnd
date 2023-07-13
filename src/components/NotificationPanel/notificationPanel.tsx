@@ -310,6 +310,7 @@ const NotificationPanel = (props: any) => {
                   handleViewDetails={handleViewDetails}
                   handleAssetViewDetails={handleAssetViewDetails}
                   handleVideoDetails={handleVideoDetails}
+                  notificationPageName={notificationPageName}
                 />
               );
             })
