@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import TextField from "elements/TextField";
 import DefaultLogo from "../../assets/defaultLogo.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
+import FavIcon from "../../assets/favIcon.svg";
 
 const AdminPanel = () => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -33,6 +34,13 @@ const AdminPanel = () => {
   const [colorChange, setColorChange] = useState<string>("#2D3748");
   const [footerTitle, setFooterTitle] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
+  const [uploadHeaderImageLogo, setUploadHeaderImageLogo] =
+    useState<string>("");
+  const [uploadHeaderFinalImageLogo, setUploadHeaderFinalImageLogo] =
+    useState<string>("");
+  const [uploadFavIconLogo, setUploadFavIconLogo] = useState<string>("");
+  const [uploadFinalFavIconLogo, setUploadFinalFavIconLogo] =
+    useState<string>("");
   const {} = useStyles(appTheme);
 
   const {
@@ -108,27 +116,32 @@ const AdminPanel = () => {
     },
   ];
 
+  // Theme Change
   const handleChange = (event: any) => {
     setSelectTheme(event.target.value);
   };
 
+  // Title Change
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value);
   };
 
+  // Footer Change
   const handleRadioChange = (event: any) => {
     setSelectRadio(event.target.value);
   };
 
+  // Footer Color Change
   const onFooterTextColorChange = (evt: any) => {
     setColorChange(evt.target.value);
   };
 
-  const onLogoChange = (value: string) => {
-    setUploadImage(true);
-    setUploadImageTitle(value);
+  // Footer title change
+  const handleFooterTitleChange = (e: any) => {
+    setFooterTitle(e.target.value);
   };
 
+  // Save
   const handleSave = () => {
     const payload = {
       theme: selectTheme,
@@ -137,6 +150,17 @@ const AdminPanel = () => {
 
     localStorage.setItem("theme", JSON.stringify(selectTheme));
     setSuccess(true);
+  };
+
+  // success message
+  const handleClose = () => {
+    setSuccess(false);
+  };
+
+  // Logo Change
+  const onLogoChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
   };
 
   const handleCancelClick = () => {
@@ -160,22 +184,60 @@ const AdminPanel = () => {
     setUploadImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
-  const onHeaderChange = (value: string) => {
-    // setUploadImage(true);
-    // setUploadImageTitle(value);
+  // Header Change
+
+  const headerChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
   };
+
+  const handleHeaderCancelClick = () => {
+    setUploadImage(false);
+    setUploadHeaderImageLogo("");
+  };
+
+  const handleHeaderSaveClick = () => {
+    setUploadImage(false);
+    setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
+  };
+
+  const handleHeaderChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadHeaderImageLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDropHeader = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadHeaderImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+  };
+
+  // Fav Icon Change
 
   const onFavIconChange = (value: string) => {
-    // setUploadImage(true);
-    // setUploadImageTitle(value);
+    setUploadImage(true);
+    setUploadImageTitle(value);
   };
 
-  const handleFooterTitleChange = (e: any) => {
-    setFooterTitle(e.target.value);
+  const handleFavIconCancelClick = () => {
+    setUploadImage(false);
+    setUploadFavIconLogo("");
   };
 
-  const handleClose = () => {
-    setSuccess(false);
+  const handleFavIconSaveClick = () => {
+    setUploadImage(false);
+    setUploadFinalFavIconLogo(uploadFavIconLogo);
+  };
+
+  const handleFavIconChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadFavIconLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDropFavIcon = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadFavIconLogo(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
   return (
@@ -364,7 +426,14 @@ const AdminPanel = () => {
                       <div className={fileUploadContent}>
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
-                            <img className={logoPreview} src={DefaultLogo} />
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadHeaderFinalImageLogo
+                                  ? uploadHeaderFinalImageLogo
+                                  : DefaultLogo
+                              }
+                            />
                           </div>
                         </div>
                         <div>
@@ -372,7 +441,7 @@ const AdminPanel = () => {
                             style={{ textTransform: "none" }}
                             variant="contained"
                             className={updateButton}
-                            // onClick={() => onLogoChange("header")}
+                            onClick={() => headerChange("Header")}
                           >
                             Change
                           </Button>
@@ -384,7 +453,14 @@ const AdminPanel = () => {
                       <div className={fileUploadContent}>
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
-                            <img className={logoPreview} src={DefaultLogo} />
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadFinalFavIconLogo
+                                  ? uploadFinalFavIconLogo
+                                  : FavIcon
+                              }
+                            />
                           </div>
                         </div>
                         <div>
@@ -392,7 +468,7 @@ const AdminPanel = () => {
                             style={{ textTransform: "none" }}
                             variant="contained"
                             className={updateButton}
-                            // onClick={() => onLogoChange("header")}
+                            onClick={() => onFavIconChange("Fav Icon")}
                           >
                             Change
                           </Button>
@@ -484,6 +560,14 @@ const AdminPanel = () => {
             handleSaveClick={handleSaveClick}
             handleChange={handleUploadChange}
             dropDrop={dropDrop}
+            handleHeaderCancelClick={handleHeaderCancelClick}
+            handleHeaderSaveClick={handleHeaderSaveClick}
+            handleHeaderChange={handleHeaderChange}
+            dropDropHeader={dropDropHeader}
+            handleFavIconCancelClick={handleFavIconCancelClick}
+            handleFavIconSaveClick={handleFavIconSaveClick}
+            handleFavIconChange={handleFavIconChange}
+            dropDropFavIcon={dropDropFavIcon}
           />
         )}
       </Fragment>
