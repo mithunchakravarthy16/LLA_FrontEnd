@@ -7,6 +7,7 @@ import { LiveImg } from "assets/gridViewIcons";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
 import Chart from "elements/Chart";
+import useTranslation from "localization/translations";
 
 const GridViewScreenFive: React.FC<any> = (props) => {
   const { handleClick } = props;
@@ -14,6 +15,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {dashboard, gridView} = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -149,7 +151,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
       >
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitleScreenFive}>
-            FLEET MANAGEMENT
+            {dashboard.fleetManagement}
           </Grid>
           <Grid item xs={12} className={subContainerScreenFive}>
             <Grid container xs={12} className={childSubContainer}>
@@ -165,11 +167,11 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       <Grid item xs={12} className={screenFiveGraphTitleStyle}>
                         <div className={dotContainerStyle}>
                           <div className={overspeedingDotStyle}></div>
-                          <div>Overspeeding</div>
+                          <div>{gridView.overspeeding}</div>
                         </div>
                         <div className={dotContainerStyle}>
                           <div className={harshBreakingDotStyle}></div>
-                          <div>Harsh Breaking</div>
+                          <div>{gridView.harshBreaking}</div>
                         </div>
                       </Grid>
                       <Grid item xs={12}>
@@ -250,11 +252,11 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>10</div>
-                        <div className={liveContentLabel}>VEHICLES</div>
+                        <div className={liveContentLabel}>{gridView.vehicles}</div>
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValue}>13</div>
-                        <div className={liveContentLabel}>TRIPS</div>
+                        <div className={liveContentLabel}>{gridView.trips}</div>
                       </div>
                     </div>
                   </Grid>
@@ -277,7 +279,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             padding: "3%",
                       }}
                     >
-                      Today
+                      {gridView.today}
                     </div>
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>
@@ -293,7 +295,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         direction="column"
                       >
                         <div className={listItemValueStyle}>20</div>
-                        <div className={listItemLabelStyle}>Incidents</div>
+                        <div className={listItemLabelStyle}>{gridView.incidents}</div>
                       </Grid>
                       <Grid
                         item
@@ -303,7 +305,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>1237Km</div>
                         <div className={listItemLabelStyle}>
-                          <p>Total</p> <p>Distance</p>
+                          <p>{gridView.total}</p> <p>{gridView.distance}</p>
                         </div>
                       </Grid>
                       <Grid
@@ -314,7 +316,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>5Hrs</div>
                         <div className={listItemLabelStyle}>
-                          <p>Total</p> <p>Idling Hours</p>
+                          <p>{gridView.total}</p> <p>{gridView.idling} {gridView.hours}</p>
                         </div>
                       </Grid>
                     </Grid>

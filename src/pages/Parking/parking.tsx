@@ -16,6 +16,7 @@ import {
   LightParkingVipIcon,
   LightParkingRotationIcon,
 } from "../../assets/topPanelListIcons";
+import useTranslation from "localization/translations";
 import { LiveImg } from "assets/gridViewIcons";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -40,6 +41,7 @@ import ParkingSlotContainer from "components/ParkingSlotContainer";
 HC_rounded(Highcharts);
 
 const Parking: React.FC<any> = (props) => {
+  const {dashboard, gridView, parking} = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -106,7 +108,6 @@ const Parking: React.FC<any> = (props) => {
     parkingLotSelectionActive: parkingLotSelectionActive,
     parkingLotIndex: parkingLotIndex,
   });
-
   const topPanelListItems: any[] = [
     {
       icon: selectedTheme === "light" ? LightParkingGeneralIcon :  GeneralParkingIcon,
@@ -147,7 +148,7 @@ const Parking: React.FC<any> = (props) => {
 
   const tabsList = [
     {
-      name: "All",
+      name: parking.all,
       val: 0,
     },
     {
@@ -407,7 +408,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            PARKING
+            {dashboard.parking}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid
@@ -447,7 +448,7 @@ const Parking: React.FC<any> = (props) => {
                             appTheme?.palette?.parkingPage
                               ?.progressTrailColor
                           }
-                          title={"Occupancy"}
+                          title={gridView.occupancy}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "75%" }}>
@@ -467,7 +468,7 @@ const Parking: React.FC<any> = (props) => {
                                 style={{ height: "10%" }}
                                 className={electricity}
                               >
-                                Occupancy
+                                {gridView.occupancy}
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid
@@ -557,7 +558,7 @@ const Parking: React.FC<any> = (props) => {
                                           228
                                         </div>
                                         <div className={liveContentLabel}>
-                                          AVAILABLE
+                                          {dashboard.available}
                                         </div>
                                       </div>
                                       <div className={liveContentStyle}>
@@ -565,7 +566,7 @@ const Parking: React.FC<any> = (props) => {
                                           370
                                         </div>
                                         <div className={liveContentLabel}>
-                                          OCCUPIED
+                                          {dashboard.occupied}
                                         </div>
                                       </div>
                                     </div>
@@ -589,7 +590,7 @@ const Parking: React.FC<any> = (props) => {
                                 style={{ height: "10%" }}
                                 className={electricity}
                               >
-                                Parking Violation
+                                {parking.parkingViolation}
                               </Grid>
                               <Grid item xs={12}>
                                 <Grid

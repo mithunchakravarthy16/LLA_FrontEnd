@@ -7,6 +7,8 @@ import Chart from "elements/Chart";
 import { LiveImg } from "assets/gridViewIcons";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
+import useTranslation from "localization/translations";
+import GridView from "pages/GridView";
 
 const GridViewScreenOne: React.FC<any> = (props) => {
   const { handleClick } = props;
@@ -14,6 +16,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {dashboard, gridView} = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -177,7 +180,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       >
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
-            PARKING
+            {dashboard.parking}
           </Grid>
           <Grid item xs={12} className={subContainer}>
             <Grid container xs={12} className={childSubContainer}>
@@ -189,7 +192,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                   className={leftSubChildContainer}
                 >
                   <Grid item xs={12}>
-                    <div className={graphTitleScreenOne}>Occupancy</div>
+                    <div className={graphTitleScreenOne}>{gridView.occupancy}</div>
                     <Chart
                       width={selectedWidth?.width}
                       height={selectedWidth?.height}
@@ -247,11 +250,11 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>398</div>
-                        <div className={liveContentLabel}>AVAILABLE</div>
+                        <div className={liveContentLabel}>{dashboard.available}</div>
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValue}>354</div>
-                        <div className={liveContentLabel}>OCCUPIED</div>
+                        <div className={liveContentLabel}>{dashboard.occupied}</div>
                       </div>
                     </div>
                   </Grid>
@@ -274,7 +277,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                             padding: "3%",
                       }}
                     >
-                      Today
+                      {gridView.today}
                     </div>
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>
@@ -291,7 +294,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>10Hrs</div>
                         <div className={listItemLabelStyle}>
-                          Avg. <p>Parking Hrs.</p>
+                          {gridView.avg}<p>{gridView.parkingHours}</p>
                         </div>
                       </Grid>
                       <Grid
@@ -302,7 +305,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>1.5</div>
                         <div className={listItemLabelStyle}>
-                          <p>Rotation</p> <p>Index</p>
+                          <p>{gridView.rotation}</p> <p>{gridView.index}</p>
                         </div>
                       </Grid>
                       <Grid
@@ -313,7 +316,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>20Kg</div>
                         <div className={listItemLabelStyle}>
-                          <p>Carbon</p> <p>Emission</p>
+                          <p>{gridView.carbon}</p> <p>{gridView.emission}</p>
                         </div>
                       </Grid>
                     </Grid>
