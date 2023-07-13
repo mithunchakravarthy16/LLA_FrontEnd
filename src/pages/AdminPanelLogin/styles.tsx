@@ -34,37 +34,7 @@ const useStyles = makeStyles(() => ({
     width: "28vw !important",
     padding: "2.2vw",
     margin: "0 auto",
-    // [muiTheme.breakpoints.down(3073)]: {
-    //   width: "856px !important",
-    //   padding: "100px",
-    // },
-    // [muiTheme.breakpoints.down(2049)]: {
-    //   maxWidth: "460px !important",
-    //   padding: "40px ",
-    // },
-    // [muiTheme.breakpoints.down(1921)]: {
-    //   maxWidth: "460px !important",
-    //   padding: "40px ",
-    // },
-    // [muiTheme.breakpoints.down(1281)]: {
-    //   maxWidth: "460px !important",
-    //   padding: "16px ",
-    // },
-    // [muiTheme.breakpoints.down(1153)]: {
-    //   maxWidth: "460px !important",
-    //   padding: "32px 20px ",
-    // },
-    // "&::before": {
-    //   top: "0",
-    //   width: "90%",
-    //   height: "8px",
-    //   content: `''`,
-    //   position: "absolute",
-    //   background: props?.palette?.login?.boxTopLineStyle,
-    //   borderBottomLeftRadius: "6px",
-    //   borderBottomRightRadius: "6px",
-    //   zIndex: "-1",
-    // },
+    
   }),
   innerForm: (props: any) => ({}),
   welcomeSection: (props: any) => ({}),
@@ -154,7 +124,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   inputFieldPassword: (props: any) => ({
-    marginBottom: '3%',
+    marginBottom: '5%',
     "& .MuiInputBase-input": {
       fontFamily: `'Poppins', sans-serif`,
       fontSize: "0.8vw",
@@ -214,37 +184,6 @@ const useStyles = makeStyles(() => ({
     marginBottom: "6vh",
     "& img": {
       width: "15.5vw",
-    },
-  }),
-  formTitle: (props: any) => ({
-    "& img": {
-      maxWidth: "100%",
-      margin: "0 auto",
-      [muiTheme.breakpoints.up(3839)]: {
-        maxWidth: "100%",
-        margin: "0 auto",
-        marginBottom: 70,
-      },
-      [muiTheme.breakpoints.down(3073)]: {
-        maxWidth: "100%",
-        margin: "0 auto",
-        marginBottom: 70,
-      },
-      [muiTheme.breakpoints.down(2049)]: {
-        maxWidth: "50%",
-        margin: "0 auto",
-        marginBottom: 28,
-      },
-      [muiTheme.breakpoints.down(1921)]: {
-        maxWidth: "50%",
-        margin: "0 auto",
-        marginBottom: 28,
-      },
-      [muiTheme.breakpoints.down(1153)]: {
-        maxWidth: "40%",
-        margin: "0 auto",
-        marginBottom: 18,
-      },
     },
   }),
   formSection: (props: any) => ({
