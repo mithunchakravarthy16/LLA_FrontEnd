@@ -16,6 +16,7 @@ import DarkIcon from "../../assets/darkIcon.svg";
 import Button from "@mui/material/Button";
 import TextField from "elements/TextField";
 import DefaultLogo from "../../assets/defaultLogo.svg";
+import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 
 const AdminPanel = () => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -25,6 +26,10 @@ const AdminPanel = () => {
   const [selectTheme, setSelectTheme] = useState<any>("");
   const [title, setTitle] = useState<any>("");
   const [selectRadio, setSelectRadio] = useState<any>("");
+  const [uploadImage, setUploadImage] = useState<boolean>(false);
+  const [uploadImageTitle, setUploadImageTitle] = useState<string>("");
+  const [uploadImageLogo, setUploadImageLogo] = useState<string>("");
+  const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<string>("");
   const {} = useStyles(appTheme);
 
   const {
@@ -70,7 +75,7 @@ const AdminPanel = () => {
     customTextField2,
     adminDashboard,
     spaceBottom,
-    space
+    space,
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -114,6 +119,11 @@ const AdminPanel = () => {
 
   const onFooterTextColorChange = (evt: any) => {};
 
+  const onLogoChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
+  };
+
   const handleSave = () => {
     const payload = {
       theme: selectTheme,
@@ -121,6 +131,37 @@ const AdminPanel = () => {
     };
 
     localStorage.setItem("theme", JSON.stringify(selectTheme));
+  };
+
+  const handleCancelClick = () => {
+    setUploadImage(false);
+    setUploadImageLogo("");
+  };
+
+  const handleSaveClick = () => {
+    setUploadImage(false);
+    setUploadFinalImageLogo(uploadImageLogo);
+  };
+
+  const handleUploadChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadImageLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDrop = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+  };
+
+  const onHeaderChange = (value: string) => {
+    // setUploadImage(true);
+    // setUploadImageTitle(value);
+  };
+
+  const onFavIconChange = (value: string) => {
+    // setUploadImage(true);
+    // setUploadImageTitle(value);
   };
 
   return (
@@ -194,7 +235,11 @@ const AdminPanel = () => {
                   </Grid>
                 </Grid>
                 <div className={adminDashboard}>
-                  <Grid container borderBottom={"1px solid #00000020"} className={spaceBottom}>
+                  <Grid
+                    container
+                    borderBottom={"1px solid #00000020"}
+                    className={spaceBottom}
+                  >
                     <Grid item xs={12} sm={12} md={5} lg={5} xl={5}>
                       <div>
                         <div className={appearanceText}>Appearance</div>
@@ -243,7 +288,7 @@ const AdminPanel = () => {
                       </div>
                     </Grid>
                   </Grid>
-                  <Grid container  className={space}>
+                  <Grid container className={space}>
                     <Grid item xs={12}>
                       <div>
                         <div className={logoText}>Logo</div>
@@ -254,13 +299,24 @@ const AdminPanel = () => {
                       </div>
                     </Grid>
                   </Grid>
-                  <Grid container borderBottom={"1px solid #00000020"}  className={spaceBottom}>
+                  <Grid
+                    container
+                    borderBottom={"1px solid #00000020"}
+                    className={spaceBottom}
+                  >
                     <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                       <div className={appearanceText}>Login</div>
                       <div className={fileUploadContent}>
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
-                            <img className={logoPreview} src={DefaultLogo} />
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadFinalImageLogo
+                                  ? uploadFinalImageLogo
+                                  : DefaultLogo
+                              }
+                            />
                           </div>
                         </div>
                         <div>
@@ -268,7 +324,7 @@ const AdminPanel = () => {
                             style={{ textTransform: "none" }}
                             variant="contained"
                             className={updateButton}
-                            // onClick={() => onLogoChange("header")}
+                            onClick={() => onLogoChange("Login")}
                           >
                             Change
                           </Button>
@@ -392,6 +448,16 @@ const AdminPanel = () => {
             </div>
           </Grid>
         </Grid>
+        {uploadImage && (
+          <InfoDialogFileUpload
+            uploadImage={uploadImage}
+            uploadImageTitle={uploadImageTitle}
+            handleCancelClick={handleCancelClick}
+            handleSaveClick={handleSaveClick}
+            handleChange={handleUploadChange}
+            dropDrop={dropDrop}
+          />
+        )}
       </Fragment>
     </>
   );
