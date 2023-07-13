@@ -6,7 +6,7 @@ import muiTheme from "../../theme/muiTheme";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    background: "#161515",
+    background: props?.palette?.energyMgmtPage?.pageBg,
     height: "100vh",
     paddingLeft: "3.4px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
-    background: "#161515",
+    // background: "#161515",
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -136,9 +136,12 @@ const useStyles = makeStyles({
   }),
 
   notificationPanelGrid: (props: any) => ({
+    background: props?.palette?.notification?.notificationBg,  
     border: "1px solid #333333",
   }),
   graphTwoHeader: (props: any) => ({
+    color : props?.palette?.energyMgmtPage?.topPanelTextColor,
+
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "52px",

@@ -26,7 +26,8 @@ const useStyles = makeStyles({
     // border: "1px solid #808080",
     height: "100%",
     border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
-    borderRight : "0px"
+    borderRight : "0px",
+    background : props?.palette?.parkingPage?.topPanelContainerBg  //topPanelContainerBg
   }),
 
   progressBarContainer: (props: any) => ({

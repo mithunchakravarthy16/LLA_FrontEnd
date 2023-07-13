@@ -451,7 +451,7 @@ const Parking: React.FC<any> = (props) => {
                           title={"Occupancy"}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{ height: "70%" }}>
+                      <Grid item xs={12} style={{ height: "75%" }}>
                         <Grid container xs={12} style={{ height: "25vh" }}>
                           <Grid item xs={6} className={graphOneContainer}>
                             <Grid
@@ -459,7 +459,7 @@ const Parking: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                padding: "10px 10px 5px 30px",
+                                padding: "10px 10px 5px 20px",
                               }}
                             >
                               <Grid
@@ -589,7 +589,7 @@ const Parking: React.FC<any> = (props) => {
                               xs={12}
                               style={{
                                 height: "100%",
-                                padding: "10px 10px 5px 30px",
+                                padding: "10px 10px 5px 20px",
                               }}
                             >
                               <Grid
@@ -724,7 +724,7 @@ const Parking: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "59%" }}
+                    style={{ height: "60%" }}
                   >
                     <ParkingSlotContainer
                       parkingLotSelectionActive={parkingLotSelectionActive}

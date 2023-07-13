@@ -59,7 +59,6 @@ const AdminPanelLogin = () => {
     loginFormSection,
     welcomeSection,
     welcomeContent,
-    formTitle,
     inputTitle,
     inputField,
     inputFieldPassword,
@@ -155,9 +154,6 @@ const AdminPanelLogin = () => {
                 <div className={llaLogoSection}>
                   <img src={llaLogo} />
                 </div>
-                {/* <h2 className={formTitle}>
-                  <img src={smartLogoText} />
-                </h2> */}
               </div>
               <div className={loginFormSection}>
                 <Grid item xs={12} className={innerForm}>
