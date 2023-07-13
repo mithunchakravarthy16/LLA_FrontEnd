@@ -267,7 +267,7 @@ const fleetManagementResponse = {
           notificationDate: "2023-06-28T09:22:50.124Z",
           area: "Lower Highland, Denver, CO 80211, USA",
           location: {
-            lat: 39.76323809694557,
+            lat: 39.76123809694557,
             lng: -105.00263788550286,
           },
           source: {

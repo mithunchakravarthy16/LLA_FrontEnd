@@ -6,7 +6,7 @@ import muiTheme from "../../theme/muiTheme";
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
     fontFamily: "HelveticaNeue-Regular",
-    background: "#161515",
+    background: props?.palette?.fleetManagementPage?.pageBg,
     height: "100vh",
     paddingLeft: "3.4px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
-    background: "#161515",
+    background: props?.palette?.fleetManagementPage?.pageBg,
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -125,7 +125,7 @@ const useStyles = makeStyles({
 
   bodyLeftTopPanelMapContainer: (props: any) => ({
     height: "60%",
-    borderTop: "1px solid rgb(51, 51, 51)",
+    // borderTop: "1px solid rgb(51, 51, 51)",
   }),
 
   bodyLeftTopPanelSubContainer: (props: any) => ({
@@ -140,6 +140,7 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor, 
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "48px",
@@ -171,8 +172,8 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 #808080",
-    borderBottom: "1px solid #333333",
-    borderRight: "1px solid #333333",
+    borderBottom: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    borderRight: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
   }),
 
   graphTwoContainer: (props: any) => ({
@@ -180,7 +181,7 @@ const useStyles = makeStyles({
     // borderWidth: "1px",
     // borderStyle: "solid",
     // borderColor: "transparent #808080 #808080 transparent",
-    borderBottom: "1px solid #333333",
+    borderBottom: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
     display: "flex",
     alignItems: "center",
   }),
@@ -240,7 +241,8 @@ const useStyles = makeStyles({
   },
 
   notificationPanelGrid: (props: any) => ({
-    border: "1px solid #333333",
+    border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
+    background: props?.palette?.notification?.notificationBg,
   }),
   bodyLeftTopPanelListSubContainer: (props: any) => ({
     border: "1px solid #808080",
@@ -256,6 +258,7 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "48px",

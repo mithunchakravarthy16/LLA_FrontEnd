@@ -163,7 +163,7 @@ const energyManagementData = {
         notificationType: "incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.76323809694557,
+          lat: 39.76113809694557,
           lng: -105.00263788550286,
         },
         equipment: "Equip - 3",

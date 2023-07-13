@@ -217,11 +217,7 @@ const Parking: React.FC<any> = (props) => {
 
   const handleParkingLot = (index: number) => {
     setParkingLotIndex(index);
-    // setParkingLotSelectionActive(!parkingLotSelectionActive);
-    // setTabIndex(index);
-    // setSearchOpen(false);
-    // setSelectedNotification("");
-    // setSelectedRefId("");
+    setParkingLotSelectionActive(false);
   };
 
   const [selectedParkingLot, setSelectedParkingLot] = useState<any>(
@@ -233,9 +229,13 @@ const Parking: React.FC<any> = (props) => {
   }, [parkingLotIndex]);
 
   const handleLotSelction = () => {
-    setParkingLotSelectionActive(!parkingLotSelectionActive);
+    setParkingLotSelectionActive(true);
     setSelectedNotification("");
   };
+
+  const handleLotSelctionCloseIcon = () => {
+    setParkingLotSelectionActive(false);
+  }
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -724,6 +724,7 @@ const Parking: React.FC<any> = (props) => {
                       selectedParkingLot={selectedParkingLot}
                       handleParkingLot={handleParkingLot}
                       tabsList={tabsList}
+                      handleLotSelctionCloseIcon={handleLotSelctionCloseIcon}
                     />
 
                     {parkingLotIndex === 0 ? (
