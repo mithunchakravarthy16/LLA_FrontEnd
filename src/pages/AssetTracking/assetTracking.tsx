@@ -594,7 +594,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           className={graphTwoContainerStyle}
                           style={{}}
                         >
-                          <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center" }}  >
+                          <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center", fontSize : "0.8vw" }}  >
                             Incidents
                           </Grid>
                           {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
