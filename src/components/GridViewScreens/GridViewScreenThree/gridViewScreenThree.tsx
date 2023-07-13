@@ -6,6 +6,7 @@ import Highcharts from "highcharts";
 import Chart from "elements/Chart";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
+import useTranslation from "localization/translations";
 
 const GridViewScreenThree: React.FC<any> = (props) => {
   const { handleClick } = props;
@@ -14,6 +15,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {dashboard, gridView} = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -160,33 +162,33 @@ const GridViewScreenThree: React.FC<any> = (props) => {
           className={gridContainers}
         >
           <Grid item xs={12} className={containerTitleTwo}>
-            SECURITY
+            {dashboard.security}
           </Grid>
           <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>19</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  <p>Fire</p> <p>Detection</p>
+                  <p>{gridView.fire}</p> <p>{gridView.detection}</p>
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
                 <div className={horizantalDataGridValueStyle}>18</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  <p>Tempering </p>
-                  <p>Alarm</p>
+                  <p>{gridView.tempering} </p>
+                  <p>{gridView.alarm}</p>
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
                 <div className={horizantalDataGridValueStyle}>05</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  <p>Unauthorised</p> <p>Access</p>
+                  <p>{gridView.unauthorised}</p> <p>{gridView.access}</p>
                 </div>
               </div>
             </div>
           </Grid>
           <Grid item xs={12}>
-            <div className={screenTwoGraphTitleStyle}>Security Alerts</div>
+            <div className={screenTwoGraphTitleStyle}>{gridView.securityAlerts}</div>
             <Chart
               width={selectedWidth?.width}
               height={selectedWidth?.height}

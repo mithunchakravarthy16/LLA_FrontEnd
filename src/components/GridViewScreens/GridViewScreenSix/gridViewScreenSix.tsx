@@ -6,6 +6,7 @@ import Highcharts from "highcharts";
 import Chart from "elements/Chart";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
+import useTranslation from "localization/translations";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
   const { handleClick } = props;
@@ -14,6 +15,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {dashboard, gridView} = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -133,33 +135,33 @@ const GridViewScreenSix: React.FC<any> = (props) => {
           className={gridContainers}
         >
           <Grid item xs={12} className={containerTitleTwo}>
-            ASSETS TRACKING
+            {dashboard.assetsTracking}
           </Grid>
           <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>52</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  <p>Assets</p> <p>Tracked</p>
+                  <p>{gridView.assets}</p> <p>{gridView.tracked}</p>
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
                 <div className={horizantalDataGridValueStyle}>30</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  <p>Location</p> <p>Changes</p>
+                  <p>{gridView.location}</p> <p>{gridView.changes}</p>
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
                 <div className={horizantalDataGridValueStyle}>10</div>
                 <div className={horizantalDataGridLabelStyle}>
-                  <p>Out Of</p>
-                  <p> Geofence</p>
+                  <p>{gridView.outOf}</p>
+                  <p> {gridView.geofence}</p>
                 </div>
               </div>
             </div>
           </Grid>
           <Grid item xs={12}>
-            <div className={screenTwoGraphTitleStyle}>Assets Tracked</div>
+            <div className={screenTwoGraphTitleStyle}>{gridView.assets} {gridView.tracked}</div>
             <Chart
               width={selectedWidth?.width}
               height={selectedWidth?.height}

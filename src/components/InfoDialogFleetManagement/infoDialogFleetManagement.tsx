@@ -1,5 +1,5 @@
 /** @format */
-// @ts-ignore
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";

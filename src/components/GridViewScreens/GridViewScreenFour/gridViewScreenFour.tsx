@@ -7,6 +7,7 @@ import { LiveImg } from "assets/gridViewIcons";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
 import Chart from "elements/Chart";
+import useTranslation from "localization/translations";
 
 const GridViewScreenFour: React.FC<any> = (props) => {
   const { handleClick } = props;
@@ -14,6 +15,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {dashboard, gridView} = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -151,7 +153,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
       >
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
-            LIGHTING
+            {dashboard.lighting}
           </Grid>
           <Grid item xs={12} className={subContainer}>
             <Grid container xs={12} className={childSubContainer}>
@@ -165,7 +167,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
-                        Wifi Users
+                        {gridView.wifiUsers}
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
@@ -213,7 +215,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       className={progressBarContainerStyle}
                     >
                       <Grid item xs={12} className={progressBarTitleStyle}>
-                        Avg. Dimming Level
+                        {gridView.avgDimmingLevel}
                       </Grid>
                       <Grid item xs={12}>
                         <div
@@ -264,12 +266,12 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>64Kw</div>
-                        <div className={liveContentLabel}>CONSUMED</div>
+                        <div className={liveContentLabel}>{gridView.consumed}</div>
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValueGreen}>50</div>
                         <div className={liveContentLabelGreen}>
-                          <div>AQI</div>
+                          <div>{gridView.aqi}</div>
                           <div className={aqiCircleStyle}></div>
                         </div>
                       </div>
@@ -311,7 +313,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>643ppm</div>
                         <div className={listItemLabelStyle}>
-                          <p>CO2</p> <p>Level</p>
+                          <p>{gridView.co2}</p> <p>{gridView.level}</p>
                         </div>
                       </Grid>
                       <Grid
@@ -321,7 +323,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         className={rightListItemStyle}
                       >
                         <div className={listItemValueStyle}>15ppm</div>
-                        <div className={listItemLabelStyle}>VOC Level</div>
+                        <div className={listItemLabelStyle}>{gridView.voc} {gridView.level}</div>
                       </Grid>
                       <Grid
                         item
@@ -330,7 +332,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         className={rightListItemStyleLastChild}
                       >
                         <div className={listItemValueStyle}>12µg/m³</div>
-                        <div className={listItemLabelStyle}>PM2.5</div>
+                        <div className={listItemLabelStyle}>{gridView.pm25}</div>
                       </Grid>
                     </Grid>
                   </Grid>
