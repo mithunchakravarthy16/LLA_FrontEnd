@@ -217,7 +217,7 @@ export const InnerCardWrapper = styled("div")`
 export const CardTitle = styled("div")<{ focusedCategory: any }>`
   font-family: "HelveticaNeue-Regular";
   font-style: normal;
-  font-size: 34px;
+  font-size: 35px;
   line-height: 48px;
   color: ${({ focusedCategory }) => (focusedCategory ? "#F26522" : currentTheme?.palette?.flippingCard?.textColor)};
   /* color:  #F26522 #eeeeee; */
@@ -289,7 +289,7 @@ export const BackContentContainer = styled(ContentContainer)`
 export const CardTitleSmall = styled("div")`
   font-family: "HelveticaNeue-Regular";
   font-style: italic;
-  font-size: 36px;
+  font-size: 35px;
   line-height: 56px;
   color: #ffffff;
   text-transform: uppercase;
