@@ -8,7 +8,7 @@ const useStyles = makeStyles(
     violationListContainer: (props: any) => ({
       height: "95%",
       overflowY: "auto",
-
+      paddingRight: "2%",
       // "&::-webkit-scrollbar": {
       //   width: 0,
       // },

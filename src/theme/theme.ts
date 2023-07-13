@@ -103,6 +103,13 @@ let theme = {
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
         graphBg: colorCodes?.blackShades,
+        securityProgressBarBg: colorCodes?.darkGrayBrownShade,
+        circularProgressBar: {
+          background: colorCodes?.iconBackgroundDark,
+          stokeColorGreen: colorCodes?.speedometerGreen,
+          stokeColorRed: colorCodes?.speedometerRed,
+          track: colorCodes?.speedometerTrackDark,
+        },
       },
       parkingPage: {
         pageBg: colorCodes?.blackShades,
@@ -251,8 +258,15 @@ let theme = {
         violationListBg: colorCodes?.colorWhite,
         violationListTextColor: colorCodes?.darkBlackShade,
         violationListSubTextColor: colorCodes?.mdGray,
+        circularProgressBar: {
+          background: colorCodes?.colorWhite,
+          stokeColorGreen: colorCodes?.speedometerGreen,
+          stokeColorRed: colorCodes?.speedometerRed,
+          track: colorCodes?.speedometerTrackLight,
+        },
         listItemsBorder: "",
         graphBg: colorCodes?.whiteColor1,
+        securityProgressBarBg: colorCodes?.blueShadesOfProgressBar,
       },
       assetTrackingPage: {
         pageBg: colorCodes?.colorWhite,
@@ -400,6 +414,13 @@ let theme = {
         violationListSubTextColor: colorCodes?.colorWhite,
         listItemsBorder: colorCodes?.mdGray,
         graphBg: colorCodes?.blackShades,
+        securityProgressBarBg: colorCodes?.darkGrayBrownShade,
+        circularProgressBar: {
+          background: colorCodes?.iconBackgroundDark,
+          stokeColorGreen: colorCodes?.speedometerGreen,
+          stokeColorRed: colorCodes?.speedometerRed,
+          track: colorCodes?.speedometerTrackDark,
+        },
       },
       assetTrackingPage: {
         pageBg: colorCodes?.darkGrey1,
