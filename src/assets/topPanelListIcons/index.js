@@ -49,6 +49,14 @@ import LocationLightThemeIcon from "./LocationLightTheme.svg";
 import OutOfGeofenceLightThemeIcon from "./OutOfGeofenceLightTheme.svg";
 import IncidentLightThemeIcon from "./IncidentLightTheme.svg";
 
+//Energy Mgmt Light Theme Icons
+import ElectricityLightThemeIcon from "./EnergyMgmtIcons/LightTheme/ElectricityLightTheme.svg";
+import Co2LightThemeIcon from "./EnergyMgmtIcons/LightTheme/Co2LightTheme.svg";
+import HVACLightThemeIcon from "./EnergyMgmtIcons/LightTheme/HVACLightTheme.svg";
+import IncomeLightThemeIcon from "./EnergyMgmtIcons/LightTheme/IncomeLightTheme.svg";
+import WaterLightThemeIcon from "./EnergyMgmtIcons/LightTheme/WaterLightTheme.svg";
+
+
 export {
   CoTwoCloudIcon,
   VocCloudIcon,
@@ -94,4 +102,9 @@ export {
   LightParkingGeneralIcon,
   LightParkingVipIcon,
   LightParkingRotationIcon,
+  ElectricityLightThemeIcon,
+Co2LightThemeIcon,
+HVACLightThemeIcon,
+IncomeLightThemeIcon,
+WaterLightThemeIcon
 };

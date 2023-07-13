@@ -8,6 +8,11 @@ import {
   WaterConsumption,
   IncomeIcon,
   SubtractIcon,
+  ElectricityLightThemeIcon,
+  Co2LightThemeIcon,
+  HVACLightThemeIcon,
+  IncomeLightThemeIcon,
+  WaterLightThemeIcon
 } from "../../assets/topPanelListIcons";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
@@ -64,27 +69,27 @@ const Parking: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: PowerConsumtionIcon,
+      icon: selectedTheme === "light" ? ElectricityLightThemeIcon : PowerConsumtionIcon,
       value: "200kWh",
       name: "Electricity Consumed",
     },
     {
-      icon: TemperatureIcon,
+      icon:selectedTheme === "light" ? HVACLightThemeIcon : TemperatureIcon,
       value: "100kWh",
       name: "HVAC",
     },
     {
-      icon: WaterConsumption,
+      icon:selectedTheme === "light" ? WaterLightThemeIcon : WaterConsumption,
       value: "1480KL",
       name: "Water Consumption",
     },
     {
-      icon: IncomeIcon,
+      icon: selectedTheme === "light" ? IncomeLightThemeIcon :IncomeIcon,
       value: "500$",
       name: "Cost Saved",
     },
     {
-      icon: SubtractIcon,
+      icon:selectedTheme === "light" ? Co2LightThemeIcon : SubtractIcon,
       value: "50Kg",
       name: "CO2 Emission",
     },
@@ -256,11 +261,15 @@ const Parking: React.FC<any> = (props) => {
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
-                          trailColor="#484D52"
+                          // trailColor="#484D52"
+                          trailColor={
+                            appTheme?.palette?.energyMgmtPage
+                              ?.progressTrailColor
+                          }
                           title={"Energy Savings "}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{ height: "70%" }}>
+                      <Grid item xs={12} style={{ height: "75%" }}>
                         <Grid container xs={12} style={{ height: "25vh" }}>
                           <Grid item xs={6} className={graphOneContainer}>
                             <Grid
@@ -294,7 +303,7 @@ const Parking: React.FC<any> = (props) => {
                                       marginRight: 6,
                                     }}
                                   ></div>
-                                  <div>Electricity Consumption </div>
+                                  <div style={{color : appTheme?.palette?.energyMgmtPage?.topPanelTextColor}}>Electricity Consumption </div>
                                 </div>
                                 <div
                                   style={{
@@ -313,7 +322,7 @@ const Parking: React.FC<any> = (props) => {
                                       marginRight: 6,
                                     }}
                                   ></div>
-                                  <div>HVAC</div>
+                                  <div style={{color : appTheme?.palette?.energyMgmtPage?.topPanelTextColor}}>HVAC</div>
                                 </div>
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
@@ -444,7 +453,7 @@ const Parking: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "59%" }}
+                    style={{ height: "60%" }}
                   >
                     <Map
                       mapPageName={"energy"}
