@@ -1,7 +1,7 @@
 /** @format */
 
 import { useState, useEffect, Fragment } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Alert, Snackbar } from "@mui/material";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import Radio from "@mui/material/Radio";
@@ -30,6 +30,9 @@ const AdminPanel = () => {
   const [uploadImageTitle, setUploadImageTitle] = useState<string>("");
   const [uploadImageLogo, setUploadImageLogo] = useState<string>("");
   const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<string>("");
+  const [colorChange, setColorChange] = useState<string>("#2D3748");
+  const [footerTitle, setFooterTitle] = useState<string>("");
+  const [success, setSuccess] = useState<boolean>(false);
   const {} = useStyles(appTheme);
 
   const {
@@ -117,7 +120,9 @@ const AdminPanel = () => {
     setSelectRadio(event.target.value);
   };
 
-  const onFooterTextColorChange = (evt: any) => {};
+  const onFooterTextColorChange = (evt: any) => {
+    setColorChange(evt.target.value);
+  };
 
   const onLogoChange = (value: string) => {
     setUploadImage(true);
@@ -131,6 +136,7 @@ const AdminPanel = () => {
     };
 
     localStorage.setItem("theme", JSON.stringify(selectTheme));
+    setSuccess(true);
   };
 
   const handleCancelClick = () => {
@@ -164,9 +170,31 @@ const AdminPanel = () => {
     // setUploadImageTitle(value);
   };
 
+  const handleFooterTitleChange = (e: any) => {
+    setFooterTitle(e.target.value);
+  };
+
+  const handleClose = () => {
+    setSuccess(false);
+  };
+
   return (
     <>
       <Fragment>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Saved Successfully.
+          </Alert>
+        </Snackbar>
         <Grid container className={adminContentPanel}>
           <Grid item xs={12} sm={12} md={1.4} lg={1.4} xl={1.4}>
             <div className={adminLeftPanelContainer}>
@@ -421,9 +449,9 @@ const AdminPanel = () => {
                             <div className={colorPickerList}>Enter Text</div>
                             <div className={customTextField2}>
                               <TextField
-                                value={title}
+                                value={footerTitle}
                                 type={"text"}
-                                onChange={handleTitleChange}
+                                onChange={handleFooterTitleChange}
                                 placeholder={"Enter Title"}
                               />
                             </div>
@@ -435,7 +463,7 @@ const AdminPanel = () => {
                             <div className={colorPickerItem}>
                               <ColorPicker
                                 onChange={onFooterTextColorChange}
-                                value={"#2D3748"}
+                                value={colorChange}
                               />
                             </div>
                           </div>
