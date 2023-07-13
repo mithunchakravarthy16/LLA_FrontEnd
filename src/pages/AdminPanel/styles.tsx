@@ -2,21 +2,21 @@ import { makeStyles } from "@mui/styles";
 import MenuShapes from "../../assets/admin-leftpan-shape.png";
 const useStyles = makeStyles(() => ({
   adminContentPanel: () => ({
-    marginTop: 80,
-    padding: " 40px !important",
+    // marginTop: 80,
+    // padding: " 40px !important",
   }),
   adminLeftPanel: () => ({
-    background: "#1A3175",
-    borderRadius: " 20px 0px 0px 20px",
-    height: "calc(100vh - 280px)",
-    padding: "60px 30px",
+    // background: "#0D0F36",
+    // borderRadius: " 20px 0px 0px 20px",
+    // height: "calc(100vh - 280px)",
+    padding: "20px 20px 20px 20px",
   }),
   adminRightPanel: () => ({
     background: "#F3F7FF",
-    borderTopRightRadius: "20px",
-    borderBottomRightRadius: "20px",
+    // borderTopRightRadius: "20px",
+    // borderBottomRightRadius: "20px",
     height: "calc(100vh - 200px)",
-    padding: 20,
+    // padding: 20,
   }),
   menuItemList: () => ({
     fontFamily: "Montserrat",
@@ -36,6 +36,7 @@ const useStyles = makeStyles(() => ({
     lineHeight: "22px",
     color: "#fff",
     marginBottom: "45px",
+    marginLeft: "10px",
     position: "relative",
     "&:hover": {
       cursor: "pointer",
@@ -47,12 +48,14 @@ const useStyles = makeStyles(() => ({
       height: "72px",
       right: "-34px",
       top: "-24px",
-    //   backgroundImage: `url("${MenuShapes}")`,
+      //   backgroundImage: `url("${MenuShapes}")`,
     },
   }),
   adminRightPanelHeader: () => ({
-    padding: "46px 40px",
-    borderBottom: "1px solid rgb(0 0 0 / 10%)",
+    padding: "20px",
+    borderBottom: "1px solid #00000020",
+    display: "flex",
+    alignItems: "center",
   }),
   previewButton: () => ({
     fontFamily: "Montserrat !important",
@@ -73,9 +76,12 @@ const useStyles = makeStyles(() => ({
     fontWeight: " 600 !important",
     fontSize: "20px !important",
     lineHeight: "24px !important",
-    background: "#1a3175",
+    background: "#0D0F36 !important",
     padding: "12px 16px !important",
-    marginRight: "20px !important",
+    // marginRight: "20px !important",
+    // "& .MuiButtonBase-root": {
+    //   backgroundColor: "#0D0F36 !important",
+    // },
   }),
   colorSchemeHeading: () => ({
     fontFamily: "Montserrat",
@@ -85,11 +91,11 @@ const useStyles = makeStyles(() => ({
     color: "#000000",
   }),
   innerPanel: () => ({
-    background: "#FFFFFF",
+    background: "#F3F7FF",
     borderRadius: "24px",
     height: "100%",
   }),
-  
+
   colorSchemeSubeading: () => ({
     fontFamily: "Montserrat",
     fontWeight: 600,
@@ -212,17 +218,18 @@ const useStyles = makeStyles(() => ({
     fontSize: "18px",
     lineHeight: "22px",
     color: "#445B7D",
-    marginBottom: "20px"
+    marginBottom: "20px",
   },
   fileUploadContent: {
     display: "flex",
     alignItems: "center",
+    paddingTop: "20px",
   },
   logoPreviewWrapper: {
     border: "7px solid #F9F9F9",
     background: "#FFFFFF",
     borderRadius: "5px",
-    marginRight: "40px",
+    marginRight: "30px",
   },
   logoPreviewInnercontainer: {
     border: "1px dashed #5485B3",
@@ -237,10 +244,22 @@ const useStyles = makeStyles(() => ({
     width: "80%",
     maxWidth: "80%",
     maxHeight: "100%",
-    height: "auto"
+    height: "auto",
   },
   invisibleDisplay: {
-    display: "none"
-  }
+    display: "none",
+  },
+  adminLogo: (props) => ({
+    display: "flex",
+    justifyContent: "center",
+    borderBottom: "1px solid #3A3FA8",
+    paddingBottom: "28px",
+  }),
+  adminLeftPanelContainer: (props) => ({
+    background: "#0D0F36",
+    // borderRadius: " 20px 0px 0px 20px",
+    height: "calc(100vh - 280px)",
+    padding: "30px 0",
+  }),
 }));
 export default useStyles;
