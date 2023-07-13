@@ -14,6 +14,7 @@ import DarkIcon from "../../assets/darkIcon.svg";
 import Button from "@mui/material/Button";
 import TextField from "elements/TextField";
 import DefaultLogo from "../../assets/defaultLogo.svg";
+import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 
 const AdminPanel = () => {
   const [selectedTheme, setSelectedTheme] = useState(
@@ -23,6 +24,10 @@ const AdminPanel = () => {
   const [selectTheme, setSelectTheme] = useState<any>("");
   const [title, setTitle] = useState<any>("");
   const [selectRadio, setSelectRadio] = useState<any>("");
+  const [uploadImage, setUploadImage] = useState<boolean>(false);
+  const [uploadImageTitle, setUploadImageTitle] = useState<string>("");
+  const [uploadImageLogo, setUploadImageLogo] = useState<string>("");
+  const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<string>("");
   const {} = useStyles(appTheme);
 
   const {
@@ -94,6 +99,11 @@ const AdminPanel = () => {
 
   const onFooterTextColorChange = (evt: any) => {};
 
+  const onLogoChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
+  };
+
   const handleSave = () => {
     const payload = {
       theme: selectTheme,
@@ -101,6 +111,37 @@ const AdminPanel = () => {
     };
 
     localStorage.setItem("theme", JSON.stringify(selectTheme));
+  };
+
+  const handleCancelClick = () => {
+    setUploadImage(false);
+    setUploadImageLogo("");
+  };
+
+  const handleSaveClick = () => {
+    setUploadImage(false);
+    setUploadFinalImageLogo(uploadImageLogo);
+  };
+
+  const handleUploadChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadImageLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const fileDrop = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+  };
+
+  const onHeaderChange = (value: string) => {
+    // setUploadImage(true);
+    // setUploadImageTitle(value);
+  };
+
+  const onFavIconChange = (value: string) => {
+    // setUploadImage(true);
+    // setUploadImageTitle(value);
   };
 
   return (
@@ -241,13 +282,20 @@ const AdminPanel = () => {
                     <div className={fileUploadContent}>
                       <div className={logoPreviewWrapper}>
                         <div className={logoPreviewInnercontainer}>
-                          <img className={logoPreview} src={DefaultLogo} />
+                          <img
+                            className={logoPreview}
+                            src={
+                              uploadFinalImageLogo
+                                ? uploadFinalImageLogo
+                                : DefaultLogo
+                            }
+                          />
                         </div>
                       </div>
                       <Button
                         variant="contained"
                         className={updateButton}
-                        // onClick={() => onLogoChange("header")}
+                        onClick={() => onLogoChange("Login")}
                       >
                         Change
                       </Button>
@@ -272,7 +320,7 @@ const AdminPanel = () => {
                       <Button
                         variant="contained"
                         className={updateButton}
-                        // onClick={() => onLogoChange("header")}
+                        onClick={() => onHeaderChange("Header")}
                       >
                         Change
                       </Button>
@@ -297,7 +345,7 @@ const AdminPanel = () => {
                       <Button
                         variant="contained"
                         className={updateButton}
-                        // onClick={() => onLogoChange("header")}
+                        onClick={() => onFavIconChange("Fav Icon")}
                       >
                         Change
                       </Button>
@@ -345,7 +393,7 @@ const AdminPanel = () => {
                         <Button
                           variant="contained"
                           className={updateButton}
-                          // onClick={() => onLogoChange("header")}
+                          // onClick={() => onLogoChange("Fav Icon")}
                         >
                           Upload
                         </Button>
@@ -385,6 +433,16 @@ const AdminPanel = () => {
             </div>
           </Grid>
         </Grid>
+        {uploadImage && (
+          <InfoDialogFileUpload
+            uploadImage={uploadImage}
+            uploadImageTitle={uploadImageTitle}
+            handleCancelClick={handleCancelClick}
+            handleSaveClick={handleSaveClick}
+            handleChange={handleUploadChange}
+            fileDrop={fileDrop}
+          />
+        )}
       </Fragment>
     </>
   );
