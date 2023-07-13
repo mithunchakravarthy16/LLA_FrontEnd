@@ -180,6 +180,7 @@ const Parking: React.FC<any> = (props) => {
         width1: 1000,
         height1: 380,
         is4kDevice: false,
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -376,17 +377,17 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#004F9F")
-                                                  .setOpacity(0.3)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice
+                                                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
                                                     ? "#004F9F"
                                                     : "#000000"
                                                 )
-                                                  .setOpacity(0.05)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -506,17 +507,17 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#50A028")
-                                                  .setOpacity(0.3)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.2)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice
+                                                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
                                                     ? "#50A028"
                                                     : "#000000"
                                                 )
-                                                  .setOpacity(0.05)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],
