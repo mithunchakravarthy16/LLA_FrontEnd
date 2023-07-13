@@ -5,7 +5,8 @@ import MenuShapes from "../../assets/admin-leftpan-shape.png";
 const useStyles = makeStyles(() => ({
   adminContentPanel: () => ({}),
   adminLeftPanel: () => ({
-    padding: "20px 20px 20px 20px",
+    padding: "8%",
+    flex: 1,
   }),
   adminRightPanel: () => ({
     background: "#F3F7FF",
@@ -54,6 +55,24 @@ const useStyles = makeStyles(() => ({
   colorPickerSection: () => ({
     display: "flex",
     paddingTop: "12.5%",
+  }),
+  logoutSection: () => ({
+    display: 'flex',
+    alignItems:' center',
+    background: 'rgba(12, 6, 39, 1)',
+    padding: "8%",
+    '& > p': {
+      fontSize: '0.8999999999999999vw',
+      fontFamily: `'Montserrat', sans-serif`,
+      fontWeight: 500,
+      color: 'white',
+      marginLeft: "0.5vw",
+      cursor: 'pointer',
+    },
+    '& > img': {
+      width: '1.3vw',
+      cursor: 'pointer',
+    }
   }),
   appearanceSectionCustom: () => ({
     display: "flex",
@@ -366,6 +385,8 @@ const useStyles = makeStyles(() => ({
   adminLeftPanelContainer: (props) => ({
     background: "#0D0F36",
     height: "100%",
+    display: 'flex',
+    flexDirection: 'column'
   }),
   spaceBottom: () => ({
     paddingBottom: "1.3%",
