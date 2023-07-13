@@ -119,6 +119,7 @@ let colorCodes = {
   speedometerTrackLight: "rgba(122, 211, 255, 0.2)",
   speedometerTrackDark: "#20282C",
   iconBackgroundDark: "#1A1919",
-
+  lightGrayLightWhiteShade : "rgb(250, 250, 250)",
+  lightGreenWhiteShade : "rgba(146, 192, 126, 0.2)"
 };
 export default colorCodes;

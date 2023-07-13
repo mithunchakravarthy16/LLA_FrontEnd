@@ -581,29 +581,30 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     padding: 10,
+    color : props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "48px",
+      lineHeight: "0px",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 22,
-      lineHeight: "38px",
+      lineHeight: "0px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 18,
-      lineHeight: "28px",
+      lineHeight: "0px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 16,
-      lineHeight: "22px",
+      lineHeight: "0px",
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
-      lineHeight: "22px",
+      lineHeight: "0px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
-      lineHeight: "16px",
+      lineHeight: "0px",
     },
   }),
 
