@@ -232,6 +232,7 @@ const FleetManagement: React.FC<any> = (props) => {
         width1: 480,
         height1: 500,
         is4kDevice: false,
+        is3KDevice: true,
         is2kDevice: true,
       });
     } else if (window.innerWidth > 2559) {
@@ -527,17 +528,16 @@ const FleetManagement: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#6B70AB")
-                                                  .setOpacity(0.3)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.4 : 0.3)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice
-                                                    ? "#6B70AB"
-                                                    : "#000000"
+                                                   "#6B70AB"
+                                                    
                                                 )
-                                                  .setOpacity(0.05)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.07 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -657,17 +657,15 @@ const FleetManagement: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#712C7D")
-                                                  .setOpacity(0.3)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.4 : 0.3)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice
-                                                    ? "#712C7D"
-                                                    : "#000000"
+                                                  "#712C7D"
                                                 )
-                                                  .setOpacity(0.05)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.07 : 0.02)
                                                   .get("rgba"),
                                               ],
                                             ],
