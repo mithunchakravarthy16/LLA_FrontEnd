@@ -3,8 +3,7 @@
 import { makeStyles } from "@mui/styles";
 import MenuShapes from "../../assets/admin-leftpan-shape.png";
 const useStyles = makeStyles(() => ({
-  adminContentPanel: () => ({
-  }),
+  adminContentPanel: () => ({}),
   adminLeftPanel: () => ({
     padding: "20px 20px 20px 20px",
   }),
@@ -27,116 +26,111 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     paddingRight: "1.5vw",
     paddingTop: "1.5vw",
-    '& .MuiFormControlLabel-label': {
-      fontSize: '0.8999999999999999vw',
-    fontFamily: `'Montserrat', sans-serif`,
-    fontWeight: 600,
-    color: 'rgba(68, 91, 125, 1)',
-    
+    "& .MuiFormControlLabel-label": {
+      fontSize: "0.8999999999999999vw",
+      fontFamily: `'Montserrat', sans-serif`,
+      fontWeight: 600,
+      color: "rgba(68, 91, 125, 1)",
     },
-    '& .Mui-checked': {
-      color: 'black !important',
-      '&.MuiFormControlLabel-label': {
-        color: 'black !important'
-
-      }
-    }
+    "& .Mui-checked": {
+      color: "black !important",
+      "&.MuiFormControlLabel-label": {
+        color: "black !important",
+      },
+    },
   }),
   colorPickerText: () => ({
     paddingRight: "2.5vw",
-    fontSize: '0.8999999999999999vw',
+    fontSize: "0.8999999999999999vw",
     fontFamily: `'Montserrat', sans-serif`,
-    fontWeight: 500
-    
+    fontWeight: 500,
   }),
   colorPickerList: () => ({
     paddingBottom: "0.5vw",
-    fontSize: '0.8999999999999999vw',
+    fontSize: "0.8999999999999999vw",
     fontFamily: `'Montserrat', sans-serif`,
-    fontWeight: 500
+    fontWeight: 500,
   }),
   colorPickerSection: () => ({
-   display: "flex",
-   paddingTop: '12.5%'
+    display: "flex",
+    paddingTop: "12.5%",
   }),
   appearanceSectionCustom: () => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    '& .MuiFormControlLabel-label': {
-      fontSize: '0.8999999999999999vw',
-    fontFamily: `'Montserrat', sans-serif`,
-    fontWeight: 600,
-    color: 'rgba(68, 91, 125, 1)',
-    
+    "& .MuiFormControlLabel-label": {
+      fontSize: "0.8999999999999999vw",
+      fontFamily: `'Montserrat', sans-serif`,
+      fontWeight: 600,
+      color: "rgba(68, 91, 125, 1)",
     },
-    '& .Mui-checked': {
-      color: 'black !important',
-      '&.MuiFormControlLabel-label': {
-        color: 'black !important'
-
-      }
-    }
+    "& .Mui-checked": {
+      color: "black !important",
+      "&.MuiFormControlLabel-label": {
+        color: "black !important",
+      },
+    },
   }),
   imageAppearance: () => ({
-    width: '8.2vw'
+    width: "8.2vw",
   }),
   logoExtension: () => ({
-    fontSize: '0.8vw',
+    fontSize: "0.8vw",
     fontFamily: `'Montserrat', sans-serif`,
     fontWeight: 600,
-    color: 'rgba(103, 98, 98, 1)',
+    color: "rgba(103, 98, 98, 1)",
   }),
   logoText: () => ({
-    fontSize: '1.2vw',
+    fontSize: "1.2vw",
     fontFamily: `'Montserrat', sans-serif`,
     fontWeight: 600,
-    color: 'rgba(0, 0, 0, 1)',
-    marginBottom: '0.5%'
+    color: "rgba(0, 0, 0, 1)",
+    marginBottom: "0.5%",
   }),
   customTextField: () => ({
-    width: '50%',
-    '& .MuiInputBase-input': {
-      fontSize: '1vw',
-      padding: '12px 16px',
+    width: "50%",
+    "& .MuiInputBase-input": {
+      fontSize: "1vw",
+      padding: "12px 16px",
       fontFamily: `'Montserrat', sans-serif`,
-      background: '#fff',
-      width: '100%',
-      fontWeight: 700
-    }
+      background: "#fff",
+      width: "100%",
+      fontWeight: 700,
+    },
   }),
   customTextField2: () => ({
-    '& .MuiInputBase-input': {
-      fontSize: '0.8vw',
-      padding: '20px 16px',
+    "& .MuiInputBase-input": {
+      fontSize: "0.8vw",
+      padding: "20px 16px",
       fontFamily: `'Montserrat', sans-serif`,
-      background: '#fff',
-      width: '100%',
-      fontWeight: 700
-    }
+      background: "#fff",
+      width: "100%",
+      fontWeight: 700,
+    },
   }),
   adminDashboard: () => ({
-    padding: '1.3%'
+    padding: "1.3%",
   }),
   appearanceText: () => ({
-    fontSize: '0.8999999999999999vw',
+    fontSize: "0.8999999999999999vw",
     fontFamily: `'Montserrat', sans-serif`,
     fontWeight: 600,
-    color: 'rgba(68, 91, 125, 1)'
+    color: "rgba(68, 91, 125, 1)",
   }),
   appearanceSite: () => ({
-    paddingTop: '2vw',
-    paddingBottom: '0.5vw',
-    fontSize: '0.8999999999999999vw',
+    paddingTop: "2vw",
+    paddingBottom: "0.5vw",
+    fontSize: "0.8999999999999999vw",
     fontFamily: `'Montserrat', sans-serif`,
     fontWeight: 600,
-    color: 'rgba(68, 91, 125, 1)'
+    color: "rgba(68, 91, 125, 1)",
   }),
   appearanceTitle: () => ({
-    fontSize: '0.8999999999999999vw',
+    fontSize: "0.8999999999999999vw",
     fontFamily: `'Montserrat', sans-serif`,
     fontWeight: 700,
-    color: 'rgba(0,0,0, 1)'
+    color: "rgba(0,0,0, 1)",
   }),
   menuIconSection: () => ({
     marginRight: "0.5vw",
@@ -190,7 +184,7 @@ const useStyles = makeStyles(() => ({
     fontWeight: " 500 !important",
     fontSize: "0.8999999999999999vw !important",
     color: "white !important",
-    background: "#1a3175 !important",
+    background: "#0D0F36 !important",
     padding: "8px 16px !important",
     marginRight: "20px !important",
     flex: 1,
@@ -335,15 +329,15 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     paddingTop: "1vw",
-    paddingRight: '4vw',
-    paddingBottom: '1vw'
+    paddingRight: "4vw",
+    paddingBottom: "1vw",
   },
   logoPreviewWrapper: {
     border: "7px solid #F9F9F9",
     background: "#FFFFFF",
     borderRadius: "5px",
     marginRight: "30px",
-    flex: 1
+    flex: 1,
   },
   logoPreviewInnercontainer: {
     border: "1px dashed #5485B3",
@@ -351,7 +345,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: '12%',
+    padding: "12%",
   },
   logoPreview: {
     width: "9.3vw",
@@ -371,14 +365,14 @@ const useStyles = makeStyles(() => ({
   }),
   adminLeftPanelContainer: (props) => ({
     background: "#0D0F36",
-    height: '100%'
+    height: "100%",
   }),
   spaceBottom: () => ({
-    paddingBottom: '1.3%'
+    paddingBottom: "1.3%",
   }),
   space: () => ({
-    paddingBottom: '1.3%',
-    paddingTop: '1.3%'
-  })
+    paddingBottom: "1.3%",
+    paddingTop: "1.3%",
+  }),
 }));
 export default useStyles;

@@ -148,7 +148,7 @@ const AdminPanel = () => {
     setUploadImageLogo(URL.createObjectURL(event.target.files[0]));
   };
 
-  const fileDrop = (e: any) => {
+  const dropDrop = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
     setUploadImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
@@ -309,7 +309,14 @@ const AdminPanel = () => {
                       <div className={fileUploadContent}>
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
-                            <img className={logoPreview} src={DefaultLogo} />
+                            <img
+                              className={logoPreview}
+                              src={
+                                uploadFinalImageLogo
+                                  ? uploadFinalImageLogo
+                                  : DefaultLogo
+                              }
+                            />
                           </div>
                         </div>
                         <div>
@@ -317,7 +324,7 @@ const AdminPanel = () => {
                             style={{ textTransform: "none" }}
                             variant="contained"
                             className={updateButton}
-                            // onClick={() => onLogoChange("header")}
+                            onClick={() => onLogoChange("Login")}
                           >
                             Change
                           </Button>
@@ -448,7 +455,7 @@ const AdminPanel = () => {
             handleCancelClick={handleCancelClick}
             handleSaveClick={handleSaveClick}
             handleChange={handleUploadChange}
-            fileDrop={fileDrop}
+            dropDrop={dropDrop}
           />
         )}
       </Fragment>
