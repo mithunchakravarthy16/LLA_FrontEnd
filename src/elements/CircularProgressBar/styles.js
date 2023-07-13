@@ -37,7 +37,10 @@ export const ProgressMask = styled("img")`
 `;
 
 export const IconBackDrop = styled("div")`
-    background-color: #161515;
+    background-color: ${({color}) => {
+        console.log("COLOR BACKDROP", color)
+        return color;
+    }};
     width: fit-content;
     padding: 5px;
     padding-bottom: 0px;
@@ -45,7 +48,8 @@ export const IconBackDrop = styled("div")`
 
 export const ValueContainer = styled("div")`
     position: absolute;
-    font-size: 1.5vw;
+    font-size: ${({textValue}) => textValue ? "1vw" : "1.5vw"};
+    text-align: center;
     line-height: 27px;
     color: ${({color}) => color};
     display: flex;

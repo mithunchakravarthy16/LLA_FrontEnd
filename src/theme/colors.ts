@@ -113,6 +113,12 @@ let colorCodes = {
   whiteColor3: "#F9F9F9",
   orange1: "#FF7A00",
   darkGrey3: "#242424",
-  blueShadesOfProgressBar: "#43549A99"
+  blueShadesOfProgressBar: "#43549A99",
+  speedometerGreen: "#73B967",
+  speedometerRed: "#F15252",
+  speedometerTrackLight: "rgba(122, 211, 255, 0.2)",
+  speedometerTrackDark: "#20282C",
+  iconBackgroundDark: "#1A1919",
+
 };
 export default colorCodes;

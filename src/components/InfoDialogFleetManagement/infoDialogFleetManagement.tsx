@@ -1,5 +1,5 @@
 /** @format */
-
+// @ts-ignore
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -490,6 +490,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             />
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
+                            {
+                            // @ts-ignore
+                            }
                             <ReactPlayer
                               muted
                               playing
@@ -579,89 +582,108 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
-                              totalValue={110}
+                              currentValue={"02"}
+                              totalValue={15}
                               label="Harsh Acceleration"
                               icon="harsh-acceleration"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
-                              totalValue={110}
-                              label="Corner"
+                              currentValue={"02"}
+                              totalValue={15}
+                              label="Cornering"
                               icon="corner"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
-                              totalValue={110}
+                              currentValue={"05"}
+                              totalValue={15}
                               label="Over Speeding"
-                              icon="overspeeding"
+                              icon="overspeeding-new"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorRed}
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
-                              totalValue={110}
+                              currentValue={"01"}
+                              totalValue={7}
                               label="Harsh Braking"
                               icon="harsh-braking"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <CircularProgressBar
+                              radius={getSpeedometerDimensions().radius}
+                              currentValue={"00"}
+                              totalValue={15}
+                              label="Distraction"
+                              icon="distraction"
+                              rotate={getSpeedometerDimensions().rotate}
+                              cut={getSpeedometerDimensions().cut}
+                              iconSize={getSpeedometerDimensions().iconSize}
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              thumbType="point"
+                              strokeWidth={getSpeedometerDimensions().stroke}
+                              trackStrokeWidth={
+                                getSpeedometerDimensions().stroke
+                              }
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                           <Grid item>
@@ -674,13 +696,13 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                           <Grid item>
@@ -688,37 +710,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={75}
                               totalValue={110}
-                              label="Fatigue"
+                              label="Fatigue Level"
+                              textValue="Very Active"
                               icon="fatigue"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
-                              thumbType="point"
+                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              thumbType="thumb"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={"#161515"}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
-                              totalValue={110}
-                              label="Driving Score"
-                              icon="driving-score"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color="#74BA69"
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={"#161515"}
+                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
                             />
                           </Grid>
                         </Grid>
