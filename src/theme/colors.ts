@@ -116,7 +116,7 @@ let colorCodes = {
   blueShadesOfProgressBar: "#43549A99",
   speedometerGreen: "#73B967",
   speedometerRed: "#F15252",
-  speedometerTrackLight: "#FAFAFA",
+  speedometerTrackLight: "rgba(122, 211, 255, 0.2)",
   speedometerTrackDark: "#20282C",
   iconBackgroundDark: "#1A1919",
 
