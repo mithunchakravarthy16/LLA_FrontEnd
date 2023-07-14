@@ -129,6 +129,8 @@ const useStyles = makeStyles(() => ({
   }),
   adminDashboard: () => ({
     padding: "1.2%",
+    height: 'calc(100vh - 131px)',
+    overflow: 'auto'
   }),
   appearanceText: () => ({
     fontSize: "0.8999999999999999vw",
@@ -317,7 +319,6 @@ const useStyles = makeStyles(() => ({
     width: "100% !important",
     '& input': {
       background: 'rgba(243, 247, 255, 1)',
-      padding: '20px 16px',
       fontSize: "0.8999999999999999vw !important",
     }
   }),

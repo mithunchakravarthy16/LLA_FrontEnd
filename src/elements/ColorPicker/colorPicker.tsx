@@ -5,7 +5,7 @@ const Container = styled.span`
   display: inline-flex;
   align-items: center;
   max-width: auto;
-  padding: 8px;
+  padding: 3.3%;
   border: 1px solid #bfc9d9;
   border-radius: 4px;
 
