@@ -91,6 +91,7 @@ const AdminPanel = () => {
     spaceBottom,
     space,
     logoutSection,
+    logoPreviewEmpty
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -471,7 +472,7 @@ const AdminPanel = () => {
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
                             <img
-                              className={logoPreview}
+                              className={logoPreviewEmpty}
                               src={
                                 uploadFinalFavIconLogo
                                   ? uploadFinalFavIconLogo

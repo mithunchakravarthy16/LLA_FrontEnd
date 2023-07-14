@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
     },
     [muiTheme.breakpoints.down(1921)]: {
       maxWidth: "460px !important",
-      padding: "40px ",
+      padding: "30px ",
     },
     [muiTheme.breakpoints.down(1281)]: {
       maxWidth: "460px !important",
