@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     "& .MuiTimelineSeparator-root": {
       height: "80px",
       [muiTheme.breakpoints.up(3839)]: {
-        height: "208px",
+        height: "196px",
       },
       [muiTheme.breakpoints.down(3073)]: {
         height: "214px",
