@@ -54,7 +54,7 @@ import LightenIncidentActiveIcon from "../../assets/selectedMarkers/Lighting-red
 import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange.svg";
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
-import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
+import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import useStyles from "./styles";
 
