@@ -169,7 +169,7 @@ const Card = ({
       values: [
         {
           label: dashboard?.fleet,
-          value: 8,
+          value: "08",
           suffix: "",
         },
         {
@@ -189,7 +189,7 @@ const Card = ({
       values: [
         {
           label: dashboard.assets,
-          value: 200,
+          value: 52,
           suffix: "",
         },
         {

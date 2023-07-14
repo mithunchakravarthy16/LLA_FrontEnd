@@ -379,6 +379,10 @@ export const CardValuesSplitter = styled("div")`
   height: 110px;
   background: #fff;
   transform: skew(-18deg);
+  @media (max-width: 3841px) {
+    height: 110px;
+    margin-left: 0.8vw;
+  }
   @media (max-width: 3073px) {
     height: 110px;
   }
@@ -492,7 +496,7 @@ export const Label = styled("div")`
   @media (max-width: 3073px) {
     font-size: 22px;
     line-height: 36px;
-    margin-left: 10px;
+    margin-left: 7px;
   }
   @media (max-width: 2561px) {
     font-size: 16px;
@@ -502,7 +506,7 @@ export const Label = styled("div")`
   @media (max-width: 2049px) {
     font-size: 13px;
     line-height: 25px;
-    margin-left: 10px;
+    margin-left: 8px;
   }
   @media (max-width: 1921px) {
     font-size: 11px;
