@@ -63,6 +63,8 @@ const useStyles = makeStyles(() => ({
   dropMessage: (props: any) => ({
     textAlign: "center",
     color: "#2D3748",
+    fontFamily: `'Montserrat', sans-serif`,
+    fontWeight: 600
   }),
 }));
 
