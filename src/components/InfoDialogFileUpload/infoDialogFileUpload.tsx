@@ -40,6 +40,10 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
     handleFavIconSaveClick,
     handleFavIconChange,
     dropDropFavIcon,
+    handleFooterCancelClick,
+    handleFooterSaveClick,
+    handleFooterChange,
+    dropDropFooter,
   } = props;
 
   const {} = useStyles({});
@@ -73,6 +77,14 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleSaveClick={handleFavIconSaveClick}
             handleChange={handleFavIconChange}
             dropDrop={dropDropFavIcon}
+          />
+        )}
+        {uploadImageTitle === "Footer" && (
+          <FileUpload
+            handleCancelClick={handleFooterCancelClick}
+            handleSaveClick={handleFooterSaveClick}
+            handleChange={handleFooterChange}
+            dropDrop={dropDropFooter}
           />
         )}
       </DialogWrapper>

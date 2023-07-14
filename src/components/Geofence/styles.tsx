@@ -155,6 +155,7 @@ const useStyles = makeStyles(() => ({
   }),
   geofenceContainer: (props: any) => ({
     display: "flex",
+    alignItems:'center',
     justifyContent: "space-between",
     marginBottom: "0.5vh",
   }),
@@ -226,17 +227,58 @@ const useStyles = makeStyles(() => ({
     marginBottom: "2vh",
   }),
   geofenceSwitch: (props: any) => ({
-    "& .Mui-checked": {
+    // "& .Mui-checked": {
+    //   color: "#FFFFFF !important",
+    //   [muiTheme.breakpoints.down(3071)]: {},
+    // },
+    // "& .Mui-checked+.MuiSwitch-track": {
+    //   backgroundColor: "#F26522 !important",
+    //   opacity: "1 !important",
+    // },
+    // "& .MuiSwitch-track": {
+    //   backgroundColor: "#808080 !important",
+    // },
+    width: 42,
+  height: 26,
+  padding: 0,
+  '& .MuiSwitch-switchBase': {
+    padding: 0,
+    margin: 2,
+    transitionDuration: '300ms',
+    '&.Mui-checked': {
+      transform: 'translateX(16px)',
+      color: '#fff',
+      '& + .MuiSwitch-track': {
+        backgroundColor: "#F26522 !important",
+        opacity: 1,
+        border: 0,
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: 0.5,
+      },
+    },
+    '&.Mui-focusVisible .MuiSwitch-thumb': {
+      color: '#33cf4d',
+      border: '6px solid #fff',
+    },
+    '&.Mui-disabled .MuiSwitch-thumb': {
       color: "#FFFFFF !important",
-      [muiTheme.breakpoints.down(3071)]: {},
     },
-    "& .Mui-checked+.MuiSwitch-track": {
-      backgroundColor: "#F26522 !important",
-      opacity: "1 !important",
+    '&.Mui-disabled + .MuiSwitch-track': {
+      opacity: 0.7,
     },
-    "& .MuiSwitch-track": {
-      backgroundColor: "#808080 !important",
-    },
+  },
+  '& .MuiSwitch-thumb': {
+    boxSizing: 'border-box',
+    width: 22,
+    height: 22,
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: 26 / 2,
+    backgroundColor: '#39393D',
+    opacity: 1,
+    
+  },
   }),
   geofenceType: (props: any) => ({
     color: props?.palette?.assetTrackingPage?.geofenceTypeTextColor,

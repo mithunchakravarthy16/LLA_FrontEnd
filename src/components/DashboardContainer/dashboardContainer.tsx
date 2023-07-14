@@ -197,7 +197,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       <Grid container xs={12}>
         <Grid item xs={12}>
           <Grid item xs={12}>
-            {" "}
             <div className={dashboardRightPanelStyle}>
               <Map
                 markers={dashboardNotificationList}
@@ -211,16 +210,21 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 mapPageName={"dashboard"}
                 setIsMarkerClicked={setIsMarkerClicked}
                 tabIndex={tabIndex}
+                handleVideoDetails={() => {}}
+                handleViewDetails={() => {}}
               />
             </div>
           </Grid>
           <Grid item xs={12}>
-            {" "}
             <img
               src={
                 notificationPanelActive
-                  ? selectedTheme === "light" ? LightThemeNotificationIconActive : NotificationActiveIcon
-                  : selectedTheme === "light" ? LightThemeNotificationIcon : NotificationIcon
+                  ? selectedTheme === "light"
+                    ? LightThemeNotificationIconActive
+                    : NotificationActiveIcon
+                  : selectedTheme === "light"
+                  ? LightThemeNotificationIcon
+                  : NotificationIcon
               }
               alt="Notificaion Icon"
               onClick={onHandleBellIcon}
@@ -255,6 +259,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   notificationPageName={"dashboard"}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  handleVideoDetails={() => {}}
+                  handleViewDetails={() => {}}
                 />
               </div>
             )}
