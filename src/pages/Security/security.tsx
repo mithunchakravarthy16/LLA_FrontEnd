@@ -31,20 +31,20 @@ import securityData from "mockdata/securityData";
 import Highcharts from "highcharts";
 import Chart from "elements/Chart";
 
-const PIECHART_LEGEND = [
-  { background: "#C64640", name: "Intrusion" },
-  { background: "#F89863", name: "Fire Detection" },
-  { background: "#B3D2A1", name: "Tempering Alarm" },
-  { background: "#FDC270", name: "Unauthorised Access " },
-  { background: "#9191C1", name: "Tailgating" },
-];
-
 const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
   const {dashboard, gridView, security} = useTranslation();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  const PIECHART_LEGEND = [
+    { background: "#C64640", name: security.intrusion },
+    { background: "#F89863", name: security.fireDetection },
+    { background: "#B3D2A1", name: security.temperingAlarm },
+    { background: "#FDC270", name: security.unauthorisedAccess },
+    { background: "#9191C1", name: security.tailgating },
+  ];
 
   useEffect(() => {
     switch (selectedTheme) {

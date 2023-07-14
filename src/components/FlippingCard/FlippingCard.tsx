@@ -147,7 +147,7 @@ const Card = ({
           suffix: "",
         },
       ],
-      noteLabel: dashboard?.securityNoteLabel,
+      noteLabel: dashboard?.securityNoteLabel.substring(0, 23) + "...",
       noteValue: "20",
       noteDifference: "+",
     },

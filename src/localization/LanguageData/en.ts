@@ -144,7 +144,9 @@ export default {
     totalTrips: "Total Trips",
     driven: "Driven",
     status: "Status",
-    feulConsumed: "Fuel Consumed"
+    feulConsumed: "Fuel Consumed",
+    drivingScore: "Driving Score",
+    covored: "Covered"
   },
   assetsTracking: {
     activeTrackers: "Active Trackers",

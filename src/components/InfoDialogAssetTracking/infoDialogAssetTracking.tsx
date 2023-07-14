@@ -134,15 +134,15 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   const assetInfoTopPanelData = [
     { label: assetsTracking.product, value: "Lab Equipment" },
-    { label: assetsTracking.trackerId, value: 12367 },
+    { label: assetsTracking.trackerId.substring(0, 15) + "...", value: 12367 },
     { label: assetsTracking.assetsType, value: "Electronic" },
     { label: assetsTracking.assetsId, value: 12 },
   ];
 
   const assetCenterLeftSectionData = [
     { label: assetsTracking.section, value: "Sec 01" },
-    { label: assetsTracking.storageLocation, value: "C17#456" },
-    { label: assetsTracking.trackerStatus, value: "Active" },
+    { label: assetsTracking.storageLocation.substring(0, 15) + "...", value: "C17#456" },
+    { label: assetsTracking.trackerStatus.substring(0, 15) + "...", value: "Active" },
     { label: assetsTracking.geofence, value: "With in Geofence" },
   ];
 
