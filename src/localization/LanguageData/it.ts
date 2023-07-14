@@ -144,7 +144,9 @@ export default {
     totalTrips: "Viaggi totali",
     driven: "Guidata",
     status: "Stato",
-    feulConsumed: "Carburante consumato"
+    feulConsumed: "Carburante consumato",
+    drivingScore: "Punteggio di guida",
+    covored: "Coperta"
   },
   assetsTracking: {
     activeTrackers: "Tracker attivi",
