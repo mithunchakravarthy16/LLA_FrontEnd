@@ -265,15 +265,15 @@ const SideBar = (props: SideBarProps) => {
           />
           <Menu
             className={customMenu}
-            sx={{ mt: "25px" }}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
+            elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
             anchorEl={anchorElUser}
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
@@ -282,6 +282,7 @@ const SideBar = (props: SideBarProps) => {
               menuOptions.length > 0 &&
               menuOptions.map((menuOptions) => (
                 <MenuItem
+                id="demo-customized-menu"
                   key={menuOptions}
                   onClick={() => handleCloseUserMenu(menuOptions)}
                 >
