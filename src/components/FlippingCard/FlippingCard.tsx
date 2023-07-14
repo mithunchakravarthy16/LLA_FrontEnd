@@ -41,6 +41,12 @@ import {
   LightingHover,
   FleetHover,
   cardDifferenceIndicator,
+  assetTrackingLight,
+  energyManagementLight,
+  fleetManagementLight,
+  parkingLight,
+  securityLight,
+  lightingLight,
 } from "../../assets/images";
 
 /*
@@ -293,41 +299,44 @@ const Card = ({
 const FlippingCard = (props: any) => {
   const { focusedCategory, setFocusedCategory } = props;
   const {dashboard} = useTranslation();
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")!)
+  )
   
   const CARD_LIST: any = [
     {
       title: "parking",
-      image: focusedCategory === "parking" ? ParkingHover : parking,
+      image: focusedCategory === "parking" ? ParkingHover : selectedTheme !== 'light'? parking : parkingLight,
       category: "parking",
       translatedTitle: dashboard.parking,
     },
     {
       title: "energy_management",
-      image: focusedCategory === "energy" ? EnergyHover : energyManagement,
+      image: focusedCategory === "energy" ? EnergyHover : selectedTheme !== 'light'? energyManagement : energyManagementLight,
       category: "energy",
       translatedTitle: dashboard.energyManagement
     },
     {
       title: "security",
-      image: focusedCategory === "security" ? SecurityHover : security,
+      image: focusedCategory === "security" ? SecurityHover : selectedTheme !== 'light'? security : securityLight,
       category: "security",
       translatedTitle: dashboard.security
     },
     {
       title: "lighting",
-      image: focusedCategory === "lighting" ? LightingHover : lighting,
+      image: focusedCategory === "lighting" ? LightingHover : selectedTheme !== 'light'? lighting : lightingLight,
       category: "lighting",
       translatedTitle: dashboard.lighting
     },
     {
       title: "fleet_management",
-      image: focusedCategory === "fleet" ? FleetHover : fleetManagement,
+      image: focusedCategory === "fleet" ? FleetHover : selectedTheme !== 'light'? fleetManagement : fleetManagementLight,
       category: "fleet",
       translatedTitle: dashboard.fleetManagement
     },
     {
       title: "assets_tracking",
-      image: focusedCategory === "asset" ? AssetHover : assetTracking,
+      image: focusedCategory === "asset" ? AssetHover : selectedTheme !== 'light'? assetTracking : assetTrackingLight,
       category: "asset",
       translatedTitle: dashboard.assetsTracking
     },

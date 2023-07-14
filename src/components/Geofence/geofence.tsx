@@ -29,6 +29,7 @@ import muiTheme from "theme/muiTheme";
 
 
 const Geofence: React.FC<any> = (props: any) => {
+  const {assetsTracking} = useTranslation();
   const {
     is4kDevice,
     setIsCircleDrawing,
@@ -275,7 +276,7 @@ const Geofence: React.FC<any> = (props: any) => {
       <div className={isGeofence ? mainGeofenceContainer : mainContainer}>
         {!isGeofence ? (
           <div className={geofenceContainer}>
-            <div className={geoFenceTitle}>{"Enabled Geofence"}</div>
+            <div className={geoFenceTitle}>{assetsTracking.enabledGeofence}</div>
             <div className={geofenceSwitch}>
               <MuiSwitchLarge size="medium" checked={checked} onChange={handleChange} />
             </div>
@@ -336,7 +337,7 @@ const Geofence: React.FC<any> = (props: any) => {
           </>
         )}
         <div className={geofenceTypes}>
-          <div className={geofenceType}>Geofence Type</div>
+          <div className={geofenceType}>{assetsTracking.geofenceType}</div>
           <div className={geofenceMainTypes}>
             <div>
               <div
@@ -366,7 +367,7 @@ const Geofence: React.FC<any> = (props: any) => {
             </div>
           </div>
           <div className={geofenceTextContainer}>
-            <div className={geofenceType}>Geofence Name</div>
+            <div className={geofenceType}>{assetsTracking.geofenceName}</div>
             <div className={customTextField}>
               <TextField
                 value={geofenceName}
@@ -380,7 +381,7 @@ const Geofence: React.FC<any> = (props: any) => {
         </div>
         {isCircleEnbled && (
           <>
-            <div className={geoFenceTitle1}>Center Location</div>
+            <div className={geoFenceTitle1}>{assetsTracking.centerLocation}</div>
             <div className={circleContainer}>
               <div style={{ marginRight: "1vw" }}>
                 <div className={geofenceType}>Latitude</div>
@@ -428,7 +429,7 @@ const Geofence: React.FC<any> = (props: any) => {
               <CheckBox
                 id={"outside-0"}
                 name={"outside-0"}
-                label={"Outside of Geofence"}
+                label={assetsTracking.outsideGeofence}
                 isChecked={isOutsideGeofenceChecked}
                 disabled={!isDisabled}
                 handleCheck={(e: any) => handleOutsideGeofenceCheck(e)}
@@ -438,7 +439,7 @@ const Geofence: React.FC<any> = (props: any) => {
               <CheckBox
                 id={"back-0"}
                 name={"back-0"}
-                label={"Back to Geofence"}
+                label={assetsTracking.backToGeofence}
                 isChecked={isBackGeofenceChecked}
                 disabled={!isDisabled}
                 handleCheck={(e: any) => handleBacktoGeofenceCheck(e)}

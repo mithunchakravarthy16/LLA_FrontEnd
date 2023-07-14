@@ -42,7 +42,7 @@ export const IconBackDrop = styled("div")`
         return color;
     }};
     width: fit-content;
-    padding: 5px;
+    padding: 15px;
     padding-bottom: 0px;
 `;
 
@@ -50,7 +50,7 @@ export const ValueContainer = styled("div")`
     position: absolute;
     font-size: ${({textValue}) => textValue ? "1vw" : "1.5vw"};
     text-align: center;
-    line-height: 27px;
+    line-height: ${({textValue}) => textValue ? "1vw" : "1.5vw"};;
     color: ${({color}) => color};
     display: flex;
     justify-content: center;
