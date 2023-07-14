@@ -21,9 +21,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   }),
   innerPaddingBox: (props: any) => ({
-    paddingTop: "9vh",
+    paddingTop: "14vh",
     [muiTheme.breakpoints.down(3073)]: {
-      paddingTop: "12vh",
+      paddingTop: "16vh",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      paddingTop: "23vh",
     },
   }),
   loginFormSection: (props: any) => ({
