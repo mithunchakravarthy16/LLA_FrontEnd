@@ -7,10 +7,14 @@ const useStyles = makeStyles(() => ({
       // border: "1px solid #838383",
       borderRadius: "6px",
       background: `${props?.palette?.assetTrackingPage?.selectBg} !important`,
+      fontSize : "0.7vw",
       "& .MuiInputBase-input": {
         color: props?.palette?.assetTrackingPage?.topPanelSubTextColor,
         "-webkit-text-fill-color":
           props?.palette?.assetTrackingPage?.topPanelSubTextColor,
+      },
+      "& .MuiTypography-root" : {
+        fontSize : "0.7vw"
       },
     },
     "& .MuiOutlinedInput-input": {

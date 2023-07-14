@@ -849,7 +849,7 @@ const Map: React.FC<any> = (props) => {
     },
     polygonOptions: {
       fillColor: "#F26522",
-      fillOpacity: 0.5,
+      fillOpacity: 0.1,
       strokeWeight: 2,
       strokeColor: "#F26522",
       clickable: false,
@@ -860,7 +860,7 @@ const Map: React.FC<any> = (props) => {
     },
     circleOptions: {
       fillColor: `#F26522`,
-      fillOpacity: 0.5,
+      fillOpacity: 0.1,
       strokeWeight: 2,
       strokeColor: "#F26522",
       clickable: false,
@@ -983,7 +983,7 @@ const Map: React.FC<any> = (props) => {
               onDragEnd={handleCircleDrag}
               options={{
                 fillColor: "#F26522",
-                fillOpacity: 0.3,
+                fillOpacity: 0.1,
                 strokeWeight: 2,
                 strokeColor: "#F26522",
                 clickable: tabIndex === 0 ? false : true,
@@ -998,7 +998,7 @@ const Map: React.FC<any> = (props) => {
               path={polygonPath}
               options={{
                 fillColor: "#F26522",
-                fillOpacity: 0.3,
+                fillOpacity: 0.1,
                 strokeWeight: 2,
                 strokeColor: "#F26522",
                 clickable: false,
