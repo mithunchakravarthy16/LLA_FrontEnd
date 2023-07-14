@@ -138,6 +138,9 @@ const NotificationPanel = (props: any) => {
 
   const handleSearchIcon = () => {
     setSearchOpen(true);
+    if (notificationPageName && notificationPageName === "parking") {
+      setParkingLotSelectionActive(false);
+    }
   };
 
   const handleSearch = (searchText: any) => {
