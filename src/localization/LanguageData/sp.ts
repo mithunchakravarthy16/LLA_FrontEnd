@@ -39,6 +39,10 @@ export default {
     electricityNoteLabel: "Electricity Consumed",
     tripsNoteLabel: "Trips Completed",
     assetsNoteLabel: "Location Changed",
+    runningUnits : "CORRER UNIDADES",
+    alertsText: "ALERTAS",
+    smartLights : "LUCES INTELIGENTES",
+    violations : "VIOLACIONES"
   },
   gridView: {
     today: "Today",

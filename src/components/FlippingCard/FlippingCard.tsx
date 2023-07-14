@@ -102,23 +102,23 @@ const Card = ({
         },
       ],
       noteLabel: dashboard?.parkingNoteLabel,
-      noteValue: "19.5",
+      noteValue: "19.5Hrs",
       noteDifference: "+",
     },
     energy_management: {
       values: [
         {
-          label: dashboard.consumed,
-          value: 100,
-          suffix: "kWh",
+          label: dashboard?.runningUnits,
+          value: 20,
+          suffix: "",
         },
         {
           type: "splitter",
         },
         {
-          label: dashboard.savings,
-          value: 15,
-          suffix: "%",
+          label: dashboard?.alertsText,
+          value: "10",
+          suffix: "",
         },
       ],
       noteLabel: dashboard?.energyNoteLabel,
@@ -148,27 +148,27 @@ const Card = ({
     lighting: {
       values: [
         {
-          label: dashboard.electricity,
-          value: 16,
-          suffix: "kWh",
+          label: dashboard?.smartLights,
+          value: 10,
+          suffix: "",
         },
         {
           type: "splitter",
         },
         {
-          label: dashboard.data,
-          value: 1,
-          suffix: "TB",
+          label: dashboard?.alertsText,
+          value: 30,
+          suffix: "",
         },
       ],
       noteLabel: dashboard?.electricityNoteLabel,
-      noteValue: "16kWh",
+      noteValue: "16kW",
       noteDifference: "-",
     },
     fleet_management: {
       values: [
         {
-          label: dashboard.fleet,
+          label: dashboard?.fleet,
           value: 8,
           suffix: "",
         },
@@ -176,7 +176,7 @@ const Card = ({
           type: "splitter",
         },
         {
-          label: dashboard.trips,
+          label: dashboard?.violations,
           value: 50,
           suffix: "",
         },

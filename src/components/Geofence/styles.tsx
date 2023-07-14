@@ -58,6 +58,7 @@ const useStyles = makeStyles(() => ({
       color: "#9C9C9C !important",
       WebkitTextFillColor: "#9C9C9C !important",
     },
+
     "& .MuiInputBase-root": {
       background: "transparent !important",
       "& input[type=number]": {
@@ -315,6 +316,10 @@ const useStyles = makeStyles(() => ({
     backgroundColor: props?.palette?.assetTrackingPage?.geofenceAssetsBg,
     marginBottom: "10px",
     color: props?.palette?.assetTrackingPage?.topPanelSubTextColor,
+    fontSize : "0.7vw",
+    "& .MuiTypography-root" : {
+      fontSize : "0.7vw"
+    },
   }),
   assetsListItems: (props: any) => ({
     display: "flex",
@@ -327,9 +332,15 @@ const useStyles = makeStyles(() => ({
     overflow: "auto",
     "& .MuiChip-root": {
       backgroundColor: `${props?.palette?.assetTrackingPage?.geofenceRestBtnColor} !important`,
-      borderRadius: "15px",
+      borderRadius: "2vw",
       color: "#FFFFFF",
+      fontSize : "0.7vw",
+      padding: "0.7vw 0.1vw",
+      "& .MuiChip-deleteIcon" : {
+        fontSize : "0.9vw",
+      }
     },
+    
   }),
 }));
 
