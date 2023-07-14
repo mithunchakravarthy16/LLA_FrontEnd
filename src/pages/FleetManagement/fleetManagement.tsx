@@ -15,6 +15,7 @@ import {
   LightHarshAccelerationIcon,
   LightHarshBreakingIcon,
 } from "../../assets/topPanelListIcons";
+import useTranslation from "localization/translations";
 import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import Map from "components/Map";
@@ -33,6 +34,7 @@ import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 
 const FleetManagement: React.FC<any> = (props) => {
+  const {dashboard, gridView, fleetManagement} = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -151,18 +153,18 @@ const FleetManagement: React.FC<any> = (props) => {
       icon:
         selectedTheme === "light" ? LightTotalDistanceIcon : TotalDistanceIcon,
       value: "1237km",
-      name: "Total Distance",
+      name: `${gridView.total} ${gridView.distance}`,
     },
     {
       icon: selectedTheme === "light" ? LightIdleHoursIcon : IdleHoursIcon,
       value: "05Hrs",
-      name: "Idle Hours",
+      name: `${fleetManagement.idleHrs}`,
     },
     {
       icon:
         selectedTheme === "light" ? LightOverSpeedingIcon : OverSpeedingIcon,
       value: "11",
-      name: "Over Speeding",
+      name: gridView.overspeeding,
     },
     {
       icon:
@@ -170,13 +172,13 @@ const FleetManagement: React.FC<any> = (props) => {
           ? LightHarshAccelerationIcon
           : HarshAccelerationIcon,
       value: "05",
-      name: "Harsh Acceleration",
+      name: fleetManagement.harshAcceleration,
     },
     {
       icon:
         selectedTheme === "light" ? LightHarshBreakingIcon : HarshBreakingIcon,
       value: "04",
-      name: "Harsh Breaking",
+      name: gridView.harshBreaking,
     },
   ];
 
@@ -420,7 +422,7 @@ const FleetManagement: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            FLEET MANAGEMENT
+            {dashboard.fleetManagement}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid
@@ -458,7 +460,7 @@ const FleetManagement: React.FC<any> = (props) => {
                             appTheme?.palette?.fleetManagementPage
                               ?.progressBarBg
                           }
-                          title={"Safety Score"}
+                          title={fleetManagement.safetyScore}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
@@ -473,7 +475,7 @@ const FleetManagement: React.FC<any> = (props) => {
                               }}
                             >
                               <Grid item xs={12} style={{ height: "10%" }}>
-                                <div className={graphTitle}>Trips</div>
+                                <div className={graphTitle}>{gridView.trips}</div>
                               </Grid>
                               <Grid
                                 item
@@ -572,7 +574,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                           10
                                         </div>
                                         <div className={liveContentLabel}>
-                                          VEHICLES
+                                          {gridView.vehicles}
                                         </div>
                                       </div>
                                       <div className={liveContentStyle}>
@@ -580,7 +582,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                           13
                                         </div>
                                         <div className={liveContentLabel}>
-                                          TRIPS
+                                          {gridView.trips}
                                         </div>
                                       </div>
                                     </div>
@@ -601,7 +603,7 @@ const FleetManagement: React.FC<any> = (props) => {
                               <Grid item xs={12} style={{ height: "10%" }}>
                                 <div className={graphTitle}>
                                   {" "}
-                                  Distance Travelled
+                                  {fleetManagement.distanceTravelled}
                                 </div>
                               </Grid>
                               <Grid
@@ -704,7 +706,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                   }}
                                 >
                                   <div className={driveDot}></div>
-                                  <div>Drive Hrs</div>
+                                  <div>{fleetManagement.driveHrs}</div>
                                 </div>
                                 <div
                                   style={{
@@ -715,7 +717,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                   }}
                                 >
                                   <div className={driveDotOne}></div>
-                                  <div>Idle Hrs</div>
+                                  <div>{fleetManagement.idleHrs}</div>
                                 </div>
                               </Grid>
                               <Grid

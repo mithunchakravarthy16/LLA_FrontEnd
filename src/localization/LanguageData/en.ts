@@ -104,7 +104,7 @@ export default {
   },
   parking: {
     parkingViolation: "Parking Violation",
-    all: "Tutto"
+    all: "All"
   },
   security: {
     security: "Security",
@@ -124,5 +124,13 @@ export default {
     distanceTravelled: "Distance Travelled",
     driveHrs: "Drive Hrs",
     idleHrs: "Idle Hours",
+    harshAcceleration: "Harsh Acceleration"
+  },
+  assetsTracking: {
+    activeTrackers: "Active Trackers",
+    activeTracker: "Active Tracker",
+    inactiveTracker: "In-Active Tracker",
+    incidents: "Incidents",
+    assetsTracked: "Assets Tracked",
   }
 };
