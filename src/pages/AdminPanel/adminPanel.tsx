@@ -2,6 +2,8 @@
 
 import { useState, useEffect, Fragment } from "react";
 import { Grid, Alert, Snackbar } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import Radio from "@mui/material/Radio";
@@ -16,6 +18,7 @@ import DarkIcon from "../../assets/darkIcon.svg";
 import Button from "@mui/material/Button";
 import TextField from "elements/TextField";
 import DefaultLogo from "../../assets/defaultLogo.svg";
+import logoutImg from "../../assets/login/logout.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 import FavIcon from "../../assets/favIcon.svg";
 
@@ -87,6 +90,7 @@ const AdminPanel = () => {
     adminDashboard,
     spaceBottom,
     space,
+    logoutSection,
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -99,6 +103,13 @@ const AdminPanel = () => {
     // { name: "Font Family", id: 3 },
     // { name: "Components", id: 4 },
   ];
+  const navigate = useNavigate();
+
+  const handleCloseUserMenu = () => {
+    localStorage.removeItem("user");
+      localStorage.clear();
+      navigate("/login");
+  };
   useEffect(() => {
     setActivePage(0);
   }, []);
@@ -286,6 +297,12 @@ const AdminPanel = () => {
                       </div>
                     );
                   })}
+              </div>
+              <div
+                className={logoutSection} onClick={handleCloseUserMenu}
+              >
+                <img src={logoutImg} />
+                <p>Logout</p>
               </div>
             </div>
           </Grid>

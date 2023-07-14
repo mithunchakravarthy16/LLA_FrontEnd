@@ -26,6 +26,7 @@ import {
   InnerCardWrapper,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
+import useTranslation from "localization/translations";
 import {
   assetTracking,
   energyManagement,
@@ -45,134 +46,13 @@ import {
 /*
 Prop Type
 */
-const DEMO_VALUES: any = {
-  parking: {
-    values: [
-      {
-        label: "available",
-        value: 228,
-        suffix: "",
-      },
-      {
-        type: "splitter",
-      },
-      {
-        label: "occupied",
-        value: 370,
-        suffix: "",
-      },
-    ],
-    noteLabel: "Drive hours saved",
-    noteValue: "19.5",
-    noteDifference: "+",
-  },
-  energy_management: {
-    values: [
-      {
-        label: "consumed",
-        value: 100,
-        suffix: "kWh",
-      },
-      {
-        type: "splitter",
-      },
-      {
-        label: "savings",
-        value: 15,
-        suffix: "%",
-      },
-    ],
-    noteLabel: "Energy Consumed",
-    noteValue: "100kWh",
-    noteDifference: "-",
-  },
-  security: {
-    values: [
-      {
-        label: "cameras",
-        value: 10,
-        suffix: "",
-      },
-      {
-        type: "splitter",
-      },
-      {
-        label: "alerts",
-        value: 50,
-        suffix: "",
-      },
-    ],
-    noteLabel: "Security Breaches Avoided",
-    noteValue: "20",
-    noteDifference: "+",
-  },
-  lighting: {
-    values: [
-      {
-        label: "electricity",
-        value: 16,
-        suffix: "kWh",
-      },
-      {
-        type: "splitter",
-      },
-      {
-        label: "data",
-        value: 1,
-        suffix: "TB",
-      },
-    ],
-    noteLabel: "Electricity Consumed",
-    noteValue: "16kWh",
-    noteDifference: "-",
-  },
-  fleet_management: {
-    values: [
-      {
-        label: "fleet",
-        value: 8,
-        suffix: "",
-      },
-      {
-        type: "splitter",
-      },
-      {
-        label: "trips",
-        value: 50,
-        suffix: "",
-      },
-    ],
-    noteLabel: "Trips Completed",
-    noteValue: "20",
-    noteDifference: "+",
-  },
-  assets_tracking: {
-    values: [
-      {
-        label: "assets",
-        value: 200,
-        suffix: "",
-      },
-      {
-        type: "splitter",
-      },
-      {
-        label: "alerts",
-        value: 50,
-        suffix: "",
-      },
-    ],
-    noteLabel: "Location Changed",
-    noteValue: "30",
-    noteDifference: "-",
-  },
-};
 
 type CardPropType = {
   card: {
     title: string;
     image: any;
     category: string;
+    translatedTitle: string;
   };
   currentOpenedCard: any;
   setCurrentOpenedCard: any;
@@ -202,6 +82,130 @@ const Card = ({
     }deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
   });
+  const {dashboard} = useTranslation();
+
+  const DEMO_VALUES: any = {
+    parking: {
+      values: [
+        {
+          label: dashboard.available,
+          value: 228,
+          suffix: "",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.occupied,
+          value: 370,
+          suffix: "",
+        },
+      ],
+      noteLabel: dashboard?.parkingNoteLabel,
+      noteValue: "19.5",
+      noteDifference: "+",
+    },
+    energy_management: {
+      values: [
+        {
+          label: dashboard.consumed,
+          value: 100,
+          suffix: "kWh",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.savings,
+          value: 15,
+          suffix: "%",
+        },
+      ],
+      noteLabel: dashboard?.energyNoteLabel,
+      noteValue: "100kWh",
+      noteDifference: "-",
+    },
+    security: {
+      values: [
+        {
+          label: dashboard.cameras,
+          value: 10,
+          suffix: "",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.alerts,
+          value: 50,
+          suffix: "",
+        },
+      ],
+      noteLabel: dashboard?.securityNoteLabel,
+      noteValue: "20",
+      noteDifference: "+",
+    },
+    lighting: {
+      values: [
+        {
+          label: dashboard.electricity,
+          value: 16,
+          suffix: "kWh",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.data,
+          value: 1,
+          suffix: "TB",
+        },
+      ],
+      noteLabel: dashboard?.electricityNoteLabel,
+      noteValue: "16kWh",
+      noteDifference: "-",
+    },
+    fleet_management: {
+      values: [
+        {
+          label: dashboard.fleet,
+          value: 8,
+          suffix: "",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.trips,
+          value: 50,
+          suffix: "",
+        },
+      ],
+      noteLabel: dashboard?.tripsNoteLabel,
+      noteValue: "20",
+      noteDifference: "+",
+    },
+    assets_tracking: {
+      values: [
+        {
+          label: dashboard.assets,
+          value: 200,
+          suffix: "",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.alerts,
+          value: 50,
+          suffix: "",
+        },
+      ],
+      noteLabel: dashboard?.assetsNoteLabel,
+      noteValue: "30",
+      noteDifference: "-",
+    },
+  };
 
   return (
     <RootContainer
@@ -235,7 +239,7 @@ const Card = ({
         <InnerCardWrapper>
           <CardImage src={card.image} />
           <CardTitle focusedCategory={focusedCategory === card?.category}>
-            {card.title.replaceAll("_", " ")}
+            {card.translatedTitle.replaceAll("_", " ")}
           </CardTitle>
         </InnerCardWrapper>
       </ContentContainer>
@@ -245,7 +249,7 @@ const Card = ({
           opacity: contentTransform.opacity,
         }}
       >
-        <CardTitleSmall>{card.title.replaceAll("_", " ")}</CardTitleSmall>
+        <CardTitleSmall>{card.translatedTitle.replaceAll("_", " ")}</CardTitleSmall>
         <CardValuesWrapper>
           <CardValuesSkewContainer />
           <CardValuesContainer>
@@ -288,36 +292,44 @@ const Card = ({
 
 const FlippingCard = (props: any) => {
   const { focusedCategory, setFocusedCategory } = props;
+  const {dashboard} = useTranslation();
+  
   const CARD_LIST: any = [
     {
       title: "parking",
       image: focusedCategory === "parking" ? ParkingHover : parking,
       category: "parking",
+      translatedTitle: dashboard.parking,
     },
     {
       title: "energy_management",
       image: focusedCategory === "energy" ? EnergyHover : energyManagement,
       category: "energy",
+      translatedTitle: dashboard.energyManagement
     },
     {
       title: "security",
       image: focusedCategory === "security" ? SecurityHover : security,
       category: "security",
+      translatedTitle: dashboard.security
     },
     {
       title: "lighting",
       image: focusedCategory === "lighting" ? LightingHover : lighting,
       category: "lighting",
+      translatedTitle: dashboard.lighting
     },
     {
       title: "fleet_management",
       image: focusedCategory === "fleet" ? FleetHover : fleetManagement,
       category: "fleet",
+      translatedTitle: dashboard.fleetManagement
     },
     {
       title: "assets_tracking",
       image: focusedCategory === "asset" ? AssetHover : assetTracking,
       category: "asset",
+      translatedTitle: dashboard.assetsTracking
     },
   ];
 

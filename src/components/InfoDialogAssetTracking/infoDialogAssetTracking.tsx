@@ -148,6 +148,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     { label: "Battery", value: "83%" },
     { label: "Temperature", value: "24°C" },
     { label: "Humidity", value: "96%" },
+    { label: "", value: "" },
   ];
 
   useEffect(() => {
@@ -426,6 +427,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           style={{
                             borderRight: `1px dashed #808080`, // Specify your desired color and border style
                             opacity: "0.5",
+                            margin : "7%"
                           }}
                         ></div>
                         <div
@@ -435,7 +437,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-around",
-                            textAlign: "right",
+                            // textAlign: "right",
                           }}
                         >
                           {assetCenterRightSectionData?.map(

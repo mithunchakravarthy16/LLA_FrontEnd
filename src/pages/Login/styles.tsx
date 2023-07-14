@@ -21,7 +21,10 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   }),
   innerPaddingBox: (props: any) => ({
-    paddingTop: "12vh",
+    paddingTop: "9vh",
+    [muiTheme.breakpoints.down(3073)]: {
+      paddingTop: "12vh",
+    },
   }),
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(0px)",

@@ -14,6 +14,7 @@ import {
   IncomeLightThemeIcon,
   WaterLightThemeIcon
 } from "../../assets/topPanelListIcons";
+import useTranslation from "localization/translations";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
@@ -32,6 +33,7 @@ const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
+  const {dashboard, gridView, parking} = useTranslation();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? ElectricityLightThemeIcon : PowerConsumtionIcon,
       value: "200kWh",
-      name: "Electricity Consumed",
+      name: gridView.electricityConsumption,
     },
     {
       icon:selectedTheme === "light" ? HVACLightThemeIcon : TemperatureIcon,
@@ -81,17 +83,17 @@ const Parking: React.FC<any> = (props) => {
     {
       icon:selectedTheme === "light" ? WaterLightThemeIcon : WaterConsumption,
       value: "1480KL",
-      name: "Water Consumption",
+      name: gridView.waterConsumption,
     },
     {
       icon: selectedTheme === "light" ? IncomeLightThemeIcon :IncomeIcon,
       value: "500$",
-      name: "Cost Saved",
+      name: `${gridView.cost} ${gridView.saved}`,
     },
     {
       icon:selectedTheme === "light" ? Co2LightThemeIcon : SubtractIcon,
       value: "50Kg",
-      name: "CO2 Emission",
+      name: `${gridView.co2} ${gridView.emission}`,
     },
   ];
 
@@ -228,7 +230,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            ENERGY MANAGEMENT
+            {dashboard.energyManagement}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid
@@ -266,7 +268,7 @@ const Parking: React.FC<any> = (props) => {
                             appTheme?.palette?.energyMgmtPage
                               ?.progressTrailColor
                           }
-                          title={"Energy Savings "}
+                          title={`${gridView.energy} ${gridView.saved}`}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "75%" }}>
@@ -303,7 +305,7 @@ const Parking: React.FC<any> = (props) => {
                                       marginRight: 6,
                                     }}
                                   ></div>
-                                  <div style={{color : appTheme?.palette?.energyMgmtPage?.topPanelTextColor}}>Electricity Consumption </div>
+                                  <div style={{color : appTheme?.palette?.energyMgmtPage?.topPanelTextColor}}>{gridView.electricityConsumption}</div>
                                 </div>
                                 <div
                                   style={{
@@ -396,7 +398,7 @@ const Parking: React.FC<any> = (props) => {
                               }}
                             >
                               <Grid item xs={12} className={graphTwoHeader}>
-                                Water Consumption
+                                {gridView.waterConsumption}
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid

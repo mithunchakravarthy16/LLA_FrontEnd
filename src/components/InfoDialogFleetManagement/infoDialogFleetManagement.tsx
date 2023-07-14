@@ -1,5 +1,5 @@
 /** @format */
-// @ts-ignore
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -36,6 +36,7 @@ import TripDetailsMap from "components/Map/tripDetailsMap";
 import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
 import useWindowDimensions from "hooks/useWindowDimensions";
+import Tooltip from "../../elements/Tooltip";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -223,6 +224,22 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       title: "Over Speeding",
       details: "Vehicle#12,  Driver - Mike Ross",
     },
+    {
+      title: "Harsh Breaking",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {
+      title: "Harsh Acceleration",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {
+      title: "Cornering",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
+    {
+      title: "Cornering",
+      details: "Vehicle#12,  Driver - Mike Ross",
+    },
   ];
 
   const vehicleDetailsSubTaskBarItems: any[] = [
@@ -236,6 +253,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? LightTripStatusIcon
           : TripStatusIcon,
       value: tabIndex === 1 ? "90kph" : "On Trip",
+      name : tabIndex === 1 ? "Speed" : "Status",
     },
     {
       icon:
@@ -247,6 +265,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? LightSpeedometerIcon
           : SpeedometerIcon,
       value: tabIndex === 1 ? "100Km" : "90kph",
+      name : tabIndex === 1 ? "Distance Covered" : "Speed",
+
     },
     {
       icon:
@@ -258,6 +278,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? LightTotalDistanceIcon
           : DistinationLocationIcon,
       value: tabIndex === 1 ? "5Gal" : "100Km",
+      name : tabIndex === 1 ? "Fuel Consumed" : "Distance Driven",
+
     },
     {
       icon:
@@ -269,10 +291,12 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? LightIncidentIcon
           : IncidentIcon,
       value: tabIndex === 1 ? "10" : "10",
+      name : "Violations",
     },
     {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
       value: "70%",
+      name : "Safety Score"
     },
   ];
 
@@ -335,6 +359,20 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       };
     }
   };
+
+  const [screenResolution, setScreenResolution] = useState<any>("2k");
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setScreenResolution("4k");
+    } else if (window.innerWidth < 3839) {
+      setScreenResolution("2k");
+    }
+  }, []);
+
+  const tooltipOfset = screenResolution === "2k" ? [0, 10] : [0, 40];
+  const fontSize = screenResolution === "2k" ? [14] : [22];
+  const padding = [2];
 
   return (
     <>
@@ -457,11 +495,20 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 flex={1}
                               >
                                 <div style={{ width: "18%", height: "18%" }}>
-                                  <img
-                                    width={"100%"}
-                                    height={"100%"}
-                                    src={item?.icon}
-                                  />
+                                  <Tooltip
+                                    tooltipValue={item?.name}
+                                    placement={"bottom"}
+                                    offset={tooltipOfset}
+                                    fontSize={fontSize}
+                                    padding={padding}
+                                    componentName={"TopPanelList"}
+                                  >
+                                    <img
+                                      width={"100%"}
+                                      height={"100%"}
+                                      src={item?.icon}
+                                    />
+                                  </Tooltip>
                                 </div>
                                 <div className={TabvalueTitle}>
                                   {item?.value}
@@ -491,7 +538,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           </Grid>
                           <Grid item xs={12} height={"87%"} paddingTop={1}>
                             {
-                            // @ts-ignore
+                              // @ts-ignore
                             }
                             <ReactPlayer
                               muted
@@ -541,11 +588,20 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                     <div
                                       style={{ width: "15%", height: "15%" }}
                                     >
+                                      <Tooltip
+                                    tooltipValue={item?.name}
+                                    placement={"bottom"}
+                                    offset={tooltipOfset}
+                                    fontSize={fontSize}
+                                    padding={padding}
+                                    componentName={"TopPanelList"}
+                                  >
                                       <img
                                         width={"100%"}
                                         height={"100%"}
                                         src={item?.icon}
                                       />
+                                      </Tooltip>
                                     </div>
                                     <div className={TabvalueTitle}>
                                       {item?.value}
@@ -582,13 +638,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -601,13 +663,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -620,13 +688,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -639,13 +713,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorRed}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorRed
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -658,13 +738,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -677,13 +763,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -696,13 +788,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="point"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                           <Grid item>
@@ -716,13 +814,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
                               iconSize={getSpeedometerDimensions().iconSize}
-                              color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.stokeColorGreen}
+                              color={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.stokeColorGreen
+                              }
                               thumbType="thumb"
                               strokeWidth={getSpeedometerDimensions().stroke}
                               trackStrokeWidth={
                                 getSpeedometerDimensions().stroke
                               }
-                              trackStrokeColor={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.track}
+                              trackStrokeColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.circularProgressBar?.track
+                              }
                             />
                           </Grid>
                         </Grid>

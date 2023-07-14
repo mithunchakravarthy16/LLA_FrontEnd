@@ -43,6 +43,7 @@ const NotificationListItems = (props: any) => {
     handleAssetViewDetails,
     handleVideoDetails,
     mapPageName,
+    notificationPageName
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -102,7 +103,7 @@ const NotificationListItems = (props: any) => {
     collapsedListItemTitle,
     collapsedListItemSubTitle,
     collapsedTimeStampStyle,
-  } = useStyles({ ...appTheme, pageName: pageName, mapPageName: mapPageName, });
+  } = useStyles({ ...appTheme, pageName: pageName, mapPageName: mapPageName, notificationPageName:notificationPageName });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -180,7 +181,7 @@ const NotificationListItems = (props: any) => {
     );
   }
 
-  if (category === "fleet" && locations?.pathname === "/fleetManagement") {
+  if (category === "fleet") {
     return (
       <>
         <div
@@ -225,9 +226,9 @@ const NotificationListItems = (props: any) => {
                   </div>
                 </div>
               )}
-              {/* <div className={expandedListItemRow2}>
-                {`Lat:${location?.lat}, Lng:${location?.lng}`}
-              </div> */}
+              <div className={expandedListItemRow2}>
+                {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */} {area}
+              </div>
               <div className={expandedListItemRow3}>
                 {`Vehicle#${vehicleId} | Driver-Mike Ross | Trip#${tripId}`}
               </div>
@@ -271,6 +272,64 @@ const NotificationListItems = (props: any) => {
     );
   }
 
+  if(category === "security" ||category === "lighting" ) {
+    return (
+      <>
+        <div
+          className={rootContainer}
+          onClick={() => handleExpandListItem(id)}
+          ref={refs && refs[id]}
+        >
+          {selectedNotification === id || pageName === "markerCallout" ? (
+            <div className={expandedListItems}>
+              {pageName === "markerCallout" ? (
+                <div className={listItemCallout}>
+                  <div className={listItemTitle} style={{ marginBottom : "0 !important"}}>{title}</div>
+                  <div className={markerCloseIcon} onClick={handleMarkerClose}>
+                    <img
+                      src={selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon} 
+                      width={selectedWidth?.is4kDevice ? 40 : 20}
+                      height={selectedWidth?.is4kDevice ? 40 : 20}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className={listItemTitle}>{title}</div>
+              )}
+              <div className={expandedListItemRow2}>{area}</div>
+             
+              <div className={expandedListItemRow3}>
+                {equipment && `${equipment} | `}
+                {  subTitle ? subTitle : area && area}
+              </div>
+              {/* {(category !== "outdoor" && venue) && <div className={expandedListItemRow3}>{venue}</div>} */}
+  
+              <div className={expandedListItemRow4}>
+                <div className={buttonStyle}>
+                  <Button variant="contained" handleClick={() => null}>
+                    {category === "asset" ? "View Details" : "Take Action"}
+                  </Button>
+                </div>
+                <div className={timeStampStyle}>{currentTimeStamp}</div>
+              </div>
+            </div>
+          ) : (
+            <div className={collapsedListItems}>
+              <div className={collapsedListItemTitle}>{title}</div>
+              <div className={collapsedlistItemRow2}>
+                <div className={collapsedListItemSubTitle}>
+                  {equipment && `${equipment} | `}
+                  {subTitle ? subTitle : area}
+                </div>
+                <div className={collapsedTimeStampStyle}>{currentTimeStamp}</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div
@@ -295,15 +354,15 @@ const NotificationListItems = (props: any) => {
               <div className={listItemTitle}>{title}</div>
             )}
             {category !== "fleet" && <div className={expandedListItemRow2}>
-              {category === "parking" ? `Vehicle  : ${entity}` : `${entity}`}{" "}
+              {category === "parking" ? `Vehicle  : ${entity}` : `${area}`}{" "}
             </div>
             }
             
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}
-              {subTitle ? subTitle : area}
+              {  subTitle ? subTitle : area && area}
             </div>
-            {venue && <div className={expandedListItemRow3}>{venue}</div>}
+            {(category !== "outdoor" && venue) && <div className={expandedListItemRow3}>{venue}</div>}
 
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>

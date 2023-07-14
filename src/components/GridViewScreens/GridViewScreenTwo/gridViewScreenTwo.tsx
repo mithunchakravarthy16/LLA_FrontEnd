@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import Chart from "elements/Chart";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
+import useTranslation from "localization/translations";
 
 const GridViewScreenTwo: React.FC<any> = (props) => {
   const { handleClick } = props;
@@ -13,6 +14,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
     JSON.parse(localStorage.getItem("theme")!)
   );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const {dashboard, gridView} = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -166,7 +168,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
           className={gridContainers}
         >
           <Grid item xs={12} className={containerTitle}>
-            ENERGY MANAGEMENT
+            {dashboard.energyManagement}
           </Grid>
           {/* <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
@@ -199,7 +201,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       // alignItems="center"
                     >
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
-                        Electricity Consumption
+                        {gridView.electricityConsumption}
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
@@ -257,7 +259,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
-                        Water Consumption
+                        {gridView.waterConsumption}
                       </Grid>
                       <Grid item xs={12}>
                         <Chart
@@ -302,7 +304,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                             padding: "3%",
                       }}
                     >
-                      Today
+                      {gridView.today}
                     </div>
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>
@@ -319,7 +321,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>300kWh</div>
                         <div className={listItemLabelStyle}>
-                          <p>Energy</p> <p>Consumption</p>
+                          <p>{gridView.energy}</p> <p>{gridView.consumption}</p>
                         </div>
                       </Grid>
                       <Grid
@@ -330,7 +332,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>30%</div>
                         <div className={listItemLabelStyle}>
-                          <p>Energy</p> <p>Saved</p>
+                          <p>{gridView.energy}</p> <p>{gridView.saved}</p>
                         </div>
                       </Grid>
                       <Grid
@@ -341,7 +343,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>$500</div>
                         <div className={listItemLabelStyle}>
-                          <p>Cost</p> <p>Saved</p>
+                          <p>{gridView.cost}</p> <p>{gridView.saved}</p>
                         </div>
                       </Grid>
                     </Grid>

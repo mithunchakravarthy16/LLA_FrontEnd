@@ -9,6 +9,7 @@ import {
   Trolley,
   Unauthorised,
 } from "../../assets/topPanelListIcons";
+import useTranslation from "localization/translations";
 import {
   FireDetectionIcon,
   TemperingAlaremIcon,
@@ -42,6 +43,7 @@ const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
+  const {dashboard, gridView, security} = useTranslation();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -257,7 +259,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            SECURITY
+            {dashboard.security}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid
@@ -294,7 +296,7 @@ const Parking: React.FC<any> = (props) => {
                             appTheme?.palette?.fleetManagementPage
                               ?.securityProgressBarBg
                           } //"#484D52"
-                          title={"Issues Resolved"}
+                          title={security.issuesResolved}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
@@ -309,7 +311,7 @@ const Parking: React.FC<any> = (props) => {
                               }}
                             >
                               <Grid item xs={12} style={{ height: "10%" }}>
-                                <div className={graphTitle}>Security</div>
+                                <div className={graphTitle}>{security.security}</div>
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid
@@ -451,23 +453,23 @@ const Parking: React.FC<any> = (props) => {
                                           // data: [37, 15, 16, 17, 15],
                                           data: [
                                             {
-                                              name: "Intrusion",
+                                              name: security.intrusion,
                                               y: 37,
                                             },
                                             {
-                                              name: "Fire Detection",
+                                              name: security.fireDetection,
                                               y: 37,
                                             },
                                             {
-                                              name: "Tampering Alarm",
+                                              name: security.temperingAlarm,
                                               y: 37,
                                             },
                                             {
-                                              name: "Unauthorised Access",
+                                              name: security.unauthorisedAccess,
                                               y: 37,
                                             },
                                             {
-                                              name: "Tailgating",
+                                              name: security.tailgating,
                                               y: 37,
                                             },
                                           ],

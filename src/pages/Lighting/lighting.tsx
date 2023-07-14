@@ -8,6 +8,7 @@ import {
   AirQualityIcon,
   PersonIcon,
 } from "../../assets/topPanelListIcons";
+import useTranslation from "localization/translations";
 import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import Map from "components/Map";
@@ -31,6 +32,7 @@ import {
 import useStyles from "./styles";
 
 const Parking: React.FC<any> = (props) => {
+  const {dashboard, gridView, security} = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -83,17 +85,17 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? CoTwoLevelIcon : CoTwoCloudIcon,
       value: "643ppm",
-      name: "CO2 Level",
+      name: `${gridView.co2} ${gridView.level}`,
     },
     {
       icon: selectedTheme === "light" ? VocLevelIcon : VocCloudIcon,
       value: "15ppm",
-      name: "VOC Level",
+      name: `${gridView.co2} ${gridView.level}`,
     },
     {
       icon: selectedTheme === "light" ? PmOneIcon : AirQualityIcon,
       value: "12µg/m³",
-      name: "PM2.5",
+      name: gridView.pm25,
     },
     {
       icon: selectedTheme === "light" ? PmTwoIcon : AirQualityIcon,
@@ -103,7 +105,7 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? WifiUserIcon : PersonIcon,
       value: "200",
-      name: "Wifi Users",
+      name: gridView.wifiUsers,
     },
   ];
 
@@ -305,7 +307,7 @@ const Parking: React.FC<any> = (props) => {
                           trailWidth={10}
                           strokeColor="#FFA626"
                           trailColor={selectedTheme === "light" ? "#FAEEDD" : "#484D52"}
-                          title={"Avg Dimming Level"}
+                          title={gridView.avgDimmingLevel}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
@@ -325,7 +327,7 @@ const Parking: React.FC<any> = (props) => {
                                 // style={{ height: "10%" }}
                                 className={electricity}
                               >
-                                Electricity Consumed
+                                {gridView.electricityConsumption}
                               </Grid>
                               <Grid
                                 item
@@ -425,7 +427,7 @@ const Parking: React.FC<any> = (props) => {
                                           64Kw
                                         </div>
                                         <div className={liveContentLabel}>
-                                          CONSUMED
+                                          {gridView.consumed}
                                         </div>
                                       </div>
                                       <div className={liveContentStyle}>
@@ -433,7 +435,7 @@ const Parking: React.FC<any> = (props) => {
                                           50
                                         </div>
                                         <div className={liveContentLabelGreen}>
-                                          <div>AQI</div>
+                                          <div>{gridView.aqi}</div>
                                           <div className={aqiCircleStyle}></div>
                                         </div>
                                       </div>
