@@ -5,6 +5,7 @@ import theme from "../../theme/theme";
 import useTranslation from "../../localization/translations";
 import { useLanguageContext } from "../../localization/languageContext";
 import useStyles from "./styles";
+import Grid from "@mui/material/Grid";
 
 const Settings = () => {
   const { changeTheme, changeLang, profile } = useTranslation();
@@ -46,6 +47,9 @@ const Settings = () => {
     window.location.reload();
   };
 
+  const { rootContainer, mainSection, gridStyles } = useStyles(appTheme);
+
+
   const dispatch = useDispatch();
 
   const handleLanguage = (lang: any) => {
@@ -55,7 +59,12 @@ const Settings = () => {
 
   return (
     <>
-      <div>Settings</div>
+     <div className={rootContainer}>
+        <Grid container className={mainSection}>
+         
+        </Grid>
+      </div>
+      {/* <div>Settings</div>
       <br />
       <div>Change Theme</div>
       <select
@@ -72,8 +81,7 @@ const Settings = () => {
       <select value={language} onChange={(e) => handleLanguage(e.target.value)}>
         <option value="en">English</option>
         <option value="it">Italian</option>
-        {/* <option value="sp">Spanish</option> */}
-      </select>
+      </select> */}
     </>
   );
 };
