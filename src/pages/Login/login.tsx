@@ -81,7 +81,7 @@ const Login = () => {
     if (inCorrectCredentials) {
       setTimeout(() => {
         setInCorrectCredentials(false);
-      }, 3000);
+      }, 10000);
     }
   }, [inCorrectCredentials]);
 
@@ -93,11 +93,11 @@ const Login = () => {
     validationSchema: Yup.object({
       userid: Yup.string()
         .min(2, "Mininum 2 characters")
-        .required("Please Enter username"),
+        .required("Please Enter Username"),
       password: Yup.string()
         .min(2, "Mininum 2 characters")
         .max(20, "Maximum 20 characters")
-        .required("Please Enter password"),
+        .required("Please Enter Password"),
     }),
     onSubmit: (values) => {
       if (
@@ -141,7 +141,7 @@ const Login = () => {
             <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>
-                  <img src={llaLogo} />
+                  {/* <img src={llaLogo} /> */}
                 </div>
                 <h2 className={formTitle}>
                   <img src={smartLogoText} />

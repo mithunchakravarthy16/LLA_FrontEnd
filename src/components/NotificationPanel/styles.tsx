@@ -369,6 +369,10 @@ const useStyles = makeStyles({
     },
     "& .MuiIconButton-root": {
       marginRight: 7,
+      '& .MuiSvgIcon-root': {
+        fontSize: '1vw',
+      },
+      
       [muiTheme.breakpoints.up(3839)]: {
         marginRight: 15,
       },

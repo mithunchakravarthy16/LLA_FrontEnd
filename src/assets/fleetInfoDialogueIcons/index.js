@@ -5,7 +5,7 @@ import FuelIcon from "./fuelIcon.svg";
 import IncidentIcon from "./incidentIcon.svg";
 import SpeedLimitIcon from "./speedLimitIcon.svg";
 import CamOneImg from "./camOneImg.svg";
-import TripStatusIcon from "./tripStatusIcon.svg";
+import TripStatusIcon from "./OnTripIcon.svg";
 
 import LightSpeedometerIcon from "./lightSpeedometer.svg";
 import LightFuelIcon from "./lightFuelIcon.svg";
