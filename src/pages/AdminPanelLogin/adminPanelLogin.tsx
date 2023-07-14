@@ -100,11 +100,11 @@ const AdminPanelLogin = () => {
     validationSchema: Yup.object({
       userid: Yup.string()
         .min(2, "Mininum 2 characters")
-        .required("Please Enter username"),
+        .required("Please Enter Username"),
       password: Yup.string()
         .min(2, "Mininum 2 characters")
         .max(20, "Maximum 20 characters")
-        .required("Please Enter password"),
+        .required("Please Enter Password"),
     }),
     onSubmit: (values) => {
       if (
@@ -176,7 +176,7 @@ const AdminPanelLogin = () => {
                           <OutlinedInput
                             className={inputField}
                             fullWidth
-                            placeholder="john.smith@gmail.com"
+                            placeholder="Username@domainname.com"
                             type="text"
                             name="userid"
                             value={formik.values.userid}
