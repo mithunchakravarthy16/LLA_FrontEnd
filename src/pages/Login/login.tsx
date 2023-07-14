@@ -81,7 +81,7 @@ const Login = () => {
     if (inCorrectCredentials) {
       setTimeout(() => {
         setInCorrectCredentials(false);
-      }, 3000);
+      }, 10000);
     }
   }, [inCorrectCredentials]);
 
