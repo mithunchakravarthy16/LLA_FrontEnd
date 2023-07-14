@@ -21,8 +21,11 @@ import DefaultLogo from "../../assets/defaultLogo.svg";
 import logoutImg from "../../assets/login/logout.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 import FavIcon from "../../assets/favIcon.svg";
+import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
 
 const AdminPanel = () => {
+  const dispatch = useDispatch();
+
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -111,6 +114,8 @@ const AdminPanel = () => {
   const handleCloseUserMenu = () => {
     localStorage.removeItem("user");
     localStorage.clear();
+    dispatch(getUserLogout());
+    dispatch(setUserLogin({}));
     navigate("/login");
   };
   useEffect(() => {
