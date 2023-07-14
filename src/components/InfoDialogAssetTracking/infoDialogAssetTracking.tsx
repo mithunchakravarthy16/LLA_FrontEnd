@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
 import customTheme from "../../theme/theme";
 import { CloseIcon } from "../../assets/fleetInfoDialogueIcons";
+import useTranslation from "localization/translations";
 import useStyles from "./styles";
 import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
@@ -45,6 +46,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogAssetTracking: React.FC<any> = (props) => {
+  const {assetsTracking} = useTranslation()
   const {
     setIsInfoWindowActive,
     packageData,
@@ -122,8 +124,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   };
 
   const tabsList = [
-    { name: "ASSET DETAILS", val: 0 },
-    { name: "GEOFENCE", val: 1 },
+    { name: assetsTracking.assetDetails, val: 0 },
+    { name: assetsTracking.GEOFENCE, val: 1 },
   ];
 
   const handleHeaderTab = (index: number) => {
@@ -131,23 +133,23 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   };
 
   const assetInfoTopPanelData = [
-    { label: "Product", value: "Lab Equipment" },
-    { label: "Tracker ID", value: 12367 },
-    { label: "Assets Type", value: "Electronic" },
-    { label: "Assets ID", value: 12 },
+    { label: assetsTracking.product, value: "Lab Equipment" },
+    { label: assetsTracking.trackerId, value: 12367 },
+    { label: assetsTracking.assetsType, value: "Electronic" },
+    { label: assetsTracking.assetsId, value: 12 },
   ];
 
   const assetCenterLeftSectionData = [
-    { label: "Section", value: "Sec 01" },
-    { label: "Storage Location", value: "C17#456" },
-    { label: "Tracker Status", value: "Active" },
-    { label: "Geofence", value: "With in Geofence" },
+    { label: assetsTracking.section, value: "Sec 01" },
+    { label: assetsTracking.storageLocation, value: "C17#456" },
+    { label: assetsTracking.trackerStatus, value: "Active" },
+    { label: assetsTracking.geofence, value: "With in Geofence" },
   ];
 
   const assetCenterRightSectionData = [
-    { label: "Battery", value: "83%" },
-    { label: "Temperature", value: "24°C" },
-    { label: "Humidity", value: "96%" },
+    { label: assetsTracking.battery, value: "83%" },
+    { label: assetsTracking.temperature, value: "24°C" },
+    { label: assetsTracking.humidity, value: "96%" },
     { label: "", value: "" },
   ];
 

@@ -11,7 +11,7 @@ const DialogWrapper = styled(Dialog)(({}: {}) => ({
     marginTop: "0px !important",
   },
   "& .MuiPaper-root": {
-    height: "40vh",
+    height: "43vh",
     minWidth: "30vw",
     maxWidth: "30vw",
     background: `#FFFFFF !important`,
@@ -51,8 +51,13 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
   return (
     <>
       <DialogWrapper open={uploadImage} sx={{ top: "0px" }}>
-        <div style={{ color: "#000000" }}>Logo - {uploadImageTitle}</div>
-        <div style={{ color: "#4A5568", paddingBottom: "20px" }}>
+        <div style={{ color: "#000000", fontSize: "0.8999999999999999vw",
+      fontFamily: `'Montserrat', sans-serif`, marginBottom: '8%',
+      fontWeight: 600,}}>Logo - {uploadImageTitle}</div>
+        <div style={{ marginBottom: '1%', fontSize: "0.6999999999999999vw",
+      fontFamily: `'Montserrat', sans-serif`,
+      fontWeight: 600,
+      color: "rgba(68, 91, 125, 1)",}}>
           Upload Your File
         </div>
         {uploadImageTitle === "Login" && (

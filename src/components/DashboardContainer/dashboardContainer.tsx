@@ -212,6 +212,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 tabIndex={tabIndex}
                 handleVideoDetails={() => {}}
                 handleViewDetails={() => {}}
+                handleAssetViewDetails={() => {}}
               />
             </div>
           </Grid>
@@ -261,6 +262,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   setIsMarkerClicked={setIsMarkerClicked}
                   handleVideoDetails={() => {}}
                   handleViewDetails={() => {}}
+                  handleAssetViewDetails={() => {}}
                 />
               </div>
             )}

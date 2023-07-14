@@ -212,7 +212,7 @@ const SideBar = (props: SideBarProps) => {
   return (
     <Box component={"nav"} className={sidebarSection}>
       <Drawer open variant="permanent" className={sideNavigation}>
-        {selectedTheme === "light" ? (
+        {/* {selectedTheme === "light" ? (
           <div className={menuLogoLightThemeSection}>
             <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
           </div>
@@ -220,7 +220,10 @@ const SideBar = (props: SideBarProps) => {
           <div className={menuLogoSection}>
             <img src={LogoIcon} />
           </div>
-        )}
+        )} */}
+        <div className={menuLogoLightThemeSection}>
+            <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
+          </div>
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
             return (
