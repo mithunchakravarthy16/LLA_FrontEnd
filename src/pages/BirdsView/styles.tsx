@@ -1,4 +1,87 @@
-import { makeStyles } from "@mui/styles";
+/** @format */
 
-const useStyles = makeStyles({});
+import { makeStyles } from "@mui/styles";
+import muiTheme from "../../theme/muiTheme";
+
+const useStyles = makeStyles({
+  rootContainer: (props: any) => ({
+    fontFamily: "HelveticaNeue-Regular",
+    background: props?.palette?.gridViewPage?.gridPageBg, // "#161515",
+    // height: "100vh",
+  }),
+  mainSection: (props: any) => ({
+    height: "calc(100vh - 50px)",
+    color: props?.palette?.gridViewPage?.commonTextColor, //"white",
+    background: props?.palette?.gridViewPage?.gridPageBg, //"#161515",
+    opacity: 1,
+    [muiTheme.breakpoints.up(3839)]: {
+      width: "calc(100vw - 200px) !important",
+      height: "calc(100vh - 80px)",
+    },
+    [muiTheme.breakpoints.down(3073)]: {
+      width: "calc(100vw - 200px) !important",
+      height: "calc(100vh - 80px)",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      width: "calc(100vw - 130px) !important",
+      height: "calc(100vh - 49px)",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      width: "calc(100vw - 130px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1921)]: {
+      width: "calc(100vw - 100px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1793)]: {
+      width: "calc(100vw - 90px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      width: "calc(100vw - 80px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1345)]: {
+      width: "calc(100vw - 70px) !important",
+      height: "calc(100vh - 40px)",
+    },
+    [muiTheme.breakpoints.down(1153)]: {
+      width: "calc(100vw - 60px) !important",
+      height: "calc(100vh - 28px)",
+    },
+
+    "& > .MuiGrid-item:first-child": {
+      borderWidth: "0px 1px 1px 0px",
+      borderStyle: "solid",
+      borderColor: props?.palette?.gridViewPage?.gridBorderColor, //"#3F4684",
+    },
+
+    "& > .MuiGrid-item:nth-child(2)": {
+      borderWidth: "0px 1px 1px 0px",
+      borderStyle: "solid",
+      borderColor: props?.palette?.gridViewPage?.gridBorderColor,
+    },
+
+    "& > .MuiGrid-item:nth-child(3)": {
+      borderWidth: "0px 0px 1px 0px",
+      borderStyle: "solid",
+      borderColor: props?.palette?.gridViewPage?.gridBorderColor,
+    },
+
+    "& > .MuiGrid-item:nth-child(4)": {
+      borderRight: `1px solid ${props?.palette?.gridViewPage?.gridBorderColor}`,
+    },
+
+    "& > .MuiGrid-item:nth-child(5)": {
+      borderRight: `1px solid ${props?.palette?.gridViewPage?.gridBorderColor}`,
+    },
+
+    "& > .MuiGrid-item:nth-child(6)": {},
+  }),
+  gridStyles: (props: any) => ({
+    padding: "1.8vh",
+    height: "50%",
+  }),
+});
 export default useStyles;

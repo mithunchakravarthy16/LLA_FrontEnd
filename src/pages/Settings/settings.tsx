@@ -10,11 +10,13 @@ const Settings = () => {
   const { changeTheme, changeLang, profile } = useTranslation();
   const { language, changeLanguage } = useLanguageContext();
 
-  const [selectedTheme, setSelectedTheme] = useState(JSON.parse(localStorage.getItem('theme')!));
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")!)
+  );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
-    switch (selectedTheme) {     
+    switch (selectedTheme) {
       case "light":
         setAppTheme(theme?.lightTheme);
         break;
@@ -26,7 +28,6 @@ const Settings = () => {
         break;
     }
   }, [selectedTheme]);
-
 
   const handleTheme = (selectedTheme: any) => {
     switch (selectedTheme) {
@@ -47,29 +48,33 @@ const Settings = () => {
 
   const dispatch = useDispatch();
 
-  const handleLanguage = (lang:any) =>{
+  const handleLanguage = (lang: any) => {
     changeLanguage(lang);
-    dispatch(setLanguage({lang}));
-  }
+    dispatch(setLanguage({ lang }));
+  };
 
   return (
     <>
-    <div >Settings</div><br />
-
-    <div>Change Theme</div>
-    <select value={selectedTheme} onChange={(e) => handleTheme(e.target.value)}>
-      <option value="default">Default theme</option>       
-      <option value="light">Light theme</option>
-      <option value="dark">Dark theme</option>
-    </select> <br /><br />
-
-    <div>Change Language</div>
-    <select value={language} onChange={(e) => handleLanguage(e.target.value)}>
-      <option value="en">English</option>
-      <option value="it">Italian</option>
-      <option value="sp">Spanish</option>
-    </select>
-  </>
+      <div>Settings</div>
+      <br />
+      <div>Change Theme</div>
+      <select
+        value={selectedTheme}
+        onChange={(e) => handleTheme(e.target.value)}
+      >
+        <option value="default">Default theme</option>
+        <option value="light">Light theme</option>
+        <option value="dark">Dark theme</option>
+      </select>{" "}
+      <br />
+      <br />
+      <div>Change Language</div>
+      <select value={language} onChange={(e) => handleLanguage(e.target.value)}>
+        <option value="en">English</option>
+        <option value="it">Italian</option>
+        {/* <option value="sp">Spanish</option> */}
+      </select>
+    </>
   );
 };
 
