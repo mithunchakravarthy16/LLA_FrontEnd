@@ -76,7 +76,6 @@ const useStyles = makeStyles(() => ({
   }),
   appearanceSectionCustom: () => ({
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
     "& .MuiFormControlLabel-label": {
       fontSize: "0.8999999999999999vw",
@@ -129,7 +128,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   adminDashboard: () => ({
-    padding: "1.3%",
+    padding: "1.2%",
   }),
   appearanceText: () => ({
     fontSize: "0.8999999999999999vw",
@@ -167,7 +166,7 @@ const useStyles = makeStyles(() => ({
     borderBottom: "1px solid #00000020",
     display: "flex",
     alignItems: "center",
-    padding: "1.3%",
+    padding: "1.2%",
   }),
   adminHeaderButtonSection: () => ({
     display: "flex",
@@ -315,7 +314,12 @@ const useStyles = makeStyles(() => ({
     },
   }),
   colorPickerItem: () => ({
-    width: "250px !important",
+    width: "100% !important",
+    '& input': {
+      background: 'rgba(243, 247, 255, 1)',
+      padding: '20px 16px',
+      fontSize: "0.8999999999999999vw !important",
+    }
   }),
   deleteIconClass: () => ({
     position: "relative",
@@ -369,6 +373,9 @@ const useStyles = makeStyles(() => ({
   logoPreview: {
     width: "9.3vw",
   },
+  logoPreviewEmpty: {
+    width: "2.2vw",
+  },
   invisibleDisplay: {
     display: "none",
   },
@@ -389,11 +396,11 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column'
   }),
   spaceBottom: () => ({
-    paddingBottom: "1.3%",
+    paddingBottom: "1.2%",
   }),
   space: () => ({
-    paddingBottom: "1.3%",
-    paddingTop: "1.3%",
+    paddingBottom: "1.2%",
+    paddingTop: "1.2%",
   }),
 }));
 export default useStyles;

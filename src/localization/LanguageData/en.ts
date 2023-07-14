@@ -34,7 +34,7 @@ export default {
     lighting: "LIGHTING",
     fleetManagement: "FLEET MANAGEMENT",
     assetsTracking: "ASSETS TRACKING",
-    parkingNoteLabel: "Drive hours saved",
+    parkingNoteLabel: "Drive Hours Saved",
     energyNoteLabel: "Energy Consumed",
     securityNoteLabel: "Security Breaches Avoided",
     electricityNoteLabel: "Electricity Consumed",
@@ -48,9 +48,13 @@ export default {
     alerts: "alerts",
     electricity: "electricity",
     data: "data",
-    fleet: "fleet",
+    fleet: "fleets",
     trips: "trips",
     assets: "assets",
+    runningUnits : "RUNNING UNITS",
+    alertsText: "ALERTS",
+    smartLights : "SMART LIGHTS",
+    violations : "VIOLATIONS"
   },
   gridView: {
     today: "Today",

@@ -51,6 +51,10 @@ export default {
     fleet: "flotta",
     trips: "viaggi",
     assets: "risorse",
+    runningUnits : "CORSA UNITÀ",
+    alertsText: "AVVISI",
+    smartLights : "LUCI INTELLIGENTI",
+    violations : "VIOLAZIONI"
   },
   gridView: {
     today: "Oggi",

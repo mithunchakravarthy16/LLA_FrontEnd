@@ -25,6 +25,9 @@ import useStyles from "./styles";
 import styled from "styled-components";
 import muiTheme from "theme/muiTheme";
 
+
+
+
 const Geofence: React.FC<any> = (props: any) => {
   const {
     is4kDevice,
@@ -223,49 +226,48 @@ const Geofence: React.FC<any> = (props: any) => {
   // };
 
   const MuiSwitchLarge = styled(Switch)(() => ({
-    width: "2.5vw",
-    height: "2.5vh",
-    padding: "0px",
-    borderRadius: "50px",
-    "& .MuiSwitch-switchBase": {
-      margin: 1,
+    width: 42,
+    height: 26,
+    padding: 0,
+    '& .MuiSwitch-switchBase': {
       padding: 0,
-      transform: "translateX(6px)",
-      [muiTheme.breakpoints.up(3839)]: {
-        left: "2px",
-        top: "8px",
-      },
-      [muiTheme.breakpoints.up(3071)]: {
-        top: "10px",
-        left: "-4px",
-      },
-      [muiTheme.breakpoints.down(3070)]: {
-        top: "4px",
-        left: "-4px",
-      },
-      "&.Mui-checked": {
-        transform: "translateX(30px)",
-        [muiTheme.breakpoints.up(3839)]: {
-          left: "22px",
-          top: "8px",
+      margin: 2,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          backgroundColor: '#65C466',
+          opacity: 1,
+          border: 0,
         },
-        [muiTheme.breakpoints.up(3071)]: {
-          top: "10px",
-          left: "10px",
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: 0.5,
         },
-        [muiTheme.breakpoints.down(3070)]: {
-          top: "4px",
-          left: "-4px",
-        },
+      },
+      '&.Mui-focusVisible .MuiSwitch-thumb': {
+        color: '#33cf4d',
+        border: '6px solid #fff',
+      },
+      '&.Mui-disabled .MuiSwitch-thumb': {
+        color: '#d7d7d7',
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity:1,
       },
     },
-    "& .MuiSwitch-thumb": {
-      width: "1vw",
-      height: "1.5vh",
-      position: "relative",
+    '& .MuiSwitch-thumb': {
+      boxSizing: 'border-box',
+      width: 22,
+      height: 22,
     },
-    "& .MuiSwitch-track": {
-      borderRadius: 20 / 2,
+    '& .MuiSwitch-track': {
+      borderRadius: 26 / 2,
+      backgroundColor:  '#39393D',
+      opacity: 1,
+      transition:{
+        duration: 500,
+      },
     },
   }));
   return (
@@ -275,7 +277,7 @@ const Geofence: React.FC<any> = (props: any) => {
           <div className={geofenceContainer}>
             <div className={geoFenceTitle}>{"Enabled Geofence"}</div>
             <div className={geofenceSwitch}>
-              <Switch size="medium" checked={checked} onChange={handleChange} />
+              <MuiSwitchLarge size="medium" checked={checked} onChange={handleChange} />
             </div>
           </div>
         ) : (
@@ -319,7 +321,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 <div className={assetsListItems}>
                   {searchSelectedData?.map((data: any) => {
                     return (
-                      <div style={{ padding: '0.5vw' }}>
+                      <div style={{ padding: '0.2vw' }}>
                         <Chip
                           label={data.label}
                           onDelete={handleDelete(data?.key)}

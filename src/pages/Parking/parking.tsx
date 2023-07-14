@@ -232,6 +232,7 @@ const Parking: React.FC<any> = (props) => {
   const handleLotSelction = () => {
     setParkingLotSelectionActive(true);
     setSelectedNotification("");
+    setSearchOpen(false)
   };
 
   const handleLotSelctionCloseIcon = () => {

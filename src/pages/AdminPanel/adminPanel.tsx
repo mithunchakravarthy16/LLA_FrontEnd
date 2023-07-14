@@ -21,8 +21,11 @@ import DefaultLogo from "../../assets/defaultLogo.svg";
 import logoutImg from "../../assets/login/logout.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 import FavIcon from "../../assets/favIcon.svg";
+import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
 
 const AdminPanel = () => {
+  const dispatch = useDispatch();
+
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -43,6 +46,9 @@ const AdminPanel = () => {
     useState<string>("");
   const [uploadFavIconLogo, setUploadFavIconLogo] = useState<string>("");
   const [uploadFinalFavIconLogo, setUploadFinalFavIconLogo] =
+    useState<string>("");
+  const [uploadFooterLogo, setUploadFooterLogo] = useState<string>("");
+  const [uploadFinalFooterLogo, setUploadFinalFooterLogo] =
     useState<string>("");
   const {} = useStyles(appTheme);
 
@@ -91,6 +97,7 @@ const AdminPanel = () => {
     spaceBottom,
     space,
     logoutSection,
+    logoPreviewEmpty
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -107,8 +114,10 @@ const AdminPanel = () => {
 
   const handleCloseUserMenu = () => {
     localStorage.removeItem("user");
-      localStorage.clear();
-      navigate("/login");
+    localStorage.clear();
+    dispatch(getUserLogout());
+    dispatch(setUserLogin({}));
+    navigate("/login");
   };
   useEffect(() => {
     setActivePage(0);
@@ -140,6 +149,9 @@ const AdminPanel = () => {
   // Footer Change
   const handleRadioChange = (event: any) => {
     setSelectRadio(event.target.value);
+    setFooterTitle("");
+    setUploadFooterLogo("");
+    setUploadFinalFooterLogo("");
   };
 
   // Footer Color Change
@@ -251,6 +263,34 @@ const AdminPanel = () => {
     setUploadFavIconLogo(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
+  // Footer Change
+
+  const onFooterChange = (value: string) => {
+    setUploadImage(true);
+    setUploadImageTitle(value);
+  };
+
+  const handleFooterCancelClick = () => {
+    setUploadImage(false);
+    setUploadFooterLogo("");
+  };
+
+  const handleFooterSaveClick = () => {
+    setUploadImage(false);
+    setUploadFinalFooterLogo(uploadFooterLogo);
+  };
+
+  const handleFooterChange = (event: any) => {
+    const file = event.target.files[0];
+    setUploadFooterLogo(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const dropDropFooter = (e: any) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files[0];
+    setUploadFooterLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+  };
+
   return (
     <>
       <Fragment>
@@ -298,9 +338,7 @@ const AdminPanel = () => {
                     );
                   })}
               </div>
-              <div
-                className={logoutSection} onClick={handleCloseUserMenu}
-              >
+              <div className={logoutSection} onClick={handleCloseUserMenu}>
                 <img src={logoutImg} />
                 <p>Logout</p>
               </div>
@@ -471,7 +509,7 @@ const AdminPanel = () => {
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
                             <img
-                              className={logoPreview}
+                              className={logoPreviewEmpty}
                               src={
                                 uploadFinalFavIconLogo
                                   ? uploadFinalFavIconLogo
@@ -521,7 +559,14 @@ const AdminPanel = () => {
                         <div className={fileUploadContent}>
                           <div className={logoPreviewWrapper}>
                             <div className={logoPreviewInnercontainer}>
-                              <img className={logoPreview} src={DefaultLogo} />
+                              <img
+                                className={logoPreview}
+                                src={
+                                  uploadFinalFooterLogo
+                                    ? uploadFinalFooterLogo
+                                    : DefaultLogo
+                                }
+                              />
                             </div>
                           </div>
                           <div>
@@ -529,7 +574,7 @@ const AdminPanel = () => {
                               style={{ textTransform: "none" }}
                               variant="contained"
                               className={updateButton}
-                              // onClick={() => onLogoChange("header")}
+                              onClick={() => onFooterChange("Footer")}
                             >
                               Upload
                             </Button>
@@ -585,6 +630,10 @@ const AdminPanel = () => {
             handleFavIconSaveClick={handleFavIconSaveClick}
             handleFavIconChange={handleFavIconChange}
             dropDropFavIcon={dropDropFavIcon}
+            handleFooterCancelClick={handleFooterCancelClick}
+            handleFooterSaveClick={handleFooterSaveClick}
+            handleFooterChange={handleFooterChange}
+            dropDropFooter={dropDropFooter}
           />
         )}
       </Fragment>
