@@ -32,7 +32,7 @@ import {
 import useStyles from "./styles";
 
 const Parking: React.FC<any> = (props) => {
-  const {dashboard, gridView, security} = useTranslation();
+  const {dashboard, gridView, lighting} = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -272,7 +272,7 @@ const Parking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            LIGHTING
+            {dashboard.lighting}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid
@@ -460,7 +460,7 @@ const Parking: React.FC<any> = (props) => {
                                 className={graphTwoHeader}
                                 style={{ height: "10%" }}
                               >
-                                Air Quality Index
+                                {lighting.airQualityIndex}
                               </Grid>
 
                               <Grid item xs={12}>

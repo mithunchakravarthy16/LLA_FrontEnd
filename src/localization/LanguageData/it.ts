@@ -51,6 +51,10 @@ export default {
     fleet: "flotta",
     trips: "viaggi",
     assets: "risorse",
+    runningUnits : "CORSA UNITÀ",
+    alertsText: "AVVISI",
+    smartLights : "LUCI INTELLIGENTI",
+    violations : "VIOLAZIONI"
   },
   gridView: {
     today: "Oggi",
@@ -115,10 +119,18 @@ export default {
     airQualityIndex: "Indice di qualità dell'aria"
   },
   fleetManagement: {
-    safetyScore: "Safety Score",
-    trips: "Trips",
-    distanceTravelled: "Distance Travelled",
-    driveHrs: "Drive Hrs",
-    idleHrs: "Idle Hours",
+    safetyScore: "Punteggio di sicurezza",
+    trips: "Viaggi",
+    distanceTravelled: "Distanza percorsa",
+    driveHrs: "Guidare ore",
+    idleHrs: "Ore di inattività",
+    harshAcceleration: "Brusca accelerazione",
+  },
+  assetsTracking: {
+    activeTrackers: "Tracker attivi",
+    activeTracker: "Localizzatore attivo",
+    inactiveTracker: "Tracker attivo",
+    incidents: "Incidenti",
+    assetsTracked: "Risorse monitorate",
   }
 };

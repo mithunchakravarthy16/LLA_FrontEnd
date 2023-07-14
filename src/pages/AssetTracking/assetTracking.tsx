@@ -12,6 +12,7 @@ import {
   OutOfGeofenceLightThemeIcon,
   IncidentLightThemeIcon,
 } from "../../assets/topPanelListIcons";
+import useTranslation from "localization/translations";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
@@ -36,6 +37,7 @@ import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
 
 const AssetTracking: React.FC<any> = (props) => {
+  const {dashboard, gridView, security, assetsTracking} = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -162,22 +164,22 @@ const AssetTracking: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? AssetTrackedLightThemeIcon : AssetTrackedIcon,
       value: overallAssetDetails?.assetTrackedCount,
-      name: "Asset Tracked",
+      name: assetsTracking.assetsTracked,
     },
     {
       icon: selectedTheme === "light" ? LocationLightThemeIcon : LocationIcon,
       value: overallAssetDetails?.locationChangeCount,
-      name: "Location",
+      name: gridView.location,
     },
     {
       icon: selectedTheme === "light" ? OutOfGeofenceLightThemeIcon : OutOfGeofenceIcon,
       value: overallAssetDetails?.outOfGeofenceCount,
-      name: "Out of Geofence",
+      name: `${gridView.outOf} ${gridView.geofence}`,
     },
     {
       icon: selectedTheme === "light" ? IncidentLightThemeIcon : IncidentIcon,
       value: overallAssetDetails?.incidientCount,
-      name: "Security Incident",
+      name: `${security.security} ${gridView.incidents}`,
     },
   ];
 
@@ -471,7 +473,7 @@ const AssetTracking: React.FC<any> = (props) => {
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
-            ASSET TRACKING
+            {dashboard.assetsTracking}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
             <Grid container xs={12} className={bodySubContainer}  style={{ height: "93vh" }}>
@@ -498,7 +500,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           strokeColor="#92C07E"
                           trailColor={appTheme?.palette?.fleetManagementPage
                             ?.progressBarBg}
-                          title={"Active Trackers"}
+                          title={assetsTracking.activeTrackers}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "100%" }}>
@@ -524,11 +526,11 @@ const AssetTracking: React.FC<any> = (props) => {
                                 className={graphTitleOneRound}
                                 style={{}}
                               ></div>
-                              <div>Active Tracker</div>
+                              <div>{assetsTracking.activeTracker}</div>
                             </div>
                             <div className={graphTitleTwoStyle}>
                               <div className={graphTitleTwoRound}></div>
-                              <div>In-Active Tracker</div>
+                              <div>{assetsTracking.inactiveTracker}</div>
                             </div>
                           </Grid>
                           {/* <Grid item xs={12} className={graphOneChartStyle}> */}
@@ -595,7 +597,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           style={{}}
                         >
                           <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center", fontSize : "0.8vw" }}  >
-                            Incidents
+                            {gridView.incidents}
                           </Grid>
                           {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
                           <Grid item xs={12}>

@@ -39,6 +39,10 @@ export default {
     electricityNoteLabel: "Electricity Consumed",
     tripsNoteLabel: "Trips Completed",
     assetsNoteLabel: "Location Changed",
+    runningUnits : "CORRER UNIDADES",
+    alertsText: "ALERTAS",
+    smartLights : "LUCES INTELIGENTES",
+    violations : "VIOLACIONES"
   },
   gridView: {
     today: "Today",
@@ -108,5 +112,13 @@ export default {
     distanceTravelled: "Distance Travelled",
     driveHrs: "Drive Hrs",
     idleHrs: "Idle Hours",
+    harshAcceleration: "Harsh Acceleration"
+  },
+  assetsTracking: {
+    activeTrackers: "Active Trackers",
+    activeTracker: "Active Tracker",
+    inactiveTracker: "In-Active Tracker",
+    incidents: "Incidents",
+    assetsTracked: "Assets Tracked",
   }
 };

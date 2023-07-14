@@ -102,23 +102,23 @@ const Card = ({
         },
       ],
       noteLabel: dashboard?.parkingNoteLabel,
-      noteValue: "19.5",
+      noteValue: "19.5Hrs",
       noteDifference: "+",
     },
     energy_management: {
       values: [
         {
-          label: dashboard.consumed,
-          value: 100,
-          suffix: "kWh",
+          label: dashboard?.runningUnits,
+          value: 20,
+          suffix: "",
         },
         {
           type: "splitter",
         },
         {
-          label: dashboard.savings,
-          value: 15,
-          suffix: "%",
+          label: dashboard?.alertsText,
+          value: "10",
+          suffix: "",
         },
       ],
       noteLabel: dashboard?.energyNoteLabel,
@@ -148,35 +148,35 @@ const Card = ({
     lighting: {
       values: [
         {
-          label: dashboard.electricity,
-          value: 16,
-          suffix: "kWh",
-        },
-        {
-          type: "splitter",
-        },
-        {
-          label: dashboard.data,
-          value: 1,
-          suffix: "TB",
-        },
-      ],
-      noteLabel: dashboard?.electricityNoteLabel,
-      noteValue: "16kWh",
-      noteDifference: "-",
-    },
-    fleet_management: {
-      values: [
-        {
-          label: dashboard.fleet,
-          value: 8,
+          label: dashboard?.smartLights,
+          value: 10,
           suffix: "",
         },
         {
           type: "splitter",
         },
         {
-          label: dashboard.trips,
+          label: dashboard?.alertsText,
+          value: 30,
+          suffix: "",
+        },
+      ],
+      noteLabel: dashboard?.electricityNoteLabel,
+      noteValue: "16kW",
+      noteDifference: "-",
+    },
+    fleet_management: {
+      values: [
+        {
+          label: dashboard?.fleet,
+          value: "08",
+          suffix: "",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard?.violations,
           value: 50,
           suffix: "",
         },
@@ -189,7 +189,7 @@ const Card = ({
       values: [
         {
           label: dashboard.assets,
-          value: 200,
+          value: 52,
           suffix: "",
         },
         {

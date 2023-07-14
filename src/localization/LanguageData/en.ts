@@ -34,7 +34,7 @@ export default {
     lighting: "LIGHTING",
     fleetManagement: "FLEET MANAGEMENT",
     assetsTracking: "ASSETS TRACKING",
-    parkingNoteLabel: "Drive hours saved",
+    parkingNoteLabel: "Drive Hours Saved",
     energyNoteLabel: "Energy Consumed",
     securityNoteLabel: "Security Breaches Avoided",
     electricityNoteLabel: "Electricity Consumed",
@@ -48,9 +48,13 @@ export default {
     alerts: "alerts",
     electricity: "electricity",
     data: "data",
-    fleet: "fleet",
+    fleet: "fleets",
     trips: "trips",
     assets: "assets",
+    runningUnits : "RUNNING UNITS",
+    alertsText: "ALERTS",
+    smartLights : "SMART LIGHTS",
+    violations : "VIOLATIONS"
   },
   gridView: {
     today: "Today",
@@ -100,7 +104,7 @@ export default {
   },
   parking: {
     parkingViolation: "Parking Violation",
-    all: "Tutto"
+    all: "All"
   },
   security: {
     security: "Security",
@@ -120,5 +124,13 @@ export default {
     distanceTravelled: "Distance Travelled",
     driveHrs: "Drive Hrs",
     idleHrs: "Idle Hours",
+    harshAcceleration: "Harsh Acceleration"
+  },
+  assetsTracking: {
+    activeTrackers: "Active Trackers",
+    activeTracker: "Active Tracker",
+    inactiveTracker: "In-Active Tracker",
+    incidents: "Incidents",
+    assetsTracked: "Assets Tracked",
   }
 };
