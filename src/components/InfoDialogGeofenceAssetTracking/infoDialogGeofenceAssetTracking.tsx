@@ -109,6 +109,52 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
   const [selectedAssetValue, setSelectedAssetValue] = useState<any>("");
   const [searchData, setSearchData] = useState<any>([]);
   const [searchSelectedData, setSearchSelectedData] = useState<any>([]);
+  const [selectAssetsList, setSelectAssetsList] = useState<any>([]);
+
+  useEffect(() => {
+    setSelectAssetsList([
+      {
+        label: "Assets#1",
+        value: "Assets#1",
+        location: {
+          lat: 39.755724996944544,
+          lng: -105.0073944803513,
+        },
+      },
+      {
+        label: "Assets#2",
+        value: "Assets#2",
+        location: {
+          lat: 39.75555358586086,
+          lng: -105.01657322197286,
+        },
+      },
+      {
+        label: "Assets#3",
+        value: "Assets#3",
+        location: {
+          lat: 39.75729624533388,
+          lng: -104.9895572496697,
+        },
+      },
+      {
+        label: "Assets#4",
+        value: "Assets#4",
+        location: {
+          lat: 39.75932453116013,
+          lng: -105.01244836237774,
+        },
+      },
+      {
+        label: "Assets#5",
+        value: "Assets#5",
+        location: {
+          lat: 39.75986730174264,
+          lng: -105.00059403615393,
+        },
+      },
+    ]);
+  }, []);
 
   const handleClose = () => {
     setOpen(!open);
@@ -265,49 +311,6 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
 
   const handleSaveClick = () => {};
 
-  const selectAssetsList = [
-    {
-      label: "Assets#1",
-      value: "Assets#1",
-      location: {
-        lat: 39.755724996944544,
-        lng: -105.0073944803513,
-      },
-    },
-    {
-      label: "Assets#2",
-      value: "Assets#2",
-      location: {
-        lat: 39.75555358586086,
-        lng: -105.01657322197286,
-      },
-    },
-    {
-      label: "Assets#3",
-      value: "Assets#3",
-      location: {
-        lat: 39.75729624533388,
-        lng: -104.9895572496697,
-      },
-    },
-    {
-      label: "Assets#4",
-      value: "Assets#4",
-      location: {
-        lat: 39.75932453116013,
-        lng: -105.01244836237774,
-      },
-    },
-    {
-      label: "Assets#5",
-      value: "Assets#5",
-      location: {
-        lat: 39.75986730174264,
-        lng: -105.00059403615393,
-      },
-    },
-  ];
-
   const selectAssetsList1 = [
     {
       label: "Assets#1",
@@ -360,7 +363,6 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
         .toLowerCase()
         .includes(e.target.value?.toString().toLowerCase());
     });
-
     setSearchData(searchResult);
   };
 
@@ -370,7 +372,10 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
       label: obj?.value,
       location: obj?.location,
     };
-
+    const selectedData = selectAssetsList.filter(
+      (item: any) => item.value === obj?.value
+    );
+    setSelectAssetsList(selectedData);
     setSearchSelectedData([...searchSelectedData, data]);
     setSearchData((prev: any) => {
       return prev.filter((item: any) => item?.value !== obj?.value);
@@ -385,6 +390,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     const removedData = searchSelectedData?.filter(
       (item: any) => item?.key !== key
     );
+    setSelectAssetsList([...selectAssetsList, ...deletedData]);
     setSearchSelectedData(removedData);
     setSearchData([...searchData, ...deletedData]);
   };
