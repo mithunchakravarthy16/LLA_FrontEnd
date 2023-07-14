@@ -2,17 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import GridViewScreenOne from "components/GridViewScreens/GridViewScreenOne";
-import GridViewScreenTwo from "components/GridViewScreens/GridViewScreenTwo";
-import GridViewScreenThree from "components/GridViewScreens/GridViewScreenThree";
-import GridViewScreenFour from "components/GridViewScreens/GridViewScreenFour";
-import GridViewScreenFive from "components/GridViewScreens/GridViewScreenFive";
-import GridViewScreenSix from "components/GridViewScreens/GridViewScreenSix";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
-const GridView: React.FC<any> = (props) => {
+const BirdsView: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -56,4 +50,4 @@ const GridView: React.FC<any> = (props) => {
   );
 };
 
-export default GridView;
+export default BirdsView;
