@@ -86,7 +86,7 @@ export const ColorlibStepIconRoot = styled("div")<
     // width: 50,
     // height: 50,
     backgroundImage: `url("${PackageActiveIcon}")`,
-    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+    boxShadow: "none",
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
     backgroundColor: "transparent",
