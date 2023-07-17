@@ -53,6 +53,7 @@ let theme = {
         verticalBarLabelColor: colorCodes?.silverGray,
         todayTitleTextColor: colorCodes?.greenColorShades,
         todayTitleBgColor: "unset",
+        lightingGridProgressBarTrackBase: colorCodes?.darkGrayBrownShade,
       },
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
@@ -236,6 +237,7 @@ let theme = {
         verticalBarLabelColor: colorCodes?.mdGray,
         todayTitleTextColor: colorCodes?.redColorShades,
         todayTitleBgColor: colorCodes?.redColorShades2,
+        lightingGridProgressBarTrackBase: colorCodes?.lightGrayProgressBar,
       },
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
@@ -414,6 +416,7 @@ let theme = {
         verticalBarLabelColor: colorCodes?.silverGray,
         todayTitleTextColor: colorCodes?.greenColorShades,
         todayTitleBgColor: "unset",
+        lightingGridProgressBarTrackBase: colorCodes?.darkGrayBrownShade,
       },
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
