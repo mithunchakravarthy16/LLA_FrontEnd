@@ -74,7 +74,7 @@ const AdminPanelLogin = () => {
     eyeOff,
     radioButtonSection,
     forgotPassword,
-    atttherate
+    atttherate,
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -138,8 +138,7 @@ const AdminPanelLogin = () => {
           container
           direction="row"
           justifyContent="center"
-          alignItems="center"
-        >
+          alignItems="center">
           <Grid
             item
             xs={12}
@@ -147,8 +146,7 @@ const AdminPanelLogin = () => {
             md={12}
             lg={12}
             xl={12}
-            className={loginBannerSection}
-          >
+            className={loginBannerSection}>
             <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>
@@ -188,7 +186,6 @@ const AdminPanelLogin = () => {
                                 autocomplete: "off",
                               },
                             }}
-                            
                           />
                           <img className={atttherate} src={AttherateIcon} />
                           {formik.errors.userid && formik.touched.userid && (
@@ -216,13 +213,12 @@ const AdminPanelLogin = () => {
                                 autocomplete: "off",
                               },
                             }}
-                            
                           />
                           <img
-                                className={eyeOff}
-                                src={showPassword ? OpenEyeIcon : EyeOff}
-                                onClick={handlePasswordVisibility}
-                              />
+                            className={eyeOff}
+                            src={showPassword ? OpenEyeIcon : EyeOff}
+                            onClick={handlePasswordVisibility}
+                          />
                           {formik.errors.password &&
                             formik.touched.password && (
                               <p className={formikErrorClass}>
@@ -231,14 +227,6 @@ const AdminPanelLogin = () => {
                             )}
                         </div>
                       </div>
-                      <div className={radioButtonSection}>
-                    <FormControlLabel
-                      value="rememberMe"
-                      control={<Radio />}
-                      label="Remember me"
-                    />
-                    <p className={forgotPassword}>Forgot Password?</p>
-                  </div>
                       <div className={loginButton}>
                         <Button variant="contained" fullWidth type="submit">
                           {"Login"}
