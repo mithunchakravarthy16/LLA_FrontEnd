@@ -209,7 +209,7 @@ const NotificationListItems = (props: any) => {
                   <div className={markerCloseIcon1}  onClick={handleMarkerClose}>
                     <img
                       src={
-                        selectedTheme === "light"
+                        selectedTheme === "light" 
                           ? FleetCalloutCloseIcon
                           : FleetManagementCloseIcon
                       }
