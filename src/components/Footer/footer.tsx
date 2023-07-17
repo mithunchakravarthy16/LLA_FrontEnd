@@ -38,7 +38,7 @@ const Footer = (props: any) => {
     footerCopyrightsImg,
   } = useStyles(appTheme);
 
-  const { poweredByText, allRightsReservedText, titleText, subTitleText } =
+  const { footerText} =
     useTranslation();
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -62,8 +62,7 @@ const Footer = (props: any) => {
         <div>
           {pageName === "dashboard" ? (
             <p>
-              powered by Liberty Latin America | Sensyon | © 2023 | All Rights
-              Reserved
+              {footerText}
             </p>
           ) : (
             <img className={footerCopyrightsImg} src={FooterCopyrights} />

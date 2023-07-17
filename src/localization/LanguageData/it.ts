@@ -1,4 +1,6 @@
 export default {
+  footerText: `alimentato da Liberty America Latina | Sension | © 2023 | Tutti i diritti
+  Riservato`,
   helloInfinite: "Hola Infinite",
   changeTheme: "Cambia Tema",
   changeLang: "Change Lingua",

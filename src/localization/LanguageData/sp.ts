@@ -1,4 +1,6 @@
 export default {
+  footerText: `impulsado por Liberty Latinoamérica | Sensión | © 2023 | Todos los derechos
+  Reservado`,
   changeTheme: "Change Theme",
   changeLang: "Change Language",
   title: "Hello Infinite English",

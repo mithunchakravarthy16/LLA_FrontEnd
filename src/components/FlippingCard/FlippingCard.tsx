@@ -225,6 +225,7 @@ const Card = ({
       }
     >
       <SkewContainer
+        isFocused={focusedCategory === card.category}
         style={{
           transform: containerTransform.transform,
           opacity: containerTransform.opacity.to((o) => 1 - o),

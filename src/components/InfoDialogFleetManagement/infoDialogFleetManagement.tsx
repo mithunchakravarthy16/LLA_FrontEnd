@@ -404,7 +404,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
 
         <Grid container xs={12} style={{ height: "100%" }}>
           <Grid item xs={12} className={headerStyle}>
-            <Grid container xs={7} className={headerTabContainerStyle}>
+            <Grid container xs={5} className={headerTabContainerStyle}>
               {tabsList?.map((item: any) => (
                 <Grid
                   item
@@ -635,7 +635,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={75}
                               totalValue={110}
-                              label={fleetManagement.drivingScore.substring(0, 15) + "..."}
+                              label={fleetManagement.drivingScore.substring(0, 15) + (fleetManagement.drivingScore.length ? "..." : "")}
                               icon="driving-score"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -660,7 +660,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={"02"}
                               totalValue={15}
-                              label={fleetManagement.harshAcceleration.substring(0, 15) + "..."}
+                              label={fleetManagement.harshAcceleration.substring(0, 15) + (fleetManagement.harshAcceleration.length ? "..." : "")}
                               icon="harsh-acceleration"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -685,7 +685,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={"02"}
                               totalValue={15}
-                              label={fleetManagement.cornering.substring(0, 15) + "..."}
+                              label={fleetManagement.cornering.substring(0, 15) + (fleetManagement.cornering.length ? "..." : "")}
                               icon="corner"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -710,7 +710,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={"05"}
                               totalValue={15}
-                              label={gridView.overspeeding.substring(0, 15) + "..."}
+                              label={gridView.overspeeding.substring(0, 15) + (gridView.overspeeding.length ? "..." : "")}
                               icon="overspeeding-new"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -735,7 +735,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={"01"}
                               totalValue={7}
-                              label={gridView.harshBreaking.substring(0, 15) + "..."}
+                              label={gridView.harshBreaking.substring(0, 15) + (gridView.harshBreaking.length > 15 ? "..." : "")}
                               icon="harsh-braking"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -760,7 +760,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={"00"}
                               totalValue={15}
-                              label={fleetManagement.distraction.substring(0, 15) + "..."}
+                              label={fleetManagement.distraction.substring(0, 15) + (fleetManagement.distraction.length ? "..." : "")}
                               icon="distraction"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -785,7 +785,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={75}
                               totalValue={110}
-                              label={fleetManagement.idleHrs.substring(0, 15) + "..."}
+                              label={fleetManagement.idleHrs.substring(0, 15) + (fleetManagement.idleHrs.length ? "..." : "")}
                               icon="idle-hours"
                               rotate={getSpeedometerDimensions().rotate}
                               cut={getSpeedometerDimensions().cut}
@@ -810,7 +810,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               radius={getSpeedometerDimensions().radius}
                               currentValue={75}
                               totalValue={110}
-                              label={fleetManagement.fatigueLevel.substring(0, 15) + "..."}
+                              label={fleetManagement.fatigueLevel.substring(0, 15) + (fleetManagement.fatigueLevel.length ? "..." : "")}
                               textValue="Very Active"
                               icon="fatigue"
                               rotate={getSpeedometerDimensions().rotate}

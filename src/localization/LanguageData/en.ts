@@ -1,4 +1,6 @@
 export default {
+  footerText: `powered by Liberty Latin America | Sensyon | © 2023 | All Rights
+  Reserved`,
   helloInfinite: "Hello Infinite",
   changeTheme: "Change Theme",
   changeLang: "Change Language",

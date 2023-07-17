@@ -143,7 +143,7 @@ const SideBar = (props: SideBarProps) => {
     logoutImg,
     logoutText,
     menuLogoLightThemeSection,
-  } = useStyles({...appTheme, selectedTheme: selectedTheme});
+  } = useStyles({ ...appTheme, selectedTheme: selectedTheme });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -222,8 +222,8 @@ const SideBar = (props: SideBarProps) => {
           </div>
         )} */}
         <div className={menuLogoLightThemeSection}>
-            <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
-          </div>
+          <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
+        </div>
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
             return (
@@ -234,15 +234,13 @@ const SideBar = (props: SideBarProps) => {
                 onClick={(event) =>
                   handleClick(event, item.id, item.path, item?.title)
                 }
-                key={index}
-              >
+                key={index}>
                 <Tooltip
                   tooltipValue={item?.title}
                   placement={"right"}
                   offset={tooltipOfset}
                   fontSize={fontSize}
-                  padding={padding}
-                >
+                  padding={padding}>
                   <img src={item.image} />
                 </Tooltip>
               </div>
@@ -265,27 +263,16 @@ const SideBar = (props: SideBarProps) => {
           />
           <Menu
             className={customMenu}
-            elevation={0}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
             anchorEl={anchorElUser}
             open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
+            onClose={handleCloseUserMenu}>
             {menuOptions &&
               menuOptions.length > 0 &&
               menuOptions.map((menuOptions) => (
                 <MenuItem
-                id="demo-customized-menu"
+                  id="demo-customized-menu"
                   key={menuOptions}
-                  onClick={() => handleCloseUserMenu(menuOptions)}
-                >
+                  onClick={() => handleCloseUserMenu(menuOptions)}>
                   <div className={logoutSection}>
                     {menuOptions && menuOptions === "Logout" ? (
                       <img className={logoutImg} src={Logout} alt="Logout" />

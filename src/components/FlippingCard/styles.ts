@@ -146,16 +146,23 @@ export const RootContainer = styled("div")`
   }
 `;
 
-export const SkewContainer = styled(a.div)<{ isOpen?: boolean }>`
-  background: ${(currentTheme?.palette?.flippingCard.background)};
+export const SkewContainer = styled(a.div)<{isFocused?: boolean}>`
+  background: ${({isFocused}) => (isFocused?currentTheme?.palette?.flippingCard.hoverBackground:currentTheme?.palette?.flippingCard.background)};
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+
+  &:hover {
+    background-color: ${(currentTheme?.palette?.flippingCard?.hoverBackground)};
+  }
 `;
 
 export const SkewBackContainer = styled(SkewContainer)`
+  &:hover {
+    background-color: ${(currentTheme?.palette?.flippingCard?.hoverBackground)};
+  }
   background: linear-gradient(243.97deg, #cd5209 10.07%, #c8151d 112.41%);
 `;
 
