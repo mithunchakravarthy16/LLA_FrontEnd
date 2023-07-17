@@ -227,9 +227,9 @@ const Login = () => {
                           {loginNowButton}
                         </Button>
                       </div>
-                      <div className={adminPanel} onClick={handleAdminPanel}>
+                      {/* <div className={adminPanel} onClick={handleAdminPanel}>
                         Admin Panel
-                      </div>
+                      </div> */}
                     </form>
                   </Box>
                 </Grid>

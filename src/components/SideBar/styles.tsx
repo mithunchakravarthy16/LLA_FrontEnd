@@ -444,13 +444,21 @@ const useStyles = makeStyles({
       left: "4.5% !important",
       top: "-1.5% !important",
     },
+    [muiTheme.breakpoints.down(3073)]: {
+      left: "4.5% !important",
+      top: "-1% !important",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      left: "4.5% !important",
+      top: "-0.5% !important",
+    },
     [muiTheme.breakpoints.down(1921)]: {
       left: "4% !important",
-      top: "-3.5% !important",
+      top: "-0.3% !important",
     },
     [muiTheme.breakpoints.down(1793)]: {
       left: "4% !important",
-      top: "-2.9% !important",
+      top: "-0% !important",
     },
     left: "4% !important",
     top: "-3.5% !important",
@@ -461,7 +469,7 @@ const useStyles = makeStyles({
       borderRadius: "12px !important",
       border: `2px solid ${props?.palette?.header?.menuBorder}`,
       boxShadow: `0px 4px 15px ${props?.palette?.header?.boxShadow}`,
-      maxWidth: "157px",
+      width: "6vw",
     },
     "& .MuiPaper-root": {
       background: "none !important",
@@ -470,8 +478,8 @@ const useStyles = makeStyles({
     },
     "& .MuiList-root": {
       "&::after": {
-        width: "10%",
-        height: "25%",
+        width: "25px",
+        height: "25px",
         content: '""',
         transform: "rotate(135deg)",
         boxSizing: "border-box",
@@ -506,12 +514,9 @@ const useStyles = makeStyles({
   }),
 
   logoutText: (props: any) => ({
-    [muiTheme.breakpoints.up(3839)]: {
-      fontSize: "25px !important",
-    },
-    fontSize: "14px !important",
+    fontSize: "0.7000000000000001vw !important",
     fontWeight: "700 !important",
-    fontFamily: "Poppins !important",
+    fontFamily: "HelveticaNeue-Regular !important",
     color: props?.palette?.header?.subTitle2,
   }),
 });
