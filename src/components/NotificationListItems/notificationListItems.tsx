@@ -103,7 +103,14 @@ const NotificationListItems = (props: any) => {
     collapsedListItemTitle,
     collapsedListItemSubTitle,
     collapsedTimeStampStyle,
-  } = useStyles({ ...appTheme, pageName: pageName, mapPageName: mapPageName, notificationPageName:notificationPageName });
+    markerVideoIcon
+  } = useStyles({
+    ...appTheme,
+    pageName: pageName,
+    mapPageName: mapPageName,
+    notificationPageName: notificationPageName,
+    
+  });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -138,7 +145,11 @@ const NotificationListItems = (props: any) => {
                   <div className={listItemTitle}>{title}</div>
                   <div className={markerCloseIcon} onClick={handleMarkerClose}>
                     <img
-                      src={selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon}
+                      src={
+                        selectedTheme === "light"
+                          ? CalloutCloaseIcon
+                          : CloseIcon
+                      }
                       width={selectedWidth?.is4kDevice ? 40 : 20}
                       height={selectedWidth?.is4kDevice ? 40 : 20}
                     />
@@ -172,7 +183,9 @@ const NotificationListItems = (props: any) => {
                 <div className={collapsedListItemSubTitle}>
                   {trackerId && trackerId} {assetId && ` | ${assetId}`}
                 </div>
-                <div className={collapsedTimeStampStyle}>{currentTimeStamp}</div>
+                <div className={collapsedTimeStampStyle}>
+                  {currentTimeStamp}
+                </div>
               </div>
             </div>
           )}
@@ -193,9 +206,13 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItems}>
               {pageName === "markerCallout" ? (
                 <>
-                  <div className={markerCloseIcon1} onClick={handleMarkerClose}>
+                  <div className={markerCloseIcon1}  onClick={handleMarkerClose}>
                     <img
-                      src={selectedTheme === "light" ? FleetCalloutCloseIcon :  FleetManagementCloseIcon}
+                      src={
+                        selectedTheme === "light"
+                          ? FleetCalloutCloseIcon
+                          : FleetManagementCloseIcon
+                      }
                       width={selectedWidth?.is4kDevice ? 20 : 10}
                       height={selectedWidth?.is4kDevice ? 20 : 10}
                     />
@@ -203,7 +220,7 @@ const NotificationListItems = (props: any) => {
                   <div className={listItemCallout}>
                     <div className={listItemTitle}>{title}</div>
                     <div
-                      className={markerCloseIcon}
+                      className={markerVideoIcon}
                       onClick={(e: any) => handleVideoDetails(e, data)}
                     >
                       <img
@@ -263,7 +280,9 @@ const NotificationListItems = (props: any) => {
                 <div className={collapsedListItemSubTitle}>
                   {`Vehicle#${vehicleId} , Driver-${assetId}`}
                 </div>
-                <div className={collapsedTimeStampStyle}>{"06-12-2023 | 9:00 AM"}</div>
+                <div className={collapsedTimeStampStyle}>
+                  {"06-12-2023 | 9:00 AM"}
+                </div>
               </div>
             </div>
           )}
@@ -272,7 +291,7 @@ const NotificationListItems = (props: any) => {
     );
   }
 
-  if(category === "security" ||category === "lighting" ) {
+  if (category === "security" || category === "lighting") {
     return (
       <>
         <div
@@ -284,10 +303,19 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItems}>
               {pageName === "markerCallout" ? (
                 <div className={listItemCallout}>
-                  <div className={listItemTitle} style={{ marginBottom : "0 !important"}}>{title}</div>
+                  <div
+                    className={listItemTitle}
+                    style={{ marginBottom: "0 !important" }}
+                  >
+                    {title}
+                  </div>
                   <div className={markerCloseIcon} onClick={handleMarkerClose}>
                     <img
-                      src={selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon} 
+                      src={
+                        selectedTheme === "light"
+                          ? CalloutCloaseIcon
+                          : CloseIcon
+                      }
                       width={selectedWidth?.is4kDevice ? 40 : 20}
                       height={selectedWidth?.is4kDevice ? 40 : 20}
                     />
@@ -297,13 +325,13 @@ const NotificationListItems = (props: any) => {
                 <div className={listItemTitle}>{title}</div>
               )}
               <div className={expandedListItemRow2}>{area}</div>
-             
+
               <div className={expandedListItemRow3}>
                 {equipment && `${equipment} | `}
-                {  subTitle ? subTitle : area && area}
+                {subTitle ? subTitle : area && area}
               </div>
               {/* {(category !== "outdoor" && venue) && <div className={expandedListItemRow3}>{venue}</div>} */}
-  
+
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
                   <Button variant="contained" handleClick={() => null}>
@@ -321,7 +349,9 @@ const NotificationListItems = (props: any) => {
                   {equipment && `${equipment} | `}
                   {subTitle ? subTitle : area}
                 </div>
-                <div className={collapsedTimeStampStyle}>{currentTimeStamp}</div>
+                <div className={collapsedTimeStampStyle}>
+                  {currentTimeStamp}
+                </div>
               </div>
             </div>
           )}
@@ -344,7 +374,9 @@ const NotificationListItems = (props: any) => {
                 <div className={listItemTitle}>{title}</div>
                 <div className={markerCloseIcon} onClick={handleMarkerClose}>
                   <img
-                    src={selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon} 
+                    src={
+                      selectedTheme === "light" ? CalloutCloaseIcon : CloseIcon
+                    }
                     width={selectedWidth?.is4kDevice ? 40 : 20}
                     height={selectedWidth?.is4kDevice ? 40 : 20}
                   />
@@ -353,16 +385,19 @@ const NotificationListItems = (props: any) => {
             ) : (
               <div className={listItemTitle}>{title}</div>
             )}
-            {category !== "fleet" && <div className={expandedListItemRow2}>
-              {category === "parking" ? `Vehicle  : ${entity}` : `${area}`}{" "}
-            </div>
-            }
-            
+            {category !== "fleet" && (
+              <div className={expandedListItemRow2}>
+                {category === "parking" ? `Vehicle  : ${entity}` : `${area}`}{" "}
+              </div>
+            )}
+
             <div className={expandedListItemRow3}>
               {equipment && `${equipment} | `}
-              {  subTitle ? subTitle : area && area}
+              {subTitle ? subTitle : area && area}
             </div>
-            {(category !== "outdoor" && venue) && <div className={expandedListItemRow3}>{venue}</div>}
+            {category !== "outdoor" && venue && (
+              <div className={expandedListItemRow3}>{venue}</div>
+            )}
 
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>
