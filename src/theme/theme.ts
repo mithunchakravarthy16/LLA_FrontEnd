@@ -88,6 +88,7 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
+        hoverBackground: colorCodes?.flippingCardBgDark,
       },
       fleetManagementPage: {
         pageBg: colorCodes?.blackShades,
@@ -213,6 +214,7 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
         textColor: colorCodes?.darkBlackShade,
+        hoverBackground: colorCodes?.flippingCardHoverLight,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
@@ -391,6 +393,7 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
+        hoverBackground: colorCodes?.flippingCardBgDark,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
