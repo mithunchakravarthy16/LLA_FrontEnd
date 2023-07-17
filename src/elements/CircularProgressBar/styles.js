@@ -12,7 +12,7 @@ export const RootContainer = styled('div')`
 
 export const LabelText = styled('div')`
     font-size: 0.8vw;
-    margin-top: 0.5vw;
+    /* margin-top: 0.5vw; */
     color: #8A8A8A;
     font-family: 'HelveticaNeue-Regular';
 `;
@@ -20,7 +20,7 @@ export const LabelText = styled('div')`
 export const LabelContainer = styled("div")`
     position: relative;
     z-index: 1000;
-    margin-top: -35px;
+    margin-top: -2.4vw;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ export const IconBackDrop = styled("div")`
     }};
     width: fit-content;
     padding: 15px;
-    padding-bottom: 0px;
+    /* padding-bottom: 0px; */
 `;
 
 export const ValueContainer = styled("div")`
