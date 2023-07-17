@@ -134,7 +134,7 @@ export default {
     tripCompletion: "Trip Completion",
     distanceCovered: "Distance Covered",
     totalTime: "Total Time",
-    violations: "Vioalations",
+    violations: "Violations",
     cornering: "Cornering",
     distraction: "Distraction",
     fatigueLevel: "Fatigue Level",
