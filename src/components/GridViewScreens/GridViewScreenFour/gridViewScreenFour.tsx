@@ -224,7 +224,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                             height: selectedWidth?.is4kDevice
                               ? "35.92px"
                               : "15px",
-                            backgroundColor: "#484D52",
+                            backgroundColor: appTheme?.palette?.gridViewComponentCommonStyle?.lightingGridProgressBarTrackBase, // "#484D52",
                             borderRadius: selectedWidth?.is4kDevice
                               ? "20px"
                               : "7.5px",
