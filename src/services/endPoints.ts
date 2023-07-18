@@ -19,12 +19,12 @@ const VERSION = {
 };
 
 const apiSource = {
-  viot: "/smartlogistics",
+  lla: "/api/sensyon/users",
 };
 
 const SUB_URL = {
-  loginUrl: apiSource.viot + VERSION.v1 + "/login",
-  logoutUrl: apiSource.viot + VERSION.v1 + "/userLogout",
+  loginUrl: apiSource.lla + VERSION.v1 + "/login",
+  logoutUrl: apiSource.lla + VERSION.v1 + "/userLogout",
   adminPanelSaveUrl: "/api/sensyon/admin/saveconfiguration",
 };
 
