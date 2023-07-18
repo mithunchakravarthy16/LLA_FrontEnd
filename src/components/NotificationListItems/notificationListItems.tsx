@@ -10,6 +10,8 @@ import VideoIcon from "../../assets/videoIcon.svg";
 import FleetManagementCloseIcon from "../../assets/fleetManagementCloseIcon.svg";
 import CalloutCloaseIcon from "../../assets/calloutCloaseIcon.svg";
 import FleetCalloutCloseIcon from "../../assets/fleetCalloutCloseIcon.svg";
+import VideoLightIcon from "../../assets/videoLightIcon.svg";
+import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
 
 const NotificationListItems = (props: any) => {
@@ -43,7 +45,7 @@ const NotificationListItems = (props: any) => {
     handleAssetViewDetails,
     handleVideoDetails,
     mapPageName,
-    notificationPageName
+    notificationPageName,
   } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -103,13 +105,12 @@ const NotificationListItems = (props: any) => {
     collapsedListItemTitle,
     collapsedListItemSubTitle,
     collapsedTimeStampStyle,
-    markerVideoIcon
+    markerVideoIcon,
   } = useStyles({
     ...appTheme,
     pageName: pageName,
     mapPageName: mapPageName,
     notificationPageName: notificationPageName,
-    
   });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -206,10 +207,10 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItems}>
               {pageName === "markerCallout" ? (
                 <>
-                  <div className={markerCloseIcon1}  onClick={handleMarkerClose}>
+                  <div className={markerCloseIcon1} onClick={handleMarkerClose}>
                     <img
                       src={
-                        selectedTheme === "light" 
+                        selectedTheme === "light"
                           ? FleetCalloutCloseIcon
                           : FleetManagementCloseIcon
                       }
@@ -224,7 +225,11 @@ const NotificationListItems = (props: any) => {
                       onClick={(e: any) => handleVideoDetails(e, data)}
                     >
                       <img
-                        src={VideoIcon}
+                        src={
+                          selectedTheme === "light"
+                            ? VideoLightListIcon
+                            : VideoIcon
+                        }
                         width={selectedWidth?.is4kDevice ? 55 : 20}
                         height={selectedWidth?.is4kDevice ? 55 : 20}
                       />
@@ -236,7 +241,11 @@ const NotificationListItems = (props: any) => {
                   <div className={listItemTitle}>{title}</div>
                   <div onClick={(e: any) => handleVideoDetails(e, data)}>
                     <img
-                      src={VideoIcon}
+                      src={
+                        selectedTheme === "light"
+                          ? VideoLightListIcon
+                          : VideoIcon
+                      }
                       width={selectedWidth?.is4kDevice ? 55 : 20}
                       height={selectedWidth?.is4kDevice ? 55 : 20}
                     />
@@ -270,7 +279,7 @@ const NotificationListItems = (props: any) => {
                   onClick={(e: any) => handleVideoDetails(e, data)}
                 >
                   <img
-                    src={VideoIcon}
+                    src={selectedTheme === "light" ? VideoLightIcon : VideoIcon}
                     width={selectedWidth?.is4kDevice ? 55 : 20}
                     height={selectedWidth?.is4kDevice ? 55 : 20}
                   />

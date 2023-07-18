@@ -18,6 +18,8 @@ import CircleActiveIcon from "../../assets/Circular_Active.svg";
 import CircleInActiveIcon from "../../assets/Circular_InActive.svg";
 import PolygonActiveIcon from "../../assets/Polygon_Active.svg";
 import PolygonInActiveIcon from "../../assets/Polygon_Inactive.svg";
+import CircleLightInactiveIcon from "../../assets/circleLightIcon.svg";
+import PolygonLightInactiveIcon from "../../assets/polygonLightIcon.svg";
 import useTranslation from "../../localization/translations";
 import ExclamationIcon from "../../assets/exclamationIcon.svg";
 import customTheme from "../../theme/theme";
@@ -25,11 +27,8 @@ import useStyles from "./styles";
 import styled from "styled-components";
 import muiTheme from "theme/muiTheme";
 
-
-
-
 const Geofence: React.FC<any> = (props: any) => {
-  const {assetsTracking} = useTranslation();
+  const { assetsTracking } = useTranslation();
   const {
     is4kDevice,
     setIsCircleDrawing,
@@ -97,6 +96,7 @@ const Geofence: React.FC<any> = (props: any) => {
     assetsList,
     assetsListItems,
     mainGeofenceContainer,
+    assetsLists,
   } = useStyles(appTheme);
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -230,43 +230,43 @@ const Geofence: React.FC<any> = (props: any) => {
     width: 42,
     height: 26,
     padding: 0,
-    '& .MuiSwitch-switchBase': {
+    "& .MuiSwitch-switchBase": {
       padding: 0,
       margin: 2,
-      transitionDuration: '300ms',
-      '&.Mui-checked': {
-        transform: 'translateX(16px)',
-        color: '#fff',
-        '& + .MuiSwitch-track': {
-          backgroundColor: '#65C466',
+      transitionDuration: "300ms",
+      "&.Mui-checked": {
+        transform: "translateX(16px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor: "#65C466",
           opacity: 1,
           border: 0,
         },
-        '&.Mui-disabled + .MuiSwitch-track': {
+        "&.Mui-disabled + .MuiSwitch-track": {
           opacity: 0.5,
         },
       },
-      '&.Mui-focusVisible .MuiSwitch-thumb': {
-        color: '#33cf4d',
-        border: '6px solid #fff',
+      "&.Mui-focusVisible .MuiSwitch-thumb": {
+        color: "#33cf4d",
+        border: "6px solid #fff",
       },
-      '&.Mui-disabled .MuiSwitch-thumb': {
-        color: '#d7d7d7',
+      "&.Mui-disabled .MuiSwitch-thumb": {
+        color: "#d7d7d7",
       },
-      '&.Mui-disabled + .MuiSwitch-track': {
-        opacity:1,
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: 1,
       },
     },
-    '& .MuiSwitch-thumb': {
-      boxSizing: 'border-box',
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
       width: 22,
       height: 22,
     },
-    '& .MuiSwitch-track': {
+    "& .MuiSwitch-track": {
       borderRadius: 26 / 2,
-      backgroundColor:  '#39393D',
+      backgroundColor: "#39393D",
       opacity: 1,
-      transition:{
+      transition: {
         duration: 500,
       },
     },
@@ -276,9 +276,15 @@ const Geofence: React.FC<any> = (props: any) => {
       <div className={isGeofence ? mainGeofenceContainer : mainContainer}>
         {!isGeofence ? (
           <div className={geofenceContainer}>
-            <div className={geoFenceTitle}>{assetsTracking.enabledGeofence}</div>
+            <div className={geoFenceTitle}>
+              {assetsTracking.enabledGeofence}
+            </div>
             <div className={geofenceSwitch}>
-              <MuiSwitchLarge size="medium" checked={checked} onChange={handleChange} />
+              <MuiSwitchLarge
+                size="medium"
+                checked={checked}
+                onChange={handleChange}
+              />
             </div>
           </div>
         ) : (
@@ -290,7 +296,9 @@ const Geofence: React.FC<any> = (props: any) => {
               />
             </div>
             {selectedAssetValue?.length > 0 && (
-              <div className={assetsList}>
+              <div
+                className={searchData?.length > 1 ? assetsList : assetsLists}
+              >
                 {searchData?.length > 0 ? (
                   searchData?.map((item: any, idx: number) => {
                     return (
@@ -322,7 +330,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 <div className={assetsListItems}>
                   {searchSelectedData?.map((data: any) => {
                     return (
-                      <div style={{ padding: '0.2vw' }}>
+                      <div style={{ padding: "0.2vw" }}>
                         <Chip
                           label={data.label}
                           onDelete={handleDelete(data?.key)}
@@ -345,7 +353,13 @@ const Geofence: React.FC<any> = (props: any) => {
                 onClick={isDisabled ? handleCircleClick : () => null}
               >
                 <img
-                  src={!isCircleEnbled ? CircleInActiveIcon : CircleActiveIcon}
+                  src={
+                    !isCircleEnbled
+                      ? selectedTheme === "light"
+                        ? CircleLightInactiveIcon
+                        : CircleInActiveIcon
+                      : CircleActiveIcon
+                  }
                   width={!is4kDevice ? "50px" : ""}
                 />
               </div>
@@ -358,7 +372,11 @@ const Geofence: React.FC<any> = (props: any) => {
               >
                 <img
                   src={
-                    !isPolygonEnbled ? PolygonInActiveIcon : PolygonActiveIcon
+                    !isPolygonEnbled
+                      ? selectedTheme === "light"
+                        ? PolygonLightInactiveIcon
+                        : PolygonInActiveIcon
+                      : PolygonActiveIcon
                   }
                   width={!is4kDevice ? "50px" : ""}
                 />
@@ -381,7 +399,9 @@ const Geofence: React.FC<any> = (props: any) => {
         </div>
         {isCircleEnbled && (
           <>
-            <div className={geoFenceTitle1}>{assetsTracking.centerLocation}</div>
+            <div className={geoFenceTitle1}>
+              {assetsTracking.centerLocation}
+            </div>
             <div className={circleContainer}>
               <div style={{ marginRight: "1vw" }}>
                 <div className={geofenceType}>Latitude</div>
