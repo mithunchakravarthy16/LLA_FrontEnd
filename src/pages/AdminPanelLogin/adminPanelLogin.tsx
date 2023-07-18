@@ -132,8 +132,7 @@ const AdminPanelLogin = () => {
           container
           direction="row"
           justifyContent="center"
-          alignItems="center"
-        >
+          alignItems="center">
           <Grid
             item
             xs={12}
@@ -141,8 +140,7 @@ const AdminPanelLogin = () => {
             md={12}
             lg={12}
             xl={12}
-            className={loginBannerSection}
-          >
+            className={loginBannerSection}>
             <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>

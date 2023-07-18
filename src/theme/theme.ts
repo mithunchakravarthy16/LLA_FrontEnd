@@ -53,6 +53,7 @@ let theme = {
         verticalBarLabelColor: colorCodes?.silverGray,
         todayTitleTextColor: colorCodes?.greenColorShades,
         todayTitleBgColor: "unset",
+        lightingGridProgressBarTrackBase: colorCodes?.darkGrayBrownShade,
       },
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
@@ -87,6 +88,7 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
+        hoverBackground: colorCodes?.flippingCardBgDark,
       },
       fleetManagementPage: {
         pageBg: colorCodes?.blackShades,
@@ -213,6 +215,7 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgLight,
         textColor: colorCodes?.darkBlackShade,
+        hoverBackground: colorCodes?.flippingCardHoverLight,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
@@ -235,6 +238,7 @@ let theme = {
         verticalBarLabelColor: colorCodes?.mdGray,
         todayTitleTextColor: colorCodes?.redColorShades,
         todayTitleBgColor: colorCodes?.redColorShades2,
+        lightingGridProgressBarTrackBase: colorCodes?.lightGrayProgressBar,
       },
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,
@@ -391,6 +395,7 @@ let theme = {
       flippingCard: {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
+        hoverBackground: colorCodes?.flippingCardBgDark,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
@@ -413,6 +418,7 @@ let theme = {
         verticalBarLabelColor: colorCodes?.silverGray,
         todayTitleTextColor: colorCodes?.greenColorShades,
         todayTitleBgColor: "unset",
+        lightingGridProgressBarTrackBase: colorCodes?.darkGrayBrownShade,
       },
       gridViewPageStyle: {
         rootContainerBg: colorCodes.deepBlue,

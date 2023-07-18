@@ -400,9 +400,14 @@ const useStyles = makeStyles({
         fontFamily: "HelveticaNeue-Regular",
         fontWeight: 500,
       },
+
       "&:hover": {
         background: props?.palette?.notification?.listItemLabelSelectedBtn,
       },
+    },
+
+    "& .MuiButton-root" : {
+      boxShadow : "none !important"
     },
   }),
   markerCloseIcon: (props: any) => ({
@@ -411,10 +416,16 @@ const useStyles = makeStyles({
     padding: "0px 0px 0px 15px",
     fontFamily: "HelveticaNeue-Regular",
   }),
+  markerVideoIcon: (props: any) => ({
+    margin: "4px 0px 0px 0px",
+    fontSize: 13,
+    padding: "0px 0px 0px 15px",
+    fontFamily: "HelveticaNeue-Regular",
+  }),
   listItemCallout: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    // alignItems: "center",
   }),
   defaultListItem: (props: any) => ({
     display: "flex",
@@ -422,13 +433,16 @@ const useStyles = makeStyles({
     alignItems: "center",
   }),
   markerCloseIcon1: (props: any) => ({
-    margin: "4px 0px 0px 0px",
+    margin: "4px -8px 0px",
     padding: "0px 0px 0px 5px",
     fontFamily: "HelveticaNeue-Regular",
     position: "relative",
     top: "-13px",
     display: "flex",
     justifyContent: "end",
+    "& img" : {
+      position : "absolute"
+    }
   }),
 });
 export default useStyles;

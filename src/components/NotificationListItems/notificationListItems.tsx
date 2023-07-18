@@ -105,6 +105,7 @@ const NotificationListItems = (props: any) => {
     collapsedListItemTitle,
     collapsedListItemSubTitle,
     collapsedTimeStampStyle,
+    markerVideoIcon,
   } = useStyles({
     ...appTheme,
     pageName: pageName,
@@ -220,7 +221,7 @@ const NotificationListItems = (props: any) => {
                   <div className={listItemCallout}>
                     <div className={listItemTitle}>{title}</div>
                     <div
-                      className={markerCloseIcon}
+                      className={markerVideoIcon}
                       onClick={(e: any) => handleVideoDetails(e, data)}
                     >
                       <img

@@ -1,4 +1,6 @@
 export default {
+  footerText: `powered by Liberty Latin America | Sensyon | © 2023 | All Rights
+  Reserved`,
   helloInfinite: "Hello Infinite",
   changeTheme: "Change Theme",
   changeLang: "Change Language",
@@ -40,8 +42,8 @@ export default {
     electricityNoteLabel: "Electricity Consumed",
     tripsNoteLabel: "Trips Completed",
     assetsNoteLabel: "Location Changed",
-    available: "available",
-    occupied: "occupied",
+    available: "AVAILABLE",
+    occupied: "OCCUPIED",
     consumed: "consumed",
     savings: "savings",
     cameras: "cameras",
@@ -132,7 +134,7 @@ export default {
     tripCompletion: "Trip Completion",
     distanceCovered: "Distance Covered",
     totalTime: "Total Time",
-    violations: "Vioalations",
+    violations: "Violations",
     cornering: "Cornering",
     distraction: "Distraction",
     fatigueLevel: "Fatigue Level",
