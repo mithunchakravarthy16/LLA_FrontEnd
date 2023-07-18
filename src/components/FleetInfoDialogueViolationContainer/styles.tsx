@@ -14,8 +14,8 @@ const useStyles = makeStyles(
       // },
     }),
     violationHeading: (props: any) => ({
-      height: "5%",
       fontSize: "0.9vw",
+      padding: "0.2vw 0px 0.7vw 0px",
       fontFamily: "HelveticaNeue-Regular",
       color: `${props?.palette?.fleetManagementPage?.routeDetailsTitle} !important`,
     }),
