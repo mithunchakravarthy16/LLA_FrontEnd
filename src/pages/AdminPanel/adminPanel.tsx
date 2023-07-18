@@ -22,8 +22,16 @@ import logoutImg from "../../assets/login/logout.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 import FavIcon from "../../assets/favIcon.svg";
 import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
+import {
+  getAdminPanelConfig,
+  setAdminPanelConfig,
+} from "redux/actions/adminPanel";
 
 const AdminPanel = () => {
+  const adminPanelSaveData = useSelector(
+    (state: any) => state?.adminPanel?.configData
+  );
+
   const dispatch = useDispatch();
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -49,6 +57,21 @@ const AdminPanel = () => {
     useState<string>("");
   const [uploadFooterLogo, setUploadFooterLogo] = useState<string>("");
   const [uploadFinalFooterLogo, setUploadFinalFooterLogo] =
+    useState<string>("");
+  const [uploadImageLogoLocal, setUploadImageLogoLocal] = useState<string>("");
+  const [uploadFinalImageLogoLocal, setUploadFinalImageLogoLocal] =
+    useState<string>("");
+  const [uploadHeaderImageLogoLocal, setUploadHeaderImageLogoLocal] =
+    useState<string>("");
+  const [uploadFinalHeaderImageLogoLocal, setUploadFinalHeaderImageLogoLocal] =
+    useState<string>("");
+  const [uploadFavIconLogoLocal, setUploadFavIconLogoLocal] =
+    useState<string>("");
+  const [uploadFinalFavIconLogoLocal, setUploadFinalFavIconLogoLocal] =
+    useState<string>("");
+  const [uploadFooterLogoLocal, setUploadFooterLogoLocal] =
+    useState<string>("");
+  const [uploadFinalFooterLogoLocal, setUploadFinalFooterLogoLocal] =
     useState<string>("");
   const {} = useStyles(appTheme);
 
@@ -97,7 +120,7 @@ const AdminPanel = () => {
     spaceBottom,
     space,
     logoutSection,
-    logoPreviewEmpty
+    logoPreviewEmpty,
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -117,11 +140,20 @@ const AdminPanel = () => {
     localStorage.clear();
     dispatch(getUserLogout());
     dispatch(setUserLogin({}));
-    navigate("/login");
+    navigate("/adminLogin");
   };
   useEffect(() => {
     setActivePage(0);
   }, []);
+
+  useEffect(() => {
+    if (adminPanelSaveData?.statusCodeValue === 200) {
+      setSuccess(true);
+      setTimeout(() => {
+        setAdminPanelConfig({});
+      }, 5000);
+    }
+  }, [adminPanelSaveData]);
 
   const radioButtons = [
     {
@@ -152,6 +184,7 @@ const AdminPanel = () => {
     setFooterTitle("");
     setUploadFooterLogo("");
     setUploadFinalFooterLogo("");
+    setColorChange("");
   };
 
   // Footer Color Change
@@ -166,13 +199,17 @@ const AdminPanel = () => {
 
   // Save
   const handleSave = () => {
-    const payload = {
-      theme: selectTheme,
-      title: title,
-    };
+    const formData = new FormData();
+    formData.append("appearance", selectTheme);
+    formData.append("siteTitle", title);
+    formData.append("login", uploadFinalImageLogo);
+    formData.append("header", uploadHeaderFinalImageLogo);
+    formData.append("favIcon", uploadFinalFavIconLogo);
+    formData.append("footer", uploadFinalFooterLogo);
+    formData.append("footerText", footerTitle);
+    formData.append("footerColor", colorChange);
 
-    localStorage.setItem("theme", JSON.stringify(selectTheme));
-    setSuccess(true);
+    dispatch(getAdminPanelConfig(formData));
   };
 
   // success message
@@ -189,22 +226,26 @@ const AdminPanel = () => {
   const handleCancelClick = () => {
     setUploadImage(false);
     setUploadImageLogo("");
+    setUploadImageLogoLocal("");
   };
 
   const handleSaveClick = () => {
     setUploadImage(false);
     setUploadFinalImageLogo(uploadImageLogo);
+    setUploadFinalImageLogoLocal(uploadImageLogoLocal);
   };
 
   const handleUploadChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadImageLogo(URL.createObjectURL(event.target.files[0]));
+    setUploadImageLogo(file);
+    setUploadImageLogoLocal(URL.createObjectURL(event.target.files[0]));
   };
 
   const dropDrop = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+    setUploadImageLogo(files);
+    setUploadImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
   // Header Change
@@ -217,22 +258,26 @@ const AdminPanel = () => {
   const handleHeaderCancelClick = () => {
     setUploadImage(false);
     setUploadHeaderImageLogo("");
+    setUploadHeaderImageLogoLocal("");
   };
 
   const handleHeaderSaveClick = () => {
     setUploadImage(false);
     setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
+    setUploadFinalHeaderImageLogoLocal(uploadHeaderImageLogoLocal);
   };
 
   const handleHeaderChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadHeaderImageLogo(URL.createObjectURL(event.target.files[0]));
+    setUploadHeaderImageLogo(file);
+    setUploadHeaderImageLogoLocal(URL.createObjectURL(event.target.files[0]));
   };
 
   const dropDropHeader = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadHeaderImageLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+    setUploadHeaderImageLogo(files);
+    setUploadHeaderImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
   // Fav Icon Change
@@ -245,22 +290,26 @@ const AdminPanel = () => {
   const handleFavIconCancelClick = () => {
     setUploadImage(false);
     setUploadFavIconLogo("");
+    setUploadFavIconLogoLocal("");
   };
 
   const handleFavIconSaveClick = () => {
     setUploadImage(false);
     setUploadFinalFavIconLogo(uploadFavIconLogo);
+    setUploadFinalFavIconLogoLocal(uploadFavIconLogoLocal);
   };
 
   const handleFavIconChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadFavIconLogo(URL.createObjectURL(event.target.files[0]));
+    setUploadFavIconLogo(file);
+    setUploadFavIconLogoLocal(URL.createObjectURL(event.target.files[0]));
   };
 
   const dropDropFavIcon = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadFavIconLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+    setUploadFavIconLogo(files);
+    setUploadFavIconLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
   // Footer Change
@@ -273,22 +322,26 @@ const AdminPanel = () => {
   const handleFooterCancelClick = () => {
     setUploadImage(false);
     setUploadFooterLogo("");
+    setUploadFooterLogoLocal("");
   };
 
   const handleFooterSaveClick = () => {
     setUploadImage(false);
     setUploadFinalFooterLogo(uploadFooterLogo);
+    setUploadFinalFooterLogoLocal(uploadFooterLogoLocal);
   };
 
   const handleFooterChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadFooterLogo(URL.createObjectURL(event.target.files[0]));
+    setUploadFooterLogo(file);
+    setUploadFooterLogoLocal(URL.createObjectURL(event.target.files[0]));
   };
 
   const dropDropFooter = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadFooterLogo(URL.createObjectURL(e.dataTransfer.files[0]));
+    setUploadFooterLogo(files);
+    setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
   return (
@@ -457,8 +510,8 @@ const AdminPanel = () => {
                             <img
                               className={logoPreview}
                               src={
-                                uploadFinalImageLogo
-                                  ? uploadFinalImageLogo
+                                uploadFinalImageLogoLocal
+                                  ? uploadFinalImageLogoLocal
                                   : DefaultLogo
                               }
                             />
@@ -484,8 +537,8 @@ const AdminPanel = () => {
                             <img
                               className={logoPreview}
                               src={
-                                uploadHeaderFinalImageLogo
-                                  ? uploadHeaderFinalImageLogo
+                                uploadFinalHeaderImageLogoLocal
+                                  ? uploadFinalHeaderImageLogoLocal
                                   : DefaultLogo
                               }
                             />
@@ -511,8 +564,8 @@ const AdminPanel = () => {
                             <img
                               className={logoPreviewEmpty}
                               src={
-                                uploadFinalFavIconLogo
-                                  ? uploadFinalFavIconLogo
+                                uploadFinalFavIconLogoLocal
+                                  ? uploadFinalFavIconLogoLocal
                                   : FavIcon
                               }
                             />
@@ -562,8 +615,8 @@ const AdminPanel = () => {
                               <img
                                 className={logoPreview}
                                 src={
-                                  uploadFinalFooterLogo
-                                    ? uploadFinalFooterLogo
+                                  uploadFinalFooterLogoLocal
+                                    ? uploadFinalFooterLogoLocal
                                     : DefaultLogo
                                 }
                               />

@@ -3,7 +3,7 @@ export const BASE_IP = {
 };
 
 export const PORTS = {
-  port1: "8080",
+  port1: "8081",
   port2: "8090",
   port3: "5000",
 };
@@ -24,8 +24,10 @@ const apiSource = {
 
 const SUB_URL = {
   loginUrl: apiSource.viot + VERSION.v1 + "/login",
-  logoutUrl: apiSource.viot + VERSION.v1 + "/userLogout"
+  logoutUrl: apiSource.viot + VERSION.v1 + "/userLogout",
+  adminPanelSaveUrl: "/api/sensyon/admin/saveconfiguration",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
 export const logoutApi = `${BASE_URL.baseUrl}${SUB_URL.logoutUrl}`;
+export const adminPanelSaveApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelSaveUrl}`;

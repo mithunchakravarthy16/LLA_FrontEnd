@@ -11,6 +11,8 @@ import { handleAssetIncidentCount } from "./handlers/getAllIncidentCount";
 import assetOverallTrackerDetail from "redux/actions/getOverAllTrackerdetail";
 import { handleAssetOverallTrackerDetails } from "./handlers/getOverAllTrackerdetail";
 import { handleFleetManagementNotification } from "./handlers/fleetManagementNotification";
+import adminPanelConfig from "redux/actions/adminPanel";
+import { handleAdminPanelConfig } from "./handlers/adminPanel";
 
 export default function* rootSaga() {
   yield all([
@@ -20,6 +22,7 @@ export default function* rootSaga() {
     watchAssetActiveInactiveTracker(),
     watchAssetIncidentCount(),
     watchAssetOverallTrackerDetails(),
+    watchAdminPanelConfig(),
   ]);
 }
 
@@ -58,5 +61,12 @@ export function* watchAssetOverallTrackerDetails() {
   yield takeLatest(
     assetOverallTrackerDetail.GET_OVERALL_TRACKER_DETAIL,
     handleAssetOverallTrackerDetails
+  );
+}
+
+export function* watchAdminPanelConfig() {
+  yield takeLatest(
+    adminPanelConfig.GET_ADMIN_PANEL_CONFIG,
+    handleAdminPanelConfig
   );
 }
