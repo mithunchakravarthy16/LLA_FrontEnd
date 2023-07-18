@@ -7,13 +7,8 @@ import theme from "../../theme/theme";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import llaLogo from "../../assets/adminLogo.svg";
-import loginBorder from "../../assets/login-border.svg";
-import virtualIOTLogo from "../../assets/Iot-logo.svg";
-import smartLogoText from "../../assets/images/smart-logo-text.svg";
 import { OutlinedInput } from "@mui/material";
 import Button from "@mui/material/Button";
-import Radio from "@mui/material/Radio";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getUserLogin } from "../../redux/actions/loginActions";
@@ -22,7 +17,6 @@ import useStyles from "./styles";
 import EyeOff from "../../assets/login/lock.svg";
 import OpenEyeIcon from "../../assets/login/lock.svg";
 import AttherateIcon from "../../assets/login/atthirate.svg";
-import Footer from "components/Footer";
 
 const AdminPanelLogin = () => {
   const navigate = useNavigate();
@@ -238,15 +232,11 @@ const AdminPanelLogin = () => {
                     </form>
                   </Box>
                 </Grid>
-                {/* <p className={copyRights}>
-                {copyRightTitle} <span>{contactSupport}</span>
-              </p> */}
               </div>
             </div>
           </Grid>
         </Grid>
       </div>
-      {/* <Footer pageName={"login"} /> */}
     </>
   );
 };
