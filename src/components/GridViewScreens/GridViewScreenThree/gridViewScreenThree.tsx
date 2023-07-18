@@ -58,6 +58,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
         width: 800,
         height: 550,
         is4kDevice: false,
+        is3KDevice: true,
         xAxisFontSize: "21px",
       });
     } else if (window.innerWidth > 2559) {
@@ -208,7 +209,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
                   lineColor: "#26408E",
                   color: "#26408E",
 
-                  lineWidth: 2,
+                  lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                   // fillColor: {
                   //   linearGradient: [0, 0, 0, 200],
                   //   stops: [

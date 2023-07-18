@@ -68,6 +68,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         width: 620,
         height: 170,
         is4kDevice: false,
+        is3KDevice: true,
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
@@ -219,7 +220,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               },
                               lineColor: "#253F8E",
                               color: "#253F8E",
-                              lineWidth: 2,
+                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                               data: [0, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 0],
                             },
                           ]}
@@ -248,7 +249,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               },
                               lineColor: "#80488A",
                               color: "#80488A",
-                              lineWidth: 2,
+                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                               data: [0, 4, 3, 8, 1, 4, 1, 4, 2, 4, 7, 2],
                             },
                           ]}
@@ -277,7 +278,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               },
                               lineColor: "#82BA6D",
                               color: "#82BA6D",
-                              lineWidth: 2,
+                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                               data: [0, 4, 3, 8, 4, 2, 7, 4, 8, 4, 7, 0],
                             },
                           ]}

@@ -46,7 +46,7 @@ const Settings = () => {
     setSelectedTheme(selectedTheme);
     window.location.reload();
   };
-
+ 
   const { rootContainer, mainSection, gridStyles } = useStyles(appTheme);
 
 
