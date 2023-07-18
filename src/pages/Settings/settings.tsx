@@ -46,7 +46,7 @@ const Settings = () => {
     setSelectedTheme(selectedTheme);
     window.location.reload();
   };
-  localStorage.setItem("theme", JSON.stringify("default"));
+ 
   const { rootContainer, mainSection, gridStyles } = useStyles(appTheme);
 
 
