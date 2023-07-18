@@ -3,7 +3,7 @@ export const BASE_IP = {
 };
 
 export const PORTS = {
-  port1: "8080",
+  port1: "8081",
   port2: "8090",
   port3: "5000",
 };
@@ -19,12 +19,12 @@ const VERSION = {
 };
 
 const apiSource = {
-  viot: "/smartlogistics",
+  lla: "/api/sensyon/users",
 };
 
 const SUB_URL = {
-  loginUrl: apiSource.viot + VERSION.v1 + "/login",
-  logoutUrl: apiSource.viot + VERSION.v1 + "/userLogout"
+  loginUrl: apiSource.lla + VERSION.v1 + "/login",
+  logoutUrl: apiSource.lla + VERSION.v1 + "/userLogout"
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
