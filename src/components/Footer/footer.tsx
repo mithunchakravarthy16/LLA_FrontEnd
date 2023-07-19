@@ -43,7 +43,7 @@ const Footer = (props: any) => {
     footerIconStyle,
     footerSectionDasbhoard,
     footerCopyrightsImg,
-  } = useStyles({ ...appTheme, footerImage: adminPanelData.footerImage });
+  } = useStyles({ ...appTheme, footerImage: adminPanelData?.footerImage });
 
   const { footerText } = useTranslation();
 
@@ -60,7 +60,7 @@ const Footer = (props: any) => {
       className={
         pageName === "dashboard" ? footerSectionDasbhoard : footerSection
       }
-      style={{ color: adminPanelData.footerColor }}
+      style={{ color: adminPanelData?.footerColor }}
     >
       <div className={footerContent}>
         <div className={footerIconStyle}>
