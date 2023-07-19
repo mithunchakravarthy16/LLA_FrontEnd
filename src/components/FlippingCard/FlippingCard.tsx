@@ -24,9 +24,11 @@ import {
   NoteDifferenceIndicator,
   CardValuesSplitter,
   InnerCardWrapper,
+  setTheme,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import useTranslation from "localization/translations";
+import { useDispatch, useSelector } from "react-redux";
 import {
   assetTracking,
   energyManagement,
@@ -74,6 +76,10 @@ const Card = ({
   focusedCategory,
 }: CardPropType) => {
   const navigate = useNavigate();
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
+  );
+  setTheme(adminPanelData?.appearance)
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
     transform: `skew(-18deg) perspective(600px) rotateY(${
