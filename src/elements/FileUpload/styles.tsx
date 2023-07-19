@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
   dropContainer: (props: any) => ({
     width: "28vw",
     height: "20vh",
-    border: "1px dashed #5485B2",
+    border: `${props.errorMsg ? "1px dashed red" : "1px dashed #5485B2"}`,
     margin: "20px",
   }),
   container: (props: any) => ({
@@ -64,7 +64,13 @@ const useStyles = makeStyles(() => ({
     textAlign: "center",
     color: "#2D3748",
     fontFamily: `'Montserrat', sans-serif`,
-    fontWeight: 600
+    fontWeight: 600,
+  }),
+  errorMessage: (props: any) => ({
+    color: "red",
+    fontFamily: `'Montserrat', sans-serif`,
+    fontWeight: 600,
+    fontSize: "0.75vw",
   }),
 }));
 

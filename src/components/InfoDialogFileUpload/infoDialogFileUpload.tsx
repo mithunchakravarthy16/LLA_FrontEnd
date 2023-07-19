@@ -44,6 +44,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
     handleFooterSaveClick,
     handleFooterChange,
     dropDropFooter,
+    errorMsg,
   } = props;
 
   const {} = useStyles({});
@@ -51,13 +52,26 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
   return (
     <>
       <DialogWrapper open={uploadImage} sx={{ top: "0px" }}>
-        <div style={{ color: "#000000", fontSize: "0.8999999999999999vw",
-      fontFamily: `'Montserrat', sans-serif`, marginBottom: '8%',
-      fontWeight: 600,}}>Logo - {uploadImageTitle}</div>
-        <div style={{ marginBottom: '1%', fontSize: "0.6999999999999999vw",
-      fontFamily: `'Montserrat', sans-serif`,
-      fontWeight: 600,
-      color: "rgba(68, 91, 125, 1)",}}>
+        <div
+          style={{
+            color: "#000000",
+            fontSize: "0.8999999999999999vw",
+            fontFamily: `'Montserrat', sans-serif`,
+            marginBottom: "8%",
+            fontWeight: 600,
+          }}
+        >
+          Logo - {uploadImageTitle}
+        </div>
+        <div
+          style={{
+            marginBottom: "1%",
+            fontSize: "0.6999999999999999vw",
+            fontFamily: `'Montserrat', sans-serif`,
+            fontWeight: 600,
+            color: "rgba(68, 91, 125, 1)",
+          }}
+        >
           Upload Your File
         </div>
         {uploadImageTitle === "Login" && (
@@ -66,6 +80,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleSaveClick={handleSaveClick}
             handleChange={handleChange}
             dropDrop={dropDrop}
+            errorMsg={errorMsg}
           />
         )}
         {uploadImageTitle === "Header" && (
@@ -74,6 +89,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleSaveClick={handleHeaderSaveClick}
             handleChange={handleHeaderChange}
             dropDrop={dropDropHeader}
+            errorMsg={errorMsg}
           />
         )}
         {uploadImageTitle === "Fav Icon" && (
@@ -82,6 +98,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleSaveClick={handleFavIconSaveClick}
             handleChange={handleFavIconChange}
             dropDrop={dropDropFavIcon}
+            errorMsg={errorMsg}
           />
         )}
         {uploadImageTitle === "Footer" && (
@@ -90,6 +107,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleSaveClick={handleFooterSaveClick}
             handleChange={handleFooterChange}
             dropDrop={dropDropFooter}
+            errorMsg={errorMsg}
           />
         )}
       </DialogWrapper>
