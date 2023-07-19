@@ -228,12 +228,16 @@ const SideBar = (props: SideBarProps) => {
           </div>
         )} */}
         <div className={menuLogoLightThemeSection}>
-          <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
-          {/* <img
+          {/* <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} /> */}
+          <img
             width={"100%"}
             height={"100%"}
-            src={`data:image/jpeg;base64,${adminPanelData?.header}`}
-          /> */}
+            src={
+              adminPanelData?.header
+                ? `data:image/jpeg;base64,${adminPanelData?.header}`
+                : LibertyLatinAmericalogo
+            }
+          />
         </div>
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
