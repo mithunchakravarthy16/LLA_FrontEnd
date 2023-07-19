@@ -11,7 +11,7 @@ import { OutlinedInput } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getUserLogin } from "../../redux/actions/loginActions";
+import { getAdminUserLogin } from "../../redux/actions/adminLoginActions";
 import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import EyeOff from "../../assets/login/lock.svg";
@@ -23,8 +23,9 @@ const AdminPanelLogin = () => {
   const dispatch = useDispatch();
   const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
 
-  const user = useSelector((state: any) => state.login.loginData);
-
+  const user = useSelector((state: any) => state.adminLogin.adminLoginData);
+  
+  
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -72,9 +73,11 @@ const AdminPanelLogin = () => {
   } = useStyles(appTheme);
 
   useEffect(() => {
-    if (user && user?.userName) {
-      localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
+    if (user && user?.userName && user?.currentRoleType === "ADMIN") { 
+      // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/adminPanel");
+    }else if(user && user.message){
+      setInCorrectCredentials(true);
     }
   }, [user]);
 
@@ -101,19 +104,22 @@ const AdminPanelLogin = () => {
         .required("Please Enter Password"),
     }),
     onSubmit: (values) => {
-      if (
-        values?.userid === "Mike@ross" &&
-        values?.password === "Mikeross@2023#"
-      ) {
+      // if (
+      //   values?.userid === "Mike@ross" &&
+      //   values?.password === "Mikeross@2023#"
+      // ) {
+
         let payload = {
           userName: values.userid,
           passWord: values.password,
         };
-        dispatch(getUserLogin(payload));
+        dispatch(getAdminUserLogin(payload));
         setInCorrectCredentials(false);
-      } else {
-        setInCorrectCredentials(true);
-      }
+
+
+      // } else {
+      //   setInCorrectCredentials(true);
+      // }
     },
   });
 
