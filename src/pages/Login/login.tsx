@@ -20,6 +20,7 @@ import { getUserLogin } from "../../redux/actions/loginActions";
 import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
+import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,15 +28,23 @@ const Login = () => {
   const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
-  console.log("user", user)
-
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const [inCorrectCredentials, setInCorrectCredentials] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    dispatch(getAdminPanelConfigData({}));
+  }, []);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -69,13 +78,13 @@ const Login = () => {
     formSection,
     innerPaddingBox,
     adminPanel,
-  } = useStyles(appTheme);
+  } = useStyles({ ...appTheme, selectedTheme: selectedTheme });
 
   useEffect(() => {
     if (user && user?.userName && user?.roles === "USER") {
       // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/home");
-    }else if(user && user.message) {
+    } else if (user && user.message) {
       setInCorrectCredentials(true);
     }
   }, [user]);
@@ -104,16 +113,15 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       // values?.userid === "Mike@ross" &&
-        // values?.password === "Mikeross@2023#"
-     
-        let payload = {
-          userName: values.userid,
-          passWord: values.password,
-        };
-        
-        dispatch(getUserLogin(payload));
-        setInCorrectCredentials(false);
-      
+      // values?.password === "Mikeross@2023#"
+
+      let payload = {
+        userName: values.userid,
+        passWord: values.password,
+      };
+
+      dispatch(getUserLogin(payload));
+      setInCorrectCredentials(false);
     },
   });
 

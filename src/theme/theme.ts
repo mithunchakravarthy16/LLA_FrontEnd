@@ -1,5 +1,6 @@
 import { color } from "@mui/system";
 import colorCodes from "./colors";
+import { colors } from "@material-ui/core";
 
 let theme = {
   defaultTheme: {
@@ -34,6 +35,9 @@ let theme = {
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
+        bg: colorCodes?.lightGrey3,
+        welcomeTitle: colorCodes?.white5,
+        loginTitle: colorCodes?.orange1,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.blackShades,
@@ -219,6 +223,9 @@ let theme = {
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
+        bg: colorCodes?.white5,
+        welcomeTitle: colorCodes?.lightGrey4,
+        loginTitle: colorCodes?.lightGrey5,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.whiteShades,
@@ -399,6 +406,9 @@ let theme = {
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
+        bg: colorCodes?.lightGrey3,
+        welcomeTitle: colorCodes?.white5,
+        loginTitle: colorCodes?.orange1,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.blackShades,
