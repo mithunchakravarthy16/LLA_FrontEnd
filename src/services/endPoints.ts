@@ -1,5 +1,5 @@
 export const BASE_IP = {
-  aws: "http://44.199.165.3",
+  aws: "https://apismartlabtech.sensyonsmartspaces.com",
 };
 
 export const PORTS = {
@@ -9,7 +9,7 @@ export const PORTS = {
 };
 
 export const BASE_URL = {
-  baseUrl: `${BASE_IP.aws}:${PORTS.port1}`,
+  baseUrl: `${BASE_IP.aws}`,
 };
 
 const VERSION = {
