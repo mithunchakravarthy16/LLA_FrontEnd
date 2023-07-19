@@ -72,6 +72,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
         width: 615,
         height: 590,
         is4kDevice: false,
+        is3KDevice: true,
         xAxisFontSize: "20px",
       });
     } else if (window.innerWidth > 2559) {
@@ -191,7 +192,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                               },
                               lineColor: "#FDC981",
                               color: "#FDC981",
-                              lineWidth: 2,
+                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                               data: [
                                 0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4, 8, 6, 6,
                                 8, 7, 6, 5, 3, 1, 2, 0,
@@ -203,7 +204,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                               },
                               lineColor: "#26428E",
                               color: "#26428E",
-                              lineWidth: 2,
+                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                               data: [
                                 1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5,
                                 4, 2, 8, 4, 3, 4, 1, 4,

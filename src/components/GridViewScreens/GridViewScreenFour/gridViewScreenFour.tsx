@@ -71,9 +71,10 @@ const GridViewScreenFour: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 610,
+        width: 665,
         height: 390,
         is4kDevice: false,
+        is3KDevice: true,
         xAxisFontSize: "20px",
       });
     } else if (window.innerWidth > 2559) {
@@ -186,7 +187,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               },
                               lineColor: "#80488A",
                               color: "#80488A",
-                              lineWidth: 2,
+                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                               data: [
                                 0, 1, 5, 3, 4, 5, 4, 1, 6, 1, 2, 3, 4, 8, 6, 6,
                                 8, 7, 6, 5, 3, 1, 2, 0,

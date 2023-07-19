@@ -27,6 +27,7 @@ const Login = () => {
   const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
+  console.log("user", user)
 
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
@@ -71,9 +72,11 @@ const Login = () => {
   } = useStyles(appTheme);
 
   useEffect(() => {
-    if (user && user?.userName) {
-      localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
+    if (user && user?.userName && user?.roles === "USER") {
+      // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/home");
+    }else if(user && user.message) {
+      setInCorrectCredentials(true);
     }
   }, [user]);
 
@@ -100,19 +103,17 @@ const Login = () => {
         .required("Please Enter Password"),
     }),
     onSubmit: (values) => {
-      if (
-        values?.userid === "Mike@ross" &&
-        values?.password === "Mikeross@2023#"
-      ) {
+      // values?.userid === "Mike@ross" &&
+        // values?.password === "Mikeross@2023#"
+     
         let payload = {
           userName: values.userid,
           passWord: values.password,
         };
+        
         dispatch(getUserLogin(payload));
         setInCorrectCredentials(false);
-      } else {
-        setInCorrectCredentials(true);
-      }
+      
     },
   });
 

@@ -67,7 +67,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 3071) {
       setSelectedWidth({
-        width: 625,
+        width: 660,
         height: 540,
         is4kDevice: false,
         xAxisFontSize: "20px",
@@ -212,16 +212,23 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                           marker: {
                             enabled: false,
                           },
-                          lineColor: "#73B35A90",
+                          lineColor:
+                            selectedTheme === "light" ? "#73B35A" : "#73B35A90",
                           color: "#73B35A",
-                          lineWidth: 2,
+                          lineWidth:
+                            selectedWidth?.is4kDevice ||
+                            selectedWidth?.is3KDevice
+                              ? 4
+                              : 2,
                           fillColor: {
                             linearGradient: [0, 0, 0, 200],
                             stops: [
                               [
                                 0,
                                 Highcharts.color("#73B35A")
-                                  .setOpacity(0.5)
+                                  .setOpacity(
+                                    selectedTheme === "light" ? 0.8 : 0.5
+                                  )
                                   .get("rgba"),
                               ],
                               [
@@ -230,7 +237,11 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                                   .setOpacity(
                                     selectedWidth?.is4kDevice ||
                                       selectedWidth?.is3KDevice
-                                      ? 0.3
+                                      ? selectedTheme === "light"
+                                        ? 0.4
+                                        : 0.3
+                                      : selectedTheme === "light"
+                                      ? 0.2
                                       : 0.1
                                   )
                                   .get("rgba"),
@@ -241,7 +252,9 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                                   .setOpacity(
                                     selectedWidth?.is4kDevice ||
                                       selectedWidth?.is3KDevice
-                                      ? 0.05
+                                      ? selectedTheme === "light"
+                                        ? 0.1
+                                        : 0.05
                                       : 0.02
                                   )
                                   .get("rgba"),

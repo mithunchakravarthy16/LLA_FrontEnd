@@ -58,6 +58,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         width: 830,
         height: 600,
         is4kDevice: false,
+        is3KDevice: true,
         xAxisFontSize: "22px",
       });
     } else if (window.innerWidth > 2559) {
@@ -75,7 +76,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1919) {
       setSelectedWidth({
         width: 530,
-        height: 190,
+        height: 230,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1791) {
@@ -167,7 +168,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
             <Chart
               width={selectedWidth?.width}
               height={selectedWidth?.height}
-              graphType={"spline"}
+              graphType={selectedTheme === "light" ? "areaspline" : "spline"}
               isVisible={true}
               units={""}
               isCrosshair={true}
@@ -179,19 +180,35 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                   marker: {
                     enabled: false,
                   },
-                  lineColor: "#ABCD98",
-                  color: "#ABCD98",
-                  lineWidth: 2,
-                  // fillColor: {
-                  //   linearGradient: [0, 0, 0, 200],
-                  //   stops: [
-                  //     [
-                  //       0,
-                  //       Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.screenSixGraphPoint).setOpacity(0.6).get("rgba"),
-                  //     ],
-                  //     [1, Highcharts.color(appTheme?.palette?.gridViewComponentGraphsColor?.highChartsGradient).setOpacity(0).get("rgba")],
-                  //   ],
-                  // },
+                  lineColor: selectedTheme === "light" ? "#883497" : "#ABCD98",
+                  color: selectedTheme === "light" ? "#883497" : "#ABCD98",
+                  lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                  fillColor: {
+                    linearGradient: [0, 0, 0, 200],
+                    stops: [
+                      [
+                        0,
+                        Highcharts.color("#883497") 
+                          .setOpacity(selectedTheme === "light" ? 0.8 : 0.5)
+                          .get("rgba"),
+                      ],
+                      [
+                        0.5,
+                        Highcharts.color("#883497")
+                          .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? selectedTheme === "light" ? 0.4 : 0.3 : selectedTheme === "light" ? 0.2 : 0.1)
+                          .get("rgba"),
+                      ],
+                      [
+                        1,
+                        Highcharts.color(
+                           "#883497"
+                            
+                        )
+                          .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? selectedTheme === "light" ? 0.1 : 0.05 : 0.02)
+                          .get("rgba"),
+                      ],
+                    ],
+                  },
                   data: [
                     1, 3, 2, 5, 1, 3, 10, 4, 3, 4, 7, 10, 1, 1, 3, 10, 4, 3, 4,
                     7, 10, 4, 3, 4,
