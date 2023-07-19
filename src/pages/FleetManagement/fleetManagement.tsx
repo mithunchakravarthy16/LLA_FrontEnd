@@ -524,16 +524,19 @@ const FleetManagement: React.FC<any> = (props) => {
                                           marker: {
                                             enabled: false,
                                           },
-                                          lineColor: "#6B70AB90",
+                                          lineColor: "#6B70AB",
                                           color: "#6B70AB",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
                                               [
                                                 0,
                                                 Highcharts.color("#6B70AB")
-                                                  .setOpacity(0.5)
+                                                  .setOpacity(selectedWidth?.is4kDevice ||
+                                                    selectedWidth?.is3KDevice
+                                                    ? selectedTheme === "light" ? 0.6 : 0.5
+                                                    : 0.5)
                                                   .get("rgba"),
                                               ],
                                               [
@@ -542,7 +545,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.4
+                                                      ? selectedTheme === "light" ? 0.5 : 0.4
                                                       : 0.3
                                                   )
                                                   .get("rgba"),
@@ -553,7 +556,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.07
+                                                      ? selectedTheme === "light" ? 0.15 : 0.07
                                                       : 0.02
                                                   )
                                                   .get("rgba"),
@@ -660,9 +663,9 @@ const FleetManagement: React.FC<any> = (props) => {
                                           marker: {
                                             enabled: false,
                                           },
-                                          lineColor: "#712C7D90",
+                                          lineColor: "#712C7D",
                                           color: "#712C7D",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
@@ -689,7 +692,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.07
+                                                      ? selectedTheme === "light" ? 0.16 : 0.07
                                                       : 0.02
                                                   )
                                                   .get("rgba"),
@@ -785,7 +788,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#73B35A",
                                           color: "#73B35A",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 :  2,
                                           data: [0, 1, 6, 6, 9, 5, 5],
                                         },
                                         {
@@ -794,7 +797,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#6B70AB",
                                           color: "#6B70AB",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 :  2,
                                           data: [1, 4, 3, 5, 4, 2, 8],
                                         },
                                       ]}

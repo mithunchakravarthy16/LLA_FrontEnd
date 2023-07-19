@@ -374,9 +374,9 @@ const Parking: React.FC<any> = (props) => {
                                           marker: {
                                             enabled: false,
                                           },
-                                          lineColor: "#004F9F90",
+                                          lineColor: "#004F9F",
                                           color: "#004F9F",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
@@ -408,7 +408,7 @@ const Parking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.05
+                                                      ? selectedTheme === "light" ? 0.09 : 0.05
                                                       : 0.02
                                                   )
                                                   .get("rgba"),
@@ -517,7 +517,7 @@ const Parking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#50A02890",
                                           color: "#50A028",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
@@ -549,7 +549,7 @@ const Parking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.05
+                                                      ? selectedTheme === "light" ? 0.09 : 0.05
                                                       : 0.02
                                                   )
                                                   .get("rgba"),

@@ -353,16 +353,16 @@ const Parking: React.FC<any> = (props) => {
                                           marker: {
                                             enabled: false,
                                           },
-                                          lineColor: "#73B35A90",
+                                          lineColor: "#73B35A",
                                           color: "#73B35A",
-                                          lineWidth: 2,
+                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
                                               [
                                                 0,
                                                 Highcharts.color("#73B35A")
-                                                  .setOpacity(0.5)
+                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? selectedTheme === "light" ? 0.9 : 0.5 : selectedTheme === "light" ? 0.7 : 0.5)
                                                   .get("rgba"),
                                               ],
                                               [
@@ -371,8 +371,8 @@ const Parking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.3
-                                                      : 0.1
+                                                      ? selectedTheme === "light" ? 0.5 : 0.3
+                                                      : selectedTheme === "light" ? 0.2 : 0.1
                                                   )
                                                   .get("rgba"),
                                               ],
@@ -382,7 +382,7 @@ const Parking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? 0.05
+                                                      ? selectedTheme === "light" ? 0.1 : 0.05
                                                       : 0.02
                                                   )
                                                   .get("rgba"),
