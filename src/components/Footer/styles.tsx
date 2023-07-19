@@ -33,7 +33,7 @@ const useStyles = makeStyles(
       height: 82,
       fontFamily: "HelveticaNeue-Regular",
       "& img": {
-        display: "none",
+        display: !props?.footerImage && "none",
       },
       [muiTheme.breakpoints.up(3839)]: {
         fontSize: "20px",
