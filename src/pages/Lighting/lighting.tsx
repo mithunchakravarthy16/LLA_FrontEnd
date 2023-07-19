@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CoTwoCloudIcon,
   VocCloudIcon,
@@ -32,11 +33,17 @@ import {
 import useStyles from "./styles";
 
 const Parking: React.FC<any> = (props) => {
-  const {dashboard, gridView, lighting} = useTranslation();
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const { dashboard, gridView, lighting } = useTranslation();
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -306,8 +313,11 @@ const Parking: React.FC<any> = (props) => {
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#FFA626"
-                          trailColor={selectedTheme === "light" ? "#FAEEDD" : "#484D52"}
+                          trailColor={
+                            selectedTheme === "light" ? "#FAEEDD" : "#484D52"
+                          }
                           title={gridView.avgDimmingLevel}
+                          selectedTheme={selectedTheme}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
@@ -379,17 +389,28 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#004F9F")
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.3
+                                                      : 0.1
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                                                  selectedWidth?.is4kDevice ||
+                                                    selectedWidth?.is3KDevice
                                                     ? "#004F9F"
                                                     : "#000000"
                                                 )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.05
+                                                      : 0.02
+                                                  )
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -509,17 +530,28 @@ const Parking: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#50A028")
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.2)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.3
+                                                      : 0.2
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
                                                 Highcharts.color(
-                                                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                                                  selectedWidth?.is4kDevice ||
+                                                    selectedWidth?.is3KDevice
                                                     ? "#50A028"
                                                     : "#000000"
                                                 )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.05
+                                                      : 0.02
+                                                  )
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -557,6 +589,7 @@ const Parking: React.FC<any> = (props) => {
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
                       mapPageName={"lighting"}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                 </Grid>
@@ -577,6 +610,7 @@ const Parking: React.FC<any> = (props) => {
                   setCurrentMarker={setCurrentMarker}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
             </Grid>

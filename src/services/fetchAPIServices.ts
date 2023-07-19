@@ -24,9 +24,21 @@ const fetchAdminPanelConfig = async (url: string, payload: any) => {
   return fetchConfig(url, options);
 };
 
+const fetchData = async (url: string) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    },
+  };
+  return fetchConfig(url, options);
+};
+
 const fetchAPIServices = {
   fetchLogin: fetchLogin,
   fetchAdminPanelConfig: fetchAdminPanelConfig,
+  fetchData: fetchData,
 };
 
 export default fetchAPIServices;

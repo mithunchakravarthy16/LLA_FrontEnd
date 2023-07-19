@@ -46,10 +46,12 @@ const NotificationListItems = (props: any) => {
     handleVideoDetails,
     mapPageName,
     notificationPageName,
+    selectedTheme,
   } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   //   useEffect(() => {

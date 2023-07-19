@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Camera,
   FireAlarm,
@@ -32,10 +33,12 @@ import Highcharts from "highcharts";
 import Chart from "elements/Chart";
 
 const Parking: React.FC<any> = (props) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
-  const {dashboard, gridView, security} = useTranslation();
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
+  const { dashboard, gridView, security } = useTranslation();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const PIECHART_LEGEND = [
@@ -45,6 +48,10 @@ const Parking: React.FC<any> = (props) => {
     { background: "#FDC270", name: security.unauthorisedAccess },
     { background: "#9191C1", name: security.tailgating },
   ];
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -95,8 +102,7 @@ const Parking: React.FC<any> = (props) => {
       name: "Tampering Alarm",
     },
     {
-      icon:
-        selectedTheme === "light" ? UnauthorizedAccessIcon : Unauthorised,
+      icon: selectedTheme === "light" ? UnauthorizedAccessIcon : Unauthorised,
       value: "14",
       name: "Unauthorised Access",
     },
@@ -297,6 +303,7 @@ const Parking: React.FC<any> = (props) => {
                               ?.securityProgressBarBg
                           } //"#484D52"
                           title={security.issuesResolved}
+                          selectedTheme={selectedTheme}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
@@ -311,7 +318,9 @@ const Parking: React.FC<any> = (props) => {
                               }}
                             >
                               <Grid item xs={12} style={{ height: "10%" }}>
-                                <div className={graphTitle}>{security.security}</div>
+                                <div className={graphTitle}>
+                                  {security.security}
+                                </div>
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid
@@ -352,23 +361,30 @@ const Parking: React.FC<any> = (props) => {
                                             stops: [
                                               [
                                                 0,
-                                                Highcharts.color("#73B35A") 
+                                                Highcharts.color("#73B35A")
                                                   .setOpacity(0.5)
                                                   .get("rgba"),
                                               ],
                                               [
                                                 0.5,
                                                 Highcharts.color("#73B35A")
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.3
+                                                      : 0.1
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
-                                                Highcharts.color(
-                                                   "#73B35A"
-                                                    
-                                                )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
+                                                Highcharts.color("#73B35A")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.05
+                                                      : 0.02
+                                                  )
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -527,6 +543,7 @@ const Parking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                 </Grid>
@@ -547,6 +564,7 @@ const Parking: React.FC<any> = (props) => {
                   setCurrentMarker={setCurrentMarker}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
             </Grid>

@@ -34,12 +34,13 @@ const NotificationPanel = (props: any) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
-    setIsMarkerClicked
+    setIsMarkerClicked,
+    selectedTheme,
   } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -224,7 +225,7 @@ const NotificationPanel = (props: any) => {
     }
     if (searchOpen) {
       setSelectedNotification("");
-      setIsMarkerClicked(false)
+      setIsMarkerClicked(false);
     }
   }, [searchOpen]);
 
@@ -232,7 +233,7 @@ const NotificationPanel = (props: any) => {
     if (searchOpen && searchValue?.length === 0) {
       setSelectedNotification("");
     }
-  }, [searchValue ]);
+  }, [searchValue]);
 
   useEffect(() => {
     if (isMarkerClicked) {
@@ -241,10 +242,10 @@ const NotificationPanel = (props: any) => {
     }
   }, [isMarkerClicked]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setSearchOpen(false);
     setSearchValue(dashboardData);
-  },[tabIndex])
+  }, [tabIndex]);
 
   return (
     <>
@@ -314,6 +315,7 @@ const NotificationPanel = (props: any) => {
                   handleAssetViewDetails={handleAssetViewDetails}
                   handleVideoDetails={handleVideoDetails}
                   notificationPageName={notificationPageName}
+                  selectedTheme={selectedTheme}
                 />
               );
             })

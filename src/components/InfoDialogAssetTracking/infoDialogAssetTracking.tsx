@@ -46,12 +46,13 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogAssetTracking: React.FC<any> = (props) => {
-  const {assetsTracking} = useTranslation()
+  const { assetsTracking } = useTranslation();
   const {
     setIsInfoWindowActive,
     packageData,
     infoWindowNotificationListItems,
     selectedMarker,
+    selectedTheme,
   } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -81,9 +82,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     tabIndex: tabIndex,
   });
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -429,7 +430,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           style={{
                             borderRight: `1px dashed #808080`, // Specify your desired color and border style
                             opacity: "0.5",
-                            margin : "7%"
+                            margin: "7%",
                           }}
                         ></div>
                         <div
@@ -550,6 +551,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                       polygonPath={polygonPath}
                       handleGeofencePolygonClick={handleGeofencePolygonClick}
                       handleGeofenceCircleClick={handleGeofenceCircleClick}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
@@ -582,6 +584,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                       // markerArray={[selectedViewDetailsData]}
                       onCircleCompleteLocation={onCircleCompleteLocation}
                       onPolygonCompleteLocation={onPolygonCompleteLocation}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                 </Grid>

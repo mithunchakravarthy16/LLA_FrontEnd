@@ -6,10 +6,11 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 
 const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
+  const { selectedTheme } = props;
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -39,7 +40,7 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
           VIOLATIONS
         </Grid>
         <Grid item xs={12} className={violationListContainer}>
-          <Grid container xs={12} rowGap={1.5} style={{paddingRight : "2%"}}>
+          <Grid container xs={12} rowGap={1.5} style={{ paddingRight: "2%" }}>
             {violationListItems &&
               violationListItems?.length > 0 &&
               violationListItems?.map((item: any) => (

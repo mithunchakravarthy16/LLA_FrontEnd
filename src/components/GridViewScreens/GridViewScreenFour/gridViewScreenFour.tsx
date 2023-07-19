@@ -10,12 +10,12 @@ import Chart from "elements/Chart";
 import useTranslation from "localization/translations";
 
 const GridViewScreenFour: React.FC<any> = (props) => {
-  const { handleClick } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  const { handleClick, selectedTheme } = props;
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const {dashboard, gridView} = useTranslation();
+  const { dashboard, gridView } = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -225,7 +225,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                             height: selectedWidth?.is4kDevice
                               ? "35.92px"
                               : "15px",
-                            backgroundColor: appTheme?.palette?.gridViewComponentCommonStyle?.lightingGridProgressBarTrackBase, // "#484D52",
+                            backgroundColor:
+                              appTheme?.palette?.gridViewComponentCommonStyle
+                                ?.lightingGridProgressBarTrackBase, // "#484D52",
                             borderRadius: selectedWidth?.is4kDevice
                               ? "20px"
                               : "7.5px",
@@ -267,7 +269,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>64Kw</div>
-                        <div className={liveContentLabel}>{gridView.consumed}</div>
+                        <div className={liveContentLabel}>
+                          {gridView.consumed}
+                        </div>
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValueGreen}>50</div>
@@ -289,12 +293,12 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   className={lastweekContainer}
                 >
                   <Grid item xs={12} className={lastweekTitleStyle}>
-                  <div
+                    <div
                       style={{
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                            padding: "3%",
+                        padding: "3%",
                       }}
                     >
                       Today
@@ -324,7 +328,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         className={rightListItemStyle}
                       >
                         <div className={listItemValueStyle}>15ppm</div>
-                        <div className={listItemLabelStyle}>{gridView.voc} {gridView.level}</div>
+                        <div className={listItemLabelStyle}>
+                          {gridView.voc} {gridView.level}
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -333,7 +339,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         className={rightListItemStyleLastChild}
                       >
                         <div className={listItemValueStyle}>12µg/m³</div>
-                        <div className={listItemLabelStyle}>{gridView.pm25}</div>
+                        <div className={listItemLabelStyle}>
+                          {gridView.pm25}
+                        </div>
                       </Grid>
                     </Grid>
                   </Grid>

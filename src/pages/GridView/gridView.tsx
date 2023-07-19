@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
 import GridViewScreenOne from "components/GridViewScreens/GridViewScreenOne";
 import GridViewScreenTwo from "components/GridViewScreens/GridViewScreenTwo";
 import GridViewScreenThree from "components/GridViewScreens/GridViewScreenThree";
@@ -13,10 +14,16 @@ import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
 const GridView: React.FC<any> = (props) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -45,22 +52,40 @@ const GridView: React.FC<any> = (props) => {
       <div className={rootContainer}>
         <Grid container className={mainSection}>
           {/* Gride 1 */}
-          <GridViewScreenOne handleClick={handleClick} />
+          <GridViewScreenOne
+            handleClick={handleClick}
+            selectedTheme={selectedTheme}
+          />
 
           {/* Grid 2 */}
-          <GridViewScreenTwo handleClick={handleClick} />
+          <GridViewScreenTwo
+            handleClick={handleClick}
+            selectedTheme={selectedTheme}
+          />
 
           {/* Grid 3 */}
-          <GridViewScreenThree handleClick={handleClick} />
+          <GridViewScreenThree
+            handleClick={handleClick}
+            selectedTheme={selectedTheme}
+          />
 
           {/* Grid 4 */}
-          <GridViewScreenFour handleClick={handleClick} />
+          <GridViewScreenFour
+            handleClick={handleClick}
+            selectedTheme={selectedTheme}
+          />
 
           {/* Grid 5 */}
-          <GridViewScreenFive handleClick={handleClick}/>
+          <GridViewScreenFive
+            handleClick={handleClick}
+            selectedTheme={selectedTheme}
+          />
 
           {/* Grid 6 */}
-          <GridViewScreenSix handleClick={handleClick}/>
+          <GridViewScreenSix
+            handleClick={handleClick}
+            selectedTheme={selectedTheme}
+          />
         </Grid>
       </div>
     </>

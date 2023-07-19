@@ -88,7 +88,7 @@ const Card = ({
     }deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
   });
-  const {dashboard} = useTranslation();
+  const { dashboard } = useTranslation();
 
   const DEMO_VALUES: any = {
     parking: {
@@ -256,7 +256,9 @@ const Card = ({
           opacity: contentTransform.opacity,
         }}
       >
-        <CardTitleSmall>{card.translatedTitle.replaceAll("_", " ")}</CardTitleSmall>
+        <CardTitleSmall>
+          {card.translatedTitle.replaceAll("_", " ")}
+        </CardTitleSmall>
         <CardValuesWrapper>
           <CardValuesSkewContainer />
           <CardValuesContainer>
@@ -298,48 +300,78 @@ const Card = ({
 };
 
 const FlippingCard = (props: any) => {
-  const { focusedCategory, setFocusedCategory } = props;
-  const {dashboard} = useTranslation();
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  )
-  
+  const { focusedCategory, setFocusedCategory, selectedTheme } = props;
+  const { dashboard } = useTranslation();
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // )
+
   const CARD_LIST: any = [
     {
       title: "parking",
-      image: focusedCategory === "parking" ? ParkingHover : selectedTheme !== 'light'? parking : parkingLight,
+      image:
+        focusedCategory === "parking"
+          ? ParkingHover
+          : selectedTheme !== "light"
+          ? parking
+          : parkingLight,
       category: "parking",
       translatedTitle: dashboard.parking,
     },
     {
       title: "energy_management",
-      image: focusedCategory === "energy" ? EnergyHover : selectedTheme !== 'light'? energyManagement : energyManagementLight,
+      image:
+        focusedCategory === "energy"
+          ? EnergyHover
+          : selectedTheme !== "light"
+          ? energyManagement
+          : energyManagementLight,
       category: "energy",
-      translatedTitle: dashboard.energyManagement
+      translatedTitle: dashboard.energyManagement,
     },
     {
       title: "security",
-      image: focusedCategory === "security" ? SecurityHover : selectedTheme !== 'light'? security : securityLight,
+      image:
+        focusedCategory === "security"
+          ? SecurityHover
+          : selectedTheme !== "light"
+          ? security
+          : securityLight,
       category: "security",
-      translatedTitle: dashboard.security
+      translatedTitle: dashboard.security,
     },
     {
       title: "lighting",
-      image: focusedCategory === "lighting" ? LightingHover : selectedTheme !== 'light'? lighting : lightingLight,
+      image:
+        focusedCategory === "lighting"
+          ? LightingHover
+          : selectedTheme !== "light"
+          ? lighting
+          : lightingLight,
       category: "lighting",
-      translatedTitle: dashboard.lighting
+      translatedTitle: dashboard.lighting,
     },
     {
       title: "fleet_management",
-      image: focusedCategory === "fleet" ? FleetHover : selectedTheme !== 'light'? fleetManagement : fleetManagementLight,
+      image:
+        focusedCategory === "fleet"
+          ? FleetHover
+          : selectedTheme !== "light"
+          ? fleetManagement
+          : fleetManagementLight,
       category: "fleet",
-      translatedTitle: dashboard.fleetManagement
+      translatedTitle: dashboard.fleetManagement,
     },
     {
       title: "assets_tracking",
-      image: focusedCategory === "asset" ? AssetHover : selectedTheme !== 'light'? assetTracking : assetTrackingLight,
+      image:
+        focusedCategory === "asset"
+          ? AssetHover
+          : selectedTheme !== "light"
+          ? assetTracking
+          : assetTrackingLight,
       category: "asset",
-      translatedTitle: dashboard.assetsTracking
+      translatedTitle: dashboard.assetsTracking,
     },
   ];
 

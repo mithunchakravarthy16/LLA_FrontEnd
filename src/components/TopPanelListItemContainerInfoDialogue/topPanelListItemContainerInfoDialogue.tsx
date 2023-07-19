@@ -18,11 +18,12 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
     trailColor,
     title,
     pageName,
-    horizontalProgressBarTitlePosition
+    horizontalProgressBarTitlePosition,
+    selectedTheme,
   } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -48,9 +49,9 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
     itemValueStyle,
     itemUnitStyle,
     itemValueUnitStyle,
-   
+
     itemTitleStyle,
-  } = useStyles({...appTheme, pageName: pageName });
+  } = useStyles({ ...appTheme, pageName: pageName });
 
   const [screenResolution, setScreenResolution] = useState<any>("2k");
 
@@ -78,23 +79,26 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
         {topPanelListItems &&
           topPanelListItems?.length > 0 &&
           topPanelListItems?.map((item: any) => (
-            <Grid item flex={1} direction="column" display="flex" rowGap={1} className={topPanelListItemStyle}>
-              
+            <Grid
+              item
+              flex={1}
+              direction="column"
+              display="flex"
+              rowGap={1}
+              className={topPanelListItemStyle}
+            >
               <div className={itemValueUnitStyle}>
                 <div className={itemValueStyle}>{item?.value}</div>{" "}
                 {item?.unit && (
                   <span className={itemUnitStyle}>{item?.unit}</span>
                 )}
-                
               </div>
-              
+
               <div className={itemTitleStyle}>{item?.title}</div>
-              
             </Grid>
           ))}
 
         <Grid flex={2} item className={progressBarContainer}>
-         
           <Grid item xs={10}>
             <VerticalProgressBar
               percent={percent}

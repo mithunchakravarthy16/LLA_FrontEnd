@@ -45,7 +45,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
-  const { setIsGeofenceInfoWindowActive } = props;
+  const { setIsGeofenceInfoWindowActive, selectedTheme } = props;
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
   const {
@@ -71,9 +71,9 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     ...appTheme,
   });
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -462,6 +462,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                   handleSearch={handleSearch}
                   handleListItemClick={handleListItemClick}
                   handleDelete={handleDelete}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
@@ -494,6 +495,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                   // markerArray={[selectedViewDetailsData]}
                   onCircleCompleteLocation={onCircleCompleteLocation}
                   onPolygonCompleteLocation={onPolygonCompleteLocation}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
               <Grid item xs={12}>

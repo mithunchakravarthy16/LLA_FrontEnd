@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ClockIcon,
   DisabilityIcon,
@@ -32,7 +33,7 @@ import {
 } from "../../utils/utils";
 import parkingData from "mockdata/parkingData";
 import ParkingLot1 from "../../assets/parkingLot/Parking_Lot1.svg";
-import LightThemeParkingLot1 from "../../assets/parkingLot/LightThemeParkingLot1.svg"
+import LightThemeParkingLot1 from "../../assets/parkingLot/LightThemeParkingLot1.svg";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
@@ -41,10 +42,12 @@ import ParkingSlotContainer from "components/ParkingSlotContainer";
 HC_rounded(Highcharts);
 
 const Parking: React.FC<any> = (props) => {
-  const {dashboard, gridView, parking} = useTranslation();
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const { dashboard, gridView, parking } = useTranslation();
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
@@ -56,6 +59,10 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -110,7 +117,10 @@ const Parking: React.FC<any> = (props) => {
   });
   const topPanelListItems: any[] = [
     {
-      icon: selectedTheme === "light" ? LightParkingGeneralIcon :  GeneralParkingIcon,
+      icon:
+        selectedTheme === "light"
+          ? LightParkingGeneralIcon
+          : GeneralParkingIcon,
       value: "220",
       unit: "/300",
       name: "General",
@@ -122,24 +132,28 @@ const Parking: React.FC<any> = (props) => {
       name: "VIP",
     },
     {
-      icon: selectedTheme === "light" ? LightParkingElectricVehicleIcon :ElectricVehicleIcon,
+      icon:
+        selectedTheme === "light"
+          ? LightParkingElectricVehicleIcon
+          : ElectricVehicleIcon,
       value: "50",
       unit: "/100",
       name: "Electric",
     },
     {
-      icon:selectedTheme === "light" ? LightParkingDisabilityIcon : DisabilityIcon,
+      icon:
+        selectedTheme === "light" ? LightParkingDisabilityIcon : DisabilityIcon,
       value: "25",
       unit: "/68",
       name: "Accessbility",
     },
     {
-      icon:selectedTheme === "light" ? LightParkingRotationIcon : RotationIcon,
+      icon: selectedTheme === "light" ? LightParkingRotationIcon : RotationIcon,
       value: "1.5",
       name: "Rotation Index",
     },
     {
-      icon: selectedTheme === "light" ? LightParkingClockIcon :ClockIcon,
+      icon: selectedTheme === "light" ? LightParkingClockIcon : ClockIcon,
       value: "10",
       unit: "Hrs",
       name: "Hours Saved",
@@ -232,12 +246,12 @@ const Parking: React.FC<any> = (props) => {
   const handleLotSelction = () => {
     setParkingLotSelectionActive(true);
     setSelectedNotification("");
-    setSearchOpen(false)
+    setSearchOpen(false);
   };
 
   const handleLotSelctionCloseIcon = () => {
     setParkingLotSelectionActive(false);
-  }
+  };
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -447,10 +461,10 @@ const Parking: React.FC<any> = (props) => {
                           strokeColor="#FABD96"
                           // trailColor="#484D52"
                           trailColor={
-                            appTheme?.palette?.parkingPage
-                              ?.progressTrailColor
+                            appTheme?.palette?.parkingPage?.progressTrailColor
                           }
                           title={gridView.occupancy}
+                          selectedTheme={selectedTheme}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "75%" }}>
@@ -517,20 +531,24 @@ const Parking: React.FC<any> = (props) => {
                                               ],
                                               [
                                                 0.5,
-                                                Highcharts.color(
-                                                  "#954EA1"
-                                                  
-                                                )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.2)
+                                                Highcharts.color("#954EA1")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.3
+                                                      : 0.2
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
-                                                Highcharts.color(
-                                                   "#954EA1"
-                                                    
-                                                )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.06 : 0.02)
+                                                Highcharts.color("#954EA1")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.06
+                                                      : 0.02
+                                                  )
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -686,7 +704,9 @@ const Parking: React.FC<any> = (props) => {
                                             useHTML: true,
                                             style: {
                                               fontSize: "0.7vw",
-                                              color: appTheme?.palette?.chart?.xAxisTextColor,
+                                              color:
+                                                appTheme?.palette?.chart
+                                                  ?.xAxisTextColor,
                                             },
                                           },
                                           gridLineWidth: 0,
@@ -749,12 +769,17 @@ const Parking: React.FC<any> = (props) => {
                         setCurrentMarker={setCurrentMarker}
                         setIsMarkerClicked={setIsMarkerClicked}
                         mapPageName={"parking"}
+                        selectedTheme={selectedTheme}
                       />
                     ) : (
                       // </Grid>
                       <div className={lotImageStyle}>
                         <img
-                          src={selectedTheme === "light" ? LightThemeParkingLot1  :ParkingLot1}
+                          src={
+                            selectedTheme === "light"
+                              ? LightThemeParkingLot1
+                              : ParkingLot1
+                          }
                           alt="ParkingLot1"
                           style={{ width: "95%" }}
                         />
@@ -787,6 +812,7 @@ const Parking: React.FC<any> = (props) => {
                   setParkingLotSelectionActive={setParkingLotSelectionActive}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
             </Grid>

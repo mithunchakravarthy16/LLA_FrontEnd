@@ -43,36 +43,32 @@ const AdminPanel = () => {
   const [selectRadio, setSelectRadio] = useState<any>("");
   const [uploadImage, setUploadImage] = useState<boolean>(false);
   const [uploadImageTitle, setUploadImageTitle] = useState<string>("");
-  const [uploadImageLogo, setUploadImageLogo] = useState<string>("");
-  const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<string>("");
+  const [uploadImageLogo, setUploadImageLogo] = useState<any>();
+  const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<any>();
   const [colorChange, setColorChange] = useState<string>("#2D3748");
   const [footerTitle, setFooterTitle] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
-  const [uploadHeaderImageLogo, setUploadHeaderImageLogo] =
-    useState<string>("");
+  const [uploadHeaderImageLogo, setUploadHeaderImageLogo] = useState<any>();
   const [uploadHeaderFinalImageLogo, setUploadHeaderFinalImageLogo] =
-    useState<string>("");
-  const [uploadFavIconLogo, setUploadFavIconLogo] = useState<string>("");
-  const [uploadFinalFavIconLogo, setUploadFinalFavIconLogo] =
-    useState<string>("");
-  const [uploadFooterLogo, setUploadFooterLogo] = useState<string>("");
-  const [uploadFinalFooterLogo, setUploadFinalFooterLogo] =
-    useState<string>("");
-  const [uploadImageLogoLocal, setUploadImageLogoLocal] = useState<string>("");
+    useState<any>();
+  const [uploadFavIconLogo, setUploadFavIconLogo] = useState<any>();
+  const [uploadFinalFavIconLogo, setUploadFinalFavIconLogo] = useState<any>();
+  const [uploadFooterLogo, setUploadFooterLogo] = useState<any>();
+  const [uploadFinalFooterLogo, setUploadFinalFooterLogo] = useState<any>();
+  const [uploadImageLogoLocal, setUploadImageLogoLocal] = useState<any>();
   const [uploadFinalImageLogoLocal, setUploadFinalImageLogoLocal] =
-    useState<string>("");
+    useState<any>();
   const [uploadHeaderImageLogoLocal, setUploadHeaderImageLogoLocal] =
-    useState<string>("");
+    useState<any>();
   const [uploadFinalHeaderImageLogoLocal, setUploadFinalHeaderImageLogoLocal] =
-    useState<string>("");
-  const [uploadFavIconLogoLocal, setUploadFavIconLogoLocal] =
-    useState<string>("");
+    useState<any>();
+  const [uploadFavIconLogoLocal, setUploadFavIconLogoLocal] = useState<any>();
   const [uploadFinalFavIconLogoLocal, setUploadFinalFavIconLogoLocal] =
-    useState<string>("");
-  const [uploadFooterLogoLocal, setUploadFooterLogoLocal] =
-    useState<string>("");
+    useState<any>();
+  const [uploadFooterLogoLocal, setUploadFooterLogoLocal] = useState<any>();
   const [uploadFinalFooterLogoLocal, setUploadFinalFooterLogoLocal] =
-    useState<string>("");
+    useState<any>();
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const {} = useStyles(appTheme);
 
   const {
@@ -208,7 +204,7 @@ const AdminPanel = () => {
     formData.append("footer", uploadFinalFooterLogo);
     formData.append("footerText", footerTitle);
     formData.append("footerColor", colorChange);
-
+    formData.append("isPreview", "N");
     dispatch(getAdminPanelConfig(formData));
   };
 
@@ -227,12 +223,21 @@ const AdminPanel = () => {
     setUploadImage(false);
     setUploadImageLogo("");
     setUploadImageLogoLocal("");
+    setErrorMsg("");
   };
 
   const handleSaveClick = () => {
-    setUploadImage(false);
-    setUploadFinalImageLogo(uploadImageLogo);
-    setUploadFinalImageLogoLocal(uploadImageLogoLocal);
+    const MAX_FILE_SIZE = 5120; // 5MB
+    const fileSizeKiloBytes = uploadImageLogo?.size / 1024;
+
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 5MB");
+    } else {
+      setUploadImage(false);
+      setUploadFinalImageLogo(uploadImageLogo);
+      setUploadFinalImageLogoLocal(uploadImageLogoLocal);
+      setErrorMsg("");
+    }
   };
 
   const handleUploadChange = (event: any) => {
@@ -259,12 +264,21 @@ const AdminPanel = () => {
     setUploadImage(false);
     setUploadHeaderImageLogo("");
     setUploadHeaderImageLogoLocal("");
+    setErrorMsg("");
   };
 
   const handleHeaderSaveClick = () => {
-    setUploadImage(false);
-    setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
-    setUploadFinalHeaderImageLogoLocal(uploadHeaderImageLogoLocal);
+    const MAX_FILE_SIZE = 5120; // 5MB
+    const fileSizeKiloBytes = uploadHeaderImageLogo?.size / 1024;
+
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 5MB");
+    } else {
+      setUploadImage(false);
+      setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
+      setUploadFinalHeaderImageLogoLocal(uploadHeaderImageLogoLocal);
+      setErrorMsg("");
+    }
   };
 
   const handleHeaderChange = (event: any) => {
@@ -291,12 +305,21 @@ const AdminPanel = () => {
     setUploadImage(false);
     setUploadFavIconLogo("");
     setUploadFavIconLogoLocal("");
+    setErrorMsg("");
   };
 
   const handleFavIconSaveClick = () => {
-    setUploadImage(false);
-    setUploadFinalFavIconLogo(uploadFavIconLogo);
-    setUploadFinalFavIconLogoLocal(uploadFavIconLogoLocal);
+    const MAX_FILE_SIZE = 5120; // 5MB
+    const fileSizeKiloBytes = uploadFavIconLogo?.size / 1024;
+
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 5MB");
+    } else {
+      setUploadImage(false);
+      setUploadFinalFavIconLogo(uploadFavIconLogo);
+      setUploadFinalFavIconLogoLocal(uploadFavIconLogoLocal);
+      setErrorMsg("");
+    }
   };
 
   const handleFavIconChange = (event: any) => {
@@ -323,12 +346,21 @@ const AdminPanel = () => {
     setUploadImage(false);
     setUploadFooterLogo("");
     setUploadFooterLogoLocal("");
+    setErrorMsg("");
   };
 
   const handleFooterSaveClick = () => {
-    setUploadImage(false);
-    setUploadFinalFooterLogo(uploadFooterLogo);
-    setUploadFinalFooterLogoLocal(uploadFooterLogoLocal);
+    const MAX_FILE_SIZE = 5120; // 5MB
+    const fileSizeKiloBytes = uploadFooterLogo?.size / 1024;
+
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 5MB");
+    } else {
+      setUploadImage(false);
+      setUploadFinalFooterLogo(uploadFooterLogo);
+      setUploadFinalFooterLogoLocal(uploadFooterLogoLocal);
+      setErrorMsg("");
+    }
   };
 
   const handleFooterChange = (event: any) => {
@@ -344,6 +376,7 @@ const AdminPanel = () => {
     setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
+  console.log("uploadImageLogo", uploadImageLogo);
   return (
     <>
       <Fragment>
@@ -687,6 +720,7 @@ const AdminPanel = () => {
             handleFooterSaveClick={handleFooterSaveClick}
             handleFooterChange={handleFooterChange}
             dropDropFooter={dropDropFooter}
+            errorMsg={errorMsg}
           />
         )}
       </Fragment>

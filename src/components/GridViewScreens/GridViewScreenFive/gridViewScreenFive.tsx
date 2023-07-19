@@ -10,12 +10,12 @@ import Chart from "elements/Chart";
 import useTranslation from "localization/translations";
 
 const GridViewScreenFive: React.FC<any> = (props) => {
-  const { handleClick } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  const { handleClick, selectedTheme } = props;
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const {dashboard, gridView} = useTranslation();
+  const { dashboard, gridView } = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -253,7 +253,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>10</div>
-                        <div className={liveContentLabel}>{gridView.vehicles}</div>
+                        <div className={liveContentLabel}>
+                          {gridView.vehicles}
+                        </div>
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValue}>13</div>
@@ -272,12 +274,12 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   className={lastweekContainer}
                 >
                   <Grid item xs={12} className={lastweekTitleStyle}>
-                  <div
+                    <div
                       style={{
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                            padding: "3%",
+                        padding: "3%",
                       }}
                     >
                       {gridView.today}
@@ -296,7 +298,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         direction="column"
                       >
                         <div className={listItemValueStyle}>20</div>
-                        <div className={listItemLabelStyle}>{gridView.incidents}</div>
+                        <div className={listItemLabelStyle}>
+                          {gridView.incidents}
+                        </div>
                       </Grid>
                       <Grid
                         item
@@ -317,7 +321,10 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>5Hrs</div>
                         <div className={listItemLabelStyle}>
-                          <p>{gridView.total}</p> <p>{gridView.idling} {gridView.hours}</p>
+                          <p>{gridView.total}</p>{" "}
+                          <p>
+                            {gridView.idling} {gridView.hours}
+                          </p>
                         </div>
                       </Grid>
                     </Grid>

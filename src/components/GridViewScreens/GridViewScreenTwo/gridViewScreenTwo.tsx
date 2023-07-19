@@ -8,13 +8,13 @@ import useStyles from "../styles";
 import useTranslation from "localization/translations";
 
 const GridViewScreenTwo: React.FC<any> = (props) => {
-  const { handleClick } = props;
+  const { handleClick, selectedTheme } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const {dashboard, gridView} = useTranslation();
+  const { dashboard, gridView } = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -297,12 +297,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   className={lastweekContainer}
                 >
                   <Grid item xs={12} className={lastweekTitleStyle}>
-                  <div
+                    <div
                       style={{
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                            padding: "3%",
+                        padding: "3%",
                       }}
                     >
                       {gridView.today}

@@ -4,14 +4,14 @@ import theme from "theme/theme";
 import useStyles from "./styles";
 
 const InputSearch: React.FC<any> = (props) => {
-  const { searchValue, handleSearch } = props;
+  const { searchValue, handleSearch, selectedTheme } = props;
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const { customTextField } = useStyles(appTheme);
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {
