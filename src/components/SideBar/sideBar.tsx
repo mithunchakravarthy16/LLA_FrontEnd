@@ -40,12 +40,14 @@ import useStyles from "./styles";
 interface SideBarProps {}
 
 const SideBar = (props: SideBarProps) => {
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
+  );
+
   const location = useLocation();
   const user = useSelector((state: any) => state.login.loginData);
   const {} = props;
-  const [selectedTheme, setSelectedTheme] = useState<any>(
-    JSON.parse(localStorage.getItem("theme") || "{}")
-  );
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [activePage, setActivePage] = useState<number>();
 
@@ -113,6 +115,10 @@ const SideBar = (props: SideBarProps) => {
       title: settingsText,
     },
   ];
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -223,6 +229,11 @@ const SideBar = (props: SideBarProps) => {
         )} */}
         <div className={menuLogoLightThemeSection}>
           <img width={"100%"} height={"100%"} src={LibertyLatinAmericalogo} />
+          {/* <img
+            width={"100%"}
+            height={"100%"}
+            src={`data:image/jpeg;base64,${adminPanelData?.header}`}
+          /> */}
         </div>
         <div className={menuIconSection}>
           {array?.map((item: any, index: number) => {
@@ -234,13 +245,15 @@ const SideBar = (props: SideBarProps) => {
                 onClick={(event) =>
                   handleClick(event, item.id, item.path, item?.title)
                 }
-                key={index}>
+                key={index}
+              >
                 <Tooltip
                   tooltipValue={item?.title}
                   placement={"right"}
                   offset={tooltipOfset}
                   fontSize={fontSize}
-                  padding={padding}>
+                  padding={padding}
+                >
                   <img src={item.image} />
                 </Tooltip>
               </div>
@@ -265,14 +278,16 @@ const SideBar = (props: SideBarProps) => {
             className={customMenu}
             anchorEl={anchorElUser}
             open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}>
+            onClose={handleCloseUserMenu}
+          >
             {menuOptions &&
               menuOptions.length > 0 &&
               menuOptions.map((menuOptions) => (
                 <MenuItem
                   id="demo-customized-menu"
                   key={menuOptions}
-                  onClick={() => handleCloseUserMenu(menuOptions)}>
+                  onClick={() => handleCloseUserMenu(menuOptions)}
+                >
                   <div className={logoutSection}>
                     {menuOptions && menuOptions === "Logout" ? (
                       <img className={logoutImg} src={Logout} alt="Logout" />

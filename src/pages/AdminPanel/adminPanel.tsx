@@ -43,7 +43,7 @@ const AdminPanel = () => {
   const [selectRadio, setSelectRadio] = useState<any>("");
   const [uploadImage, setUploadImage] = useState<boolean>(false);
   const [uploadImageTitle, setUploadImageTitle] = useState<string>("");
-  const [uploadImageLogo, setUploadImageLogo] = useState<string>("");
+  const [uploadImageLogo, setUploadImageLogo] = useState<any>();
   const [uploadFinalImageLogo, setUploadFinalImageLogo] = useState<string>("");
   const [colorChange, setColorChange] = useState<string>("#2D3748");
   const [footerTitle, setFooterTitle] = useState<string>("");
@@ -208,7 +208,7 @@ const AdminPanel = () => {
     formData.append("footer", uploadFinalFooterLogo);
     formData.append("footerText", footerTitle);
     formData.append("footerColor", colorChange);
-
+    formData.append("isPreview", "N");
     dispatch(getAdminPanelConfig(formData));
   };
 
@@ -233,6 +233,13 @@ const AdminPanel = () => {
     setUploadImage(false);
     setUploadFinalImageLogo(uploadImageLogo);
     setUploadFinalImageLogoLocal(uploadImageLogoLocal);
+
+    const MAX_FILE_SIZE = 5120; // 5MB
+    const fileSizeKiloBytes = uploadImageLogo?.size / 1024;
+
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      // setErrorMsg("File size is greater than maximum limit");
+    }
   };
 
   const handleUploadChange = (event: any) => {
@@ -344,6 +351,7 @@ const AdminPanel = () => {
     setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
+  console.log("uploadImageLogo", uploadImageLogo);
   return (
     <>
       <Fragment>

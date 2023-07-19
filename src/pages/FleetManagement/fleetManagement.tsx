@@ -34,11 +34,17 @@ import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 
 const FleetManagement: React.FC<any> = (props) => {
-  const {dashboard, gridView, fleetManagement} = useTranslation();
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const { dashboard, gridView, fleetManagement } = useTranslation();
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -461,6 +467,7 @@ const FleetManagement: React.FC<any> = (props) => {
                               ?.progressBarBg
                           }
                           title={fleetManagement.safetyScore}
+                          selectedTheme={selectedTheme}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
@@ -475,7 +482,9 @@ const FleetManagement: React.FC<any> = (props) => {
                               }}
                             >
                               <Grid item xs={12} style={{ height: "10%" }}>
-                                <div className={graphTitle}>{gridView.trips}</div>
+                                <div className={graphTitle}>
+                                  {gridView.trips}
+                                </div>
                               </Grid>
                               <Grid
                                 item
@@ -530,16 +539,23 @@ const FleetManagement: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#6B70AB")
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.4 : 0.3)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.4
+                                                      : 0.3
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
-                                                Highcharts.color(
-                                                   "#6B70AB"
-                                                    
-                                                )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.07 : 0.02)
+                                                Highcharts.color("#6B70AB")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.07
+                                                      : 0.02
+                                                  )
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -659,15 +675,23 @@ const FleetManagement: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#712C7D")
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.4 : 0.3)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.4
+                                                      : 0.3
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
-                                                Highcharts.color(
-                                                  "#712C7D"
-                                                )
-                                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.07 : 0.02)
+                                                Highcharts.color("#712C7D")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.07
+                                                      : 0.02
+                                                  )
                                                   .get("rgba"),
                                               ],
                                             ],
@@ -803,6 +827,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       setIsMarkerClicked={setIsMarkerClicked}
                       handleViewDetails={handleViewDetails}
                       handleVideoDetails={handleVideoDetails}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                 </Grid>
@@ -825,6 +850,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   handleVideoDetails={handleVideoDetails}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
             </Grid>
@@ -836,12 +862,14 @@ const FleetManagement: React.FC<any> = (props) => {
           setShowInfoDialogue={setShowInfoDialogue}
           selectedMarker={selectedMarker}
           is4kDevice={selectedWidth?.is4kDevice}
+          selectedTheme={selectedTheme}
         />
       )}
       {showInfoDialogueVideo && (
         <InfoDialogFleetVideo
           setShowInfoDialogue={setShowInfoDialogueVideo}
           selectedMarker={selectedMarker}
+          selectedTheme={selectedTheme}
         />
       )}
     </>

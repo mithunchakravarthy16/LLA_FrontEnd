@@ -26,6 +26,7 @@ import dashboardNotification from "../../mockdata/dashboardNotificationAPIFormat
 import useStyles from "./styles";
 import fleetManagementResponse from "mockdata/fleetManagementAPI";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
+import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -34,9 +35,13 @@ interface DashboardContainerProps {
 const DashboardContainer: React.FC<DashboardContainerProps> = (
   props: DashboardContainerProps
 ) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const dispatch = useDispatch();
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
 
   const fleetManagementNotificationResponse = useSelector(
     (state: any) =>
@@ -63,6 +68,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
   useEffect(() => {
+    dispatch(getAdminPanelConfigData({}));
+  }, []);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
+
+  useEffect(() => {
     switch (selectedTheme) {
       case "light":
         setAppTheme(theme?.lightTheme);
@@ -75,6 +88,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         break;
     }
   }, [selectedTheme]);
+
   const {
     dashboardRightPanelStyle,
     notificationIconSection,
@@ -84,8 +98,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const assetPayload: any = {};
@@ -213,6 +225,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 handleVideoDetails={() => {}}
                 handleViewDetails={() => {}}
                 handleAssetViewDetails={() => {}}
+                selectedTheme={selectedTheme}
               />
             </div>
           </Grid>
@@ -237,6 +250,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             setCurrentOpenedCard={setCurrentOpenedCard}
             focusedCategory={focusedCategory}
             setFocusedCategory={setFocusedCategory}
+            selectedTheme={selectedTheme}
           />
           <Grid item xs={4}>
             {notificationPanelActive && (
@@ -263,6 +277,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   handleVideoDetails={() => {}}
                   handleViewDetails={() => {}}
                   handleAssetViewDetails={() => {}}
+                  selectedTheme={selectedTheme}
                 />
               </div>
             )}

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
 import {
   PowerConsumtionIcon,
   TemperatureIcon,
@@ -12,7 +13,7 @@ import {
   Co2LightThemeIcon,
   HVACLightThemeIcon,
   IncomeLightThemeIcon,
-  WaterLightThemeIcon
+  WaterLightThemeIcon,
 } from "../../assets/topPanelListIcons";
 import useTranslation from "localization/translations";
 import theme from "../../theme/theme";
@@ -30,11 +31,17 @@ import {
 import energyManagementData from "mockdata/energyManagementData";
 
 const Parking: React.FC<any> = (props) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
-  const {dashboard, gridView, parking} = useTranslation();
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
+  const { dashboard, gridView, parking } = useTranslation();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -71,27 +78,30 @@ const Parking: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: selectedTheme === "light" ? ElectricityLightThemeIcon : PowerConsumtionIcon,
+      icon:
+        selectedTheme === "light"
+          ? ElectricityLightThemeIcon
+          : PowerConsumtionIcon,
       value: "200kWh",
       name: gridView.electricityConsumption,
     },
     {
-      icon:selectedTheme === "light" ? HVACLightThemeIcon : TemperatureIcon,
+      icon: selectedTheme === "light" ? HVACLightThemeIcon : TemperatureIcon,
       value: "100kWh",
       name: "HVAC",
     },
     {
-      icon:selectedTheme === "light" ? WaterLightThemeIcon : WaterConsumption,
+      icon: selectedTheme === "light" ? WaterLightThemeIcon : WaterConsumption,
       value: "1480KL",
       name: gridView.waterConsumption,
     },
     {
-      icon: selectedTheme === "light" ? IncomeLightThemeIcon :IncomeIcon,
+      icon: selectedTheme === "light" ? IncomeLightThemeIcon : IncomeIcon,
       value: "500$",
       name: `${gridView.cost} ${gridView.saved}`,
     },
     {
-      icon:selectedTheme === "light" ? Co2LightThemeIcon : SubtractIcon,
+      icon: selectedTheme === "light" ? Co2LightThemeIcon : SubtractIcon,
       value: "50Kg",
       name: `${gridView.co2} ${gridView.emission}`,
     },
@@ -269,6 +279,7 @@ const Parking: React.FC<any> = (props) => {
                               ?.progressTrailColor
                           }
                           title={`${gridView.energy} ${gridView.saved}`}
+                          selectedTheme={selectedTheme}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "75%" }}>
@@ -305,7 +316,15 @@ const Parking: React.FC<any> = (props) => {
                                       marginRight: 6,
                                     }}
                                   ></div>
-                                  <div style={{color : appTheme?.palette?.energyMgmtPage?.topPanelTextColor}}>{gridView.electricityConsumption}</div>
+                                  <div
+                                    style={{
+                                      color:
+                                        appTheme?.palette?.energyMgmtPage
+                                          ?.topPanelTextColor,
+                                    }}
+                                  >
+                                    {gridView.electricityConsumption}
+                                  </div>
                                 </div>
                                 <div
                                   style={{
@@ -324,7 +343,15 @@ const Parking: React.FC<any> = (props) => {
                                       marginRight: 6,
                                     }}
                                   ></div>
-                                  <div style={{color : appTheme?.palette?.energyMgmtPage?.topPanelTextColor}}>HVAC</div>
+                                  <div
+                                    style={{
+                                      color:
+                                        appTheme?.palette?.energyMgmtPage
+                                          ?.topPanelTextColor,
+                                    }}
+                                  >
+                                    HVAC
+                                  </div>
                                 </div>
                               </Grid>
                               <Grid item xs={12} style={{ height: "90%" }}>
@@ -467,6 +494,7 @@ const Parking: React.FC<any> = (props) => {
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                 </Grid>
@@ -487,6 +515,7 @@ const Parking: React.FC<any> = (props) => {
                   setCurrentMarker={setCurrentMarker}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
             </Grid>

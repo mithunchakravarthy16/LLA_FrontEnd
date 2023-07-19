@@ -9,13 +9,13 @@ import useStyles from "../styles";
 import useTranslation from "localization/translations";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
-  const { handleClick } = props;
+  const { handleClick, selectedTheme } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const {dashboard, gridView} = useTranslation();
+  const { dashboard, gridView } = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -161,7 +161,9 @@ const GridViewScreenSix: React.FC<any> = (props) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            <div className={screenTwoGraphTitleStyle}>{gridView.assets} {gridView.tracked}</div>
+            <div className={screenTwoGraphTitleStyle}>
+              {gridView.assets} {gridView.tracked}
+            </div>
             <Chart
               width={selectedWidth?.width}
               height={selectedWidth?.height}

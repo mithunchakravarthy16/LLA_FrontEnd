@@ -105,11 +105,12 @@ const Map: React.FC<any> = (props) => {
     polygonPath,
     onCircleCompleteLocation,
     onPolygonCompleteLocation,
+    selectedTheme,
   } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const { googleMapStyle, footerSection } = useStyles({
     ...appTheme,

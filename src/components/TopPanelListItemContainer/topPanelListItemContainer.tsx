@@ -17,10 +17,11 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     strokeColor,
     trailColor,
     title,
+    selectedTheme,
   } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -71,7 +72,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
         justifyContent="space-around"
         alignItems="center"
         className={bodyLeftTopPanelListSubContainer}
-        style={{    borderRight : "0px"      }}
+        style={{ borderRight: "0px" }}
       >
         {topPanelListItems &&
           topPanelListItems?.length > 0 &&

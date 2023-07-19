@@ -11,12 +11,12 @@ import useTranslation from "localization/translations";
 import GridView from "pages/GridView";
 
 const GridViewScreenOne: React.FC<any> = (props) => {
-  const { handleClick } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  const { handleClick, selectedTheme } = props;
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
-  const {dashboard, gridView} = useTranslation();
+  const { dashboard, gridView } = useTranslation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -193,7 +193,9 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                   className={leftSubChildContainer}
                 >
                   <Grid item xs={12}>
-                    <div className={graphTitleScreenOne}>{gridView.occupancy}</div>
+                    <div className={graphTitleScreenOne}>
+                      {gridView.occupancy}
+                    </div>
                     <Chart
                       width={selectedWidth?.width}
                       height={selectedWidth?.height}
@@ -218,23 +220,30 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                             stops: [
                               [
                                 0,
-                                Highcharts.color("#73B35A") 
+                                Highcharts.color("#73B35A")
                                   .setOpacity(0.5)
                                   .get("rgba"),
                               ],
                               [
                                 0.5,
                                 Highcharts.color("#73B35A")
-                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.3 : 0.1)
+                                  .setOpacity(
+                                    selectedWidth?.is4kDevice ||
+                                      selectedWidth?.is3KDevice
+                                      ? 0.3
+                                      : 0.1
+                                  )
                                   .get("rgba"),
                               ],
                               [
                                 1,
-                                Highcharts.color(
-                                   "#73B35A"
-                                    
-                                )
-                                  .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.05 : 0.02)
+                                Highcharts.color("#73B35A")
+                                  .setOpacity(
+                                    selectedWidth?.is4kDevice ||
+                                      selectedWidth?.is3KDevice
+                                      ? 0.05
+                                      : 0.02
+                                  )
                                   .get("rgba"),
                               ],
                             ],
@@ -258,11 +267,15 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>398</div>
-                        <div className={liveContentLabel}>{dashboard.available}</div>
+                        <div className={liveContentLabel}>
+                          {dashboard.available}
+                        </div>
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValue}>354</div>
-                        <div className={liveContentLabel}>{dashboard.occupied}</div>
+                        <div className={liveContentLabel}>
+                          {dashboard.occupied}
+                        </div>
                       </div>
                     </div>
                   </Grid>
@@ -282,7 +295,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                            padding: "3%",
+                        padding: "3%",
                       }}
                     >
                       {gridView.today}
@@ -302,7 +315,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                       >
                         <div className={listItemValueStyle}>10Hrs</div>
                         <div className={listItemLabelStyle}>
-                          {gridView.avg}<p>{gridView.parkingHours}</p>
+                          {gridView.avg}
+                          <p>{gridView.parkingHours}</p>
                         </div>
                       </Grid>
                       <Grid

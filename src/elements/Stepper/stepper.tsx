@@ -16,11 +16,11 @@ import customTheme from "../../theme/theme";
 import useStyles from "./styles";
 
 const Stepper: React.FC<any> = (props) => {
-  const { routeDetails, tripStatus, is4kDevice } = props;
+  const { routeDetails, tripStatus, is4kDevice, selectedTheme } = props;
   const [appTheme, setAppTheme] = useState<any>(customTheme?.defaultTheme);
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {

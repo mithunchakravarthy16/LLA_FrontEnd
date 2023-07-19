@@ -37,13 +37,20 @@ import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
 
 const AssetTracking: React.FC<any> = (props) => {
-  const {dashboard, gridView, security, assetsTracking} = useTranslation();
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const { dashboard, gridView, security, assetsTracking } = useTranslation();
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const [notificationArray, setNotificationArray] = useState<any>([]);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
+
   useEffect(() => {
     switch (selectedTheme) {
       case "light":
@@ -162,7 +169,10 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      icon: selectedTheme === "light" ? AssetTrackedLightThemeIcon : AssetTrackedIcon,
+      icon:
+        selectedTheme === "light"
+          ? AssetTrackedLightThemeIcon
+          : AssetTrackedIcon,
       value: overallAssetDetails?.assetTrackedCount,
       name: assetsTracking.assetsTracked,
     },
@@ -172,7 +182,10 @@ const AssetTracking: React.FC<any> = (props) => {
       name: gridView.location,
     },
     {
-      icon: selectedTheme === "light" ? OutOfGeofenceLightThemeIcon : OutOfGeofenceIcon,
+      icon:
+        selectedTheme === "light"
+          ? OutOfGeofenceLightThemeIcon
+          : OutOfGeofenceIcon,
       value: overallAssetDetails?.outOfGeofenceCount,
       name: `${gridView.outOf} ${gridView.geofence}`,
     },
@@ -476,16 +489,25 @@ const AssetTracking: React.FC<any> = (props) => {
             {dashboard.assetsTracking}
           </Grid>
           <Grid item xs={12} className={bodyContainer}>
-            <Grid container xs={12} className={bodySubContainer}  style={{ height: "93vh" }}>
+            <Grid
+              container
+              xs={12}
+              className={bodySubContainer}
+              style={{ height: "93vh" }}
+            >
               <Grid item xs={9} className={bodyLeftContainer}>
                 <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid item xs={12} className={bodyLeftTopPanelContainer} style={{ height: "29%" }}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelContainer}
+                    style={{ height: "29%" }}
+                  >
                     <Grid
                       container
                       xs={12}
                       className={bodyLeftTopPanelSubContainer}
-                      style={{height : "100%"}}
-
+                      style={{ height: "100%" }}
                     >
                       <Grid
                         item
@@ -498,109 +520,126 @@ const AssetTracking: React.FC<any> = (props) => {
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
-                          trailColor={appTheme?.palette?.fleetManagementPage
-                            ?.progressBarBg}
+                          trailColor={
+                            appTheme?.palette?.fleetManagementPage
+                              ?.progressBarBg
+                          }
                           title={assetsTracking.activeTrackers}
+                          selectedTheme={selectedTheme}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "100%" }}>
                         <Grid container xs={12} style={{ height: "25vh" }}>
-                      <Grid item xs={6} className={graphOneContainer}>
-                        <Grid
-                          container
-                          xs={12}
-                          // className={graphOneContainerStyle}
-                          style={{
-                            height: "100%",
-                            paddingLeft: "10px",
-                          }}
-                        >
-                          <Grid
-                            item
-                            xs={12}
-                            className={screenFiveGraphTitleStyle}
-                            style={{minHeight : "3vh"}}
-                          >
-                            <div className={graphOneGraphTitleContainer}>
-                              <div
-                                className={graphTitleOneRound}
-                                style={{}}
-                              ></div>
-                              <div>{assetsTracking.activeTracker}</div>
-                            </div>
-                            <div className={graphTitleTwoStyle}>
-                              <div className={graphTitleTwoRound}></div>
-                              <div>{assetsTracking.inactiveTracker}</div>
-                            </div>
-                          </Grid>
-                          {/* <Grid item xs={12} className={graphOneChartStyle}> */}
-                          <Grid item xs={12} 
-                              style={{ height: "90%" }}
+                          <Grid item xs={6} className={graphOneContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              // className={graphOneContainerStyle}
+                              style={{
+                                height: "100%",
+                                paddingLeft: "10px",
+                              }}
+                            >
+                              <Grid
+                                item
+                                xs={12}
+                                className={screenFiveGraphTitleStyle}
+                                style={{ minHeight: "3vh" }}
                               >
+                                <div className={graphOneGraphTitleContainer}>
+                                  <div
+                                    className={graphTitleOneRound}
+                                    style={{}}
+                                  ></div>
+                                  <div>{assetsTracking.activeTracker}</div>
+                                </div>
+                                <div className={graphTitleTwoStyle}>
+                                  <div className={graphTitleTwoRound}></div>
+                                  <div>{assetsTracking.inactiveTracker}</div>
+                                </div>
+                              </Grid>
+                              {/* <Grid item xs={12} className={graphOneChartStyle}> */}
+                              <Grid item xs={12} style={{ height: "90%" }}>
                                 <Grid
                                   container
                                   xs={12}
                                   // style={{ height: "100%" }}
                                 >
-                                  <Grid item xs={12} style={{ height: "21vh", width: "80vw" }}>
-                            <Chart
-                              // width={selectedWidth?.width}
-                              // height={selectedWidth?.height}
-                              containerProps={{
-                                style: { height: "100%", width: "100%" },
-                              }}
-                              isVisible={true}
-                              graphType={"spline"}
-                              units={""}
-                              isCrosshair={true}
-                              crossHairLineColor={"#E5FAF6"}
-                              is4kDevice={selectedWidth?.is4kDevice}
-                              // tooltip={"shared"}
-                              dataPoints={[
-                                {
-                                  marker: {
-                                    enabled: false,
-                                  },
-                                  lineColor: "#25796D",
-                                  color: "#25796D",
-                                  lineWidth: 2,
-                                  data: [
-                                    0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4, 8, 6,
-                                    6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                  ],
-                                },
-                                {
-                                  marker: {
-                                    enabled: false,
-                                  },
-                                  lineColor: "#D25A5A",
-                                  color: "#D25A5A",
-                                  lineWidth: 2,
-                                  data: [
-                                    1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3,
-                                    5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                  ],
-                                },
-                              ]}
-                            />
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    style={{ height: "21vh", width: "80vw" }}
+                                  >
+                                    <Chart
+                                      // width={selectedWidth?.width}
+                                      // height={selectedWidth?.height}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      isVisible={true}
+                                      graphType={"spline"}
+                                      units={""}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#E5FAF6"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      // tooltip={"shared"}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#25796D",
+                                          color: "#25796D",
+                                          lineWidth: 2,
+                                          data: [
+                                            0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+                                            4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                          ],
+                                        },
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#D25A5A",
+                                          color: "#D25A5A",
+                                          lineWidth: 2,
+                                          data: [
+                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid />
+                            </Grid>
                           </Grid>
-                          </Grid>
-                          </Grid>
-                          <Grid />
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={6} className={graphTwoContainer}>
-                        <Grid
-                          container
-                          xs={12}
-                          className={graphTwoContainerStyle}
-                          style={{}}
-                        >
-                          <Grid item xs={12}  style={{ height: "3vh", display : "flex", alignItems : "center", fontSize : "0.8vw" }}  >
-                            {gridView.incidents}
-                          </Grid>
-                          {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
-                          <Grid item xs={12}>
+                          <Grid item xs={6} className={graphTwoContainer}>
+                            <Grid
+                              container
+                              xs={12}
+                              className={graphTwoContainerStyle}
+                              style={{}}
+                            >
+                              <Grid
+                                item
+                                xs={12}
+                                style={{
+                                  height: "3vh",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  fontSize: "0.8vw",
+                                }}
+                              >
+                                {gridView.incidents}
+                              </Grid>
+                              {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
+                              <Grid item xs={12}>
                                 <Grid
                                   container
                                   xs={12}
@@ -611,70 +650,81 @@ const AssetTracking: React.FC<any> = (props) => {
                                     xs={12}
                                     style={{ height: "21vh", width: "80vw" }}
                                   >
-                            <Chart
-                              // width={selectedWidth?.width1}
-                              // height={selectedWidth?.height1}
-                              containerProps={{
-                                style: { height: "100%", width: "100%" },
-                              }}
-                              graphType={"areaspline"}
-                              isVisible={true}
-                              units={""}
-                              isCrosshair={true}
-                              crossHairLineColor={"#EE3E35"}
-                              is4kDevice={selectedWidth?.is4kDevice}
-                              dataPoints={[
-                                {
-                                  marker: {
-                                    enabled: false,
-                                  },
-                                  lineColor: "#EE3E3590",
-                                  color: "#EE3E35",
-                                  lineWidth: 2,
-                                  fillColor: {
-                                    linearGradient: [0, 0, 0, 200],
-                                    stops: [
-                                      [
-                                        0,
-                                        Highcharts.color("#C3362F")
-                                          .setOpacity(0.5)
-                                          .get("rgba"),
-                                      ],
-                                      [
-                                        0.5,
-                                        Highcharts.color("#C3362F")
-                                          .setOpacity(0.3)
-                                          .get("rgba"),
-                                      ],
-                                      [
-                                        1,
-                                        Highcharts.color(
-                                          "#C3362F"
-                                        )
-                                          .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 0.06 : 0.02)
-                                          .get("rgba"),
-                                      ],
-                                    ],
-                                  },
-                                  data: [
-                                    1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5, 6, 4, 7,
-                                    5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                  ],
-                                },
-                              ]}
-                            />
+                                    <Chart
+                                      // width={selectedWidth?.width1}
+                                      // height={selectedWidth?.height1}
+                                      containerProps={{
+                                        style: {
+                                          height: "100%",
+                                          width: "100%",
+                                        },
+                                      }}
+                                      graphType={"areaspline"}
+                                      isVisible={true}
+                                      units={""}
+                                      isCrosshair={true}
+                                      crossHairLineColor={"#EE3E35"}
+                                      is4kDevice={selectedWidth?.is4kDevice}
+                                      dataPoints={[
+                                        {
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#EE3E3590",
+                                          color: "#EE3E35",
+                                          lineWidth: 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [
+                                                0,
+                                                Highcharts.color("#C3362F")
+                                                  .setOpacity(0.5)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                0.5,
+                                                Highcharts.color("#C3362F")
+                                                  .setOpacity(0.3)
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
+                                                Highcharts.color("#C3362F")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? 0.06
+                                                      : 0.02
+                                                  )
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          data: [
+                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          ],
+                                        },
+                                      ]}
+                                    />
+                                  </Grid>
+                                </Grid>
                               </Grid>
-                              </Grid>
+                              <Grid />
+                            </Grid>
                           </Grid>
-                          <Grid />
                         </Grid>
                       </Grid>
                     </Grid>
-                    </Grid>
-                    </Grid>
                   </Grid>
 
-                  <Grid item xs={12} className={bodyLeftTopPanelMapContainer}   style={{ height: "60%" }}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={bodyLeftTopPanelMapContainer}
+                    style={{ height: "60%" }}
+                  >
                     <img
                       src={GeofenceIcon}
                       className={geofenceIconStyle}
@@ -692,6 +742,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       setIsMarkerClicked={setIsMarkerClicked}
                       handleAssetViewDetails={handleAssetViewDetails}
                       mapPageName={"asset"}
+                      selectedTheme={selectedTheme}
                     />
                   </Grid>
                 </Grid>
@@ -713,6 +764,7 @@ const AssetTracking: React.FC<any> = (props) => {
                   handleAssetViewDetails={handleAssetViewDetails}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  selectedTheme={selectedTheme}
                 />
               </Grid>
             </Grid>
@@ -725,11 +777,13 @@ const AssetTracking: React.FC<any> = (props) => {
           packageData={packageData}
           infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
+          selectedTheme={selectedTheme}
         />
       )}
       {isGeofenceInfoWindowActive && (
         <InfoDialogGeofenceAssetTracking
           setIsGeofenceInfoWindowActive={setIsGeofenceInfoWindowActive}
+          selectedTheme={selectedTheme}
         />
       )}
     </>

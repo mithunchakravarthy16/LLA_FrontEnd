@@ -59,7 +59,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogFleetVideo: React.FC<any> = (props) => {
-  const { setShowInfoDialogue, selectedMarker } = props;
+  const { setShowInfoDialogue, selectedMarker, selectedTheme } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -73,9 +73,9 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
     vicheals,
   } = useStyles(appTheme);
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {

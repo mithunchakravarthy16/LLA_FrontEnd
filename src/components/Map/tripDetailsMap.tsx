@@ -85,11 +85,12 @@ const TripDetailsMap: React.FC<any> = (props) => {
     tabIndex,
     handleViewDetails,
     handleVideoDetails,
+    selectedTheme,
   } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const { googleMapStyle, footerSection } = useStyles(appTheme);
 

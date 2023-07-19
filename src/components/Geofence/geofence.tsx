@@ -62,6 +62,7 @@ const Geofence: React.FC<any> = (props: any) => {
     selectedAssetValue,
     searchData,
     searchSelectedData,
+    selectedTheme,
   } = props;
 
   const [isCircleEnbled, setIsCircleEnbled] = useState<boolean>(false);
@@ -99,9 +100,9 @@ const Geofence: React.FC<any> = (props: any) => {
     assetsLists,
   } = useStyles(appTheme);
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [radius, setRadius] = useState<any>();
   const [circleLatLng, setCircleLatLng] = useState<any>();
   const {} = useTranslation();
@@ -293,6 +294,7 @@ const Geofence: React.FC<any> = (props: any) => {
               <InputSearch
                 searchValue={selectedAssetValue}
                 handleSearch={(e: any) => handleSearch(e)}
+                selectedTheme={selectedTheme}
               />
             </div>
             {selectedAssetValue?.length > 0 && (

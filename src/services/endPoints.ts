@@ -26,8 +26,10 @@ const SUB_URL = {
   loginUrl: apiSource.viot + VERSION.v1 + "/login",
   logoutUrl: apiSource.viot + VERSION.v1 + "/userLogout",
   adminPanelSaveUrl: "/api/sensyon/admin/saveconfiguration",
+  adminPanelGetUrl: "/api/sensyon/admin/getConfigurationDetail",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
 export const logoutApi = `${BASE_URL.baseUrl}${SUB_URL.logoutUrl}`;
 export const adminPanelSaveApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelSaveUrl}`;
+export const adminPanelGetApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelGetUrl}`;

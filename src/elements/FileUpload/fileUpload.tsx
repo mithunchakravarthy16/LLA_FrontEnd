@@ -42,8 +42,8 @@ const FileUpload = (props: any) => {
                 <img src={UploadIcon} />
               </label>
               <input
-                accept="image/*"
-                // accept=".jpg, .jpeg, .png"
+                // accept="image/*"
+                accept=".png, .svg, .jpeg, .jpg"
                 type="file"
                 name="upload"
                 id="upload"
