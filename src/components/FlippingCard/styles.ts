@@ -6,16 +6,18 @@ import theme from "../../theme/theme";
 
 let currentTheme: any = {}
 
-switch (JSON.parse(localStorage.getItem("theme")!)) {
-  case "light":
-    currentTheme = theme?.lightTheme;
-    break;
-  case "dark":
-    currentTheme = theme?.darkTheme;
-    break;
-  default:
-    currentTheme = theme?.defaultTheme;
-    break;
+export const setTheme = (themeFromApi: any) => {
+  switch (themeFromApi) {
+    case "light":
+      currentTheme = theme?.lightTheme;
+      break;
+    case "dark":
+      currentTheme = theme?.darkTheme;
+      break;
+    default:
+      currentTheme = theme?.defaultTheme;
+      break;
+  }
 }
 
 export const Wrapper = styled("div")`
