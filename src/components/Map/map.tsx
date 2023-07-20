@@ -1040,6 +1040,7 @@ const Map: React.FC<any> = (props) => {
                           location={singleMarker?.location}
                           handleAssetViewDetails={handleAssetViewDetails}
                           mapPageName={mapPageName}
+                          selectedTheme={selectedTheme}
                         />
                       </>
                     );
@@ -1060,6 +1061,7 @@ const Map: React.FC<any> = (props) => {
                           mapPageName={mapPageName}
                           handleViewDetails={handleViewDetails}
                           handleVideoDetails={handleVideoDetails}
+                          selectedTheme={selectedTheme}
                         />
                       </>
                     );
@@ -1115,6 +1117,7 @@ const Map: React.FC<any> = (props) => {
                           handleViewDetails={handleViewDetails}
                           handleVideoDetails={handleVideoDetails}
                           mapPageName={mapPageName} // === "dashboard"
+                          selectedTheme={selectedTheme}
                         />
                       )}
                       {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}

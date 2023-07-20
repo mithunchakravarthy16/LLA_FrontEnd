@@ -14,6 +14,14 @@ const App = () => {
 
   useEffect(() => {
     document.title = adminPanelData?.siteTitle;
+
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    }
+    link.href = `data:image/png;base64,${adminPanelData?.favIcon}`;
   }, [adminPanelData]);
 
   return (

@@ -2,15 +2,22 @@
 
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useSelector } from "react-redux";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
 const BirdsView: React.FC<any> = (props) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {

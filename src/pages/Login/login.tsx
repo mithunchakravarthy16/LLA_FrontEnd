@@ -150,7 +150,11 @@ const Login = () => {
             <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>
-                  {/* <img src={llaLogo} /> */}
+                  {adminPanelData?.login && (
+                    <img
+                      src={`data:image/jpeg;base64,${adminPanelData?.login}`}
+                    />
+                  )}
                 </div>
                 <h2 className={formTitle}>
                   <img src={smartLogoText} />

@@ -29,15 +29,15 @@ const ColorlibStepIcon: React.FC<any> = (props) => {
 };
 
 const CustomizedSteppers: React.FC<any> = (props) => {
-  const { packagaeData } = props;
+  const { packagaeData, selectedTheme } = props;
   const packagaeDataCopy = packagaeData && packagaeData;
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const { stepperSx, typographySx } = useStyles(appTheme);
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {

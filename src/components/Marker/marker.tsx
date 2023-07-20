@@ -24,11 +24,12 @@ const MapMarker: React.FC<any> = (props) => {
     handleAssetViewDetails,
     handleVideoDetails,
     mapPageName,
+    selectedTheme,
   } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
 
@@ -88,6 +89,7 @@ const MapMarker: React.FC<any> = (props) => {
               handleViewDetails={handleViewDetails}
               handleVideoDetails={handleVideoDetails}
               notificationPageName={mapPageName}
+              selectedTheme={selectedTheme}
             />
           </InfoWindowF>
         )}
@@ -141,6 +143,7 @@ const MapMarker: React.FC<any> = (props) => {
             mapPageName={mapPageName}
             handleViewDetails={handleViewDetails}
             handleVideoDetails={handleVideoDetails}
+            selectedTheme={selectedTheme}
           />
         </InfoWindowF>
       )}
