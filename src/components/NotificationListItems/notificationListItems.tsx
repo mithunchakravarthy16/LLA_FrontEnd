@@ -52,7 +52,7 @@ const NotificationListItems = (props: any) => {
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
 
   //   useEffect(() => {
   //     switch (selectedTheme) {
