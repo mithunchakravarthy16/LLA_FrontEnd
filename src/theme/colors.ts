@@ -129,5 +129,6 @@ let colorCodes = {
   white5: "#FFFFFF",
   lightGrey4: "#1E1B1B",
   lightGrey5: "#434343",
+  lightGrey6: "#060606",
 };
 export default colorCodes;
