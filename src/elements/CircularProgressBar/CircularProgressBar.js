@@ -7,6 +7,7 @@ import {
   ProgressBarStroke,
   IconBackDrop,
 } from './styles'
+import { useSelector } from 'react-redux';
 import { VerticalSpace } from 'elements/Space';
 import theme from "../../theme/theme";
 import circularProgressMask from 'assets/circular-progress-mask.svg';
@@ -32,11 +33,13 @@ const SpeedoMeter = (props) => {
     trackStrokeWidth,
     textValue,
   } = props;
+
+  const adminPanelData = useSelector(
+    (state) => state?.adminPanel?.getConfigData?.body
+  );
   
   const {width, height} = useWindowDimensions();
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme"))
-  );
+  const [selectedTheme, setSelectedTheme] = useState('');
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const getPointerThumb = () => {
@@ -60,6 +63,10 @@ const SpeedoMeter = (props) => {
         return {}
     }
   }
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {

@@ -79,7 +79,7 @@ const Card = ({
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.body
   );
-  setTheme(adminPanelData?.appearance)
+  setTheme(adminPanelData?.appearance);
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
     transform: `skew(-18deg) perspective(600px) rotateY(${
@@ -295,10 +295,13 @@ const Card = ({
               DEMO_VALUES[card?.title]?.noteValue
             }
           </NoteValue>
-          <NoteDifferenceIndicator
-            src={cardDifferenceIndicator}
-            difference={DEMO_VALUES[card?.title]?.noteDifference}
-          />
+          {adminPanelData?.appearance === "light" &&
+          card?.title === "assets_tracking" ? null : (
+            <NoteDifferenceIndicator
+              src={cardDifferenceIndicator}
+              difference={DEMO_VALUES[card?.title]?.noteDifference}
+            />
+          )}
         </NoteContainer>
       </BackContentContainer>
     </RootContainer>
