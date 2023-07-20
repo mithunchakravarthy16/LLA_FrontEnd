@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import muiTheme from "theme/muiTheme";
 import theme from "../../theme/theme";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const Chart: React.FC<any> = (props) => {
   const location = useLocation();
@@ -26,10 +27,20 @@ const Chart: React.FC<any> = (props) => {
     is3kDevice,
   } = props;
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
+
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -140,7 +151,7 @@ const Chart: React.FC<any> = (props) => {
                       location.pathname === "/fleetManagement" ||
                       location.pathname === "/assetTracking"
                       ? "#050F1B"
-                      : "#57585A"
+                      : selectedTheme === "light" ? "#050F1B" : "#57585A"
                   );
                   setTBorder(
                     location.pathname === "/energyManagement" ||
@@ -150,7 +161,7 @@ const Chart: React.FC<any> = (props) => {
                       location.pathname === "/fleetManagement" ||
                       location.pathname === "/assetTracking"
                       ? "#636363"
-                      : "#57585A"
+                      : selectedTheme === "light" ? "#050F1B" : "#57585A"
                   );
                   break;
               }
