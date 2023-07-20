@@ -25,11 +25,16 @@ import { getAdminUserLogout, setAdminUserLogin } from "../../redux/actions/admin
 import {
   getAdminPanelConfig,
   setAdminPanelConfig,
+  getAdminPanelConfigData,
 } from "redux/actions/adminPanel";
 
 const AdminPanel = () => {
   const adminPanelSaveData = useSelector(
     (state: any) => state?.adminPanel?.configData
+  );
+
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
 
   const dispatch = useDispatch();
@@ -143,11 +148,23 @@ const AdminPanel = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(getAdminPanelConfigData({}));
+  }, []);
+
+  useEffect(() => {
+    setSelectTheme(adminPanelData?.appearance);
+    setTitle(adminPanelData?.siteTitle);
+    setFooterTitle(adminPanelData?.footerText);
+    setColorChange(adminPanelData?.footerColor);
+    setSelectRadio(adminPanelData?.footerImage ? "image" : "text");
+  }, [adminPanelData]);
+
+  useEffect(() => {
     if (adminPanelSaveData?.statusCodeValue === 200) {
       setSuccess(true);
       setTimeout(() => {
-        setAdminPanelConfig({});
-      }, 5000);
+        dispatch(setAdminPanelConfig({}));
+      }, 3000);
     }
   }, [adminPanelSaveData]);
 
@@ -181,6 +198,7 @@ const AdminPanel = () => {
     setUploadFooterLogo("");
     setUploadFinalFooterLogo("");
     setColorChange("");
+    setUploadFinalFooterLogoLocal("");
   };
 
   // Footer Color Change
@@ -376,7 +394,6 @@ const AdminPanel = () => {
     setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
-  console.log("uploadImageLogo", uploadImageLogo);
   return (
     <>
       <Fragment>

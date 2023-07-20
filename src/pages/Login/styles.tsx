@@ -2,6 +2,7 @@
 
 import { makeStyles } from "@mui/styles";
 import llaBanner from "../../assets/images/login-bg1.jpg";
+import llaLightBanner from "../../assets/lightThemeBanner.svg";
 import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles(() => ({
@@ -9,7 +10,9 @@ const useStyles = makeStyles(() => ({
     background: props?.palette?.login?.pageBackgroundColor,
   }),
   loginBannerSection: (props: any) => ({
-    backgroundImage: `url("${llaBanner}")`,
+    backgroundImage: `url("${
+      props.selectedTheme === "light" ? llaLightBanner : llaBanner
+    }")`,
     background: props?.palette?.login?.loginBg,
     mixBlendMode: "hard-light",
     backdropFilter: "blur(42px)",
@@ -32,7 +35,7 @@ const useStyles = makeStyles(() => ({
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(0px)",
     borderRadius: "24px",
-    background: "#33333360", //rgba(51, 51, 51, 0.6)
+    background: props?.palette?.login?.bg, //rgba(51, 51, 51, 0.6)
     color: props?.palette?.login?.loginBannerTitle,
     display: "flex",
     alignItems: "center",
@@ -100,7 +103,7 @@ const useStyles = makeStyles(() => ({
     fontFamily: "HelveticaNeue-Regular",
     fontSize: "56px",
     lineHeight: "82px",
-    color: "#ffffff",
+    color: props?.palette?.login?.welcomeTitle,
     textAlign: "left",
     [muiTheme.breakpoints.down(3073)]: {
       fontFamily: "HelveticaNeue-Regular",
@@ -122,14 +125,14 @@ const useStyles = makeStyles(() => ({
     fontWeight: " 500",
     fontSize: "30px",
     lineHeight: "36px",
-    color: "#FF7A00",
+    color: props?.palette?.login?.loginTitle,
     marginBottom: 24,
     [muiTheme.breakpoints.down(3073)]: {
       fontFamily: "HelveticaNeue-Regular",
       fontWeight: " 500",
       fontSize: "30px",
       lineHeight: "36px",
-      color: "#FF7A00",
+      color: props?.palette?.login?.loginTitle,
       marginBottom: 24,
     },
     [muiTheme.breakpoints.down(2049)]: {
