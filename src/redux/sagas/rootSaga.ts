@@ -1,6 +1,8 @@
 import { all, takeLatest } from "redux-saga/effects";
 import { handleLogin, handleLogout } from "./handlers/login";
+import { handleAdminLogin, handleAdminLogout } from "./handlers/adminLogin";
 import login from "../actions/loginActions";
+import adminLogin from "../actions/adminLoginActions";
 import assetNotification from "redux/actions/getAllAssertNotificationAction";
 import fleetManagementNotification from "redux/actions/fleetManagementNotificationActions";
 import { handleAssetNotification } from "./handlers/getAllAssertNotification";
@@ -20,6 +22,7 @@ import {
 export default function* rootSaga() {
   yield all([
     watchLogin(),
+    watchAdminLogin(),
     watchAssetNotification(),
     watchFleetManagementNotification(),
     watchAssetActiveInactiveTracker(),
@@ -32,6 +35,10 @@ export default function* rootSaga() {
 
 export function* watchLogin() {
   yield takeLatest(login.GET_USER_LOGIN, handleLogin);
+}
+
+export function* watchAdminLogin() {
+  yield takeLatest(adminLogin.GET_ADMIN_USER_LOGIN, handleAdminLogin);
 }
 
 export function* watchAssetNotification() {

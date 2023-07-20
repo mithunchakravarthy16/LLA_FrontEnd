@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import theme from "../../theme/theme";
 import FooterIcon from "../../assets/images/lla-logo2.png";
 import useTranslation from "localization/translations";
@@ -10,10 +11,16 @@ import FooterCopyrights from "../../assets/images/copyrightsImg.svg";
 import useStyles from "./styles";
 
 const Footer = (props: any) => {
-  const [selectedTheme, setSelectedTheme] = useState<any>(
-    JSON.parse(localStorage.getItem("theme") || "{}")
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.body
   );
+
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+
+  useEffect(() => {
+    setSelectedTheme(adminPanelData?.appearance);
+  }, [adminPanelData]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -36,10 +43,9 @@ const Footer = (props: any) => {
     footerIconStyle,
     footerSectionDasbhoard,
     footerCopyrightsImg,
-  } = useStyles(appTheme);
+  } = useStyles({ ...appTheme, footerImage: adminPanelData?.footerImage });
 
-  const { footerText} =
-    useTranslation();
+  const { footerText } = useTranslation();
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -54,15 +60,24 @@ const Footer = (props: any) => {
       className={
         pageName === "dashboard" ? footerSectionDasbhoard : footerSection
       }
+      style={{ color: adminPanelData?.footerColor }}
     >
       <div className={footerContent}>
         <div className={footerIconStyle}>
-          <img src={FooterIcon} />
+          <img src={pageName !== "dashboard" ? FooterIcon : ""} />
         </div>
         <div>
           {pageName === "dashboard" ? (
             <p>
-              {footerText}
+              {adminPanelData.footerImage ? (
+                <img
+                  width={"35%"}
+                  height={"35%"}
+                  src={`data:image/jpeg;base64,${adminPanelData?.footerImage}`}
+                />
+              ) : (
+                adminPanelData.footerText
+              )}
             </p>
           ) : (
             <img className={footerCopyrightsImg} src={FooterCopyrights} />

@@ -125,5 +125,9 @@ let colorCodes = {
   color5: "#FDFDFD",
   lightGrayProgressBar: "#E4E4E4",
   flippingCardHoverLight: "rgba(0, 0, 0, 0.74)",
+  lightGrey3: "#33333360",
+  white5: "#FFFFFF",
+  lightGrey4: "#1E1B1B",
+  lightGrey5: "#434343",
 };
 export default colorCodes;
