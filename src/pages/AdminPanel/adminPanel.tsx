@@ -21,7 +21,7 @@ import DefaultLogo from "../../assets/defaultLogo.svg";
 import logoutImg from "../../assets/login/logout.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 import FavIcon from "../../assets/favIcon.svg";
-import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
+import { getAdminUserLogout, setAdminUserLogin } from "../../redux/actions/adminLoginActions";
 import {
   getAdminPanelConfig,
   setAdminPanelConfig,
@@ -134,8 +134,8 @@ const AdminPanel = () => {
   const handleCloseUserMenu = () => {
     localStorage.removeItem("user");
     localStorage.clear();
-    dispatch(getUserLogout());
-    dispatch(setUserLogin({}));
+    dispatch(getAdminUserLogout());
+    dispatch(setAdminUserLogin({}));
     navigate("/adminLogin");
   };
   useEffect(() => {
