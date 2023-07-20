@@ -12,11 +12,12 @@ const ParkingSlotContainer = (props: any) => {
     selectedParkingLot,
     handleParkingLot,
     tabsList,
-    handleLotSelctionCloseIcon
+    handleLotSelctionCloseIcon,
+    selectedTheme,
   } = props;
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   useEffect(() => {
     switch (selectedTheme) {
@@ -55,44 +56,48 @@ const ParkingSlotContainer = (props: any) => {
             width={"100%"}
             height={"100%"}
           ></img>
-          <div style={{ position: "absolute",
-                display: "flex",
-                justifyContent: "center",
-                alignItems : "center" }}>
+          <div
+            style={{
+              position: "absolute",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             {selectedParkingLot}
           </div>
         </div>
       ) : (
         <div className={mapFilterStyle}>
-            <div style={{width : "100%"}}>
-          <Tabs
-            initialIndex={parkingLotIndex}
-            tabsList={tabsList}
-            handleTabs={handleParkingLot}
-            dashboardNotificationClassName={customNotificationTabs}
-            pageName={"parking"}
-          />
-          <div
-            className={lotSelectionIconStyleClose}
-            onClick={handleLotSelctionCloseIcon}
-          >
-            <img
-              src={OrangeCircle}
-              alt="OrangeCircle"
-              width={"100%"}
-              height={"100%"}
+          <div style={{ width: "100%" }}>
+            <Tabs
+              initialIndex={parkingLotIndex}
+              tabsList={tabsList}
+              handleTabs={handleParkingLot}
+              dashboardNotificationClassName={customNotificationTabs}
+              pageName={"parking"}
             />
             <div
-              style={{
-                position: "absolute",
-                display: "flex",
-                justifyContent: "center",
-                alignItems : "center"
-              }}
+              className={lotSelectionIconStyleClose}
+              onClick={handleLotSelctionCloseIcon}
             >
-              X
+              <img
+                src={OrangeCircle}
+                alt="OrangeCircle"
+                width={"100%"}
+                height={"100%"}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                X
+              </div>
             </div>
-          </div>
           </div>
         </div>
       )}

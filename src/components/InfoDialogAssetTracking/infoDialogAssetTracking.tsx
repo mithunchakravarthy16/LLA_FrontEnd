@@ -477,7 +477,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         </div>
                       </Grid>
                       <Grid className={assetInfoLeftPanelBottom}>
-                        <CustomizedSteppers packagaeData={packageData} />
+                        <CustomizedSteppers
+                          packagaeData={packageData}
+                          selectedTheme={selectedTheme}
+                        />
                       </Grid>
                     </Grid>
                     <Grid item xs={3} className={assetInfoRightPanelMain}>

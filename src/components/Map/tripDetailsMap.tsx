@@ -112,265 +112,6 @@ const TripDetailsMap: React.FC<any> = (props) => {
     libraries: libraries,
   });
 
-  // useEffect(() => {
-  //   if (window.innerWidth > 3839) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : mapPageName === "fleetManagement"
-  //           ? "100%"
-  //           : "calc(100vh - 924px)",
-  //       is4kDevice: true,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 3071) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 1049px)",
-  //       is4kDevice: false,
-  //       is3kDevice: true,
-  //     });
-  //   } else if (window.innerHeight > 1279) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 572px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 2047) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 522px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 936) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 451px)",
-  //       is4kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1791) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 522px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1679) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 494px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1599) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 432px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1535) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 452px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1439) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 424px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 1049) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 499px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1359) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 390px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1343) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 424px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 959) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 474px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 863) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 408px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 719) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 356px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 1023) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 474px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerHeight > 599) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 286px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1279) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 378px)",
-
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1151) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 378px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 1023) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 294px)",
-
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else if (window.innerWidth > 767) {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 353px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   } else {
-  //     setSelectedContainerStyle({
-  //       width: "100%",
-
-  //       height:
-  //         mapPageName === "dashboard"
-  //           ? "calc(100vh - 0px)"
-  //           : "calc(100vh - 400px)",
-  //       is4kDevice: false,
-  //       is3kDevice: false,
-  //     });
-  //   }
-  // }, [window.innerWidth, window.innerHeight]);
-
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex(
@@ -381,9 +122,9 @@ const TripDetailsMap: React.FC<any> = (props) => {
           ? 16.2
           : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
           ? 15
-          : 15
+          : 14
       );
-      map?.panTo(markers[index]?.location);
+      map?.panTo(currentMarker?.location);
       setSelectedListItemSource(currentMarker?.source);
       setSelectedListItemDestination(currentMarker?.destination);
     } else {
@@ -393,7 +134,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
       setSelectedMarker("");
       setSelectedListItemSource("");
       setSelectedListItemDestination("");
-      map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
+      map?.panTo(currentMarker?.location);
       map?.setZoom(
         selectedContainerStyle?.is4kDevice
           ? 16.2
@@ -704,19 +445,6 @@ const TripDetailsMap: React.FC<any> = (props) => {
     scale: 4,
   };
 
-  const icon1 = {
-    url: FleetEventIcon,
-    scaledSize:
-      window.google &&
-      window.google.maps &&
-      new window.google.maps.Size(60, 60),
-    anchor:
-      window.google &&
-      window.google.maps &&
-      new window.google.maps.Point(30, 30),
-    scale: 0.7,
-  };
-
   return (
     <>
       {isLoaded && (
@@ -725,7 +453,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
             width: "100%",
             height: "100%",
           }}
-          center={location?.pathname === "/home" ? defaultCenter : center}
+          center={currentMarker?.location}
           zoom={
             selectedContainerStyle?.is4kDevice
               ? 16.2
@@ -734,7 +462,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
               : selectedContainerStyle?.is4kDevice &&
                 location?.pathname !== "/home"
               ? 15
-              : 15.4
+              : 14
           }
           onLoad={setMap}
           options={getMapTypeControls()}

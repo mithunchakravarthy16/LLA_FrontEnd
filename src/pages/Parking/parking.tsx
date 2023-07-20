@@ -517,43 +517,79 @@ const Parking: React.FC<any> = (props) => {
                                           marker: {
                                             enabled: false,
                                           },
-                                          lineColor: selectedTheme === "light" ? "#55A917" : "#954EA1",
-                                          color: selectedTheme === "light" ? "#55A917" : "#954EA1",
-                                          lineWidth: selectedWidth?.is4kDevice ||
-                                          selectedWidth?.is3KDevice
-                                            ? 4
-                                            : 2,
+                                          lineColor:
+                                            selectedTheme === "light"
+                                              ? "#55A917"
+                                              : "#954EA1",
+                                          color:
+                                            selectedTheme === "light"
+                                              ? "#55A917"
+                                              : "#954EA1",
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 4
+                                              : 2,
                                           fillColor: {
-                                            linearGradient: [0, 0, 0, 200], 
+                                            linearGradient: [0, 0, 0, 200],
                                             stops: [
                                               [
                                                 0,
-                                                Highcharts.color(selectedTheme === "light" ? "#55A917" : "#954EA1")
-                                                  .setOpacity(selectedWidth?.is4kDevice ||
-                                                    selectedWidth?.is3KDevice
-                                                    ? selectedTheme === "light" ? 2 : 0.5
-                                                    : selectedTheme === "light" ? 0.9 : 0.5)
+                                                Highcharts.color(
+                                                  selectedTheme === "light"
+                                                    ? "#55A917"
+                                                    : "#954EA1"
+                                                )
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 2
+                                                        : 0.5
+                                                      : selectedTheme ===
+                                                        "light"
+                                                      ? 0.9
+                                                      : 0.5
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 0.5,
-                                                Highcharts.color(selectedTheme === "light" ? "#55A917" : "#954EA1")
+                                                Highcharts.color(
+                                                  selectedTheme === "light"
+                                                    ? "#55A917"
+                                                    : "#954EA1"
+                                                )
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? selectedTheme === "light" ? 0.5 : 0.3
-                                                      : selectedTheme === "light" ? 0.3 : 0.2
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 0.5
+                                                        : 0.3
+                                                      : selectedTheme ===
+                                                        "light"
+                                                      ? 0.3
+                                                      : 0.2
                                                   )
                                                   .get("rgba"),
                                               ],
                                               [
                                                 1,
-                                                Highcharts.color(selectedTheme === "light" ? "#55A917" : "#954EA1")
+                                                Highcharts.color(
+                                                  selectedTheme === "light"
+                                                    ? "#55A917"
+                                                    : "#954EA1"
+                                                )
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? selectedTheme === "light" ? 0.15 : 0.06
-                                                      :  0.02
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 0.15
+                                                        : 0.06
+                                                      : 0.02
                                                   )
                                                   .get("rgba"),
                                               ],
@@ -762,6 +798,7 @@ const Parking: React.FC<any> = (props) => {
                       handleParkingLot={handleParkingLot}
                       tabsList={tabsList}
                       handleLotSelctionCloseIcon={handleLotSelctionCloseIcon}
+                      selectedTheme={selectedTheme}
                     />
 
                     {parkingLotIndex === 0 ? (
