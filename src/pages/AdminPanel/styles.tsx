@@ -129,7 +129,7 @@ const useStyles = makeStyles(() => ({
   }),
   adminDashboard: () => ({
     padding: "1.2%",
-    height: "calc(100vh - 131px)",
+    height: "calc(100vh - 6.8vw)",
     overflow: "auto",
   }),
   appearanceText: () => ({
@@ -369,8 +369,8 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: 100,
-    overflow: "auto",
+    height: "5vw",
+    overflow: "hidden",
   },
   logoPreview: {
     width: "9.3vw",
