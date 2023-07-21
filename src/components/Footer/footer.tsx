@@ -69,14 +69,14 @@ const Footer = (props: any) => {
         <div>
           {pageName === "dashboard" ? (
             <p>
-              {adminPanelData.footerImage ? (
+              {adminPanelData?.footerImage ? (
                 <img
                   width={"35%"}
                   height={"35%"}
                   src={`data:image/jpeg;base64,${adminPanelData?.footerImage}`}
                 />
               ) : (
-                adminPanelData.footerText
+                adminPanelData?.footerText
               )}
             </p>
           ) : (
