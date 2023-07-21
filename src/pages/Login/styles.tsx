@@ -154,7 +154,7 @@ const useStyles = makeStyles(() => ({
       fontFamily: "HelveticaNeue-Regular",
       fontSize: "0.8vw",
       lineHeight: "48px",
-      color: props?.palette?.login?.inputPlaceholder,
+      color: `${props?.palette?.login?.inputPlaceholder} !important`,
 
       padding: 36,
       "&::placeholder": {
@@ -166,7 +166,7 @@ const useStyles = makeStyles(() => ({
         fontWeight: " 500",
         fontSize: "40px",
         lineHeight: "48px",
-        color: props?.palette?.login?.inputPlaceholder,
+        // color: props?.palette?.login?.inputPlaceholder,
         padding: 36,
       },
       [muiTheme.breakpoints.down(2049)]: {
@@ -201,7 +201,7 @@ const useStyles = makeStyles(() => ({
       fontFamily: "HelveticaNeue-Regular",
       fontSize: "0.8vw",
       lineHeight: "48px",
-      color: "white",
+      color: `${props?.palette?.login?.inputPlaceholder} !important`,
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
@@ -212,7 +212,7 @@ const useStyles = makeStyles(() => ({
         fontWeight: " 500",
         fontSize: "40px",
         lineHeight: "48px",
-        color: "white",
+        // color: props?.palette?.login?.inputPlaceholder,
         padding: 36,
       },
       [muiTheme.breakpoints.down(2049)]: {
