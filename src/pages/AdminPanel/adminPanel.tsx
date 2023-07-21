@@ -21,7 +21,10 @@ import DefaultLogo from "../../assets/defaultLogo.svg";
 import logoutImg from "../../assets/login/logout.svg";
 import InfoDialogFileUpload from "components/InfoDialogFileUpload";
 import FavIcon from "../../assets/favIcon.svg";
-import { getAdminUserLogout, setAdminUserLogin } from "../../redux/actions/adminLoginActions";
+import {
+  getAdminUserLogout,
+  setAdminUserLogin,
+} from "../../redux/actions/adminLoginActions";
 import {
   getAdminPanelConfig,
   setAdminPanelConfig,
@@ -148,7 +151,7 @@ const AdminPanel = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getAdminPanelConfigData({}));
+    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
   }, []);
 
   useEffect(() => {
@@ -162,6 +165,9 @@ const AdminPanel = () => {
   useEffect(() => {
     if (adminPanelSaveData?.statusCodeValue === 200) {
       setSuccess(true);
+      if (adminPanelSaveData?.body?.isPreview === "Y") {
+        window.open("http://localhost:3000/login", "_blank");
+      }
       setTimeout(() => {
         dispatch(setAdminPanelConfig({}));
       }, 3000);
@@ -394,6 +400,22 @@ const AdminPanel = () => {
     setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
   };
 
+  // Preview Functionality
+
+  const handlePreview = () => {
+    const formData = new FormData();
+    formData.append("appearance", selectTheme);
+    formData.append("siteTitle", title);
+    formData.append("login", uploadFinalImageLogo);
+    formData.append("header", uploadHeaderFinalImageLogo);
+    formData.append("favIcon", uploadFinalFavIconLogo);
+    formData.append("footer", uploadFinalFooterLogo);
+    formData.append("footerText", footerTitle);
+    formData.append("footerColor", colorChange);
+    formData.append("isPreview", "Y");
+    dispatch(getAdminPanelConfig(formData));
+  };
+
   return (
     <>
       <Fragment>
@@ -460,6 +482,7 @@ const AdminPanel = () => {
                         variant="outlined"
                         className={previewButton}
                         style={{ textTransform: "none" }}
+                        onClick={handlePreview}
                       >
                         Preview
                       </Button>

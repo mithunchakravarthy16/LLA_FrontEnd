@@ -24,11 +24,13 @@ export function* handleAdminPanelConfig(action: any): any {
   }
 }
 
-export function* handleGetAdminPanelConfig(): any {
+export function* handleGetAdminPanelConfig(action: any): any {
   try {
     const { fetchData } = fetchAPIServices;
 
-    const response = yield fetchData(adminPanelGetApi);
+    const response = yield fetchData(
+      `${adminPanelGetApi}?isPreview=${action?.payload?.isPreview}`
+    );
     if (response?.statusCodeValue === 200) {
       yield put(setAdminPanelConfigData(response));
     } else {
