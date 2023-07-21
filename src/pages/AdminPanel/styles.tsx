@@ -57,22 +57,22 @@ const useStyles = makeStyles(() => ({
     paddingTop: "12.5%",
   }),
   logoutSection: () => ({
-    display: 'flex',
-    alignItems:' center',
-    background: 'rgba(12, 6, 39, 1)',
+    display: "flex",
+    alignItems: " center",
+    background: "rgba(12, 6, 39, 1)",
     padding: "8%",
-    '& > p': {
-      fontSize: '0.8999999999999999vw',
+    "& > p": {
+      fontSize: "0.8999999999999999vw",
       fontFamily: `'Montserrat', sans-serif`,
       fontWeight: 500,
-      color: 'white',
+      color: "white",
       marginLeft: "0.5vw",
-      cursor: 'pointer',
+      cursor: "pointer",
     },
-    '& > img': {
-      width: '1.3vw',
-      cursor: 'pointer',
-    }
+    "& > img": {
+      width: "1.3vw",
+      cursor: "pointer",
+    },
   }),
   appearanceSectionCustom: () => ({
     display: "flex",
@@ -129,8 +129,8 @@ const useStyles = makeStyles(() => ({
   }),
   adminDashboard: () => ({
     padding: "1.2%",
-    height: 'calc(100vh - 131px)',
-    overflow: 'auto'
+    height: "calc(100vh - 131px)",
+    overflow: "auto",
   }),
   appearanceText: () => ({
     fontSize: "0.8999999999999999vw",
@@ -317,10 +317,10 @@ const useStyles = makeStyles(() => ({
   }),
   colorPickerItem: () => ({
     width: "100% !important",
-    '& input': {
-      background: 'rgba(243, 247, 255, 1)',
+    "& input": {
+      background: "rgba(243, 247, 255, 1)",
       fontSize: "0.8999999999999999vw !important",
-    }
+    },
   }),
   deleteIconClass: () => ({
     position: "relative",
@@ -369,7 +369,8 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "12%",
+    height: 100,
+    overflow: "auto",
   },
   logoPreview: {
     width: "9.3vw",
@@ -393,8 +394,8 @@ const useStyles = makeStyles(() => ({
   adminLeftPanelContainer: (props) => ({
     background: "#0D0F36",
     height: "100%",
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column",
   }),
   spaceBottom: () => ({
     paddingBottom: "1.2%",
