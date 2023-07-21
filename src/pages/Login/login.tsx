@@ -32,6 +32,10 @@ const Login = () => {
     (state: any) => state?.adminPanel?.getConfigData?.body
   );
 
+  const adminPanelSaveData = useSelector(
+    (state: any) => state?.adminPanel?.configData
+  );
+
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
@@ -39,12 +43,18 @@ const Login = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(getAdminPanelConfigData({}));
+    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
   }, []);
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
   }, [adminPanelData]);
+
+  useEffect(() => {
+    if (adminPanelSaveData?.body?.isPreview === "Y") {
+      dispatch(getAdminPanelConfigData({ isPreview: "Y" }));
+    }
+  }, [adminPanelSaveData]);
 
   useEffect(() => {
     switch (selectedTheme) {

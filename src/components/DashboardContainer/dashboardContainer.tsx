@@ -39,6 +39,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state?.adminPanel?.getConfigData?.body
   );
 
+  const adminPanelSaveData = useSelector(
+    (state: any) => state?.adminPanel?.configData
+  );
+
   const dispatch = useDispatch();
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
@@ -68,8 +72,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(getAdminPanelConfigData({}));
+    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
   }, []);
+
+  useEffect(() => {
+    if (adminPanelSaveData?.body?.isPreview === "Y") {
+      dispatch(getAdminPanelConfigData({ isPreview: "Y" }));
+    }
+  }, [adminPanelSaveData]);
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
