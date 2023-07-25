@@ -2,9 +2,14 @@ import { put } from "redux-saga/effects";
 import {
   setAdminPanelConfig,
   setAdminPanelConfigData,
+  setAdminPanelCancelConfigData,
 } from "redux/actions/adminPanel";
 import fetchAPIServices from "services/fetchAPIServices";
-import { adminPanelSaveApi, adminPanelGetApi } from "services/endPoints";
+import {
+  adminPanelSaveApi,
+  adminPanelGetApi,
+  adminPanelCancelApi,
+} from "services/endPoints";
 
 export function* handleAdminPanelConfig(action: any): any {
   try {
@@ -35,6 +40,21 @@ export function* handleGetAdminPanelConfig(action: any): any {
       yield put(setAdminPanelConfigData(response));
     } else {
       yield put(setAdminPanelConfigData({}));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleCancelAdminPanelConfig(action: any): any {
+  try {
+    const { deleteAdminPanelConfig } = fetchAPIServices;
+
+    const response = yield deleteAdminPanelConfig(adminPanelCancelApi);
+    if (response) {
+      yield put(setAdminPanelCancelConfigData(response));
+    } else {
+      yield put(setAdminPanelCancelConfigData({}));
     }
   } catch (error) {
     console.log(error);

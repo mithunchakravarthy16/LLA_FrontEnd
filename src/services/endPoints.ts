@@ -20,16 +20,19 @@ const VERSION = {
 
 const apiSource = {
   lla: "/api/sensyon/users",
+  llaAdmin: "/api/sensyon/admin",
 };
 
 const SUB_URL = {
   loginUrl: apiSource.lla + VERSION.v1 + "/login",
   logoutUrl: apiSource.lla + VERSION.v1 + "/userLogout",
-  adminPanelSaveUrl: "/api/sensyon/admin/saveconfiguration",
-  adminPanelGetUrl: "/api/sensyon/admin/getConfigurationDetail",
+  adminPanelSaveUrl: apiSource.llaAdmin + "/saveconfiguration",
+  adminPanelGetUrl: apiSource.llaAdmin + "/getConfigurationDetail",
+  adminPanelCancelUrl: apiSource.llaAdmin + "/cancelPreviewConfiguration",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
 export const logoutApi = `${BASE_URL.baseUrl}${SUB_URL.logoutUrl}`;
 export const adminPanelSaveApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelSaveUrl}`;
 export const adminPanelGetApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelGetUrl}`;
+export const adminPanelCancelApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelCancelUrl}`;
