@@ -17,6 +17,7 @@ import adminPanelConfig from "redux/actions/adminPanel";
 import {
   handleAdminPanelConfig,
   handleGetAdminPanelConfig,
+  handleCancelAdminPanelConfig,
 } from "./handlers/adminPanel";
 
 export default function* rootSaga() {
@@ -30,6 +31,7 @@ export default function* rootSaga() {
     watchAssetOverallTrackerDetails(),
     watchAdminPanelConfig(),
     watchGetAdminPanelConfig(),
+    watchCancelAdminPanelConfig(),
   ]);
 }
 
@@ -86,5 +88,12 @@ export function* watchGetAdminPanelConfig() {
   yield takeLatest(
     adminPanelConfig.GET_ADMIN_PANEL_CONFIG,
     handleGetAdminPanelConfig
+  );
+}
+
+export function* watchCancelAdminPanelConfig() {
+  yield takeLatest(
+    adminPanelConfig.GET_ADMIN_PANEL_CANCEL_CONFIG,
+    handleCancelAdminPanelConfig
   );
 }

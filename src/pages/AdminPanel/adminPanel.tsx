@@ -29,6 +29,8 @@ import {
   getAdminPanelConfig,
   setAdminPanelConfig,
   getAdminPanelConfigData,
+  getAdminPanelCancelConfigData,
+  setAdminPanelCancelConfigData,
 } from "redux/actions/adminPanel";
 
 const AdminPanel = () => {
@@ -38,6 +40,10 @@ const AdminPanel = () => {
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.body
+  );
+
+  const adminPanelCancelData = useSelector(
+    (state: any) => state?.adminPanel?.CancelConfigData
   );
 
   const dispatch = useDispatch();
@@ -166,13 +172,22 @@ const AdminPanel = () => {
     if (adminPanelSaveData?.statusCodeValue === 200) {
       setSuccess(true);
       if (adminPanelSaveData?.body?.isPreview === "Y") {
-        window.open("http://localhost:3000/login", "_blank");
+        window.open(`${window.origin}/login`, "_blank");
       }
       setTimeout(() => {
         dispatch(setAdminPanelConfig({}));
       }, 3000);
     }
   }, [adminPanelSaveData]);
+
+  useEffect(() => {
+    if (adminPanelCancelData?.iscancel) {
+      setSuccess(true);
+      setTimeout(() => {
+        dispatch(setAdminPanelCancelConfigData({}));
+      }, 3000);
+    }
+  }, [adminPanelCancelData]);
 
   const radioButtons = [
     {
@@ -416,6 +431,10 @@ const AdminPanel = () => {
     dispatch(getAdminPanelConfig(formData));
   };
 
+  const handleCancel = () => {
+    dispatch(getAdminPanelCancelConfigData({}));
+  };
+
   return (
     <>
       <Fragment>
@@ -430,7 +449,13 @@ const AdminPanel = () => {
             severity="success"
             sx={{ width: "100%" }}
           >
-            Saved Successfully.
+            {adminPanelSaveData?.body?.isPreview === "Y"
+              ? "Preview Loaded Successfully in New Tab."
+              : adminPanelCancelData?.iscancel
+              ? "Cancelled Successfully."
+              : adminPanelSaveData?.body?.isPreview === "N"
+              ? "Saved Successfully."
+              : ""}
           </Alert>
         </Snackbar>
         <Grid container className={adminContentPanel}>
@@ -487,10 +512,10 @@ const AdminPanel = () => {
                         Preview
                       </Button>
                       <Button
-                        variant="contained"
-                        className={cancelButton}
-                        disabled
+                        variant="outlined"
+                        className={previewButton}
                         style={{ textTransform: "none" }}
+                        onClick={handleCancel}
                       >
                         Cancel
                       </Button>
