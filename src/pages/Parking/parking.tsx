@@ -254,6 +254,7 @@ const Parking: React.FC<any> = (props) => {
   };
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
+  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -813,6 +814,8 @@ const Parking: React.FC<any> = (props) => {
                         setIsMarkerClicked={setIsMarkerClicked}
                         mapPageName={"parking"}
                         selectedTheme={selectedTheme}
+                        setMap={setMap}
+                        map={map}
                       />
                     ) : (
                       // </Grid>

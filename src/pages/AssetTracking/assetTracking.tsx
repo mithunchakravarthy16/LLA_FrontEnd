@@ -46,6 +46,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const [notificationArray, setNotificationArray] = useState<any>([]);
+  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -593,7 +594,11 @@ const AssetTracking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#25796D",
                                           color: "#25796D",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 4
+                                              : 2,
                                           data: [
                                             0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
                                             4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
@@ -605,7 +610,11 @@ const AssetTracking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#D25A5A",
                                           color: "#D25A5A",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 4
+                                              : 2,
                                           data: [
                                             1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
                                             1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
@@ -672,7 +681,11 @@ const AssetTracking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#EE3E35",
                                           color: "#EE3E35",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 4
+                                              : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
@@ -685,10 +698,15 @@ const AssetTracking: React.FC<any> = (props) => {
                                               [
                                                 0.5,
                                                 Highcharts.color("#C3362F")
-                                                  .setOpacity(selectedWidth?.is4kDevice ||
-                                                    selectedWidth?.is3KDevice
-                                                    ? selectedTheme === "light" ? 0.4 : 0.3
-                                                    : 0.3)
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice ||
+                                                      selectedWidth?.is3KDevice
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 0.4
+                                                        : 0.3
+                                                      : 0.3
+                                                  )
                                                   .get("rgba"),
                                               ],
                                               [
@@ -697,8 +715,14 @@ const AssetTracking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? selectedTheme === "light" ? 0.14 : 0.06
-                                                      : selectedTheme === "light" ? 0.01 : 0.02
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 0.14
+                                                        : 0.06
+                                                      : selectedTheme ===
+                                                        "light"
+                                                      ? 0.01
+                                                      : 0.02
                                                   )
                                                   .get("rgba"),
                                               ],
@@ -746,6 +770,8 @@ const AssetTracking: React.FC<any> = (props) => {
                       handleAssetViewDetails={handleAssetViewDetails}
                       mapPageName={"asset"}
                       selectedTheme={selectedTheme}
+                      setMap={setMap}
+                      map={map}
                     />
                   </Grid>
                 </Grid>
