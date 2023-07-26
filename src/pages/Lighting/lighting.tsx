@@ -40,6 +40,7 @@ const Parking: React.FC<any> = (props) => {
   const { dashboard, gridView, lighting } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -376,7 +377,11 @@ const Parking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#004F9F",
                                           color: "#004F9F",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 4
+                                              : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
@@ -408,7 +413,10 @@ const Parking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? selectedTheme === "light" ? 0.09 : 0.05
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 0.09
+                                                        : 0.05
                                                       : 0.02
                                                   )
                                                   .get("rgba"),
@@ -517,7 +525,11 @@ const Parking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#50A02890",
                                           color: "#50A028",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 4
+                                              : 2,
                                           fillColor: {
                                             linearGradient: [0, 0, 0, 200],
                                             stops: [
@@ -549,7 +561,10 @@ const Parking: React.FC<any> = (props) => {
                                                   .setOpacity(
                                                     selectedWidth?.is4kDevice ||
                                                       selectedWidth?.is3KDevice
-                                                      ? selectedTheme === "light" ? 0.09 : 0.05
+                                                      ? selectedTheme ===
+                                                        "light"
+                                                        ? 0.09
+                                                        : 0.05
                                                       : 0.02
                                                   )
                                                   .get("rgba"),
@@ -590,6 +605,8 @@ const Parking: React.FC<any> = (props) => {
                       setIsMarkerClicked={setIsMarkerClicked}
                       mapPageName={"lighting"}
                       selectedTheme={selectedTheme}
+                      setMap={setMap}
+                      map={map}
                     />
                   </Grid>
                 </Grid>

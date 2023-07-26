@@ -106,6 +106,8 @@ const Map: React.FC<any> = (props) => {
     onCircleCompleteLocation,
     onPolygonCompleteLocation,
     selectedTheme,
+    setMap,
+    map,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -131,8 +133,8 @@ const Map: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
-  const [map, setMap] = useState<any>(null);
-  const [zoomValue, setZoomValue] = useState<number>();
+  // const [map, setMap] = useState<any>(null);
+  // const [zoomValue, setZoomValue] = useState<number>(15);
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
   const [selectedMarker, setSelectedMarker] = useState<any>();
   const [selectedListItemSource, setSelectedListItemSource] = useState<any>();
@@ -919,6 +921,7 @@ const Map: React.FC<any> = (props) => {
 
   const handleOverlayComplete = () => {
     setIsDrawingEnable(false);
+    map?.setZoom(13.5);
   };
 
   const handleCircleDrag = (event: any) => {

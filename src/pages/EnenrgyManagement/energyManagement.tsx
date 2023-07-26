@@ -38,6 +38,7 @@ const Parking: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const { dashboard, gridView, parking } = useTranslation();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -389,7 +390,11 @@ const Parking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#BD8C52",
                                           color: "#BD8C52",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 5 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 5
+                                              : 2,
                                           data: [
                                             0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
                                             4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
@@ -401,7 +406,11 @@ const Parking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#5F3B6C",
                                           color: "#5F3B6C",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 5 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 5
+                                              : 2,
                                           data: [
                                             1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
                                             1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
@@ -460,7 +469,11 @@ const Parking: React.FC<any> = (props) => {
                                           },
                                           lineColor: "#47A89990",
                                           color: "#47A899",
-                                          lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 7 : 2,
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice ||
+                                            selectedWidth?.is3KDevice
+                                              ? 7
+                                              : 2,
                                           data: [
                                             1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
                                             6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
@@ -495,6 +508,8 @@ const Parking: React.FC<any> = (props) => {
                       setCurrentMarker={setCurrentMarker}
                       setIsMarkerClicked={setIsMarkerClicked}
                       selectedTheme={selectedTheme}
+                      setMap={setMap}
+                      map={map}
                     />
                   </Grid>
                 </Grid>

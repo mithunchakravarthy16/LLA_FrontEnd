@@ -70,6 +70,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [currentOpenedCard, setCurrentOpenedCard] = useState<any>("");
   const [focusedCategory, setFocusedCategory] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N" }));
@@ -236,6 +237,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 handleViewDetails={() => {}}
                 handleAssetViewDetails={() => {}}
                 selectedTheme={selectedTheme}
+                setMap={setMap}
+                map={map}
               />
             </div>
           </Grid>

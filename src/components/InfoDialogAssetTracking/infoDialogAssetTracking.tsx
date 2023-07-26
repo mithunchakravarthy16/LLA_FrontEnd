@@ -118,6 +118,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const [checked, setChecked] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [isGeofenceLocation, setIsGeofenceLocation] = useState<boolean>(false);
+  const [map, setMap] = useState<any>(null);
 
   const handleClose = () => {
     setOpen(!open);
@@ -291,6 +292,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setIsDisabled(true);
     circleData?.setMap(null);
     polygonData?.setMap(null);
+    map?.setZoom(15);
   };
 
   const handleGeofenceCircleClick = () => {
@@ -298,6 +300,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setIsDisabled(true);
     circleData?.setMap(null);
     polygonData?.setMap(null);
+    map?.setZoom(15);
   };
 
   const handleResetClick = () => {};
@@ -588,6 +591,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                       onCircleCompleteLocation={onCircleCompleteLocation}
                       onPolygonCompleteLocation={onPolygonCompleteLocation}
                       selectedTheme={selectedTheme}
+                      setMap={setMap}
+                      map={map}
                     />
                   </Grid>
                 </Grid>
