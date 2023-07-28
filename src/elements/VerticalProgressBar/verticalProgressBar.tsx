@@ -5,9 +5,10 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 
 const VerticalProgressBar: React.FC<any> = (props: any) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  const { selectedTheme } = props;
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {

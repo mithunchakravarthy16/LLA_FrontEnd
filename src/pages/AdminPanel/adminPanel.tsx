@@ -83,6 +83,12 @@ const AdminPanel = () => {
   const [uploadFinalFooterLogoLocal, setUploadFinalFooterLogoLocal] =
     useState<any>();
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [successMsg, setSuccessMsg] = useState<string>("");
+  const [uploadImageLogoTemp, setUploadImageLogoTemp] = useState<any>();
+  const [uploadHeaderImageLogoTemp, setUploadHeaderImageLogoTemp] =
+    useState<any>();
+  const [uploadFavIconLogoTemp, setUploadFavIconLogoTemp] = useState<any>();
+  const [uploadFooterLogoTemp, setUploadFooterLogoTemp] = useState<any>();
   const {} = useStyles(appTheme);
 
   const {
@@ -176,6 +182,7 @@ const AdminPanel = () => {
       }
       setTimeout(() => {
         dispatch(setAdminPanelConfig({}));
+        setSuccess(false);
       }, 3000);
     }
   }, [adminPanelSaveData]);
@@ -185,6 +192,7 @@ const AdminPanel = () => {
       setSuccess(true);
       setTimeout(() => {
         dispatch(setAdminPanelCancelConfigData({}));
+        setSuccess(false);
       }, 3000);
     }
   }, [adminPanelCancelData]);
@@ -256,6 +264,7 @@ const AdminPanel = () => {
   const onLogoChange = (value: string) => {
     setUploadImage(true);
     setUploadImageTitle(value);
+    setUploadImageLogoTemp("");
   };
 
   const handleCancelClick = () => {
@@ -263,19 +272,24 @@ const AdminPanel = () => {
     setUploadImageLogo("");
     setUploadImageLogoLocal("");
     setErrorMsg("");
+    setSuccessMsg("");
   };
 
   const handleSaveClick = () => {
     const MAX_FILE_SIZE = 5120; // 5MB
     const fileSizeKiloBytes = uploadImageLogo?.size / 1024;
 
-    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+    if (!uploadImageLogoTemp) {
+      setErrorMsg("Upload Image");
+      setSuccessMsg("");
+    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
       setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadFinalImageLogo(uploadImageLogo);
       setUploadFinalImageLogoLocal(uploadImageLogoLocal);
       setErrorMsg("");
+      setSuccessMsg("");
     }
   };
 
@@ -283,6 +297,9 @@ const AdminPanel = () => {
     const file = event.target.files[0];
     setUploadImageLogo(file);
     setUploadImageLogoLocal(URL.createObjectURL(event.target.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadImageLogoTemp(event.target.files[0] ? event.target.files[0] : "");
   };
 
   const dropDrop = (e: any) => {
@@ -290,6 +307,11 @@ const AdminPanel = () => {
     const files = e.dataTransfer.files[0];
     setUploadImageLogo(files);
     setUploadImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadImageLogoTemp(
+      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+    );
   };
 
   // Header Change
@@ -297,6 +319,7 @@ const AdminPanel = () => {
   const headerChange = (value: string) => {
     setUploadImage(true);
     setUploadImageTitle(value);
+    setUploadHeaderImageLogoTemp("");
   };
 
   const handleHeaderCancelClick = () => {
@@ -304,19 +327,24 @@ const AdminPanel = () => {
     setUploadHeaderImageLogo("");
     setUploadHeaderImageLogoLocal("");
     setErrorMsg("");
+    setSuccessMsg("");
   };
 
   const handleHeaderSaveClick = () => {
     const MAX_FILE_SIZE = 5120; // 5MB
     const fileSizeKiloBytes = uploadHeaderImageLogo?.size / 1024;
 
-    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+    if (!uploadHeaderImageLogoTemp) {
+      setErrorMsg("Upload Image");
+      setSuccessMsg("");
+    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
       setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
       setUploadFinalHeaderImageLogoLocal(uploadHeaderImageLogoLocal);
       setErrorMsg("");
+      setSuccessMsg("");
     }
   };
 
@@ -324,6 +352,11 @@ const AdminPanel = () => {
     const file = event.target.files[0];
     setUploadHeaderImageLogo(file);
     setUploadHeaderImageLogoLocal(URL.createObjectURL(event.target.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadHeaderImageLogoTemp(
+      event.target.files[0] ? event.target.files[0] : ""
+    );
   };
 
   const dropDropHeader = (e: any) => {
@@ -331,6 +364,11 @@ const AdminPanel = () => {
     const files = e.dataTransfer.files[0];
     setUploadHeaderImageLogo(files);
     setUploadHeaderImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadHeaderImageLogoTemp(
+      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+    );
   };
 
   // Fav Icon Change
@@ -338,6 +376,7 @@ const AdminPanel = () => {
   const onFavIconChange = (value: string) => {
     setUploadImage(true);
     setUploadImageTitle(value);
+    setUploadFavIconLogoTemp("");
   };
 
   const handleFavIconCancelClick = () => {
@@ -345,19 +384,24 @@ const AdminPanel = () => {
     setUploadFavIconLogo("");
     setUploadFavIconLogoLocal("");
     setErrorMsg("");
+    setSuccessMsg("");
   };
 
   const handleFavIconSaveClick = () => {
     const MAX_FILE_SIZE = 5120; // 5MB
     const fileSizeKiloBytes = uploadFavIconLogo?.size / 1024;
 
-    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+    if (!uploadFavIconLogoTemp) {
+      setErrorMsg("Upload Image");
+      setSuccessMsg("");
+    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
       setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadFinalFavIconLogo(uploadFavIconLogo);
       setUploadFinalFavIconLogoLocal(uploadFavIconLogoLocal);
       setErrorMsg("");
+      setSuccessMsg("");
     }
   };
 
@@ -365,6 +409,11 @@ const AdminPanel = () => {
     const file = event.target.files[0];
     setUploadFavIconLogo(file);
     setUploadFavIconLogoLocal(URL.createObjectURL(event.target.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadFavIconLogoTemp(
+      event.target.files[0] ? event.target.files[0] : ""
+    );
   };
 
   const dropDropFavIcon = (e: any) => {
@@ -372,6 +421,11 @@ const AdminPanel = () => {
     const files = e.dataTransfer.files[0];
     setUploadFavIconLogo(files);
     setUploadFavIconLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadFavIconLogoTemp(
+      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+    );
   };
 
   // Footer Change
@@ -379,6 +433,7 @@ const AdminPanel = () => {
   const onFooterChange = (value: string) => {
     setUploadImage(true);
     setUploadImageTitle(value);
+    setUploadFooterLogoTemp("");
   };
 
   const handleFooterCancelClick = () => {
@@ -386,19 +441,24 @@ const AdminPanel = () => {
     setUploadFooterLogo("");
     setUploadFooterLogoLocal("");
     setErrorMsg("");
+    setSuccessMsg("");
   };
 
   const handleFooterSaveClick = () => {
     const MAX_FILE_SIZE = 5120; // 5MB
     const fileSizeKiloBytes = uploadFooterLogo?.size / 1024;
 
-    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+    if (!uploadFooterLogoTemp) {
+      setErrorMsg("Upload Image");
+      setSuccessMsg("");
+    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
       setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadFinalFooterLogo(uploadFooterLogo);
       setUploadFinalFooterLogoLocal(uploadFooterLogoLocal);
       setErrorMsg("");
+      setSuccessMsg("");
     }
   };
 
@@ -406,6 +466,9 @@ const AdminPanel = () => {
     const file = event.target.files[0];
     setUploadFooterLogo(file);
     setUploadFooterLogoLocal(URL.createObjectURL(event.target.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadFooterLogoTemp(event.target.files[0] ? event.target.files[0] : "");
   };
 
   const dropDropFooter = (e: any) => {
@@ -413,6 +476,11 @@ const AdminPanel = () => {
     const files = e.dataTransfer.files[0];
     setUploadFooterLogo(files);
     setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+    setSuccessMsg("Uploaded Image Successfully.");
+    setErrorMsg("");
+    setUploadFooterLogoTemp(
+      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+    );
   };
 
   // Preview Functionality
@@ -433,31 +501,42 @@ const AdminPanel = () => {
 
   const handleCancel = () => {
     dispatch(getAdminPanelCancelConfigData({}));
+    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
+    setUploadFinalImageLogo("");
+    setUploadFinalImageLogoLocal("");
+    setUploadHeaderFinalImageLogo("");
+    setUploadFinalHeaderImageLogoLocal("");
+    setUploadFinalFavIconLogo("");
+    setUploadFinalFavIconLogoLocal("");
+    setUploadFinalFooterLogo("");
+    setUploadFooterLogoLocal("");
   };
 
+  console.log("adminPanelSaveData", adminPanelSaveData);
   return (
     <>
       <Fragment>
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={success}
-          autoHideDuration={3000}
-          onClose={handleClose}
-        >
-          <Alert
+        {success && (
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={success}
+            autoHideDuration={3000}
             onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
           >
-            {adminPanelSaveData?.body?.isPreview === "Y"
-              ? "Preview Loaded Successfully in New Tab."
-              : adminPanelCancelData?.iscancel
-              ? "Cancelled Successfully."
-              : adminPanelSaveData?.body?.isPreview === "N"
-              ? "Saved Successfully."
-              : ""}
-          </Alert>
-        </Snackbar>
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              {adminPanelSaveData?.body?.isPreview === "Y"
+                ? "Preview Loaded Successfully in New Tab."
+                : adminPanelCancelData?.iscancel
+                ? "Cancelled Successfully."
+                : adminPanelSaveData?.body?.isPreview === "N" &&
+                  "Saved Successfully."}
+            </Alert>
+          </Snackbar>
+        )}
         <Grid container className={adminContentPanel}>
           <Grid item xs={12} sm={12} md={1.4} lg={1.4} xl={1.4}>
             <div className={adminLeftPanelContainer}>
@@ -786,6 +865,7 @@ const AdminPanel = () => {
             handleFooterChange={handleFooterChange}
             dropDropFooter={dropDropFooter}
             errorMsg={errorMsg}
+            successMsg={successMsg}
           />
         )}
       </Fragment>

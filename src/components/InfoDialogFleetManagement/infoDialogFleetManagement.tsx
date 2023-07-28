@@ -1,6 +1,7 @@
 /** @format */
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Dialog from "@mui/material/Dialog";
@@ -38,6 +39,8 @@ import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
 import useWindowDimensions from "hooks/useWindowDimensions";
 import Tooltip from "../../elements/Tooltip";
+import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
+import { formattedViolationsList } from "utils/utils";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -63,6 +66,9 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     //   maxHeight: "calc(100% - 370px)",
     //   minHeight: "calc(100% - 370px)",
     // },
+    "& .MuiIconButton-root:hover": {
+      backgroundColor: "unset !important",
+    },
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
@@ -77,9 +83,20 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogFleetManagement: React.FC<any> = (props) => {
+  const fleetManagementTripDetailsResponse = useSelector(
+    (state: any) =>
+      state.fleetManagementNotification.fleetManagementTripDetailsData
+  );
+
+  const dispatch = useDispatch();
   const { dashboard, gridView, fleetManagement } = useTranslation();
-  const { setShowInfoDialogue, selectedMarker, is4kDevice, selectedTheme } =
-    props;
+  const {
+    setShowInfoDialogue,
+    selectedMarker,
+    is4kDevice,
+    selectedTheme,
+    selectedMarkerLocation,
+  } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -102,6 +119,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [currentMarker, setCurrentMarker] = useState<any>("");
   const [selectedNotification, setSelectedNotification] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  const [violations, setViolations] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -117,7 +135,17 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+  useEffect(() => {
+    setViolations(
+      formattedViolationsList(fleetManagementTripDetailsResponse?.notifications)
+    );
+  }, [fleetManagementTripDetailsResponse]);
+
   const [open, setOpen] = useState(!false);
+
+  useEffect(() => {
+    dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
+  }, []);
 
   useEffect(() => {
     if (tabIndex === 2) {
@@ -151,7 +179,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
 
   const topPanelListItems: any[] = [
     {
-      value: tabIndex === 0 ? "04" : tabIndex === 1 ? "PB1672" : "Mike Ross",
+      value:
+        tabIndex === 0
+          ? fleetManagementTripDetailsResponse?.noOfStops
+            ? fleetManagementTripDetailsResponse?.noOfStops
+            : 0
+          : tabIndex === 1
+          ? fleetManagementTripDetailsResponse?.vehicleDetail?.licensePlateNo
+            ? fleetManagementTripDetailsResponse?.vehicleDetail?.licensePlateNo
+            : ""
+          : fleetManagementTripDetailsResponse?.driverDetail?.driverName
+          ? fleetManagementTripDetailsResponse?.driverDetail?.driverName
+          : "",
       title:
         tabIndex === 0
           ? fleetManagement.stops
@@ -161,7 +200,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     },
     {
       value:
-        tabIndex === 0 ? "30%" : tabIndex === 1 ? "Passenger" : "PDRV#123456",
+        tabIndex === 0
+          ? `${
+              fleetManagementTripDetailsResponse?.tripCompletion
+                ? fleetManagementTripDetailsResponse?.tripCompletion
+                : 0
+            }%`
+          : tabIndex === 1
+          ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehicleType
+            ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehicleType
+            : ""
+          : fleetManagementTripDetailsResponse?.driverDetail?.drivingLicense
+          ? fleetManagementTripDetailsResponse?.driverDetail?.drivingLicense
+          : "",
       title:
         tabIndex === 0
           ? fleetManagement.tripCompletion
@@ -170,7 +221,21 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : fleetManagement.drivingLicense,
     },
     {
-      value: tabIndex === 0 ? "100Km" : tabIndex === 1 ? "5" : "4",
+      value:
+        tabIndex === 0
+          ? `${
+              fleetManagementTripDetailsResponse?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.distanceCovered
+                : 0
+            }Km`
+          : tabIndex === 1
+          ? fleetManagementTripDetailsResponse?.vehicleDetail?.totalVehicleTrips
+            ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleTrips
+            : 0
+          : fleetManagementTripDetailsResponse?.driverDetail?.totalDrivingTrips
+          ? fleetManagementTripDetailsResponse?.driverDetail?.totalDrivingTrips
+          : 0,
       title:
         tabIndex === 0
           ? fleetManagement.distanceCovered
@@ -179,7 +244,28 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : fleetManagement.totalTrips,
     },
     {
-      value: tabIndex === 0 ? "1Hr" : tabIndex === 1 ? "500 Km" : "600Km",
+      value:
+        tabIndex === 0
+          ? `${
+              fleetManagementTripDetailsResponse?.totalTime
+                ? fleetManagementTripDetailsResponse?.totalTime
+                : 0
+            }Hr`
+          : tabIndex === 1
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.totalVehicleDistance
+                : 0
+            }Km`
+          : `${
+              fleetManagementTripDetailsResponse?.driverDetail
+                ?.totalDistanceDriven
+                ? fleetManagementTripDetailsResponse?.driverDetail
+                    ?.totalDistanceDriven
+                : 0
+            }Km`,
       title:
         tabIndex === 0
           ? fleetManagement.totalTime
@@ -188,60 +274,28 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : `${gridView.total} ${gridView.distance} ${fleetManagement.driven}`,
     },
     {
-      value: tabIndex === 0 ? "10" : tabIndex === 1 ? "20" : "20",
+      value:
+        tabIndex === 0
+          ? fleetManagementTripDetailsResponse?.totalTripViolation
+            ? fleetManagementTripDetailsResponse?.totalTripViolation
+            : 0
+          : tabIndex === 1
+          ? fleetManagementTripDetailsResponse?.vehicleDetail
+              ?.totalVehicleViolations
+            ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleViolations
+            : 0
+          : fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          ? fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          : 0,
       title:
         tabIndex === 0
           ? fleetManagement.violations
           : tabIndex === 1
           ? fleetManagement.violations
           : fleetManagement.violations,
-    },
-  ];
-
-  const violationListItems: any[] = [
-    {
-      title: "Over Speeding",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Harsh Breaking",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Harsh Acceleration",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Cornering",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Cornering",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Harsh Acceleration",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Over Speeding",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Harsh Breaking",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Harsh Acceleration",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Cornering",
-      details: "Vehicle#12,  Driver - Mike Ross",
-    },
-    {
-      title: "Cornering",
-      details: "Vehicle#12,  Driver - Mike Ross",
     },
   ];
 
@@ -255,7 +309,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : selectedTheme === "light"
           ? LightTripStatusIcon
           : TripStatusIcon,
-      value: tabIndex === 1 ? "90kph" : "On Trip",
+      value:
+        tabIndex === 1
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripSpeed
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripSpeed
+                : 0
+            }Kph`
+          : fleetManagementTripDetailsResponse?.driverDetail?.driverStatus
+          ? fleetManagementTripDetailsResponse?.driverDetail?.driverStatus
+          : "No Trip",
       name: tabIndex === 1 ? fleetManagement.speed : fleetManagement.status,
     },
     {
@@ -267,7 +332,16 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : selectedTheme === "light"
           ? LightSpeedometerIcon
           : SpeedometerIcon,
-      value: tabIndex === 1 ? "100Km" : "90kph",
+      value:
+        tabIndex === 1
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripDistance
+                : 0
+            }Km`
+          : `Kph`,
       name:
         tabIndex === 1
           ? fleetManagement.distanceCovered
@@ -282,7 +356,22 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : selectedTheme === "light"
           ? LightTotalDistanceIcon
           : DistinationLocationIcon,
-      value: tabIndex === 1 ? "5Gal" : "100Km",
+      value:
+        tabIndex === 1
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripFuelConsumption
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripFuelConsumption
+                : 0
+            }Gal`
+          : `${
+              fleetManagementTripDetailsResponse?.driverDetail
+                ?.totalDistanceDriven
+                ? fleetManagementTripDetailsResponse?.driverDetail
+                    ?.totalDistanceDriven
+                : 0
+            }Km`,
       name:
         tabIndex === 1
           ? fleetManagement.feulConsumed
@@ -297,12 +386,27 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : selectedTheme === "light"
           ? LightIncidentIcon
           : IncidentIcon,
-      value: tabIndex === 1 ? "10" : "10",
+      value:
+        tabIndex === 1
+          ? fleetManagementTripDetailsResponse?.vehicleDetail
+              ?.totalVehicleViolations
+            ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleViolations
+            : 0
+          : fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          ? fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          : 0,
       name: fleetManagement.violations,
     },
     {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
-      value: "70%",
+      value: `${
+        fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore
+          ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore
+          : 0
+      }%`,
       name: fleetManagement.safetyScore,
     },
   ];
@@ -429,7 +533,23 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           <Grid item xs={12} style={{ height: "10%" }}>
             <TopPanelListItemContainerInfoDialogue
               topPanelListItems={topPanelListItems}
-              percent={tabIndex === 0 ? 70 : tabIndex === 1 ? 85 : 70}
+              percent={
+                tabIndex === 0
+                  ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                    ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                    : 0
+                  : tabIndex === 1
+                  ? fleetManagementTripDetailsResponse?.vehicleDetail
+                      ?.vehiclSafetyScore
+                    ? fleetManagementTripDetailsResponse?.vehicleDetail
+                        ?.vehiclSafetyScore
+                    : 0
+                  : fleetManagementTripDetailsResponse?.driverDetail
+                      ?.driverSafetyScore
+                  ? fleetManagementTripDetailsResponse?.driverDetail
+                      ?.driverSafetyScore
+                  : 0
+              }
               strokeWidth={10}
               trailWidth={10}
               strokeColor="#92C07E"
@@ -456,7 +576,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 }}
               >
                 <Stepper
-                  routeDetails={routeDetails}
+                  routeDetails={fleetManagementTripDetailsResponse?.routeDtos}
                   tripStatus={"Completed"}
                   is4kDevice={is4kDevice}
                   selectedTheme={selectedTheme}
@@ -466,9 +586,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 <Grid style={{ height: "100%" }} item xs={12}>
                   {tabIndex === 0 ? (
                     <TripDetailsMap
-                      markers={[selectedMarker]}
-                      marker={selectedMarker?.id}
-                      currentMarker={selectedMarker}
+                      markers={[selectedMarkerLocation]}
+                      marker={selectedMarkerLocation?.id}
+                      currentMarker={selectedMarkerLocation}
                       setCurrentMarker={() => {}}
                       focusedCategory={""}
                       mapPageName={"fleetManagement"}
@@ -894,7 +1014,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 }}
               >
                 <FleetInfoDialogueViolationContainer
-                  violationListItems={violationListItems}
+                  violationListItems={violations}
                   selectedTheme={selectedTheme}
                 />
               </Grid>

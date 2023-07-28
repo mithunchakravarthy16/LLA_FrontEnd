@@ -45,6 +45,9 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     //   maxHeight: "calc(100% - 370px)",
     //   minHeight: "calc(100% - 370px)",
     // },
+    "& .MuiIconButton-root:hover": {
+      backgroundColor: "unset !important",
+    },
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",

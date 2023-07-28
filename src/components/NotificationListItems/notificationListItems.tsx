@@ -13,6 +13,7 @@ import FleetCalloutCloseIcon from "../../assets/fleetCalloutCloseIcon.svg";
 import VideoLightIcon from "../../assets/videoLightIcon.svg";
 import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
+import moment from "moment";
 
 const NotificationListItems = (props: any) => {
   const locations = useLocation();
@@ -35,6 +36,8 @@ const NotificationListItems = (props: any) => {
       trackerId,
       vehicleId,
       tripId,
+      driverName,
+      notificationDate,
     },
     handleExpandListItem,
     selectedNotification,
@@ -258,7 +261,9 @@ const NotificationListItems = (props: any) => {
                 {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */} {area}
               </div>
               <div className={expandedListItemRow3}>
-                {`Vehicle#${vehicleId} | Driver-Mike Ross | Trip#${tripId}`}
+                {`Vehicle#${vehicleId ? vehicleId : ""} | Driver-${
+                  driverName ? driverName : ""
+                } | Trip#${tripId ? tripId : ""}`}
               </div>
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
@@ -269,7 +274,11 @@ const NotificationListItems = (props: any) => {
                     {"View Details"}
                   </Button>
                 </div>
-                <div className={timeStampStyle}>{"06-12-2023 | 9:00 AM"}</div>
+                <div className={timeStampStyle}>
+                  {moment(notificationDate)
+                    .utc()
+                    .format("DD-MM-YYYY | HH:mm A")}
+                </div>
               </div>
             </div>
           ) : (
@@ -289,10 +298,14 @@ const NotificationListItems = (props: any) => {
               </div>
               <div className={collapsedlistItemRow2}>
                 <div className={collapsedListItemSubTitle}>
-                  {`Vehicle#${vehicleId} , Driver-${assetId}`}
+                  {`Vehicle#${vehicleId ? vehicleId : ""} , Driver-${
+                    driverName ? driverName : ""
+                  }`}
                 </div>
                 <div className={collapsedTimeStampStyle}>
-                  {"06-12-2023 | 9:00 AM"}
+                  {moment(notificationDate)
+                    .utc()
+                    .format("DD-MM-YYYY | HH:mm A")}
                 </div>
               </div>
             </div>

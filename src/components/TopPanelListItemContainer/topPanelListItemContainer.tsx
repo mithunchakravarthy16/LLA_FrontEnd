@@ -118,6 +118,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
               strokeColor={strokeColor}
               trailColor={trailColor}
               title={title}
+              selectedTheme={selectedTheme}
             />
           </Grid>
         </Grid>

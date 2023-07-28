@@ -6,7 +6,7 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 
 const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
-  const { selectedTheme } = props;
+  const { selectedTheme, violationListItems } = props;
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
@@ -31,7 +31,6 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
     listItemTitle,
     listItemDescription,
   } = useStyles(appTheme);
-  const { violationListItems } = props;
 
   return (
     <>
@@ -59,7 +58,11 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
                   }}
                 >
                   <div className={listItemTitle}>{item?.title}</div>
-                  <div className={listItemDescription}>{item?.details}</div>
+                  <div className={listItemDescription}>{`Vehicle#${
+                    item?.vehicleId ? item?.vehicleId : ""
+                  }, Driver - ${
+                    item?.driverName ? item?.driverName : ""
+                  }`}</div>
                 </Grid>
               ))}
           </Grid>

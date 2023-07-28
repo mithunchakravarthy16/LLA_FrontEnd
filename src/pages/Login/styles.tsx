@@ -303,6 +303,7 @@ const useStyles = makeStyles(() => ({
     width: 200,
     margin: "0 auto",
     marginBottom: 32,
+    height: "5vw",
     [muiTheme.breakpoints.down(3073)]: {
       width: 200,
       margin: "0 auto",

@@ -31,6 +31,9 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
     color: "#fff",
     padding: "1%",
+    "& .MuiIconButton-root:hover": {
+      backgroundColor: "unset !important",
+    },
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
