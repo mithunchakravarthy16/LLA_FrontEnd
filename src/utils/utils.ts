@@ -51,7 +51,7 @@ export const formatttedDashboardNotificationCount = (data: any) => {
     let notiIncidentArray: any = [];
     let notiOprAlertArray: any = [];
     data?.map((value: any, index: number) => {
-      if (value?.notificationType === "event") {
+      if (value?.notificationType === "Events") {
         notiEventArray.push(value);
       } else if (value?.notificationType === "incident") {
         notiIncidentArray.push(value);

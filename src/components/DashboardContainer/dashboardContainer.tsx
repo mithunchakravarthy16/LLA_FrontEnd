@@ -129,7 +129,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         dashboardNotification?.notifications
       );
       const fleetNotiData: any = formatttedFleetAPINotification(
-        fleetManagementNotificationResponse?.notifications
+        fleetManagementNotificationResponse
       );
       if (
         assetNotiData &&
@@ -156,7 +156,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         dashboardNotification?.notifications
       );
       const fleetNotiData: any = formatttedFleetAPINotification(
-        fleetManagementNotificationResponse?.notifications
+        fleetManagementNotificationResponse
       );
       if (
         assetNotiData &&
