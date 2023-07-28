@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     color:
       props?.pageName && props?.pageName === "fleetInfoDialogue"
         ? "#909090"
-        : props?.palette?.fleetManagementPage?.topPanelTextColor,
+        : `${props?.palette?.fleetManagementPage?.topPanelTextColor} !important`,
     // marginBottom:
     //   props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
     fontFamily: "HelveticaNeue-Regular",

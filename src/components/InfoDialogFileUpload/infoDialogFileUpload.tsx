@@ -16,6 +16,9 @@ const DialogWrapper = styled(Dialog)(({}: {}) => ({
     maxWidth: "30vw",
     background: `#FFFFFF !important`,
     padding: "1%",
+    "& .MuiIconButton-root:hover": {
+      backgroundColor: "unset !important",
+    },
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
@@ -45,6 +48,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
     handleFooterChange,
     dropDropFooter,
     errorMsg,
+    successMsg,
   } = props;
 
   const {} = useStyles({});
@@ -81,6 +85,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleChange={handleChange}
             dropDrop={dropDrop}
             errorMsg={errorMsg}
+            successMsg={successMsg}
           />
         )}
         {uploadImageTitle === "Header" && (
@@ -90,6 +95,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleChange={handleHeaderChange}
             dropDrop={dropDropHeader}
             errorMsg={errorMsg}
+            successMsg={successMsg}
           />
         )}
         {uploadImageTitle === "Fav Icon" && (
@@ -99,6 +105,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleChange={handleFavIconChange}
             dropDrop={dropDropFavIcon}
             errorMsg={errorMsg}
+            successMsg={successMsg}
           />
         )}
         {uploadImageTitle === "Footer" && (
@@ -108,6 +115,7 @@ const InfoDialogFileUpload: React.FC<any> = (props) => {
             handleChange={handleFooterChange}
             dropDrop={dropDropFooter}
             errorMsg={errorMsg}
+            successMsg={successMsg}
           />
         )}
       </DialogWrapper>

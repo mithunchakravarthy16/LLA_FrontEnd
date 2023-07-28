@@ -109,6 +109,7 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
               title={title}
               titlePosition={horizontalProgressBarTitlePosition}
               pageName={pageName}
+              selectedTheme={selectedTheme}
             />
           </Grid>
         </Grid>

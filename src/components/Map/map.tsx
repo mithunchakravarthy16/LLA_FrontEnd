@@ -68,6 +68,11 @@ const center = {
   lng: -105.00357749556102,
 };
 
+const fleetManagementCenter = {
+  lat: 25.057066876525674,
+  lng: 121.36458642272018,
+};
+
 const libraries = ["places", "drawing"];
 
 const Map: React.FC<any> = (props) => {
@@ -514,7 +519,13 @@ const Map: React.FC<any> = (props) => {
       );
       map?.panTo(markers[index]?.location);
     } else {
-      map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
+      map?.panTo(
+        location?.pathname === "/home"
+          ? defaultCenter
+          : location?.pathname === "/fleetManagement"
+          ? fleetManagementCenter
+          : center
+      );
       map?.setZoom(
         selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
           ? 16.2
@@ -549,7 +560,7 @@ const Map: React.FC<any> = (props) => {
     id: string
   ) => {
     switch (notificationCategory) {
-      case "event": {
+      case "Events": {
         switch (category) {
           case "parking":
             return currentMarker === id
@@ -659,7 +670,13 @@ const Map: React.FC<any> = (props) => {
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
       if (prev && prev === markerId) {
-        map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
+        map?.panTo(
+          location?.pathname === "/home"
+            ? defaultCenter
+            : location?.pathname === "/fleetManagement"
+            ? fleetManagementCenter
+            : center
+        );
         return "";
       } else {
         map?.panTo(location);
@@ -674,7 +691,13 @@ const Map: React.FC<any> = (props) => {
   const handleMarkerClose = () => {
     setSelectedNotification("");
     setIsMarkerClicked(false);
-    map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
+    map?.panTo(
+      location?.pathname === "/home"
+        ? defaultCenter
+        : location?.pathname === "/fleetManagement"
+        ? fleetManagementCenter
+        : center
+    );
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
     setProgress([]);
     setPoints([]);
@@ -956,7 +979,13 @@ const Map: React.FC<any> = (props) => {
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
-          center={location?.pathname === "/home" ? defaultCenter : center}
+          center={
+            location?.pathname === "/home"
+              ? defaultCenter
+              : location?.pathname === "/fleetManagement"
+              ? fleetManagementCenter
+              : center
+          }
           zoom={
             selectedContainerStyle?.is4kDevice
               ? 16.2

@@ -28,7 +28,10 @@ import {
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
-import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
+import {
+  getFleetManagementNotificationData,
+  getFleetManagementOverAllTripDetails,
+} from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
@@ -101,6 +104,7 @@ const FleetManagement: React.FC<any> = (props) => {
   useEffect(() => {
     let payload: any = {};
     dispatch(getFleetManagementNotificationData(payload));
+    dispatch(getFleetManagementOverAllTripDetails({}));
   }, []);
 
   const fleetManagementNotificationResponse = useSelector(
@@ -108,11 +112,15 @@ const FleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementNotificationData
   );
 
+  const fleetManagementTripDetailsResponse = useSelector(
+    (state: any) =>
+      state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
+  );
+
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
 
-  const fleetManagementNotificationList =
-    fleetManagementNotificationResponse.notifications;
+  const fleetManagementNotificationList = fleetManagementNotificationResponse;
 
   useEffect(() => {
     if (fleetManagementNotificationList) {
@@ -215,6 +223,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
   const [selectedMarker, setSelectedMarker] = useState<any>();
+  const [selectedMarkerLocation, setSelectedMarkerLocation] = useState<any>();
 
   useEffect(() => {
     setDashboardData(
@@ -414,7 +423,8 @@ const FleetManagement: React.FC<any> = (props) => {
     useState<boolean>(false);
 
   const handleViewDetails = (data: any) => {
-    setSelectedMarker(data);
+    setSelectedMarker(data?.tripId);
+    setSelectedMarkerLocation(data);
     setShowInfoDialogue(true);
   };
 
@@ -899,6 +909,7 @@ const FleetManagement: React.FC<any> = (props) => {
           selectedMarker={selectedMarker}
           is4kDevice={selectedWidth?.is4kDevice}
           selectedTheme={selectedTheme}
+          selectedMarkerLocation={selectedMarkerLocation}
         />
       )}
       {showInfoDialogueVideo && (

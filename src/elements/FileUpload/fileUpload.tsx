@@ -9,6 +9,7 @@ const FileUpload = (props: any) => {
     handleChange,
     dropDrop,
     errorMsg,
+    successMsg,
   } = props;
   const {
     buttonContainer,
@@ -19,7 +20,7 @@ const FileUpload = (props: any) => {
     uploadIcon,
     dropMessage,
     errorMessage,
-  } = useStyles({ errorMsg });
+  } = useStyles({ errorMsg, successMsg });
 
   const dragOver = (e: any) => {
     e.preventDefault();
@@ -64,7 +65,7 @@ const FileUpload = (props: any) => {
               </div>
             </div>
           </div>
-          <div className={errorMessage}>{errorMsg}</div>
+          <div className={errorMessage}>{errorMsg ? errorMsg : successMsg}</div>
         </>
       </Grid>
       <Grid item xs={12}>

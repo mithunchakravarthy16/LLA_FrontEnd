@@ -167,7 +167,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
     id: string
   ) => {
     switch (notificationCategory) {
-      case "event": {
+      case "Events": {
         switch (category) {
           case "parking":
             return currentMarker === id
@@ -489,10 +489,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
                   />
                 )}
 
-                {points &&
+                {(points &&
                   points?.length > 0 &&
                   progress &&
-                  progress?.length > 0 && (
+                  progress?.length > 0) ||
+                  (currentMarker?.location && (
                     <>
                       <PolylineF
                         path={progress}
@@ -519,7 +520,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
                         />
                       }
                     </>
-                  )}
+                  ))}
               </div>
             )}
           </MarkerClustererF>
