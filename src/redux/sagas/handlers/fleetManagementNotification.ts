@@ -42,8 +42,8 @@ export function* handleFleetManagementTripDetails(action: any): any {
 
 export function* handleFleetManagementOverAllTripDetails(action: any): any {
   try {
-    const { fetchData } = fetchAPIServices;
-    const response = yield fetchData(getOverAllTripDetailsApi);
+    const { fetchLogin } = fetchAPIServices;
+    const response = yield fetchLogin(getOverAllTripDetailsApi, action.payload);
     if (response) {
       yield put(setFleetManagementOverAllTripDetails(response));
     } else {

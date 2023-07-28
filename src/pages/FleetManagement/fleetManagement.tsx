@@ -104,7 +104,7 @@ const FleetManagement: React.FC<any> = (props) => {
   useEffect(() => {
     let payload: any = {};
     dispatch(getFleetManagementNotificationData(payload));
-    dispatch(getFleetManagementOverAllTripDetails({}));
+    dispatch(getFleetManagementOverAllTripDetails({ type: "Weekly" }));
   }, []);
 
   const fleetManagementNotificationResponse = useSelector(
@@ -117,6 +117,10 @@ const FleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
   );
 
+  console.log(
+    "fleetManagementTripDetailsResponse",
+    fleetManagementTripDetailsResponse
+  );
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
 
@@ -167,18 +171,28 @@ const FleetManagement: React.FC<any> = (props) => {
     {
       icon:
         selectedTheme === "light" ? LightTotalDistanceIcon : TotalDistanceIcon,
-      value: "1237km",
+      value: `${
+        fleetManagementTripDetailsResponse?.distanceCovered
+          ? fleetManagementTripDetailsResponse?.distanceCovered
+          : 0
+      }Km`,
       name: `${gridView.total} ${gridView.distance}`,
     },
     {
       icon: selectedTheme === "light" ? LightIdleHoursIcon : IdleHoursIcon,
-      value: "05Hrs",
+      value: `${
+        fleetManagementTripDetailsResponse?.idleHours
+          ? fleetManagementTripDetailsResponse?.idleHours
+          : 0
+      }Hrs`,
       name: `${fleetManagement.idleHrs}`,
     },
     {
       icon:
         selectedTheme === "light" ? LightOverSpeedingIcon : OverSpeedingIcon,
-      value: "11",
+      value: fleetManagementTripDetailsResponse?.overSpeed
+        ? fleetManagementTripDetailsResponse?.overSpeed
+        : 0,
       name: gridView.overspeeding,
     },
     {
@@ -186,13 +200,17 @@ const FleetManagement: React.FC<any> = (props) => {
         selectedTheme === "light"
           ? LightHarshAccelerationIcon
           : HarshAccelerationIcon,
-      value: "05",
+      value: fleetManagementTripDetailsResponse?.harshAcceleration
+        ? fleetManagementTripDetailsResponse?.harshAcceleration
+        : 0,
       name: fleetManagement.harshAcceleration,
     },
     {
       icon:
         selectedTheme === "light" ? LightHarshBreakingIcon : HarshBreakingIcon,
-      value: "04",
+      value: fleetManagementTripDetailsResponse?.harshBreaking
+        ? fleetManagementTripDetailsResponse?.harshBreaking
+        : 0,
       name: gridView.harshBreaking,
     },
   ];
@@ -468,7 +486,11 @@ const FleetManagement: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={70}
+                          percent={
+                            fleetManagementTripDetailsResponse?.safetyScore
+                              ? fleetManagementTripDetailsResponse?.safetyScore
+                              : 0
+                          }
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="
@@ -616,7 +638,9 @@ const FleetManagement: React.FC<any> = (props) => {
                                       </div>
                                       <div className={liveContentLeftStyle}>
                                         <div className={liveContentValue}>
-                                          10
+                                          {fleetManagementTripDetailsResponse?.totalLiveVehicles
+                                            ? fleetManagementTripDetailsResponse?.totalLiveVehicles
+                                            : 0}
                                         </div>
                                         <div className={liveContentLabel}>
                                           {gridView.vehicles}
@@ -624,7 +648,9 @@ const FleetManagement: React.FC<any> = (props) => {
                                       </div>
                                       <div className={liveContentStyle}>
                                         <div className={liveContentValue}>
-                                          13
+                                          {fleetManagementTripDetailsResponse?.totalCompletedTrip
+                                            ? fleetManagementTripDetailsResponse?.totalCompletedTrip
+                                            : 0}
                                         </div>
                                         <div className={liveContentLabel}>
                                           {gridView.trips}

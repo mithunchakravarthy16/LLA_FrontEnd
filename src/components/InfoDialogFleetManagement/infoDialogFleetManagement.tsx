@@ -182,9 +182,15 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 0
           ? fleetManagementTripDetailsResponse?.noOfStops
+            ? fleetManagementTripDetailsResponse?.noOfStops
+            : 0
           : tabIndex === 1
           ? fleetManagementTripDetailsResponse?.vehicleDetail?.licensePlateNo
-          : "Mike Ross",
+            ? fleetManagementTripDetailsResponse?.vehicleDetail?.licensePlateNo
+            : ""
+          : fleetManagementTripDetailsResponse?.driverDetail?.driverName
+          ? fleetManagementTripDetailsResponse?.driverDetail?.driverName
+          : "",
       title:
         tabIndex === 0
           ? fleetManagement.stops
@@ -195,10 +201,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     {
       value:
         tabIndex === 0
-          ? `${fleetManagementTripDetailsResponse?.tripCompletion}%`
+          ? `${
+              fleetManagementTripDetailsResponse?.tripCompletion
+                ? fleetManagementTripDetailsResponse?.tripCompletion
+                : 0
+            }%`
           : tabIndex === 1
           ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehicleType
-          : "PDRV#123456",
+            ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehicleType
+            : ""
+          : fleetManagementTripDetailsResponse?.driverDetail?.drivingLicense
+          ? fleetManagementTripDetailsResponse?.driverDetail?.drivingLicense
+          : "",
       title:
         tabIndex === 0
           ? fleetManagement.tripCompletion
@@ -209,10 +223,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     {
       value:
         tabIndex === 0
-          ? `${fleetManagementTripDetailsResponse?.distanceCovered}Km`
+          ? `${
+              fleetManagementTripDetailsResponse?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.distanceCovered
+                : 0
+            }Km`
           : tabIndex === 1
           ? fleetManagementTripDetailsResponse?.vehicleDetail?.totalVehicleTrips
-          : "4",
+            ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleTrips
+            : 0
+          : fleetManagementTripDetailsResponse?.driverDetail?.totalDrivingTrips
+          ? fleetManagementTripDetailsResponse?.driverDetail?.totalDrivingTrips
+          : 0,
       title:
         tabIndex === 0
           ? fleetManagement.distanceCovered
@@ -223,10 +246,26 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     {
       value:
         tabIndex === 0
-          ? `${fleetManagementTripDetailsResponse?.totalTime}Hr`
+          ? `${
+              fleetManagementTripDetailsResponse?.totalTime
+                ? fleetManagementTripDetailsResponse?.totalTime
+                : 0
+            }Hr`
           : tabIndex === 1
-          ? `${fleetManagementTripDetailsResponse?.vehicleDetail?.totalVehicleDistance}Km`
-          : "600Km",
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.totalVehicleDistance
+                : 0
+            }Km`
+          : `${
+              fleetManagementTripDetailsResponse?.driverDetail
+                ?.totalDistanceDriven
+                ? fleetManagementTripDetailsResponse?.driverDetail
+                    ?.totalDistanceDriven
+                : 0
+            }Km`,
       title:
         tabIndex === 0
           ? fleetManagement.totalTime
@@ -238,10 +277,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 0
           ? fleetManagementTripDetailsResponse?.totalTripViolation
+            ? fleetManagementTripDetailsResponse?.totalTripViolation
+            : 0
           : tabIndex === 1
           ? fleetManagementTripDetailsResponse?.vehicleDetail
               ?.totalVehicleViolations
-          : "20",
+            ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleViolations
+            : 0
+          : fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          ? fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          : 0,
       title:
         tabIndex === 0
           ? fleetManagement.violations
@@ -263,8 +311,16 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : TripStatusIcon,
       value:
         tabIndex === 1
-          ? `${fleetManagementTripDetailsResponse?.vehicleDetail?.currentTripSpeed}Kph`
-          : "On Trip",
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripSpeed
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripSpeed
+                : 0
+            }Kph`
+          : fleetManagementTripDetailsResponse?.driverDetail?.driverStatus
+          ? fleetManagementTripDetailsResponse?.driverDetail?.driverStatus
+          : "No Trip",
       name: tabIndex === 1 ? fleetManagement.speed : fleetManagement.status,
     },
     {
@@ -278,8 +334,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : SpeedometerIcon,
       value:
         tabIndex === 1
-          ? `${fleetManagementTripDetailsResponse?.vehicleDetail?.currentTripDistance}Km`
-          : "90kph",
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripDistance
+                : 0
+            }Km`
+          : `Kph`,
       name:
         tabIndex === 1
           ? fleetManagement.distanceCovered
@@ -296,8 +358,20 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : DistinationLocationIcon,
       value:
         tabIndex === 1
-          ? `${fleetManagementTripDetailsResponse?.vehicleDetail?.currentTripFuelConsumption}Gal`
-          : "100Km",
+          ? `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripFuelConsumption
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripFuelConsumption
+                : 0
+            }Gal`
+          : `${
+              fleetManagementTripDetailsResponse?.driverDetail
+                ?.totalDistanceDriven
+                ? fleetManagementTripDetailsResponse?.driverDetail
+                    ?.totalDistanceDriven
+                : 0
+            }Km`,
       name:
         tabIndex === 1
           ? fleetManagement.feulConsumed
@@ -316,12 +390,23 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         tabIndex === 1
           ? fleetManagementTripDetailsResponse?.vehicleDetail
               ?.totalVehicleViolations
-          : "10",
+            ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.totalVehicleViolations
+            : 0
+          : fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          ? fleetManagementTripDetailsResponse?.driverDetail
+              ?.totalDriverViolations
+          : 0,
       name: fleetManagement.violations,
     },
     {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
-      value: `${fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore}%`,
+      value: `${
+        fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore
+          ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore
+          : 0
+      }%`,
       name: fleetManagement.safetyScore,
     },
   ];
@@ -451,10 +536,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               percent={
                 tabIndex === 0
                   ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                    ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                    : 0
                   : tabIndex === 1
                   ? fleetManagementTripDetailsResponse?.vehicleDetail
                       ?.vehiclSafetyScore
-                  : 70
+                    ? fleetManagementTripDetailsResponse?.vehicleDetail
+                        ?.vehiclSafetyScore
+                    : 0
+                  : fleetManagementTripDetailsResponse?.driverDetail
+                      ?.driverSafetyScore
+                  ? fleetManagementTripDetailsResponse?.driverDetail
+                      ?.driverSafetyScore
+                  : 0
               }
               strokeWidth={10}
               trailWidth={10}
