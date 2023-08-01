@@ -181,6 +181,12 @@ const useStyles = makeStyles(() => ({
         lineHeight: "21px",
         padding: 16,
       },
+      [muiTheme.breakpoints.down(1681)]: {
+        fontWeight: " 500",
+        fontSize: "12px",
+        lineHeight: "19px",
+        padding: 14,
+      },
     },
     [muiTheme.breakpoints.down(3073)]: {
       marginBottom: 67,
@@ -226,6 +232,12 @@ const useStyles = makeStyles(() => ({
         fontSize: "14px",
         lineHeight: "21px",
         padding: 16,
+      },
+      [muiTheme.breakpoints.down(1681)]: {
+        fontWeight: " 500",
+        fontSize: "12px",
+        lineHeight: "19px",
+        padding: 14,
       },
     },
     [muiTheme.breakpoints.down(3073)]: {
@@ -283,8 +295,14 @@ const useStyles = makeStyles(() => ({
     fontSize: "0.7vw",
     position: "absolute",
     fontWeight: " 500",
-    bottom: "0.2vw",
+    bottom: "9%",
     left: 0,
+    [muiTheme.breakpoints.down(1681)]: {
+      bottom: "0%",
+    },
+    [muiTheme.breakpoints.down(1537)]: {
+      bottom: "-11%",
+    },
   }),
   outlineInputField: (props: any) => ({
     position: "relative",
