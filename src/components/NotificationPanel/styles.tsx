@@ -263,7 +263,7 @@ const useStyles = makeStyles({
           },
         },
       },
-      
+
       "&:nth-child(3)": {
         marginRight: "0 !important",
         minWidth: "64px !important",
@@ -369,10 +369,10 @@ const useStyles = makeStyles({
     },
     "& .MuiIconButton-root": {
       marginRight: 7,
-      '& .MuiSvgIcon-root': {
-        fontSize: '1vw',
+      "& .MuiSvgIcon-root": {
+        fontSize: "1vw",
       },
-      
+
       [muiTheme.breakpoints.up(3839)]: {
         marginRight: 15,
       },
@@ -444,11 +444,11 @@ const useStyles = makeStyles({
       },
     },
   }),
-  noResultFoundClass: (props:any) => ({
-fontSize: '1vw',
-padding: '1vw',
-fontFamily: "HelveticaNeue-Regular",
-color: props?.palette?.notification?.noResultFoundColor,
+  noResultFoundClass: (props: any) => ({
+    fontSize: "1vw",
+    padding: "1vw",
+    fontFamily: "HelveticaNeue-Regular",
+    color: props?.palette?.notification?.noResultFoundColor,
   }),
   notificationListItemSection: (props: any) => ({
     height:
@@ -500,7 +500,7 @@ color: props?.palette?.notification?.noResultFoundColor,
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 425px)"
-          : "calc(100vh - 298px)",
+          : "calc(100vh - 300px)",
     },
     [muiTheme.breakpoints.down(1601)]: {
       height:
