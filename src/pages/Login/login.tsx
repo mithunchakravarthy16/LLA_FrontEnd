@@ -91,7 +91,7 @@ const Login = () => {
   } = useStyles({ ...appTheme, selectedTheme: selectedTheme });
 
   useEffect(() => {
-    if (user && user?.userName && user?.currentRoleType === "USER") {
+    if (user && user?.userName && user?.currentRoleType === "USER" || user?.currentRoleType === "ADMIN") {
       // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/home");
     } else if (user && user.message) {

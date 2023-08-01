@@ -76,7 +76,7 @@ const AdminPanelLogin = () => {
     if (user && user?.userName && user?.currentRoleType === "ADMIN") { 
       // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/adminPanel");
-    }else if(user && user.message){
+    }else if((user && user.message) || user){
       setInCorrectCredentials(true);
     }
   }, [user]);
