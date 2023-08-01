@@ -152,7 +152,7 @@ const assetTrackingResponse = {
       incidentList: [
         {
           assetNotificationId: "ast12",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Theft Identified",
           trackerId: "TR#12368",
           assetId: "Asset#13",
@@ -167,7 +167,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast13",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Misplacement Identified",
           trackerId: "TR#1268",
           assetId: "Asset#14",
@@ -182,7 +182,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast14",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Loss Reported",
           trackerId: "TR#1368",
           assetId: "Asset#23",
@@ -197,7 +197,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast15",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Tracking Tag Damaged",
           trackerId: "TR#2308",
           assetId: "Asset#18",
@@ -212,7 +212,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast16",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Tracking Tag Malfunctioned",
           trackerId: "TR#1068",
           assetId: "Asset#19",
@@ -227,7 +227,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast17",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Tampering Incident Detecte",
           trackerId: "TR#12108",
           assetId: "Asset#20",
@@ -242,7 +242,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast18",
-          notificationType: "incident",
+          notificationType: "Incident",
           reason: "Asset Damage Reported",
           trackerId: "TR#18368",
           assetId: "Asset#93",
@@ -262,7 +262,7 @@ const assetTrackingResponse = {
       alertList: [
         {
           assetNotificationId: "ast23",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           reason: "Floodlight Maintenance",
           trackerId: "TR#12209",
           assetId: "Asset#25",
@@ -277,7 +277,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast24",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           reason: "Asset Tracking System Data Processing Delay",
           trackerId: "TR#12369",
           assetId: "Asset#15",
@@ -292,7 +292,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "ast25",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           reason: "Asset Tracking Gateways Enabled",
           trackerId: "TR#12119",
           assetId: "Asset#65",
@@ -307,7 +307,7 @@ const assetTrackingResponse = {
         },
         {
           assetNotificationId: "lght13",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           reason: "Asset Tracking Gateways Disabled",
           trackerId: "TR#10069",
           assetId: "Asset#75",

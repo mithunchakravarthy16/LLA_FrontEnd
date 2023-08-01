@@ -110,7 +110,9 @@ const Stepper: React.FC<any> = (props) => {
                   <p className={routeName}>
                     {index === routeDetails?.length - 1
                       ? "Destination"
-                      : "Source"}
+                      : index === 0
+                      ? "Source"
+                      : "Stop"}
                     {route?.location === "Current Location" &&
                       route?.observation && (
                         <span

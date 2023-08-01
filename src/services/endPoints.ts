@@ -33,6 +33,7 @@ const SUB_URL = {
     "/api/sensyon/fleet_notification/v1/getAllFleetNotification",
   getOverAllTripDetailsUrl: "/api/sensyon/trips/v1/getOverallTripDetail",
   getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
+  getAnalyticsUrl: "/api/sensyon/analytics/v1/getTripStatistics",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -43,3 +44,4 @@ export const adminPanelCancelApi = `${BASE_URL.baseUrl}${SUB_URL.adminPanelCance
 export const getFleetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getFleetNotificationsUrl}`;
 export const getOverAllTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getOverAllTripDetailsUrl}`;
 export const getTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getTripDetailsUrl}`;
+export const getAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAnalyticsUrl}`;

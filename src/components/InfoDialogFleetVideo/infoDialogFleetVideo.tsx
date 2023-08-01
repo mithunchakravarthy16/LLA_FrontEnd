@@ -134,7 +134,7 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
               <span className={vicheals}>
                 Vehicle# {selectedMarker?.vehicleId}
               </span>{" "}
-              <span>Driver-Mike Ross</span>
+              <span>Driver-{selectedMarker?.driverName}</span>
             </p>
           </Grid>
           <Grid
@@ -149,7 +149,11 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
               playing
               loop={true}
               controls={true}
-              url={FleetSampleVideo}
+              url={
+                selectedMarker?.videoUrl
+                  ? selectedMarker?.videoUrl
+                  : FleetSampleVideo
+              }
               width="100%"
               height="100%"
             />

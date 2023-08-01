@@ -16,6 +16,7 @@ import {
   handleFleetManagementNotification,
   handleFleetManagementTripDetails,
   handleFleetManagementOverAllTripDetails,
+  handleFleetManagementAnalyticsData,
 } from "./handlers/fleetManagementNotification";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
@@ -38,6 +39,7 @@ export default function* rootSaga() {
     watchCancelAdminPanelConfig(),
     watchFleetManagementTripDetails(),
     watchFleetManagementOverAllTripDetails(),
+    watchFleetManagementAnalyticsData(),
   ]);
 }
 
@@ -115,5 +117,12 @@ export function* watchFleetManagementOverAllTripDetails() {
   yield takeLatest(
     fleetManagementNotification.GET_FLEET_MANAGEMENT_OVER_ALL_TRIP_DETAILS,
     handleFleetManagementOverAllTripDetails
+  );
+}
+
+export function* watchFleetManagementAnalyticsData() {
+  yield takeLatest(
+    fleetManagementNotification.GET_FLEET_MANAGEMENT_ANALYTICS_DATA,
+    handleFleetManagementAnalyticsData
   );
 }
