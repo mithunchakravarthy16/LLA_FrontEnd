@@ -133,7 +133,7 @@ const dashboardNotification = {
           entity: "LPN: ADL-D21| Sot - 18",
           venue: "",
           category: "parking",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.76323809694557,
@@ -147,7 +147,7 @@ const dashboardNotification = {
           entity: "LPN: 510-IBD | Spot - 05",
           venue: "",
           category: "parking",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.758410381562285,
@@ -161,7 +161,7 @@ const dashboardNotification = {
           entity: "LPN: ABL-C31| Sot - 28",
           venue: "",
           category: "parking",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.76146903388253,
@@ -175,7 +175,7 @@ const dashboardNotification = {
           entity: "LPN: 510-IBD | Spot - 05",
           venue: "",
           category: "parking",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.758186488708766,
@@ -189,7 +189,7 @@ const dashboardNotification = {
           entity: "",
           venue: "",
           category: "energy",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.758267544591504,
@@ -204,7 +204,7 @@ const dashboardNotification = {
           entity: "",
           venue: "",
           category: "energy",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.751982493422706,
@@ -219,7 +219,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "security",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.7519538545636,
@@ -234,7 +234,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "security",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.755724996944544,
@@ -250,7 +250,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "lighting",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.755724996944544,
@@ -265,7 +265,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "lighting",
-          notificationType: "incident",
+          notificationType: "Incident",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.754096574426356,
@@ -284,7 +284,7 @@ const dashboardNotification = {
           entity: "Parking lot C spot13",
           venue: "",
           category: "parking",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.75423942004732,
@@ -298,7 +298,7 @@ const dashboardNotification = {
           entity: "Parking lot B spot18",
           venue: "",
           category: "parking",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.75883889069712,
@@ -312,7 +312,7 @@ const dashboardNotification = {
           entity: "",
           venue: "",
           category: "energy",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.76092426375837,
@@ -327,7 +327,7 @@ const dashboardNotification = {
           entity: "",
           venue: "",
           category: "energy",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.75509648755221,
@@ -342,7 +342,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "security",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.750953922556664,
@@ -357,7 +357,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "security",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.7541537127103,
@@ -373,7 +373,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "lighting",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.75809613983553,
@@ -388,7 +388,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "lighting",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.753039507624166,
@@ -403,7 +403,7 @@ const dashboardNotification = {
           entity: "",
           venue: "Location",
           category: "lighting",
-          notificationType: "oprAlert",
+          notificationType: "Alerts",
           timeStamp: "09:41 AM",
           location: {
             lat: 39.7575679010206,

@@ -196,7 +196,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
             return ParkingEventIcon;
         }
       }
-      case "oprAlert": {
+      case "Alerts": {
         switch (category) {
           case "parking":
             return currentMarker === id
@@ -226,7 +226,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
         }
         break;
       }
-      case "incident": {
+      case "Incident": {
         switch (category) {
           case "parking":
             return currentMarker === id

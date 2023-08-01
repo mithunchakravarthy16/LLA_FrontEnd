@@ -3,12 +3,14 @@ import {
   setFleetManagementNotificationData,
   setFleetManagementTripDetails,
   setFleetManagementOverAllTripDetails,
+  setFleetManagementAnalyticsData,
 } from "redux/actions/fleetManagementNotificationActions";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
   getFleetNotificationApi,
   getOverAllTripDetailsApi,
   getTripDetailsApi,
+  getAnalyticsApi,
 } from "../../../services/endPoints";
 // import fleetManagementResponse from "mockdata/fleetManagementAPI";
 
@@ -48,6 +50,20 @@ export function* handleFleetManagementOverAllTripDetails(action: any): any {
       yield put(setFleetManagementOverAllTripDetails(response));
     } else {
       yield put(setFleetManagementOverAllTripDetails({}));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleFleetManagementAnalyticsData(action: any): any {
+  try {
+    const { fetchLogin } = fetchAPIServices;
+    const response = yield fetchLogin(getAnalyticsApi, action.payload);
+    if (response) {
+      yield put(setFleetManagementAnalyticsData(response));
+    } else {
+      yield put(setFleetManagementAnalyticsData({}));
     }
   } catch (error) {
     console.log(error);

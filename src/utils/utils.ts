@@ -26,9 +26,9 @@ export const formatttedDashboardNotification = (
     sortedNotifications?.map((value: any, index: number) => {
       if (value?.notificationType === "Events") {
         notiEventArray?.push(value);
-      } else if (value?.notificationType === "incident") {
+      } else if (value?.notificationType === "Incident") {
         notiIncidentArray?.push(value);
-      } else if (value?.notificationType === "oprAlert") {
+      } else if (value?.notificationType === "Alerts") {
         notiOprAlertArray?.push(value);
       }
     });
@@ -53,9 +53,9 @@ export const formatttedDashboardNotificationCount = (data: any) => {
     data?.map((value: any, index: number) => {
       if (value?.notificationType === "Events") {
         notiEventArray.push(value);
-      } else if (value?.notificationType === "incident") {
+      } else if (value?.notificationType === "Incident") {
         notiIncidentArray.push(value);
-      } else if (value?.notificationType === "oprAlert") {
+      } else if (value?.notificationType === "Alerts") {
         notiOprAlertArray.push(value);
       }
     });

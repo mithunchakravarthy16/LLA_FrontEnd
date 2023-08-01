@@ -91,6 +91,7 @@ const Chart: React.FC<any> = (props) => {
     return () => clearInterval(interval);
   }, []);
 
+  console.log("dataPoints", dataPoints);
   return (
     <HighchartsReact
       highcharts={Highcharts}
@@ -151,7 +152,9 @@ const Chart: React.FC<any> = (props) => {
                       location.pathname === "/fleetManagement" ||
                       location.pathname === "/assetTracking"
                       ? "#050F1B"
-                      : selectedTheme === "light" ? "#050F1B" : "#57585A"
+                      : selectedTheme === "light"
+                      ? "#050F1B"
+                      : "#57585A"
                   );
                   setTBorder(
                     location.pathname === "/energyManagement" ||
@@ -161,7 +164,9 @@ const Chart: React.FC<any> = (props) => {
                       location.pathname === "/fleetManagement" ||
                       location.pathname === "/assetTracking"
                       ? "#636363"
-                      : selectedTheme === "light" ? "#050F1B" : "#57585A"
+                      : selectedTheme === "light"
+                      ? "#050F1B"
+                      : "#57585A"
                   );
                   break;
               }
@@ -240,26 +245,19 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          categories:
-            pageName === "FleetManagement"
-              ? ["06/14", "06/15", "06/16", "06/17", "06/18", "06/19", "06/20"]
-              : lastTwntyTwoHours,
+          categories: pageName !== "FleetManagement" && lastTwntyTwoHours,
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
                 (is4kDevice && location.pathname === "/security") ||
-                (is4kDevice && location.pathname === "/lighting") ||
-                (is4kDevice && location.pathname === "/fleetManagement") ||
-                (is2kDevice && location.pathname === "/fleetManagement")
-                ? pageName === "FleetManagement"
-                  ? graphType === "area" || graphType === "spline"
-                    ? 2
-                    : 1
-                  : 8
+                (is4kDevice && location.pathname === "/lighting")
+                ? 8
                 : 12
               : tickInterval
               ? tickInterval
-              : 8,
+              : pageName !== "FleetManagement"
+              ? 8
+              : 0,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -267,10 +265,12 @@ const Chart: React.FC<any> = (props) => {
             dashStyle: "ShortDash",
             snap: isCrosshair,
           },
-
+          type: pageName === "FleetManagement" && "datetime",
           labels: {
             useHTML: true,
             // overflow: "justify",
+            overflow: "justify",
+            format: pageName === "FleetManagement" && "{value:%m/%e}",
             style: {
               fontSize: "0.7vw",
               textOverflow: "none",

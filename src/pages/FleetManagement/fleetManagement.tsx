@@ -31,6 +31,7 @@ import theme from "../../theme/theme";
 import {
   getFleetManagementNotificationData,
   getFleetManagementOverAllTripDetails,
+  getFleetManagementAnalyticsData,
 } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
@@ -105,6 +106,7 @@ const FleetManagement: React.FC<any> = (props) => {
     let payload: any = {};
     dispatch(getFleetManagementNotificationData(payload));
     dispatch(getFleetManagementOverAllTripDetails({ type: "Weekly" }));
+    dispatch(getFleetManagementAnalyticsData({ type: "Weekly" }));
   }, []);
 
   const fleetManagementNotificationResponse = useSelector(
@@ -117,14 +119,45 @@ const FleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
   );
 
+  const fleetManagementAnalyticsResponse = useSelector(
+    (state: any) =>
+      state.fleetManagementNotification.fleetManagementAnalyticsData
+  );
+
   console.log(
-    "fleetManagementTripDetailsResponse",
-    fleetManagementTripDetailsResponse
+    "fleetManagementAnalyticsResponse",
+    fleetManagementAnalyticsResponse
   );
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
+  const [tripsData, setTripsData] = useState<any>();
+  const [distanceData, setDistanceData] = useState<any>();
+  const [idleData, setIdleData] = useState<any>();
+  const [hoursData, setHoursData] = useState<any>();
 
   const fleetManagementNotificationList = fleetManagementNotificationResponse;
+
+  useEffect(() => {
+    if (fleetManagementAnalyticsResponse) {
+      const data: any = [];
+      const distanceTravelledData: any = [];
+      const idlData: any = [];
+      const hourData: any = [];
+      fleetManagementAnalyticsResponse?.data?.map((item: any) => {
+        data?.push([new Date(item?.date)?.getTime(), item?.total_trips]);
+        distanceTravelledData?.push([
+          new Date(item?.date)?.getTime(),
+          item?.total_distance,
+        ]);
+        idlData?.push([new Date(item?.date)?.getTime(), item?.total_idling]);
+        hourData?.push([new Date(item?.date)?.getTime(), item?.total_time]);
+      });
+      setTripsData(data);
+      setDistanceData(distanceTravelledData);
+      setIdleData(idlData);
+      setHoursData(hourData);
+    }
+  }, [fleetManagementAnalyticsResponse]);
 
   useEffect(() => {
     if (fleetManagementNotificationList) {
@@ -549,9 +582,10 @@ const FleetManagement: React.FC<any> = (props) => {
                                       units={""}
                                       isCrosshair={true}
                                       crossHairLineColor={"#6B70AB90"}
-                                      is4kDevice={selectedWidth?.is4kDevice}
-                                      is2kDevice={selectedWidth?.is2kDevice}
+                                      // is4kDevice={selectedWidth?.is4kDevice}
+                                      // is2kDevice={selectedWidth?.is2kDevice}
                                       pageName={"FleetManagement"}
+                                      // tickInterval={0}
                                       dataPoints={[
                                         {
                                           marker: {
@@ -611,7 +645,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                               ],
                                             ],
                                           },
-                                          data: [1, 4, 3, 5, 4, 6, 8],
+                                          data: tripsData,
                                         },
                                       ]}
                                     />
@@ -707,9 +741,10 @@ const FleetManagement: React.FC<any> = (props) => {
                                       units={""}
                                       isCrosshair={true}
                                       crossHairLineColor={"#712C7D90"}
-                                      is4kDevice={selectedWidth?.is4kDevice}
-                                      is2kDevice={selectedWidth?.is2kDevice}
+                                      // is4kDevice={selectedWidth?.is4kDevice}
+                                      // is2kDevice={selectedWidth?.is2kDevice}
                                       pageName={"FleetManagement"}
+                                      // tickInterval={0}
                                       dataPoints={[
                                         {
                                           marker: {
@@ -758,7 +793,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                               ],
                                             ],
                                           },
-                                          data: [1, 4, 3, 5, 4, 6, 8],
+                                          data: distanceData,
                                         },
                                       ]}
                                     />
@@ -836,8 +871,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                       units={"Hrs"}
                                       isCrosshair={true}
                                       crossHairLineColor={"#E5FAF6"}
-                                      is4kDevice={selectedWidth?.is4kDevice}
-                                      is2kDevice={selectedWidth?.is2kDevice}
+                                      // is4kDevice={selectedWidth?.is4kDevice}
+                                      // is2kDevice={selectedWidth?.is2kDevice}
                                       tooltip={"shared"}
                                       pageName={"FleetManagement"}
                                       dataPoints={[
@@ -852,7 +887,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                             selectedWidth?.is3KDevice
                                               ? 4
                                               : 2,
-                                          data: [0, 1, 6, 6, 9, 5, 5],
+                                          data: idleData,
                                         },
                                         {
                                           marker: {
@@ -865,7 +900,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                             selectedWidth?.is3KDevice
                                               ? 4
                                               : 2,
-                                          data: [1, 4, 3, 5, 4, 2, 8],
+                                          data: hoursData,
                                         },
                                       ]}
                                     />
