@@ -10,7 +10,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749147447458455,
@@ -25,7 +25,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -40,7 +40,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75555358586086,
@@ -55,7 +55,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75729624533388,
@@ -70,7 +70,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755314112781264,
@@ -85,7 +85,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.753650251934815,
@@ -100,7 +100,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.753160323749114,
@@ -115,7 +115,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519538545636,
@@ -130,7 +130,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -145,7 +145,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -160,7 +160,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.754096574426356,
@@ -175,7 +175,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75263953217147,
@@ -190,7 +190,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519824246002,
@@ -205,7 +205,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75681059056824,
@@ -220,7 +220,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7620097754289,
@@ -235,7 +235,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.756824458797134,
@@ -250,7 +250,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.757362620063994,
@@ -265,7 +265,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75590181080967,
@@ -280,7 +280,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75807926716016,
@@ -295,7 +295,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7528582053289,
@@ -310,7 +310,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.752891199063264,
@@ -326,7 +326,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749953922556664,
@@ -341,7 +341,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7541537127103,
@@ -356,7 +356,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75423942004732,
@@ -371,7 +371,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75883889069712,
@@ -386,7 +386,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76092426375837,
@@ -401,7 +401,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75509648755221,
@@ -416,7 +416,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75809613983553,
@@ -431,7 +431,7 @@ const securityData = {
         entity: "",
         venue: "Location",
         category: "security",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75432512727771,

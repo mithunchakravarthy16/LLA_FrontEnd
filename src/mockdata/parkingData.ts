@@ -10,7 +10,7 @@ const parkingData = {
         entity: "LPN: ADL-D21| Sot - 18",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75932453116013,
@@ -24,7 +24,7 @@ const parkingData = {
         entity: "LPN: 510-IBD | Spot - 05",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75986730174264,
@@ -38,7 +38,7 @@ const parkingData = {
         entity: "LPN: 610-IBA | Spot - 15",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -52,7 +52,7 @@ const parkingData = {
         entity: "LPN: 530-ABD | Spot - 05",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75515362500666,
@@ -66,7 +66,7 @@ const parkingData = {
         entity: "LPN: 110-AAC | Spot - 01",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749147447458455,
@@ -80,7 +80,7 @@ const parkingData = {
         entity: "LPN: 250-ICD | Spot - 35",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75181100420289,
@@ -94,7 +94,7 @@ const parkingData = {
         entity: " ",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75555358586086,
@@ -108,7 +108,7 @@ const parkingData = {
         entity: " ",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75461968970569,
@@ -122,7 +122,7 @@ const parkingData = {
         entity: "LPN: 150-ICD | Spot - 02",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75729624533388,
@@ -136,7 +136,7 @@ const parkingData = {
         entity: "LPN: 290-IAA | Spot - 22",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75061104947772,
@@ -150,7 +150,7 @@ const parkingData = {
         entity: "LPN: 210-BAA | Spot - 08",
         venue: "",
         category: "parking",
-        notificationType: "event",
+        notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755314112781264,
@@ -164,7 +164,7 @@ const parkingData = {
         entity: "LPN: ADL-D21| Sot - 18",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76253809694557,
@@ -178,7 +178,7 @@ const parkingData = {
         entity: "LPN: 510-IBD | Spot - 15",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758410381562285,
@@ -192,7 +192,7 @@ const parkingData = {
         entity: "LPN: 510-AAD | Spot - 05",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.758267544591504,
@@ -206,7 +206,7 @@ const parkingData = {
         entity: "LPN: 210-IBD | Spot - 25",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749982493422706,
@@ -220,7 +220,7 @@ const parkingData = {
         entity: "LPN: 110-AAB | Spot - 22",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519538545636,
@@ -234,7 +234,7 @@ const parkingData = {
         entity: "LPN: 095-DDC | Spot - 14",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -248,7 +248,7 @@ const parkingData = {
         entity: "",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.755724996944544,
@@ -262,7 +262,7 @@ const parkingData = {
         entity: "LPN: 195- ABC | Spot - 34",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.754096574426356,
@@ -276,7 +276,7 @@ const parkingData = {
         entity: "",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75263953217147,
@@ -290,7 +290,7 @@ const parkingData = {
         entity: "LPN: 395- BBC | Spot - 14",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7519824246002,
@@ -304,7 +304,7 @@ const parkingData = {
         entity: "",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75681059056824,
@@ -318,7 +318,7 @@ const parkingData = {
         entity: "LPN: 195- ADC | Spot - 04",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7620097754289,
@@ -332,7 +332,7 @@ const parkingData = {
         entity: "LPN: 795- DDC | Spot - 14",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75540692476566,
@@ -346,7 +346,7 @@ const parkingData = {
         entity: "LPN: 105- CDC | Spot - 04",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75848340868107,
@@ -360,7 +360,7 @@ const parkingData = {
         entity: "LPN: 195- ADC | Spot - 04",
         venue: "",
         category: "parking",
-        notificationType: "incident",
+        notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7620097754289,
@@ -374,11 +374,11 @@ const parkingData = {
         entity: "Parking lot 3 spot13",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75482955322021,
-          lng:  -104.99872187707545,
+          lng: -104.99872187707545,
         },
       },
       {
@@ -388,7 +388,7 @@ const parkingData = {
         entity: "Parking lot 2 spot18",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75883889069712,
@@ -402,7 +402,7 @@ const parkingData = {
         entity: "Parking lot 2",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.76092426375837,
@@ -416,7 +416,7 @@ const parkingData = {
         entity: "Parking lot 3 spot19",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75509648755221,
@@ -430,7 +430,7 @@ const parkingData = {
         entity: "",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.749953922556664,
@@ -444,7 +444,7 @@ const parkingData = {
         entity: "Parking lot 3 spot28",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.7541537127103,
@@ -458,7 +458,7 @@ const parkingData = {
         entity: "",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75809613983553,
@@ -472,7 +472,7 @@ const parkingData = {
         entity: "Parking lot 1 spot38",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.753039507624166,
@@ -486,7 +486,7 @@ const parkingData = {
         entity: "Parking lot 4",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75458224832903,
@@ -500,7 +500,7 @@ const parkingData = {
         entity: "",
         venue: "",
         category: "parking",
-        notificationType: "oprAlert",
+        notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
           lat: 39.75432512727771,
