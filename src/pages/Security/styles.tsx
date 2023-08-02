@@ -140,7 +140,7 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     columnGap: "30px",
-    color: props?.palette?.fleetManagementPage?.topPanelTextColor, 
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "48px",
@@ -159,6 +159,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
@@ -189,7 +193,7 @@ const useStyles = makeStyles({
   pieChartLegendContainer: {
     display: "flex",
     flexDirection: "column",
-    justifyContent:'center',
+    justifyContent: "center",
   },
 
   legendIdentifierContainer: {
@@ -277,6 +281,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {

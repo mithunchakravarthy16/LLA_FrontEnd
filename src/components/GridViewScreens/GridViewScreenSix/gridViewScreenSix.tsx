@@ -91,6 +91,12 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         height: 210,
         is4kDevice: false,
       });
+    } else if (window.innerWidth > 1399) {
+      setSelectedWidth({
+        width: 400,
+        height: 200,
+        is4kDevice: false,
+      });
     } else if (window.innerWidth > 1343) {
       setSelectedWidth({
         width: 370,
@@ -127,14 +133,12 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/assetTracking");
-        }}
-      >
+        }}>
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}
-        >
+          className={gridContainers}>
           <Grid item xs={12} className={containerTitleTwo}>
             {dashboard.assetsTracking}
           </Grid>
@@ -182,29 +186,45 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                   },
                   lineColor: selectedTheme === "light" ? "#883497" : "#ABCD98",
                   color: selectedTheme === "light" ? "#883497" : "#ABCD98",
-                  lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                  lineWidth:
+                    selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                      ? 4
+                      : 2,
                   fillColor: {
                     linearGradient: [0, 0, 0, 200],
                     stops: [
                       [
                         0,
-                        Highcharts.color("#883497") 
+                        Highcharts.color("#883497")
                           .setOpacity(selectedTheme === "light" ? 0.8 : 0.5)
                           .get("rgba"),
                       ],
                       [
                         0.5,
                         Highcharts.color("#883497")
-                          .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? selectedTheme === "light" ? 0.4 : 0.3 : selectedTheme === "light" ? 0.2 : 0.1)
+                          .setOpacity(
+                            selectedWidth?.is4kDevice ||
+                              selectedWidth?.is3KDevice
+                              ? selectedTheme === "light"
+                                ? 0.4
+                                : 0.3
+                              : selectedTheme === "light"
+                              ? 0.2
+                              : 0.1
+                          )
                           .get("rgba"),
                       ],
                       [
                         1,
-                        Highcharts.color(
-                           "#883497"
-                            
-                        )
-                          .setOpacity(selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? selectedTheme === "light" ? 0.1 : 0.05 : 0.02)
+                        Highcharts.color("#883497")
+                          .setOpacity(
+                            selectedWidth?.is4kDevice ||
+                              selectedWidth?.is3KDevice
+                              ? selectedTheme === "light"
+                                ? 0.1
+                                : 0.05
+                              : 0.02
+                          )
                           .get("rgba"),
                       ],
                     ],

@@ -136,11 +136,11 @@ const useStyles = makeStyles({
   }),
 
   notificationPanelGrid: (props: any) => ({
-    background: props?.palette?.notification?.notificationBg,  
+    background: props?.palette?.notification?.notificationBg,
     border: "1px solid #333333",
   }),
   graphTwoHeader: (props: any) => ({
-    color : props?.palette?.energyMgmtPage?.topPanelTextColor,
+    color: props?.palette?.energyMgmtPage?.topPanelTextColor,
 
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
@@ -161,6 +161,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
       lineHeight: "24px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
+      lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
@@ -189,6 +193,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {

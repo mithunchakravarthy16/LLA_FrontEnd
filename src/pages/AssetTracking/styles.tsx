@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   mainSection: (props: any) => ({
     height: "calc(100vh - 50px)",
     color: "white",
-    background: props?.palette?.fleetManagementPage?.pageBg, 
+    background: props?.palette?.fleetManagementPage?.pageBg,
     opacity: 1,
     [muiTheme.breakpoints.up(3839)]: {
       width: "calc(100vw - 200px) !important",
@@ -166,6 +166,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
