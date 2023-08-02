@@ -27,6 +27,7 @@ import useStyles from "./styles";
 import fleetManagementResponse from "mockdata/fleetManagementAPI";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import { getAdminPanelConfigData } from "redux/actions/adminPanel";
+import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -71,6 +72,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [focusedCategory, setFocusedCategory] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
   const [map, setMap] = useState<any>(null);
+  const [showInfoDialogueVideo, setShowInfoDialogueVideo] =
+    useState<boolean>(false);
+  const [selectedMarker, setSelectedMarker] = useState<any>();
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N" }));
@@ -215,6 +219,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
+  const handleVideoDetails = (event: any, data: any) => {
+    event.stopPropagation();
+    setShowInfoDialogueVideo(true);
+    setSelectedMarker(data);
+  };
+
   return (
     <>
       <Grid container xs={12}>
@@ -233,7 +243,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 mapPageName={"dashboard"}
                 setIsMarkerClicked={setIsMarkerClicked}
                 tabIndex={tabIndex}
-                handleVideoDetails={() => {}}
+                handleVideoDetails={handleVideoDetails}
                 handleViewDetails={() => {}}
                 handleAssetViewDetails={() => {}}
                 selectedTheme={selectedTheme}
@@ -287,7 +297,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   notificationPageName={"dashboard"}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
-                  handleVideoDetails={() => {}}
+                  handleVideoDetails={handleVideoDetails}
                   handleViewDetails={() => {}}
                   handleAssetViewDetails={() => {}}
                   selectedTheme={selectedTheme}
@@ -297,6 +307,13 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           </Grid>
         </Grid>
       </Grid>
+      {showInfoDialogueVideo && (
+        <InfoDialogFleetVideo
+          setShowInfoDialogue={setShowInfoDialogueVideo}
+          selectedMarker={selectedMarker}
+          selectedTheme={selectedTheme}
+        />
+      )}
     </>
   );
 };
