@@ -4,8 +4,8 @@ import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
 const responsiveWidth = (width: number) => {
-  return (width*window.innerWidth)/3840
-}
+  return (width * window.innerWidth) / 3840;
+};
 
 const useStyles = makeStyles({
   rootContainer: (props: any) => ({
@@ -147,7 +147,8 @@ const useStyles = makeStyles({
 
   notificationPanelGrid: (props: any) => ({
     border: `1px solid ${props?.palette?.parkingPage?.topPanelBorder}`,
-    background: props?.palette?.notification?.notificationBg,  }),
+    background: props?.palette?.notification?.notificationBg,
+  }),
 
   mapFilterStyle: (props: any) => ({
     position: "absolute",
@@ -461,7 +462,6 @@ const useStyles = makeStyles({
     right: 15,
     top: 7,
     borderRadius: "50%",
-    
   }),
 
   lotSelectionIconStyleClose: (props: any) => ({
@@ -581,7 +581,7 @@ const useStyles = makeStyles({
     fontSize: "16px",
     display: "flex",
     padding: 10,
-    color : props?.palette?.parkingPage?.topPanelTextColor,
+    color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "0px",
@@ -600,6 +600,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
+      lineHeight: "0px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
       lineHeight: "0px",
     },
     [muiTheme.breakpoints.down(1153)]: {
@@ -769,6 +773,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 13,
       lineHeight: "20px",
+    },
+    [muiTheme.breakpoints.down(1441)]: {
+      fontSize: 11,
+      lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,

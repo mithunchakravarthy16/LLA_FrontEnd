@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import { a } from "@react-spring/web";
 import theme from "../../theme/theme";
 
-let currentTheme: any = {}
+let currentTheme: any = {};
 
 export const setTheme = (themeFromApi: any) => {
   switch (themeFromApi) {
@@ -18,7 +18,7 @@ export const setTheme = (themeFromApi: any) => {
       currentTheme = theme?.defaultTheme;
       break;
   }
-}
+};
 
 export const Wrapper = styled("div")`
   position: absolute;
@@ -148,8 +148,11 @@ export const RootContainer = styled("div")`
   }
 `;
 
-export const SkewContainer = styled(a.div)<{isFocused?: boolean}>`
-  background: ${({isFocused}) => (isFocused?currentTheme?.palette?.flippingCard.hoverBackground:currentTheme?.palette?.flippingCard.background)};
+export const SkewContainer = styled(a.div)<{ isFocused?: boolean }>`
+  background: ${({ isFocused }) =>
+    isFocused
+      ? currentTheme?.palette?.flippingCard.hoverBackground
+      : currentTheme?.palette?.flippingCard.background};
   position: absolute;
   top: 0;
   left: 0;
@@ -157,13 +160,13 @@ export const SkewContainer = styled(a.div)<{isFocused?: boolean}>`
   height: 100%;
 
   &:hover {
-    background-color: ${(currentTheme?.palette?.flippingCard?.hoverBackground)};
+    background-color: ${currentTheme?.palette?.flippingCard?.hoverBackground};
   }
 `;
 
 export const SkewBackContainer = styled(SkewContainer)`
   &:hover {
-    background-color: ${(currentTheme?.palette?.flippingCard?.hoverBackground)};
+    background-color: ${currentTheme?.palette?.flippingCard?.hoverBackground};
   }
   background: linear-gradient(243.97deg, #cd5209 10.07%, #c8151d 112.41%);
 `;
@@ -220,7 +223,6 @@ export const InnerCardWrapper = styled("div")`
   justify-content: center;
   flex-direction: column;
   margin-right: 2vw;
-
 `;
 
 export const CardTitle = styled("div")<{ focusedCategory: any }>`
@@ -228,7 +230,10 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
   font-style: normal;
   font-size: 35px;
   line-height: 48px;
-  color: ${({ focusedCategory }) => (focusedCategory ? "#F26522" : currentTheme?.palette?.flippingCard?.textColor)};
+  color: ${({ focusedCategory }) =>
+    focusedCategory
+      ? "#F26522"
+      : currentTheme?.palette?.flippingCard?.textColor};
   /* color:  #F26522 #eeeeee; */
   text-transform: uppercase;
   margin-top: 20px;
@@ -613,7 +618,7 @@ export const NoteLabel = styled("div")`
     margin-left: -16px;
   }
   @media (max-width: 1441px) {
-    font-size: 9px;
+    font-size: 7px;
     line-height: 21px;
     margin-left: -16px;
   }
