@@ -263,6 +263,7 @@ const NotificationPanel = (props: any) => {
                 tabIndex={tabIndex}
                 handleCloseIcon={handleCloseIcon}
                 searchIsOpen={searchOpen}
+                selectedTheme={selectedTheme}
               />
             ) : (
               notificationText

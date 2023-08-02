@@ -23,13 +23,14 @@ const INF_SearchBox: React.FC<any> = (props) => {
     disabled,
     handleCloseIcon,
     pageName,
+    selectedTheme,
   } = props;
 
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
 
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
+  // const [selectedTheme, setSelectedTheme] = useState(
+  //   JSON.parse(localStorage.getItem("theme")!)
+  // );
 
   useEffect(() => {
     switch (selectedTheme) {
