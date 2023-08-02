@@ -225,7 +225,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         tabIndex === 0
           ? `${
               fleetManagementTripDetailsResponse?.distanceCovered
-                ? fleetManagementTripDetailsResponse?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(
+                    2
+                  )
                 : 0
             }Km`
           : tabIndex === 1
@@ -255,15 +257,17 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? `${
               fleetManagementTripDetailsResponse?.vehicleDetail
                 ?.totalVehicleDistance
-                ? fleetManagementTripDetailsResponse?.vehicleDetail
-                    ?.totalVehicleDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail?.totalVehicleDistance?.toFixed(
+                    2
+                  )
                 : 0
             }Km`
           : `${
               fleetManagementTripDetailsResponse?.driverDetail
                 ?.totalDistanceDriven
-                ? fleetManagementTripDetailsResponse?.driverDetail
-                    ?.totalDistanceDriven
+                ? fleetManagementTripDetailsResponse?.driverDetail?.totalDistanceDriven?.toFixed(
+                    2
+                  )
                 : 0
             }Km`,
       title:
@@ -403,8 +407,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
       value: `${
-        fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore
-          ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehiclSafetyScore
+        fleetManagementTripDetailsResponse?.tripSafetyScore
+          ? fleetManagementTripDetailsResponse?.tripSafetyScore
           : 0
       }%`,
       name: fleetManagement.safetyScore,
@@ -761,7 +765,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.tripSafetyScore
+                                  ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                                  : 0
+                              }
                               totalValue={110}
                               label={
                                 fleetManagement.drivingScore.substring(0, 15) +
@@ -791,7 +799,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={"02"}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.harshAccelaration
+                                  ? fleetManagementTripDetailsResponse?.harshAccelaration
+                                  : 0
+                              }
                               totalValue={15}
                               label={
                                 fleetManagement.harshAcceleration.substring(
@@ -824,7 +836,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={"02"}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.cornering
+                                  ? fleetManagementTripDetailsResponse?.cornering
+                                  : 0
+                              }
                               totalValue={15}
                               label={
                                 fleetManagement.cornering.substring(0, 15) +
@@ -852,7 +868,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={"05"}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.overSpeeding
+                                  ? fleetManagementTripDetailsResponse?.overSpeeding
+                                  : 0
+                              }
                               totalValue={15}
                               label={
                                 gridView.overspeeding.substring(0, 15) +
@@ -880,7 +900,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={"01"}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.harshbreaking
+                                  ? fleetManagementTripDetailsResponse?.harshbreaking
+                                  : 0
+                              }
                               totalValue={7}
                               label={
                                 gridView.harshBreaking.substring(0, 15) +
@@ -910,7 +934,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={"00"}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.distraction
+                                  ? fleetManagementTripDetailsResponse?.distraction
+                                  : 0
+                              }
                               totalValue={15}
                               label={
                                 fleetManagement.distraction.substring(0, 15) +
@@ -940,7 +968,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.idlehours
+                                  ? fleetManagementTripDetailsResponse?.idlehours
+                                  : 0
+                              }
                               totalValue={110}
                               label={
                                 fleetManagement.idleHrs.substring(0, 15) +
@@ -968,7 +1000,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           <Grid item>
                             <CircularProgressBar
                               radius={getSpeedometerDimensions().radius}
-                              currentValue={75}
+                              currentValue={
+                                fleetManagementTripDetailsResponse?.fatigueLevel
+                                  ? fleetManagementTripDetailsResponse?.fatigueLevel
+                                  : 0
+                              }
                               totalValue={110}
                               label={
                                 fleetManagement.fatigueLevel.substring(0, 15) +
