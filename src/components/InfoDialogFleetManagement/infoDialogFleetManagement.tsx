@@ -12,6 +12,7 @@ import customTheme from "../../theme/theme";
 import ReactPlayer from "react-player";
 import FleetSampleVideo from "../../assets/fleetVideos/entry-exit-cars.mp4";
 import FleetSampleVideoTwo from "../../assets/fleetVideos/vehicleEntered.mp4";
+import llaLoader from "../../assets/loader/llaLoader.gif";
 import {
   CloseIcon,
   SpeedometerIcon,
@@ -492,6 +493,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
+        {
+          Object.keys(fleetManagementTripDetailsResponse).length > 0 ?
+          <>
         <div>
           <IconButton
             aria-label="close"
@@ -1057,6 +1061,20 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
             </Grid>
           </Grid>
         </Grid>
+        </>
+        :
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          <img src={llaLoader} width={"10%"} />
+        </div>
+        }
+        
       </DialogWrapper>
     </>
   );
