@@ -15,6 +15,7 @@ import {
   LightHarshAccelerationIcon,
   LightHarshBreakingIcon,
 } from "../../assets/topPanelListIcons";
+import llaLoader from "../../assets/loader/llaLoader.gif";
 import useTranslation from "localization/translations";
 import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
@@ -124,10 +125,7 @@ const FleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementAnalyticsData
   );
 
-  console.log(
-    "fleetManagementAnalyticsResponse",
-    fleetManagementAnalyticsResponse
-  );
+  
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
   const [tripsData, setTripsData] = useState<any>();
@@ -487,6 +485,8 @@ const FleetManagement: React.FC<any> = (props) => {
 
   return (
     <>
+    {
+      Object.keys(fleetManagementNotificationResponse).length > 0 && Object.keys(fleetManagementTripDetailsResponse).length > 0  && Object.keys(fleetManagementAnalyticsResponse).length > 0  ?
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -964,6 +964,19 @@ const FleetManagement: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      :
+      <div
+          style={{
+            width: "100%",
+            height: "90vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          <img src={llaLoader} width={"10%"} />
+        </div>
+    }
+      
       {showInfoDialogue && (
         <InfoDialogFleetManagement
           setShowInfoDialogue={setShowInfoDialogue}
