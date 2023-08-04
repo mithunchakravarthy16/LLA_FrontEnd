@@ -318,6 +318,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   llaLogoSection: (props: any) => ({
+  visibility:'hidden',
     width: 200,
     margin: "0 auto",
     marginBottom: 32,
