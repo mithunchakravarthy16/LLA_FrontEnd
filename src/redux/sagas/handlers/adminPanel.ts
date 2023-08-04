@@ -19,7 +19,7 @@ export function* handleAdminPanelConfig(action: any): any {
       adminPanelSaveApi,
       action.payload
     );
-    if (response?.statusCodeValue === 200) {
+    if (response) {
       yield put(setAdminPanelConfig(response));
     } else {
       yield put(setAdminPanelConfig({}));

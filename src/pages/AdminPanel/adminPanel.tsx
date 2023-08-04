@@ -528,11 +528,15 @@ const AdminPanel = () => {
               severity="success"
               sx={{ width: "100%" }}
             >
-              {adminPanelSaveData?.body?.isPreview === "Y"
+              {adminPanelSaveData?.statusCodeValue !== 200
+                ? "Something went wrong... Please try again later"
+                : adminPanelSaveData?.statusCodeValue === 200 &&
+                  adminPanelSaveData?.body?.isPreview === "Y"
                 ? "Preview Loaded Successfully in New Tab."
                 : adminPanelCancelData?.iscancel
                 ? "Cancelled Successfully."
-                : adminPanelSaveData?.body?.isPreview === "N" &&
+                : adminPanelSaveData?.statusCodeValue === 200 &&
+                  adminPanelSaveData?.body?.isPreview === "N" &&
                   "Saved Successfully."}
             </Alert>
           </Snackbar>
