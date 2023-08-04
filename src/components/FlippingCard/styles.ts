@@ -273,9 +273,9 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
     line-height: 20px;
   }
   @media (max-width: 1345px) {
-    font-size: 10px;
+    font-size: 9px;
     line-height: 18px;
-    margin-right: 28px;
+    // margin-right: 28px;
   }
   @media (max-width: 1281px) {
     font-size: 11px;
@@ -623,7 +623,7 @@ export const NoteLabel = styled("div")`
     margin-left: -16px;
   }
   @media (max-width: 1345px) {
-    font-size: 8px;
+    font-size: 7px;
     line-height: 21px;
     margin-left: -16px;
   }

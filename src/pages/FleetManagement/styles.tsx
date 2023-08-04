@@ -564,6 +564,10 @@ const useStyles = makeStyles({
       fontSize: 11,
       lineHeight: "22px",
     },
+    [muiTheme.breakpoints.down(1345)]: {
+      fontSize: 10,
+      lineHeight: "22px",
+    },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 8,
       lineHeight: "16px",
