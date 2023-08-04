@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     fontSize: "0.6vw",
     display: "flex",
     justifyContent: "space-between",
-    fontFamily: "HelveticaNeue-italicMedium",
+    fontFamily: "HelveticaNeue-Regular",
   }),
 
   headerTabContainerStyle: (props: any) => ({

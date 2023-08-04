@@ -28,7 +28,6 @@ const useStyles = makeStyles(
     listItemDescription: (props: any) => ({
       fontSize: "0.7vw",
       lineHeight: "2vh",
-      fontStyle: "italic",
       fontFamily: "HelveticaNeue-Regular",
       fontWeight: 300,
       color: `${props?.palette?.fleetManagementPage?.violationListSubTextColor}`,

@@ -207,7 +207,7 @@ const useStyles = makeStyles(() => ({
   polygonText: (props: any) => ({
     paddingLeft: "10px",
     fontSize: "0.5vw",
-    fontFamily: "HelveticaNeue-italicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     fontWeight: 300,
     color: props?.palette?.assetTrackingPage?.topPanelTextColor,
   }),

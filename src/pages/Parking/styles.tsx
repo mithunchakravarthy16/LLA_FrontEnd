@@ -645,7 +645,6 @@ const useStyles = makeStyles({
   liveContentLabel: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontStyle: "italic",
     color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 24,
@@ -680,7 +679,6 @@ const useStyles = makeStyles({
   liveContentLabelGreen: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontStyle: "italic",
     display: "flex",
     alignItems: "center",
     columnGap: "15px",
