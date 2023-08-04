@@ -17,6 +17,9 @@ const useStyles = makeStyles(
       color: "#FFFFFF",
       fontFamily: "HelveticaNeue-Regular",
       height: "24vh",
+      [muiTheme.breakpoints.down(1345)]: {
+        bottom: "-10px",
+      },
     }),
     footerSectionDasbhoard: (props: any) => ({
       background: props?.palette?.footer?.footerBg, //"rgba(30, 31, 39, 1)", //#1E1F27
