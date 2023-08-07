@@ -225,24 +225,24 @@ const useStyles = makeStyles({
 
   menuLogoLightThemeSection: () => ({
     width: "70%",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     position: "relative",
     padding: " 10% 10% 0% 10%",
 
     // borderBottomRightRadius: "45%",
     // borderBottomLeftRadius: "45%",
 
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      bottom: "-36%",
-      left: 0,
-      width: "100%",
-      height: "80%",
-      backgroundColor: "#fff",
-      borderRadius: "0 0 50% 50%",
-      zIndex: "-1",
-    },
+    // "&::after": {
+    //   content: '""',
+    //   position: "absolute",
+    //   bottom: "-36%",
+    //   left: 0,
+    //   width: "100%",
+    //   height: "80%",
+    //   backgroundColor: "#fff",
+    //   borderRadius: "0 0 50% 50%",
+    //   zIndex: "-1",
+    // },
   }),
 
   menuIconSection: () => ({

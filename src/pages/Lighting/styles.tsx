@@ -260,7 +260,7 @@ const useStyles = makeStyles({
   liveContentLabel: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontFamily: "HelveticaNeue-ItalicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 20,
       lineHeight: "52px",
@@ -294,7 +294,7 @@ const useStyles = makeStyles({
   liveContentLabelGreen: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontFamily: "HelveticaNeue-ItalicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     display: "flex",
     alignItems: "center",
     columnGap: "15px",

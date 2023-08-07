@@ -279,7 +279,7 @@ const useStyles = makeStyles({
   liveContentLabel: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontFamily: "HelveticaNeue-ItalicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -313,7 +313,7 @@ const useStyles = makeStyles({
   liveContentLabelGreen: (props: any) => ({
     fontSize: "14px",
     fontWeight: 500,
-    fontFamily: "HelveticaNeue-ItalicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     display: "flex",
     alignItems: "center",
     columnGap: "15px",
@@ -446,7 +446,7 @@ const useStyles = makeStyles({
   horizantalDataGridLabelStyle: (props: any) => ({
     fontSize: "17px",
     fontWeight: 500,
-    fontFamily: "HelveticaNeue-ItalicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     wordBreak: "break-word",
     color: props?.palette?.gridViewComponentCommonStyle?.verticalBarLabelColor, // "rgba(181, 178, 178, 1)",
     flexGrow: 1,
@@ -643,7 +643,7 @@ const useStyles = makeStyles({
     fontSize: "18px",
     wordBreak: "break-word",
     color: props?.palette?.gridViewComponentCommonStyle?.verticalBarLabelColor, // "rgba(181, 178, 178, 1)",
-    fontFamily: "HelveticaNeue-ItalicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "36px",

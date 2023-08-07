@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     fontSize: "0.6vw",
     display: "flex",
     justifyContent: "space-between",
-    fontFamily: "HelveticaNeue-italicMedium",
+    fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.assetTrackingPage?.topPanelSubTextColor,
   }),
 
@@ -109,13 +109,11 @@ const useStyles = makeStyles(() => ({
     marginBottom: "2.4vh",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.assetTrackingPage?.topPanelTextColor,
-    fontStyle: "italic",
   }),
   leftPanelChild2: (props: any) => ({
     color: "#F26522",
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-    fontStyle: "italic",
   }),
   assetInfoRightPanelMain: (props: any) => ({
     height: "100%",

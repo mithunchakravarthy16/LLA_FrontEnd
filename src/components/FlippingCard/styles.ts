@@ -302,7 +302,6 @@ export const BackContentContainer = styled(ContentContainer)`
 
 export const CardTitleSmall = styled("div")`
   font-family: "HelveticaNeue-Regular";
-  font-style: italic;
   font-size: 35px;
   line-height: 56px;
   color: #ffffff;
@@ -450,7 +449,6 @@ export const ValueWrapper = styled("div")`
 
 export const Value = styled("div")`
   font-family: "HelveticaNeue-Regular";
-  font-style: italic;
   font-size: 46px;
   line-height: 67px;
   color: #fff;
@@ -503,7 +501,6 @@ export const Value = styled("div")`
 export const Label = styled("div")`
   color: #9d9d9c;
   font-family: "HelveticaNeue-Regular";
-  font-style: italic;
   font-size: 30px;
   line-height: 44px;
   text-transform: uppercase;
@@ -577,7 +574,6 @@ export const NoteContainer = styled("div")`
 
 export const NoteLabel = styled("div")`
   font-family: "HelveticaNeue-Regular";
-  font-style: italic;
   font-size: 28px;
   line-height: 44px;
   color: #ffcf25;
