@@ -114,8 +114,8 @@ const GridViewScreenFive: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
-        width: 250,
-        height: 80,
+        width: 270,
+        height: 120,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
@@ -148,8 +148,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/fleetManagement");
-        }}
-      >
+        }}>
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitleScreenFive}>
             {dashboard.fleetManagement}
@@ -161,8 +160,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   container
                   xs={12}
                   alignContent="space-between"
-                  className={leftSubChildContainer}
-                >
+                  className={leftSubChildContainer}>
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenFiveGraphTitleStyle}>
@@ -192,7 +190,11 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                               },
                               lineColor: "#FDC981",
                               color: "#FDC981",
-                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                              lineWidth:
+                                selectedWidth?.is4kDevice ||
+                                selectedWidth?.is3KDevice
+                                  ? 4
+                                  : 2,
                               data: [
                                 0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3, 4, 8, 6, 6,
                                 8, 7, 6, 5, 3, 1, 2, 0,
@@ -204,7 +206,11 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                               },
                               lineColor: "#26428E",
                               color: "#26428E",
-                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                              lineWidth:
+                                selectedWidth?.is4kDevice ||
+                                selectedWidth?.is3KDevice
+                                  ? 4
+                                  : 2,
                               data: [
                                 1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5, 1, 4, 3, 5,
                                 4, 2, 8, 4, 3, 4, 1, 4,
@@ -271,8 +277,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   xs={12}
                   alignItems="center"
                   textAlign="center"
-                  className={lastweekContainer}
-                >
+                  className={lastweekContainer}>
                   <Grid item xs={12} className={lastweekTitleStyle}>
                     <div
                       style={{
@@ -280,8 +285,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
                         padding: "3%",
-                      }}
-                    >
+                      }}>
                       {gridView.today}
                     </div>
                   </Grid>
@@ -289,14 +293,12 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                     <Grid
                       container
                       xs={12}
-                      className={lastweekBodySubContainer}
-                    >
+                      className={lastweekBodySubContainer}>
                       <Grid
                         item
                         xs={12}
                         className={rightListItemStyle}
-                        direction="column"
-                      >
+                        direction="column">
                         <div className={listItemValueStyle}>20</div>
                         <div className={listItemLabelStyle}>
                           {gridView.incidents}
@@ -306,8 +308,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyle}
-                      >
+                        className={rightListItemStyle}>
                         <div className={listItemValueStyle}>1237Km</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.total}</p> <p>{gridView.distance}</p>
@@ -317,8 +318,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyleLastChild}
-                      >
+                        className={rightListItemStyleLastChild}>
                         <div className={listItemValueStyle}>5Hrs</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.total}</p>{" "}
