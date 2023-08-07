@@ -116,8 +116,8 @@ const GridViewScreenFour: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 1279) {
       setSelectedWidth({
-        width: 250,
-        height: 50,
+        width: 270,
+        height: 70,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1151) {
@@ -150,8 +150,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/lighting");
-        }}
-      >
+        }}>
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
             {dashboard.lighting}
@@ -163,8 +162,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   container
                   xs={12}
                   alignContent="space-between"
-                  className={leftSubChildContainer}
-                >
+                  className={leftSubChildContainer}>
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenTwoGraphTitleStyle}>
@@ -187,7 +185,11 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               },
                               lineColor: "#80488A",
                               color: "#80488A",
-                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                              lineWidth:
+                                selectedWidth?.is4kDevice ||
+                                selectedWidth?.is3KDevice
+                                  ? 4
+                                  : 2,
                               data: [
                                 0, 1, 5, 3, 4, 5, 4, 1, 6, 1, 2, 3, 4, 8, 6, 6,
                                 8, 7, 6, 5, 3, 1, 2, 0,
@@ -213,8 +215,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       container
                       xs={12}
                       rowGap={1}
-                      className={progressBarContainerStyle}
-                    >
+                      className={progressBarContainerStyle}>
                       <Grid item xs={12} className={progressBarTitleStyle}>
                         {gridView.avgDimmingLevel}
                       </Grid>
@@ -232,8 +233,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               ? "20px"
                               : "7.5px",
                             overflow: "hidden",
-                          }}
-                        >
+                          }}>
                           <div
                             style={{
                               height: "100%",
@@ -242,8 +242,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               width:
                                 "60%" /* Adjust this value to set the initial progress */,
                               transition: `width 0.3s ease-in-out`,
-                            }}
-                          ></div>
+                            }}></div>
                         </div>
                       </Grid>
                       <Grid
@@ -252,8 +251,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         justifyContent="center"
                         alignItems="center"
                         display="flex"
-                        fontSize={selectedWidth?.is4kDevice ? "40px" : "15px"}
-                      >
+                        fontSize={selectedWidth?.is4kDevice ? "40px" : "15px"}>
                         60%
                       </Grid>
                     </Grid>
@@ -290,8 +288,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                   xs={12}
                   alignItems="center"
                   textAlign="center"
-                  className={lastweekContainer}
-                >
+                  className={lastweekContainer}>
                   <Grid item xs={12} className={lastweekTitleStyle}>
                     <div
                       style={{
@@ -299,8 +296,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
                         padding: "3%",
-                      }}
-                    >
+                      }}>
                       Today
                     </div>
                   </Grid>
@@ -308,14 +304,12 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                     <Grid
                       container
                       xs={12}
-                      className={lastweekBodySubContainer}
-                    >
+                      className={lastweekBodySubContainer}>
                       <Grid
                         item
                         xs={12}
                         className={rightListItemStyle}
-                        direction="column"
-                      >
+                        direction="column">
                         <div className={listItemValueStyle}>643ppm</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.co2}</p> <p>{gridView.level}</p>
@@ -325,8 +319,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyle}
-                      >
+                        className={rightListItemStyle}>
                         <div className={listItemValueStyle}>15ppm</div>
                         <div className={listItemLabelStyle}>
                           {gridView.voc} {gridView.level}
@@ -336,8 +329,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyleLastChild}
-                      >
+                        className={rightListItemStyleLastChild}>
                         <div className={listItemValueStyle}>12µg/m³</div>
                         <div className={listItemLabelStyle}>
                           {gridView.pm25}

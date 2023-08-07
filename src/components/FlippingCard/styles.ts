@@ -278,9 +278,9 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
     // margin-right: 28px;
   }
   @media (max-width: 1281px) {
-    font-size: 11px;
+    font-size: 8px;
     line-height: 18px;
-    margin-right: 28px;
+    margin-right: 0px;
   }
   @media (max-width: 1153px) {
     font-size: 9px;
@@ -623,6 +623,11 @@ export const NoteLabel = styled("div")`
     line-height: 21px;
     margin-left: -16px;
   }
+  @media (max-width: 1281px) {
+    font-size: 6px;
+    line-height: 21px;
+    margin-left: -16px;
+  }
   @media (max-width: 1153px) {
     font-size: 6.5px;
     line-height: 18px;
@@ -680,7 +685,12 @@ export const NoteValue = styled(NoteLabel)`
     margin-left: 5px;
   }
   @media (max-width: 1345px) {
-    font-size: 8px;
+    font-size: 7px;
+    line-height: 21px;
+    margin-left: 5px;
+  }
+  @media (max-width: 1281px) {
+    font-size: 6px;
     line-height: 21px;
     margin-left: 5px;
   }
@@ -702,4 +712,7 @@ export const NoteDifferenceIndicator = styled("img")<{ difference: any }>`
   width: auto;
   transform: ${({ difference }) =>
     difference === "+" ? "rotateX(180deg)" : "none"};
+  @media (max-width: 1281px) {
+    height: 30%;
+  }
 `;

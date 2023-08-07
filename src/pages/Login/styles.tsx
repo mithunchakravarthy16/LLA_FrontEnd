@@ -31,6 +31,9 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(1793)]: {
       paddingTop: "23vh",
     },
+    [muiTheme.breakpoints.down(1281)]: {
+      paddingTop: "15vh",
+    },
   }),
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(0px)",
