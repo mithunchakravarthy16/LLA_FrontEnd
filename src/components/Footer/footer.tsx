@@ -68,17 +68,18 @@ const Footer = (props: any) => {
         </div>
         <div>
           {pageName === "dashboard" ? (
-            <p>
+            <>
               {adminPanelData?.footerImage ? (
-                <img
-                  width={"35%"}
-                  height={"35%"}
-                  src={`data:image/jpeg;base64,${adminPanelData?.footerImage}`}
-                />
+                <div style={{ height: "3vw", width: "9vw" }}>
+                  <img
+                    width={"35%"}
+                    src={`data:image/jpeg;base64,${adminPanelData?.footerImage}`}
+                  />
+                </div>
               ) : (
-                adminPanelData?.footerText
+                <p>{adminPanelData?.footerText}</p>
               )}
-            </p>
+            </>
           ) : (
             <img className={footerCopyrightsImg} src={FooterCopyrights} />
           )}
