@@ -175,6 +175,10 @@ const useStyles = makeStyles({
       fontSize: 10,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
+      lineHeight: "16px",
+    },
   }),
 
   liveContainer: (props: any) => ({
@@ -210,6 +214,13 @@ const useStyles = makeStyles({
     left: "20px",
     [muiTheme.breakpoints.up(3839)]: {
       top: "-30px",
+    },
+    [muiTheme.breakpoints.up(1023)]: {
+      top: "-19px",
+      left: "4px",
+      "& img": {
+        width: "28px !important",
+      },
     },
   }),
 
@@ -485,6 +496,10 @@ const useStyles = makeStyles({
       fontSize: 9,
       lineHeight: "14px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      lineHeight: "10px",
+    },
   }),
 
   screenTwoGraphTitleStyle: (props: any) => ({
@@ -511,6 +526,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "19px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "19px",
     },
   }),
@@ -576,6 +595,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "18px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "18px",
     },
   }),
@@ -677,6 +700,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 9,
       lineHeight: "14px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 5,
+      lineHeight: "10px",
     },
   }),
 
