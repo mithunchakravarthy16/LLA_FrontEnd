@@ -45,6 +45,10 @@ const useStyles = makeStyles({
       fontSize: props.pageName === "parking" ? 12 : 8,
       lineHeight: "21px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: props.pageName === "parking" ? 9 : 8,
+      lineHeight: "21px",
+    },
   }),
 
   tabLabelFleetInfoDialogue: (props: any) => ({
@@ -60,7 +64,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "0.8vw",   
+    fontSize: "0.8vw",
   }),
 
   tabLabelText: (props: any) => {
