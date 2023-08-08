@@ -56,6 +56,7 @@ import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
+import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -1049,7 +1050,20 @@ const Map: React.FC<any> = (props) => {
               }}
             />
           )}
-          <MarkerClustererF>
+          <MarkerClustererF
+            averageCenter
+            enableRetinaIcons
+            gridSize={55}
+            styles={[
+              {
+                url: MarkerClusterIcon, 
+                height: 50,
+                width: 50,
+                textColor : "#FFF",
+                textSize:15
+              },
+            ]}
+          >
             {(clusterer: any) => (
               <div>
                 {markers?.map((singleMarker: any) => {
