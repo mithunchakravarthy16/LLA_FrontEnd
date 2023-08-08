@@ -91,7 +91,6 @@ const Chart: React.FC<any> = (props) => {
     return () => clearInterval(interval);
   }, []);
 
-  console.log("dataPoints", dataPoints);
   return (
     <HighchartsReact
       highcharts={Highcharts}
