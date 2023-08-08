@@ -55,6 +55,8 @@ import FleetAlertIcon from "../../assets/markers/BusOrange.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHover.gif";
 import useStyles from "./styles";
 import customLightThemeMapStyles from "./customLightThemeMapStyles";
+import routeSourceIcon from "assets/sourceIcon.svg";
+import routeDestinationIcon from "assets/destinationIcon.svg";
 
 const defaultCenter = {
   lat: 39.75525065792099,
@@ -86,6 +88,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
     handleViewDetails,
     handleVideoDetails,
     selectedTheme,
+    dataPoints,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -402,28 +405,28 @@ const TripDetailsMap: React.FC<any> = (props) => {
     setProgress(progress);
   };
 
-  const fetchDirection = async () => {
-    if (currentMarker?.source?.lat) {
-      const directionService = new window.google.maps.DirectionsService();
+  // const fetchDirection = async () => {
+  //   if (currentMarker?.source?.lat) {
+  //     const directionService = new window.google.maps.DirectionsService();
 
-      const results = await directionService.route({
-        origin: currentMarker?.source,
-        destination: currentMarker?.destination,
-        travelMode: window.google.maps.TravelMode.DRIVING,
-      });
+  //     const results = await directionService.route({
+  //       origin: currentMarker?.source,
+  //       destination: currentMarker?.destination,
+  //       travelMode: window.google.maps.TravelMode.DRIVING,
+  //     });
 
-      setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
-    }
-  };
+  //     setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
+  //   }
+  // };
 
   useEffect(() => {
-    if (points?.length > 0) {
+    if (dataPoints?.length > 0) {
       calculatePath();
     }
-  }, [points]);
+  }, [dataPoints]);
 
   useEffect(() => {
-    if (points?.length > 0) {
+    if (dataPoints?.length > 0) {
       const timer = setInterval(() => {
         moveObject();
       }, 1000);
@@ -433,11 +436,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (currentMarker) {
-      fetchDirection();
-    }
-  }, [currentMarker]);
+  // useEffect(() => {
+  //   if (currentMarker) {
+  //     fetchDirection();
+  //   }
+  // }, [currentMarker]);
 
   let lineSymbol = {
     path: "M 0,-1 0,1",
@@ -471,13 +474,13 @@ const TripDetailsMap: React.FC<any> = (props) => {
           <MarkerClustererF>
             {(clusterer: any) => (
               <div>
-                {points && points.length > 0 && (
+                {dataPoints && dataPoints.length > 0 && (
                   <PolylineF
-                    path={points}
+                    path={dataPoints}
                     options={{
                       strokeColor: "#976C9E",
                       strokeOpacity: 10,
-                      strokeWeight: 0,
+                      strokeWeight: 4,
                       icons: [
                         {
                           icon: lineSymbol,
@@ -488,12 +491,57 @@ const TripDetailsMap: React.FC<any> = (props) => {
                     }}
                   />
                 )}
-
-                {(points &&
-                  points?.length > 0 &&
+                <MarkerF
+                  key={0}
+                  position={{
+                    lat: dataPoints && dataPoints[0]?.lat,
+                    lng: dataPoints && dataPoints[0]?.lng,
+                  }}
+                  icon={{
+                    url: routeSourceIcon,
+                  }}
+                  // title={"S"}
+                  // label={`S`}
+                />
+                <MarkerF
+                  key={1}
+                  position={{
+                    lat: dataPoints && dataPoints[dataPoints?.length - 1]?.lat,
+                    lng: dataPoints && dataPoints[dataPoints?.length - 1]?.lng,
+                  }}
+                  icon={{
+                    url: routeDestinationIcon,
+                  }}
+                  // title={"D"}
+                  // label={`D`}
+                />
+                {/* {dataPoints &&
+                  dataPoints.length > 0 &&
+                  dataPoints.map((item: any, index: number) => (
+                    <>
+                      <MarkerF
+                        key={index}
+                        position={{
+                          lat: item?.lat,
+                          lng: item?.lng,
+                        }}
+                        icon={{
+                          url:
+                            index === 0
+                              ? routeSourceIcon
+                              : index === dataPoints.length - 1
+                              ? routeDestinationIcon
+                              : null,
+                        }}
+                        title={index}
+                        label={`${index + 1}`}
+                      />
+                    </>
+                  ))} */}
+                {dataPoints &&
+                  dataPoints?.length > 0 &&
                   progress &&
-                  progress?.length > 0) ||
-                  (currentMarker?.location && (
+                  progress?.length > 0 && (
                     <>
                       <PolylineF
                         path={progress}
@@ -520,7 +568,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
                         />
                       }
                     </>
-                  ))}
+                  )}
               </div>
             )}
           </MarkerClustererF>
