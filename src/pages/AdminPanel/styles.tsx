@@ -378,6 +378,9 @@ const useStyles = makeStyles(() => ({
   logoPreviewEmpty: {
     width: "2.2vw",
   },
+  logoPreviewFilled: {
+    width: "9.3vw",
+  },
   invisibleDisplay: {
     display: "none",
   },
