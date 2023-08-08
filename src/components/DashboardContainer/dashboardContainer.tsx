@@ -279,8 +279,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             {notificationPanelActive && (
               <div
                 className={notificationPanelSection}
-                style={{ width: "23%" }}
-              >
+                style={{ width: "24%" }}>
                 <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}
