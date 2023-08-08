@@ -34,6 +34,9 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(1281)]: {
       paddingTop: "15vh",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      paddingTop: "5vh",
+    },
   }),
   loginFormSection: (props: any) => ({
     backdropFilter: "blur(0px)",
@@ -321,7 +324,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   llaLogoSection: (props: any) => ({
-  visibility:'hidden',
+    visibility: "hidden",
     width: 200,
     margin: "0 auto",
     marginBottom: 32,

@@ -123,6 +123,9 @@ const useStyles = makeStyles({
 
   bodyLeftTopPanelListContainer: (props: any) => ({
     height: "25%",
+    [muiTheme.breakpoints.up(1023)]: {
+      height: "27%",
+    },
   }),
 
   graphOneContainer: (props: any) => ({
@@ -541,6 +544,16 @@ const useStyles = makeStyles({
     position: "absolute",
     top: "-15px",
     left: "20px",
+    [muiTheme.breakpoints.up(3839)]: {
+      top: "-30px",
+    },
+    [muiTheme.breakpoints.up(1023)]: {
+      top: "-19px",
+      left: "4px",
+      "& img": {
+        width: "28px !important",
+      },
+    },
   }),
 
   liveContentValue: (props: any) => ({
@@ -778,6 +791,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "16px",
     },
   }),
