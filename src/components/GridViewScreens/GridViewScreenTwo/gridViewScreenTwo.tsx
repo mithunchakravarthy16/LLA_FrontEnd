@@ -72,8 +72,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
-        width: 550,
-        height: 80,
+        width: 560,
+        height: 70,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 2047) {
@@ -160,14 +160,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/energyManagement");
-        }}
-      >
+        }}>
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}
-        >
+          className={gridContainers}>
           <Grid item xs={12} className={containerTitle}>
             {dashboard.energyManagement}
           </Grid>
@@ -220,7 +218,11 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               },
                               lineColor: "#253F8E",
                               color: "#253F8E",
-                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                              lineWidth:
+                                selectedWidth?.is4kDevice ||
+                                selectedWidth?.is3KDevice
+                                  ? 4
+                                  : 2,
                               data: [0, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 0],
                             },
                           ]}
@@ -249,7 +251,11 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               },
                               lineColor: "#80488A",
                               color: "#80488A",
-                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                              lineWidth:
+                                selectedWidth?.is4kDevice ||
+                                selectedWidth?.is3KDevice
+                                  ? 4
+                                  : 2,
                               data: [0, 4, 3, 8, 1, 4, 1, 4, 2, 4, 7, 2],
                             },
                           ]}
@@ -278,7 +284,11 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                               },
                               lineColor: "#82BA6D",
                               color: "#82BA6D",
-                              lineWidth: selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                              lineWidth:
+                                selectedWidth?.is4kDevice ||
+                                selectedWidth?.is3KDevice
+                                  ? 4
+                                  : 2,
                               data: [0, 4, 3, 8, 4, 2, 7, 4, 8, 4, 7, 0],
                             },
                           ]}
@@ -294,8 +304,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   xs={12}
                   alignItems="center"
                   textAlign="center"
-                  className={lastweekContainer}
-                >
+                  className={lastweekContainer}>
                   <Grid item xs={12} className={lastweekTitleStyle}>
                     <div
                       style={{
@@ -303,8 +312,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
                         padding: "3%",
-                      }}
-                    >
+                      }}>
                       {gridView.today}
                     </div>
                   </Grid>
@@ -312,14 +320,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     <Grid
                       container
                       xs={12}
-                      className={lastweekBodySubContainer}
-                    >
+                      className={lastweekBodySubContainer}>
                       <Grid
                         item
                         xs={12}
                         className={rightListItemStyle}
-                        direction="column"
-                      >
+                        direction="column">
                         <div className={listItemValueStyle}>300kWh</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.energy}</p> <p>{gridView.consumption}</p>
@@ -329,8 +335,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyle}
-                      >
+                        className={rightListItemStyle}>
                         <div className={listItemValueStyle}>30%</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.energy}</p> <p>{gridView.saved}</p>
@@ -340,8 +345,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyleLastChild}
-                      >
+                        className={rightListItemStyleLastChild}>
                         <div className={listItemValueStyle}>$500</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.cost}</p> <p>{gridView.saved}</p>

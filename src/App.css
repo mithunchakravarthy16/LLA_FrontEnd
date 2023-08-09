@@ -52,5 +52,5 @@ input:-webkit-autofill:active {
   border-bottom-left-radius: inherit !important;
   box-shadow: 0 0 0px 100px #fff inset !important;
   -webkit-box-shadow: 0 0 0px 100px rgba(51, 51, 51) inset !important;
-  -webkit-text-fill-color: #a9a9a9 !important;
+  -webkit-text-fill-color: #fff !important;
 }
