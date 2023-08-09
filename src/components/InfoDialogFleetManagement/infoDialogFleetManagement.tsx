@@ -423,7 +423,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
       value: `${
         fleetManagementTripDetailsResponse?.tripSafetyScore
-          ? fleetManagementTripDetailsResponse?.tripSafetyScore
+          ? Math.floor(fleetManagementTripDetailsResponse?.tripSafetyScore)
           : 0
       }%`,
       name: fleetManagement.safetyScore,
@@ -806,7 +806,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.tripSafetyScore
-                                      ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                                      ? Math.floor(
+                                          fleetManagementTripDetailsResponse?.tripSafetyScore
+                                        )
                                       : 0
                                   }
                                   totalValue={110}
