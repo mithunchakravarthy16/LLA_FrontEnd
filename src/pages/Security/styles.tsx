@@ -81,6 +81,11 @@ const useStyles = makeStyles({
       lineHeight: "46px",
       padding: 24,
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+      padding: 20,
+    },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
       lineHeight: "36px",
@@ -134,6 +139,12 @@ const useStyles = makeStyles({
 
   bodyLeftTopPanelListContainer: (props: any) => ({
     height: "25%",
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "28%",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      height: "27%",
+    },
   }),
 
   screenFiveGraphTitleStyle: (props: any) => ({
@@ -157,6 +168,10 @@ const useStyles = makeStyles({
       fontSize: 16,
       lineHeight: "22px",
     },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
       lineHeight: "22px",
@@ -167,6 +182,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "16px",
     },
   }),
@@ -226,12 +245,20 @@ const useStyles = makeStyles({
       fontSize: 27,
       lineHeight: "46px",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 18,
+      lineHeight: "30px",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 15,
       lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 16,
+      lineHeight: "26px",
+    },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 14,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
@@ -244,6 +271,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "16px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "16px",
     },
   },
@@ -281,6 +312,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 16,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 14,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1537)]: {

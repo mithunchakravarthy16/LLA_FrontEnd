@@ -137,6 +137,7 @@ const AdminPanel = () => {
     space,
     logoutSection,
     logoPreviewEmpty,
+    logoPreviewFilled,
   } = useStyles();
   const [activePage, setActivePage] = useState<any>();
   const handleClick = (event: any, id: any) => {
@@ -184,6 +185,8 @@ const AdminPanel = () => {
         dispatch(setAdminPanelConfig({}));
         setSuccess(false);
       }, 3000);
+    } else if (adminPanelSaveData?.statusCodeValue === 400) {
+      setSuccess(true);
     }
   }, [adminPanelSaveData]);
 
@@ -276,14 +279,9 @@ const AdminPanel = () => {
   };
 
   const handleSaveClick = () => {
-    const MAX_FILE_SIZE = 5120; // 5MB
-    const fileSizeKiloBytes = uploadImageLogo?.size / 1024;
-
     if (!uploadImageLogoTemp) {
       setErrorMsg("Upload Image");
       setSuccessMsg("");
-    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
-      setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadFinalImageLogo(uploadImageLogo);
@@ -295,23 +293,37 @@ const AdminPanel = () => {
 
   const handleUploadChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadImageLogo(file);
-    setUploadImageLogoLocal(URL.createObjectURL(event.target.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadImageLogoTemp(event.target.files[0] ? event.target.files[0] : "");
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = file?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadImageLogo(file);
+      setUploadImageLogoLocal(URL.createObjectURL(event.target.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadImageLogoTemp(
+        event.target.files[0] ? event.target.files[0] : ""
+      );
+    }
   };
 
   const dropDrop = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadImageLogo(files);
-    setUploadImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadImageLogoTemp(
-      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
-    );
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = files?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadImageLogo(files);
+      setUploadImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadImageLogoTemp(
+        e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+      );
+    }
   };
 
   // Header Change
@@ -331,14 +343,9 @@ const AdminPanel = () => {
   };
 
   const handleHeaderSaveClick = () => {
-    const MAX_FILE_SIZE = 5120; // 5MB
-    const fileSizeKiloBytes = uploadHeaderImageLogo?.size / 1024;
-
     if (!uploadHeaderImageLogoTemp) {
       setErrorMsg("Upload Image");
       setSuccessMsg("");
-    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
-      setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadHeaderFinalImageLogo(uploadHeaderImageLogo);
@@ -350,25 +357,39 @@ const AdminPanel = () => {
 
   const handleHeaderChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadHeaderImageLogo(file);
-    setUploadHeaderImageLogoLocal(URL.createObjectURL(event.target.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadHeaderImageLogoTemp(
-      event.target.files[0] ? event.target.files[0] : ""
-    );
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = file?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadHeaderImageLogo(file);
+      setUploadHeaderImageLogoLocal(URL.createObjectURL(event.target.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadHeaderImageLogoTemp(
+        event.target.files[0] ? event.target.files[0] : ""
+      );
+    }
   };
 
   const dropDropHeader = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadHeaderImageLogo(files);
-    setUploadHeaderImageLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadHeaderImageLogoTemp(
-      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
-    );
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = files?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadHeaderImageLogo(files);
+      setUploadHeaderImageLogoLocal(
+        URL.createObjectURL(e.dataTransfer.files[0])
+      );
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadHeaderImageLogoTemp(
+        e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+      );
+    }
   };
 
   // Fav Icon Change
@@ -388,14 +409,9 @@ const AdminPanel = () => {
   };
 
   const handleFavIconSaveClick = () => {
-    const MAX_FILE_SIZE = 5120; // 5MB
-    const fileSizeKiloBytes = uploadFavIconLogo?.size / 1024;
-
     if (!uploadFavIconLogoTemp) {
       setErrorMsg("Upload Image");
       setSuccessMsg("");
-    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
-      setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadFinalFavIconLogo(uploadFavIconLogo);
@@ -407,25 +423,37 @@ const AdminPanel = () => {
 
   const handleFavIconChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadFavIconLogo(file);
-    setUploadFavIconLogoLocal(URL.createObjectURL(event.target.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadFavIconLogoTemp(
-      event.target.files[0] ? event.target.files[0] : ""
-    );
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = file?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadFavIconLogo(file);
+      setUploadFavIconLogoLocal(URL.createObjectURL(event.target.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadFavIconLogoTemp(
+        event.target.files[0] ? event.target.files[0] : ""
+      );
+    }
   };
 
   const dropDropFavIcon = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadFavIconLogo(files);
-    setUploadFavIconLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadFavIconLogoTemp(
-      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
-    );
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = files?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadFavIconLogo(files);
+      setUploadFavIconLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadFavIconLogoTemp(
+        e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+      );
+    }
   };
 
   // Footer Change
@@ -445,14 +473,9 @@ const AdminPanel = () => {
   };
 
   const handleFooterSaveClick = () => {
-    const MAX_FILE_SIZE = 5120; // 5MB
-    const fileSizeKiloBytes = uploadFooterLogo?.size / 1024;
-
     if (!uploadFooterLogoTemp) {
       setErrorMsg("Upload Image");
       setSuccessMsg("");
-    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
-      setErrorMsg("File size is greater than 5MB");
     } else {
       setUploadImage(false);
       setUploadFinalFooterLogo(uploadFooterLogo);
@@ -464,23 +487,37 @@ const AdminPanel = () => {
 
   const handleFooterChange = (event: any) => {
     const file = event.target.files[0];
-    setUploadFooterLogo(file);
-    setUploadFooterLogoLocal(URL.createObjectURL(event.target.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadFooterLogoTemp(event.target.files[0] ? event.target.files[0] : "");
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = file?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadFooterLogo(file);
+      setUploadFooterLogoLocal(URL.createObjectURL(event.target.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadFooterLogoTemp(
+        event.target.files[0] ? event.target.files[0] : ""
+      );
+    }
   };
 
   const dropDropFooter = (e: any) => {
     e.preventDefault();
     const files = e.dataTransfer.files[0];
-    setUploadFooterLogo(files);
-    setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
-    setSuccessMsg("Uploaded Image Successfully.");
-    setErrorMsg("");
-    setUploadFooterLogoTemp(
-      e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
-    );
+    const MAX_FILE_SIZE = 1024; // 1MB
+    const fileSizeKiloBytes = files?.size / 1024;
+    if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setErrorMsg("File size is greater than 1MB");
+    } else {
+      setUploadFooterLogo(files);
+      setUploadFooterLogoLocal(URL.createObjectURL(e.dataTransfer.files[0]));
+      setSuccessMsg("Uploaded Image Successfully.");
+      setErrorMsg("");
+      setUploadFooterLogoTemp(
+        e.dataTransfer.files[0] ? e.dataTransfer.files[0] : ""
+      );
+    }
   };
 
   // Preview Functionality
@@ -512,7 +549,8 @@ const AdminPanel = () => {
     setUploadFooterLogoLocal("");
   };
 
-  console.log("adminPanelSaveData", adminPanelSaveData);
+  const handleReset = () => {};
+
   return (
     <>
       <Fragment>
@@ -525,10 +563,14 @@ const AdminPanel = () => {
           >
             <Alert
               onClose={handleClose}
-              severity="success"
+              severity={
+                adminPanelSaveData?.statusCodeValue === 400
+                  ? "error"
+                  : "success"
+              }
               sx={{ width: "100%" }}
             >
-              {adminPanelSaveData?.statusCodeValue !== 200
+              {adminPanelSaveData?.statusCodeValue === 400
                 ? "Something went wrong... Please try again later"
                 : adminPanelSaveData?.statusCodeValue === 200 &&
                   adminPanelSaveData?.body?.isPreview === "Y"
@@ -586,6 +628,14 @@ const AdminPanel = () => {
                   </Grid>
                   <Grid item xs={6}>
                     <div className={adminHeaderButtonSection}>
+                      <Button
+                        variant="outlined"
+                        className={previewButton}
+                        style={{ textTransform: "none" }}
+                        onClick={handleReset}
+                      >
+                        Reset
+                      </Button>
                       <Button
                         variant="outlined"
                         className={previewButton}
@@ -673,7 +723,7 @@ const AdminPanel = () => {
                         <div className={logoText}>Logo</div>
                         <div className={logoExtension}>
                           Allowed file extension * (.jpeg, .png, .svg). Max file
-                          size 5 MB.
+                          size 1 MB.
                         </div>
                       </div>
                     </Grid>
@@ -743,7 +793,11 @@ const AdminPanel = () => {
                         <div className={logoPreviewWrapper}>
                           <div className={logoPreviewInnercontainer}>
                             <img
-                              className={logoPreviewEmpty}
+                              className={
+                                uploadFinalFavIconLogoLocal
+                                  ? logoPreviewFilled
+                                  : logoPreviewEmpty
+                              }
                               src={
                                 uploadFinalFavIconLogoLocal
                                   ? uploadFinalFavIconLogoLocal

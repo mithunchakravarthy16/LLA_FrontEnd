@@ -25,6 +25,9 @@ const useStyles = makeStyles(() => ({
   }),
   innerPaddingBox: (props: any) => ({
     paddingTop: "14vh",
+    [muiTheme.breakpoints.down(3841)]: {
+      paddingTop: "7vh",
+    },
     [muiTheme.breakpoints.down(3073)]: {
       paddingTop: "16vh",
     },
@@ -33,6 +36,9 @@ const useStyles = makeStyles(() => ({
     },
     [muiTheme.breakpoints.down(1281)]: {
       paddingTop: "15vh",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      paddingTop: "5vh",
     },
   }),
   loginFormSection: (props: any) => ({
@@ -321,7 +327,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   llaLogoSection: (props: any) => ({
-  visibility:'hidden',
+    visibility: "hidden",
     width: 200,
     margin: "0 auto",
     marginBottom: 32,

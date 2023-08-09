@@ -175,6 +175,10 @@ const useStyles = makeStyles({
       fontSize: 10,
       lineHeight: "16px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
+      lineHeight: "16px",
+    },
   }),
 
   liveContainer: (props: any) => ({
@@ -210,6 +214,13 @@ const useStyles = makeStyles({
     left: "20px",
     [muiTheme.breakpoints.up(3839)]: {
       top: "-30px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      top: "-19px",
+      left: "4px",     
+    },
+    "& img": {
+      width: "2.5vw !important",
     },
   }),
 
@@ -350,6 +361,15 @@ const useStyles = makeStyles({
   lastweekContainer: (props: any) => ({
     paddingLeft: "32px",
     height: "100%",
+    [muiTheme.breakpoints.up(3071)]: {
+      height: "100%",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "92%",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      height: "100%",
+    },
   }),
 
   lastweekTitleStyle: (props: any) => ({
@@ -485,6 +505,10 @@ const useStyles = makeStyles({
       fontSize: 9,
       lineHeight: "14px",
     },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 6,
+      lineHeight: "10px",
+    },
   }),
 
   screenTwoGraphTitleStyle: (props: any) => ({
@@ -511,6 +535,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "19px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "19px",
     },
   }),
@@ -566,6 +594,10 @@ const useStyles = makeStyles({
       fontSize: 14,
       lineHeight: "22px",
     },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 12,
+      lineHeight: "22px",
+    },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 12,
       lineHeight: "20px",
@@ -576,6 +608,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
+      lineHeight: "18px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 8,
       lineHeight: "18px",
     },
   }),
@@ -677,6 +713,10 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 9,
       lineHeight: "14px",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      fontSize: 5,
+      lineHeight: "10px",
     },
   }),
 

@@ -9,6 +9,8 @@ export const fleetManagementNotification = {
   SET_FLEET_MANAGEMENT_TRIP_DETAILS: "SET_FLEET_MANAGEMENT_TRIP_DETAILS",
   GET_FLEET_MANAGEMENT_ANALYTICS_DATA: "GET_FLEET_MANAGEMENT_ANALYTICS_DATA",
   SET_FLEET_MANAGEMENT_ANALYTICS_DATA: "SET_FLEET_MANAGEMENT_ANALYTICS_DATA",
+  SHOW_LOADER: "SHOW_LOADER",
+  HIDE_LOADER: "Hide_LOADER",
 };
 
 export const getFleetManagementNotificationData = (payload: any) => ({
@@ -57,6 +59,14 @@ export const setFleetManagementAnalyticsData = (
 ) => ({
   type: fleetManagementNotification.SET_FLEET_MANAGEMENT_ANALYTICS_DATA,
   fleetManagementAnalyticsData,
+});
+
+export const setLoader = () => ({
+  type: fleetManagementNotification.SHOW_LOADER,
+});
+
+export const hideLoader = () => ({
+  type: fleetManagementNotification.HIDE_LOADER,
 });
 
 export default fleetManagementNotification;

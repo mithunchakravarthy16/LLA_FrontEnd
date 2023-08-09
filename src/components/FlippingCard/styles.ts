@@ -313,9 +313,9 @@ export const CardTitleSmall = styled("div")`
     margin-left: 25px;
   }
   @media (max-width: 2561px) {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 27px;
-    margin-left: 25px;
+    margin-left: 38px;
   }
   @media (max-width: 2049px) {
     font-size: 15px;
@@ -365,7 +365,8 @@ export const CardTitleSmall = styled("div")`
   @media (max-width: 1025px) {
     font-size: 8px;
     line-height: 18px;
-    margin-left: 10px;
+    margin-left: 18px;
+    margin-top: 4%;
   }
 `;
 
@@ -394,7 +395,7 @@ export const CardValuesSplitter = styled("div")`
   transform: skew(-18deg);
   @media (max-width: 3841px) {
     height: 110px;
-    margin-left: 0.8vw;
+    margin-left: 0.5vw;
   }
   @media (max-width: 3073px) {
     height: 110px;
@@ -404,6 +405,9 @@ export const CardValuesSplitter = styled("div")`
   }
   @media (max-width: 1153px) {
     height: 43px;
+  }
+  @media (max-width: 1025px) {
+    height: 28px;
   }
 `;
 
@@ -437,7 +441,7 @@ export const CardValuesContainer = styled("div")`
     padding: 10px;
   }
   @media (max-width: 1025px) {
-    padding: 8px 16px;
+    padding: 5px 16px;
   }
 `;
 
@@ -560,9 +564,9 @@ export const Label = styled("div")`
     margin-left: -14px;
   }
   @media (max-width: 1025px) {
-    font-size: 6px;
+    font-size: 5px;
     line-height: 18px;
-    margin-left: -14px;
+    margin-left: -4px;
   }
 `;
 
@@ -582,6 +586,11 @@ export const NoteLabel = styled("div")`
     font-size: 16px;
     line-height: 45px;
     margin-left: -25px;
+  }
+  @media (max-width: 2561px) {
+    font-size: 14px;
+    line-height: 45px;
+    margin-left: -20px;
   }
   @media (max-width: 2049px) {
     font-size: 13px;
@@ -604,7 +613,7 @@ export const NoteLabel = styled("div")`
     margin-left: -20px;
   }
   @media (max-width: 1601px) {
-    font-size: 10px;
+    font-size: 9px;
     line-height: 22px;
     margin-left: -20px;
   }
@@ -700,7 +709,7 @@ export const NoteValue = styled(NoteLabel)`
     margin-left: 5px;
   }
   @media (max-width: 1025px) {
-    font-size: 6px;
+    font-size: 5px;
     line-height: 18px;
     margin-left: 5px;
   }
@@ -714,5 +723,8 @@ export const NoteDifferenceIndicator = styled("img")<{ difference: any }>`
     difference === "+" ? "rotateX(180deg)" : "none"};
   @media (max-width: 1281px) {
     height: 30%;
+  }
+  @media (max-width: 1025px) {
+    height: 16%;
   }
 `;

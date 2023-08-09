@@ -42,6 +42,7 @@ import useWindowDimensions from "hooks/useWindowDimensions";
 import Tooltip from "../../elements/Tooltip";
 import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
 import { formattedViolationsList } from "utils/utils";
+import Loader from "elements/Loader";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -89,6 +90,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementTripDetailsData
   );
 
+  const loader = useSelector(
+    (state) => state.fleetManagementNotification?.loading
+  );
+
   const dispatch = useDispatch();
   const { dashboard, gridView, fleetManagement } = useTranslation();
   const {
@@ -121,6 +126,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [selectedNotification, setSelectedNotification] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
   const [violations, setViolations] = useState<any>();
+  const [points, setPoints] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -137,9 +143,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
+    const data: any = [];
     setViolations(
       formattedViolationsList(fleetManagementTripDetailsResponse?.notifications)
     );
+    fleetManagementTripDetailsResponse?.gpsDTOs?.map((item: any) => {
+      data?.push({ lat: item?.lat, lng: item?.lng });
+    });
+    setPoints(data);
   }, [fleetManagementTripDetailsResponse]);
 
   const [open, setOpen] = useState(!false);
@@ -342,11 +353,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? `${
               fleetManagementTripDetailsResponse?.vehicleDetail
                 ?.currentTripDistance
-                ? fleetManagementTripDetailsResponse?.vehicleDetail
-                    ?.currentTripDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail?.currentTripDistance?.toFixed(
+                    2
+                  )
                 : 0
             }Km`
-          : `Kph`,
+          : `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripSpeed
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripSpeed
+                : 0
+            }Kph`,
       name:
         tabIndex === 1
           ? fleetManagement.distanceCovered
@@ -371,10 +389,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 : 0
             }Gal`
           : `${
-              fleetManagementTripDetailsResponse?.driverDetail
-                ?.totalDistanceDriven
-                ? fleetManagementTripDetailsResponse?.driverDetail
-                    ?.totalDistanceDriven
+              fleetManagementTripDetailsResponse?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(
+                    2
+                  )
                 : 0
             }Km`,
       name:
@@ -393,15 +411,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : IncidentIcon,
       value:
         tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.vehicleDetail
-              ?.totalVehicleViolations
-            ? fleetManagementTripDetailsResponse?.vehicleDetail
-                ?.totalVehicleViolations
+          ? fleetManagementTripDetailsResponse?.totalTripViolation
+            ? fleetManagementTripDetailsResponse?.totalTripViolation
             : 0
-          : fleetManagementTripDetailsResponse?.driverDetail
-              ?.totalDriverViolations
-          ? fleetManagementTripDetailsResponse?.driverDetail
-              ?.totalDriverViolations
+          : fleetManagementTripDetailsResponse?.totalTripViolation
+          ? fleetManagementTripDetailsResponse?.totalTripViolation
           : 0,
       name: fleetManagement.violations,
     },
@@ -409,7 +423,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
       value: `${
         fleetManagementTripDetailsResponse?.tripSafetyScore
-          ? fleetManagementTripDetailsResponse?.tripSafetyScore
+          ? Math.floor(fleetManagementTripDetailsResponse?.tripSafetyScore)
           : 0
       }%`,
       name: fleetManagement.safetyScore,
@@ -493,588 +507,628 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        {
-          Object.keys(fleetManagementTripDetailsResponse).length > 0 ?
+        {loader ? (
+          <Loader />
+        ) : (
           <>
-        <div>
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              padding: "0.5%",
-              right: "0.1%",
-              top: "2.5%",
-              color: "transparent",
-              width: "4.2%",
-              height: "4.2%",
-              transition: "none",
-            }}
-          >
-            <img
-              width={"100%"}
-              height={"100%"}
-              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
-            />
-          </IconButton>
-        </div>
-
-        <Grid container xs={12} style={{ height: "100%" }}>
-          <Grid item xs={12} className={headerStyle}>
-            <Grid container xs={5} className={headerTabContainerStyle}>
-              {tabsList?.map((item: any) => (
-                <Grid
-                  item
-                  className={headerTabStyle}
-                  style={{
-                    color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
-                  }}
-                  onClick={() => {
-                    handleHeaderTab(item?.val);
-                  }}
-                >
-                  {item?.name}
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-          <Grid item xs={12} style={{ height: "10%" }}>
-            <TopPanelListItemContainerInfoDialogue
-              topPanelListItems={topPanelListItems}
-              percent={
-                tabIndex === 0
-                  ? fleetManagementTripDetailsResponse?.tripSafetyScore
-                    ? fleetManagementTripDetailsResponse?.tripSafetyScore
-                    : 0
-                  : tabIndex === 1
-                  ? fleetManagementTripDetailsResponse?.vehicleDetail
-                      ?.vehiclSafetyScore
-                    ? fleetManagementTripDetailsResponse?.vehicleDetail
-                        ?.vehiclSafetyScore
-                    : 0
-                  : fleetManagementTripDetailsResponse?.driverDetail
-                      ?.driverSafetyScore
-                  ? fleetManagementTripDetailsResponse?.driverDetail
-                      ?.driverSafetyScore
-                  : 0
-              }
-              strokeWidth={10}
-              trailWidth={10}
-              strokeColor="#92C07E"
-              trailColor={
-                appTheme?.palette?.fleetManagementPage?.dialogProgressBarBg
-              }
-              title={fleetManagement.safetyScore}
-              pageName={"fleetInfoDialogue"}
-              horizontalProgressBarTitlePosition={"down"}
-              selectedTheme={selectedTheme}
-            />
-          </Grid>
-          <Grid item xs={12} style={{ height: "80%", paddingTop: "1%" }}>
-            <Grid container xs={12} style={{ height: "100%" }}>
-              <Grid
-                item
-                xs={2.3}
-                style={{
-                  height: "100%",
-                  border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                  background:
-                    appTheme?.palette?.fleetManagementPage?.routeDetailsBg,
-                  padding: " 1%",
+            <div>
+              <IconButton
+                aria-label="close"
+                onClick={handleClose}
+                sx={{
+                  position: "absolute",
+                  padding: "0.5%",
+                  right: "0.1%",
+                  top: "2.5%",
+                  color: "transparent",
+                  width: "4.2%",
+                  height: "4.2%",
+                  transition: "none",
                 }}
               >
-                <Stepper
-                  routeDetails={fleetManagementTripDetailsResponse?.routeDtos}
-                  tripStatus={"Completed"}
-                  is4kDevice={is4kDevice}
+                <img
+                  width={"100%"}
+                  height={"100%"}
+                  src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+                />
+              </IconButton>
+            </div>
+
+            <Grid container xs={12} style={{ height: "100%" }}>
+              <Grid item xs={12} className={headerStyle}>
+                <Grid container xs={5} className={headerTabContainerStyle}>
+                  {tabsList?.map((item: any) => (
+                    <Grid
+                      item
+                      className={headerTabStyle}
+                      style={{
+                        color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
+                      }}
+                      onClick={() => {
+                        handleHeaderTab(item?.val);
+                      }}
+                    >
+                      {item?.name}
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+              <Grid item xs={12} style={{ height: "10%" }}>
+                <TopPanelListItemContainerInfoDialogue
+                  topPanelListItems={topPanelListItems}
+                  percent={
+                    tabIndex === 0
+                      ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                        ? Math.floor(
+                            fleetManagementTripDetailsResponse?.tripSafetyScore
+                          )
+                        : 0
+                      : tabIndex === 1
+                      ? fleetManagementTripDetailsResponse?.vehicleDetail
+                          ?.vehiclSafetyScore
+                        ? Math.floor(
+                            fleetManagementTripDetailsResponse?.vehicleDetail
+                              ?.vehiclSafetyScore
+                          )
+                        : 0
+                      : fleetManagementTripDetailsResponse?.driverDetail
+                          ?.driverSafetyScore
+                      ? Math.floor(
+                          fleetManagementTripDetailsResponse?.driverDetail
+                            ?.driverSafetyScore
+                        )
+                      : 0
+                  }
+                  strokeWidth={10}
+                  trailWidth={10}
+                  strokeColor="#92C07E"
+                  trailColor={
+                    appTheme?.palette?.fleetManagementPage?.dialogProgressBarBg
+                  }
+                  title={fleetManagement.safetyScore}
+                  pageName={"fleetInfoDialogue"}
+                  horizontalProgressBarTitlePosition={"down"}
                   selectedTheme={selectedTheme}
                 />
               </Grid>
-              <Grid item xs={6.7} style={{ height: "100%", padding: "0 1%" }}>
-                <Grid style={{ height: "100%" }} item xs={12}>
-                  {tabIndex === 0 ? (
-                    <TripDetailsMap
-                      markers={[selectedMarkerLocation]}
-                      marker={selectedMarkerLocation?.id}
-                      currentMarker={selectedMarkerLocation}
-                      setCurrentMarker={() => {}}
-                      focusedCategory={""}
-                      mapPageName={"fleetManagement"}
-                      setIsMarkerClicked={setIsMarkerClicked}
-                      setSelectedNotification={() => {}}
-                      setNotificationPanelActive={() => {}}
-                      setTabIndex={() => {}}
+              <Grid item xs={12} style={{ height: "80%", paddingTop: "1%" }}>
+                <Grid container xs={12} style={{ height: "100%" }}>
+                  <Grid
+                    item
+                    xs={2.3}
+                    style={{
+                      height: "100%",
+                      border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                      background:
+                        appTheme?.palette?.fleetManagementPage?.routeDetailsBg,
+                      padding: " 1%",
+                    }}
+                  >
+                    <Stepper
+                      routeDetails={
+                        fleetManagementTripDetailsResponse?.routeDtos
+                      }
+                      tripStatus={"Completed"}
+                      is4kDevice={is4kDevice}
                       selectedTheme={selectedTheme}
                     />
-                  ) : tabIndex === 1 ? (
-                    <Grid container xs={12} style={{ height: "100%" }}>
-                      <Grid item xs={12} style={{ height: "13%" }}>
-                        <Grid
-                          container
-                          xs={12}
-                          justifyContent={"space-between"}
-                          alignItems={"center"}
-                          style={{
-                            height: "100%",
-                            background:
-                              appTheme?.palette?.fleetManagementPage
-                                ?.routeDetailsBg,
-                            border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                          }}
-                        >
-                          {vehicleDetailsSubTaskBarItems?.length > 0 &&
-                            vehicleDetailsSubTaskBarItems?.map((item: any) => (
+                  </Grid>
+                  <Grid
+                    item
+                    xs={6.7}
+                    style={{ height: "100%", padding: "0 1%" }}
+                  >
+                    <Grid style={{ height: "100%" }} item xs={12}>
+                      {tabIndex === 0 ? (
+                        <TripDetailsMap
+                          markers={[selectedMarkerLocation]}
+                          marker={selectedMarkerLocation?.id}
+                          currentMarker={selectedMarkerLocation}
+                          setCurrentMarker={() => {}}
+                          focusedCategory={""}
+                          mapPageName={"fleetManagement"}
+                          setIsMarkerClicked={setIsMarkerClicked}
+                          setSelectedNotification={() => {}}
+                          setNotificationPanelActive={() => {}}
+                          setTabIndex={() => {}}
+                          selectedTheme={selectedTheme}
+                          dataPoints={points}
+                        />
+                      ) : tabIndex === 1 ? (
+                        <Grid container xs={12} style={{ height: "100%" }}>
+                          <Grid item xs={12} style={{ height: "13%" }}>
+                            <Grid
+                              container
+                              xs={12}
+                              justifyContent={"space-between"}
+                              alignItems={"center"}
+                              style={{
+                                height: "100%",
+                                background:
+                                  appTheme?.palette?.fleetManagementPage
+                                    ?.routeDetailsBg,
+                                border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                              }}
+                            >
+                              {vehicleDetailsSubTaskBarItems?.length > 0 &&
+                                vehicleDetailsSubTaskBarItems?.map(
+                                  (item: any) => (
+                                    <Grid
+                                      item
+                                      display={"flex"}
+                                      alignItems={"center"}
+                                      justifyContent={"center"}
+                                      columnGap={2}
+                                      flex={1}
+                                    >
+                                      <div
+                                        style={{ width: "18%", height: "18%" }}
+                                      >
+                                        <Tooltip
+                                          tooltipValue={item?.name}
+                                          placement={"bottom"}
+                                          offset={tooltipOfset}
+                                          fontSize={fontSize}
+                                          padding={padding}
+                                          componentName={"TopPanelList"}
+                                        >
+                                          <img
+                                            width={"100%"}
+                                            height={"100%"}
+                                            src={item?.icon}
+                                          />
+                                        </Tooltip>
+                                      </div>
+                                      <div className={TabvalueTitle}>
+                                        {item?.value}
+                                      </div>
+                                    </Grid>
+                                  )
+                                )}
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} paddingTop={1} height={"87%"}>
+                            <Grid container xs={12} height={"100%"}>
                               <Grid
                                 item
+                                xs={12}
+                                height={"13%"}
                                 display={"flex"}
                                 alignItems={"center"}
-                                justifyContent={"center"}
-                                columnGap={2}
-                                flex={1}
                               >
-                                <div style={{ width: "18%", height: "18%" }}>
-                                  <Tooltip
-                                    tooltipValue={item?.name}
-                                    placement={"bottom"}
-                                    offset={tooltipOfset}
-                                    fontSize={fontSize}
-                                    padding={padding}
-                                    componentName={"TopPanelList"}
-                                  >
-                                    <img
-                                      width={"100%"}
-                                      height={"100%"}
-                                      src={item?.icon}
-                                    />
-                                  </Tooltip>
-                                </div>
-                                <div className={TabvalueTitle}>
-                                  {item?.value}
-                                </div>
+                                <Tabs
+                                  initialIndex={cameraTabIndex}
+                                  tabsList={camTabsList}
+                                  handleTabs={handleTabs}
+                                  dashboardNotificationClassName={
+                                    customNotificationTabs
+                                  }
+                                  pageName={"fleetInfoDialogue"}
+                                />
                               </Grid>
-                            ))}
+                              <Grid item xs={12} height={"87%"} paddingTop={1}>
+                                {
+                                  // @ts-ignore
+                                }
+                                <ReactPlayer
+                                  muted
+                                  playing
+                                  loop={true}
+                                  controls={true}
+                                  url={
+                                    cameraTabIndex === 0
+                                      ? FleetSampleVideo
+                                      : FleetSampleVideoTwo
+                                  }
+                                  width="100%"
+                                  height="100%"
+                                />
+                              </Grid>
+                            </Grid>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                      <Grid item xs={12} paddingTop={1} height={"87%"}>
-                        <Grid container xs={12} height={"100%"}>
+                      ) : (
+                        <Grid container xs={12} style={{ height: "100%" }}>
+                          <Grid item xs={12} style={{ height: "13%" }}>
+                            <Grid
+                              container
+                              xs={12}
+                              justifyContent={"space-between"}
+                              alignItems={"center"}
+                              style={{
+                                height: "100%",
+                                background:
+                                  appTheme?.palette?.fleetManagementPage
+                                    ?.routeDetailsBg,
+                                border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                              }}
+                            >
+                              {vehicleDetailsSubTaskBarItems?.length > 0 &&
+                                vehicleDetailsSubTaskBarItems?.map(
+                                  (item: any, index: number) =>
+                                    index < 4 && (
+                                      <Grid
+                                        item
+                                        display={"flex"}
+                                        alignItems={"center"}
+                                        justifyContent={"center"}
+                                        columnGap={2}
+                                        flex={1}
+                                      >
+                                        <div
+                                          style={{
+                                            width: "15%",
+                                            height: "15%",
+                                          }}
+                                        >
+                                          <Tooltip
+                                            tooltipValue={item?.name}
+                                            placement={"bottom"}
+                                            offset={tooltipOfset}
+                                            fontSize={fontSize}
+                                            padding={padding}
+                                            componentName={"TopPanelList"}
+                                          >
+                                            <img
+                                              width={"100%"}
+                                              height={"100%"}
+                                              src={item?.icon}
+                                            />
+                                          </Tooltip>
+                                        </div>
+                                        <div className={TabvalueTitle}>
+                                          {item?.value}
+                                        </div>
+                                      </Grid>
+                                    )
+                                )}
+                            </Grid>
+                          </Grid>
                           <Grid
                             item
                             xs={12}
-                            height={"13%"}
-                            display={"flex"}
-                            alignItems={"center"}
+                            marginTop={"2%"}
+                            height={"85%"}
+                            border={"1px solid #333333"}
                           >
-                            <Tabs
-                              initialIndex={cameraTabIndex}
-                              tabsList={camTabsList}
-                              handleTabs={handleTabs}
-                              dashboardNotificationClassName={
-                                customNotificationTabs
-                              }
-                              pageName={"fleetInfoDialogue"}
-                            />
-                          </Grid>
-                          <Grid item xs={12} height={"87%"} paddingTop={1}>
-                            {
-                              // @ts-ignore
-                            }
-                            <ReactPlayer
-                              muted
-                              playing
-                              loop={true}
-                              controls={true}
-                              url={
-                                cameraTabIndex === 0
-                                  ? FleetSampleVideo
-                                  : FleetSampleVideoTwo
-                              }
-                              width="100%"
-                              height="100%"
-                            />
+                            <Grid
+                              container
+                              xs={12}
+                              height={"100%"}
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.tripSafetyScore
+                                      ? Math.floor(
+                                          fleetManagementTripDetailsResponse?.tripSafetyScore
+                                        )
+                                      : 0
+                                  }
+                                  totalValue={110}
+                                  label={
+                                    fleetManagement.drivingScore.substring(
+                                      0,
+                                      15
+                                    ) +
+                                    (fleetManagement.drivingScore.length
+                                      ? "..."
+                                      : "")
+                                  }
+                                  icon="driving-score"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.harshAccelaration
+                                      ? fleetManagementTripDetailsResponse?.harshAccelaration
+                                      : 0
+                                  }
+                                  totalValue={15}
+                                  label={
+                                    fleetManagement.harshAcceleration.substring(
+                                      0,
+                                      15
+                                    ) +
+                                    (fleetManagement.harshAcceleration.length
+                                      ? "..."
+                                      : "")
+                                  }
+                                  icon="harsh-acceleration"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.cornering
+                                      ? fleetManagementTripDetailsResponse?.cornering
+                                      : 0
+                                  }
+                                  totalValue={15}
+                                  label={
+                                    fleetManagement.cornering.substring(0, 15) +
+                                    (fleetManagement.cornering.length
+                                      ? "..."
+                                      : "")
+                                  }
+                                  icon="corner"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.overSpeeding
+                                      ? fleetManagementTripDetailsResponse?.overSpeeding
+                                      : 0
+                                  }
+                                  totalValue={15}
+                                  label={
+                                    gridView.overspeeding.substring(0, 15) +
+                                    (gridView.overspeeding.length ? "..." : "")
+                                  }
+                                  icon="overspeeding-new"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorRed
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.harshbreaking
+                                      ? fleetManagementTripDetailsResponse?.harshbreaking
+                                      : 0
+                                  }
+                                  totalValue={7}
+                                  label={
+                                    gridView.harshBreaking.substring(0, 15) +
+                                    (gridView.harshBreaking.length > 15
+                                      ? "..."
+                                      : "")
+                                  }
+                                  icon="harsh-braking"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.distraction
+                                      ? fleetManagementTripDetailsResponse?.distraction
+                                      : 0
+                                  }
+                                  totalValue={15}
+                                  label={
+                                    fleetManagement.distraction.substring(
+                                      0,
+                                      15
+                                    ) +
+                                    (fleetManagement.distraction.length
+                                      ? "..."
+                                      : "")
+                                  }
+                                  icon="distraction"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.idlehours
+                                      ? fleetManagementTripDetailsResponse?.idlehours
+                                      : 0
+                                  }
+                                  totalValue={110}
+                                  label={
+                                    fleetManagement.idleHrs.substring(0, 15) +
+                                    (fleetManagement.idleHrs.length
+                                      ? "..."
+                                      : "")
+                                  }
+                                  icon="idle-hours"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="point"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                              <Grid item>
+                                <CircularProgressBar
+                                  radius={getSpeedometerDimensions().radius}
+                                  currentValue={
+                                    fleetManagementTripDetailsResponse?.fatigueLevel
+                                      ? fleetManagementTripDetailsResponse?.fatigueLevel
+                                      : 0
+                                  }
+                                  totalValue={110}
+                                  label={
+                                    fleetManagement.fatigueLevel.substring(
+                                      0,
+                                      15
+                                    ) +
+                                    (fleetManagement.fatigueLevel.length
+                                      ? "..."
+                                      : "")
+                                  }
+                                  textValue="Very Active"
+                                  icon="fatigue"
+                                  rotate={getSpeedometerDimensions().rotate}
+                                  cut={getSpeedometerDimensions().cut}
+                                  iconSize={getSpeedometerDimensions().iconSize}
+                                  color={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.stokeColorGreen
+                                  }
+                                  thumbType="thumb"
+                                  strokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeWidth={
+                                    getSpeedometerDimensions().stroke
+                                  }
+                                  trackStrokeColor={
+                                    appTheme?.palette?.fleetManagementPage
+                                      ?.circularProgressBar?.track
+                                  }
+                                />
+                              </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
+                      )}
                     </Grid>
-                  ) : (
-                    <Grid container xs={12} style={{ height: "100%" }}>
-                      <Grid item xs={12} style={{ height: "13%" }}>
-                        <Grid
-                          container
-                          xs={12}
-                          justifyContent={"space-between"}
-                          alignItems={"center"}
-                          style={{
-                            height: "100%",
-                            background:
-                              appTheme?.palette?.fleetManagementPage
-                                ?.routeDetailsBg,
-                            border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                          }}
-                        >
-                          {vehicleDetailsSubTaskBarItems?.length > 0 &&
-                            vehicleDetailsSubTaskBarItems?.map(
-                              (item: any, index: number) =>
-                                index < 4 && (
-                                  <Grid
-                                    item
-                                    display={"flex"}
-                                    alignItems={"center"}
-                                    justifyContent={"center"}
-                                    columnGap={2}
-                                    flex={1}
-                                  >
-                                    <div
-                                      style={{ width: "15%", height: "15%" }}
-                                    >
-                                      <Tooltip
-                                        tooltipValue={item?.name}
-                                        placement={"bottom"}
-                                        offset={tooltipOfset}
-                                        fontSize={fontSize}
-                                        padding={padding}
-                                        componentName={"TopPanelList"}
-                                      >
-                                        <img
-                                          width={"100%"}
-                                          height={"100%"}
-                                          src={item?.icon}
-                                        />
-                                      </Tooltip>
-                                    </div>
-                                    <div className={TabvalueTitle}>
-                                      {item?.value}
-                                    </div>
-                                  </Grid>
-                                )
-                            )}
-                        </Grid>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        marginTop={"2%"}
-                        height={"85%"}
-                        border={"1px solid #333333"}
-                      >
-                        <Grid
-                          container
-                          xs={12}
-                          height={"100%"}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.tripSafetyScore
-                                  ? fleetManagementTripDetailsResponse?.tripSafetyScore
-                                  : 0
-                              }
-                              totalValue={110}
-                              label={
-                                fleetManagement.drivingScore.substring(0, 15) +
-                                (fleetManagement.drivingScore.length
-                                  ? "..."
-                                  : "")
-                              }
-                              icon="driving-score"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.harshAccelaration
-                                  ? fleetManagementTripDetailsResponse?.harshAccelaration
-                                  : 0
-                              }
-                              totalValue={15}
-                              label={
-                                fleetManagement.harshAcceleration.substring(
-                                  0,
-                                  15
-                                ) +
-                                (fleetManagement.harshAcceleration.length
-                                  ? "..."
-                                  : "")
-                              }
-                              icon="harsh-acceleration"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.cornering
-                                  ? fleetManagementTripDetailsResponse?.cornering
-                                  : 0
-                              }
-                              totalValue={15}
-                              label={
-                                fleetManagement.cornering.substring(0, 15) +
-                                (fleetManagement.cornering.length ? "..." : "")
-                              }
-                              icon="corner"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.overSpeeding
-                                  ? fleetManagementTripDetailsResponse?.overSpeeding
-                                  : 0
-                              }
-                              totalValue={15}
-                              label={
-                                gridView.overspeeding.substring(0, 15) +
-                                (gridView.overspeeding.length ? "..." : "")
-                              }
-                              icon="overspeeding-new"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorRed
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.harshbreaking
-                                  ? fleetManagementTripDetailsResponse?.harshbreaking
-                                  : 0
-                              }
-                              totalValue={7}
-                              label={
-                                gridView.harshBreaking.substring(0, 15) +
-                                (gridView.harshBreaking.length > 15
-                                  ? "..."
-                                  : "")
-                              }
-                              icon="harsh-braking"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.distraction
-                                  ? fleetManagementTripDetailsResponse?.distraction
-                                  : 0
-                              }
-                              totalValue={15}
-                              label={
-                                fleetManagement.distraction.substring(0, 15) +
-                                (fleetManagement.distraction.length
-                                  ? "..."
-                                  : "")
-                              }
-                              icon="distraction"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.idlehours
-                                  ? fleetManagementTripDetailsResponse?.idlehours
-                                  : 0
-                              }
-                              totalValue={110}
-                              label={
-                                fleetManagement.idleHrs.substring(0, 15) +
-                                (fleetManagement.idleHrs.length ? "..." : "")
-                              }
-                              icon="idle-hours"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="point"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                          <Grid item>
-                            <CircularProgressBar
-                              radius={getSpeedometerDimensions().radius}
-                              currentValue={
-                                fleetManagementTripDetailsResponse?.fatigueLevel
-                                  ? fleetManagementTripDetailsResponse?.fatigueLevel
-                                  : 0
-                              }
-                              totalValue={110}
-                              label={
-                                fleetManagement.fatigueLevel.substring(0, 15) +
-                                (fleetManagement.fatigueLevel.length
-                                  ? "..."
-                                  : "")
-                              }
-                              textValue="Very Active"
-                              icon="fatigue"
-                              rotate={getSpeedometerDimensions().rotate}
-                              cut={getSpeedometerDimensions().cut}
-                              iconSize={getSpeedometerDimensions().iconSize}
-                              color={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.stokeColorGreen
-                              }
-                              thumbType="thumb"
-                              strokeWidth={getSpeedometerDimensions().stroke}
-                              trackStrokeWidth={
-                                getSpeedometerDimensions().stroke
-                              }
-                              trackStrokeColor={
-                                appTheme?.palette?.fleetManagementPage
-                                  ?.circularProgressBar?.track
-                              }
-                            />
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  )}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    style={{
+                      height: "100%",
+                      border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                      background:
+                        appTheme?.palette?.fleetManagementPage?.violationBg,
+                      padding: "1% 0% 1% 1%",
+                    }}
+                  >
+                    <FleetInfoDialogueViolationContainer
+                      violationListItems={violations}
+                      selectedTheme={selectedTheme}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid
-                item
-                xs={3}
-                style={{
-                  height: "100%",
-                  border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                  background:
-                    appTheme?.palette?.fleetManagementPage?.violationBg,
-                  padding: "1% 0% 1% 1%",
-                }}
-              >
-                <FleetInfoDialogueViolationContainer
-                  violationListItems={violations}
-                  selectedTheme={selectedTheme}
-                />
-              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-        </>
-        :
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          <img src={llaLoader} width={"10%"} />
-        </div>
-        }
-        
+          </>
+        )}
       </DialogWrapper>
     </>
   );
