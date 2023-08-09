@@ -42,6 +42,7 @@ import useWindowDimensions from "hooks/useWindowDimensions";
 import Tooltip from "../../elements/Tooltip";
 import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
 import { formattedViolationsList } from "utils/utils";
+import Loader from "elements/Loader";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -87,6 +88,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementTripDetailsData
+  );
+
+  const loader = useSelector(
+    (state) => state.fleetManagementNotification?.loading
   );
 
   const dispatch = useDispatch();
@@ -348,11 +353,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? `${
               fleetManagementTripDetailsResponse?.vehicleDetail
                 ?.currentTripDistance
-                ? fleetManagementTripDetailsResponse?.vehicleDetail
-                    ?.currentTripDistance
+                ? fleetManagementTripDetailsResponse?.vehicleDetail?.currentTripDistance?.toFixed(
+                    2
+                  )
                 : 0
             }Km`
-          : `Kph`,
+          : `${
+              fleetManagementTripDetailsResponse?.vehicleDetail
+                ?.currentTripSpeed
+                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                    ?.currentTripSpeed
+                : 0
+            }Kph`,
       name:
         tabIndex === 1
           ? fleetManagement.distanceCovered
@@ -377,10 +389,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 : 0
             }Gal`
           : `${
-              fleetManagementTripDetailsResponse?.driverDetail
-                ?.totalDistanceDriven
-                ? fleetManagementTripDetailsResponse?.driverDetail
-                    ?.totalDistanceDriven
+              fleetManagementTripDetailsResponse?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(
+                    2
+                  )
                 : 0
             }Km`,
       name:
@@ -399,15 +411,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : IncidentIcon,
       value:
         tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.vehicleDetail
-              ?.totalVehicleViolations
-            ? fleetManagementTripDetailsResponse?.vehicleDetail
-                ?.totalVehicleViolations
+          ? fleetManagementTripDetailsResponse?.totalTripViolation
+            ? fleetManagementTripDetailsResponse?.totalTripViolation
             : 0
-          : fleetManagementTripDetailsResponse?.driverDetail
-              ?.totalDriverViolations
-          ? fleetManagementTripDetailsResponse?.driverDetail
-              ?.totalDriverViolations
+          : fleetManagementTripDetailsResponse?.totalTripViolation
+          ? fleetManagementTripDetailsResponse?.totalTripViolation
           : 0,
       name: fleetManagement.violations,
     },
@@ -499,7 +507,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   return (
     <>
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        {Object.keys(fleetManagementTripDetailsResponse).length > 0 ? (
+        {loader ? (
+          <Loader />
+        ) : (
           <>
             <div>
               <IconButton
@@ -549,18 +559,24 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   percent={
                     tabIndex === 0
                       ? fleetManagementTripDetailsResponse?.tripSafetyScore
-                        ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                        ? Math.floor(
+                            fleetManagementTripDetailsResponse?.tripSafetyScore
+                          )
                         : 0
                       : tabIndex === 1
                       ? fleetManagementTripDetailsResponse?.vehicleDetail
                           ?.vehiclSafetyScore
-                        ? fleetManagementTripDetailsResponse?.vehicleDetail
-                            ?.vehiclSafetyScore
+                        ? Math.floor(
+                            fleetManagementTripDetailsResponse?.vehicleDetail
+                              ?.vehiclSafetyScore
+                          )
                         : 0
                       : fleetManagementTripDetailsResponse?.driverDetail
                           ?.driverSafetyScore
-                      ? fleetManagementTripDetailsResponse?.driverDetail
-                          ?.driverSafetyScore
+                      ? Math.floor(
+                          fleetManagementTripDetailsResponse?.driverDetail
+                            ?.driverSafetyScore
+                        )
                       : 0
                   }
                   strokeWidth={10}
@@ -1110,18 +1126,6 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </>
-        ) : (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <img src={llaLoader} width={"10%"} />
-          </div>
         )}
       </DialogWrapper>
     </>

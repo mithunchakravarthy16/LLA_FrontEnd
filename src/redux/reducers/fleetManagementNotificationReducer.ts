@@ -21,6 +21,10 @@ export default (state = initialState, action: any) => {
     case fleetManagementNotification.SET_FLEET_MANAGEMENT_ANALYTICS_DATA:
       const { fleetManagementAnalyticsData } = action;
       return { ...state, fleetManagementAnalyticsData };
+    case fleetManagementNotification.SHOW_LOADER:
+      return { ...state, loading: true };
+    case fleetManagementNotification.HIDE_LOADER:
+      return { ...state, loading: false };
     default:
       return state;
   }
