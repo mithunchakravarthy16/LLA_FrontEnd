@@ -215,7 +215,7 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.up(3839)]: {
       top: "-30px",
     },
-    [muiTheme.breakpoints.up(1023)]: {
+    [muiTheme.breakpoints.down(1025)]: {
       top: "-19px",
       left: "4px",
       "& img": {
@@ -361,6 +361,15 @@ const useStyles = makeStyles({
   lastweekContainer: (props: any) => ({
     paddingLeft: "32px",
     height: "100%",
+    [muiTheme.breakpoints.up(3071)]: {
+      height: "100%",
+    },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "92%",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      height: "100%",
+    },
   }),
 
   lastweekTitleStyle: (props: any) => ({
@@ -583,6 +592,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 14,
+      lineHeight: "22px",
+    },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 12,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1537)]: {

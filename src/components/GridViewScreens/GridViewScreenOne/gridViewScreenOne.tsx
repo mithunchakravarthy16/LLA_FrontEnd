@@ -75,8 +75,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2559) {
       setSelectedWidth({
-        width: 540,
-        height: 180,
+        width: 560,
+        height: 170,
         is4kDevice: false,
         xAxisFontSize: "13px",
       });

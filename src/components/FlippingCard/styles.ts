@@ -313,9 +313,9 @@ export const CardTitleSmall = styled("div")`
     margin-left: 25px;
   }
   @media (max-width: 2561px) {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 27px;
-    margin-left: 25px;
+    margin-left: 38px;
   }
   @media (max-width: 2049px) {
     font-size: 15px;
@@ -587,6 +587,11 @@ export const NoteLabel = styled("div")`
     line-height: 45px;
     margin-left: -25px;
   }
+  @media (max-width: 2561px) {
+    font-size: 14px;
+    line-height: 45px;
+    margin-left: -20px;
+  }
   @media (max-width: 2049px) {
     font-size: 13px;
     line-height: 27px;
@@ -608,7 +613,7 @@ export const NoteLabel = styled("div")`
     margin-left: -20px;
   }
   @media (max-width: 1601px) {
-    font-size: 10px;
+    font-size: 9px;
     line-height: 22px;
     margin-left: -20px;
   }
