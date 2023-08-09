@@ -25,6 +25,9 @@ const useStyles = makeStyles(() => ({
   }),
   innerPaddingBox: (props: any) => ({
     paddingTop: "14vh",
+    [muiTheme.breakpoints.down(3841)]: {
+      paddingTop: "7vh",
+    },
     [muiTheme.breakpoints.down(3073)]: {
       paddingTop: "16vh",
     },

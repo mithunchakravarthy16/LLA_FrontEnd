@@ -217,10 +217,10 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.up(1023)]: {
       top: "-19px",
-      left: "4px",
-      "& img": {
-        width: "28px !important",
-      },
+      left: "4px",     
+    },
+    "& img": {
+      width: "2.5vw !important",
     },
   }),
 
