@@ -34,6 +34,10 @@ const useStyles = makeStyles({
       fontSize: 16,
       lineHeight: "22px",
     },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 14,
       lineHeight: "22px",
@@ -97,6 +101,11 @@ const useStyles = makeStyles({
       lineHeight: "46px",
       padding: 24,
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      fontSize: 20,
+      lineHeight: "36px",
+      padding: 20,
+    },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
       lineHeight: "36px",
@@ -150,7 +159,10 @@ const useStyles = makeStyles({
 
   bodyLeftTopPanelListContainer: (props: any) => ({
     height: "25%",
-    [muiTheme.breakpoints.up(1023)]: {
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "28%",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
       height: "27%",
     },
   }),
@@ -563,8 +575,12 @@ const useStyles = makeStyles({
       fontSize: 16,
       lineHeight: "22px",
     },
+    [muiTheme.breakpoints.down(1601)]: {
+      fontSize: 14,
+      lineHeight: "22px",
+    },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 13,
+      fontSize: 12,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1441)]: {
