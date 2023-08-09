@@ -549,7 +549,8 @@ const AdminPanel = () => {
     setUploadFooterLogoLocal("");
   };
 
-  console.log("adminPanelSaveData", adminPanelSaveData);
+  const handleReset = () => {};
+
   return (
     <>
       <Fragment>
@@ -627,6 +628,14 @@ const AdminPanel = () => {
                   </Grid>
                   <Grid item xs={6}>
                     <div className={adminHeaderButtonSection}>
+                      <Button
+                        variant="outlined"
+                        className={previewButton}
+                        style={{ textTransform: "none" }}
+                        onClick={handleReset}
+                      >
+                        Reset
+                      </Button>
                       <Button
                         variant="outlined"
                         className={previewButton}
