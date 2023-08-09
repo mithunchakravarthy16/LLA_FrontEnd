@@ -3,6 +3,10 @@ import {
   setAdminPanelConfig,
   setAdminPanelConfigData,
   setAdminPanelCancelConfigData,
+  setLoaderConfigData,
+  hideLoaderConfigData,
+  setLoaderGetConfigData,
+  hideLoaderGetConfigData,
 } from "redux/actions/adminPanel";
 import fetchAPIServices from "services/fetchAPIServices";
 import {
@@ -13,6 +17,7 @@ import {
 
 export function* handleAdminPanelConfig(action: any): any {
   try {
+    yield put(setLoaderConfigData());  
     const { fetchAdminPanelConfig } = fetchAPIServices;
 
     const response = yield fetchAdminPanelConfig(
@@ -24,13 +29,16 @@ export function* handleAdminPanelConfig(action: any): any {
     } else {
       yield put(setAdminPanelConfig({}));
     }
+    yield put(hideLoaderConfigData());
   } catch (error) {
+    yield put(hideLoaderConfigData());
     console.log(error);
   }
 }
 
 export function* handleGetAdminPanelConfig(action: any): any {
   try {
+    yield put(setLoaderGetConfigData());
     const { fetchData } = fetchAPIServices;
 
     const response = yield fetchData(
@@ -41,7 +49,9 @@ export function* handleGetAdminPanelConfig(action: any): any {
     } else {
       yield put(setAdminPanelConfigData({}));
     }
+    yield put(hideLoaderGetConfigData());
   } catch (error) {
+    yield put(hideLoaderGetConfigData());
     console.log(error);
   }
 }
