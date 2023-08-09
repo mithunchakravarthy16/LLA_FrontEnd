@@ -966,6 +966,15 @@ const Map: React.FC<any> = (props) => {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
 
+  const [zoomValue, setZoomValue]= useState(selectedContainerStyle?.is4kDevice
+    ? 16.2
+    : selectedContainerStyle?.is3kDevice
+    ? 16.2
+    : selectedContainerStyle?.is4kDevice &&
+      location?.pathname !== "/home"
+    ? 15
+    : 15)
+
   return (
     <>
       {isLoaded && (
@@ -987,16 +996,7 @@ const Map: React.FC<any> = (props) => {
               ? fleetManagementCenter
               : center
           }
-          zoom={
-            selectedContainerStyle?.is4kDevice
-              ? 16.2
-              : selectedContainerStyle?.is3kDevice
-              ? 16.2
-              : selectedContainerStyle?.is4kDevice &&
-                location?.pathname !== "/home"
-              ? 15
-              : 15
-          }
+          zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
@@ -1055,16 +1055,16 @@ const Map: React.FC<any> = (props) => {
             enableRetinaIcons
             maxZoom = {15}
             gridSize={60}
-            styles={[
-              {
-                url: MarkerClusterIcon, 
-                height: 45,
-                width: 45,
-                textColor : selectedTheme === "light" ? "#000" : "#FFF",
-                textSize:16,
+            // styles={[
+            //   {
+            //     url: MarkerClusterIcon, 
+            //     height: 45,
+            //     width: 45,
+            //     textColor : selectedTheme === "light" ? "#000" : "#FFF",
+            //     textSize:16,
                 
-              },
-            ]}
+            //   },
+            // ]}
           >
             {(clusterer: any) => (
               <div>
@@ -1089,7 +1089,6 @@ const Map: React.FC<any> = (props) => {
                           handleAssetViewDetails={handleAssetViewDetails}
                           mapPageName={mapPageName}
                           selectedTheme={selectedTheme}
-                          showCluster={showCluster}
                         />
                       </>
                     );
