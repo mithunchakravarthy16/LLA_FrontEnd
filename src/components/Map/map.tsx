@@ -1053,14 +1053,16 @@ const Map: React.FC<any> = (props) => {
           <MarkerClustererF
             averageCenter
             enableRetinaIcons
-            gridSize={55}
+            maxZoom = {15}
+            gridSize={60}
             styles={[
               {
                 url: MarkerClusterIcon, 
-                height: 50,
-                width: 50,
-                textColor : "#FFF",
-                textSize:15
+                height: 45,
+                width: 45,
+                textColor : selectedTheme === "light" ? "#000" : "#FFF",
+                textSize:16,
+                
               },
             ]}
           >
@@ -1087,6 +1089,7 @@ const Map: React.FC<any> = (props) => {
                           handleAssetViewDetails={handleAssetViewDetails}
                           mapPageName={mapPageName}
                           selectedTheme={selectedTheme}
+                          showCluster={showCluster}
                         />
                       </>
                     );
