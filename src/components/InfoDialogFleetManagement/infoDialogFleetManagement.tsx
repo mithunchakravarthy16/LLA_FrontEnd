@@ -84,6 +84,7 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
 }));
 
+
 const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
@@ -91,7 +92,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   );
 
   const loader = useSelector(
-    (state) => state.fleetManagementNotification?.loading
+    (state) => state.fleetManagementNotification?.loadingTripDetails
   );
 
   const dispatch = useDispatch();
