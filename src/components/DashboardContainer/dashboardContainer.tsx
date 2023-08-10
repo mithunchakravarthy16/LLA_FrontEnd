@@ -28,6 +28,7 @@ import fleetManagementResponse from "mockdata/fleetManagementAPI";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
+import Loader from "elements/Loader";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -40,8 +41,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state?.adminPanel?.getConfigData?.body
   );
 
+  const loaderAdminGetConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingGetConfigData
+  );
+
+
   const adminPanelSaveData = useSelector(
     (state: any) => state?.adminPanel?.configData
+  );
+
+  const loaderAdminConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingConfigData
   );
 
   const dispatch = useDispatch();
@@ -51,6 +61,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const fleetManagementNotificationResponse = useSelector(
     (state: any) =>
       state?.fleetManagementNotification?.fleetManagementNotificationData
+  );
+
+  const loaderFleetManagementNotification = useSelector(
+    (state: any) => state?.fleetManagementNotification?.loadingNotificationData
   );
 
   // const fleetManagementNotificationResponse  = fleetManagementResponse;
@@ -227,7 +241,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   return (
     <>
-      <Grid container xs={12}>
+    {
+Object.keys(assetNotificationResponse).length > 0 && !loaderFleetManagementNotification && !loaderAdminGetConfigData ?
+<Grid container xs={12}>
         <Grid item xs={12}>
           <Grid item xs={12}>
             <div className={dashboardRightPanelStyle}>
@@ -307,6 +323,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           </Grid>
         </Grid>
       </Grid>
+:
+<Loader isHundredVh = {true}/>
+      
+      
+}
+
       {showInfoDialogueVideo && (
         <InfoDialogFleetVideo
           setShowInfoDialogue={setShowInfoDialogueVideo}
@@ -314,6 +336,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           selectedTheme={selectedTheme}
         />
       )}
+
     </>
   );
 };

@@ -4,6 +4,8 @@ const initialState = {
   configData: {},
   getConfigData: {},
   CancelConfigData: {},
+  loadingConfigData: true,
+  loadingGetConfigData: true
 };
 
 export default (state = initialState, action: any) => {
@@ -17,6 +19,16 @@ export default (state = initialState, action: any) => {
     case adminPanelConfig.SET_ADMIN_PANEL_CANCEL_CONFIG:
       const { CancelConfigData } = action;
       return { ...state, CancelConfigData };
+
+    case adminPanelConfig.SHOW_LOADER_CONFIGDATA:
+      return { ...state, loadingConfigData: true };
+    case adminPanelConfig.HIDE_LOADER_CONFIGDATA:
+      return { ...state, loadingConfigData: false };
+
+    case adminPanelConfig.SHOW_LOADER_GETCONFIGDATA:
+      return { ...state, loadingGetConfigData: true };
+    case adminPanelConfig.HIDE_LOADER_GETCONFIGDATA:
+      return { ...state, loadingGetConfigData: false };
     default:
       return state;
   }

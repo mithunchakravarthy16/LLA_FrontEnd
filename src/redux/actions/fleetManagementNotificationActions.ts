@@ -9,8 +9,10 @@ export const fleetManagementNotification = {
   SET_FLEET_MANAGEMENT_TRIP_DETAILS: "SET_FLEET_MANAGEMENT_TRIP_DETAILS",
   GET_FLEET_MANAGEMENT_ANALYTICS_DATA: "GET_FLEET_MANAGEMENT_ANALYTICS_DATA",
   SET_FLEET_MANAGEMENT_ANALYTICS_DATA: "SET_FLEET_MANAGEMENT_ANALYTICS_DATA",
-  SHOW_LOADER: "SHOW_LOADER",
-  HIDE_LOADER: "Hide_LOADER",
+  SHOW_LOADER_TRIPDETAILS: "SHOW_LOADER_TRIPDETAILS",
+  HIDE_LOADER_TRIPDETAILS: "Hide_LOADER_TRIPDETAILS",
+  SHOW_LOADER_NOTIFICATIONDATA: "SHOW_LOADER_NOTIFICATIONDATA",
+  HIDE_LOADER_NOTIFICATIONDATA: "Hide_LOADER_NOTIFICATIONDATA",
 };
 
 export const getFleetManagementNotificationData = (payload: any) => ({
@@ -61,12 +63,20 @@ export const setFleetManagementAnalyticsData = (
   fleetManagementAnalyticsData,
 });
 
-export const setLoader = () => ({
-  type: fleetManagementNotification.SHOW_LOADER,
+export const setLoaderTripDetails = () => ({
+  type: fleetManagementNotification.SHOW_LOADER_TRIPDETAILS,
 });
 
-export const hideLoader = () => ({
-  type: fleetManagementNotification.HIDE_LOADER,
+export const hideLoaderTripDetails = () => ({
+  type: fleetManagementNotification.HIDE_LOADER_TRIPDETAILS,
+});
+
+export const setLoaderNotificationData = () => ({
+  type: fleetManagementNotification.SHOW_LOADER_NOTIFICATIONDATA,
+});
+
+export const hideLoaderNotificationData = () => ({
+  type: fleetManagementNotification.HIDE_LOADER_NOTIFICATIONDATA,
 });
 
 export default fleetManagementNotification;

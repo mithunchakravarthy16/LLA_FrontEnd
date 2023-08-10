@@ -536,7 +536,7 @@ const Map: React.FC<any> = (props) => {
           : 15
       );
     }
-  }, [currentMarker]);
+  }, [currentMarker, markers]);
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {

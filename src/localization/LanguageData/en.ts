@@ -89,7 +89,7 @@ export default {
     level: "Level",
     pm25: "PM2.5",
     overspeeding: "Overspeeding",
-    harshBreaking: "Harsh Breaking",
+    harshBreaking: "Harsh Braking",
     vehicles: "Vehicles",
     trips: "Trips",
     incidents: "Incidents",
