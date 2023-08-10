@@ -7,6 +7,7 @@ import assetIncidentCountReducer from "./getAllIncidentCountReducer";
 import assetOverallTrackerDetailsReducer from "./getOverAllTrackerdetailReducer";
 import adminPanelReducer from "./adminPanelReducer";
 import adminLoginReducer from "./adminLoginReducer";
+import assetTrackerDetailReducer from "./getAssetTrackerDetailReducer"
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   assetOverallTrackerDetails: assetOverallTrackerDetailsReducer,
   adminPanel: adminPanelReducer,
   adminLogin: adminLoginReducer,
+  assetTracker:assetTrackerDetailReducer
 });
 
 export default rootReducer;

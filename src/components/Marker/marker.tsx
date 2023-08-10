@@ -40,6 +40,7 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
+        // clusterer={clusterer}
           animation={
             focusedCategory === mapMarker?.category &&
             focusedCategory !== "fleet"

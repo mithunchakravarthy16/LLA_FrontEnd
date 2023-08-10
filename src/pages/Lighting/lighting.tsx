@@ -276,6 +276,12 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
+  const [selectedValue, setSelectedValue] = useState<any>("");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
 
   useEffect(()=>{
@@ -331,6 +337,9 @@ isDataLoaded ?
                           }
                           title={gridView.avgDimmingLevel}
                           selectedTheme={selectedTheme}
+                          selectedValue={selectedValue}
+                          handleSelect={handleSelect}
+
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
