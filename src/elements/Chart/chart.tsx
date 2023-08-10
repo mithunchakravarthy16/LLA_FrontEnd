@@ -274,7 +274,7 @@ const Chart: React.FC<any> = (props) => {
             overflow: "justify",
             format: formatGraph ? formatGraph : pageName === "FleetManagement" && "{value:%m/%e}",
             style: {
-              fontSize: "0.7vw",
+              fontSize: "0.55vw",
               textOverflow: "none",
               autoRotation: false,
 
