@@ -253,7 +253,7 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
     line-height: 24px;
   }
   @media (max-width: 1793px) {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 24px;
   }
   @media (max-width: 1681px) {
@@ -311,7 +311,7 @@ export const CardTitleSmall = styled("div")`
   @media (max-width: 3073px) {
     font-size: 28px;
     line-height: 50px;
-    margin-left: 25px;
+    margin-left: 45px;
   }
   @media (max-width: 2561px) {
     font-size: 20px;
