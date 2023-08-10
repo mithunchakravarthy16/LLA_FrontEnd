@@ -128,6 +128,12 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(1921)]: {
       height: "calc(100vh - 394px)",
     },
+    [muiTheme.breakpoints.down(1601)]: {
+      height: "calc(100vh - 322px)",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      height: "calc(100vh - 268px)",
+    },
   }),
   mainGeofenceContainer: (props: any) => ({
     background: props?.palette?.assetTrackingPage?.geofenceTabBg,
@@ -143,6 +149,9 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(3073)]: {
       height: "calc(100vh - 760px)",
     },
+    [muiTheme.breakpoints.down(2561)]: {
+      height: "calc(100vh - 418px)",
+    },
     [muiTheme.breakpoints.down(2049)]: {
       height: "calc(100vh - 460px)",
     },
@@ -151,6 +160,12 @@ const useStyles = makeStyles(() => ({
     },
     [muiTheme.breakpoints.down(1793)]: {
       height: "calc(100vh - 401px)",
+    },
+    [muiTheme.breakpoints.down(1601)]: {
+      height: "calc(100vh - 324px)",
+    },
+    [muiTheme.breakpoints.down(1025)]: {
+      height: "calc(100vh - 261px)",
     },
   }),
   geofenceContainer: (props: any) => ({
@@ -170,6 +185,11 @@ const useStyles = makeStyles(() => ({
     paddingTop: "10px",
     paddingRight: "50px",
     cursor: "pointer",
+    [muiTheme.breakpoints.down(1025)]: {
+      "& img": {
+        width: 35,
+      },
+    },
   }),
   circularText: (props: any) => ({
     fontSize: "0.65vw",
@@ -186,6 +206,11 @@ const useStyles = makeStyles(() => ({
   polygonImage: (props: any) => ({
     paddingTop: "10px",
     cursor: "pointer",
+    [muiTheme.breakpoints.down(1025)]: {
+      "& img": {
+        width: 33,
+      },
+    },
   }),
   geofenceTextContainer: (props: any) => ({
     marginTop: "2vh",
