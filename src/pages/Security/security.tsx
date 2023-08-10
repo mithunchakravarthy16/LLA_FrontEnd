@@ -90,30 +90,61 @@ const Parking: React.FC<any> = (props) => {
     graphTitle,
   } = useStyles(appTheme);
 
+  const [selectedValue, setSelectedValue] = useState<any>("Week");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+  const [topPanelList, setTopPanelList] = useState<any>(
+    securityData?.infoData?.week
+  );
+
+
+  useEffect(() => {
+    switch (selectedValue) {
+      case "Today":
+        setTopPanelList(securityData?.infoData?.day);
+        return;
+
+      case "Week":
+        setTopPanelList(securityData?.infoData?.week);
+        return;
+
+      case "Month":
+        setTopPanelList(securityData?.infoData?.month);
+        return;
+
+      case "Year":
+        setTopPanelList(securityData?.infoData?.year);
+        return;
+    }
+  }, [selectedValue]);
+
   const topPanelListItems: any[] = [
     {
       icon: selectedTheme === "light" ? FireDetectionIcon : FireAlarm,
-      value: "15",
+      value: topPanelList?.fireDetection,
       name: "Fire Detection",
     },
     {
       icon: selectedTheme === "light" ? TemperingAlaremIcon : Siren,
-      value: "20",
+      value: topPanelList?.tamperingAlarm,
       name: "Tampering Alarm",
     },
     {
       icon: selectedTheme === "light" ? UnauthorizedAccessIcon : Unauthorised,
-      value: "14",
+      value: topPanelList?.unauthorizedAccess,
       name: "Unauthorised Access",
     },
     {
       icon: selectedTheme === "light" ? TailgatingIcon : Trolley,
-      value: "15",
+      value: topPanelList?.tailGating,
       name: "Tailgating",
     },
     {
       icon: selectedTheme === "light" ? CameraIcon : Camera,
-      value: "05",
+      value: topPanelList?.cameraOcclusion,
       name: "Camera Occlusion",
     },
   ];
@@ -262,13 +293,6 @@ const Parking: React.FC<any> = (props) => {
   }, []);
 
   
-  const [selectedValue, setSelectedValue] = useState<any>("");
-
-  const handleSelect = (val: any) => {
-    setSelectedValue(val);
-  };
-
-
   return (
     <>
       <Grid container className={rootContainer}>
@@ -303,7 +327,7 @@ const Parking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={50}
+                          percent={topPanelList?.issuesResolved}
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#43549A"

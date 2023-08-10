@@ -1,5 +1,38 @@
 const energyManagementData = {
-  infoData: {},
+  infoData: {
+    day: {
+      electricConsumption: 180,
+      hvac: 80,
+      waterConsumption: 480,
+      costSaved: 300,
+      co2Emission: 60,
+      energySaved : 30
+    },
+    week: {
+      electricConsumption: 200,
+      hvac: 100,
+      waterConsumption: 1480,
+      costSaved: 500,
+      co2Emission: 50,
+      energySaved : 40
+    },
+    month: {
+      electricConsumption: 180,
+      hvac: 60,
+      waterConsumption: 480,
+      costSaved: 280,
+      co2Emission: 30,
+      energySaved : 50
+    },
+    year: {
+      electricConsumption: 120,
+      hvac: 150,
+      waterConsumption: 1280,
+      costSaved: 550,
+      co2Emission: 80,
+      energySaved : 60
+    },
+  },
   analytics: {},
   notifications: {
     energyManagement: [

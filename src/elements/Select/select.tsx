@@ -231,7 +231,8 @@ const INF_Select: React.FC<any> = (props) => {
                     // fontSize: "10px",
 
                     "&.MuiMenuItem-root": {
-                      margin: "10px",
+                      margin: "5px 0",
+                      fontSize : "0.7vw"
                     },
 
                     "&.Mui-selected": {
@@ -242,6 +243,7 @@ const INF_Select: React.FC<any> = (props) => {
                         color: dropDownSelectedTextColor
                           ? dropDownSelectedTextColor
                           : "#fff",
+                          fontSize : "0.7vw"
                       },
 
                       // "&.Mui-focusVisible": { background: "orange" },

@@ -137,6 +137,37 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.assetTracker?.assetTrackerData
   );
 
+  const [selectedValue, setSelectedValue] = useState<any>("Week");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+  const [topPanelList, setTopPanelList] = useState<any>(
+    overallAssetDetails?.week
+  );
+
+
+  useEffect(() => {
+    switch (selectedValue) {
+      case "Today":
+        setTopPanelList(overallAssetDetails?.day);
+        return;
+
+      case "Week":
+        setTopPanelList(overallAssetDetails?.week);
+        return;
+
+      case "Month":
+        setTopPanelList(overallAssetDetails?.month);
+        return;
+
+      case "Year":
+        setTopPanelList(overallAssetDetails?.year);
+        return;
+    }
+  }, [selectedValue]);
+
 
   useEffect(() => {
     const { events, incidents, alerts } = assetNotificationList;
@@ -183,12 +214,12 @@ const AssetTracking: React.FC<any> = (props) => {
         selectedTheme === "light"
           ? AssetTrackedLightThemeIcon
           : AssetTrackedIcon,
-      value: overallAssetDetails?.assetTrackedCount,
+      value: topPanelList?.assetTrackedCount,
       name: assetsTracking.assetsTracked,
     },
     {
       icon: selectedTheme === "light" ? LocationLightThemeIcon : LocationIcon,
-      value: overallAssetDetails?.locationChangeCount,
+      value: topPanelList?.locationChangeCount,
       name: gridView.location,
     },
     {
@@ -196,12 +227,12 @@ const AssetTracking: React.FC<any> = (props) => {
         selectedTheme === "light"
           ? OutOfGeofenceLightThemeIcon
           : OutOfGeofenceIcon,
-      value: overallAssetDetails?.outOfGeofenceCount,
+      value: topPanelList?.outOfGeofenceCount,
       name: `${gridView.outOf} ${gridView.geofence}`,
     },
     {
       icon: selectedTheme === "light" ? IncidentLightThemeIcon : IncidentIcon,
-      value: overallAssetDetails?.incidientCount,
+      value: topPanelList?.incidientCount,
       name: `${security.security} ${gridView.incidents}`,
     },
   ];
@@ -491,13 +522,6 @@ const AssetTracking: React.FC<any> = (props) => {
     setIsGeofenceInfoWindowActive(true);
   };
 
-  const [selectedValue, setSelectedValue] = useState<any>("");
-
-  const handleSelect = (val: any) => {
-    setSelectedValue(val);
-  };
-
-
   return (
     <>
       <Grid container className={rootContainer}>
@@ -533,7 +557,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={overallAssetDetails?.activeTrackerPercentage}
+                          percent={topPanelList?.activeTrackerPercentage}
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
@@ -545,7 +569,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           selectedValue={selectedValue}
                           handleSelect={handleSelect}
-
+                          pageName = {"asset"}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "100%" }}>
