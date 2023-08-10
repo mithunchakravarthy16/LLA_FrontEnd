@@ -34,7 +34,7 @@ export function* handleGetAdminPanelConfig(action: any): any {
     const { fetchData } = fetchAPIServices;
 
     const response = yield fetchData(
-      `${adminPanelGetApi}?isPreview=${action?.payload?.isPreview}`
+      `${adminPanelGetApi}?isPreview=${action?.payload?.isPreview}&isDefault=${action?.payload?.isDefault}`
     );
     if (response?.statusCodeValue === 200) {
       yield put(setAdminPanelConfigData(response));

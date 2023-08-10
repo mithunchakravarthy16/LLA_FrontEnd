@@ -77,12 +77,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   useEffect(() => {
-    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
+    dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
   }, []);
 
   useEffect(() => {
     if (adminPanelSaveData?.body?.isPreview === "Y") {
-      dispatch(getAdminPanelConfigData({ isPreview: "Y" }));
+      dispatch(getAdminPanelConfigData({ isPreview: "Y", isDefault: "N" }));
     }
   }, [adminPanelSaveData]);
 
@@ -279,7 +279,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             {notificationPanelActive && (
               <div
                 className={notificationPanelSection}
-                style={{ width: "24%" }}>
+                style={{ width: "24%" }}
+              >
                 <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}
