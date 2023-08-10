@@ -77,33 +77,64 @@ const Parking: React.FC<any> = (props) => {
     screenFiveGraphTitleStyle,
   } = useStyles(appTheme);
 
+  const [selectedValue, setSelectedValue] = useState<any>("Week");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+  const [topPanelList, setTopPanelList] = useState<any>(
+    energyManagementData?.infoData?.week
+  );
+
+
+  useEffect(() => {
+    switch (selectedValue) {
+      case "Today":
+        setTopPanelList(energyManagementData?.infoData?.day);
+        return;
+
+      case "Week":
+        setTopPanelList(energyManagementData?.infoData?.week);
+        return;
+
+      case "Month":
+        setTopPanelList(energyManagementData?.infoData?.month);
+        return;
+
+      case "Year":
+        setTopPanelList(energyManagementData?.infoData?.year);
+        return;
+    }
+  }, [selectedValue]);
+
   const topPanelListItems: any[] = [
     {
       icon:
         selectedTheme === "light"
           ? ElectricityLightThemeIcon
           : PowerConsumtionIcon,
-      value: "200kWh",
+      value: `${topPanelList?.electricConsumption}kWh`,
       name: gridView.electricityConsumption,
     },
     {
       icon: selectedTheme === "light" ? HVACLightThemeIcon : TemperatureIcon,
-      value: "100kWh",
+      value: `${topPanelList?.hvac}kWh`,
       name: "HVAC",
     },
     {
       icon: selectedTheme === "light" ? WaterLightThemeIcon : WaterConsumption,
-      value: "1480KL",
+      value: `${topPanelList?.waterConsumption}KL`,
       name: gridView.waterConsumption,
     },
     {
       icon: selectedTheme === "light" ? IncomeLightThemeIcon : IncomeIcon,
-      value: "500$",
+      value: `${topPanelList?.costSaved}$`,
       name: `${gridView.cost} ${gridView.saved}`,
     },
     {
       icon: selectedTheme === "light" ? Co2LightThemeIcon : SubtractIcon,
-      value: "50Kg",
+      value: `${topPanelList?.co2Emission}Kg`,
       name: `${gridView.co2} ${gridView.emission}`,
     },
   ];
@@ -236,13 +267,6 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
-  const [selectedValue, setSelectedValue] = useState<any>("");
-
-  const handleSelect = (val: any) => {
-    setSelectedValue(val);
-  };
-
-
   return (
     <>
       <Grid container className={rootContainer}>
@@ -277,7 +301,7 @@ const Parking: React.FC<any> = (props) => {
                       >
                         <TopPanelListItemContainer
                           topPanelListItems={topPanelListItems}
-                          percent={30}
+                          percent={topPanelList?.energySaved}
                           strokeWidth={10}
                           trailWidth={10}
                           strokeColor="#92C07E"
@@ -290,7 +314,6 @@ const Parking: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           selectedValue={selectedValue}
                           handleSelect={handleSelect}
-
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "75%" }}>
@@ -505,7 +528,7 @@ const Parking: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "60%" }}
+                    style={{ height: "58%" }}
                   >
                     <Map
                       mapPageName={"energy"}

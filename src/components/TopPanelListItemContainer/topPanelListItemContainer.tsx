@@ -20,7 +20,8 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     title,
     selectedTheme,
     handleSelect,
-selectedValue
+    selectedValue,
+    pageName,
   } = props;
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
@@ -51,6 +52,7 @@ selectedValue
     itemUnitStyle,
     itemValueUnitStyle,
     imageWidthStyle,
+    todayText
   } = useStyles(appTheme);
 
   const [screenResolution, setScreenResolution] = useState<any>("2k");
@@ -122,22 +124,29 @@ selectedValue
             progressBarValueBarRadius={"7px"}
             progressBarTrackerHeight={"18px"}
           /> */}
-          <Grid item xs={10} style={{position : "relative"}}>
-            <Select
-              selectList={selectList}
-              handleSelect={handleSelect}
-              // customWidth={"40%"}
-              customHeight={"3vh"}
-              // customSelectCustom={graphCustomSelectDropDown}
-              pageName={"analyticsPage"}
-              drowpDownTextColor={"#F1624C"}
-              dropDownBgColor={"#FBCEBC"}
-              dropDownSelectedBgColor={"#F1624C"}
-              dropDownSelectedTextColor={"#FFF"}
-              // graphName={"graph1"}
-              selectedDropDownValue={selectedValue}
-              // placeholder={"Select Trailer"}
-            />
+          <Grid item xs={10} style={{ position: "relative" }}>
+            {pageName === "fleet" || pageName === "asset" ? (
+              <Select
+                selectList={selectList}
+                handleSelect={handleSelect}
+                // customWidth={"40%"}
+                customHeight={"3vh"}
+                // customSelectCustom={graphCustomSelectDropDown}
+                pageName={"analyticsPage"}
+                drowpDownTextColor={"#F1624C"}
+                dropDownBgColor={"#FBCEBC"}
+                dropDownSelectedBgColor={"#F1624C"}
+                dropDownSelectedTextColor={"#FFF"}
+                // graphName={"graph1"}
+                selectedDropDownValue={selectedValue}
+                // placeholder={"Select Trailer"}
+              />
+            ) : (
+              <div className={todayText}>
+                <p>Today</p>
+              </div>
+            )}
+
             <VerticalProgressBar
               percent={percent}
               strokeWidth={strokeWidth}

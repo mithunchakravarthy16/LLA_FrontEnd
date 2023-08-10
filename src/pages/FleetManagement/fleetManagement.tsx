@@ -542,6 +542,7 @@ const FleetManagement: React.FC<any> = (props) => {
                             selectedTheme={selectedTheme}
                             selectedValue={selectedValue}
                             handleSelect={handleSelect}
+                            pageName = {"fleet"}
                           />
                         </Grid>
                         <Grid item xs={12} style={{ height: "70%" }}>
