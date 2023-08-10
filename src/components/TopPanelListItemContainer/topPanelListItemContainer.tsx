@@ -20,7 +20,8 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     title,
     selectedTheme,
     handleSelect,
-selectedValue
+selectedValue,
+pageName
   } = props;
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
@@ -123,7 +124,8 @@ selectedValue
             progressBarTrackerHeight={"18px"}
           /> */}
           <Grid item xs={10} style={{position : "relative"}}>
-            <Select
+            {
+              (pageName === "fleet" || pageName === "asset") &&   <Select
               selectList={selectList}
               handleSelect={handleSelect}
               // customWidth={"40%"}
@@ -138,6 +140,8 @@ selectedValue
               selectedDropDownValue={selectedValue}
               // placeholder={"Select Trailer"}
             />
+            }
+          
             <VerticalProgressBar
               percent={percent}
               strokeWidth={strokeWidth}

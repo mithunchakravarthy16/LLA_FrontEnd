@@ -1,5 +1,38 @@
 const securityData = {
-  infoData: {},
+  infoData: {
+    day: {
+      fireDetection: 5,
+      tamperingAlarm: 10,
+      unauthorizedAccess: 2,
+      tailGating: 4,
+      cameraOcclusion: 11,
+      issuesResolved : 30
+    },
+    week: {
+      fireDetection: 15,
+      tamperingAlarm: 20,
+      unauthorizedAccess: 14,
+      tailGating: 15,
+      cameraOcclusion: 17,
+      issuesResolved : 50
+    },
+    month: {
+      fireDetection: 25,
+      tamperingAlarm: 30,
+      unauthorizedAccess: 25,
+      tailGating: 28,
+      cameraOcclusion: 20,
+      issuesResolved : 70
+    },
+    year: {
+      fireDetection: 50,
+      tamperingAlarm: 75,
+      unauthorizedAccess: 78,
+      tailGating: 66,
+      cameraOcclusion: 33,
+      issuesResolved : 80
+    },
+  },
   analytics: {},
   notifications: {
     security: [
