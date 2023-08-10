@@ -1211,7 +1211,7 @@ const Map: React.FC<any> = (props) => {
                         getMarkerIcon={getMarkerIcon}
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
-                        clusterer={clusterer}
+                        // clusterer={clusterer}
                         location={singleMarker?.location}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
@@ -1230,7 +1230,7 @@ const Map: React.FC<any> = (props) => {
                         getMarkerIcon={getMarkerIcon}
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
-                        clusterer={clusterer}
+                        // clusterer={clusterer}
                         location={singleMarker?.location}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
