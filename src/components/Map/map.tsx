@@ -1072,7 +1072,7 @@ const Map: React.FC<any> = (props) => {
                  enableRetinaIcons
                  maxZoom = {15}
                  gridSize={35}
-                 onLoad={clusterer => (clustererRef.current = clusterer)}
+                //  onLoad={clusterer => (clustererRef.current = clusterer)}
                  // styles={[
                  //   {
                  //     url: MarkerClusterIcon, 
@@ -1230,7 +1230,7 @@ const Map: React.FC<any> = (props) => {
                         getMarkerIcon={getMarkerIcon}
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
-                        // clusterer={clusterer}
+                        clusterer={clusterer}
                         location={singleMarker?.location}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}

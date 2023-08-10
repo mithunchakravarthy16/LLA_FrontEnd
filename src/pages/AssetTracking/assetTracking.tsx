@@ -491,6 +491,13 @@ const AssetTracking: React.FC<any> = (props) => {
     setIsGeofenceInfoWindowActive(true);
   };
 
+  const [selectedValue, setSelectedValue] = useState<any>("");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -536,6 +543,9 @@ const AssetTracking: React.FC<any> = (props) => {
                           }
                           title={assetsTracking.activeTrackers}
                           selectedTheme={selectedTheme}
+                          selectedValue={selectedValue}
+                          handleSelect={handleSelect}
+
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "100%" }}>

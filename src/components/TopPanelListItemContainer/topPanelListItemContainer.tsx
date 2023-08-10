@@ -7,6 +7,7 @@ import VerticalProgressBar from "elements/VerticalProgressBar";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import Tooltip from "elements/Tooltip";
+import Select from "elements/Select";
 
 const TopPanelListItemContainer: React.FC<any> = (props) => {
   const {
@@ -18,6 +19,8 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     trailColor,
     title,
     selectedTheme,
+    handleSelect,
+selectedValue
   } = props;
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
@@ -63,6 +66,15 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
   const tooltipOfset = [0, 10];
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
+
+
+  const selectList = [
+    { label: "Today", value: "Day" },
+    { label: "Week", value: "Week" },
+    { label: "Month", value: "Month" },
+    { label: "Year", value: "Year" },
+  ];
+
 
   return (
     <>
@@ -110,7 +122,22 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
             progressBarValueBarRadius={"7px"}
             progressBarTrackerHeight={"18px"}
           /> */}
-          <Grid item xs={10}>
+          <Grid item xs={10} style={{position : "relative"}}>
+            <Select
+              selectList={selectList}
+              handleSelect={handleSelect}
+              // customWidth={"40%"}
+              customHeight={"3vh"}
+              // customSelectCustom={graphCustomSelectDropDown}
+              pageName={"analyticsPage"}
+              drowpDownTextColor={"#F1624C"}
+              dropDownBgColor={"#FBCEBC"}
+              dropDownSelectedBgColor={"#F1624C"}
+              dropDownSelectedTextColor={"#FFF"}
+              // graphName={"graph1"}
+              selectedDropDownValue={selectedValue}
+              // placeholder={"Select Trailer"}
+            />
             <VerticalProgressBar
               percent={percent}
               strokeWidth={strokeWidth}

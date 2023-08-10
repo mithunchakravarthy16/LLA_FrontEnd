@@ -40,6 +40,7 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
+        // clusterer={clusterer}
           animation={
             focusedCategory === mapMarker?.category &&
             focusedCategory !== "fleet"
@@ -100,7 +101,7 @@ const MapMarker: React.FC<any> = (props) => {
   return (
     <>
       <Marker
-        clusterer={clusterer}
+        // clusterer={clusterer}
         animation={
           focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
             ? window.google.maps.Animation.BOUNCE

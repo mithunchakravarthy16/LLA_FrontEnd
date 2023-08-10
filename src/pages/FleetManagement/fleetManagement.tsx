@@ -483,6 +483,13 @@ const FleetManagement: React.FC<any> = (props) => {
     setSelectedMarker(data);
   };
 
+  const [selectedValue, setSelectedValue] = useState<any>("");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+
   return (
     <>
     {
@@ -534,6 +541,9 @@ const FleetManagement: React.FC<any> = (props) => {
                           }
                           title={fleetManagement.safetyScore}
                           selectedTheme={selectedTheme}
+                          selectedValue={selectedValue}
+                          handleSelect={handleSelect}
+
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
