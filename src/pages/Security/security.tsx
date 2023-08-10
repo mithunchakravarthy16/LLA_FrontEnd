@@ -591,7 +591,7 @@ const Parking: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "59%" }}
+                    style={{ height: "58%" }}
                   >
                     <Map
                       mapPageName={"security"}
