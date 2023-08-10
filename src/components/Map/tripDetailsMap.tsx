@@ -89,6 +89,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
     handleVideoDetails,
     selectedTheme,
     dataPoints,
+    tripStatus,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -474,47 +475,55 @@ const TripDetailsMap: React.FC<any> = (props) => {
           <MarkerClustererF>
             {(clusterer: any) => (
               <div>
-                {dataPoints && dataPoints.length > 0 && (
-                  <PolylineF
-                    path={dataPoints}
-                    options={{
-                      strokeColor: "#976C9E",
-                      strokeOpacity: 10,
-                      strokeWeight: 4,
-                      icons: [
-                        {
-                          icon: lineSymbol,
-                          offset: "0",
-                          repeat: "20px",
-                        },
-                      ],
+                {tripStatus === "Finish" &&
+                  dataPoints &&
+                  dataPoints.length > 0 && (
+                    <PolylineF
+                      path={dataPoints}
+                      options={{
+                        strokeColor: "#976C9E",
+                        strokeOpacity: 10,
+                        strokeWeight: 4,
+                        icons: [
+                          {
+                            icon: lineSymbol,
+                            offset: "0",
+                            repeat: "20px",
+                          },
+                        ],
+                      }}
+                    />
+                  )}
+                {tripStatus === "Finish" && (
+                  <MarkerF
+                    key={0}
+                    position={{
+                      lat: dataPoints && dataPoints[0]?.lat,
+                      lng: dataPoints && dataPoints[0]?.lng,
                     }}
+                    icon={{
+                      url: routeSourceIcon,
+                    }}
+                    // title={"S"}
+                    // label={`S`}
                   />
                 )}
-                <MarkerF
-                  key={0}
-                  position={{
-                    lat: dataPoints && dataPoints[0]?.lat,
-                    lng: dataPoints && dataPoints[0]?.lng,
-                  }}
-                  icon={{
-                    url: routeSourceIcon,
-                  }}
-                  // title={"S"}
-                  // label={`S`}
-                />
-                <MarkerF
-                  key={1}
-                  position={{
-                    lat: dataPoints && dataPoints[dataPoints?.length - 1]?.lat,
-                    lng: dataPoints && dataPoints[dataPoints?.length - 1]?.lng,
-                  }}
-                  icon={{
-                    url: routeDestinationIcon,
-                  }}
-                  // title={"D"}
-                  // label={`D`}
-                />
+                {tripStatus === "Finish" && (
+                  <MarkerF
+                    key={1}
+                    position={{
+                      lat:
+                        dataPoints && dataPoints[dataPoints?.length - 1]?.lat,
+                      lng:
+                        dataPoints && dataPoints[dataPoints?.length - 1]?.lng,
+                    }}
+                    icon={{
+                      url: routeDestinationIcon,
+                    }}
+                    // title={"D"}
+                    // label={`D`}
+                  />
+                )}
                 {/* {dataPoints &&
                   dataPoints.length > 0 &&
                   dataPoints.map((item: any, index: number) => (
@@ -538,7 +547,8 @@ const TripDetailsMap: React.FC<any> = (props) => {
                       />
                     </>
                   ))} */}
-                {dataPoints &&
+                {tripStatus === "Finish" &&
+                  dataPoints &&
                   dataPoints?.length > 0 &&
                   progress &&
                   progress?.length > 0 && (

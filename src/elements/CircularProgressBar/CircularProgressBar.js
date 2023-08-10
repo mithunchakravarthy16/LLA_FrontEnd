@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
 import {
   RootContainer,
   LabelText,
@@ -6,13 +6,13 @@ import {
   ValueContainer,
   ProgressBarStroke,
   IconBackDrop,
-} from './styles'
-import { useSelector } from 'react-redux';
-import { VerticalSpace } from 'elements/Space';
+} from "./styles";
+import { useSelector } from "react-redux";
+import { VerticalSpace } from "elements/Space";
 import theme from "../../theme/theme";
-import circularProgressMask from 'assets/circular-progress-mask.svg';
-import ProgressBar from 'react-customizable-progressbar';
-import CustomIcon from 'elements/Icon';
+import circularProgressMask from "assets/circular-progress-mask.svg";
+import ProgressBar from "react-customizable-progressbar";
+import CustomIcon from "elements/Icon";
 import useWindowDimensions from "hooks/useWindowDimensions";
 
 const SpeedoMeter = (props) => {
@@ -37,32 +37,32 @@ const SpeedoMeter = (props) => {
   const adminPanelData = useSelector(
     (state) => state?.adminPanel?.getConfigData?.body
   );
-  
-  const {width, height} = useWindowDimensions();
-  const [selectedTheme, setSelectedTheme] = useState('');
+
+  const { width, height } = useWindowDimensions();
+  const [selectedTheme, setSelectedTheme] = useState("");
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const getPointerThumb = () => {
-    switch(thumbType) {
-      case 'point':
+    switch (thumbType) {
+      case "point":
         return {
           pointerFillColor: "#FFFFFF",
           pointerRadius: 1,
           pointerStrokeWidth: 0,
-          pointerStrokeColor: 'transparent'
-        }
-      
-      case 'thumb':
+          pointerStrokeColor: "transparent",
+        };
+
+      case "thumb":
         return {
           pointerFillColor: "#2E8F1E",
           pointerRadius: 12,
           pointerStrokeWidth: 2,
-          pointerStrokeColor: '#FFF'
-        }
+          pointerStrokeColor: "#FFF",
+        };
       default:
-        return {}
+        return {};
     }
-  }
+  };
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -97,16 +97,24 @@ const SpeedoMeter = (props) => {
         {...getPointerThumb()}
       >
         <ProgressBarStroke radius={radius} color={color} />
-        <ValueContainer color={color} textValue={textValue} >{textValue || currentValue}</ValueContainer>
+        <ValueContainer color={color} textValue={textValue}>
+          {textValue || currentValue}
+        </ValueContainer>
       </ProgressBar>
       <LabelContainer>
-        <IconBackDrop size={iconSize} color={appTheme?.palette?.fleetManagementPage?.circularProgressBar?.background} >
+        <IconBackDrop
+          size={iconSize}
+          color={
+            appTheme?.palette?.fleetManagementPage?.circularProgressBar
+              ?.background
+          }
+        >
           <CustomIcon icon={icon} size={iconSize} color={iconColor} />
         </IconBackDrop>
         <LabelText>{label}</LabelText>
       </LabelContainer>
     </RootContainer>
-  )
+  );
 };
 
 export default SpeedoMeter;

@@ -84,7 +84,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
 }));
 
-
 const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
@@ -634,6 +633,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           setTabIndex={() => {}}
                           selectedTheme={selectedTheme}
                           dataPoints={points}
+                          tripStatus={
+                            fleetManagementTripDetailsResponse?.tripStatus
+                          }
                         />
                       ) : tabIndex === 1 ? (
                         <Grid container xs={12} style={{ height: "100%" }}>
@@ -931,13 +933,22 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                     gridView.overspeeding.substring(0, 15) +
                                     (gridView.overspeeding.length ? "..." : "")
                                   }
-                                  icon="overspeeding-new"
+                                  icon={
+                                    fleetManagementTripDetailsResponse?.overSpeeding ===
+                                    0
+                                      ? "overspeeding-new-1"
+                                      : "overspeeding-new"
+                                  }
                                   rotate={getSpeedometerDimensions().rotate}
                                   cut={getSpeedometerDimensions().cut}
                                   iconSize={getSpeedometerDimensions().iconSize}
                                   color={
-                                    appTheme?.palette?.fleetManagementPage
-                                      ?.circularProgressBar?.stokeColorRed
+                                    fleetManagementTripDetailsResponse?.overSpeeding ===
+                                    0
+                                      ? appTheme?.palette?.fleetManagementPage
+                                          ?.circularProgressBar?.stokeColorGreen
+                                      : appTheme?.palette?.fleetManagementPage
+                                          ?.circularProgressBar?.stokeColorRed
                                   }
                                   thumbType="point"
                                   strokeWidth={
