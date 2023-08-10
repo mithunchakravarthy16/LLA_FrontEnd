@@ -74,6 +74,7 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
     customNotificationTabs,
     videoTitle,
     vicheals,
+    noVideoPreview,
   } = useStyles(appTheme);
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -144,19 +145,19 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
               height: "90%",
             }}
           >
-            <ReactPlayer
-              muted
-              playing
-              loop={true}
-              controls={true}
-              url={
-                selectedMarker?.videoUrl
-                  ? selectedMarker?.videoUrl
-                  : FleetSampleVideo
-              }
-              width="100%"
-              height="100%"
-            />
+            {selectedMarker?.videoUrl ? (
+              <ReactPlayer
+                muted
+                playing
+                loop={true}
+                controls={true}
+                url={selectedMarker?.videoUrl}
+                width="100%"
+                height="100%"
+              />
+            ) : (
+              <div className={noVideoPreview}>No Video Content available</div>
+            )}
           </Grid>
         </Grid>
       </DialogWrapper>

@@ -89,6 +89,7 @@ const AdminPanel = () => {
     useState<any>();
   const [uploadFavIconLogoTemp, setUploadFavIconLogoTemp] = useState<any>();
   const [uploadFooterLogoTemp, setUploadFooterLogoTemp] = useState<any>();
+  const [isReset, setIsReset] = useState<boolean>(false);
   const {} = useStyles(appTheme);
 
   const {
@@ -164,7 +165,8 @@ const AdminPanel = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
+    dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
+    setSuccess(false);
   }, []);
 
   useEffect(() => {
@@ -173,6 +175,9 @@ const AdminPanel = () => {
     setFooterTitle(adminPanelData?.footerText);
     setColorChange(adminPanelData?.footerColor);
     setSelectRadio(adminPanelData?.footerImage ? "image" : "text");
+    if (isReset && adminPanelData?.isPreview === "N") {
+      setSuccess(true);
+    }
   }, [adminPanelData]);
 
   useEffect(() => {
@@ -255,7 +260,9 @@ const AdminPanel = () => {
     formData.append("footerText", footerTitle);
     formData.append("footerColor", colorChange);
     formData.append("isPreview", "N");
+    formData.append("isDefault", "N");
     dispatch(getAdminPanelConfig(formData));
+    setSuccess(false);
   };
 
   // success message
@@ -533,12 +540,14 @@ const AdminPanel = () => {
     formData.append("footerText", footerTitle);
     formData.append("footerColor", colorChange);
     formData.append("isPreview", "Y");
+    formData.append("isDefault", "N");
     dispatch(getAdminPanelConfig(formData));
+    setSuccess(false);
   };
 
   const handleCancel = () => {
     dispatch(getAdminPanelCancelConfigData({}));
-    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
+    dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
     setUploadFinalImageLogo("");
     setUploadFinalImageLogoLocal("");
     setUploadHeaderFinalImageLogo("");
@@ -547,9 +556,13 @@ const AdminPanel = () => {
     setUploadFinalFavIconLogoLocal("");
     setUploadFinalFooterLogo("");
     setUploadFooterLogoLocal("");
+    setSuccess(false);
   };
 
-  const handleReset = () => {};
+  const handleReset = () => {
+    dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "Y" }));
+    setIsReset(true);
+  };
 
   return (
     <>
@@ -578,8 +591,9 @@ const AdminPanel = () => {
                 : adminPanelCancelData?.iscancel
                 ? "Cancelled Successfully."
                 : adminPanelSaveData?.statusCodeValue === 200 &&
-                  adminPanelSaveData?.body?.isPreview === "N" &&
-                  "Saved Successfully."}
+                  adminPanelSaveData?.body?.isPreview === "N"
+                ? "Saved Successfully."
+                : adminPanelData?.isPreview === "N" && "Reset Successfully."}
             </Alert>
           </Snackbar>
         )}
