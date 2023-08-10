@@ -24,6 +24,8 @@ import {
   handleGetAdminPanelConfig,
   handleCancelAdminPanelConfig,
 } from "./handlers/adminPanel";
+import assetTrackerDetail from "redux/actions/getAssetTrackerDetailAction";
+import {handleAssetTrackerDetail} from "./handlers/getAssetTrackerDetail"
 
 export default function* rootSaga() {
   yield all([
@@ -40,6 +42,7 @@ export default function* rootSaga() {
     watchFleetManagementTripDetails(),
     watchFleetManagementOverAllTripDetails(),
     watchFleetManagementAnalyticsData(),
+    watchAssetTrackerDetail()
   ]);
 }
 
@@ -125,4 +128,11 @@ export function* watchFleetManagementAnalyticsData() {
     fleetManagementNotification.GET_FLEET_MANAGEMENT_ANALYTICS_DATA,
     handleFleetManagementAnalyticsData
   );
+}
+
+export function * watchAssetTrackerDetail() {
+  yield takeLatest(
+    assetTrackerDetail.GET_ASSET_TRACKER_DETAIL,
+    handleAssetTrackerDetail
+  )
 }

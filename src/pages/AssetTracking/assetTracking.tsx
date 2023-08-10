@@ -33,6 +33,7 @@ import { getNotificationData } from "redux/actions/getAllAssertNotificationActio
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
+import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
 
@@ -110,6 +111,9 @@ const AssetTracking: React.FC<any> = (props) => {
 
     let overallAssetDetailPayload: any = {};
     dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
+
+    let assetTrackerDetailPayload:any = {};
+    dispatch(getAssetTrackerDetail(assetTrackerDetailPayload))
   }, []);
 
   const assetNotificationResponse = useSelector(
@@ -128,6 +132,11 @@ const AssetTracking: React.FC<any> = (props) => {
   const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
   );
+
+  const assetTrackerDetails = useSelector(
+    (state: any) => state?.assetTracker?.assetTrackerData
+  );
+
 
   useEffect(() => {
     const { events, incidents, alerts } = assetNotificationList;
@@ -482,6 +491,13 @@ const AssetTracking: React.FC<any> = (props) => {
     setIsGeofenceInfoWindowActive(true);
   };
 
+  const [selectedValue, setSelectedValue] = useState<any>("");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -527,6 +543,9 @@ const AssetTracking: React.FC<any> = (props) => {
                           }
                           title={assetsTracking.activeTrackers}
                           selectedTheme={selectedTheme}
+                          selectedValue={selectedValue}
+                          handleSelect={handleSelect}
+
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "100%" }}>

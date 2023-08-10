@@ -261,6 +261,14 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
+  
+  const [selectedValue, setSelectedValue] = useState<any>("");
+
+  const handleSelect = (val: any) => {
+    setSelectedValue(val);
+  };
+
+
   return (
     <>
       <Grid container className={rootContainer}>
@@ -305,6 +313,9 @@ const Parking: React.FC<any> = (props) => {
                           } //"#484D52"
                           title={security.issuesResolved}
                           selectedTheme={selectedTheme}
+                          selectedValue={selectedValue}
+                          handleSelect={handleSelect}
+
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>
