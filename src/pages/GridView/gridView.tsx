@@ -12,6 +12,7 @@ import GridViewScreenSix from "components/GridViewScreens/GridViewScreenSix";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
+import Loader from "elements/Loader";
 
 const GridView: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -47,8 +48,20 @@ const GridView: React.FC<any> = (props) => {
     navigate(path);
   };
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsDataLoaded(!isDataLoaded)
+    },500)
+  },[])
+
+
   return (
     <>
+    {
+isDataLoaded ?
+    
       <div className={rootContainer}>
         <Grid container className={mainSection}>
           {/* Gride 1 */}
@@ -88,6 +101,9 @@ const GridView: React.FC<any> = (props) => {
           />
         </Grid>
       </div>
+      :
+      <Loader isHundredVh = {true}/>
+}
     </>
   );
 };

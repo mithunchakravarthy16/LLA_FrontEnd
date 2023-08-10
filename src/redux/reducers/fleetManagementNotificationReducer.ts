@@ -5,6 +5,8 @@ const initialState = {
   fleetManagementTripDetailsData: {},
   fleetManagementOverAllTripDetailsData: {},
   fleetManagementAnalyticsData: {},
+  loadingTripDetails: true,
+  loadingNotificationData: true,
 };
 
 export default (state = initialState, action: any) => {
@@ -21,10 +23,15 @@ export default (state = initialState, action: any) => {
     case fleetManagementNotification.SET_FLEET_MANAGEMENT_ANALYTICS_DATA:
       const { fleetManagementAnalyticsData } = action;
       return { ...state, fleetManagementAnalyticsData };
-    case fleetManagementNotification.SHOW_LOADER:
-      return { ...state, loading: true };
-    case fleetManagementNotification.HIDE_LOADER:
-      return { ...state, loading: false };
+    case fleetManagementNotification.SHOW_LOADER_TRIPDETAILS:
+      return { ...state, loadingTripDetails: true };
+    case fleetManagementNotification.HIDE_LOADER_TRIPDETAILS:
+      return { ...state, loadingTripDetails: false };
+
+    case fleetManagementNotification.SHOW_LOADER_NOTIFICATIONDATA:
+      return { ...state, loadingNotificationData: true };
+    case fleetManagementNotification.HIDE_LOADER_NOTIFICATIONDATA:
+      return { ...state, loadingNotificationData: false };
     default:
       return state;
   }

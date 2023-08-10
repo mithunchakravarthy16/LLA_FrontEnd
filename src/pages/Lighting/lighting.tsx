@@ -31,6 +31,7 @@ import {
   WifiUserIcon,
 } from "../../assets/lightingTopPanelLightThemeIcons";
 import useStyles from "./styles";
+import Loader from "elements/Loader";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -281,9 +282,19 @@ const Parking: React.FC<any> = (props) => {
     setSelectedValue(val);
   };
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsDataLoaded(!isDataLoaded)
+    },2000)
+  },[])
 
   return (
     <>
+    {
+isDataLoaded ?
+    
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -644,6 +655,9 @@ const Parking: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      :
+      <Loader isHundredVh = {true}/>
+}
     </>
   );
 };

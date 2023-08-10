@@ -4,8 +4,10 @@ import {
   setFleetManagementTripDetails,
   setFleetManagementOverAllTripDetails,
   setFleetManagementAnalyticsData,
-  setLoader,
-  hideLoader,
+  setLoaderTripDetails,
+  hideLoaderTripDetails,
+  setLoaderNotificationData,
+  hideLoaderNotificationData,
 } from "redux/actions/fleetManagementNotificationActions";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
@@ -18,6 +20,7 @@ import {
 
 export function* handleFleetManagementNotification(action: any): any {
   try {
+    yield put(setLoaderNotificationData());
     const { fetchData } = fetchAPIServices;
     const response = yield fetchData(getFleetNotificationApi);
     if (response) {
@@ -25,14 +28,16 @@ export function* handleFleetManagementNotification(action: any): any {
     } else {
       yield put(setFleetManagementNotificationData({}));
     }
+    yield put(hideLoaderNotificationData());
   } catch (error) {
+    yield put(hideLoaderNotificationData());
     console.log(error);
   }
 }
 
 export function* handleFleetManagementTripDetails(action: any): any {
   try {
-    yield put(setLoader());
+    yield put(setLoaderTripDetails());
     const { fetchLogin } = fetchAPIServices;
     const response = yield fetchLogin(getTripDetailsApi, action.payload);
     if (response) {
@@ -40,9 +45,9 @@ export function* handleFleetManagementTripDetails(action: any): any {
     } else {
       yield put(setFleetManagementTripDetails({}));
     }
-    yield put(hideLoader());
+    yield put(hideLoaderTripDetails());
   } catch (error) {
-    yield put(hideLoader());
+    yield put(hideLoaderTripDetails());
     console.log(error);
   }
 }
