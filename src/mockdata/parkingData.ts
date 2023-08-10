@@ -1,5 +1,42 @@
 const parkingData = {
-  infoData: {},
+  infoData: {
+    day: {
+      general: 120,
+      vip: 25,
+      electricVehicle: 45,
+      accessibility: 15,
+      rotationIndex: 0.5,
+      hoursSaved: 5,
+      occupancy : 50,
+    },
+    weekly: {
+      general: 220,
+      vip: 75,
+      electricVehicle: 50,
+      accessibility: 25,
+      rotationIndex: 1.5,
+      hoursSaved: 10,
+      occupancy : 62,
+    },
+    monthly: {
+      general: 280,
+      vip: 20,
+      electricVehicle: 68,
+      accessibility: 33,
+      rotationIndex: 3,
+      hoursSaved: 7,
+      occupancy : 80,
+    },
+    yearly: {
+      general: 268,
+      vip: 100,
+      electricVehicle: 50,
+      accessibility: 25,
+      rotationIndex: 1.5,
+      hoursSaved: 10,
+      occupancy : 90,
+    },
+  },
   analytics: {},
   notifications: {
     parking: [

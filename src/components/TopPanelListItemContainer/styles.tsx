@@ -167,5 +167,22 @@ const useStyles = makeStyles({
     alignItems: "flex-end",
     color: props?.palette?.parkingPage?.topPanelTextColor,
   }),
+  todayText: (props: any) => ({
+    // width: "100%",
+    height: "2vh",
+    marginRight: "10px",
+    display : "flex",
+    flexDirection : "row",
+    justifyContent : "flex-end",
+    position : "absolute",
+    right : props?.pageName === "asset" ?"-2vw" : "-1.5vw",
+    // top : "-1vh",
+    color : "#F1624C",
+    background : "#FBCEBC",
+    fontSize: "0.7vw",
+    padding: "0.15vw 1vw",
+    borderRadius: "0.2vw",
+    alignItems : "center"
+  }),
 });
 export default useStyles;
