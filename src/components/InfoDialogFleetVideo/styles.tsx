@@ -120,6 +120,15 @@ const useStyles = makeStyles(() => ({
       borderRadius: "2px",
     },
   }),
+  noVideoPreview: (props: any) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    fontFamily: "HelveticaNeue-Regular",
+    fontSize: "0.9vw",
+    color: props?.palette?.fleetManagementPage?.topPanelTextColor,
+  }),
 }));
 
 export default useStyles;
