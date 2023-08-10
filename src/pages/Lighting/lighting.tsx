@@ -613,7 +613,7 @@ isDataLoaded ?
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "59%" }}
+                    style={{ height: "58%" }}
                   >
                     <Map
                       markers={dashboardDataList}

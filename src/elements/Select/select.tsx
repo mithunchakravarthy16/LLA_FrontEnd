@@ -103,107 +103,6 @@ const INF_Select: React.FC<any> = (props) => {
 
   return (
     <>
-      {/* {variant === "standard" ? (
-        <ThemeProvider
-        theme={createTheme({
-          palette: {
-            primary: {
-              main: dropDownBgColor ? dropDownBgColor : "#000",
-            },
-          },
-
-          components: {
-            MuiPaper: {
-              styleOverrides: {
-                root: {
-                  // top : "254px !important",
-                  marginTop: "5px !important",
-                  backgroundColor: dropDownBgColor ? dropDownBgColor : "#000",
-                },
-              },
-            },
-            MuiMenuItem: {
-              styleOverrides: {
-                root: {
-                  color: drowpDownTextColor ? drowpDownTextColor : "fff",
-                  backgroundColor: dropDownBgColor ? dropDownBgColor : "#000",
-
-                  // fontSize: "10px",
-
-                  "&.MuiMenuItem-root": {
-                    margin: "10px",
-                  },
-
-                  "&.Mui-selected": {
-                    "&.MuiMenuItem-root": {
-                      backgroundColor: dropDownSelectedBgColor
-                        ? dropDownSelectedBgColor
-                        : "#fff", //orange
-                      color: dropDownSelectedTextColor
-                        ? dropDownSelectedTextColor
-                        : "#fff",
-                    },
-
-                    // "&.Mui-focusVisible": { background: "orange" },
-                  },
-                  "&:hover": {
-                    backgroundColor: dropDownBgColor
-                      ? dropDownBgColor
-                      : "#000",
-                  },
-                },
-              },
-            },
-          },
-        })}
-      >
-        <div className={tableSelect}>
-          <FormControl className={customSelectCustom ? customSelectCustom : customSelect}
-            style={{
-              width: customWidth,
-              height: customHeight,
-              // marginRight: "10px",
-            }}>
-            <InputLabel variant="standard" htmlFor="uncontrolled-native">
-              {selectLabel}
-            </InputLabel>
-            <Select
-              required
-              name="select"
-              value={selectedValue}
-              onChange={handleChange}
-              disabled={disabled}
-              label={placeholder && placeholder}
-              renderValue={() =>
-                selectedValue
-                  ? pageName === "analyticsTabEquipmentDropdown" &&
-                    selectedValue === "ALL"
-                    ? "Equipment"
-                    : selectedValue
-                  : ""
-              }
-              sx={{
-                height: customHeight,
-                width: customWidth,
-                cursor: "pointer",
-              }}
-            >
-              {selectList &&
-                selectList?.length > 0 &&
-                selectList?.map((item: any, index: any) => (
-                  <MenuItem
-                    // className={selectOptions}
-                    value={item.label}
-                    key={index}
-                  >
-                    {item.label}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
-        </div>
-        </ThemeProvider>
-      ) : ( */}
         <ThemeProvider
           theme={createTheme({
             palette: {
@@ -269,8 +168,8 @@ const INF_Select: React.FC<any> = (props) => {
               flexDirection : "row",
               justifyContent : "flex-end",
               position : "absolute",
-              right : "-1vw",
-              top : "-1vh"
+              right : "-1.5vw",
+              // top : "-1vh"
             }}
           >
             <Select

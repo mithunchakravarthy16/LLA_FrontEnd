@@ -8,35 +8,36 @@ const useStyles = makeStyles({
     fontSize: "30px",
     fontWeight: 700,
     fontFamily: "HelveticaNeue-Regular",
+    lineHeight : "3vh",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 36,
-      lineHeight: "55px",
+      // lineHeight: "55px",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 30,
-      lineHeight: "44px",
+      // lineHeight: "44px",
     },
     [muiTheme.breakpoints.down(2561)]: {
       fontSize: 22,
-      lineHeight: "44px",
+      // lineHeight: "44px",
     },
 
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 20,
-      lineHeight: "28px",
+      // lineHeight: "28px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 18,
-      lineHeight: "22px",
+      // lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 15,
-      lineHeight: "25px",
+      // lineHeight: "25px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
-      lineHeight: "10px",
+      // lineHeight: "10px",
     },
   }),
 
@@ -53,41 +54,42 @@ const useStyles = makeStyles({
     // marginBottom:
     //   props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
     fontFamily: "HelveticaNeue-Regular",
+    lineHeight : "3vh",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
-      lineHeight: "48px",
+      // lineHeight: "48px",
     },
     [muiTheme.breakpoints.down(3073)]: {
       fontSize: 24,
-      lineHeight: "38px",
+      // lineHeight: "38px",
     },
     [muiTheme.breakpoints.down(2561)]: {
       fontSize: 16,
-      lineHeight: "28px",
+      // lineHeight: "28px",
     },
     [muiTheme.breakpoints.down(2049)]: {
       fontSize: 16,
-      lineHeight: "28px",
+      // lineHeight: "28px",
     },
     [muiTheme.breakpoints.down(1921)]: {
       fontSize: 14,
-      lineHeight: "22px",
+      // lineHeight: "32px",
     },
     [muiTheme.breakpoints.down(1537)]: {
       fontSize: 12,
-      lineHeight: "22px",
+      // lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1367)]: {
       fontSize: 11,
-      lineHeight: "14px",
+      // lineHeight: "14px",
     },
     [muiTheme.breakpoints.down(1281)]: {
       fontSize: 11,
-      lineHeight: "7px",
+      // lineHeight: "7px",
     },
     [muiTheme.breakpoints.down(1153)]: {
       fontSize: 10,
-      lineHeight: "19px",
+      // lineHeight: "19px",
       marginBottom: 0,
     },
   }),

@@ -797,7 +797,7 @@ const Parking: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "60%" }}
+                    style={{ height: "59%" }}
                   >
                     <ParkingSlotContainer
                       parkingLotSelectionActive={parkingLotSelectionActive}
