@@ -287,8 +287,9 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
     line-height: 15px;
   }
   @media (max-width: 1025px) {
-    font-size: 8px;
+    font-size: 7px;
     line-height: 13px;
+    margin-right: 10px;
   }
 `;
 
