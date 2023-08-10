@@ -36,6 +36,7 @@ import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
 import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
+import assetAnalyticsData from "mockdata/assetTrackingAnalytics";
 
 const AssetTracking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -137,10 +138,438 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.assetTracker?.assetTrackerData
   );
 
+  const [selectedWidth, setSelectedWidth] = useState<any>();
+
+
+
+
+
+
+
+
+
+
+  const [selectedFormatGraph, setSelectedFormatGraph] = useState("weekly");
+
+
+
+  const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] = useState<any>();
+
+  const [activeTrackersGraphDataStateUpdates, setActiveTrackersGraphDataStateUpdates] =
+  useState<any>();
+
+  const [inactiveTrackersGraphDataStateUpdates, setInactiveTrackersGraphDataStateUpdates] =
+  useState<any>();
+
+
+
+
+  const [incidentsGraphData, setIncidentsGraphData] = useState<any>();
+
+  const [incidentsGraphDataStateUpdates, setIncidentsGraphDataStateUpdates] =
+  useState<any>();
+
+
+  useEffect(() => {
+    assetAnalyticsData?.graphAnalytics?.map(
+      (data: any, index: number) => {
+     
+        switch (data?.category) {
+          case "activeInactiveTrackers":
+            setActiveTrackersGraphDataStateUpdates(
+              data?.analytics[selectedFormatGraph]?.activeTrackerAnalytics
+            );
+            
+            setInactiveTrackersGraphDataStateUpdates(
+              data?.analytics[selectedFormatGraph]?.inActiveTrackerAnalytics
+            );
+            setActiveInactiveTrackersGraphData(data?.analytics);
+            
+            break;
+
+            case "incidents":
+              setIncidentsGraphDataStateUpdates(
+                data?.analytics[selectedFormatGraph]?.analyticsData
+              );
+              setIncidentsGraphData(data?.analytics);
+              
+              
+              break;
+
+          default:
+          // setTempratureGraphDataStateUpdates(data?.data?.weekly?.analyticsData);
+          // setTempratureGraphData(data?.data);
+        }
+      }
+    );
+  }, []);
+
+
+
+
+
+
+  useEffect(() => {
+    
+    getActiveInactiveTrackersGraphData();
+    getIncidentsGraphData();
+    
+  }, [inactiveTrackersGraphDataStateUpdates, activeTrackersGraphDataStateUpdates,  incidentsGraphDataStateUpdates, selectedWidth]);
+
+
+
+  const [updatedActiveInactiveTrackersGraphData, setUpdatedActiveInactiveTrackersGraphData] =
+  useState<any>();
+
+  const [updatedIncidentsGraphData, setUpdatedIncidentsGraphData] =
+  useState<any>();
+
+  const getActiveInactiveTrackersGraphData = () => {
+    let data = [
+      // {
+      //   data: graphDataManipulation(electricityConsumptionGraphDataStateUpdates),
+
+      //   color: "#77B77C",
+      // },
+
+      {
+        data: graphDataManipulation(activeTrackersGraphDataStateUpdates),
+        marker: {
+          enabled: false,
+        },
+        lineColor: "#25796D",
+        color: "#25796D",
+        lineWidth:
+          selectedWidth?.is4kDevice ||
+          selectedWidth?.is3KDevice
+            ? 4
+            : 2,
+            // data: [
+            //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+            //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+            // ],
+      },
+      {
+        data: graphDataManipulation(inactiveTrackersGraphDataStateUpdates),
+        marker: {
+          enabled: false,
+        },
+        lineColor: "#D25A5A",
+        color: "#D25A5A",
+        lineWidth:
+          selectedWidth?.is4kDevice ||
+          selectedWidth?.is3KDevice
+            ? 4
+            : 2,
+        // data: [
+        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+        // ],
+      },
+    ];
+
+    setUpdatedActiveInactiveTrackersGraphData(data);
+  };
+
+  const getIncidentsGraphData = () => {
+    let data = [
+      {
+        data: graphDataManipulation(incidentsGraphDataStateUpdates),
+
+        marker: {
+          enabled: false,
+        },
+        lineColor: "#EE3E35",
+        color: "#EE3E35",
+        lineWidth:
+          selectedWidth?.is4kDevice ||
+          selectedWidth?.is3KDevice
+            ? 4
+            : 2,
+        fillColor: {
+          linearGradient: [0, 0, 0, 200],
+          stops: [
+            [
+              0,
+              Highcharts.color("#C3362F")
+                .setOpacity(0.5)
+                .get("rgba"),
+            ],
+            [
+              0.5,
+              Highcharts.color("#C3362F")
+                .setOpacity(
+                  selectedWidth?.is4kDevice ||
+                    selectedWidth?.is3KDevice
+                    ? selectedTheme ===
+                      "light"
+                      ? 0.4
+                      : 0.3
+                    : 0.3
+                )
+                .get("rgba"),
+            ],
+            [
+              1,
+              Highcharts.color("#C3362F")
+                .setOpacity(
+                  selectedWidth?.is4kDevice ||
+                    selectedWidth?.is3KDevice
+                    ? selectedTheme ===
+                      "light"
+                      ? 0.14
+                      : 0.06
+                    : selectedTheme ===
+                      "light"
+                    ? 0.01
+                    : 0.02
+                )
+                .get("rgba"),
+            ],
+          ],
+        },
+        // data: [
+        //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+        //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+        // ],
+      },
+    ];
+
+    setUpdatedIncidentsGraphData(data);
+  };
+
+ 
+
+  
+
+  const graphDataManipulation = (analyticsGraphData: any) => {
+    let manipulatedGraphData = [];
+    if (analyticsGraphData) {
+      if (analyticsGraphData) {
+        for (let i = 0; i < analyticsGraphData?.length; i++) {
+          manipulatedGraphData.push([
+            // new Date(analyticsGraphData[i]?.node).getTime(),
+            analyticsGraphData[i]?.count,
+          ]);
+        }
+      }
+    }
+    return manipulatedGraphData;
+  };
+
+  // Updated Time 12Hrs Format - Day
+
+  let times: any = [],
+    periods: any = ["AM", "PM"],
+    hours: any = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    prop: any = null,
+    hour: any = null,
+    min: any = null;
+
+  for (prop in periods) {
+    for (hour in hours) {
+      for (min = 0; min < 60; min += 60) {
+        times.push(
+          ("0" + hours[hour]).slice(-2) +
+            ":" +
+            ("0" + min).slice(-2) +
+            " " +
+            periods[prop]
+        );
+      }
+    }
+  }
+
+  const currentTime = moment().format("h A");
+  const xAxisArray = times.filter(
+    (value: any) =>
+      moment(value, ["h A"]).format("HH") <
+      moment(currentTime, ["h A"]).format("HH")
+  );
+  const xAxisTimeArray = xAxisArray.slice(
+    xAxisArray.length - 10,
+    xAxisArray.length
+  );
+  const xAxisNewValueTime = Array.from(xAxisTimeArray, (ps) => ps);
+
+  // Updated Time 24Hrs Format - Day
+
+  var hoursPerDay: any = 24;
+  var xAxisNewtime: any = [];
+
+  function timeOneDay() {
+    var formattedTime;
+    var newTimeFormat;
+    for (let i = 0; i < hoursPerDay + 1; i++) {
+      formattedTime = moment().subtract(i, "hours").format("HH");
+      newTimeFormat = formattedTime + ":00";
+      xAxisNewtime.unshift(newTimeFormat);
+    }
+    const newTimePop = xAxisNewtime.pop();
+  }
+  timeOneDay();
+
+  //Updated Day List - Week
+
+  const today: any = moment();
+  const xAxisWeek: any = Array(7)
+    .fill(7)
+    .map(() => today.subtract(1, "d").format("MM/DD"));
+
+  const xAxisNewValueWeek = xAxisWeek.reverse();
+
+  //Updated Day List - Month
+
+  const todayMonth: any = moment();
+  const xAxisMonth: any = Array(30)
+    .fill(30)
+    .map(() => todayMonth.subtract(1, "d").format("MM/DD"));
+
+  const xAxisNewValueMonth = xAxisMonth.reverse();
+
+  // Year
+
+  let monthName: any = new Array(
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  );
+  let currentDate: any = new Date();
+
+  let result: any = [];
+  currentDate.setDate(1);
+  for (let i = 0; i <= 11; i++) {
+    result.push(
+      monthName[currentDate.getMonth()]
+      // +
+      //   " " +
+      //   currentDate.getFullYear().toString().substr(-2)
+    );
+    currentDate.setMonth(currentDate.getMonth() - 1);
+  }
+  const xAxisNewValue: any = result.reverse();
+  const xAxisValueYear: any = xAxisNewValue.slice(
+    xAxisNewValue.length - 12,
+    xAxisNewValue.length
+  );
+
+
+  const [xAxisChartDataGraph, setXAxisChartDataGraph] =
+  useState<any>(xAxisNewValueWeek);
+
+  const [xAxisIntervalGraph, setXAxisIntervalGraph] = useState(2);
+
+  const monthFomrat = "{value:%m/%e}";
+  const dayFormat = "{value:%H:00}";
+  const yearFormat = "{value:%b}";
+
+  const [formatGraph, setFormatGraph] = useState(monthFomrat);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [selectedValue, setSelectedValue] = useState<any>("Week");
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
+
+    switch (val) {
+
+      case "Today":
+        setFormatGraph(dayFormat);
+        setSelectedFormatGraph("day");
+        setActiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.day?.activeTrackerAnalytics
+        );
+        setInactiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.day?.inActiveTrackerAnalytics
+        );
+        setIncidentsGraphDataStateUpdates(incidentsGraphData?.day?.analyticsData);
+        setXAxisChartDataGraph(xAxisNewtime);
+        setXAxisIntervalGraph(5);
+        
+        break;
+      case "Week":
+        setFormatGraph(monthFomrat);
+        setSelectedFormatGraph("weekly");
+        setActiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.weekly?.activeTrackerAnalytics
+        );
+        setInactiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.weekly?.inActiveTrackerAnalytics
+        );
+        setIncidentsGraphDataStateUpdates(incidentsGraphData?.weekly?.analyticsData);
+        setXAxisChartDataGraph(xAxisNewValueWeek);
+        setXAxisIntervalGraph(2);
+        
+        break;
+      case "Month":
+        setFormatGraph(monthFomrat);
+        setSelectedFormatGraph("monthly");
+        setActiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.monthly?.activeTrackerAnalytics
+        );
+        setInactiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.monthly?.inActiveTrackerAnalytics
+        );
+        setIncidentsGraphDataStateUpdates(incidentsGraphData?.monthly?.analyticsData);
+        setXAxisChartDataGraph(xAxisNewValueMonth);
+        setXAxisIntervalGraph(12);
+        
+        break;
+      case "Year":
+        setFormatGraph(yearFormat);
+        setSelectedFormatGraph("yearly");
+        setActiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.yearly?.activeTrackerAnalytics
+        );
+        setInactiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.yearly?.inActiveTrackerAnalytics
+        );
+        setIncidentsGraphDataStateUpdates(incidentsGraphData?.yearly?.analyticsData);
+        setXAxisChartDataGraph(xAxisValueYear);
+        setXAxisIntervalGraph(3);
+        
+        break;
+      default:
+        setFormatGraph(dayFormat);
+        setSelectedFormatGraph("day");
+        setActiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.day?.activeTrackerAnalytics
+        );
+        setInactiveTrackersGraphDataStateUpdates(
+          activeInactiveTrackersGraphData?.day?.inActiveTrackerAnalytics
+        );
+        setIncidentsGraphDataStateUpdates(incidentsGraphData?.day?.analyticsData);
+        setXAxisChartDataGraph(xAxisNewtime);
+        setXAxisIntervalGraph(5);
+        break;
+    }
   };
 
   const [topPanelList, setTopPanelList] = useState<any>(
@@ -273,7 +702,7 @@ const AssetTracking: React.FC<any> = (props) => {
     );
   }, [notificationArray, tabIndex]);
 
-  const [selectedWidth, setSelectedWidth] = useState<any>();
+  
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   useEffect(() => {
@@ -623,6 +1052,10 @@ const AssetTracking: React.FC<any> = (props) => {
                                           width: "100%",
                                         },
                                       }}
+                                      pageName={"assetTracking"}
+                                      tickInterval={xAxisIntervalGraph}
+                                      formatGraph={formatGraph}
+                                      xAxisArray={xAxisChartDataGraph}
                                       isVisible={true}
                                       graphType={"spline"}
                                       units={""}
@@ -630,40 +1063,41 @@ const AssetTracking: React.FC<any> = (props) => {
                                       crossHairLineColor={"#E5FAF6"}
                                       is4kDevice={selectedWidth?.is4kDevice}
                                       // tooltip={"shared"}
-                                      dataPoints={[
-                                        {
-                                          marker: {
-                                            enabled: false,
-                                          },
-                                          lineColor: "#25796D",
-                                          color: "#25796D",
-                                          lineWidth:
-                                            selectedWidth?.is4kDevice ||
-                                            selectedWidth?.is3KDevice
-                                              ? 4
-                                              : 2,
-                                          data: [
-                                            0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                            4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                          ],
-                                        },
-                                        {
-                                          marker: {
-                                            enabled: false,
-                                          },
-                                          lineColor: "#D25A5A",
-                                          color: "#D25A5A",
-                                          lineWidth:
-                                            selectedWidth?.is4kDevice ||
-                                            selectedWidth?.is3KDevice
-                                              ? 4
-                                              : 2,
-                                          data: [
-                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          ],
-                                        },
-                                      ]}
+                                      dataPoints= {updatedActiveInactiveTrackersGraphData}
+                                      // {[
+                                      //   {
+                                      //     marker: {
+                                      //       enabled: false,
+                                      //     },
+                                      //     lineColor: "#25796D",
+                                      //     color: "#25796D",
+                                      //     lineWidth:
+                                      //       selectedWidth?.is4kDevice ||
+                                      //       selectedWidth?.is3KDevice
+                                      //         ? 4
+                                      //         : 2,
+                                      //     data: [
+                                      //       0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+                                      //       4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                      //     ],
+                                      //   },
+                                      //   {
+                                      //     marker: {
+                                      //       enabled: false,
+                                      //     },
+                                      //     lineColor: "#D25A5A",
+                                      //     color: "#D25A5A",
+                                      //     lineWidth:
+                                      //       selectedWidth?.is4kDevice ||
+                                      //       selectedWidth?.is3KDevice
+                                      //         ? 4
+                                      //         : 2,
+                                      //     data: [
+                                      //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                      //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                      //     ],
+                                      //   },
+                                      // ]}
                                     />
                                   </Grid>
                                 </Grid>
@@ -711,72 +1145,77 @@ const AssetTracking: React.FC<any> = (props) => {
                                           width: "100%",
                                         },
                                       }}
+                                      pageName={"assetTracking"}
+                                      tickInterval={xAxisIntervalGraph}
+                                      formatGraph={formatGraph}
+                                      xAxisArray={xAxisChartDataGraph}
                                       graphType={"areaspline"}
                                       isVisible={true}
                                       units={""}
                                       isCrosshair={true}
                                       crossHairLineColor={"#EE3E35"}
                                       is4kDevice={selectedWidth?.is4kDevice}
-                                      dataPoints={[
-                                        {
-                                          marker: {
-                                            enabled: false,
-                                          },
-                                          lineColor: "#EE3E35",
-                                          color: "#EE3E35",
-                                          lineWidth:
-                                            selectedWidth?.is4kDevice ||
-                                            selectedWidth?.is3KDevice
-                                              ? 4
-                                              : 2,
-                                          fillColor: {
-                                            linearGradient: [0, 0, 0, 200],
-                                            stops: [
-                                              [
-                                                0,
-                                                Highcharts.color("#C3362F")
-                                                  .setOpacity(0.5)
-                                                  .get("rgba"),
-                                              ],
-                                              [
-                                                0.5,
-                                                Highcharts.color("#C3362F")
-                                                  .setOpacity(
-                                                    selectedWidth?.is4kDevice ||
-                                                      selectedWidth?.is3KDevice
-                                                      ? selectedTheme ===
-                                                        "light"
-                                                        ? 0.4
-                                                        : 0.3
-                                                      : 0.3
-                                                  )
-                                                  .get("rgba"),
-                                              ],
-                                              [
-                                                1,
-                                                Highcharts.color("#C3362F")
-                                                  .setOpacity(
-                                                    selectedWidth?.is4kDevice ||
-                                                      selectedWidth?.is3KDevice
-                                                      ? selectedTheme ===
-                                                        "light"
-                                                        ? 0.14
-                                                        : 0.06
-                                                      : selectedTheme ===
-                                                        "light"
-                                                      ? 0.01
-                                                      : 0.02
-                                                  )
-                                                  .get("rgba"),
-                                              ],
-                                            ],
-                                          },
-                                          data: [
-                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          ],
-                                        },
-                                      ]}
+                                      dataPoints= {updatedIncidentsGraphData}
+                                      // {[
+                                      //   {
+                                      //     marker: {
+                                      //       enabled: false,
+                                      //     },
+                                      //     lineColor: "#EE3E35",
+                                      //     color: "#EE3E35",
+                                      //     lineWidth:
+                                      //       selectedWidth?.is4kDevice ||
+                                      //       selectedWidth?.is3KDevice
+                                      //         ? 4
+                                      //         : 2,
+                                      //     fillColor: {
+                                      //       linearGradient: [0, 0, 0, 200],
+                                      //       stops: [
+                                      //         [
+                                      //           0,
+                                      //           Highcharts.color("#C3362F")
+                                      //             .setOpacity(0.5)
+                                      //             .get("rgba"),
+                                      //         ],
+                                      //         [
+                                      //           0.5,
+                                      //           Highcharts.color("#C3362F")
+                                      //             .setOpacity(
+                                      //               selectedWidth?.is4kDevice ||
+                                      //                 selectedWidth?.is3KDevice
+                                      //                 ? selectedTheme ===
+                                      //                   "light"
+                                      //                   ? 0.4
+                                      //                   : 0.3
+                                      //                 : 0.3
+                                      //             )
+                                      //             .get("rgba"),
+                                      //         ],
+                                      //         [
+                                      //           1,
+                                      //           Highcharts.color("#C3362F")
+                                      //             .setOpacity(
+                                      //               selectedWidth?.is4kDevice ||
+                                      //                 selectedWidth?.is3KDevice
+                                      //                 ? selectedTheme ===
+                                      //                   "light"
+                                      //                   ? 0.14
+                                      //                   : 0.06
+                                      //                 : selectedTheme ===
+                                      //                   "light"
+                                      //                 ? 0.01
+                                      //                 : 0.02
+                                      //             )
+                                      //             .get("rgba"),
+                                      //         ],
+                                      //       ],
+                                      //     },
+                                      //     data: [
+                                      //       1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                      //       6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                      //     ],
+                                      //   },
+                                      // ]}
                                     />
                                   </Grid>
                                 </Grid>

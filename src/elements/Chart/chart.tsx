@@ -25,6 +25,8 @@ const Chart: React.FC<any> = (props) => {
     pageName,
     is2kDevice,
     is3kDevice,
+    formatGraph,
+    xAxisArray,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -244,14 +246,15 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          categories: pageName !== "FleetManagement" && lastTwntyTwoHours,
+           
+          categories: xAxisArray ? xAxisArray : pageName !== "FleetManagement" && lastTwntyTwoHours,
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
                 (is4kDevice && location.pathname === "/security") ||
                 (is4kDevice && location.pathname === "/lighting")
                 ? 8
-                : 12
+                : pageName === "assetTracking" ? tickInterval : 12
               : tickInterval
               ? tickInterval
               : pageName !== "FleetManagement"
@@ -264,12 +267,12 @@ const Chart: React.FC<any> = (props) => {
             dashStyle: "ShortDash",
             snap: isCrosshair,
           },
-          type: pageName === "FleetManagement" && "datetime",
+          type: (pageName === "assetTracking" || pageName === "FleetManagement") && "datetime",
           labels: {
             useHTML: true,
             // overflow: "justify",
             overflow: "justify",
-            format: pageName === "FleetManagement" && "{value:%m/%e}",
+            format: formatGraph ? formatGraph : pageName === "FleetManagement" && "{value:%m/%e}",
             style: {
               fontSize: "0.7vw",
               textOverflow: "none",
