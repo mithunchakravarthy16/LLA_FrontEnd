@@ -210,7 +210,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 531px)",
+            : "calc(100vh - 364px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -290,7 +290,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 416px)",
+            : "calc(100vh - 292px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -312,7 +312,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 406px)",
+            : "calc(100vh - 298px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -389,7 +389,7 @@ const Map: React.FC<any> = (props) => {
         height:
           mapPageName === "dashboard"
             ? "calc(100vh - 0px)"
-            : "calc(100vh - 324px)",
+            : "calc(100vh - 244px)",
         is4kDevice: false,
         is3kDevice: false,
       });
@@ -1014,8 +1014,7 @@ const Map: React.FC<any> = (props) => {
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
-          onZoomChanged={handleZoomChanged}
-        >
+          onZoomChanged={handleZoomChanged}>
           <DrawingManager
             drawingMode={
               isDrawingEnable
