@@ -7,36 +7,10 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 const INF_Select: React.FC<any> = (props) => {
-  const [selectedTheme, setSelectedTheme] = useState(
-    JSON.parse(localStorage.getItem("theme")!)
-  );
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  useEffect(() => {
-    switch (selectedTheme) {
-      // case "red":
-      //   setAppTheme(theme?.redTheme);
-      //   break;
-      // case "green":
-      //   setAppTheme(theme?.greenTheme);
-      //   break;
-      // case "yellow":
-      //   setAppTheme(theme?.yellowTheme);
-      //   break;
-      case "default":
-        setAppTheme(theme?.defaultTheme);
-        break;
-      default:
-        setAppTheme(theme?.defaultTheme);
-        break;
-    }
-  }, [selectedTheme]);
 
-  const {
-    customSelect,
-    tableSelect,
-    // selectOptions,
-  } = useStyles(appTheme);
+
+
 
   const {
     selectList,
@@ -63,7 +37,20 @@ const INF_Select: React.FC<any> = (props) => {
     selectedDropDownValue,
     placeholder,
     dropDownSelectedTextColor,
+    selectedTheme
   } = props;
+
+  const [appTheme, setAppTheme] = useState(selectedTheme);
+
+
+  console.log("selectedTheme", selectedTheme)
+
+
+  const {
+    customSelect,
+    tableSelect,
+    // selectOptions,
+  } = useStyles({...appTheme, selectedTheme : selectedTheme});
 
   const [selectedValue, setselectedValue] = useState(
     !placeholder ? selectList && selectList[1]?.label : placeholder
