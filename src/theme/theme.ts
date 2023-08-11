@@ -94,6 +94,8 @@ let theme = {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
         hoverBackground: colorCodes?.flippingCardBgDark,
+        topPanelButtonBg: colorCodes?.orangeTwo,
+        topPanelButtonText: colorCodes?.colorWhite,
       },
       fleetManagementPage: {
         pageBg: colorCodes?.blackShades,
@@ -221,6 +223,8 @@ let theme = {
         background: colorCodes?.flippingCardBgLight,
         textColor: colorCodes?.darkBlackShade,
         hoverBackground: colorCodes?.flippingCardHoverLight,
+        topPanelButtonBg: colorCodes?.redColorShades2,
+        topPanelButtonText: colorCodes?.redColorShades,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
@@ -405,6 +409,8 @@ let theme = {
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
         hoverBackground: colorCodes?.flippingCardBgDark,
+        topPanelButtonBg: colorCodes?.orangeTwo,
+        topPanelButtonText: colorCodes?.colorWhite,
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,

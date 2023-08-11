@@ -52,7 +52,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     itemUnitStyle,
     itemValueUnitStyle,
     imageWidthStyle,
-    todayText
+    todayText,
   } = useStyles(appTheme);
 
   const [screenResolution, setScreenResolution] = useState<any>("2k");
@@ -69,14 +69,12 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
 
-
   const selectList = [
     { label: "Today", value: "Day" },
     { label: "Week", value: "Week" },
     { label: "Month", value: "Month" },
     { label: "Year", value: "Year" },
   ];
-
 
   return (
     <>
@@ -86,8 +84,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
         justifyContent="space-around"
         alignItems="center"
         className={bodyLeftTopPanelListSubContainer}
-        style={{ borderRight: "0px" }}
-      >
+        style={{ borderRight: "0px" }}>
         {topPanelListItems &&
           topPanelListItems?.length > 0 &&
           topPanelListItems?.map((item: any) => (
@@ -99,8 +96,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
                   offset={tooltipOfset}
                   fontSize={fontSize}
                   padding={padding}
-                  componentName={"TopPanelList"}
-                >
+                  componentName={"TopPanelList"}>
                   <img width={"100%"} height={"100%"} src={item?.icon} />
                 </Tooltip>
               </div>
@@ -133,9 +129,9 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
                 customHeight={"3vh"}
                 // customSelectCustom={graphCustomSelectDropDown}
                 pageName={"analyticsPage"}
-                drowpDownTextColor={"#F1624C"}
-                dropDownBgColor={"#FBCEBC"}
-                dropDownSelectedBgColor={"#F1624C"}
+                drowpDownTextColor={"#fff"}
+                dropDownBgColor={selectedTheme === "light" ? "#fff" : "#3F3D3D"}
+                dropDownSelectedBgColor={"#EF7F53"}
                 dropDownSelectedTextColor={"#FFF"}
                 // graphName={"graph1"}
                 selectedDropDownValue={selectedValue}
