@@ -264,7 +264,12 @@ const Chart: React.FC<any> = (props) => {
               ? tickInterval
               : pageName !== "FleetManagement"
               ? 8
-              : 0,
+              : selectedValue === "Today"
+              ? (5 * 3600 * 1000)
+              : selectedValue === "Year" ?
+              (60 * 24 * 3600 * 1000)
+              : selectedValue === "Month" ?
+              (5 * 24 * 3600 * 1000) : (24 * 3600 * 1000),
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -296,7 +301,7 @@ const Chart: React.FC<any> = (props) => {
           },
           gridLineWidth: 0,
           lineWidth: 0,
-          tickPositioner: function (this: any) {
+          tickPositioner: pageName !== "FleetManagement" && function (this: any) {
             const ticks: any = this.tickPositions;
             if (!ticks.includes(this.dataMax)) ticks.push(this.dataMax);
             ticks.sort((a: any, b: any) => a - b);
