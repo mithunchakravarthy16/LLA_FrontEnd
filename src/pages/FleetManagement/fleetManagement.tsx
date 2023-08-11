@@ -488,7 +488,6 @@ const FleetManagement: React.FC<any> = (props) => {
     setSelectedValue(val);
   };
 
-
   return (
     <>
       {Object.keys(fleetManagementNotificationResponse).length > 0 &&
@@ -504,22 +503,26 @@ const FleetManagement: React.FC<any> = (props) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
-                        className={bodyLeftTopPanelSubContainer}>
+                        className={bodyLeftTopPanelSubContainer}
+                      >
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}>
+                          className={bodyLeftTopPanelListContainer}
+                        >
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={
@@ -551,7 +554,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 30px",
-                                }}>
+                                }}
+                              >
                                 <Grid item xs={12} style={{ height: "10%" }}>
                                   <div className={graphTitle}>
                                     {gridView.trips}
@@ -561,15 +565,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                   item
                                   xs={12}
                                   className={graphContainerHeaderOne}
-                                  style={{ height: "90%" }}>
+                                  style={{ height: "90%" }}
+                                >
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={9}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width}
                                         // height={selectedWidth?.height}
@@ -658,7 +665,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                       style={{
                                         height: "100%",
                                         padding: "2%",
-                                      }}>
+                                      }}
+                                    >
                                       <div className={liveContainer}>
                                         <div className={liveImgStyle}>
                                           <img
@@ -708,7 +716,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 30px",
-                                }}>
+                                }}
+                              >
                                 <Grid item xs={12} style={{ height: "10%" }}>
                                   <div className={graphTitle}>
                                     {" "}
@@ -719,15 +728,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                   item
                                   xs={12}
                                   className={graphContainerHeaderTwo}
-                                  style={{ height: "90%" }}>
+                                  style={{ height: "90%" }}
+                                >
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width1}
                                         // height={selectedWidth?.height1}
@@ -811,19 +823,22 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 10px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ height: "10%" }}>
+                                  style={{ height: "10%" }}
+                                >
                                   <div
                                     style={{
                                       display: "flex",
                                       justifyContent: "center",
                                       alignItems: "center",
                                       columnGap: "6px",
-                                    }}>
+                                    }}
+                                  >
                                     <div className={driveDot}></div>
                                     <div>{fleetManagement.driveHrs}</div>
                                   </div>
@@ -833,7 +848,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                       justifyContent: "center",
                                       alignItems: "center",
                                       columnGap: "6px",
-                                    }}>
+                                    }}
+                                  >
                                     <div className={driveDotOne}></div>
                                     <div>{fleetManagement.idleHrs}</div>
                                   </div>
@@ -842,15 +858,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                   item
                                   xs={12}
                                   className={graphContainerHeaderThree}
-                                  style={{ height: "90%" }}>
+                                  style={{ height: "90%" }}
+                                >
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width1}
                                         // height={selectedWidth?.height1}
@@ -912,7 +931,8 @@ const FleetManagement: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
+                      style={{ height: "59%" }}
+                    >
                       <Map
                         mapPageName={"fleet"}
                         markers={notificationArray}
@@ -965,7 +985,8 @@ const FleetManagement: React.FC<any> = (props) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-          }}>
+          }}
+        >
           <img src={llaLoader} width={"10%"} />
         </div>
       )}
