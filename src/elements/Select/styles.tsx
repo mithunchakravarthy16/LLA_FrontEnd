@@ -16,29 +16,28 @@ const useStyles = makeStyles(
         padding: "10px 11px",
       },
       "& .MuiInputBase-root": {
-        borderRadius: "5px",
+        borderRadius: "10px",
         fontSize: "0.7vw",
         // lineHeight: 21,
         textAlign: "left",
-        fontWeight: "bold",
         position: "relative",
-        fontFamily: "Nunito Sans",
-        color: "#F1624C",
-        background : "#FBCEBC",
-        width : "5vw",
+        fontFamily: "HelveticaNeue-Regular",
+        color: "#fff",
+        background: "#F26522",
+        width: "5vw",
         "& .MuiSvgIcon-root": {
           position: "absolute",
           right: "10px",
+          fontSize: "1.5vw",
         },
         "& .MuiOutlinedInput-notchedOutline": {
           color: "#FBCEBC",
           border: `1px solid #FBCEBC !important`,
         },
-       
       },
 
       "& .MuiSelect-iconOutlined": {
-        color: `#F1624C !important`,
+        color: `#fff !important`,
       },
     }),
 

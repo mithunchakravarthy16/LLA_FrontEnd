@@ -120,7 +120,7 @@ const useStyles = makeStyles({
   }),
 
   bodyLeftTopPanelListContainer: (props: any) => ({
-    height: "25%",
+    height: "30%",
     [muiTheme.breakpoints.down(2561)]: {
       height: "28%",
     },

@@ -34,7 +34,6 @@ const useStyles = makeStyles(() => ({
     width: "28vw !important",
     padding: "2.2vw",
     margin: "0 auto",
-    
   }),
   innerForm: (props: any) => ({}),
   welcomeSection: (props: any) => ({}),
@@ -55,7 +54,7 @@ const useStyles = makeStyles(() => ({
   }),
 
   forgotPassword: (props: any) => ({
-    fontFamily: `'Nunito Sans', sans-serif'`,
+    fontFamily: "HelveticaNeue-Regular",
     fontWeight: " 400",
     fontSize: "0.8vw",
     color: props?.palette?.login?.inputTitleColor,
@@ -63,7 +62,7 @@ const useStyles = makeStyles(() => ({
   }),
 
   radioButtonSection: (props: any) => ({
-    marginBottom:' 6%',
+    marginBottom: " 6%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -107,7 +106,7 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
   }),
   inputField: (props: any) => ({
-    marginBottom: '6%',
+    marginBottom: "6%",
     "& .MuiInputBase-input": {
       fontFamily: `'Poppins', sans-serif`,
       fontSize: "0.8vw",
@@ -116,7 +115,7 @@ const useStyles = makeStyles(() => ({
       // border: "1px solid #93A8C1 !important",
       background: "#FFFFFF !important",
       WebkitBoxShadow: "#FFFFFF !important",
-      padding: '4%',
+      padding: "4%",
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 0.5,
@@ -124,13 +123,13 @@ const useStyles = makeStyles(() => ({
     },
   }),
   inputFieldPassword: (props: any) => ({
-    marginBottom: '5%',
+    marginBottom: "5%",
     "& .MuiInputBase-input": {
       fontFamily: `'Poppins', sans-serif`,
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: "#2D3748",
-      padding: '4%',
+      padding: "4%",
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 0.5,
