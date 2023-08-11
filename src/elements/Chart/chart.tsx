@@ -27,6 +27,7 @@ const Chart: React.FC<any> = (props) => {
     is3kDevice,
     formatGraph,
     xAxisArray,
+    selectedValue,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -246,15 +247,19 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-           
-          categories: xAxisArray ? xAxisArray : pageName !== "FleetManagement" && lastTwntyTwoHours,
+
+          categories: xAxisArray
+            ? xAxisArray
+            : pageName !== "FleetManagement" && lastTwntyTwoHours,
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
                 (is4kDevice && location.pathname === "/security") ||
                 (is4kDevice && location.pathname === "/lighting")
                 ? 8
-                : pageName === "assetTracking" ? tickInterval : 12
+                : pageName === "assetTracking"
+                ? tickInterval
+                : 12
               : tickInterval
               ? tickInterval
               : pageName !== "FleetManagement"
@@ -267,12 +272,20 @@ const Chart: React.FC<any> = (props) => {
             dashStyle: "ShortDash",
             snap: isCrosshair,
           },
-          type: (pageName === "assetTracking" || pageName === "FleetManagement") && "datetime",
+          type:
+            (pageName === "assetTracking" || pageName === "FleetManagement") &&
+            "datetime",
           labels: {
             useHTML: true,
             // overflow: "justify",
             overflow: "justify",
-            format: formatGraph ? formatGraph : pageName === "FleetManagement" && "{value:%m/%e}",
+            format: formatGraph
+              ? formatGraph
+              : pageName === "FleetManagement" && selectedValue === "Today"
+              ? "{value:%H:00}"
+              : selectedValue === "Year"
+              ? "{value:%b}"
+              : "{value:%m/%e}",
             style: {
               fontSize: "0.55vw",
               textOverflow: "none",

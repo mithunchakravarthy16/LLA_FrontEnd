@@ -33,7 +33,7 @@ const SUB_URL = {
     "/api/sensyon/fleet_notification/v1/getAllFleetNotification",
   getOverAllTripDetailsUrl: "/api/sensyon/trips/v1/getOverallTripDetail",
   getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
-  getAnalyticsUrl: "/api/sensyon/analytics/v1/getTripStatistics",
+  getAnalyticsUrl: "/api/sensyon/analytics/v1/getTripAnalytics",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;

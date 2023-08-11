@@ -46,6 +46,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const { dashboard, gridView, fleetManagement } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [selectedValue, setSelectedValue] = useState<any>("Today");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -106,9 +107,34 @@ const FleetManagement: React.FC<any> = (props) => {
   useEffect(() => {
     let payload: any = {};
     dispatch(getFleetManagementNotificationData(payload));
-    dispatch(getFleetManagementOverAllTripDetails({ type: "Weekly" }));
-    dispatch(getFleetManagementAnalyticsData({ type: "Weekly" }));
   }, []);
+
+  useEffect(() => {
+    dispatch(
+      getFleetManagementOverAllTripDetails({
+        type:
+          selectedValue === "Today"
+            ? "Day"
+            : selectedValue === "Week"
+            ? "Weekly"
+            : selectedValue === "Month"
+            ? "Monthly"
+            : "Yearly",
+      })
+    );
+    dispatch(
+      getFleetManagementAnalyticsData({
+        type:
+          selectedValue === "Today"
+            ? "Day"
+            : selectedValue === "Week"
+            ? "Weekly"
+            : selectedValue === "Month"
+            ? "Monthly"
+            : "Yearly",
+      })
+    );
+  }, [selectedValue]);
 
   const fleetManagementNotificationResponse = useSelector(
     (state: any) =>
@@ -140,14 +166,24 @@ const FleetManagement: React.FC<any> = (props) => {
       const distanceTravelledData: any = [];
       const idlData: any = [];
       const hourData: any = [];
-      fleetManagementAnalyticsResponse?.data?.map((item: any) => {
-        data?.push([new Date(item?.date)?.getTime(), item?.total_trips]);
+      fleetManagementAnalyticsResponse?.trips?.map((item: any) => {
+        data?.push([new Date(item?.node)?.getTime(), item?.count]);
+      });
+      fleetManagementAnalyticsResponse?.distanceTravelled?.map((item: any) => {
         distanceTravelledData?.push([
-          new Date(item?.date)?.getTime(),
-          item?.total_distance,
+          new Date(item?.node)?.getTime(),
+          item?.count,
         ]);
-        idlData?.push([new Date(item?.date)?.getTime(), item?.total_idling]);
-        hourData?.push([new Date(item?.date)?.getTime(), item?.total_time]);
+      });
+      fleetManagementAnalyticsResponse?.drivingHours?.map((item: any) => {
+        const totalMinutes = Math.floor(item?.count / 60);
+        const hours = Math.floor(totalMinutes / 60);
+        hourData?.push([new Date(item?.node)?.getTime(), hours]);
+      });
+      fleetManagementAnalyticsResponse?.idleHours?.map((item: any) => {
+        const totalMinutes = Math.floor(item?.count / 60);
+        const hours = Math.floor(totalMinutes / 60);
+        idlData?.push([new Date(item?.node)?.getTime(), hours]);
       });
       setTripsData(data);
       setDistanceData(distanceTravelledData);
@@ -203,7 +239,7 @@ const FleetManagement: React.FC<any> = (props) => {
         selectedTheme === "light" ? LightTotalDistanceIcon : TotalDistanceIcon,
       value: `${
         fleetManagementTripDetailsResponse?.distanceCovered
-          ? fleetManagementTripDetailsResponse?.distanceCovered
+          ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(2)
           : 0
       }Km`,
       name: `${gridView.total} ${gridView.distance}`,
@@ -482,8 +518,6 @@ const FleetManagement: React.FC<any> = (props) => {
     setSelectedMarker(data);
   };
 
-  const [selectedValue, setSelectedValue] = useState<any>("");
-
   const handleSelect = (val: any) => {
     setSelectedValue(val);
   };
@@ -523,7 +557,9 @@ const FleetManagement: React.FC<any> = (props) => {
                             topPanelListItems={topPanelListItems}
                             percent={
                               fleetManagementTripDetailsResponse?.safetyScore
-                                ? fleetManagementTripDetailsResponse?.safetyScore
+                                ? Math.floor(
+                                    fleetManagementTripDetailsResponse?.safetyScore
+                                  )
                                 : 0
                             }
                             strokeWidth={10}
@@ -586,7 +622,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                         // is4kDevice={selectedWidth?.is4kDevice}
                                         // is2kDevice={selectedWidth?.is2kDevice}
                                         pageName={"FleetManagement"}
-                                        // tickInterval={0}
+                                        // tickInterval={2}
+                                        selectedValue={selectedValue}
                                         dataPoints={[
                                           {
                                             marker: {
@@ -745,6 +782,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                         // is2kDevice={selectedWidth?.is2kDevice}
                                         pageName={"FleetManagement"}
                                         // tickInterval={0}
+                                        selectedValue={selectedValue}
                                         dataPoints={[
                                           {
                                             marker: {
@@ -868,6 +906,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                         // is2kDevice={selectedWidth?.is2kDevice}
                                         tooltip={"shared"}
                                         pageName={"FleetManagement"}
+                                        selectedValue={selectedValue}
                                         dataPoints={[
                                           {
                                             marker: {
