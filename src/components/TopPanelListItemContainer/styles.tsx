@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     // border: "1px solid #808080",
     height: "100%",
     border: `1px solid ${props?.palette?.fleetManagementPage?.topPanelBorder}`,
-    borderRight : "0px",
-    background : props?.palette?.parkingPage?.topPanelContainerBg  //topPanelContainerBg
+    borderRight: "0px",
+    background: props?.palette?.parkingPage?.topPanelContainerBg, //topPanelContainerBg
   }),
 
   progressBarContainer: (props: any) => ({
@@ -171,18 +171,19 @@ const useStyles = makeStyles({
     // width: "100%",
     height: "2vh",
     marginRight: "10px",
-    display : "flex",
-    flexDirection : "row",
-    justifyContent : "flex-end",
-    position : "absolute",
-    right : props?.pageName === "asset" ?"-2vw" : "-1.5vw",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    position: "absolute",
+    right: props?.pageName === "asset" ? "-2vw" : "-1vw",
     // top : "-1vh",
-    color : "#F1624C",
-    background : "#FBCEBC",
+    color: props?.palette?.flippingCard?.topPanelButtonText,
+    background: props?.palette?.flippingCard?.topPanelButtonBg,
     fontSize: "0.7vw",
     padding: "0.15vw 1vw",
     borderRadius: "0.2vw",
-    alignItems : "center"
+    alignItems: "center",
+    top: "-8%",
   }),
 });
 export default useStyles;
