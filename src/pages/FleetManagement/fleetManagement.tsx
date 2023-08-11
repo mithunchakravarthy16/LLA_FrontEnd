@@ -46,6 +46,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const { dashboard, gridView, fleetManagement } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [selectedValue, setSelectedValue] = useState<any>("Week");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -106,9 +107,34 @@ const FleetManagement: React.FC<any> = (props) => {
   useEffect(() => {
     let payload: any = {};
     dispatch(getFleetManagementNotificationData(payload));
-    dispatch(getFleetManagementOverAllTripDetails({ type: "Weekly" }));
-    dispatch(getFleetManagementAnalyticsData({ type: "Weekly" }));
   }, []);
+
+  useEffect(() => {
+    dispatch(
+      getFleetManagementOverAllTripDetails({
+        type:
+          selectedValue === "Today"
+            ? "Hourly"
+            : selectedValue === "Week"
+            ? "Weekly"
+            : selectedValue === "Month"
+            ? "Monthly"
+            : "Yearly",
+      })
+    );
+    dispatch(
+      getFleetManagementAnalyticsData({
+        type:
+          selectedValue === "Today"
+            ? "Hourly"
+            : selectedValue === "Week"
+            ? "Weekly"
+            : selectedValue === "Month"
+            ? "Monthly"
+            : "Yearly",
+      })
+    );
+  }, [selectedValue]);
 
   const fleetManagementNotificationResponse = useSelector(
     (state: any) =>
@@ -482,8 +508,6 @@ const FleetManagement: React.FC<any> = (props) => {
     setSelectedMarker(data);
   };
 
-  const [selectedValue, setSelectedValue] = useState<any>("");
-
   const handleSelect = (val: any) => {
     setSelectedValue(val);
   };
@@ -542,7 +566,7 @@ const FleetManagement: React.FC<any> = (props) => {
                             selectedTheme={selectedTheme}
                             selectedValue={selectedValue}
                             handleSelect={handleSelect}
-                            pageName = {"fleet"}
+                            pageName={"fleet"}
                           />
                         </Grid>
                         <Grid item xs={12} style={{ height: "70%" }}>
