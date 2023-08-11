@@ -129,13 +129,14 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
                 customHeight={"3vh"}
                 // customSelectCustom={graphCustomSelectDropDown}
                 pageName={"analyticsPage"}
-                drowpDownTextColor={"#fff"}
+                drowpDownTextColor={selectedTheme === "light" ? "#737272" : "#fff"}
                 dropDownBgColor={selectedTheme === "light" ? "#fff" : "#3F3D3D"}
-                dropDownSelectedBgColor={"#EF7F53"}
-                dropDownSelectedTextColor={"#FFF"}
+                dropDownSelectedBgColor={selectedTheme === "light" ? "#FAE5DD" :"#EF7F53"}
+                dropDownSelectedTextColor={ selectedTheme === "light" ? "#F1624C" : "#FFF"}
                 // graphName={"graph1"}
                 selectedDropDownValue={selectedValue}
                 // placeholder={"Select Trailer"}
+                selectedTheme={selectedTheme}
               />
             ) : (
               <div className={todayText}>

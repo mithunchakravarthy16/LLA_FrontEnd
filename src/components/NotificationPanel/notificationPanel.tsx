@@ -216,6 +216,13 @@ const NotificationPanel = (props: any) => {
           block: "nearest",
         });
       }, 300);
+    } else if(selectedNotification === "") {
+      setTimeout(() => {
+        refs[searchValue[0]?.id]?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 300);
     }
   }, [refs, selectedRefId, selectedNotification]);
 
