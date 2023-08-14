@@ -7,7 +7,10 @@ import assetIncidentCountReducer from "./getAllIncidentCountReducer";
 import assetOverallTrackerDetailsReducer from "./getOverAllTrackerdetailReducer";
 import adminPanelReducer from "./adminPanelReducer";
 import adminLoginReducer from "./adminLoginReducer";
-import assetTrackerDetailReducer from "./getAssetTrackerDetailReducer"
+import assetTrackerDetailReducer from "./getAssetTrackerDetailReducer";
+import createGeofenceReducer from "./createGeofenceReducer";
+import updateGeofenceReducer from "./updateGeofenceReducer";
+import enableGeofenceReducer from "./enableGeofenceReducer";
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -18,7 +21,10 @@ const rootReducer = combineReducers({
   assetOverallTrackerDetails: assetOverallTrackerDetailsReducer,
   adminPanel: adminPanelReducer,
   adminLogin: adminLoginReducer,
-  assetTracker:assetTrackerDetailReducer
+  assetTracker:assetTrackerDetailReducer,
+  createGeofence : createGeofenceReducer,
+  updateGeofence: updateGeofenceReducer,
+  enableGeofence : enableGeofenceReducer
 });
 
 export default rootReducer;
