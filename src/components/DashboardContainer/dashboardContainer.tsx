@@ -310,7 +310,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
                 <Link component="button" variant="body2" onClick={handleClick}>
-                  Please try again later
+                  Please try again
                 </Link>
               </div>
             )}

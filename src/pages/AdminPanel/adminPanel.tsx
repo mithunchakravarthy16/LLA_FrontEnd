@@ -584,7 +584,7 @@ const AdminPanel = () => {
               sx={{ width: "100%" }}
             >
               {adminPanelSaveData?.statusCodeValue === 400
-                ? "Something went wrong... Please try again later"
+                ? "Something went wrong... Please try again"
                 : adminPanelSaveData?.statusCodeValue === 200 &&
                   adminPanelSaveData?.body?.isPreview === "Y"
                 ? "Preview Loaded Successfully in New Tab."
