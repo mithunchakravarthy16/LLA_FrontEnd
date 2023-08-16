@@ -27,6 +27,12 @@ import {
 } from "./handlers/adminPanel";
 import assetTrackerDetail from "redux/actions/getAssetTrackerDetailAction";
 import { handleAssetTrackerDetail } from "./handlers/getAssetTrackerDetail";
+import createGeofence from "redux/actions/createGeofenceAction";
+import { handleCreateGeofence } from "./handlers/createGeofence";
+import enableGeofence from "redux/actions/enableGeofenceAction";
+import updateGeofence from "redux/actions/updateGeofenceAction";
+import { handleEnableGeofence } from "./handlers/enableGeofence";
+import { handleUpdateGeofence } from "./handlers/updateGeofence";
 
 export default function* rootSaga() {
   yield all([
@@ -45,6 +51,9 @@ export default function* rootSaga() {
     watchFleetManagementAnalyticsData(),
     watchAssetTrackerDetail(),
     watchFleetManagementOverspeeding(),
+    watchCreateGeofence(),
+    watchUpdateGeofence(),
+    watchEnableGeofence(),
   ]);
 }
 
@@ -144,4 +153,16 @@ export function* watchFleetManagementOverspeeding() {
     fleetManagementNotification.GET_FLEET_MANAGEMENT_OVER_SPEEDING,
     handleFleetManagementOverspeeding
   );
+}
+
+export function* watchCreateGeofence() {
+  yield takeLatest(createGeofence.GET_CREATE_GEOFENCE, handleCreateGeofence);
+}
+
+export function* watchUpdateGeofence() {
+  yield takeLatest(updateGeofence.GET_UPDATE_GEOFENCE, handleUpdateGeofence);
+}
+
+export function* watchEnableGeofence() {
+  yield takeLatest(enableGeofence.GET_ENABLE_GEOFENCE, handleEnableGeofence);
 }

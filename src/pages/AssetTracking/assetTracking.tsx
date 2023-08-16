@@ -34,6 +34,9 @@ import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTr
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
 import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
+import { getCreateGeofence } from "redux/actions/createGeofenceAction";
+import { getUpdateGeofence } from "redux/actions/updateGeofenceAction";
+import { getEnableGeofence } from "redux/actions/enableGeofenceAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
 import assetAnalyticsData from "mockdata/assetTrackingAnalytics";
@@ -115,6 +118,15 @@ const AssetTracking: React.FC<any> = (props) => {
 
     let assetTrackerDetailPayload: any = {};
     dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
+
+    let createGeofencePayload: any = {};
+    dispatch(getCreateGeofence(createGeofencePayload));
+
+    let updateGeofencePayload: any = {};
+    dispatch(getUpdateGeofence(updateGeofencePayload));
+
+    let enableGeofencePayload: any = {};
+    dispatch(getEnableGeofence(enableGeofencePayload));
   }, []);
 
   const assetNotificationResponse = useSelector(
@@ -137,6 +149,20 @@ const AssetTracking: React.FC<any> = (props) => {
   const assetTrackerDetails = useSelector(
     (state: any) => state?.assetTracker?.assetTrackerData
   );
+
+  const createGeofence = useSelector(
+    (state: any) => state?.createGeofence?.createGeofenceData
+  );
+  const updateGeofence = useSelector(
+    (state: any) => state?.updateGeofence?.updateGeofenceData
+  );
+  const enableGeofence = useSelector(
+    (state: any) => state?.enableGeofence?.updateGeofenceData
+  );
+
+  // console.log("createGeofence", createGeofence)
+  // console.log("updateGeofence", updateGeofence)
+  // console.log("enableGeofence", enableGeofence)
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
