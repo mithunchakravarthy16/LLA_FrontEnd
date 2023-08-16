@@ -34,6 +34,8 @@ const SUB_URL = {
   getOverAllTripDetailsUrl: "/api/sensyon/trips/v1/getOverallTripDetail",
   getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
   getAnalyticsUrl: "/api/sensyon/analytics/v1/getTripAnalytics",
+  getOverSpeedingUrl:
+    "/api/sensyon/analytics/v1/getOverSpeedHarshBreakingAnalytics",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -45,3 +47,4 @@ export const getFleetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getFleetNot
 export const getOverAllTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getOverAllTripDetailsUrl}`;
 export const getTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getTripDetailsUrl}`;
 export const getAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAnalyticsUrl}`;
+export const getOverSpeedingApi = `${BASE_URL.baseUrl}${SUB_URL.getOverSpeedingUrl}`;

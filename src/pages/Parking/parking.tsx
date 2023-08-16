@@ -44,7 +44,7 @@ HC_rounded(Highcharts);
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const { dashboard, gridView, parking } = useTranslation();

@@ -159,7 +159,8 @@ export const SkewContainer = styled(a.div)<{ isFocused?: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-
+  border-radius: 10px;
+  
   &:hover {
     background-color: ${currentTheme?.palette?.flippingCard?.hoverBackground};
   }

@@ -2,8 +2,9 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
+import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import useTranslation from "localization/translations";
@@ -43,6 +44,7 @@ import Tooltip from "../../elements/Tooltip";
 import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
 import { formattedViolationsList } from "utils/utils";
 import Loader from "elements/Loader";
+import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -85,6 +87,8 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogFleetManagement: React.FC<any> = (props) => {
+  const navigate = useNavigate();
+
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementTripDetailsData
@@ -127,6 +131,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
   const [violations, setViolations] = useState<any>();
   const [points, setPoints] = useState<any>();
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -143,20 +149,28 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    const data: any = [];
-    setViolations(
-      formattedViolationsList(fleetManagementTripDetailsResponse?.notifications)
-    );
-    fleetManagementTripDetailsResponse?.gpsDTOs?.map((item: any) => {
-      data?.push({ lat: item?.lat, lng: item?.lng });
-    });
-    setPoints(data);
+    if (fleetManagementTripDetailsResponse?.status === 500) {
+      setSuccess(true);
+    } else if (fleetManagementTripDetailsResponse?.status === 200) {
+      setSuccess(false);
+      const data: any = [];
+      setViolations(
+        formattedViolationsList(
+          fleetManagementTripDetailsResponse?.data?.notifications
+        )
+      );
+      fleetManagementTripDetailsResponse?.data?.gpsDTOs?.map((item: any) => {
+        data?.push({ lat: item?.lat, lng: item?.lng });
+      });
+      setPoints(data);
+    }
   }, [fleetManagementTripDetailsResponse]);
 
   const [open, setOpen] = useState(!false);
 
   useEffect(() => {
     dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
+    setSuccess(false);
   }, []);
 
   useEffect(() => {
@@ -193,15 +207,17 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     {
       value:
         tabIndex === 0
-          ? fleetManagementTripDetailsResponse?.noOfStops
-            ? fleetManagementTripDetailsResponse?.noOfStops
+          ? fleetManagementTripDetailsResponse?.data?.noOfStops
+            ? fleetManagementTripDetailsResponse?.data?.noOfStops
             : 0
           : tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.vehicleDetail?.licensePlateNo
-            ? fleetManagementTripDetailsResponse?.vehicleDetail?.licensePlateNo
+          ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
+              ?.licensePlateNo
+            ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
+                ?.licensePlateNo
             : ""
-          : fleetManagementTripDetailsResponse?.driverDetail?.driverName
-          ? fleetManagementTripDetailsResponse?.driverDetail?.driverName
+          : fleetManagementTripDetailsResponse?.data?.driverDetail?.driverName
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail?.driverName
           : "",
       title:
         tabIndex === 0
@@ -214,16 +230,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 0
           ? `${
-              fleetManagementTripDetailsResponse?.tripCompletion
-                ? fleetManagementTripDetailsResponse?.tripCompletion
+              fleetManagementTripDetailsResponse?.data?.tripCompletion
+                ? fleetManagementTripDetailsResponse?.data?.tripCompletion
                 : 0
             }%`
           : tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehicleType
-            ? fleetManagementTripDetailsResponse?.vehicleDetail?.vehicleType
+          ? fleetManagementTripDetailsResponse?.data?.vehicleDetail?.vehicleType
+            ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
+                ?.vehicleType
             : ""
-          : fleetManagementTripDetailsResponse?.driverDetail?.drivingLicense
-          ? fleetManagementTripDetailsResponse?.driverDetail?.drivingLicense
+          : fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.drivingLicense
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.drivingLicense
           : "",
       title:
         tabIndex === 0
@@ -236,19 +255,22 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 0
           ? `${
-              fleetManagementTripDetailsResponse?.distanceCovered
-                ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(
+              fleetManagementTripDetailsResponse?.data?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.data?.distanceCovered?.toFixed(
                     2
                   )
                 : 0
             }Km`
           : tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.vehicleDetail?.totalVehicleTrips
-            ? fleetManagementTripDetailsResponse?.vehicleDetail
+          ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
+              ?.totalVehicleTrips
+            ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.totalVehicleTrips
             : 0
-          : fleetManagementTripDetailsResponse?.driverDetail?.totalDrivingTrips
-          ? fleetManagementTripDetailsResponse?.driverDetail?.totalDrivingTrips
+          : fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.totalDrivingTrips
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.totalDrivingTrips
           : 0,
       title:
         tabIndex === 0
@@ -261,23 +283,23 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 0
           ? `${
-              fleetManagementTripDetailsResponse?.totalTime
-                ? fleetManagementTripDetailsResponse?.totalTime
+              fleetManagementTripDetailsResponse?.data?.totalTime
+                ? fleetManagementTripDetailsResponse?.data?.totalTime
                 : 0
             }Hr`
           : tabIndex === 1
           ? `${
-              fleetManagementTripDetailsResponse?.vehicleDetail
+              fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.totalVehicleDistance
-                ? fleetManagementTripDetailsResponse?.vehicleDetail?.totalVehicleDistance?.toFixed(
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail?.totalVehicleDistance?.toFixed(
                     2
                   )
                 : 0
             }Km`
           : `${
-              fleetManagementTripDetailsResponse?.driverDetail
+              fleetManagementTripDetailsResponse?.data?.driverDetail
                 ?.totalDistanceDriven
-                ? fleetManagementTripDetailsResponse?.driverDetail?.totalDistanceDriven?.toFixed(
+                ? fleetManagementTripDetailsResponse?.data?.driverDetail?.totalDistanceDriven?.toFixed(
                     2
                   )
                 : 0
@@ -292,18 +314,18 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     {
       value:
         tabIndex === 0
-          ? fleetManagementTripDetailsResponse?.totalTripViolation
-            ? fleetManagementTripDetailsResponse?.totalTripViolation
+          ? fleetManagementTripDetailsResponse?.data?.totalTripViolation
+            ? fleetManagementTripDetailsResponse?.data?.totalTripViolation
             : 0
           : tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.vehicleDetail
+          ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
               ?.totalVehicleViolations
-            ? fleetManagementTripDetailsResponse?.vehicleDetail
+            ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.totalVehicleViolations
             : 0
-          : fleetManagementTripDetailsResponse?.driverDetail
+          : fleetManagementTripDetailsResponse?.data?.driverDetail
               ?.totalDriverViolations
-          ? fleetManagementTripDetailsResponse?.driverDetail
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail
               ?.totalDriverViolations
           : 0,
       title:
@@ -328,14 +350,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 1
           ? `${
-              fleetManagementTripDetailsResponse?.vehicleDetail
+              fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.currentTripSpeed
-                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
                     ?.currentTripSpeed
                 : 0
             }Kph`
-          : fleetManagementTripDetailsResponse?.driverDetail?.driverStatus
-          ? fleetManagementTripDetailsResponse?.driverDetail?.driverStatus
+          : fleetManagementTripDetailsResponse?.data?.driverDetail?.driverStatus
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail?.driverStatus
           : "No Trip",
       name: tabIndex === 1 ? fleetManagement.speed : fleetManagement.status,
     },
@@ -351,17 +373,17 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 1
           ? `${
-              fleetManagementTripDetailsResponse?.vehicleDetail
+              fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.currentTripDistance
-                ? fleetManagementTripDetailsResponse?.vehicleDetail?.currentTripDistance?.toFixed(
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail?.currentTripDistance?.toFixed(
                     2
                   )
                 : 0
             }Km`
           : `${
-              fleetManagementTripDetailsResponse?.vehicleDetail
+              fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.currentTripSpeed
-                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
                     ?.currentTripSpeed
                 : 0
             }Kph`,
@@ -382,15 +404,15 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       value:
         tabIndex === 1
           ? `${
-              fleetManagementTripDetailsResponse?.vehicleDetail
+              fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.currentTripFuelConsumption
-                ? fleetManagementTripDetailsResponse?.vehicleDetail
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
                     ?.currentTripFuelConsumption
                 : 0
             }Gal`
           : `${
-              fleetManagementTripDetailsResponse?.distanceCovered
-                ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(
+              fleetManagementTripDetailsResponse?.data?.distanceCovered
+                ? fleetManagementTripDetailsResponse?.data?.distanceCovered?.toFixed(
                     2
                   )
                 : 0
@@ -411,19 +433,21 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           : IncidentIcon,
       value:
         tabIndex === 1
-          ? fleetManagementTripDetailsResponse?.totalTripViolation
-            ? fleetManagementTripDetailsResponse?.totalTripViolation
+          ? fleetManagementTripDetailsResponse?.data?.totalTripViolation
+            ? fleetManagementTripDetailsResponse?.data?.totalTripViolation
             : 0
-          : fleetManagementTripDetailsResponse?.totalTripViolation
-          ? fleetManagementTripDetailsResponse?.totalTripViolation
+          : fleetManagementTripDetailsResponse?.data?.totalTripViolation
+          ? fleetManagementTripDetailsResponse?.data?.totalTripViolation
           : 0,
       name: fleetManagement.violations,
     },
     {
       icon: selectedTheme === "light" ? LightSpeedLimitIcon : SpeedLimitIcon,
       value: `${
-        fleetManagementTripDetailsResponse?.tripSafetyScore
-          ? Math.floor(fleetManagementTripDetailsResponse?.tripSafetyScore)
+        fleetManagementTripDetailsResponse?.data?.tripSafetyScore
+          ? Math.floor(
+              fleetManagementTripDetailsResponse?.data?.tripSafetyScore
+            )
           : 0
       }%`,
       name: fleetManagement.safetyScore,
@@ -500,12 +524,58 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (count > 3) {
+      localStorage.removeItem("user");
+      localStorage.clear();
+      dispatch(getUserLogout());
+      dispatch(setUserLogin({}));
+      navigate("/login");
+    }
+  }, [count]);
+
   const tooltipOfset = screenResolution === "2k" ? [0, 10] : [0, 40];
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
 
+  const handleErrorClose = () => {
+    setSuccess(false);
+  };
+
+  const handleClick = () => {
+    setCount((prev) => prev + 1);
+    setSuccess(false);
+    dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
+  };
+
   return (
     <>
+      {success && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          onClose={handleErrorClose}
+        >
+          <Alert
+            onClose={handleErrorClose}
+            severity={
+              fleetManagementTripDetailsResponse?.status === 500
+                ? "error"
+                : undefined
+            }
+            sx={{ width: "100%" }}
+          >
+            {fleetManagementTripDetailsResponse?.status === 500 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Something went wrong...</Typography>
+                <Link component="button" variant="body2" onClick={handleClick}>
+                  Please try again later
+                </Link>
+              </div>
+            )}
+          </Alert>
+        </Snackbar>
+      )}
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
         {loader ? (
           <Loader />
@@ -558,23 +628,25 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   topPanelListItems={topPanelListItems}
                   percent={
                     tabIndex === 0
-                      ? fleetManagementTripDetailsResponse?.tripSafetyScore
+                      ? fleetManagementTripDetailsResponse?.data
+                          ?.tripSafetyScore
                         ? Math.floor(
-                            fleetManagementTripDetailsResponse?.tripSafetyScore
+                            fleetManagementTripDetailsResponse?.data
+                              ?.tripSafetyScore
                           )
                         : 0
                       : tabIndex === 1
-                      ? fleetManagementTripDetailsResponse?.vehicleDetail
+                      ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
                           ?.vehiclSafetyScore
                         ? Math.floor(
-                            fleetManagementTripDetailsResponse?.vehicleDetail
-                              ?.vehiclSafetyScore
+                            fleetManagementTripDetailsResponse?.data
+                              ?.vehicleDetail?.vehiclSafetyScore
                           )
                         : 0
-                      : fleetManagementTripDetailsResponse?.driverDetail
+                      : fleetManagementTripDetailsResponse?.data?.driverDetail
                           ?.driverSafetyScore
                       ? Math.floor(
-                          fleetManagementTripDetailsResponse?.driverDetail
+                          fleetManagementTripDetailsResponse?.data?.driverDetail
                             ?.driverSafetyScore
                         )
                       : 0
@@ -606,7 +678,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   >
                     <Stepper
                       routeDetails={
-                        fleetManagementTripDetailsResponse?.routeDtos
+                        fleetManagementTripDetailsResponse?.data?.routeDtos
                       }
                       tripStatus={"Completed"}
                       is4kDevice={is4kDevice}
@@ -634,7 +706,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           dataPoints={points}
                           tripStatus={
-                            fleetManagementTripDetailsResponse?.tripStatus
+                            fleetManagementTripDetailsResponse?.data?.tripStatus
                           }
                         />
                       ) : tabIndex === 1 ? (
@@ -808,9 +880,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.tripSafetyScore
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.tripSafetyScore
                                       ? Math.floor(
-                                          fleetManagementTripDetailsResponse?.tripSafetyScore
+                                          fleetManagementTripDetailsResponse
+                                            ?.data?.tripSafetyScore
                                         )
                                       : 0
                                   }
@@ -849,8 +923,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.harshAccelaration
-                                      ? fleetManagementTripDetailsResponse?.harshAccelaration
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.harshAccelaration
+                                      ? fleetManagementTripDetailsResponse?.data
+                                          ?.harshAccelaration
                                       : 0
                                   }
                                   totalValue={15}
@@ -888,8 +964,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.cornering
-                                      ? fleetManagementTripDetailsResponse?.cornering
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.cornering
+                                      ? fleetManagementTripDetailsResponse?.data
+                                          ?.cornering
                                       : 0
                                   }
                                   totalValue={15}
@@ -924,8 +1002,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.overSpeeding
-                                      ? fleetManagementTripDetailsResponse?.overSpeeding
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.overSpeeding
+                                      ? fleetManagementTripDetailsResponse?.data
+                                          ?.overSpeeding
                                       : 0
                                   }
                                   totalValue={15}
@@ -934,8 +1014,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                     (gridView.overspeeding.length ? "..." : "")
                                   }
                                   icon={
-                                    fleetManagementTripDetailsResponse?.overSpeeding ===
-                                    0
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.overSpeeding === 0
                                       ? "overspeeding-new-1"
                                       : "overspeeding-new"
                                   }
@@ -943,8 +1023,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   cut={getSpeedometerDimensions().cut}
                                   iconSize={getSpeedometerDimensions().iconSize}
                                   color={
-                                    fleetManagementTripDetailsResponse?.overSpeeding ===
-                                    0
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.overSpeeding === 0
                                       ? appTheme?.palette?.fleetManagementPage
                                           ?.circularProgressBar?.stokeColorGreen
                                       : appTheme?.palette?.fleetManagementPage
@@ -967,8 +1047,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.harshbreaking
-                                      ? fleetManagementTripDetailsResponse?.harshbreaking
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.harshbreaking
+                                      ? fleetManagementTripDetailsResponse?.data
+                                          ?.harshbreaking
                                       : 0
                                   }
                                   totalValue={7}
@@ -1003,8 +1085,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.distraction
-                                      ? fleetManagementTripDetailsResponse?.distraction
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.distraction
+                                      ? fleetManagementTripDetailsResponse?.data
+                                          ?.distraction
                                       : 0
                                   }
                                   totalValue={15}
@@ -1042,8 +1126,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 <CircularProgressBar
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
-                                    fleetManagementTripDetailsResponse?.idlehours
-                                      ? fleetManagementTripDetailsResponse?.idlehours
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.idlehours
+                                      ? fleetManagementTripDetailsResponse?.data
+                                          ?.idlehours
                                       : 0
                                   }
                                   totalValue={110}

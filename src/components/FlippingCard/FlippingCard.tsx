@@ -72,6 +72,7 @@ type CardPropType = {
   setCurrentOpenedCard: any;
   focusedCategory: any;
   setFocusedCategory: any;
+  fleetManagementTripDetailsResponse: any;
 };
 
 const Card = ({
@@ -80,10 +81,11 @@ const Card = ({
   setCurrentOpenedCard,
   setFocusedCategory,
   focusedCategory,
+  fleetManagementTripDetailsResponse,
 }: CardPropType) => {
   const navigate = useNavigate();
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
   setTheme(adminPanelData?.appearance);
   const containerTransform = useSpring({
@@ -188,7 +190,7 @@ const Card = ({
       values: [
         {
           label: dashboard?.fleet,
-          value: "08",
+          value: fleetManagementTripDetailsResponse?.data?.totalLiveVehicles,
           suffix: "",
         },
         {
@@ -196,12 +198,12 @@ const Card = ({
         },
         {
           label: dashboard?.violations,
-          value: 50,
+          value: fleetManagementTripDetailsResponse?.data?.totalViolations,
           suffix: "",
         },
       ],
       noteLabel: dashboard?.tripsNoteLabel,
-      noteValue: "20",
+      noteValue: fleetManagementTripDetailsResponse?.data?.totalCompletedTrip,
       noteDifference: "+",
     },
     assets_tracking: {
@@ -317,7 +319,12 @@ const Card = ({
 };
 
 const FlippingCard = (props: any) => {
-  const { focusedCategory, setFocusedCategory, selectedTheme } = props;
+  const {
+    focusedCategory,
+    setFocusedCategory,
+    selectedTheme,
+    fleetManagementTripDetailsResponse,
+  } = props;
   const { dashboard } = useTranslation();
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
@@ -401,6 +408,9 @@ const FlippingCard = (props: any) => {
           setCurrentOpenedCard={props.setCurrentOpenedCard}
           focusedCategory={focusedCategory}
           setFocusedCategory={setFocusedCategory}
+          fleetManagementTripDetailsResponse={
+            fleetManagementTripDetailsResponse
+          }
         />
       ))}
     </Wrapper>

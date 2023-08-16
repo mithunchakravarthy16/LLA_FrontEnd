@@ -13,10 +13,22 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 import Loader from "elements/Loader";
+import { getFleetManagementOverspeeding } from "redux/actions/fleetManagementNotificationActions";
 
 const GridView: React.FC<any> = (props) => {
+  const dispatch = useDispatch();
+
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
+  );
+
+  const loaderFleetManagementNotification = useSelector(
+    (state: any) => state?.fleetManagementNotification?.loadingAnalytics
+  );
+
+  const fleetManagementResponse = useSelector(
+    (state: any) =>
+      state?.fleetManagementNotification?.fleetManagementOverspeeding
   );
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
@@ -48,62 +60,64 @@ const GridView: React.FC<any> = (props) => {
     navigate(path);
   };
 
-  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+  // const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setIsDataLoaded(!isDataLoaded)
-    },500)
-  },[])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsDataLoaded(!isDataLoaded);
+  //   }, 500);
+  // }, []);
 
+  useEffect(() => {
+    dispatch(getFleetManagementOverspeeding({ type: "Day" }));
+  }, []);
 
   return (
     <>
-    {
-isDataLoaded ?
-    
-      <div className={rootContainer}>
-        <Grid container className={mainSection}>
-          {/* Gride 1 */}
-          <GridViewScreenOne
-            handleClick={handleClick}
-            selectedTheme={selectedTheme}
-          />
+      {loaderFleetManagementNotification ? (
+        <Loader isHundredVh={true} />
+      ) : (
+        <div className={rootContainer}>
+          <Grid container className={mainSection}>
+            {/* Gride 1 */}
+            <GridViewScreenOne
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
 
-          {/* Grid 2 */}
-          <GridViewScreenTwo
-            handleClick={handleClick}
-            selectedTheme={selectedTheme}
-          />
+            {/* Grid 2 */}
+            <GridViewScreenTwo
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
 
-          {/* Grid 3 */}
-          <GridViewScreenThree
-            handleClick={handleClick}
-            selectedTheme={selectedTheme}
-          />
+            {/* Grid 3 */}
+            <GridViewScreenThree
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
 
-          {/* Grid 4 */}
-          <GridViewScreenFour
-            handleClick={handleClick}
-            selectedTheme={selectedTheme}
-          />
+            {/* Grid 4 */}
+            <GridViewScreenFour
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
 
-          {/* Grid 5 */}
-          <GridViewScreenFive
-            handleClick={handleClick}
-            selectedTheme={selectedTheme}
-          />
+            {/* Grid 5 */}
+            <GridViewScreenFive
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+              fleetManagementResponse={fleetManagementResponse}
+            />
 
-          {/* Grid 6 */}
-          <GridViewScreenSix
-            handleClick={handleClick}
-            selectedTheme={selectedTheme}
-          />
-        </Grid>
-      </div>
-      :
-      <Loader isHundredVh = {true}/>
-}
+            {/* Grid 6 */}
+            <GridViewScreenSix
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
+          </Grid>
+        </div>
+      )}
     </>
   );
 };

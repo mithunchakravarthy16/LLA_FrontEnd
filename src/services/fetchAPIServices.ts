@@ -1,6 +1,19 @@
-import fetchConfig from "./fecthConfig";
+import { fetchConfig } from "./fecthConfig";
+import { fetchLoginConfig } from "./fecthConfig";
 
 const fetchLogin = async (url: string, payload: any) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    },
+    body: JSON.stringify(payload),
+  };
+  return fetchLoginConfig(url, options);
+};
+
+const fetchPostData = async (url: string, payload: any) => {
   const options = {
     method: "POST",
     headers: {
@@ -52,6 +65,7 @@ const fetchAPIServices = {
   fetchAdminPanelConfig: fetchAdminPanelConfig,
   fetchData: fetchData,
   deleteAdminPanelConfig: deleteAdminPanelConfig,
+  fetchPostData: fetchPostData,
 };
 
 export default fetchAPIServices;
