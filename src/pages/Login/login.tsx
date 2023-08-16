@@ -28,10 +28,10 @@ const Login = () => {
   const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
-  const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
-  );
 
+  const adminPanelData = useSelector(
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
+  );
   const adminPanelSaveData = useSelector(
     (state: any) => state?.adminPanel?.configData
   );
@@ -43,7 +43,7 @@ const Login = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(getAdminPanelConfigData({ isPreview: "N" }));
+    dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
   }, []);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Login = () => {
 
   useEffect(() => {
     if (adminPanelSaveData?.body?.isPreview === "Y") {
-      dispatch(getAdminPanelConfigData({ isPreview: "Y" }));
+      dispatch(getAdminPanelConfigData({ isPreview: "Y", isDefault: "N" }));
     }
   }, [adminPanelSaveData]);
 
@@ -91,7 +91,10 @@ const Login = () => {
   } = useStyles({ ...appTheme, selectedTheme: selectedTheme });
 
   useEffect(() => {
-    if (user && user?.userName && user?.currentRoleType === "USER" || user?.currentRoleType === "ADMIN") {
+    if (
+      (user && user?.userName && user?.currentRoleType === "USER") ||
+      user?.currentRoleType === "ADMIN"
+    ) {
       // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/home");
     } else if (user && user.message) {

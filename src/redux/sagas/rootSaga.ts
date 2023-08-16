@@ -17,6 +17,7 @@ import {
   handleFleetManagementTripDetails,
   handleFleetManagementOverAllTripDetails,
   handleFleetManagementAnalyticsData,
+  handleFleetManagementOverspeeding,
 } from "./handlers/fleetManagementNotification";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
@@ -25,9 +26,9 @@ import {
   handleCancelAdminPanelConfig,
 } from "./handlers/adminPanel";
 import assetTrackerDetail from "redux/actions/getAssetTrackerDetailAction";
-import {handleAssetTrackerDetail} from "./handlers/getAssetTrackerDetail";
+import { handleAssetTrackerDetail } from "./handlers/getAssetTrackerDetail";
 import createGeofence from "redux/actions/createGeofenceAction";
-import {handleCreateGeofence} from "./handlers/createGeofence";
+import { handleCreateGeofence } from "./handlers/createGeofence";
 import enableGeofence from "redux/actions/enableGeofenceAction";
 import updateGeofence from "redux/actions/updateGeofenceAction";
 import { handleEnableGeofence } from "./handlers/enableGeofence";
@@ -49,9 +50,10 @@ export default function* rootSaga() {
     watchFleetManagementOverAllTripDetails(),
     watchFleetManagementAnalyticsData(),
     watchAssetTrackerDetail(),
+    watchFleetManagementOverspeeding(),
     watchCreateGeofence(),
     watchUpdateGeofence(),
-    watchEnableGeofence()
+    watchEnableGeofence(),
   ]);
 }
 
@@ -139,30 +141,28 @@ export function* watchFleetManagementAnalyticsData() {
   );
 }
 
-export function * watchAssetTrackerDetail() {
+export function* watchAssetTrackerDetail() {
   yield takeLatest(
     assetTrackerDetail.GET_ASSET_TRACKER_DETAIL,
     handleAssetTrackerDetail
-  )
+  );
 }
 
-export function* watchCreateGeofence(){
-  yield takeLatest (
-      createGeofence.GET_CREATE_GEOFENCE,
-      handleCreateGeofence
-  )
+export function* watchFleetManagementOverspeeding() {
+  yield takeLatest(
+    fleetManagementNotification.GET_FLEET_MANAGEMENT_OVER_SPEEDING,
+    handleFleetManagementOverspeeding
+  );
 }
 
-export function* watchUpdateGeofence(){
-  yield takeLatest (
-      updateGeofence.GET_UPDATE_GEOFENCE,
-      handleUpdateGeofence
-  )
+export function* watchCreateGeofence() {
+  yield takeLatest(createGeofence.GET_CREATE_GEOFENCE, handleCreateGeofence);
 }
 
-export function* watchEnableGeofence(){
-  yield takeLatest (
-      enableGeofence.GET_ENABLE_GEOFENCE,
-      handleEnableGeofence
-  )
+export function* watchUpdateGeofence() {
+  yield takeLatest(updateGeofence.GET_UPDATE_GEOFENCE, handleUpdateGeofence);
+}
+
+export function* watchEnableGeofence() {
+  yield takeLatest(enableGeofence.GET_ENABLE_GEOFENCE, handleEnableGeofence);
 }

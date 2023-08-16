@@ -1085,10 +1085,7 @@ const Map: React.FC<any> = (props) => {
                 <div>
                   {markers?.map((singleMarker: any) => {
                     // if (!window.google) return null;
-                    if (
-                      singleMarker?.tripStatus !== "Finish" &&
-                      location?.pathname === "/fleetManagement"
-                    ) {
+                    if (singleMarker?.tripStatus === "Live") {
                       return (
                         <>
                           <MapMarker
@@ -1104,10 +1101,15 @@ const Map: React.FC<any> = (props) => {
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
                             selectedTheme={selectedTheme}
+                            handleViewDetails={handleViewDetails}
+                            handleVideoDetails={handleVideoDetails}
                           />
                         </>
                       );
-                    } else if (location?.pathname !== "/fleetManagement") {
+                    } else if (
+                      singleMarker?.category !== "fleet" &&
+                      location?.pathname !== "/fleetManagement"
+                    ) {
                       return (
                         <>
                           <MapMarker
@@ -1193,10 +1195,7 @@ const Map: React.FC<any> = (props) => {
             <div>
               {markers?.map((singleMarker: any) => {
                 // if (!window.google) return null;
-                if (
-                  singleMarker?.tripStatus !== "Finish" &&
-                  location?.pathname === "/fleetManagement"
-                ) {
+                if (singleMarker?.tripStatus === "Live") {
                   return (
                     <>
                       <MapMarker
@@ -1212,10 +1211,15 @@ const Map: React.FC<any> = (props) => {
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
                         selectedTheme={selectedTheme}
+                        handleViewDetails={handleViewDetails}
+                        handleVideoDetails={handleVideoDetails}
                       />
                     </>
                   );
-                } else if (location?.pathname !== "/fleetManagement") {
+                } else if (
+                  singleMarker?.category !== "fleet" &&
+                  location?.pathname !== "/fleetManagement"
+                ) {
                   return (
                     <>
                       <MapMarker

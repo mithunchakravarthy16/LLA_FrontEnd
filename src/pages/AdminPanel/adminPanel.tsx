@@ -39,7 +39,7 @@ const AdminPanel = () => {
   );
 
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const adminPanelCancelData = useSelector(

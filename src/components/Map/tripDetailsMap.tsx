@@ -475,7 +475,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
           <MarkerClustererF>
             {(clusterer: any) => (
               <div>
-                {tripStatus === "Finish" &&
+                {(tripStatus === "Finish" || tripStatus === "Live") &&
                   dataPoints &&
                   dataPoints.length > 0 && (
                     <PolylineF
@@ -494,7 +494,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
                       }}
                     />
                   )}
-                {tripStatus === "Finish" && (
+                {(tripStatus === "Finish" || tripStatus === "Live") && (
                   <MarkerF
                     key={0}
                     position={{
@@ -508,7 +508,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
                     // label={`S`}
                   />
                 )}
-                {tripStatus === "Finish" && (
+                {(tripStatus === "Finish" || tripStatus === "Live") && (
                   <MarkerF
                     key={1}
                     position={{
@@ -547,7 +547,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
                       />
                     </>
                   ))} */}
-                {tripStatus === "Finish" &&
+                {(tripStatus === "Finish" || tripStatus === "Live") &&
                   dataPoints &&
                   dataPoints?.length > 0 &&
                   progress &&
