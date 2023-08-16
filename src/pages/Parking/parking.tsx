@@ -38,6 +38,7 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
 import ParkingSlotContainer from "components/ParkingSlotContainer";
+import Loader from "elements/Loader";
 
 HC_rounded(Highcharts);
 
@@ -48,7 +49,7 @@ const Parking: React.FC<any> = (props) => {
 
   const { dashboard, gridView, parking } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<any>();
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -426,8 +427,22 @@ const Parking: React.FC<any> = (props) => {
     setSelectedValue(val);
   };
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsDataLoaded(!isDataLoaded)
+    },500)
+  },[])
+
+  const loaderAdminGetConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingGetConfigData
+  );
+
   return (
     <>
+    {
+      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -873,6 +888,9 @@ const Parking: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      :
+      <Loader isHundredVh = {true}/>
+     }
     </>
   );
 };
