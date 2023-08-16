@@ -1068,7 +1068,7 @@ const Map: React.FC<any> = (props) => {
               averageCenter
               enableRetinaIcons
               maxZoom={15}
-              gridSize={35}
+              gridSize={50}
               //  onLoad={clusterer => (clustererRef.current = clusterer)}
               // styles={[
               //   {
