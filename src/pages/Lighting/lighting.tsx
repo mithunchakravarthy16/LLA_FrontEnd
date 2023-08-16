@@ -40,7 +40,7 @@ const Parking: React.FC<any> = (props) => {
 
   const { dashboard, gridView, lighting } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<any>();
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>(theme?.defaultTheme);
   const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
@@ -287,13 +287,17 @@ const Parking: React.FC<any> = (props) => {
   useEffect(()=>{
     setTimeout(()=>{
       setIsDataLoaded(!isDataLoaded)
-    },2000)
+    },500)
   },[])
+
+  const loaderAdminGetConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingGetConfigData
+  );
 
   return (
     <>
     {
-isDataLoaded ?
+!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?
     
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>

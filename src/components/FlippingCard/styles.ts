@@ -7,6 +7,7 @@ import theme from "../../theme/theme";
 let currentTheme: any = {};
 
 export const setTheme = (themeFromApi: any) => {
+  
   switch (themeFromApi) {
     case "light":
       currentTheme = theme?.lightTheme;
@@ -164,11 +165,16 @@ export const SkewContainer = styled(a.div)<{ isFocused?: boolean }>`
   }
 `;
 
-export const SkewBackContainer = styled(SkewContainer)`
+export const SkewBackContainer = styled(SkewContainer)<{themeapi?: any}>`
   &:hover {
-    background-color: ${currentTheme?.palette?.flippingCard?.hoverBackground};
+    background-color: ${currentTheme?.palette?.flippingCard?.hoverBackground}; 
   }
-  background: linear-gradient(243.97deg, #cd5209 10.07%, #c8151d 112.41%);
+  background: ${({ themeapi }) =>
+  themeapi === "light"
+    ? currentTheme?.palette?.flippingCard.SkewBackContainer
+    : currentTheme?.palette?.flippingCard.SkewBackContainer};
+  //#606060;
+  //linear-gradient(243.97deg, #cd5209 10.07%, #c8151d 112.41%);
 `;
 
 export const ContentContainer = styled(a.div)`
@@ -187,7 +193,7 @@ export const CardImage = styled("img")`
   width: 140px;
   height: auto;
   margin: 10px;
-  margin-left: 2vw;
+  // margin-left: 2vw;
   @media (max-width: 3073px) {
     width: 110px;
   }
@@ -222,7 +228,7 @@ export const InnerCardWrapper = styled("div")`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-right: 2vw;
+  // margin-right: 2vw;
 `;
 
 export const CardTitle = styled("div")<{ focusedCategory: any }>`
@@ -232,7 +238,7 @@ export const CardTitle = styled("div")<{ focusedCategory: any }>`
   line-height: 48px;
   color: ${({ focusedCategory }) =>
     focusedCategory
-      ? "#F26522"
+      ? currentTheme?.palette?.flippingCard?.cardTitleOnHover  //"#F26522"
       : currentTheme?.palette?.flippingCard?.textColor};
   /* color:  #F26522 #eeeeee; */
   text-transform: uppercase;
@@ -307,66 +313,66 @@ export const CardTitleSmall = styled("div")`
   line-height: 56px;
   color: #ffffff;
   text-transform: uppercase;
-  margin-left: 40px;
+  // margin-left: 40px;
   @media (max-width: 3073px) {
     font-size: 28px;
     line-height: 50px;
-    margin-left: 45px;
+    // margin-left: 45px;
   }
   @media (max-width: 2561px) {
     font-size: 20px;
     line-height: 27px;
-    margin-left: 38px;
+    // margin-left: 38px;
   }
   @media (max-width: 2049px) {
     font-size: 15px;
     line-height: 27px;
-    margin-left: 22px;
+    // margin-left: 22px;
   }
   @media (max-width: 1793px) {
     font-size: 13px;
     line-height: 24px;
-    margin-left: 20px;
+    // margin-left: 20px;
   }
   @media (max-width: 1681px) {
     font-size: 12px;
     line-height: 22px;
-    margin-left: 15px;
+    // margin-left: 15px;
   }
   @media (max-width: 1601px) {
     font-size: 11px;
     line-height: 22px;
-    margin-left: 15px;
+    // margin-left: 15px;
   }
   @media (max-width: 1537px) {
     font-size: 11px;
     line-height: 21px;
-    margin-left: 14px;
+    // margin-left: 14px;
   }
   @media (max-width: 1441px) {
     font-size: 10px;
     line-height: 21px;
-    margin-left: 14px;
+    // margin-left: 14px;
   }
   @media (max-width: 1345px) {
     font-size: 10px;
     line-height: 20px;
-    margin-left: 12px;
+    // margin-left: 12px;
   }
   @media (max-width: 1281px) {
     font-size: 9px;
     line-height: 20px;
-    margin-left: 12px;
+    // margin-left: 12px;
   }
   @media (max-width: 1153px) {
     font-size: 9px;
     line-height: 18px;
-    margin-left: 12px;
+    // margin-left: 12px;
   }
   @media (max-width: 1025px) {
     font-size: 8px;
     line-height: 18px;
-    margin-left: 18px;
+    // margin-left: 18px;
     margin-top: 4%;
   }
 `;
@@ -380,20 +386,26 @@ export const CardValuesWrapper = styled("div")`
   }
 `;
 
-export const CardValuesSkewContainer = styled("div")`
+export const CardValuesSkewContainer = styled("div")<{themeapi?: any}>`
   width: 100%;
   height: 100%;
-  transform: skew(-18deg);
-  background: #142231;
+  // transform: skew(-18deg);
+  background: ${({ themeapi }) =>
+  themeapi === "light"
+    ? "#ffffff"
+    : "#142231"};   //#142231;
   border-radius: 10px;
   position: absolute;
 `;
 
-export const CardValuesSplitter = styled("div")`
+export const CardValuesSplitter = styled("div")<{themeapi?: any}>`
   width: 1px;
   height: 110px;
-  background: #fff;
-  transform: skew(-18deg);
+  background: ${({ themeapi }) =>
+  themeapi === "light"
+    ? "#B6B6B6"
+    : "#fff"}; #fff;
+  // transform: skew(-18deg);
   @media (max-width: 3841px) {
     height: 110px;
     margin-left: 0.5vw;
@@ -452,21 +464,25 @@ export const ValueWrapper = styled("div")`
   align-items: center;
 `;
 
-export const Value = styled("div")`
+export const Value = styled("div")<{themeapi?: any}>`
   font-family: "HelveticaNeue-Regular";
   font-size: 46px;
   line-height: 67px;
-  color: #fff;
+  color: ${({ themeapi }) =>
+  themeapi === "light"
+    ? "#E16D38"
+    : "#ffffff"};  #fff;
+    
   @media (max-width: 3073px) {
-    font-size: 30px;
+    font-size: 55px;
     line-height: 50px;
   }
   @media (max-width: 2561px) {
-    font-size: 22px;
+    font-size: 35px;
     line-height: 38px;
   }
   @media (max-width: 2049px) {
-    font-size: 15px;
+    font-size: 22px;
     line-height: 27px;
   }
   @media (max-width: 1793px) {
@@ -504,7 +520,7 @@ export const Value = styled("div")`
 `;
 
 export const Label = styled("div")`
-  color: #9d9d9c;
+  color: #626262; //#9d9d9c;
   font-family: "HelveticaNeue-Regular";
   font-size: 30px;
   line-height: 44px;
@@ -581,72 +597,72 @@ export const NoteLabel = styled("div")`
   font-family: "HelveticaNeue-Regular";
   font-size: 28px;
   line-height: 44px;
-  color: #ffcf25;
-  margin-left: -35px;
+  color: #F2A947; //#ffcf25;
+  // margin-left: -35px;
   @media (max-width: 3073px) {
     font-size: 16px;
     line-height: 45px;
-    margin-left: -25px;
+    // margin-left: -25px;
   }
   @media (max-width: 2561px) {
     font-size: 14px;
     line-height: 45px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
   @media (max-width: 2049px) {
     font-size: 13px;
     line-height: 27px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
   @media (max-width: 1921px) {
     font-size: 12px;
     line-height: 27px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
   @media (max-width: 1793px) {
     font-size: 10px;
     line-height: 24px;
-    margin-left: -16px;
+    // margin-left: -16px;
   }
   @media (max-width: 1681px) {
     font-size: 11px;
     line-height: 22px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
   @media (max-width: 1601px) {
     font-size: 9px;
     line-height: 22px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
   @media (max-width: 1537px) {
     font-size: 9px;
     line-height: 21px;
-    margin-left: -16px;
+    // margin-left: -16px;
   }
   @media (max-width: 1441px) {
     font-size: 7px;
     line-height: 21px;
-    margin-left: -16px;
+    // margin-left: -16px;
   }
   @media (max-width: 1345px) {
     font-size: 7px;
     line-height: 21px;
-    margin-left: -16px;
+    // margin-left: -16px;
   }
   @media (max-width: 1281px) {
     font-size: 6px;
     line-height: 21px;
-    margin-left: -16px;
+    // margin-left: -16px;
   }
   @media (max-width: 1153px) {
     font-size: 6.5px;
     line-height: 18px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
   @media (max-width: 1025px) {
     font-size: 6px;
     line-height: 18px;
-    margin-left: -20px;
+    // margin-left: -20px;
   }
 `;
 
@@ -719,7 +735,7 @@ export const NoteValue = styled(NoteLabel)`
 export const NoteDifferenceIndicator = styled("img")<{ difference: any }>`
   height: 45%;
   margin-left: 5px;
-  width: auto;
+  width: 10%;
   transform: ${({ difference }) =>
     difference === "+" ? "rotateX(180deg)" : "none"};
   @media (max-width: 1281px) {
