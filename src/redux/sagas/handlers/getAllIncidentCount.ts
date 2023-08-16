@@ -6,7 +6,7 @@ import assetTrackingResponse from "mockdata/assetTrackerIncidentCount";
 
 export function* handleAssetIncidentCount(action: any): any {
   try {
-    // const { fetchLogin } = fetchAPIServices;
+    // const { fetchPostData } = fetchAPIServices;
 
     const response = assetTrackingResponse;
     if (response) {

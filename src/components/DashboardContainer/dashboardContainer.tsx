@@ -3,8 +3,13 @@
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
-import { getFleetManagementNotificationData } from "redux/actions/fleetManagementNotificationActions";
+import {
+  getFleetManagementNotificationData,
+  setFleetManagementNotificationData,
+  getFleetManagementOverAllTripDetails,
+} from "redux/actions/fleetManagementNotificationActions";
 import theme from "../../theme/theme";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
@@ -21,7 +26,7 @@ import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
-import Grid from "@mui/material/Grid";
+import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import dashboardNotification from "../../mockdata/dashboardNotificationAPIFormat";
 import useStyles from "./styles";
 import fleetManagementResponse from "mockdata/fleetManagementAPI";
@@ -29,6 +34,7 @@ import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
+import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -37,14 +43,15 @@ interface DashboardContainerProps {
 const DashboardContainer: React.FC<DashboardContainerProps> = (
   props: DashboardContainerProps
 ) => {
+  const navigate = useNavigate();
+
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
-
 
   const adminPanelSaveData = useSelector(
     (state: any) => state?.adminPanel?.configData
@@ -73,6 +80,15 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state?.assetNotification?.assetNotificationData
   );
 
+  const fleetManagementTripDetailsResponse = useSelector(
+    (state: any) =>
+      state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
+  );
+
+  const overAllAnalyticsLoader = useSelector(
+    (state: any) => state.fleetManagementNotification?.loadingOverAllAnalytics
+  );
+
   // const assetNotificationResponse = assetTrackingResponse;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -89,6 +105,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [showInfoDialogueVideo, setShowInfoDialogueVideo] =
     useState<boolean>(false);
   const [selectedMarker, setSelectedMarker] = useState<any>();
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -132,7 +150,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     const assetPayload: any = {};
     dispatch(getNotificationData(assetPayload));
     const fleetPayload: any = {};
+    dispatch(setFleetManagementNotificationData({}));
     dispatch(getFleetManagementNotificationData(fleetPayload));
+    dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+    setSuccess(false);
   }, []);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -147,7 +168,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         dashboardNotification?.notifications
       );
       const fleetNotiData: any = formatttedFleetAPINotification(
-        fleetManagementNotificationResponse
+        fleetManagementNotificationResponse?.data
       );
       if (
         assetNotiData &&
@@ -166,7 +187,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   }, []);
 
   useEffect(() => {
-    if (assetNotificationResponse && fleetManagementNotificationResponse) {
+    setSuccess(false);
+    if (fleetManagementNotificationResponse?.status === 500) {
+      setSuccess(true);
+    } else if (
+      assetNotificationResponse &&
+      fleetManagementNotificationResponse?.status === 200
+    ) {
+      setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.notifications
       );
@@ -174,7 +202,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         dashboardNotification?.notifications
       );
       const fleetNotiData: any = formatttedFleetAPINotification(
-        fleetManagementNotificationResponse
+        fleetManagementNotificationResponse?.data
       );
       if (
         assetNotiData &&
@@ -233,101 +261,152 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [notificationPanelActive]);
 
+  useEffect(() => {
+    if (count > 3) {
+      localStorage.removeItem("user");
+      localStorage.clear();
+      dispatch(getUserLogout());
+      dispatch(setUserLogin({}));
+      dispatch(setFleetManagementNotificationData({}));
+      setSuccess(false);
+      navigate("/login");
+    }
+  }, [count]);
+
   const handleVideoDetails = (event: any, data: any) => {
     event.stopPropagation();
     setShowInfoDialogueVideo(true);
     setSelectedMarker(data);
   };
 
+  const handleClose = () => {
+    setSuccess(false);
+  };
+
+  const handleClick = () => {
+    setCount((prev) => prev + 1);
+    setSuccess(false);
+    dispatch(getFleetManagementNotificationData({}));
+  };
+
   return (
     <>
-    {
-Object.keys(assetNotificationResponse).length > 0 && !loaderFleetManagementNotification && !loaderAdminGetConfigData ?
-<Grid container xs={12}>
-        <Grid item xs={12}>
+      {success && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={
+              fleetManagementNotificationResponse?.status === 500
+                ? "error"
+                : undefined
+            }
+            sx={{ width: "100%" }}
+          >
+            {fleetManagementNotificationResponse?.status === 500 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Something went wrong...</Typography>
+                <Link component="button" variant="body2" onClick={handleClick}>
+                  Please try again later
+                </Link>
+              </div>
+            )}
+          </Alert>
+        </Snackbar>
+      )}
+      {Object.keys(assetNotificationResponse).length > 0 &&
+      !loaderFleetManagementNotification &&
+      !loaderAdminGetConfigData &&
+      !overAllAnalyticsLoader ? (
+        <Grid container xs={12}>
           <Grid item xs={12}>
-            <div className={dashboardRightPanelStyle}>
-              <Map
-                markers={dashboardNotificationList}
-                setNotificationPanelActive={setNotificationPanelActive}
-                setSelectedNotification={setSelectedNotification}
-                marker={selectedNotification}
-                setTabIndex={setTabIndex}
-                currentMarker={currentMarker}
-                setCurrentMarker={setCurrentMarker}
-                focusedCategory={focusedCategory}
-                mapPageName={"dashboard"}
-                setIsMarkerClicked={setIsMarkerClicked}
-                tabIndex={tabIndex}
-                handleVideoDetails={handleVideoDetails}
-                handleViewDetails={() => {}}
-                handleAssetViewDetails={() => {}}
-                selectedTheme={selectedTheme}
-                setMap={setMap}
-                map={map}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <img
-              src={
-                notificationPanelActive
-                  ? selectedTheme === "light"
-                    ? LightThemeNotificationIconActive
-                    : NotificationActiveIcon
-                  : selectedTheme === "light"
-                  ? LightThemeNotificationIcon
-                  : NotificationIcon
-              }
-              alt="Notificaion Icon"
-              onClick={onHandleBellIcon}
-              className={notificationIconSection}
-            />
-          </Grid>
-          <FlippingCard
-            currentOpenedCard={currentOpenedCard}
-            setCurrentOpenedCard={setCurrentOpenedCard}
-            focusedCategory={focusedCategory}
-            setFocusedCategory={setFocusedCategory}
-            selectedTheme={selectedTheme}
-          />
-          <Grid item xs={4}>
-            {notificationPanelActive && (
-              <div
-                className={notificationPanelSection}
-                style={{ width: "24%" }}
-              >
-                <NotificationPanel
+            <Grid item xs={12}>
+              <div className={dashboardRightPanelStyle}>
+                <Map
+                  markers={dashboardNotificationList}
                   setNotificationPanelActive={setNotificationPanelActive}
-                  dashboardData={dashboardData}
-                  tabIndex={tabIndex}
-                  setTabIndex={setTabIndex}
-                  notificationCount={notificationCount}
-                  selectedNotification={selectedNotification}
                   setSelectedNotification={setSelectedNotification}
-                  searchOpen={searchOpen}
-                  setSearchOpen={setSearchOpen}
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
+                  marker={selectedNotification}
+                  setTabIndex={setTabIndex}
+                  currentMarker={currentMarker}
                   setCurrentMarker={setCurrentMarker}
-                  notificationPageName={"dashboard"}
-                  isMarkerClicked={isMarkerClicked}
+                  focusedCategory={focusedCategory}
+                  mapPageName={"dashboard"}
                   setIsMarkerClicked={setIsMarkerClicked}
+                  tabIndex={tabIndex}
                   handleVideoDetails={handleVideoDetails}
                   handleViewDetails={() => {}}
                   handleAssetViewDetails={() => {}}
                   selectedTheme={selectedTheme}
+                  setMap={setMap}
+                  map={map}
                 />
               </div>
-            )}
+            </Grid>
+            <Grid item xs={12}>
+              <img
+                src={
+                  notificationPanelActive
+                    ? selectedTheme === "light"
+                      ? LightThemeNotificationIconActive
+                      : NotificationActiveIcon
+                    : selectedTheme === "light"
+                    ? LightThemeNotificationIcon
+                    : NotificationIcon
+                }
+                alt="Notificaion Icon"
+                onClick={onHandleBellIcon}
+                className={notificationIconSection}
+              />
+            </Grid>
+            <FlippingCard
+              currentOpenedCard={currentOpenedCard}
+              setCurrentOpenedCard={setCurrentOpenedCard}
+              focusedCategory={focusedCategory}
+              setFocusedCategory={setFocusedCategory}
+              selectedTheme={selectedTheme}
+              fleetManagementTripDetailsResponse={
+                fleetManagementTripDetailsResponse
+              }
+            />
+            <Grid item xs={4}>
+              {notificationPanelActive && (
+                <div
+                  className={notificationPanelSection}
+                  style={{ width: "24%" }}
+                >
+                  <NotificationPanel
+                    setNotificationPanelActive={setNotificationPanelActive}
+                    dashboardData={dashboardData}
+                    tabIndex={tabIndex}
+                    setTabIndex={setTabIndex}
+                    notificationCount={notificationCount}
+                    selectedNotification={selectedNotification}
+                    setSelectedNotification={setSelectedNotification}
+                    searchOpen={searchOpen}
+                    setSearchOpen={setSearchOpen}
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                    setCurrentMarker={setCurrentMarker}
+                    notificationPageName={"dashboard"}
+                    isMarkerClicked={isMarkerClicked}
+                    setIsMarkerClicked={setIsMarkerClicked}
+                    handleVideoDetails={handleVideoDetails}
+                    handleViewDetails={() => {}}
+                    handleAssetViewDetails={() => {}}
+                    selectedTheme={selectedTheme}
+                  />
+                </div>
+              )}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-:
-<Loader isHundredVh = {true}/>
-      
-      
-}
+      ) : (
+        <Loader isHundredVh={true} />
+      )}
 
       {showInfoDialogueVideo && (
         <InfoDialogFleetVideo
@@ -336,7 +415,6 @@ Object.keys(assetNotificationResponse).length > 0 && !loaderFleetManagementNotif
           selectedTheme={selectedTheme}
         />
       )}
-
     </>
   );
 };

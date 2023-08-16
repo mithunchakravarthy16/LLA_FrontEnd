@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Grid from "@mui/material/Grid";
+import { useNavigate } from "react-router-dom";
+import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import {
   TotalDistanceIcon,
   IdleHoursIcon,
@@ -33,14 +34,19 @@ import {
   getFleetManagementNotificationData,
   getFleetManagementOverAllTripDetails,
   getFleetManagementAnalyticsData,
+  setFleetManagementNotificationData,
+  setFleetManagementOverAllTripDetails,
+  setFleetManagementAnalyticsData,
 } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
+import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 
 const FleetManagement: React.FC<any> = (props) => {
+  const navigate = useNavigate();
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const { dashboard, gridView, fleetManagement } = useTranslation();
@@ -151,14 +157,30 @@ const FleetManagement: React.FC<any> = (props) => {
       state.fleetManagementNotification.fleetManagementAnalyticsData
   );
 
+  const notificationsLoader = useSelector(
+    (state: any) => state.fleetManagementNotification?.loadingNotificationData
+  );
+
+  const overAllAnalyticsLoader = useSelector(
+    (state: any) => state.fleetManagementNotification?.loadingOverAllAnalytics
+  );
+
+  const analyticsLoader = useSelector(
+    (state: any) => state.fleetManagementNotification?.loadingAnalytics
+  );
+
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
   const [tripsData, setTripsData] = useState<any>();
   const [distanceData, setDistanceData] = useState<any>();
   const [idleData, setIdleData] = useState<any>();
   const [hoursData, setHoursData] = useState<any>();
+  const [overallHours, setOverallHours] = useState<any>();
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
-  const fleetManagementNotificationList = fleetManagementNotificationResponse;
+  const fleetManagementNotificationList =
+    fleetManagementNotificationResponse?.data;
 
   useEffect(() => {
     if (fleetManagementAnalyticsResponse) {
@@ -166,34 +188,47 @@ const FleetManagement: React.FC<any> = (props) => {
       const distanceTravelledData: any = [];
       const idlData: any = [];
       const hourData: any = [];
-      fleetManagementAnalyticsResponse?.trips?.map((item: any) => {
+      fleetManagementAnalyticsResponse?.data?.trips?.map((item: any) => {
         data?.push([new Date(item?.node)?.getTime(), item?.count]);
       });
-      fleetManagementAnalyticsResponse?.distanceTravelled?.map((item: any) => {
-        distanceTravelledData?.push([
-          new Date(item?.node)?.getTime(),
-          item?.count,
-        ]);
-      });
-      fleetManagementAnalyticsResponse?.drivingHours?.map((item: any) => {
+      fleetManagementAnalyticsResponse?.data?.distanceTravelled?.map(
+        (item: any) => {
+          distanceTravelledData?.push([
+            new Date(item?.node)?.getTime(),
+            item?.count,
+          ]);
+        }
+      );
+      fleetManagementAnalyticsResponse?.data?.drivingHours?.map((item: any) => {
         const totalMinutes = Math.floor(item?.count / 60);
         const hours = Math.floor(totalMinutes / 60);
         hourData?.push([new Date(item?.node)?.getTime(), hours]);
       });
-      fleetManagementAnalyticsResponse?.idleHours?.map((item: any) => {
+      fleetManagementAnalyticsResponse?.data?.idleHours?.map((item: any) => {
         const totalMinutes = Math.floor(item?.count / 60);
         const hours = Math.floor(totalMinutes / 60);
         idlData?.push([new Date(item?.node)?.getTime(), hours]);
       });
+      const totalMinutes = Math.floor(
+        fleetManagementTripDetailsResponse?.data?.idleHours / 60
+      );
+      const hours = Math.floor(totalMinutes / 60);
       setTripsData(data);
       setDistanceData(distanceTravelledData);
       setIdleData(idlData);
       setHoursData(hourData);
+      setOverallHours(hours);
     }
   }, [fleetManagementAnalyticsResponse]);
 
   useEffect(() => {
-    if (fleetManagementNotificationList) {
+    if (
+      fleetManagementNotificationResponse?.status === 500 ||
+      fleetManagementTripDetailsResponse?.status === 500 ||
+      fleetManagementAnalyticsResponse?.status === 500
+    ) {
+      setSuccess(true);
+    } else if (fleetManagementNotificationList) {
       const { events, incidents, alerts } = fleetManagementNotificationList;
       const combinedNotifications: any = [];
 
@@ -231,15 +266,17 @@ const FleetManagement: React.FC<any> = (props) => {
       );
       setNotificationArray(dataValue);
     }
-  }, [fleetManagementNotificationList]);
+  }, [fleetManagementNotificationResponse]);
 
   const topPanelListItems: any[] = [
     {
       icon:
         selectedTheme === "light" ? LightTotalDistanceIcon : TotalDistanceIcon,
       value: `${
-        fleetManagementTripDetailsResponse?.distanceCovered
-          ? fleetManagementTripDetailsResponse?.distanceCovered?.toFixed(2)
+        fleetManagementTripDetailsResponse?.data?.distanceCovered
+          ? fleetManagementTripDetailsResponse?.data?.distanceCovered?.toFixed(
+              2
+            )
           : 0
       }Km`,
       name: `${gridView.total} ${gridView.distance}`,
@@ -247,17 +284,15 @@ const FleetManagement: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? LightIdleHoursIcon : IdleHoursIcon,
       value: `${
-        fleetManagementTripDetailsResponse?.idleHours
-          ? fleetManagementTripDetailsResponse?.idleHours
-          : 0
+        fleetManagementTripDetailsResponse?.data?.idleHours ? overallHours : 0
       }Hrs`,
       name: `${fleetManagement.idleHrs}`,
     },
     {
       icon:
         selectedTheme === "light" ? LightOverSpeedingIcon : OverSpeedingIcon,
-      value: fleetManagementTripDetailsResponse?.overSpeed
-        ? fleetManagementTripDetailsResponse?.overSpeed
+      value: fleetManagementTripDetailsResponse?.data?.overSpeed
+        ? fleetManagementTripDetailsResponse?.data?.overSpeed
         : 0,
       name: gridView.overspeeding,
     },
@@ -266,16 +301,16 @@ const FleetManagement: React.FC<any> = (props) => {
         selectedTheme === "light"
           ? LightHarshAccelerationIcon
           : HarshAccelerationIcon,
-      value: fleetManagementTripDetailsResponse?.harshAcceleration
-        ? fleetManagementTripDetailsResponse?.harshAcceleration
+      value: fleetManagementTripDetailsResponse?.data?.harshAcceleration
+        ? fleetManagementTripDetailsResponse?.data?.harshAcceleration
         : 0,
       name: fleetManagement.harshAcceleration,
     },
     {
       icon:
         selectedTheme === "light" ? LightHarshBreakingIcon : HarshBreakingIcon,
-      value: fleetManagementTripDetailsResponse?.harshBreaking
-        ? fleetManagementTripDetailsResponse?.harshBreaking
+      value: fleetManagementTripDetailsResponse?.data?.harshBreaking
+        ? fleetManagementTripDetailsResponse?.data?.harshBreaking
         : 0,
       name: gridView.harshBreaking,
     },
@@ -502,6 +537,26 @@ const FleetManagement: React.FC<any> = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (count > 3) {
+      localStorage.removeItem("user");
+      localStorage.clear();
+      dispatch(getUserLogout());
+      dispatch(setUserLogin({}));
+      navigate("/login");
+    }
+  }, [count]);
+
+  useEffect(() => {
+    setSuccess(false);
+    fleetManagementNotificationResponse?.status === 500 &&
+      dispatch(setFleetManagementNotificationData({}));
+    fleetManagementTripDetailsResponse?.status === 500 &&
+      dispatch(setFleetManagementOverAllTripDetails({}));
+    fleetManagementAnalyticsResponse?.status === 500 &&
+      dispatch(setFleetManagementAnalyticsData({}));
+  }, []);
+
   const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
   const [showInfoDialogueVideo, setShowInfoDialogueVideo] =
     useState<boolean>(false);
@@ -522,11 +577,85 @@ const FleetManagement: React.FC<any> = (props) => {
     setSelectedValue(val);
   };
 
+  const handleClose = () => {
+    setSuccess(false);
+  };
+
+  const handleClick = () => {
+    setCount((prev) => prev + 1);
+    setSuccess(false);
+    dispatch(getFleetManagementNotificationData({}));
+    dispatch(
+      getFleetManagementOverAllTripDetails({
+        type:
+          selectedValue === "Today"
+            ? "Day"
+            : selectedValue === "Week"
+            ? "Weekly"
+            : selectedValue === "Month"
+            ? "Monthly"
+            : "Yearly",
+      })
+    );
+    dispatch(
+      getFleetManagementAnalyticsData({
+        type:
+          selectedValue === "Today"
+            ? "Day"
+            : selectedValue === "Week"
+            ? "Weekly"
+            : selectedValue === "Month"
+            ? "Monthly"
+            : "Yearly",
+      })
+    );
+  };
+
   return (
     <>
-      {Object.keys(fleetManagementNotificationResponse).length > 0 &&
-      Object.keys(fleetManagementTripDetailsResponse).length > 0 &&
-      Object.keys(fleetManagementAnalyticsResponse).length > 0 ? (
+      {success && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={
+              fleetManagementNotificationResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 500 ||
+              fleetManagementAnalyticsResponse?.status === 500
+                ? "error"
+                : undefined
+            }
+            sx={{ width: "100%" }}
+          >
+            {(fleetManagementNotificationResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 500 ||
+              fleetManagementAnalyticsResponse?.status === 500) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Something went wrong...</Typography>
+                <Link component="button" variant="body2" onClick={handleClick}>
+                  Please try again later
+                </Link>
+              </div>
+            )}
+          </Alert>
+        </Snackbar>
+      )}
+      {notificationsLoader && overAllAnalyticsLoader && analyticsLoader ? (
+        <div
+          style={{
+            width: "100%",
+            height: "90vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img src={llaLoader} width={"10%"} />
+        </div>
+      ) : (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -537,28 +666,34 @@ const FleetManagement: React.FC<any> = (props) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
-                        className={bodyLeftTopPanelSubContainer}>
+                        className={bodyLeftTopPanelSubContainer}
+                      >
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}>
+                          className={bodyLeftTopPanelListContainer}
+                        >
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={
-                              fleetManagementTripDetailsResponse?.safetyScore
+                              fleetManagementTripDetailsResponse?.data
+                                ?.safetyScore
                                 ? Math.floor(
-                                    fleetManagementTripDetailsResponse?.safetyScore
+                                    fleetManagementTripDetailsResponse?.data
+                                      ?.safetyScore
                                   )
                                 : 0
                             }
@@ -586,7 +721,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 30px",
-                                }}>
+                                }}
+                              >
                                 <Grid item xs={12} style={{ height: "10%" }}>
                                   <div className={graphTitle}>
                                     {gridView.trips}
@@ -596,15 +732,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                   item
                                   xs={12}
                                   className={graphContainerHeaderOne}
-                                  style={{ height: "90%" }}>
+                                  style={{ height: "90%" }}
+                                >
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={9}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width}
                                         // height={selectedWidth?.height}
@@ -694,7 +833,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                       style={{
                                         height: "100%",
                                         padding: "2%",
-                                      }}>
+                                      }}
+                                    >
                                       <div className={liveContainer}>
                                         <div className={liveImgStyle}>
                                           <img
@@ -713,8 +853,10 @@ const FleetManagement: React.FC<any> = (props) => {
                                         </div>
                                         <div className={liveContentLeftStyle}>
                                           <div className={liveContentValue}>
-                                            {fleetManagementTripDetailsResponse?.totalLiveVehicles
-                                              ? fleetManagementTripDetailsResponse?.totalLiveVehicles
+                                            {fleetManagementTripDetailsResponse
+                                              ?.data?.totalLiveVehicles
+                                              ? fleetManagementTripDetailsResponse
+                                                  ?.data?.totalLiveVehicles
                                               : 0}
                                           </div>
                                           <div className={liveContentLabel}>
@@ -723,8 +865,10 @@ const FleetManagement: React.FC<any> = (props) => {
                                         </div>
                                         <div className={liveContentStyle}>
                                           <div className={liveContentValue}>
-                                            {fleetManagementTripDetailsResponse?.totalCompletedTrip
-                                              ? fleetManagementTripDetailsResponse?.totalCompletedTrip
+                                            {fleetManagementTripDetailsResponse
+                                              ?.data?.totalCompletedTrip
+                                              ? fleetManagementTripDetailsResponse
+                                                  ?.data?.totalCompletedTrip
                                               : 0}
                                           </div>
                                           <div className={liveContentLabel}>
@@ -744,7 +888,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 30px",
-                                }}>
+                                }}
+                              >
                                 <Grid item xs={12} style={{ height: "10%" }}>
                                   <div className={graphTitle}>
                                     {" "}
@@ -755,15 +900,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                   item
                                   xs={12}
                                   className={graphContainerHeaderTwo}
-                                  style={{ height: "90%" }}>
+                                  style={{ height: "90%" }}
+                                >
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width1}
                                         // height={selectedWidth?.height1}
@@ -848,19 +996,22 @@ const FleetManagement: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 10px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ height: "10%" }}>
+                                  style={{ height: "10%" }}
+                                >
                                   <div
                                     style={{
                                       display: "flex",
                                       justifyContent: "center",
                                       alignItems: "center",
                                       columnGap: "6px",
-                                    }}>
+                                    }}
+                                  >
                                     <div className={driveDot}></div>
                                     <div>{fleetManagement.driveHrs}</div>
                                   </div>
@@ -870,7 +1021,8 @@ const FleetManagement: React.FC<any> = (props) => {
                                       justifyContent: "center",
                                       alignItems: "center",
                                       columnGap: "6px",
-                                    }}>
+                                    }}
+                                  >
                                     <div className={driveDotOne}></div>
                                     <div>{fleetManagement.idleHrs}</div>
                                   </div>
@@ -879,15 +1031,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                   item
                                   xs={12}
                                   className={graphContainerHeaderThree}
-                                  style={{ height: "90%" }}>
+                                  style={{ height: "90%" }}
+                                >
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width1}
                                         // height={selectedWidth?.height1}
@@ -919,7 +1074,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                               selectedWidth?.is3KDevice
                                                 ? 4
                                                 : 2,
-                                            data: idleData,
+                                            data: hoursData,
                                           },
                                           {
                                             marker: {
@@ -932,7 +1087,7 @@ const FleetManagement: React.FC<any> = (props) => {
                                               selectedWidth?.is3KDevice
                                                 ? 4
                                                 : 2,
-                                            data: hoursData,
+                                            data: idleData,
                                           },
                                         ]}
                                       />
@@ -950,7 +1105,8 @@ const FleetManagement: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
+                      style={{ height: "59%" }}
+                    >
                       <Map
                         mapPageName={"fleet"}
                         markers={notificationArray}
@@ -995,19 +1151,7 @@ const FleetManagement: React.FC<any> = (props) => {
             </Grid>
           </Grid>
         </Grid>
-      ) : (
-        <div
-          style={{
-            width: "100%",
-            height: "90vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          <img src={llaLoader} width={"10%"} />
-        </div>
       )}
-
       {showInfoDialogue && (
         <InfoDialogFleetManagement
           setShowInfoDialogue={setShowInfoDialogue}

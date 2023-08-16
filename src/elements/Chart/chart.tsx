@@ -35,7 +35,7 @@ const Chart: React.FC<any> = (props) => {
   // );
 
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
@@ -265,11 +265,12 @@ const Chart: React.FC<any> = (props) => {
               : pageName !== "FleetManagement"
               ? 8
               : selectedValue === "Today"
-              ? (5 * 3600 * 1000)
-              : selectedValue === "Year" ?
-              (60 * 24 * 3600 * 1000)
-              : selectedValue === "Month" ?
-              (5 * 24 * 3600 * 1000) : (24 * 3600 * 1000),
+              ? 5 * 3600 * 1000
+              : selectedValue === "Year"
+              ? 60 * 24 * 3600 * 1000
+              : selectedValue === "Month"
+              ? 5 * 24 * 3600 * 1000
+              : 24 * 3600 * 1000,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -301,15 +302,17 @@ const Chart: React.FC<any> = (props) => {
           },
           gridLineWidth: 0,
           lineWidth: 0,
-          tickPositioner: pageName !== "FleetManagement" && function (this: any) {
-            const ticks: any = this.tickPositions;
-            if (!ticks.includes(this.dataMax)) ticks.push(this.dataMax);
-            ticks.sort((a: any, b: any) => a - b);
-            while (ticks[ticks.length - 1] > this.dataMax) {
-              ticks.pop();
-            }
-            return ticks;
-          },
+          tickPositioner:
+            pageName !== "FleetManagement" &&
+            function (this: any) {
+              const ticks: any = this.tickPositions;
+              if (!ticks.includes(this.dataMax)) ticks.push(this.dataMax);
+              ticks.sort((a: any, b: any) => a - b);
+              while (ticks[ticks.length - 1] > this.dataMax) {
+                ticks.pop();
+              }
+              return ticks;
+            },
         },
 
         title: false,

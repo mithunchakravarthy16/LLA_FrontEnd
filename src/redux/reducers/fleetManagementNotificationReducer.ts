@@ -7,6 +7,7 @@ const initialState = {
   fleetManagementAnalyticsData: {},
   loadingTripDetails: true,
   loadingNotificationData: true,
+  fleetManagementOverspeeding: {},
 };
 
 export default (state = initialState, action: any) => {
@@ -27,11 +28,21 @@ export default (state = initialState, action: any) => {
       return { ...state, loadingTripDetails: true };
     case fleetManagementNotification.HIDE_LOADER_TRIPDETAILS:
       return { ...state, loadingTripDetails: false };
-
     case fleetManagementNotification.SHOW_LOADER_NOTIFICATIONDATA:
       return { ...state, loadingNotificationData: true };
     case fleetManagementNotification.HIDE_LOADER_NOTIFICATIONDATA:
       return { ...state, loadingNotificationData: false };
+    case fleetManagementNotification.SHOW_LOADER_ANALYTICS:
+      return { ...state, loadingAnalytics: true };
+    case fleetManagementNotification.HIDE_LOADER_ANALYTICS:
+      return { ...state, loadingAnalytics: false };
+    case fleetManagementNotification.SHOW_LOADER_OVER_ALL_ANALYTICS:
+      return { ...state, loadingOverAllAnalytics: true };
+    case fleetManagementNotification.HIDE_LOADER_OVER_ALL_ANALYTICS:
+      return { ...state, loadingOverAllAnalytics: false };
+    case fleetManagementNotification.SET_FLEET_MANAGEMENT_OVER_SPEEDING:
+      const { fleetManagementOverspeeding } = action;
+      return { ...state, fleetManagementOverspeeding };
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import { setOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
 
 export function* handleAssetOverallTrackerDetails(action: any): any {
   try {
-    // const { fetchLogin } = fetchAPIServices;
+    // const { fetchPostData } = fetchAPIServices;
 
     const response = assetOverallTrackerDetail;
     if (response) {
