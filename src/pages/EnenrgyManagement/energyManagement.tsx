@@ -32,7 +32,7 @@ import energyManagementData from "mockdata/energyManagementData";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
@@ -86,7 +86,6 @@ const Parking: React.FC<any> = (props) => {
   const [topPanelList, setTopPanelList] = useState<any>(
     energyManagementData?.infoData?.week
   );
-
 
   useEffect(() => {
     switch (selectedValue) {

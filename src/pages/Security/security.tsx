@@ -34,7 +34,7 @@ import Chart from "elements/Chart";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
@@ -99,7 +99,6 @@ const Parking: React.FC<any> = (props) => {
   const [topPanelList, setTopPanelList] = useState<any>(
     securityData?.infoData?.week
   );
-
 
   useEffect(() => {
     switch (selectedValue) {
@@ -292,7 +291,6 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
-  
   return (
     <>
       <Grid container className={rootContainer}>
@@ -339,7 +337,6 @@ const Parking: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           selectedValue={selectedValue}
                           handleSelect={handleSelect}
-
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "70%" }}>

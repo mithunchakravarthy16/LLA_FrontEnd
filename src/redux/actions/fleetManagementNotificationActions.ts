@@ -13,6 +13,12 @@ export const fleetManagementNotification = {
   HIDE_LOADER_TRIPDETAILS: "Hide_LOADER_TRIPDETAILS",
   SHOW_LOADER_NOTIFICATIONDATA: "SHOW_LOADER_NOTIFICATIONDATA",
   HIDE_LOADER_NOTIFICATIONDATA: "Hide_LOADER_NOTIFICATIONDATA",
+  SHOW_LOADER_ANALYTICS: "SHOW_LOADER_ANALYTICS",
+  HIDE_LOADER_ANALYTICS: "Hide_LOADER_ANALYTICS",
+  SHOW_LOADER_OVER_ALL_ANALYTICS: "SHOW_LOADER_OVER_ALL_ANALYTICS",
+  HIDE_LOADER_OVER_ALL_ANALYTICS: "Hide_LOADER_OVER_ALL_ANALYTICS",
+  GET_FLEET_MANAGEMENT_OVER_SPEEDING: "GET_FLEET_MANAGEMENT_OVER_SPEEDING",
+  SET_FLEET_MANAGEMENT_OVER_SPEEDING: "SET_FLEET_MANAGEMENT_OVER_SPEEDING",
 };
 
 export const getFleetManagementNotificationData = (payload: any) => ({
@@ -77,6 +83,34 @@ export const setLoaderNotificationData = () => ({
 
 export const hideLoaderNotificationData = () => ({
   type: fleetManagementNotification.HIDE_LOADER_NOTIFICATIONDATA,
+});
+
+export const setLoaderAnalytics = () => ({
+  type: fleetManagementNotification.SHOW_LOADER_ANALYTICS,
+});
+
+export const hideLoaderAnalytics = () => ({
+  type: fleetManagementNotification.HIDE_LOADER_ANALYTICS,
+});
+
+export const setLoaderOverAllAnalytics = () => ({
+  type: fleetManagementNotification.SHOW_LOADER_OVER_ALL_ANALYTICS,
+});
+
+export const hideLoaderOverAllAnalytics = () => ({
+  type: fleetManagementNotification.HIDE_LOADER_OVER_ALL_ANALYTICS,
+});
+
+export const getFleetManagementOverspeeding = (payload: any) => ({
+  type: fleetManagementNotification.GET_FLEET_MANAGEMENT_OVER_SPEEDING,
+  payload: payload,
+});
+
+export const setFleetManagementOverspeeding = (
+  fleetManagementOverspeeding: any
+) => ({
+  type: fleetManagementNotification.SET_FLEET_MANAGEMENT_OVER_SPEEDING,
+  fleetManagementOverspeeding,
 });
 
 export default fleetManagementNotification;

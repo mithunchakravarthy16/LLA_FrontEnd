@@ -40,7 +40,7 @@ import assetAnalyticsData from "mockdata/assetTrackingAnalytics";
 
 const AssetTracking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const { dashboard, gridView, security, assetsTracking } = useTranslation();
@@ -113,8 +113,8 @@ const AssetTracking: React.FC<any> = (props) => {
     let overallAssetDetailPayload: any = {};
     dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
-    let assetTrackerDetailPayload:any = {};
-    dispatch(getAssetTrackerDetail(assetTrackerDetailPayload))
+    let assetTrackerDetailPayload: any = {};
+    dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
   }, []);
 
   const assetNotificationResponse = useSelector(
@@ -140,89 +140,73 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
-
-
-
-
-
-
-
-
-
   const [selectedFormatGraph, setSelectedFormatGraph] = useState("weekly");
 
+  const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] =
+    useState<any>();
 
+  const [
+    activeTrackersGraphDataStateUpdates,
+    setActiveTrackersGraphDataStateUpdates,
+  ] = useState<any>();
 
-  const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] = useState<any>();
-
-  const [activeTrackersGraphDataStateUpdates, setActiveTrackersGraphDataStateUpdates] =
-  useState<any>();
-
-  const [inactiveTrackersGraphDataStateUpdates, setInactiveTrackersGraphDataStateUpdates] =
-  useState<any>();
-
-
-
+  const [
+    inactiveTrackersGraphDataStateUpdates,
+    setInactiveTrackersGraphDataStateUpdates,
+  ] = useState<any>();
 
   const [incidentsGraphData, setIncidentsGraphData] = useState<any>();
 
   const [incidentsGraphDataStateUpdates, setIncidentsGraphDataStateUpdates] =
-  useState<any>();
-
+    useState<any>();
 
   useEffect(() => {
-    assetAnalyticsData?.graphAnalytics?.map(
-      (data: any, index: number) => {
-     
-        switch (data?.category) {
-          case "activeInactiveTrackers":
-            setActiveTrackersGraphDataStateUpdates(
-              data?.analytics[selectedFormatGraph]?.activeTrackerAnalytics
-            );
-            
-            setInactiveTrackersGraphDataStateUpdates(
-              data?.analytics[selectedFormatGraph]?.inActiveTrackerAnalytics
-            );
-            setActiveInactiveTrackersGraphData(data?.analytics);
-            
-            break;
+    assetAnalyticsData?.graphAnalytics?.map((data: any, index: number) => {
+      switch (data?.category) {
+        case "activeInactiveTrackers":
+          setActiveTrackersGraphDataStateUpdates(
+            data?.analytics[selectedFormatGraph]?.activeTrackerAnalytics
+          );
 
-            case "incidents":
-              setIncidentsGraphDataStateUpdates(
-                data?.analytics[selectedFormatGraph]?.analyticsData
-              );
-              setIncidentsGraphData(data?.analytics);
-              
-              
-              break;
+          setInactiveTrackersGraphDataStateUpdates(
+            data?.analytics[selectedFormatGraph]?.inActiveTrackerAnalytics
+          );
+          setActiveInactiveTrackersGraphData(data?.analytics);
 
-          default:
-          // setTempratureGraphDataStateUpdates(data?.data?.weekly?.analyticsData);
-          // setTempratureGraphData(data?.data);
-        }
+          break;
+
+        case "incidents":
+          setIncidentsGraphDataStateUpdates(
+            data?.analytics[selectedFormatGraph]?.analyticsData
+          );
+          setIncidentsGraphData(data?.analytics);
+
+          break;
+
+        default:
+        // setTempratureGraphDataStateUpdates(data?.data?.weekly?.analyticsData);
+        // setTempratureGraphData(data?.data);
       }
-    );
+    });
   }, []);
 
-
-
-
-
-
   useEffect(() => {
-    
     getActiveInactiveTrackersGraphData();
     getIncidentsGraphData();
-    
-  }, [inactiveTrackersGraphDataStateUpdates, activeTrackersGraphDataStateUpdates,  incidentsGraphDataStateUpdates, selectedWidth]);
+  }, [
+    inactiveTrackersGraphDataStateUpdates,
+    activeTrackersGraphDataStateUpdates,
+    incidentsGraphDataStateUpdates,
+    selectedWidth,
+  ]);
 
-
-
-  const [updatedActiveInactiveTrackersGraphData, setUpdatedActiveInactiveTrackersGraphData] =
-  useState<any>();
+  const [
+    updatedActiveInactiveTrackersGraphData,
+    setUpdatedActiveInactiveTrackersGraphData,
+  ] = useState<any>();
 
   const [updatedIncidentsGraphData, setUpdatedIncidentsGraphData] =
-  useState<any>();
+    useState<any>();
 
   const getActiveInactiveTrackersGraphData = () => {
     let data = [
@@ -240,14 +224,11 @@ const AssetTracking: React.FC<any> = (props) => {
         lineColor: "#25796D",
         color: "#25796D",
         lineWidth:
-          selectedWidth?.is4kDevice ||
-          selectedWidth?.is3KDevice
-            ? 4
-            : 2,
-            // data: [
-            //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-            //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-            // ],
+          selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+        // data: [
+        //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+        //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+        // ],
       },
       {
         data: graphDataManipulation(inactiveTrackersGraphDataStateUpdates),
@@ -257,10 +238,7 @@ const AssetTracking: React.FC<any> = (props) => {
         lineColor: "#D25A5A",
         color: "#D25A5A",
         lineWidth:
-          selectedWidth?.is4kDevice ||
-          selectedWidth?.is3KDevice
-            ? 4
-            : 2,
+          selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
         // data: [
         //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
         //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
@@ -282,27 +260,17 @@ const AssetTracking: React.FC<any> = (props) => {
         lineColor: "#EE3E35",
         color: "#EE3E35",
         lineWidth:
-          selectedWidth?.is4kDevice ||
-          selectedWidth?.is3KDevice
-            ? 4
-            : 2,
+          selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
         fillColor: {
           linearGradient: [0, 0, 0, 200],
           stops: [
-            [
-              0,
-              Highcharts.color("#C3362F")
-                .setOpacity(0.5)
-                .get("rgba"),
-            ],
+            [0, Highcharts.color("#C3362F").setOpacity(0.5).get("rgba")],
             [
               0.5,
               Highcharts.color("#C3362F")
                 .setOpacity(
-                  selectedWidth?.is4kDevice ||
-                    selectedWidth?.is3KDevice
-                    ? selectedTheme ===
-                      "light"
+                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                    ? selectedTheme === "light"
                       ? 0.4
                       : 0.3
                     : 0.3
@@ -313,14 +281,11 @@ const AssetTracking: React.FC<any> = (props) => {
               1,
               Highcharts.color("#C3362F")
                 .setOpacity(
-                  selectedWidth?.is4kDevice ||
-                    selectedWidth?.is3KDevice
-                    ? selectedTheme ===
-                      "light"
+                  selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                    ? selectedTheme === "light"
                       ? 0.14
                       : 0.06
-                    : selectedTheme ===
-                      "light"
+                    : selectedTheme === "light"
                     ? 0.01
                     : 0.02
                 )
@@ -337,10 +302,6 @@ const AssetTracking: React.FC<any> = (props) => {
 
     setUpdatedIncidentsGraphData(data);
   };
-
- 
-
-  
 
   const graphDataManipulation = (analyticsGraphData: any) => {
     let manipulatedGraphData = [];
@@ -462,9 +423,8 @@ const AssetTracking: React.FC<any> = (props) => {
     xAxisNewValue.length
   );
 
-
   const [xAxisChartDataGraph, setXAxisChartDataGraph] =
-  useState<any>(xAxisNewValueWeek);
+    useState<any>(xAxisNewValueWeek);
 
   const [xAxisIntervalGraph, setXAxisIntervalGraph] = useState(2);
 
@@ -474,32 +434,12 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const [selectedValue, setSelectedValue] = useState<any>("Week");
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
 
     switch (val) {
-
       case "Today":
         setFormatGraph(dayFormat);
         setSelectedFormatGraph("day");
@@ -509,10 +449,12 @@ const AssetTracking: React.FC<any> = (props) => {
         setInactiveTrackersGraphDataStateUpdates(
           activeInactiveTrackersGraphData?.day?.inActiveTrackerAnalytics
         );
-        setIncidentsGraphDataStateUpdates(incidentsGraphData?.day?.analyticsData);
+        setIncidentsGraphDataStateUpdates(
+          incidentsGraphData?.day?.analyticsData
+        );
         setXAxisChartDataGraph(xAxisNewtime);
         setXAxisIntervalGraph(5);
-        
+
         break;
       case "Week":
         setFormatGraph(monthFomrat);
@@ -523,10 +465,12 @@ const AssetTracking: React.FC<any> = (props) => {
         setInactiveTrackersGraphDataStateUpdates(
           activeInactiveTrackersGraphData?.weekly?.inActiveTrackerAnalytics
         );
-        setIncidentsGraphDataStateUpdates(incidentsGraphData?.weekly?.analyticsData);
+        setIncidentsGraphDataStateUpdates(
+          incidentsGraphData?.weekly?.analyticsData
+        );
         setXAxisChartDataGraph(xAxisNewValueWeek);
         setXAxisIntervalGraph(2);
-        
+
         break;
       case "Month":
         setFormatGraph(monthFomrat);
@@ -537,10 +481,12 @@ const AssetTracking: React.FC<any> = (props) => {
         setInactiveTrackersGraphDataStateUpdates(
           activeInactiveTrackersGraphData?.monthly?.inActiveTrackerAnalytics
         );
-        setIncidentsGraphDataStateUpdates(incidentsGraphData?.monthly?.analyticsData);
+        setIncidentsGraphDataStateUpdates(
+          incidentsGraphData?.monthly?.analyticsData
+        );
         setXAxisChartDataGraph(xAxisNewValueMonth);
         setXAxisIntervalGraph(12);
-        
+
         break;
       case "Year":
         setFormatGraph(yearFormat);
@@ -551,10 +497,12 @@ const AssetTracking: React.FC<any> = (props) => {
         setInactiveTrackersGraphDataStateUpdates(
           activeInactiveTrackersGraphData?.yearly?.inActiveTrackerAnalytics
         );
-        setIncidentsGraphDataStateUpdates(incidentsGraphData?.yearly?.analyticsData);
+        setIncidentsGraphDataStateUpdates(
+          incidentsGraphData?.yearly?.analyticsData
+        );
         setXAxisChartDataGraph(xAxisValueYear);
         setXAxisIntervalGraph(3);
-        
+
         break;
       default:
         setFormatGraph(dayFormat);
@@ -565,7 +513,9 @@ const AssetTracking: React.FC<any> = (props) => {
         setInactiveTrackersGraphDataStateUpdates(
           activeInactiveTrackersGraphData?.day?.inActiveTrackerAnalytics
         );
-        setIncidentsGraphDataStateUpdates(incidentsGraphData?.day?.analyticsData);
+        setIncidentsGraphDataStateUpdates(
+          incidentsGraphData?.day?.analyticsData
+        );
         setXAxisChartDataGraph(xAxisNewtime);
         setXAxisIntervalGraph(5);
         break;
@@ -575,7 +525,6 @@ const AssetTracking: React.FC<any> = (props) => {
   const [topPanelList, setTopPanelList] = useState<any>(
     overallAssetDetails?.week
   );
-
 
   useEffect(() => {
     switch (selectedValue) {
@@ -596,7 +545,6 @@ const AssetTracking: React.FC<any> = (props) => {
         return;
     }
   }, [selectedValue]);
-
 
   useEffect(() => {
     const { events, incidents, alerts } = assetNotificationList;
@@ -702,7 +650,6 @@ const AssetTracking: React.FC<any> = (props) => {
     );
   }, [notificationArray, tabIndex]);
 
-  
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   useEffect(() => {
@@ -998,7 +945,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           selectedValue={selectedValue}
                           handleSelect={handleSelect}
-                          pageName = {"asset"}
+                          pageName={"asset"}
                         />
                       </Grid>
                       <Grid item xs={12} style={{ height: "100%" }}>
@@ -1063,7 +1010,9 @@ const AssetTracking: React.FC<any> = (props) => {
                                       crossHairLineColor={"#E5FAF6"}
                                       is4kDevice={selectedWidth?.is4kDevice}
                                       // tooltip={"shared"}
-                                      dataPoints= {updatedActiveInactiveTrackersGraphData}
+                                      dataPoints={
+                                        updatedActiveInactiveTrackersGraphData
+                                      }
                                       // {[
                                       //   {
                                       //     marker: {
@@ -1155,7 +1104,7 @@ const AssetTracking: React.FC<any> = (props) => {
                                       isCrosshair={true}
                                       crossHairLineColor={"#EE3E35"}
                                       is4kDevice={selectedWidth?.is4kDevice}
-                                      dataPoints= {updatedIncidentsGraphData}
+                                      dataPoints={updatedIncidentsGraphData}
                                       // {[
                                       //   {
                                       //     marker: {

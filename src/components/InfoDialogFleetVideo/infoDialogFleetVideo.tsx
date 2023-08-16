@@ -18,6 +18,7 @@ import {
   TripStatusIcon,
 } from "../../assets/fleetInfoDialogueIcons";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
+import Loader from "elements/Loader";
 
 import useStyles from "./styles";
 
@@ -96,11 +97,22 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   const [open, setOpen] = useState(!false);
+  const [delay, setDelay] = useState<boolean>(false);
 
   const handleClose = () => {
     setOpen(!open);
     setShowInfoDialogue(false);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDelay(true);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [selectedMarker]);
 
   return (
     <>
@@ -146,15 +158,19 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
             }}
           >
             {selectedMarker?.videoUrl ? (
-              <ReactPlayer
-                muted
-                playing
-                loop={true}
-                controls={true}
-                url={selectedMarker?.videoUrl}
-                width="100%"
-                height="100%"
-              />
+              delay ? (
+                <ReactPlayer
+                  muted
+                  playing
+                  loop={true}
+                  controls={true}
+                  url={selectedMarker?.videoUrl}
+                  width="100%"
+                  height="100%"
+                />
+              ) : (
+                <Loader />
+              )
             ) : (
               <div className={noVideoPreview}>No Video Content available</div>
             )}

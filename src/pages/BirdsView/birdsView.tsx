@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const BirdsView: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   const [selectedTheme, setSelectedTheme] = useState<any>();

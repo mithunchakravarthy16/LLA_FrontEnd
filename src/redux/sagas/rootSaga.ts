@@ -17,6 +17,7 @@ import {
   handleFleetManagementTripDetails,
   handleFleetManagementOverAllTripDetails,
   handleFleetManagementAnalyticsData,
+  handleFleetManagementOverspeeding,
 } from "./handlers/fleetManagementNotification";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
@@ -25,7 +26,7 @@ import {
   handleCancelAdminPanelConfig,
 } from "./handlers/adminPanel";
 import assetTrackerDetail from "redux/actions/getAssetTrackerDetailAction";
-import {handleAssetTrackerDetail} from "./handlers/getAssetTrackerDetail"
+import { handleAssetTrackerDetail } from "./handlers/getAssetTrackerDetail";
 
 export default function* rootSaga() {
   yield all([
@@ -42,7 +43,8 @@ export default function* rootSaga() {
     watchFleetManagementTripDetails(),
     watchFleetManagementOverAllTripDetails(),
     watchFleetManagementAnalyticsData(),
-    watchAssetTrackerDetail()
+    watchAssetTrackerDetail(),
+    watchFleetManagementOverspeeding(),
   ]);
 }
 
@@ -130,9 +132,16 @@ export function* watchFleetManagementAnalyticsData() {
   );
 }
 
-export function * watchAssetTrackerDetail() {
+export function* watchAssetTrackerDetail() {
   yield takeLatest(
     assetTrackerDetail.GET_ASSET_TRACKER_DETAIL,
     handleAssetTrackerDetail
-  )
+  );
+}
+
+export function* watchFleetManagementOverspeeding() {
+  yield takeLatest(
+    fleetManagementNotification.GET_FLEET_MANAGEMENT_OVER_SPEEDING,
+    handleFleetManagementOverspeeding
+  );
 }

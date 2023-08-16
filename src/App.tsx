@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const App = () => {
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.body
+    (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
   useEffect(() => {
