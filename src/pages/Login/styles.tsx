@@ -141,7 +141,7 @@ const useStyles = makeStyles(() => ({
       fontWeight: " 500",
       fontSize: "30px",
       lineHeight: "36px",
-      color: props?.palette?.login?.loginTitle,
+      // color: props?.palette?.login?.loginTitle,
       marginBottom: 24,
     },
     [muiTheme.breakpoints.down(2049)]: {
@@ -160,7 +160,7 @@ const useStyles = makeStyles(() => ({
   inputField: (props: any) => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
-      fontFamily: "HelveticaNeue-Medium",
+      fontFamily: "HelveticaNeue-Regular",
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: `${props?.palette?.login?.inputPlaceholder} !important`,
@@ -171,7 +171,7 @@ const useStyles = makeStyles(() => ({
         opacity: 0.5,
       },
       [muiTheme.breakpoints.down(3073)]: {
-        fontFamily: "HelveticaNeue-Medium",
+        fontFamily: "HelveticaNeue-Regular",
         fontWeight: " 500",
         fontSize: "40px",
         lineHeight: "48px",
@@ -213,7 +213,7 @@ const useStyles = makeStyles(() => ({
   inputFieldPassword: (props: any) => ({
     marginBottom: 67,
     "& .MuiInputBase-input": {
-      fontFamily: "HelveticaNeue-Medium",
+      fontFamily: "HelveticaNeue-Regular",
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: `${props?.palette?.login?.inputPlaceholder} !important`,
@@ -223,7 +223,7 @@ const useStyles = makeStyles(() => ({
         opacity: 0.5,
       },
       [muiTheme.breakpoints.down(3073)]: {
-        fontFamily: "HelveticaNeue-Medium",
+        fontFamily: "HelveticaNeue-Regular",
         fontWeight: " 500",
         fontSize: "40px",
         lineHeight: "48px",
