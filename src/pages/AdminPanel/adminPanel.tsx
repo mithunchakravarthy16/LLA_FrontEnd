@@ -181,16 +181,16 @@ const AdminPanel = () => {
   }, [adminPanelData]);
 
   useEffect(() => {
-    if (adminPanelSaveData?.statusCodeValue === 200) {
+    if (adminPanelSaveData?.status === 200) {
       setSuccess(true);
-      if (adminPanelSaveData?.body?.isPreview === "Y") {
+      if (adminPanelSaveData?.data?.body?.isPreview === "Y") {
         window.open(`${window.origin}/login`, "_blank");
       }
       setTimeout(() => {
         dispatch(setAdminPanelConfig({}));
         setSuccess(false);
       }, 3000);
-    } else if (adminPanelSaveData?.statusCodeValue === 400) {
+    } else if (adminPanelSaveData?.status === 400) {
       setSuccess(true);
     }
   }, [adminPanelSaveData]);
@@ -577,21 +577,19 @@ const AdminPanel = () => {
             <Alert
               onClose={handleClose}
               severity={
-                adminPanelSaveData?.statusCodeValue === 400
-                  ? "error"
-                  : "success"
+                adminPanelSaveData?.status === 400 ? "error" : "success"
               }
               sx={{ width: "100%" }}
             >
-              {adminPanelSaveData?.statusCodeValue === 400
+              {adminPanelSaveData?.status === 400
                 ? "Something went wrong... Please try again"
-                : adminPanelSaveData?.statusCodeValue === 200 &&
-                  adminPanelSaveData?.body?.isPreview === "Y"
+                : adminPanelSaveData?.status === 200 &&
+                  adminPanelSaveData?.data?.body?.isPreview === "Y"
                 ? "Preview Loaded Successfully in New Tab."
                 : adminPanelCancelData?.iscancel
                 ? "Cancelled Successfully."
-                : adminPanelSaveData?.statusCodeValue === 200 &&
-                  adminPanelSaveData?.body?.isPreview === "N"
+                : adminPanelSaveData?.status === 200 &&
+                  adminPanelSaveData?.data?.body?.isPreview === "N"
                 ? "Saved Successfully."
                 : adminPanelData?.isPreview === "N" && "Reset Successfully."}
             </Alert>
