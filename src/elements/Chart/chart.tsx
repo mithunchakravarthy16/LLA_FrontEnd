@@ -1,6 +1,6 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import muiTheme from "theme/muiTheme";
 import theme from "../../theme/theme";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 const Chart: React.FC<any> = (props) => {
   const location = useLocation();
+  let isEveryYAxisValuesAreZero = useRef<boolean>(false)
   const {
     width,
     height,
@@ -59,6 +60,20 @@ const Chart: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+
+useEffect(()=>{
+  if(pageName === "FleetManagement"){
+    dataPoints?.length > 0 && dataPoints?.map((item:any)=>{
+      isEveryYAxisValuesAreZero.current = item?.data?.every((dataValues:any)=>
+      (dataValues?.length > 0 && dataValues[1]) === 0
+      )
+     })
+  }
+  
+},[dataPoints])
+  
+
+   
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
   const [lastTwntyTwoHours, setLastTwntyTwoHours] = useState<any>(() => {
@@ -337,6 +352,7 @@ const Chart: React.FC<any> = (props) => {
         series: dataPoints,
         yAxis: {
           visible: false,
+          max: pageName === "FleetManagement" && isEveryYAxisValuesAreZero.current ? 100 : undefined,
         },
         credits: false,
       }}
