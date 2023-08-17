@@ -76,11 +76,11 @@ const useStyles = makeStyles(
     }),
     footerIconStyle: (props: any) => ({
       "& img": {
-        width: "30vh",
+        width: "26vh",
       },
     }),
     footerCopyrightsImg: (props: any) => ({
-      width: "20vh",
+      width: "22vh",
       marginTop: "3vh",
     }),
   },
