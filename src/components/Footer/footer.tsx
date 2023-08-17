@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import theme from "../../theme/theme";
-import FooterIcon from "../../assets/images/lla-logo2.png";
+import FooterIcon from "../../assets/images/lla-logo2.svg";
 import useTranslation from "localization/translations";
 import poweredBy from "../../assets/images/powered-by.svg";
 import footerText from "../../assets/footerText.svg";
@@ -60,8 +60,7 @@ const Footer = (props: any) => {
       className={
         pageName === "dashboard" ? footerSectionDasbhoard : footerSection
       }
-      style={{ color: adminPanelData?.footerColor }}
-    >
+      style={{ color: adminPanelData?.footerColor }}>
       <div className={footerContent}>
         <div className={footerIconStyle}>
           <img src={pageName !== "dashboard" ? FooterIcon : ""} />

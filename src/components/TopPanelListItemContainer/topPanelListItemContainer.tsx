@@ -26,7 +26,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -77,7 +77,9 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
   ];
 
   return (
+    
     <>
+    { appTheme && Object.keys(appTheme).length > 0 && 
       <Grid
         container
         xs={12}
@@ -156,7 +158,9 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+}
     </>
+   
   );
 };
 

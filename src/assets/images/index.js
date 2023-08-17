@@ -16,7 +16,14 @@ import AssetHover from "./AssetHover.png";
 import EnergyHover from "./EnergyHover.png";
 import LightingHover from "./LightingHover.png";
 import FleetHover from "./FleetHover.png";
-import cardDifferenceIndicator from './CardDifferenceIndicator.png';
+import cardDifferenceIndicator from "./CardDifferenceIndicator.png";
+
+import parkingHoverWhite from "./parkingHoverWhite.png";
+import energyManagementWhite from "./energy-management-white.png";
+import securityHoverWhite from "./SecurityHoverWhite.png";
+import lightingHoverWhite from "./LightingHoverWhite.png";
+import fleetManagementWhite from "./fleetManagementWhite.png";
+import assetHoverWhite from "./AssetHoverWhite.png";
 
 export {
   assetTracking,
@@ -38,4 +45,10 @@ export {
   parkingLight,
   securityLight,
   lightingLight,
+  parkingHoverWhite,
+  energyManagementWhite,
+  securityHoverWhite,
+  lightingHoverWhite,
+  fleetManagementWhite,
+  assetHoverWhite,
 };

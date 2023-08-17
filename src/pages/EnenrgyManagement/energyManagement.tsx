@@ -29,6 +29,7 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import energyManagementData from "mockdata/energyManagementData";
+import Loader from "elements/Loader";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -37,7 +38,7 @@ const Parking: React.FC<any> = (props) => {
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const { dashboard, gridView, parking } = useTranslation();
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
   const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
@@ -266,8 +267,22 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsDataLoaded(!isDataLoaded)
+    },500)
+  },[])
+
+  const loaderAdminGetConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingGetConfigData
+  );
+
   return (
     <>
+    {
+      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -569,6 +584,9 @@ const Parking: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      :
+      <Loader isHundredVh = {true}/>
+     }
     </>
   );
 };

@@ -91,6 +91,8 @@ let theme = {
         xAxisTextColor: colorCodes?.colorWhite,
       },
       flippingCard: {
+        cardTitleOnHover: colorCodes?.vibrantOrangeColor,
+        SkewBackContainer: colorCodes?.grayDarkShadesSkewDark,
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
         hoverBackground: colorCodes?.flippingCardBgDark,
@@ -220,6 +222,8 @@ let theme = {
         notiTabBottomBorder: colorCodes?.grayFade,
       },
       flippingCard: {
+        cardTitleOnHover: colorCodes?.white5,
+        SkewBackContainer: colorCodes?.grayDarkShadesSkewLight,
         background: colorCodes?.flippingCardBgLight,
         textColor: colorCodes?.darkBlackShade,
         hoverBackground: colorCodes?.flippingCardHoverLight,
@@ -406,6 +410,8 @@ let theme = {
         notiTabBottomBorder: colorCodes?.whiteFade,
       },
       flippingCard: {
+        cardTitleOnHover: colorCodes?.vibrantOrangeColor,
+        SkewBackContainer: colorCodes?.grayDarkShadesSkewDark,
         background: colorCodes?.flippingCardBgDark,
         textColor: colorCodes?.flippingCardDarkTextColor,
         hoverBackground: colorCodes?.flippingCardBgDark,

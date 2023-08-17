@@ -31,6 +31,7 @@ import {
 import securityData from "mockdata/securityData";
 import Highcharts from "highcharts";
 import Chart from "elements/Chart";
+import Loader from "elements/Loader";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -39,7 +40,7 @@ const Parking: React.FC<any> = (props) => {
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const { dashboard, gridView, security } = useTranslation();
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
 
   const PIECHART_LEGEND = [
     { background: "#C64640", name: security.intrusion },
@@ -291,8 +292,23 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsDataLoaded(!isDataLoaded)
+    },500)
+  },[])
+
+  const loaderAdminGetConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingGetConfigData
+  );
+
+  
   return (
     <>
+    {
+      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -630,6 +646,9 @@ const Parking: React.FC<any> = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      :
+      <Loader isHundredVh = {true}/>
+     }
     </>
   );
 };
