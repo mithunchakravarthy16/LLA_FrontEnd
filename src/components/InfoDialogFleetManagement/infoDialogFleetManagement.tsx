@@ -878,6 +878,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             >
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -921,6 +922,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -962,6 +964,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -1000,6 +1003,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -1045,6 +1049,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -1083,6 +1088,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -1124,6 +1130,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
@@ -1162,6 +1169,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                               </Grid>
                               <Grid item>
                                 <CircularProgressBar
+                                  selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.fatigueLevel

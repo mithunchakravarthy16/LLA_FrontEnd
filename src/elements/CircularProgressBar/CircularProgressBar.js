@@ -32,14 +32,10 @@ const SpeedoMeter = (props) => {
     trackStrokeColor,
     trackStrokeWidth,
     textValue,
+    selectedTheme,
   } = props;
 
-  const adminPanelData = useSelector(
-    (state) => state?.adminPanel?.getConfigData?.body
-  );
-
   const { width, height } = useWindowDimensions();
-  const [selectedTheme, setSelectedTheme] = useState("");
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const getPointerThumb = () => {
@@ -65,10 +61,6 @@ const SpeedoMeter = (props) => {
   };
 
   useEffect(() => {
-    setSelectedTheme(adminPanelData?.appearance);
-  }, [adminPanelData]);
-
-  useEffect(() => {
     switch (selectedTheme) {
       case "light":
         setAppTheme(theme?.lightTheme);
@@ -82,6 +74,10 @@ const SpeedoMeter = (props) => {
     }
   }, [selectedTheme]);
 
+  console.log(
+    "dd",
+    appTheme?.palette?.fleetManagementPage?.circularProgressBar?.background
+  );
   return (
     <RootContainer>
       <ProgressBar
