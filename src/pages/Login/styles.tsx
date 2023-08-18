@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
       paddingTop: "15vh",
     },
     [muiTheme.breakpoints.down(1025)]: {
-      paddingTop: "5vh",
+      paddingTop: "8vh",
     },
   }),
   loginFormSection: (props: any) => ({
