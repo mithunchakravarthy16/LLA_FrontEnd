@@ -546,6 +546,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         stroke: 10,
         iconSize: 17,
       };
+    } else if (window.innerWidth > 1023) {
+      return {
+        radius: 28,
+        cut: 4,
+        rotate: 80,
+        stroke: 6,
+        iconSize: 13,
+      };
     } else {
       return {
         radius: 70,
@@ -597,8 +605,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={success}
-          onClose={handleErrorClose}
-        >
+          onClose={handleErrorClose}>
           <Alert
             onClose={handleErrorClose}
             severity={
@@ -611,8 +618,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 ? "error"
                 : undefined
             }
-            sx={{ width: "100%" }}
-          >
+            sx={{ width: "100%" }}>
             {fleetManagementTripDetailsResponse?.status === 500 && (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
@@ -667,8 +673,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   width: "4.2%",
                   height: "4.2%",
                   transition: "none",
-                }}
-              >
+                }}>
                 <img
                   width={"100%"}
                   height={"100%"}
@@ -689,8 +694,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       }}
                       onClick={() => {
                         handleHeaderTab(item?.val);
-                      }}
-                    >
+                      }}>
                       {item?.name}
                     </Grid>
                   ))}
@@ -747,8 +751,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       background:
                         appTheme?.palette?.fleetManagementPage?.routeDetailsBg,
                       padding: " 1%",
-                    }}
-                  >
+                    }}>
                     <Stepper
                       routeDetails={routes}
                       tripStatus={"Completed"}
@@ -759,8 +762,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   <Grid
                     item
                     xs={6.7}
-                    style={{ height: "100%", padding: "0 1%" }}
-                  >
+                    style={{ height: "100%", padding: "0 1%" }}>
                     <Grid style={{ height: "100%" }} item xs={12}>
                       {tabIndex === 0 ? (
                         <TripDetailsMap
@@ -794,8 +796,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   appTheme?.palette?.fleetManagementPage
                                     ?.routeDetailsBg,
                                 border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                              }}
-                            >
+                              }}>
                               {vehicleDetailsSubTaskBarItems?.length > 0 &&
                                 vehicleDetailsSubTaskBarItems?.map(
                                   (item: any) => (
@@ -805,19 +806,16 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                       alignItems={"center"}
                                       justifyContent={"center"}
                                       columnGap={2}
-                                      flex={1}
-                                    >
+                                      flex={1}>
                                       <div
-                                        style={{ width: "18%", height: "18%" }}
-                                      >
+                                        style={{ width: "18%", height: "18%" }}>
                                         <Tooltip
                                           tooltipValue={item?.name}
                                           placement={"bottom"}
                                           offset={tooltipOfset}
                                           fontSize={fontSize}
                                           padding={padding}
-                                          componentName={"TopPanelList"}
-                                        >
+                                          componentName={"TopPanelList"}>
                                           <img
                                             width={"100%"}
                                             height={"100%"}
@@ -840,8 +838,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 xs={12}
                                 height={"13%"}
                                 display={"flex"}
-                                alignItems={"center"}
-                              >
+                                alignItems={"center"}>
                                 <Tabs
                                   initialIndex={cameraTabIndex}
                                   tabsList={camTabsList}
@@ -887,8 +884,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   appTheme?.palette?.fleetManagementPage
                                     ?.routeDetailsBg,
                                 border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                              }}
-                            >
+                              }}>
                               {vehicleDetailsSubTaskBarItems?.length > 0 &&
                                 vehicleDetailsSubTaskBarItems?.map(
                                   (item: any, index: number) =>
@@ -899,22 +895,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                         alignItems={"center"}
                                         justifyContent={"center"}
                                         columnGap={2}
-                                        flex={1}
-                                      >
+                                        flex={1}>
                                         <div
                                           style={{
                                             width: "15%",
                                             height: "15%",
-                                          }}
-                                        >
+                                          }}>
                                           <Tooltip
                                             tooltipValue={item?.name}
                                             placement={"bottom"}
                                             offset={tooltipOfset}
                                             fontSize={fontSize}
                                             padding={padding}
-                                            componentName={"TopPanelList"}
-                                          >
+                                            componentName={"TopPanelList"}>
                                             <img
                                               width={"100%"}
                                               height={"100%"}
@@ -935,8 +928,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             xs={12}
                             marginTop={"2%"}
                             height={"85%"}
-                            border={"1px solid #333333"}
-                          >
+                            border={"1px solid #333333"}>
                             <Grid
                               container
                               xs={12}
@@ -945,8 +937,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                              }}
-                            >
+                              }}>
                               <Grid item>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
@@ -1294,8 +1285,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       background:
                         appTheme?.palette?.fleetManagementPage?.violationBg,
                       padding: "1% 0% 1% 1%",
-                    }}
-                  >
+                    }}>
                     <FleetInfoDialogueViolationContainer
                       violationListItems={violations}
                       selectedTheme={selectedTheme}
