@@ -335,7 +335,7 @@ const FlippingCard = (props: any) => {
       title: "parking",
       image:
         focusedCategory === "parking"
-          ? parkingHoverWhite
+          ? selectedTheme === "light" ? parkingHoverWhite : ParkingHover
           : selectedTheme !== "light"
           ? parking
           : parkingLight,
@@ -346,7 +346,7 @@ const FlippingCard = (props: any) => {
       title: "energy_management",
       image:
         focusedCategory === "energy"
-          ? energyManagementWhite
+          ? selectedTheme === "light" ? energyManagementWhite : EnergyHover
           : selectedTheme !== "light"
           ? energyManagement
           : energyManagementLight,
@@ -357,7 +357,7 @@ const FlippingCard = (props: any) => {
       title: "security",
       image:
         focusedCategory === "security"
-          ? securityHoverWhite
+          ? selectedTheme === "light" ? securityHoverWhite : SecurityHover
           : selectedTheme !== "light"
           ? security
           : securityLight,
@@ -368,7 +368,7 @@ const FlippingCard = (props: any) => {
       title: "lighting",
       image:
         focusedCategory === "lighting"
-          ? lightingHoverWhite
+          ? selectedTheme === "light" ? lightingHoverWhite : LightingHover
           : selectedTheme !== "light"
           ? lighting
           : lightingLight,
@@ -379,7 +379,7 @@ const FlippingCard = (props: any) => {
       title: "fleet_management",
       image:
         focusedCategory === "fleet"
-          ? fleetManagementWhite
+          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
           : selectedTheme !== "light"
           ? fleetManagement
           : fleetManagementLight,
@@ -390,7 +390,7 @@ const FlippingCard = (props: any) => {
       title: "assets_tracking",
       image:
         focusedCategory === "asset"
-          ? assetHoverWhite
+          ? selectedTheme === "light" ? assetHoverWhite : AssetHover
           : selectedTheme !== "light"
           ? assetTracking
           : assetTrackingLight,
