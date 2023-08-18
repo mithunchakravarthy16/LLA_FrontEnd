@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Chart: React.FC<any> = (props) => {
   const location = useLocation();
-  let isEveryYAxisValuesAreZero = useRef<boolean>(false)
+  
   const {
     width,
     height,
@@ -42,6 +42,8 @@ const Chart: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
+  const [isEveryYAxisValuesAreZero, setIsEveryYAxisValuesAreZero] = useState<boolean>(false)
+
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
   }, [adminPanelData]);
@@ -63,16 +65,14 @@ const Chart: React.FC<any> = (props) => {
 
 useEffect(()=>{
   if(pageName === "FleetManagement"){
-    dataPoints?.length > 0 && dataPoints?.map((item:any)=>{
-      isEveryYAxisValuesAreZero.current = item?.data?.every((dataValues:any)=>
-      (dataValues?.length > 0 && dataValues[1]) === 0
-      )
+    dataPoints?.length > 0 && dataPoints?.every((item:any)=>{
+      setIsEveryYAxisValuesAreZero(item?.data?.every((dataValues:any)=>
+      (dataValues?.length > 1 && dataValues[1]) === 0
+      ))
      })
   }
   
 },[dataPoints])
-  
-
    
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
@@ -352,7 +352,7 @@ useEffect(()=>{
         series: dataPoints,
         yAxis: {
           visible: false,
-          max: pageName === "FleetManagement" && isEveryYAxisValuesAreZero.current ? 100 : undefined,
+          max: pageName === "FleetManagement" && isEveryYAxisValuesAreZero ? 100 : undefined,
         },
         credits: false,
       }}
