@@ -135,6 +135,7 @@ const NotificationPanel = (props: any) => {
       setParkingLotIndex(0);
       setParkingLotSelectionActive(false);
     }
+    props.handleExpandListItem(id);
   };
 
   const handleSearchIcon = () => {
@@ -216,7 +217,7 @@ const NotificationPanel = (props: any) => {
           block: "nearest",
         });
       }, 300);
-    } else if(selectedNotification === "") {
+    } else if (selectedNotification === "") {
       setTimeout(() => {
         refs[searchValue[0]?.id]?.current?.scrollIntoView({
           behavior: "smooth",

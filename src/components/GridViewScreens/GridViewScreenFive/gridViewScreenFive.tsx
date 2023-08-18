@@ -283,7 +283,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentLeftStyle}>
                         <div className={liveContentValue}>
-                          {fleetManagementResponse?.data?.liveVehicle}
+                          {fleetManagementResponse?.data?.liveVehicle
+                            ? fleetManagementResponse?.data?.liveVehicle
+                            : 0}
                         </div>
                         <div className={liveContentLabel}>
                           {gridView.vehicles}
@@ -291,7 +293,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                       </div>
                       <div className={liveContentStyle}>
                         <div className={liveContentValue}>
-                          {fleetManagementResponse?.data?.completedTripCount}
+                          {fleetManagementResponse?.data?.completedTripCount
+                            ? fleetManagementResponse?.data?.completedTripCount
+                            : 0}
                         </div>
                         <div className={liveContentLabel}>{gridView.trips}</div>
                       </div>
@@ -332,7 +336,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         direction="column"
                       >
                         <div className={listItemValueStyle}>
-                          {fleetManagementResponse?.data?.incidentCount}
+                          {fleetManagementResponse?.data?.incidentCount
+                            ? fleetManagementResponse?.data?.incidentCount
+                            : 0}
                         </div>
                         <div className={listItemLabelStyle}>
                           {gridView.incidents}
@@ -344,11 +350,13 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         direction="column"
                         className={rightListItemStyle}
                       >
-                        <div
-                          className={listItemValueStyle}
-                        >{`${fleetManagementResponse?.data?.totalDistanceCovered?.toFixed(
-                          2
-                        )}Km`}</div>
+                        <div className={listItemValueStyle}>{`${
+                          fleetManagementResponse?.data?.totalDistanceCovered
+                            ? fleetManagementResponse?.data?.totalDistanceCovered?.toFixed(
+                                2
+                              )
+                            : 0
+                        }Km`}</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.total}</p> <p>{gridView.distance}</p>
                         </div>
@@ -359,9 +367,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         direction="column"
                         className={rightListItemStyleLastChild}
                       >
-                        <div
-                          className={listItemValueStyle}
-                        >{`${overallHours}Hrs`}</div>
+                        <div className={listItemValueStyle}>{`${
+                          overallHours ? overallHours : 0
+                        }Hrs`}</div>
                         <div className={listItemLabelStyle}>
                           <p>{gridView.total}</p>{" "}
                           <p>

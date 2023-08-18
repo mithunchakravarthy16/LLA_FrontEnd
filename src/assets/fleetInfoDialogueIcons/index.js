@@ -13,6 +13,9 @@ import LightIncidentIcon from "./lightIncidentIcon.svg";
 import LightSpeedLimitIcon from "./lightSpeedlimit.svg";
 import LightTripStatusIcon from "./lightTrip.svg";
 
+import NoTripLightIcon from "./noTripLight.svg";
+import NoTripDarkIcon from "./noTripDark.svg";
+
 export {
   CloseIcon,
   SpeedometerIcon,
@@ -27,4 +30,6 @@ export {
   LightIncidentIcon,
   LightSpeedLimitIcon,
   LightTripStatusIcon,
+  NoTripLightIcon,
+  NoTripDarkIcon,
 };
