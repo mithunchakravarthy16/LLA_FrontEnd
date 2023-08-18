@@ -43,6 +43,9 @@ export const IconBackDrop = styled("div")`
   width: fit-content;
   padding: 15px;
   /* padding-bottom: 0px; */
+  @media (max-width: 1025px) {
+    padding: 4px;
+  }
 `;
 
 export const ValueContainer = styled("div")`
