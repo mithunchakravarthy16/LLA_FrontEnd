@@ -28,6 +28,8 @@ import {
   LightIncidentIcon,
   LightSpeedLimitIcon,
   LightTripStatusIcon,
+  NoTripLightIcon,
+  NoTripDarkIcon,
 } from "../../assets/fleetInfoDialogueIcons";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 import { LightTotalDistanceIcon } from "../../assets/topPanelListIcons";
@@ -42,7 +44,7 @@ import routeDetails from "mockdata/tripDetails";
 import useWindowDimensions from "hooks/useWindowDimensions";
 import Tooltip from "../../elements/Tooltip";
 import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
-import { formattedViolationsList } from "utils/utils";
+import { formattedViolationsList, getFormattedAddress } from "utils/utils";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 
@@ -133,6 +135,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [points, setPoints] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [routes, setRoutes] = useState<any>([]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -149,7 +152,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    if (fleetManagementTripDetailsResponse?.status === 500) {
+    if (
+      fleetManagementTripDetailsResponse?.status === 500 ||
+      fleetManagementTripDetailsResponse?.status === 404 ||
+      fleetManagementTripDetailsResponse?.status === 400 ||
+      fleetManagementTripDetailsResponse?.status === 409 ||
+      fleetManagementTripDetailsResponse?.status === 413 ||
+      fleetManagementTripDetailsResponse?.status === 410
+    ) {
       setSuccess(true);
     } else if (fleetManagementTripDetailsResponse?.status === 200) {
       setSuccess(false);
@@ -164,6 +174,33 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       });
       setPoints(data);
     }
+    const updatedArray: any = [];
+    fleetManagementTripDetailsResponse?.data?.routeDtos?.forEach(
+      async (item: any) => {
+        let address: any = "";
+        const geocoder: any = new window.google.maps.Geocoder();
+        const location1: any = new window.google.maps.LatLng(
+          item?.location?.lat,
+          item?.location?.lng
+        );
+        await geocoder.geocode(
+          { latLng: location1 },
+          (results: any, status: any) => {
+            if (status === "OK" && results[0]) {
+              address = results[0].formatted_address;
+            } else {
+              console.error("Geocode failure: " + status);
+              return false;
+            }
+            updatedArray.push({
+              ...item,
+              area: address,
+            });
+          }
+        );
+        setRoutes([...updatedArray]);
+      }
+    );
   }, [fleetManagementTripDetailsResponse]);
 
   const [open, setOpen] = useState(!false);
@@ -345,8 +382,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
             ? LightSpeedometerIcon
             : SpeedometerIcon
           : selectedTheme === "light"
-          ? LightTripStatusIcon
-          : TripStatusIcon,
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.driverStatus === "On Trip"
+            ? LightTripStatusIcon
+            : NoTripLightIcon
+          : fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.driverStatus === "On Trip"
+          ? TripStatusIcon
+          : NoTripDarkIcon,
       value:
         tabIndex === 1
           ? `${
@@ -559,7 +602,12 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           <Alert
             onClose={handleErrorClose}
             severity={
-              fleetManagementTripDetailsResponse?.status === 500
+              fleetManagementTripDetailsResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 404 ||
+              fleetManagementTripDetailsResponse?.status === 400 ||
+              fleetManagementTripDetailsResponse?.status === 409 ||
+              fleetManagementTripDetailsResponse?.status === 413 ||
+              fleetManagementTripDetailsResponse?.status === 410
                 ? "error"
                 : undefined
             }
@@ -571,6 +619,31 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                 <Link component="button" variant="body2" onClick={handleClick}>
                   Please try again
                 </Link>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 404 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Data Not Available</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 400 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Bad Request</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 409 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Already data available</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 413 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request too large</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 410 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request not available</Typography>
               </div>
             )}
           </Alert>
@@ -677,9 +750,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                     }}
                   >
                     <Stepper
-                      routeDetails={
-                        fleetManagementTripDetailsResponse?.data?.routeDtos
-                      }
+                      routeDetails={routes}
                       tripStatus={"Completed"}
                       is4kDevice={is4kDevice}
                       selectedTheme={selectedTheme}

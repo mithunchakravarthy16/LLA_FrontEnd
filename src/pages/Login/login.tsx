@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import theme from "../../theme/theme";
-import Grid from "@mui/material/Grid";
+import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import Box from "@mui/material/Box";
 import llaLogo from "../../assets/images/lla-logo.svg";
 import loginBorder from "../../assets/login-border.svg";
@@ -41,6 +41,8 @@ const Login = () => {
 
   const [inCorrectCredentials, setInCorrectCredentials] =
     useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -142,8 +144,43 @@ const Login = () => {
     navigate("/adminLogin");
   };
 
+  // const handleClose = () => {
+  //   setSuccess(false);
+  // };
+
+  // const handleClick = () => {
+  //   setCount((prev) => prev + 1);
+  //   setSuccess(false);
+  // };
+
   return (
     <>
+      {/* {success && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={
+              fleetManagementNotificationResponse?.status === 500
+                ? "error"
+                : undefined
+            }
+            sx={{ width: "100%" }}
+          >
+            {(fleetManagementNotificationResponse?.status === 500) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Something went wrong...</Typography>
+                <Link component="button" variant="body2" onClick={handleClick}>
+                  Please try again
+                </Link>
+              </div>
+            )}
+          </Alert>
+        </Snackbar>
+      )} */}
       <div>
         <Grid
           container
