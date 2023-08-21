@@ -64,8 +64,8 @@ const useStyles = makeStyles({
       },
       "& .gm-style" : {
         "& .cluster" : {
-          width : "7vh !important",
-          height : "7vh !important",
+          width : "6vh !important",
+          height : "6vh !important",
           display: "flex !important",
           flexDirection: "column !important",
           justifyContent: "center !important",
