@@ -1,5 +1,4 @@
 import { fetchConfig } from "./fecthConfig";
-import { fetchLoginConfig } from "./fecthConfig";
 
 const fetchLogin = async (url: string, payload: any) => {
   const options = {
@@ -10,7 +9,7 @@ const fetchLogin = async (url: string, payload: any) => {
     },
     body: JSON.stringify(payload),
   };
-  return fetchLoginConfig(url, options);
+  return fetchConfig(url, options);
 };
 
 const fetchPostData = async (url: string, payload: any) => {
