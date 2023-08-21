@@ -1266,6 +1266,7 @@ const AssetTracking: React.FC<any> = (props) => {
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
                   selectedTheme={selectedTheme}
+                  handleExpandListItem={() => {}}
                 />
               </Grid>
             </Grid>

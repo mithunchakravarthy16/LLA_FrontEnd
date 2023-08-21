@@ -453,6 +453,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     handleViewDetails={() => {}}
                     handleAssetViewDetails={() => {}}
                     selectedTheme={selectedTheme}
+                    handleExpandListItem={() => {}}
                   />
                 </div>
               )}
