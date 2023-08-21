@@ -262,7 +262,7 @@ useEffect(()=>{
         },
         xAxis: {
           visible: isVisible,
-
+          endOnTick: true,
           categories: xAxisArray
             ? xAxisArray
             : pageName !== "FleetManagement" && lastTwntyTwoHours,
@@ -279,13 +279,14 @@ useEffect(()=>{
               ? tickInterval
               : pageName !== "FleetManagement"
               ? 8
-              : selectedValue === "Today"
-              ? 5 * 3600 * 1000
+              : 
+              selectedValue === "Today"
+              ? 6 * 3600 * 1000
               : selectedValue === "Year"
-              ? 60 * 24 * 3600 * 1000
+              ? 90 * 24 * 3600 * 1000
               : selectedValue === "Month"
               ? 5 * 24 * 3600 * 1000
-              : 24 * 3600 * 1000,
+              : 40 * 3600 * 1000,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -297,6 +298,22 @@ useEffect(()=>{
             (pageName === "assetTracking" || pageName === "FleetManagement") &&
             "datetime",
           labels: {
+
+            
+              formatter:
+              pageName === "FleetManagement" && 
+              function (this:any) {
+                const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
+                return convertedTime.format(formatGraph
+                  ? formatGraph
+                  : pageName === "FleetManagement" && selectedValue === "Today"
+                  ? "HH:mm"
+                  : selectedValue === "Year"
+                  ? "MMM/YY"
+                  : "MM/DD");
+              },
+            
+
             useHTML: true,
             // overflow: "justify",
             overflow: "justify",
@@ -318,9 +335,11 @@ useEffect(()=>{
           gridLineWidth: 0,
           lineWidth: 0,
           tickPositioner:
-            pageName !== "FleetManagement" &&
+            //  pageName !== "FleetManagement" &&
             function (this: any) {
+              
               const ticks: any = this.tickPositions;
+              
               if (!ticks.includes(this.dataMax)) ticks.push(this.dataMax);
               ticks.sort((a: any, b: any) => a - b);
               while (ticks[ticks.length - 1] > this.dataMax) {
@@ -329,6 +348,12 @@ useEffect(()=>{
               return ticks;
             },
         },
+
+        setOptions: {
+          time: {
+              useUTC: false
+          }
+      },
 
         title: false,
         plotOptions: {
