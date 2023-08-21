@@ -219,15 +219,30 @@ const FleetManagement: React.FC<any> = (props) => {
         const hours = Math.floor(totalMinutes / 60);
         idlData?.push([new Date(item?.node)?.getTime(), hours]);
       });
-      const totalMinutes = Math.floor(
-        fleetManagementTripDetailsResponse?.data?.idleHours / 60
-      );
-      const hours = Math.floor(totalMinutes / 60);
+
+      if (fleetManagementTripDetailsResponse?.data?.idleHours) {
+        const totalMinutes = Math.floor(
+          fleetManagementTripDetailsResponse?.data?.idleHours / 60
+        );
+        const hours = Math.floor(totalMinutes / 60);
+        let duration: string = "";
+        if (fleetManagementTripDetailsResponse?.data?.idleHours > 3600) {
+          duration = `${hours}Hrs`;
+        } else if (
+          fleetManagementTripDetailsResponse?.data?.idleHours > 60 &&
+          fleetManagementTripDetailsResponse?.data?.idleHours < 3600
+        ) {
+          duration = `${totalMinutes}Mins`;
+        } else if (fleetManagementTripDetailsResponse?.data?.idleHours < 59) {
+          duration = `${fleetManagementTripDetailsResponse?.data?.idleHours}Secs`;
+        }
+        setOverallHours(duration);
+      }
+
       setTripsData(data);
       setDistanceData(distanceTravelledData);
       setIdleData(idlData);
       setHoursData(hourData);
-      setOverallHours(hours);
     }
   }, [fleetManagementAnalyticsResponse]);
 
@@ -289,6 +304,35 @@ const FleetManagement: React.FC<any> = (props) => {
           return { ...value, index: index + 1 };
         }
       );
+
+      //
+      // const updatedArray: any = [];
+      // combinedNotifications?.forEach(async (item: any) => {
+      //   if (item?.location?.lat && item?.location?.lng) {
+      //     let address: any = "";
+      //     const geocoder: any = new window.google.maps.Geocoder();
+      //     const location1: any = new window.google.maps.LatLng(
+      //       item?.location?.lat,
+      //       item?.location?.lng
+      //     );
+      //     await geocoder.geocode(
+      //       { latLng: location1 },
+      //       (results: any, status: any) => {
+      //         if (status === "OK" && results[0]) {
+      //           address = results[0].formatted_address;
+      //         } else {
+      //           console.error("Geocode failure: " + status);
+      //           return false;
+      //         }
+      //         updatedArray.push({
+      //           ...item,
+      //           area: address,
+      //         });
+      //       }
+      //     );
+      //     setNotificationArray([...updatedArray]);
+      //   }
+      // });
       setNotificationArray(dataValue);
     }
   }, [fleetManagementNotificationResponse]);
@@ -310,7 +354,7 @@ const FleetManagement: React.FC<any> = (props) => {
       icon: selectedTheme === "light" ? LightIdleHoursIcon : IdleHoursIcon,
       value: `${
         fleetManagementTripDetailsResponse?.data?.idleHours ? overallHours : 0
-      }Hrs`,
+      }`,
       name: `${fleetManagement.idleHrs}`,
     },
     {

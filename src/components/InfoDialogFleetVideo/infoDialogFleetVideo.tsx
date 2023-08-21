@@ -172,7 +172,7 @@ const InfoDialogFleetVideo: React.FC<any> = (props) => {
                 <Loader />
               )
             ) : (
-              <div className={noVideoPreview}>No Video Content available</div>
+              <div className={noVideoPreview}>No Video Content Available</div>
             )}
           </Grid>
         </Grid>

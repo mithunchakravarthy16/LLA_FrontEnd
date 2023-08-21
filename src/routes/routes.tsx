@@ -28,7 +28,7 @@ const VIOT_Routes = () => {
     },
     {
       path: "/",
-      element: user?.userName ? (
+      element: user?.data?.userName ? (
         <MainLayout />
       ) : (
         <Navigate replace to="login" />
