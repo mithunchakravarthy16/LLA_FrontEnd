@@ -1,4 +1,5 @@
 /** @format */
+//@ts-nocheck
 
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
@@ -61,6 +62,26 @@ const useStyles = makeStyles({
       {
         display: "none !important",
       },
+      "& .gm-style" : {
+        "& .cluster" : {
+          width : "6vh !important",
+          height : "6vh !important",
+          display: "flex !important",
+          flexDirection: "column !important",
+          justifyContent: "center !important",
+          alignItems: "center !important",
+
+          "& img" : {
+            width : "100%",
+            height : "100%",
+          },
+          "& div" : {
+            fontSize : "0.7vw !important",
+            position : "relative !important",
+            zIndex : 11
+          }
+        }
+      }     
   }),
   footerSection: (props: any) => ({
     background: "black",
