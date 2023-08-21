@@ -28,6 +28,8 @@ import {
   LightIncidentIcon,
   LightSpeedLimitIcon,
   LightTripStatusIcon,
+  NoTripLightIcon,
+  NoTripDarkIcon,
 } from "../../assets/fleetInfoDialogueIcons";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 import { LightTotalDistanceIcon } from "../../assets/topPanelListIcons";
@@ -41,8 +43,11 @@ import Stepper from "elements/Stepper";
 import routeDetails from "mockdata/tripDetails";
 import useWindowDimensions from "hooks/useWindowDimensions";
 import Tooltip from "../../elements/Tooltip";
-import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
-import { formattedViolationsList } from "utils/utils";
+import {
+  getFleetManagementTripDetails,
+  setFleetManagementTripDetails,
+} from "redux/actions/fleetManagementNotificationActions";
+import { formattedViolationsList, getFormattedAddress } from "utils/utils";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 
@@ -133,6 +138,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [points, setPoints] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [routes, setRoutes] = useState<any>([]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -149,7 +155,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    if (fleetManagementTripDetailsResponse?.status === 500) {
+    if (
+      fleetManagementTripDetailsResponse?.status === 500 ||
+      fleetManagementTripDetailsResponse?.status === 404 ||
+      fleetManagementTripDetailsResponse?.status === 400 ||
+      fleetManagementTripDetailsResponse?.status === 409 ||
+      fleetManagementTripDetailsResponse?.status === 413 ||
+      fleetManagementTripDetailsResponse?.status === 410
+    ) {
       setSuccess(true);
     } else if (fleetManagementTripDetailsResponse?.status === 200) {
       setSuccess(false);
@@ -164,6 +177,34 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       });
       setPoints(data);
     }
+    const updatedArray: any = [];
+    fleetManagementTripDetailsResponse?.data?.routeDtos?.forEach(
+      async (item: any, index: number) => {
+        let address: any = "";
+        const geocoder: any = new window.google.maps.Geocoder();
+        const location1: any = new window.google.maps.LatLng(
+          item?.location?.lat,
+          item?.location?.lng
+        );
+        await geocoder.geocode(
+          { latLng: location1 },
+          (results: any, status: any) => {
+            if (status === "OK" && results[0]) {
+              address = results[0].formatted_address;
+            } else {
+              console.error("Geocode failure: " + status);
+              return false;
+            }
+            updatedArray.push({
+              ...item,
+              // index: index,
+              area: address,
+            });
+          }
+        );
+        setRoutes([...updatedArray]);
+      }
+    );
   }, [fleetManagementTripDetailsResponse]);
 
   const [open, setOpen] = useState(!false);
@@ -186,6 +227,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const handleClose = () => {
     setOpen(!open);
     setShowInfoDialogue(false);
+    dispatch(setFleetManagementTripDetails({}));
   };
 
   const tabsList = [
@@ -345,8 +387,14 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
             ? LightSpeedometerIcon
             : SpeedometerIcon
           : selectedTheme === "light"
-          ? LightTripStatusIcon
-          : TripStatusIcon,
+          ? fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.driverStatus === "On Trip"
+            ? LightTripStatusIcon
+            : NoTripLightIcon
+          : fleetManagementTripDetailsResponse?.data?.driverDetail
+              ?.driverStatus === "On Trip"
+          ? TripStatusIcon
+          : NoTripDarkIcon,
       value:
         tabIndex === 1
           ? `${
@@ -562,21 +610,53 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={success}
-          onClose={handleErrorClose}>
+          onClose={handleErrorClose}
+        >
           <Alert
             onClose={handleErrorClose}
             severity={
-              fleetManagementTripDetailsResponse?.status === 500
+              fleetManagementTripDetailsResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 404 ||
+              fleetManagementTripDetailsResponse?.status === 400 ||
+              fleetManagementTripDetailsResponse?.status === 409 ||
+              fleetManagementTripDetailsResponse?.status === 413 ||
+              fleetManagementTripDetailsResponse?.status === 410
                 ? "error"
                 : undefined
             }
-            sx={{ width: "100%" }}>
+            sx={{ width: "100%" }}
+          >
             {fleetManagementTripDetailsResponse?.status === 500 && (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
                 <Link component="button" variant="body2" onClick={handleClick}>
                   Please try again
                 </Link>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 404 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Data Not Available</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 400 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Bad Request</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 409 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Already data available</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 413 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request too large</Typography>
+              </div>
+            )}
+            {fleetManagementTripDetailsResponse?.status === 410 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request not available</Typography>
               </div>
             )}
           </Alert>
@@ -600,7 +680,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   width: "4.2%",
                   height: "4.2%",
                   transition: "none",
-                }}>
+                }}
+              >
                 <img
                   width={"100%"}
                   height={"100%"}
@@ -621,7 +702,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       }}
                       onClick={() => {
                         handleHeaderTab(item?.val);
-                      }}>
+                      }}
+                    >
                       {item?.name}
                     </Grid>
                   ))}
@@ -678,11 +760,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       background:
                         appTheme?.palette?.fleetManagementPage?.routeDetailsBg,
                       padding: " 1%",
-                    }}>
+                    }}
+                  >
                     <Stepper
-                      routeDetails={
-                        fleetManagementTripDetailsResponse?.data?.routeDtos
-                      }
+                      routeDetails={routes}
                       tripStatus={"Completed"}
                       is4kDevice={is4kDevice}
                       selectedTheme={selectedTheme}
@@ -691,7 +772,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   <Grid
                     item
                     xs={6.7}
-                    style={{ height: "100%", padding: "0 1%" }}>
+                    style={{ height: "100%", padding: "0 1%" }}
+                  >
                     <Grid style={{ height: "100%" }} item xs={12}>
                       {tabIndex === 0 ? (
                         <TripDetailsMap
@@ -725,7 +807,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   appTheme?.palette?.fleetManagementPage
                                     ?.routeDetailsBg,
                                 border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                              }}>
+                              }}
+                            >
                               {vehicleDetailsSubTaskBarItems?.length > 0 &&
                                 vehicleDetailsSubTaskBarItems?.map(
                                   (item: any) => (
@@ -735,16 +818,19 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                       alignItems={"center"}
                                       justifyContent={"center"}
                                       columnGap={2}
-                                      flex={1}>
+                                      flex={1}
+                                    >
                                       <div
-                                        style={{ width: "18%", height: "18%" }}>
+                                        style={{ width: "18%", height: "18%" }}
+                                      >
                                         <Tooltip
                                           tooltipValue={item?.name}
                                           placement={"bottom"}
                                           offset={tooltipOfset}
                                           fontSize={fontSize}
                                           padding={padding}
-                                          componentName={"TopPanelList"}>
+                                          componentName={"TopPanelList"}
+                                        >
                                           <img
                                             width={"100%"}
                                             height={"100%"}
@@ -767,7 +853,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 xs={12}
                                 height={"13%"}
                                 display={"flex"}
-                                alignItems={"center"}>
+                                alignItems={"center"}
+                              >
                                 <Tabs
                                   initialIndex={cameraTabIndex}
                                   tabsList={camTabsList}
@@ -813,7 +900,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   appTheme?.palette?.fleetManagementPage
                                     ?.routeDetailsBg,
                                 border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                              }}>
+                              }}
+                            >
                               {vehicleDetailsSubTaskBarItems?.length > 0 &&
                                 vehicleDetailsSubTaskBarItems?.map(
                                   (item: any, index: number) =>
@@ -824,19 +912,22 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                         alignItems={"center"}
                                         justifyContent={"center"}
                                         columnGap={2}
-                                        flex={1}>
+                                        flex={1}
+                                      >
                                         <div
                                           style={{
                                             width: "15%",
                                             height: "15%",
-                                          }}>
+                                          }}
+                                        >
                                           <Tooltip
                                             tooltipValue={item?.name}
                                             placement={"bottom"}
                                             offset={tooltipOfset}
                                             fontSize={fontSize}
                                             padding={padding}
-                                            componentName={"TopPanelList"}>
+                                            componentName={"TopPanelList"}
+                                          >
                                             <img
                                               width={"100%"}
                                               height={"100%"}
@@ -857,7 +948,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                             xs={12}
                             marginTop={"2%"}
                             height={"85%"}
-                            border={"1px solid #333333"}>
+                            border={"1px solid #333333"}
+                          >
                             <Grid
                               container
                               xs={12}
@@ -866,7 +958,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                              }}>
+                              }}
+                            >
                               <Grid item>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
@@ -1214,7 +1307,8 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       background:
                         appTheme?.palette?.fleetManagementPage?.violationBg,
                       padding: "1% 0% 1% 1%",
-                    }}>
+                    }}
+                  >
                     <FleetInfoDialogueViolationContainer
                       violationListItems={violations}
                       selectedTheme={selectedTheme}

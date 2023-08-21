@@ -141,7 +141,7 @@ const assetTrackingResponse = {
           notificationDate: "2023-07-03T13:15:24.236Z",
           area: "1600 20th St, Denver, CO 80202, USA",
           location: {
-            lat: 39.75524430200669,
+            lat: 39.75724430200669,
             lng: -104.99584016131921,
           },
         },

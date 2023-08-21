@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import theme from "../../theme/theme";
-import Grid from "@mui/material/Grid";
+import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import Box from "@mui/material/Box";
 import llaLogo from "../../assets/images/lla-logo.svg";
 import loginBorder from "../../assets/login-border.svg";
@@ -20,7 +20,11 @@ import { getUserLogin } from "../../redux/actions/loginActions";
 import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
-import { getAdminPanelConfigData } from "redux/actions/adminPanel";
+import {
+  getAdminPanelConfigData,
+  setAdminPanelConfigData,
+} from "redux/actions/adminPanel";
+import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,8 +34,9 @@ const Login = () => {
   const user = useSelector((state: any) => state.login.loginData);
 
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData?.data?.body
+    (state: any) => state?.adminPanel?.getConfigData
   );
+
   const adminPanelSaveData = useSelector(
     (state: any) => state?.adminPanel?.configData
   );
@@ -41,17 +46,25 @@ const Login = () => {
 
   const [inCorrectCredentials, setInCorrectCredentials] =
     useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
   }, []);
 
   useEffect(() => {
-    setSelectedTheme(adminPanelData?.appearance);
+    setSelectedTheme(adminPanelData?.data?.body?.appearance);
   }, [adminPanelData]);
 
   useEffect(() => {
-    if (adminPanelSaveData?.body?.isPreview === "Y") {
+    setSuccess(false);
+    dispatch(setUserLogin({}));
+    dispatch(setAdminPanelConfigData({}));
+  }, []);
+
+  useEffect(() => {
+    if (adminPanelSaveData?.data?.body?.isPreview === "Y") {
       dispatch(getAdminPanelConfigData({ isPreview: "Y", isDefault: "N" }));
     }
   }, [adminPanelSaveData]);
@@ -92,15 +105,46 @@ const Login = () => {
 
   useEffect(() => {
     if (
-      (user && user?.userName && user?.currentRoleType === "USER") ||
-      user?.currentRoleType === "ADMIN"
+      user &&
+      user?.data &&
+      user?.data?.userName &&
+      (user?.data?.currentRoleType === "USER" ||
+        user?.data?.currentRoleType === "ADMIN") &&
+      user?.status === 200
     ) {
-      // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
+      setSuccess(false);
       navigate("/home");
-    } else if (user && user.message) {
+    } else if (
+      user?.status === 500 ||
+      user?.status === 404 ||
+      user?.status === 400 ||
+      user?.status === 409 ||
+      user?.status === 413 ||
+      user?.status === 410 ||
+      user?.status === 401 ||
+      adminPanelData?.status === 500 ||
+      adminPanelData?.status === 404 ||
+      adminPanelData?.status === 400 ||
+      adminPanelData?.status === 409 ||
+      adminPanelData?.status === 413 ||
+      adminPanelData?.status === 410 ||
+      adminPanelData?.status === 401 ||
+      adminPanelSaveData?.status === 500 ||
+      adminPanelSaveData?.status === 404 ||
+      adminPanelSaveData?.status === 400 ||
+      adminPanelSaveData?.status === 409 ||
+      adminPanelSaveData?.status === 413 ||
+      adminPanelSaveData?.status === 410 ||
+      adminPanelSaveData?.status === 401
+    ) {
+      setSuccess(true);
       setInCorrectCredentials(true);
+      setTimeout(() => {
+        dispatch(setUserLogin({}));
+        setSuccess(false);
+      }, 2000);
     }
-  }, [user]);
+  }, [user, adminPanelData, adminPanelSaveData]);
 
   useEffect(() => {
     if (inCorrectCredentials) {
@@ -109,6 +153,16 @@ const Login = () => {
       }, 10000);
     }
   }, [inCorrectCredentials]);
+
+  useEffect(() => {
+    if (count > 3) {
+      localStorage.removeItem("user");
+      localStorage.clear();
+      dispatch(getUserLogout());
+      dispatch(setUserLogin({}));
+      navigate("/login");
+    }
+  }, [count]);
 
   const formik = useFormik({
     initialValues: {
@@ -125,9 +179,6 @@ const Login = () => {
         .required("Please Enter Password"),
     }),
     onSubmit: (values) => {
-      // values?.userid === "Mike@ross" &&
-      // values?.password === "Mikeross@2023#"
-
       let payload = {
         userName: values.userid,
         passWord: values.password,
@@ -138,12 +189,108 @@ const Login = () => {
     },
   });
 
-  const handleAdminPanel = () => {
-    navigate("/adminLogin");
+  const handleClose = () => {
+    setSuccess(false);
+  };
+
+  const handleClick = () => {
+    setCount((prev) => prev + 1);
+    setSuccess(false);
+    dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
   };
 
   return (
     <>
+      {success && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={
+              user?.status === 500 ||
+              user?.status === 404 ||
+              user?.status === 400 ||
+              user?.status === 409 ||
+              user?.status === 413 ||
+              user?.status === 410 ||
+              user?.status === 401 ||
+              adminPanelData?.status === 500 ||
+              adminPanelData?.status === 404 ||
+              adminPanelData?.status === 400 ||
+              adminPanelData?.status === 409 ||
+              adminPanelData?.status === 413 ||
+              adminPanelData?.status === 410 ||
+              adminPanelData?.status === 401 ||
+              adminPanelSaveData?.status === 500 ||
+              adminPanelSaveData?.status === 404 ||
+              adminPanelSaveData?.status === 400 ||
+              adminPanelSaveData?.status === 409 ||
+              adminPanelSaveData?.status === 413 ||
+              adminPanelSaveData?.status === 410 ||
+              adminPanelSaveData?.status === 401
+                ? "error"
+                : undefined
+            }
+            sx={{ width: "100%" }}
+          >
+            {(user?.status === 500 ||
+              adminPanelData?.status === 500 ||
+              adminPanelSaveData?.status === 500) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Something went wrong...</Typography>
+                <Link component="button" variant="body2" onClick={handleClick}>
+                  Please try again
+                </Link>
+              </div>
+            )}
+            {(user?.status === 404 ||
+              adminPanelData?.status === 404 ||
+              adminPanelSaveData?.status === 404) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Data Not Available</Typography>
+              </div>
+            )}
+            {(user?.status === 400 ||
+              adminPanelData?.status === 400 ||
+              adminPanelSaveData?.status === 400) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Bad Request</Typography>
+              </div>
+            )}
+            {(user?.status === 409 ||
+              adminPanelData?.status === 409 ||
+              adminPanelSaveData?.status === 409) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Already data available</Typography>
+              </div>
+            )}
+            {(user?.status === 413 ||
+              adminPanelData?.status === 413 ||
+              adminPanelSaveData?.status === 413) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request too large</Typography>
+              </div>
+            )}
+            {(user?.status === 410 ||
+              adminPanelData?.status === 410 ||
+              adminPanelSaveData?.status === 410) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request not available</Typography>
+              </div>
+            )}
+            {(user?.status === 401 ||
+              adminPanelData?.status === 401 ||
+              adminPanelSaveData?.status === 401) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Unauthorized user</Typography>
+              </div>
+            )}
+          </Alert>
+        </Snackbar>
+      )}
       <div>
         <Grid
           container
@@ -163,9 +310,9 @@ const Login = () => {
             <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>
-                  {adminPanelData?.login && (
+                  {adminPanelData?.data?.body?.login && (
                     <img
-                      src={`data:image/jpeg;base64,${adminPanelData?.login}`}
+                      src={`data:image/jpeg;base64,${adminPanelData?.data?.body?.login}`}
                     />
                   )}
                 </div>
