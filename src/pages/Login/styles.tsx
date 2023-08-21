@@ -37,8 +37,11 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(1281)]: {
       paddingTop: "15vh",
     },
+    [muiTheme.breakpoints.down(1921)]: {
+      paddingTop: "12vh",
+    },
     [muiTheme.breakpoints.down(1025)]: {
-      paddingTop: "5vh",
+      paddingTop: "8vh",
     },
   }),
   loginFormSection: (props: any) => ({
@@ -106,16 +109,16 @@ const useStyles = makeStyles(() => ({
     bottom: "-2vw",
     color: "red",
     fontSize: "0.9vw",
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
   }),
   welcomeContent: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
     fontSize: "56px",
     lineHeight: "82px",
     color: props?.palette?.login?.welcomeTitle,
     textAlign: "left",
     [muiTheme.breakpoints.down(3073)]: {
-      fontFamily: "HelveticaNeue-Regular",
+      fontFamily: "HelveticaNeue-Medium",
       fontSize: "56px",
       lineHeight: "82px",
     },
@@ -130,18 +133,18 @@ const useStyles = makeStyles(() => ({
   }),
 
   inputTitle: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
     fontWeight: " 500",
     fontSize: "30px",
     lineHeight: "36px",
     color: props?.palette?.login?.loginTitle,
     marginBottom: 24,
     [muiTheme.breakpoints.down(3073)]: {
-      fontFamily: "HelveticaNeue-Regular",
+      fontFamily: "HelveticaNeue-Medium",
       fontWeight: " 500",
       fontSize: "30px",
       lineHeight: "36px",
-      color: props?.palette?.login?.loginTitle,
+      // color: props?.palette?.login?.loginTitle,
       marginBottom: 24,
     },
     [muiTheme.breakpoints.down(2049)]: {
@@ -267,7 +270,7 @@ const useStyles = makeStyles(() => ({
     "& .MuiButtonBase-root": {
       background: "#F26522",
       borderRadius: "5px",
-      fontFamily: "HelveticaNeue-Regular",
+      fontFamily: "HelveticaNeue-Medium",
       fontSize: "32px",
       lineHeight: "82px",
       color: props?.palette?.login?.loginBannerTitle,
@@ -296,7 +299,7 @@ const useStyles = makeStyles(() => ({
     },
   }),
   formikErrorClass: (props: any) => ({
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
     color: "red",
     padding: 0,
     margin: 0,
@@ -398,7 +401,7 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     color: "#FFFFFF",
     fontSize: "1vw",
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
     fontWeight: 500,
   }),
 }));

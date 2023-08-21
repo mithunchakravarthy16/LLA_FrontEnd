@@ -49,6 +49,12 @@ import {
   parkingLight,
   securityLight,
   lightingLight,
+  parkingHoverWhite,
+  energyManagementWhite,
+  securityHoverWhite,
+  lightingHoverWhite,
+  fleetManagementWhite,
+  assetHoverWhite,
 } from "../../assets/images";
 
 /*
@@ -84,7 +90,7 @@ const Card = ({
   setTheme(adminPanelData?.appearance);
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
-    transform: `skew(-18deg) perspective(600px) rotateY(${
+    transform: `skew(0deg) perspective(600px) rotateY(${
       currentOpenedCard === card.title ? 180 : 0
     }deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
@@ -155,7 +161,8 @@ const Card = ({
           suffix: "",
         },
       ],
-      noteLabel: dashboard?.securityNoteLabel.substring(0, 23) + "...",
+      // noteLabel: dashboard?.securityNoteLabel.substring(0, 23) + "...",
+      noteLabel: dashboard?.securityNoteLabel,
       noteValue: "20",
       noteDifference: "+",
     },
@@ -240,6 +247,7 @@ const Card = ({
         }}
       />
       <SkewBackContainer
+         themeapi={adminPanelData?.appearance}
         style={{
           transform: containerTransform.transform,
           opacity: containerTransform.opacity,
@@ -247,7 +255,7 @@ const Card = ({
       />
       <ContentContainer
         style={{
-          transform: contentTransform.transform,
+           transform: contentTransform.transform,
           opacity: contentTransform.opacity.to((o) => 1 - o),
         }}
       >
@@ -260,7 +268,7 @@ const Card = ({
       </ContentContainer>
       <BackContentContainer
         style={{
-          transform: contentTransform.transform,
+           transform: contentTransform.transform,
           opacity: contentTransform.opacity,
         }}
       >
@@ -268,14 +276,14 @@ const Card = ({
           {card.translatedTitle.replaceAll("_", " ")}
         </CardTitleSmall>
         <CardValuesWrapper>
-          <CardValuesSkewContainer />
+          <CardValuesSkewContainer themeapi={adminPanelData?.appearance}/>
           <CardValuesContainer>
             {DEMO_VALUES[card?.title].values?.map((value: any) =>
               value?.type === "splitter" ? (
-                <CardValuesSplitter />
+                <CardValuesSplitter themeapi={adminPanelData?.appearance}/>
               ) : (
                 <ValueWrapper>
-                  <Value>
+                  <Value themeapi={adminPanelData?.appearance}>
                     {value.value} {value.suffix}
                   </Value>
                   <Label>{value.label}</Label>
@@ -297,13 +305,13 @@ const Card = ({
               DEMO_VALUES[card?.title]?.noteValue
             }
           </NoteValue>
-          {adminPanelData?.appearance === "light" &&
+          {/* {adminPanelData?.appearance === "light" &&
           card?.title === "assets_tracking" ? null : (
             <NoteDifferenceIndicator
               src={cardDifferenceIndicator}
               difference={DEMO_VALUES[card?.title]?.noteDifference}
             />
-          )}
+          )} */}
         </NoteContainer>
       </BackContentContainer>
     </RootContainer>
@@ -327,7 +335,7 @@ const FlippingCard = (props: any) => {
       title: "parking",
       image:
         focusedCategory === "parking"
-          ? ParkingHover
+          ? selectedTheme === "light" ? parkingHoverWhite : ParkingHover
           : selectedTheme !== "light"
           ? parking
           : parkingLight,
@@ -338,7 +346,7 @@ const FlippingCard = (props: any) => {
       title: "energy_management",
       image:
         focusedCategory === "energy"
-          ? EnergyHover
+          ? selectedTheme === "light" ? energyManagementWhite : EnergyHover
           : selectedTheme !== "light"
           ? energyManagement
           : energyManagementLight,
@@ -349,7 +357,7 @@ const FlippingCard = (props: any) => {
       title: "security",
       image:
         focusedCategory === "security"
-          ? SecurityHover
+          ? selectedTheme === "light" ? securityHoverWhite : SecurityHover
           : selectedTheme !== "light"
           ? security
           : securityLight,
@@ -360,7 +368,7 @@ const FlippingCard = (props: any) => {
       title: "lighting",
       image:
         focusedCategory === "lighting"
-          ? LightingHover
+          ? selectedTheme === "light" ? lightingHoverWhite : LightingHover
           : selectedTheme !== "light"
           ? lighting
           : lightingLight,
@@ -371,7 +379,7 @@ const FlippingCard = (props: any) => {
       title: "fleet_management",
       image:
         focusedCategory === "fleet"
-          ? FleetHover
+          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
           : selectedTheme !== "light"
           ? fleetManagement
           : fleetManagementLight,
@@ -382,7 +390,7 @@ const FlippingCard = (props: any) => {
       title: "assets_tracking",
       image:
         focusedCategory === "asset"
-          ? AssetHover
+          ? selectedTheme === "light" ? assetHoverWhite : AssetHover
           : selectedTheme !== "light"
           ? assetTracking
           : assetTrackingLight,

@@ -97,10 +97,17 @@ a[href^="https://www.google.com/maps"] {
   font-style: italic;
 }
 @font-face {
-  font-family: 'HelveticaNeue-Regular';
+  font-family: 'HelveticaNeue-Medium';
   src: local("HelveticaNeue"),
   url("../src/fonts/HelveticaNeue/HelveticaNeueRegular.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'HelveticaNeue-Regular';
+  src: local("HelveticaNeue"),
+  url("../src/fonts/HelveticaNeue/HelveticaNeueMedium.ttf") format("truetype");
+  font-weight: 500;
   font-style: normal;
 }
 @font-face {

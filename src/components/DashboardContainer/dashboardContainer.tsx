@@ -188,7 +188,20 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   useEffect(() => {
     setSuccess(false);
-    if (fleetManagementNotificationResponse?.status === 500) {
+    if (
+      fleetManagementNotificationResponse?.status === 500 ||
+      fleetManagementNotificationResponse?.status === 404 ||
+      fleetManagementNotificationResponse?.status === 400 ||
+      fleetManagementNotificationResponse?.status === 409 ||
+      fleetManagementNotificationResponse?.status === 413 ||
+      fleetManagementNotificationResponse?.status === 410 ||
+      fleetManagementTripDetailsResponse?.status === 500 ||
+      fleetManagementTripDetailsResponse?.status === 404 ||
+      fleetManagementTripDetailsResponse?.status === 400 ||
+      fleetManagementTripDetailsResponse?.status === 409 ||
+      fleetManagementTripDetailsResponse?.status === 413 ||
+      fleetManagementTripDetailsResponse?.status === 410
+    ) {
       setSuccess(true);
     } else if (
       assetNotificationResponse &&
@@ -300,18 +313,60 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           <Alert
             onClose={handleClose}
             severity={
-              fleetManagementNotificationResponse?.status === 500
+              fleetManagementNotificationResponse?.status === 500 ||
+              fleetManagementNotificationResponse?.status === 404 ||
+              fleetManagementNotificationResponse?.status === 400 ||
+              fleetManagementNotificationResponse?.status === 409 ||
+              fleetManagementNotificationResponse?.status === 413 ||
+              fleetManagementNotificationResponse?.status === 410 ||
+              fleetManagementTripDetailsResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 404 ||
+              fleetManagementTripDetailsResponse?.status === 400 ||
+              fleetManagementTripDetailsResponse?.status === 409 ||
+              fleetManagementTripDetailsResponse?.status === 413 ||
+              fleetManagementTripDetailsResponse?.status === 410
                 ? "error"
                 : undefined
             }
             sx={{ width: "100%" }}
           >
-            {fleetManagementNotificationResponse?.status === 500 && (
+            {(fleetManagementNotificationResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 500) && (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
                 <Link component="button" variant="body2" onClick={handleClick}>
-                  Please try again later
+                  Please try again
                 </Link>
+              </div>
+            )}
+            {(fleetManagementNotificationResponse?.status === 404 ||
+              fleetManagementTripDetailsResponse?.status === 404) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Data Not Available</Typography>
+              </div>
+            )}
+            {(fleetManagementNotificationResponse?.status === 400 ||
+              fleetManagementTripDetailsResponse?.status === 400) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Bad Request</Typography>
+              </div>
+            )}
+            {(fleetManagementNotificationResponse?.status === 409 ||
+              fleetManagementTripDetailsResponse?.status === 409) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Already data available</Typography>
+              </div>
+            )}
+            {(fleetManagementNotificationResponse?.status === 413 ||
+              fleetManagementTripDetailsResponse?.status === 413) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request too large</Typography>
+              </div>
+            )}
+            {(fleetManagementNotificationResponse?.status === 410 ||
+              fleetManagementTripDetailsResponse?.status === 410) && (
+              <div style={{ display: "flex" }}>
+                <Typography>Request not available</Typography>
               </div>
             )}
           </Alert>
