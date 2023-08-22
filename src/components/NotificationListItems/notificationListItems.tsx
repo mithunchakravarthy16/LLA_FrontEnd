@@ -14,6 +14,7 @@ import VideoLightIcon from "../../assets/videoLightIcon.svg";
 import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
 import moment from "moment";
+import useTranslation from "localization/translations";
 
 const NotificationListItems = (props: any) => {
   const locations = useLocation();
@@ -120,6 +121,8 @@ const NotificationListItems = (props: any) => {
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
+  const { viewDetails, takeAction } = useTranslation();
+
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
@@ -176,7 +179,7 @@ const NotificationListItems = (props: any) => {
                     variant="contained"
                     handleClick={() => handleAssetViewDetails(data)}
                   >
-                    View Details
+                    {viewDetails}
                   </Button>
                 </div>
                 <div className={timeStampStyle}>{currentTimeStamp}</div>
@@ -271,7 +274,7 @@ const NotificationListItems = (props: any) => {
                     variant="contained"
                     handleClick={() => handleViewDetails(data)}
                   >
-                    {"View Details"}
+                    {viewDetails}
                   </Button>
                 </div>
                 <div className={timeStampStyle}>
@@ -359,7 +362,7 @@ const NotificationListItems = (props: any) => {
               <div className={expandedListItemRow4}>
                 <div className={buttonStyle}>
                   <Button variant="contained" handleClick={() => null}>
-                    {category === "asset" ? "View Details" : "Take Action"}
+                    {category === "asset" ? viewDetails : takeAction}
                   </Button>
                 </div>
                 <div className={timeStampStyle}>{currentTimeStamp}</div>
@@ -426,7 +429,7 @@ const NotificationListItems = (props: any) => {
             <div className={expandedListItemRow4}>
               <div className={buttonStyle}>
                 <Button variant="contained" handleClick={() => null}>
-                  {category === "asset" ? "View Details" : "Take Action"}
+                  {category === "asset" ? viewDetails : takeAction}
                 </Button>
               </div>
               <div className={timeStampStyle}>{currentTimeStamp}</div>

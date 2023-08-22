@@ -297,7 +297,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                             ?.todayTitleBgColor,
                         padding: "3%",
                       }}>
-                      Today
+                      {gridView.today}
                     </div>
                   </Grid>
                   <Grid item xs={12} className={lastweekBodyContainer}>

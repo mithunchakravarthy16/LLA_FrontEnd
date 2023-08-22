@@ -29,6 +29,8 @@ export default {
   oprAlertText: "Opr.Alerts",
   searchText: "Search",
   noResultFound: "No Result Found",
+  viewDetails: "View Details",
+  takeAction: "Take Action",
   dashboard: {
     parking: "PARKING",
     energyManagement: "ENERGY MANAGEMENT",
@@ -53,10 +55,11 @@ export default {
     fleet: "fleets",
     trips: "trips",
     assets: "assets",
-    runningUnits : "RUNNING UNITS",
+    runningUnits: "RUNNING UNITS",
     alertsText: "ALERTS",
-    smartLights : "SMART LIGHTS",
-    violations : "VIOLATIONS"
+    smartLights: "SMART LIGHTS",
+    violations: "VIOLATIONS",
+    logout: "Logout",
   },
   gridView: {
     today: "Today",
@@ -106,7 +109,14 @@ export default {
   },
   parking: {
     parkingViolation: "Parking Violation",
-    all: "All"
+    all: "All",
+    lot: "Lot",
+    general: "General",
+    vip: "VIP",
+    electric: "Electric",
+    accessbility: "Accessbility",
+    rotationIndex: "Rotation Index",
+    hoursSaved: "Hours Saved",
   },
   security: {
     security: "Security",
@@ -115,10 +125,11 @@ export default {
     fireDetection: "Fire Detection",
     temperingAlarm: "Tempering Alarm",
     unauthorisedAccess: "Unauthorised Access",
-    tailgating: "Tailgating"
+    tailgating: "Tailgating",
+    cameraOcclusion: "Camera Occlusion",
   },
   lighting: {
-    airQualityIndex: "Air Quality Index"
+    airQualityIndex: "Air Quality Index",
   },
   fleetManagement: {
     safetyScore: "Safety Score",
@@ -148,7 +159,7 @@ export default {
     status: "Status",
     feulConsumed: "Fuel Consumed",
     drivingScore: "Driving Score",
-    covored: "Covered"
+    covored: "Covered",
   },
   assetsTracking: {
     activeTrackers: "Active Trackers",
@@ -178,5 +189,8 @@ export default {
     centerLocation: "Center Location",
     circle: "Circle",
     polygon: "Polygon",
-  }
+    cancel: "CANCEL",
+    save: "SAVE",
+    reset: "RESET",
+  },
 };

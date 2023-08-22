@@ -8,6 +8,7 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import Tooltip from "elements/Tooltip";
 import Select from "elements/Select";
+import useTranslation from "localization/translations";
 
 const TopPanelListItemContainer: React.FC<any> = (props) => {
   const {
@@ -54,6 +55,8 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     imageWidthStyle,
     todayText,
   } = useStyles(appTheme);
+
+  const {gridView } = useTranslation();
 
   const [screenResolution, setScreenResolution] = useState<any>("2k");
 
@@ -142,7 +145,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
               />
             ) : (
               <div className={todayText}>
-                <p>Today</p>
+                <p>{gridView.today}</p>
               </div>
             )}
 

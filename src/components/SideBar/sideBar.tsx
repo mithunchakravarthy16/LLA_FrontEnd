@@ -51,7 +51,7 @@ const SideBar = (props: SideBarProps) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [activePage, setActivePage] = useState<number>();
 
-  const { homeText, gridsViewText, birdsViewText, settingsText } =
+  const { homeText, gridsViewText, birdsViewText, settingsText, dashboard} =
     useTranslation();
 
   const array = [
@@ -197,7 +197,7 @@ const SideBar = (props: SideBarProps) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [notification, setNotification] = useState(null);
 
-  const menuOptions = ["Logout"];
+  const menuOptions = [dashboard.logout];
   const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -205,7 +205,7 @@ const SideBar = (props: SideBarProps) => {
   const dispatch = useDispatch();
 
   const handleCloseUserMenu = (menuOptions: string) => {
-    if (menuOptions === "Logout") {
+    if (menuOptions === dashboard.logout) {
       localStorage.removeItem("user");
       localStorage.clear();
       dispatch(getUserLogout());
@@ -293,7 +293,7 @@ const SideBar = (props: SideBarProps) => {
                   onClick={() => handleCloseUserMenu(menuOptions)}
                 >
                   <div className={logoutSection}>
-                    {menuOptions && menuOptions === "Logout" ? (
+                    {menuOptions && menuOptions === dashboard.logout ? (
                       <img className={logoutImg} src={Logout} alt="Logout" />
                     ) : (
                       <img className={logoutImg} src={user} alt="Logout" />
