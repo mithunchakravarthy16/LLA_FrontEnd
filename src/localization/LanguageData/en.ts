@@ -29,6 +29,8 @@ export default {
   oprAlertText: "Opr.Alerts",
   searchText: "Search",
   noResultFound: "No Result Found",
+  viewDetails: "View Details",
+  takeAction: "Take Action",
   dashboard: {
     parking: "PARKING",
     energyManagement: "ENERGY MANAGEMENT",
@@ -56,7 +58,8 @@ export default {
     runningUnits : "RUNNING UNITS",
     alertsText: "ALERTS",
     smartLights : "SMART LIGHTS",
-    violations : "VIOLATIONS"
+    violations : "VIOLATIONS",
+    logout: "Logout"
   },
   gridView: {
     today: "Today",

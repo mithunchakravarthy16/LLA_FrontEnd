@@ -99,7 +99,7 @@ const Parking: React.FC<any> = (props) => {
     {
       icon: selectedTheme === "light" ? VocLevelIcon : VocCloudIcon,
       value: "15ppm",
-      name: `${gridView.co2} ${gridView.level}`,
+      name: `${gridView.voc} ${gridView.level}`,
     },
     {
       icon: selectedTheme === "light" ? PmOneIcon : AirQualityIcon,
