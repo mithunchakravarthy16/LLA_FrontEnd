@@ -19,9 +19,6 @@ import moment from "moment";
 const Stepper: React.FC<any> = (props) => {
   const { routeDetails, tripStatus, is4kDevice, selectedTheme } = props;
   const [appTheme, setAppTheme] = useState<any>(customTheme?.defaultTheme);
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
   const [routeData, setRouteData] = useState<any>();
 
   useEffect(() => {
