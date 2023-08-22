@@ -189,5 +189,8 @@ export default {
     centerLocation: "Center Location",
     circle: "Circle",
     polygon: "Polygon",
+    cancel: "CANCEL",
+    save: "SAVE",
+    reset: "RESET",
   },
 };

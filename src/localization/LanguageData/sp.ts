@@ -208,5 +208,8 @@ export default {
     centerLocation: "Ubicación del centro",
     circle: "Círculo",
     polygon: "Polígono",
+    cancel: "CANCELAR",
+    save: "AHORRAR",
+    reset: "REINICIAR",
   },
 };

@@ -13,6 +13,7 @@ import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
 import Geofence from "components/Geofence";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
+import useTranslation from "localization/translations";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -51,6 +52,8 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
   const { setIsGeofenceInfoWindowActive, selectedTheme } = props;
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
+  const { assetsTracking } = useTranslation();
+
   const {
     headerStyle,
     headerTabContainerStyle,
@@ -417,8 +420,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
               width: "4.2%",
               height: "4.2%",
               transition: "none",
-            }}
-          >
+            }}>
             <img
               width={"100%"}
               height={"100%"}
@@ -510,12 +512,12 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                 <div className={buttonContainer}>
                   <div className={cancelButtonContainer}>
                     <Button variant="outlined" onClick={handleResetClick}>
-                      CANCEL
+                      {assetsTracking.cancel}
                     </Button>
                   </div>
                   <div className={updateButtonContainer}>
                     <Button variant="contained" onClick={handleSaveClick}>
-                      SAVE
+                      {assetsTracking.save}
                     </Button>
                   </div>
                 </div>
