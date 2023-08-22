@@ -139,6 +139,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [routes, setRoutes] = useState<any>([]);
+  const [totalTime, setTotalTime] = useState<any>("");
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -197,7 +198,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
             }
             updatedArray.push({
               ...item,
-              // index: index,
+              index: index,
               area: address,
             });
           }
@@ -205,6 +206,16 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         setRoutes([...updatedArray]);
       }
     );
+
+    if (fleetManagementTripDetailsResponse?.data?.totalTime) {
+      if (
+        fleetManagementTripDetailsResponse?.data?.totalTime?.split(":")[0] > 1
+      ) {
+        setTotalTime("Hrs");
+      } else {
+        setTotalTime("Hr");
+      }
+    }
   }, [fleetManagementTripDetailsResponse]);
 
   const [open, setOpen] = useState(!false);
@@ -328,7 +339,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
               fleetManagementTripDetailsResponse?.data?.totalTime
                 ? fleetManagementTripDetailsResponse?.data?.totalTime
                 : 0
-            }Hr`
+            }${totalTime}`
           : tabIndex === 1
           ? `${
               fleetManagementTripDetailsResponse?.data?.vehicleDetail
@@ -764,7 +775,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   >
                     <Stepper
                       routeDetails={routes}
-                      tripStatus={"Completed"}
+                      tripStatus={
+                        fleetManagementTripDetailsResponse?.data?.tripStatus
+                      }
                       is4kDevice={is4kDevice}
                       selectedTheme={selectedTheme}
                     />

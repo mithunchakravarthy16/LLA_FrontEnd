@@ -146,13 +146,13 @@ const Login = () => {
     }
   }, [user, adminPanelData, adminPanelSaveData]);
 
-  useEffect(() => {
-    if (inCorrectCredentials) {
-      setTimeout(() => {
-        setInCorrectCredentials(false);
-      }, 10000);
-    }
-  }, [inCorrectCredentials]);
+  // useEffect(() => {
+  //   if (inCorrectCredentials) {
+  //     setTimeout(() => {
+  //       setInCorrectCredentials(false);
+  //     }, 10000);
+  //   }
+  // }, [inCorrectCredentials]);
 
   useEffect(() => {
     if (count > 3) {
@@ -185,7 +185,7 @@ const Login = () => {
       };
 
       dispatch(getUserLogin(payload));
-      setInCorrectCredentials(false);
+      // setInCorrectCredentials(false);
     },
   });
 
@@ -326,13 +326,13 @@ const Login = () => {
                     <form onSubmit={formik.handleSubmit}>
                       <div className={welcomeSection}>
                         <p className={welcomeContent}>Sign In</p>
-                        {formik.values.userid &&
+                        {/* {formik.values.userid &&
                           formik.values.password &&
                           inCorrectCredentials && (
                             <div className={incorrectCredential}>
                               Incorrect User Credentials
                             </div>
-                          )}
+                          )} */}
                       </div>
 
                       <div>
