@@ -25,6 +25,7 @@ import {
   setAdminPanelConfigData,
 } from "redux/actions/adminPanel";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
+import Loader from "elements/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Login = () => {
   );
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
-  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
+  const [appTheme, setAppTheme] = useState<any>();
 
   const [inCorrectCredentials, setInCorrectCredentials] =
     useState<boolean>(false);
@@ -199,9 +200,23 @@ const Login = () => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
   };
 
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsDataLoaded(!isDataLoaded)
+    },1000)
+  },[])
+
+  const loaderAdminGetConfigData = useSelector(
+    (state: any) => state?.adminPanel?.loadingGetConfigData
+  );
+
   return (
     <>
-      {success && (
+    {!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?  (
+      <>
+      success && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={success}
@@ -290,7 +305,7 @@ const Login = () => {
             )}
           </Alert>
         </Snackbar>
-      )}
+      )
       <div>
         <Grid
           container
@@ -415,6 +430,10 @@ const Login = () => {
         </Grid>
       </div>
       <Footer pageName={"login"} />
+         </>
+      ) : (
+        <Loader isHundredVh={true} />
+      )}
     </>
   );
 };
