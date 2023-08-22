@@ -220,100 +220,100 @@ const Login = () => {
       appTheme &&
       Object.keys(appTheme).length > 0 ? (
         <>
-          success && (
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={success}
-            onClose={handleClose}
-          >
-            <Alert
+          {success && (
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={success}
               onClose={handleClose}
-              severity={
-                user?.status === 500 ||
-                user?.status === 404 ||
-                user?.status === 400 ||
-                user?.status === 409 ||
-                user?.status === 413 ||
-                user?.status === 410 ||
-                user?.status === 401 ||
-                adminPanelData?.status === 500 ||
-                adminPanelData?.status === 404 ||
-                adminPanelData?.status === 400 ||
-                adminPanelData?.status === 409 ||
-                adminPanelData?.status === 413 ||
-                adminPanelData?.status === 410 ||
-                adminPanelData?.status === 401 ||
-                adminPanelSaveData?.status === 500 ||
-                adminPanelSaveData?.status === 404 ||
-                adminPanelSaveData?.status === 400 ||
-                adminPanelSaveData?.status === 409 ||
-                adminPanelSaveData?.status === 413 ||
-                adminPanelSaveData?.status === 410 ||
-                adminPanelSaveData?.status === 401
-                  ? "error"
-                  : undefined
-              }
-              sx={{ width: "100%" }}
             >
-              {(user?.status === 500 ||
-                adminPanelData?.status === 500 ||
-                adminPanelSaveData?.status === 500) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Something went wrong...</Typography>
-                  <Link
-                    component="button"
-                    variant="body2"
-                    onClick={handleClick}
-                  >
-                    Please try again
-                  </Link>
-                </div>
-              )}
-              {(user?.status === 404 ||
-                adminPanelData?.status === 404 ||
-                adminPanelSaveData?.status === 404) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Data Not Available</Typography>
-                </div>
-              )}
-              {(user?.status === 400 ||
-                adminPanelData?.status === 400 ||
-                adminPanelSaveData?.status === 400) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Bad Request</Typography>
-                </div>
-              )}
-              {(user?.status === 409 ||
-                adminPanelData?.status === 409 ||
-                adminPanelSaveData?.status === 409) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Already data available</Typography>
-                </div>
-              )}
-              {(user?.status === 413 ||
-                adminPanelData?.status === 413 ||
-                adminPanelSaveData?.status === 413) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Request too large</Typography>
-                </div>
-              )}
-              {(user?.status === 410 ||
-                adminPanelData?.status === 410 ||
-                adminPanelSaveData?.status === 410) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Request not available</Typography>
-                </div>
-              )}
-              {(user?.status === 401 ||
-                adminPanelData?.status === 401 ||
-                adminPanelSaveData?.status === 401) && (
-                <div style={{ display: "flex" }}>
-                  <Typography>Unauthorized user</Typography>
-                </div>
-              )}
-            </Alert>
-          </Snackbar>
-          )
+              <Alert
+                onClose={handleClose}
+                severity={
+                  user?.status === 500 ||
+                  user?.status === 404 ||
+                  user?.status === 400 ||
+                  user?.status === 409 ||
+                  user?.status === 413 ||
+                  user?.status === 410 ||
+                  user?.status === 401 ||
+                  adminPanelData?.status === 500 ||
+                  adminPanelData?.status === 404 ||
+                  adminPanelData?.status === 400 ||
+                  adminPanelData?.status === 409 ||
+                  adminPanelData?.status === 413 ||
+                  adminPanelData?.status === 410 ||
+                  adminPanelData?.status === 401 ||
+                  adminPanelSaveData?.status === 500 ||
+                  adminPanelSaveData?.status === 404 ||
+                  adminPanelSaveData?.status === 400 ||
+                  adminPanelSaveData?.status === 409 ||
+                  adminPanelSaveData?.status === 413 ||
+                  adminPanelSaveData?.status === 410 ||
+                  adminPanelSaveData?.status === 401
+                    ? "error"
+                    : undefined
+                }
+                sx={{ width: "100%" }}
+              >
+                {(user?.status === 500 ||
+                  adminPanelData?.status === 500 ||
+                  adminPanelSaveData?.status === 500) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Something went wrong...</Typography>
+                    <Link
+                      component="button"
+                      variant="body2"
+                      onClick={handleClick}
+                    >
+                      Please try again
+                    </Link>
+                  </div>
+                )}
+                {(user?.status === 404 ||
+                  adminPanelData?.status === 404 ||
+                  adminPanelSaveData?.status === 404) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Data Not Available</Typography>
+                  </div>
+                )}
+                {(user?.status === 400 ||
+                  adminPanelData?.status === 400 ||
+                  adminPanelSaveData?.status === 400) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Bad Request</Typography>
+                  </div>
+                )}
+                {(user?.status === 409 ||
+                  adminPanelData?.status === 409 ||
+                  adminPanelSaveData?.status === 409) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Already data available</Typography>
+                  </div>
+                )}
+                {(user?.status === 413 ||
+                  adminPanelData?.status === 413 ||
+                  adminPanelSaveData?.status === 413) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Request too large</Typography>
+                  </div>
+                )}
+                {(user?.status === 410 ||
+                  adminPanelData?.status === 410 ||
+                  adminPanelSaveData?.status === 410) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Request not available</Typography>
+                  </div>
+                )}
+                {(user?.status === 401 ||
+                  adminPanelData?.status === 401 ||
+                  adminPanelSaveData?.status === 401) && (
+                  <div style={{ display: "flex" }}>
+                    <Typography>Unauthorized user</Typography>
+                  </div>
+                )}
+              </Alert>
+            </Snackbar>
+          )}
           <div>
             <Grid
               container
