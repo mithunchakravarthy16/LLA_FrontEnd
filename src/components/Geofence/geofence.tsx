@@ -299,8 +299,7 @@ const Geofence: React.FC<any> = (props: any) => {
             </div>
             {selectedAssetValue?.length > 0 && (
               <div
-                className={searchData?.length > 1 ? assetsList : assetsLists}
-              >
+                className={searchData?.length > 1 ? assetsList : assetsLists}>
                 {searchData?.length > 0 ? (
                   searchData?.map((item: any, idx: number) => {
                     return (
@@ -308,8 +307,7 @@ const Geofence: React.FC<any> = (props: any) => {
                         key={idx}
                         component="div"
                         disablePadding
-                        onClick={(e: any) => handleListItemClick(e, item)}
-                      >
+                        onClick={(e: any) => handleListItemClick(e, item)}>
                         <ListItemButton>
                           <ListItemText primary={item?.value} />
                         </ListItemButton>
@@ -352,8 +350,7 @@ const Geofence: React.FC<any> = (props: any) => {
             <div>
               <div
                 className={geofenceCircleType}
-                onClick={isDisabled ? handleCircleClick : () => null}
-              >
+                onClick={isDisabled ? handleCircleClick : () => null}>
                 <img
                   src={
                     !isCircleEnbled
@@ -365,13 +362,13 @@ const Geofence: React.FC<any> = (props: any) => {
                   width={!is4kDevice ? "50px" : ""}
                 />
               </div>
-              <div className={circularText}>Circle</div>
+
+              <div className={circularText}>{assetsTracking.circle}</div>
             </div>
             <div className={polygonContainer}>
               <div
                 className={polygonImage}
-                onClick={isDisabled ? handlePolygonClick : () => null}
-              >
+                onClick={isDisabled ? handlePolygonClick : () => null}>
                 <img
                   src={
                     !isPolygonEnbled
@@ -383,7 +380,7 @@ const Geofence: React.FC<any> = (props: any) => {
                   width={!is4kDevice ? "50px" : ""}
                 />
               </div>
-              <div className={circularText}>Polygon</div>
+              <div className={circularText}>{assetsTracking.polygon}</div>
             </div>
           </div>
           <div className={geofenceTextContainer}>
