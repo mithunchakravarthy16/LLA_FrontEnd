@@ -29,7 +29,7 @@ import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
+  const { yourEmail, passwordTItle, loginNowButton, signInTitle} = useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
 
@@ -325,7 +325,7 @@ const Login = () => {
                   <Box>
                     <form onSubmit={formik.handleSubmit}>
                       <div className={welcomeSection}>
-                        <p className={welcomeContent}>Sign In</p>
+                        <p className={welcomeContent}>{signInTitle}</p>
                         {formik.values.userid &&
                           formik.values.password &&
                           inCorrectCredentials && (
