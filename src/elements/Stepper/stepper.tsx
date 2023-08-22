@@ -19,9 +19,7 @@ import moment from "moment";
 const Stepper: React.FC<any> = (props) => {
   const { routeDetails, tripStatus, is4kDevice, selectedTheme } = props;
   const [appTheme, setAppTheme] = useState<any>(customTheme?.defaultTheme);
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
+  const [routeData, setRouteData] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -36,6 +34,11 @@ const Stepper: React.FC<any> = (props) => {
         break;
     }
   }, [selectedTheme]);
+
+  useEffect(() => {
+    const data = routeDetails?.sort((a: any, b: any) => a.index - b.index);
+    setRouteData(data);
+  }, [routeDetails]);
 
   const {
     stepperContainer,
@@ -54,7 +57,7 @@ const Stepper: React.FC<any> = (props) => {
       <p className={routesHeading}>Route Details</p>
       <div className={stepperContainer}>
         <Timeline>
-          {routeDetails?.map((route: any, index: any) => {
+          {routeData?.map((route: any, index: any) => {
             return (
               <TimelineItem>
                 <TimelineSeparator>
@@ -67,7 +70,8 @@ const Stepper: React.FC<any> = (props) => {
                           height={is4kDevice ? "40px" : "20px"}
                         />
                       </Icon>
-                    ) : index === routeDetails?.length - 1 ? (
+                    ) : tripStatus !== "Live" &&
+                      index === routeData?.length - 1 ? (
                       <Icon>
                         <img
                           width={is4kDevice ? "40px" : "20px"}
@@ -94,7 +98,7 @@ const Stepper: React.FC<any> = (props) => {
                       </Icon>
                     )}
                   </TimelineDot>
-                  {index === routeDetails?.length - 1 ? null : (
+                  {index === routeData?.length - 1 ? null : (
                     <TimelineConnector
                       className={
                         index === 0
@@ -108,9 +112,10 @@ const Stepper: React.FC<any> = (props) => {
                 </TimelineSeparator>
                 <TimelineContent>
                   <p className={routeName}>
-                    {index === routeDetails?.length - 1
+                    {tripStatus !== "Live" &&
+                    route?.stopSeq === routeData?.length - 1
                       ? "Destination"
-                      : index === 0
+                      : route?.stopSeq === 0
                       ? "Source"
                       : "Stop"}
                     {route?.location === "Current Location" &&

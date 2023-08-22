@@ -188,9 +188,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const [overallHours, setOverallHours] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
-
-  const fleetManagementNotificationList =
-    fleetManagementNotificationResponse?.data;
+  const [dataP, setDataP] = useState<any>();
 
   useEffect(() => {
     if (fleetManagementAnalyticsResponse) {
@@ -268,8 +266,9 @@ const FleetManagement: React.FC<any> = (props) => {
       fleetManagementAnalyticsResponse?.status === 410
     ) {
       setSuccess(true);
-    } else if (fleetManagementNotificationList) {
-      const { events, incidents, alerts } = fleetManagementNotificationList;
+    } else if (fleetManagementNotificationResponse?.status === 200) {
+      const { events, incidents, alerts } =
+        fleetManagementNotificationResponse?.data;
       const combinedNotifications: any = [];
 
       events?.eventsList?.forEach((event: any, index: number) => {
@@ -307,32 +306,34 @@ const FleetManagement: React.FC<any> = (props) => {
 
       //
       // const updatedArray: any = [];
-      // combinedNotifications?.forEach(async (item: any) => {
-      //   if (item?.location?.lat && item?.location?.lng) {
-      //     let address: any = "";
-      //     const geocoder: any = new window.google.maps.Geocoder();
-      //     const location1: any = new window.google.maps.LatLng(
-      //       item?.location?.lat,
-      //       item?.location?.lng
-      //     );
-      //     await geocoder.geocode(
-      //       { latLng: location1 },
-      //       (results: any, status: any) => {
-      //         if (status === "OK" && results[0]) {
-      //           address = results[0].formatted_address;
-      //         } else {
-      //           console.error("Geocode failure: " + status);
-      //           return false;
+      // combinedNotifications?.length > 0 &&
+      //   combinedNotifications?.forEach(async (item: any, index: number) => {
+      //     if (item?.location?.lat && item?.location?.lng) {
+      //       let address: any = "";
+      //       const geocoder: any = new window.google.maps.Geocoder();
+      //       const location1: any = new window.google.maps.LatLng(
+      //         item?.location?.lat,
+      //         item?.location?.lng
+      //       );
+      //       await geocoder.geocode(
+      //         { latLng: location1 },
+      //         (results: any, status: any) => {
+      //           if (status === "OK" && results[0]) {
+      //             address = results[0].formatted_address;
+      //           } else {
+      //             console.error("Geocode failure: " + status);
+      //             return false;
+      //           }
+      //           updatedArray.push({
+      //             ...item,
+      //             index: index,
+      //             area: address,
+      //           });
       //         }
-      //         updatedArray.push({
-      //           ...item,
-      //           area: address,
-      //         });
-      //       }
-      //     );
-      //     setNotificationArray([...updatedArray]);
-      //   }
-      // });
+      //       );
+      //       setNotificationArray([...updatedArray]);
+      //     }
+      //   });
       setNotificationArray(dataValue);
     }
   }, [fleetManagementNotificationResponse]);
@@ -403,9 +404,9 @@ const FleetManagement: React.FC<any> = (props) => {
   );
 
   const [notificationCount, setNotificationCount] = useState<any>([
-    fleetManagementNotificationList?.events?.eventsList?.length,
-    fleetManagementNotificationList?.incidents?.incidentList?.length,
-    fleetManagementNotificationList?.alerts?.alertList?.length,
+    fleetManagementNotificationResponse?.data?.events?.eventsList?.length,
+    fleetManagementNotificationResponse?.data?.incidents?.incidentList?.length,
+    fleetManagementNotificationResponse?.data?.alerts?.alertList?.length,
   ]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -421,6 +422,16 @@ const FleetManagement: React.FC<any> = (props) => {
       formatttedDashboardNotification(notificationArray, tabIndex)
     );
   }, [notificationArray, tabIndex]);
+
+  // console.log("dashboardData", dashboardData);
+  // useEffect(() => {
+  //   const dat = dashboardData?.sort(
+  //     (a: any, b: any) => Date.parse(b) - Date.parse(a)
+  //   );
+  //   setDataP(dat);
+  // }, [dashboardData]);
+
+  // console.log("data", dataP);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {

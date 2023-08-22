@@ -30,7 +30,8 @@ import Loader from "elements/Loader";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { yourEmail, passwordTItle, loginNowButton, signInTitle} = useTranslation();
+  const { yourEmail, passwordTItle, loginNowButton, signInTitle } =
+    useTranslation();
 
   const user = useSelector((state: any) => state.login.loginData);
 
@@ -147,13 +148,13 @@ const Login = () => {
     }
   }, [user, adminPanelData, adminPanelSaveData]);
 
-  useEffect(() => {
-    if (inCorrectCredentials) {
-      setTimeout(() => {
-        setInCorrectCredentials(false);
-      }, 10000);
-    }
-  }, [inCorrectCredentials]);
+  // useEffect(() => {
+  //   if (inCorrectCredentials) {
+  //     setTimeout(() => {
+  //       setInCorrectCredentials(false);
+  //     }, 10000);
+  //   }
+  // }, [inCorrectCredentials]);
 
   useEffect(() => {
     if (count > 3) {
@@ -186,7 +187,7 @@ const Login = () => {
       };
 
       dispatch(getUserLogin(payload));
-      setInCorrectCredentials(false);
+      // setInCorrectCredentials(false);
     },
   });
 
@@ -202,11 +203,11 @@ const Login = () => {
 
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setIsDataLoaded(!isDataLoaded)
-    },1000)
-  },[])
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDataLoaded(!isDataLoaded);
+    }, 1000);
+  }, []);
 
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
@@ -214,223 +215,231 @@ const Login = () => {
 
   return (
     <>
-    {!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?  (
-      <>
-      success && (
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={success}
-          onClose={handleClose}
-        >
-          <Alert
+      {!loaderAdminGetConfigData &&
+      isDataLoaded &&
+      appTheme &&
+      Object.keys(appTheme).length > 0 ? (
+        <>
+          success && (
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={success}
             onClose={handleClose}
-            severity={
-              user?.status === 500 ||
-              user?.status === 404 ||
-              user?.status === 400 ||
-              user?.status === 409 ||
-              user?.status === 413 ||
-              user?.status === 410 ||
-              user?.status === 401 ||
-              adminPanelData?.status === 500 ||
-              adminPanelData?.status === 404 ||
-              adminPanelData?.status === 400 ||
-              adminPanelData?.status === 409 ||
-              adminPanelData?.status === 413 ||
-              adminPanelData?.status === 410 ||
-              adminPanelData?.status === 401 ||
-              adminPanelSaveData?.status === 500 ||
-              adminPanelSaveData?.status === 404 ||
-              adminPanelSaveData?.status === 400 ||
-              adminPanelSaveData?.status === 409 ||
-              adminPanelSaveData?.status === 413 ||
-              adminPanelSaveData?.status === 410 ||
-              adminPanelSaveData?.status === 401
-                ? "error"
-                : undefined
-            }
-            sx={{ width: "100%" }}
           >
-            {(user?.status === 500 ||
-              adminPanelData?.status === 500 ||
-              adminPanelSaveData?.status === 500) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Something went wrong...</Typography>
-                <Link component="button" variant="body2" onClick={handleClick}>
-                  Please try again
-                </Link>
-              </div>
-            )}
-            {(user?.status === 404 ||
-              adminPanelData?.status === 404 ||
-              adminPanelSaveData?.status === 404) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Data Not Available</Typography>
-              </div>
-            )}
-            {(user?.status === 400 ||
-              adminPanelData?.status === 400 ||
-              adminPanelSaveData?.status === 400) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Bad Request</Typography>
-              </div>
-            )}
-            {(user?.status === 409 ||
-              adminPanelData?.status === 409 ||
-              adminPanelSaveData?.status === 409) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Already data available</Typography>
-              </div>
-            )}
-            {(user?.status === 413 ||
-              adminPanelData?.status === 413 ||
-              adminPanelSaveData?.status === 413) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Request too large</Typography>
-              </div>
-            )}
-            {(user?.status === 410 ||
-              adminPanelData?.status === 410 ||
-              adminPanelSaveData?.status === 410) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Request not available</Typography>
-              </div>
-            )}
-            {(user?.status === 401 ||
-              adminPanelData?.status === 401 ||
-              adminPanelSaveData?.status === 401) && (
-              <div style={{ display: "flex" }}>
-                <Typography>Unauthorized user</Typography>
-              </div>
-            )}
-          </Alert>
-        </Snackbar>
-      )
-      <div>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
-            className={loginBannerSection}
-          >
-            <div className={innerPaddingBox}>
-              <div className={formSection}>
-                <div className={llaLogoSection}>
-                  {adminPanelData?.data?.body?.login && (
-                    <img
-                      src={`data:image/jpeg;base64,${adminPanelData?.data?.body?.login}`}
-                    />
-                  )}
+            <Alert
+              onClose={handleClose}
+              severity={
+                user?.status === 500 ||
+                user?.status === 404 ||
+                user?.status === 400 ||
+                user?.status === 409 ||
+                user?.status === 413 ||
+                user?.status === 410 ||
+                user?.status === 401 ||
+                adminPanelData?.status === 500 ||
+                adminPanelData?.status === 404 ||
+                adminPanelData?.status === 400 ||
+                adminPanelData?.status === 409 ||
+                adminPanelData?.status === 413 ||
+                adminPanelData?.status === 410 ||
+                adminPanelData?.status === 401 ||
+                adminPanelSaveData?.status === 500 ||
+                adminPanelSaveData?.status === 404 ||
+                adminPanelSaveData?.status === 400 ||
+                adminPanelSaveData?.status === 409 ||
+                adminPanelSaveData?.status === 413 ||
+                adminPanelSaveData?.status === 410 ||
+                adminPanelSaveData?.status === 401
+                  ? "error"
+                  : undefined
+              }
+              sx={{ width: "100%" }}
+            >
+              {(user?.status === 500 ||
+                adminPanelData?.status === 500 ||
+                adminPanelSaveData?.status === 500) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Something went wrong...</Typography>
+                  <Link
+                    component="button"
+                    variant="body2"
+                    onClick={handleClick}
+                  >
+                    Please try again
+                  </Link>
                 </div>
-                <h2 className={formTitle}>
-                  <img src={smartLogoText} />
-                </h2>
-              </div>
-              <div className={loginFormSection}>
-                <Grid item xs={12} className={innerForm}>
-                  <Box>
-                    <form onSubmit={formik.handleSubmit}>
-                      <div className={welcomeSection}>
-                        <p className={welcomeContent}>{signInTitle}</p>
-                        {formik.values.userid &&
+              )}
+              {(user?.status === 404 ||
+                adminPanelData?.status === 404 ||
+                adminPanelSaveData?.status === 404) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Data Not Available</Typography>
+                </div>
+              )}
+              {(user?.status === 400 ||
+                adminPanelData?.status === 400 ||
+                adminPanelSaveData?.status === 400) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Bad Request</Typography>
+                </div>
+              )}
+              {(user?.status === 409 ||
+                adminPanelData?.status === 409 ||
+                adminPanelSaveData?.status === 409) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Already data available</Typography>
+                </div>
+              )}
+              {(user?.status === 413 ||
+                adminPanelData?.status === 413 ||
+                adminPanelSaveData?.status === 413) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Request too large</Typography>
+                </div>
+              )}
+              {(user?.status === 410 ||
+                adminPanelData?.status === 410 ||
+                adminPanelSaveData?.status === 410) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Request not available</Typography>
+                </div>
+              )}
+              {(user?.status === 401 ||
+                adminPanelData?.status === 401 ||
+                adminPanelSaveData?.status === 401) && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Unauthorized user</Typography>
+                </div>
+              )}
+            </Alert>
+          </Snackbar>
+          )
+          <div>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                lg={12}
+                xl={12}
+                className={loginBannerSection}
+              >
+                <div className={innerPaddingBox}>
+                  <div className={formSection}>
+                    <div className={llaLogoSection}>
+                      {adminPanelData?.data?.body?.login && (
+                        <img
+                          src={`data:image/jpeg;base64,${adminPanelData?.data?.body?.login}`}
+                        />
+                      )}
+                    </div>
+                    <h2 className={formTitle}>
+                      <img src={smartLogoText} />
+                    </h2>
+                  </div>
+                  <div className={loginFormSection}>
+                    <Grid item xs={12} className={innerForm}>
+                      <Box>
+                        <form onSubmit={formik.handleSubmit}>
+                          <div className={welcomeSection}>
+                            <p className={welcomeContent}>Sign In</p>
+                            {/* {formik.values.userid &&
                           formik.values.password &&
                           inCorrectCredentials && (
                             <div className={incorrectCredential}>
                               Incorrect User Credentials
                             </div>
-                          )}
-                      </div>
+                          )} */}
+                          </div>
 
-                      <div>
-                        <p className={inputTitle}>{yourEmail}</p>
-                        <div className={outlineInputField}>
-                          <OutlinedInput
-                            className={inputField}
-                            fullWidth
-                            placeholder="Username@domainname.com"
-                            type="text"
-                            name="userid"
-                            value={formik.values.userid}
-                            onChange={formik.handleChange}
-                            autoComplete="off"
-                            inputProps={{
-                              autocomplete: "new-password",
-                              form: {
-                                autocomplete: "off",
-                              },
-                            }}
-                          />
-                          {formik.errors.userid && formik.touched.userid && (
-                            <p className={formikErrorClass}>
-                              {formik.errors.userid}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div>
-                        <p className={inputTitle}>{passwordTItle}</p>
-                        <div className={outlineInputField}>
-                          <OutlinedInput
-                            className={inputFieldPassword}
-                            fullWidth
-                            placeholder="&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;"
-                            type="password"
-                            name="password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            autoComplete="off"
-                            inputProps={{
-                              autocomplete: "new-password",
-                              form: {
-                                autocomplete: "off",
-                              },
-                            }}
-                          />
-                          {formik.errors.password &&
-                            formik.touched.password && (
-                              <p className={formikErrorClass}>
-                                {formik.errors.password}
-                              </p>
-                            )}
-                        </div>
-                      </div>
-                      {/* <div className={radioButtonSection}>
+                          <div>
+                            <p className={inputTitle}>{yourEmail}</p>
+                            <div className={outlineInputField}>
+                              <OutlinedInput
+                                className={inputField}
+                                fullWidth
+                                placeholder="Username@domainname.com"
+                                type="text"
+                                name="userid"
+                                value={formik.values.userid}
+                                onChange={formik.handleChange}
+                                autoComplete="off"
+                                inputProps={{
+                                  autocomplete: "new-password",
+                                  form: {
+                                    autocomplete: "off",
+                                  },
+                                }}
+                              />
+                              {formik.errors.userid &&
+                                formik.touched.userid && (
+                                  <p className={formikErrorClass}>
+                                    {formik.errors.userid}
+                                  </p>
+                                )}
+                            </div>
+                          </div>
+                          <div>
+                            <p className={inputTitle}>{passwordTItle}</p>
+                            <div className={outlineInputField}>
+                              <OutlinedInput
+                                className={inputFieldPassword}
+                                fullWidth
+                                placeholder="&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;&#9913;"
+                                type="password"
+                                name="password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                autoComplete="off"
+                                inputProps={{
+                                  autocomplete: "new-password",
+                                  form: {
+                                    autocomplete: "off",
+                                  },
+                                }}
+                              />
+                              {formik.errors.password &&
+                                formik.touched.password && (
+                                  <p className={formikErrorClass}>
+                                    {formik.errors.password}
+                                  </p>
+                                )}
+                            </div>
+                          </div>
+                          {/* <div className={radioButtonSection}>
                       <FormControlLabel
                         value="rememberMe"
                         control={<Radio />}
                         label="Remember me"
                       />
                     </div> */}
-                      <div className={loginButton}>
-                        <Button variant="contained" fullWidth type="submit">
-                          {loginNowButton}
-                        </Button>
-                      </div>
-                      {/* <div className={adminPanel} onClick={handleAdminPanel}>
+                          <div className={loginButton}>
+                            <Button variant="contained" fullWidth type="submit">
+                              {loginNowButton}
+                            </Button>
+                          </div>
+                          {/* <div className={adminPanel} onClick={handleAdminPanel}>
                         Admin Panel
                       </div> */}
-                    </form>
-                  </Box>
-                </Grid>
-                {/* <p className={copyRights}>
+                        </form>
+                      </Box>
+                    </Grid>
+                    {/* <p className={copyRights}>
                 {copyRightTitle} <span>{contactSupport}</span>
               </p> */}
-              </div>
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-      <Footer pageName={"login"} />
-         </>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+          </div>
+          <Footer pageName={"login"} />
+        </>
       ) : (
         <Loader isHundredVh={true} />
       )}
