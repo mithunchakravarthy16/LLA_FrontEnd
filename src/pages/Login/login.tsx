@@ -206,7 +206,7 @@ const Login = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsDataLoaded(!isDataLoaded);
-    }, 1000);
+    }, 3000);
   }, []);
 
   const loaderAdminGetConfigData = useSelector(
