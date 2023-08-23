@@ -1067,7 +1067,7 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={15}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
               //  onLoad={clusterer => (clustererRef.current = clusterer)}
               // styles={[
