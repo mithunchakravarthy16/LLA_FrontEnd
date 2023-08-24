@@ -173,8 +173,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/fleetManagement");
-        }}
-      >
+        }}>
         <Grid container xs={12} className={gridContainers}>
           <Grid item xs={12} className={containerTitleScreenFive}>
             {dashboard.fleetManagement}
@@ -186,8 +185,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   container
                   xs={12}
                   alignContent="space-between"
-                  className={leftSubChildContainer}
-                >
+                  className={leftSubChildContainer}>
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenFiveGraphTitleStyle}>
@@ -309,8 +307,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                   xs={12}
                   alignItems="center"
                   textAlign="center"
-                  className={lastweekContainer}
-                >
+                  className={lastweekContainer}>
                   <Grid item xs={12} className={lastweekTitleStyle}>
                     <div
                       style={{
@@ -318,8 +315,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
                         padding: "3%",
-                      }}
-                    >
+                      }}>
                       {gridView.today}
                     </div>
                   </Grid>
@@ -327,14 +323,12 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                     <Grid
                       container
                       xs={12}
-                      className={lastweekBodySubContainer}
-                    >
+                      className={lastweekBodySubContainer}>
                       <Grid
                         item
                         xs={12}
                         className={rightListItemStyle}
-                        direction="column"
-                      >
+                        direction="column">
                         <div className={listItemValueStyle}>
                           {fleetManagementResponse?.data?.incidentCount
                             ? fleetManagementResponse?.data?.incidentCount
@@ -348,8 +342,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyle}
-                      >
+                        className={rightListItemStyle}>
                         <div className={listItemValueStyle}>{`${
                           fleetManagementResponse?.data?.totalDistanceCovered
                             ? fleetManagementResponse?.data?.totalDistanceCovered?.toFixed(
@@ -365,8 +358,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         item
                         xs={12}
                         direction="column"
-                        className={rightListItemStyleLastChild}
-                      >
+                        className={rightListItemStyleLastChild}>
                         <div className={listItemValueStyle}>{`${
                           overallHours ? overallHours : 0
                         }Hrs`}</div>
