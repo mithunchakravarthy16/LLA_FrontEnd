@@ -294,6 +294,7 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
+    textTranform: "uppercase",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 20,
       lineHeight: "52px",
@@ -311,7 +312,7 @@ const useStyles = makeStyles({
       lineHeight: "32px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 9,
+      fontSize: 10,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
@@ -339,6 +340,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    textTransform: "uppercase",
     rowGap: "10px",
   }),
 
@@ -350,6 +352,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     rowGap: "10px",
     position: "relative",
+    textTransform: "uppercase",
     "&::after": {
       content: '""',
       position: "absolute",
