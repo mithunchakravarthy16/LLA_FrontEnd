@@ -305,36 +305,41 @@ const FleetManagement: React.FC<any> = (props) => {
       );
 
       //
-      // const updatedArray: any = [];
-      // combinedNotifications?.length > 0 &&
-      //   combinedNotifications?.forEach(async (item: any, index: number) => {
-      //     if (item?.location?.lat && item?.location?.lng) {
-      //       let address: any = "";
-      //       const geocoder: any = new window.google.maps.Geocoder();
-      //       const location1: any = new window.google.maps.LatLng(
-      //         item?.location?.lat,
-      //         item?.location?.lng
-      //       );
-      //       await geocoder.geocode(
-      //         { latLng: location1 },
-      //         (results: any, status: any) => {
-      //           if (status === "OK" && results[0]) {
-      //             address = results[0].formatted_address;
-      //           } else {
-      //             console.error("Geocode failure: " + status);
-      //             return false;
-      //           }
-      //           updatedArray.push({
-      //             ...item,
-      //             index: index,
-      //             area: address,
-      //           });
-      //         }
-      //       );
-      //       setNotificationArray([...updatedArray]);
-      //     }
-      //   });
-      setNotificationArray(dataValue);
+      const updatedArray: any = [];
+      combinedNotifications?.length > 0 &&
+        combinedNotifications?.forEach(async (item: any, index: number) => {
+          if (
+            item?.location?.lat &&
+            item?.location?.lng &&
+            window.google &&
+            window.google.maps
+          ) {
+            let address: any = "";
+            const geocoder: any = new window.google.maps.Geocoder();
+            const location1: any = new window.google.maps.LatLng(
+              item?.location?.lat,
+              item?.location?.lng
+            );
+            await geocoder.geocode(
+              { latLng: location1 },
+              (results: any, status: any) => {
+                if (status === "OK" && results[0]) {
+                  address = results[0].formatted_address;
+                } else {
+                  console.error("Geocode failure: " + status);
+                  return false;
+                }
+                updatedArray.push({
+                  ...item,
+                  index: index,
+                  area: address,
+                });
+              }
+            );
+            setNotificationArray([...updatedArray]);
+          }
+        });
+      // setNotificationArray(dataValue);
     }
   }, [fleetManagementNotificationResponse]);
 
@@ -423,15 +428,12 @@ const FleetManagement: React.FC<any> = (props) => {
     );
   }, [notificationArray, tabIndex]);
 
-  // console.log("dashboardData", dashboardData);
-  // useEffect(() => {
-  //   const dat = dashboardData?.sort(
-  //     (a: any, b: any) => Date.parse(b) - Date.parse(a)
-  //   );
-  //   setDataP(dat);
-  // }, [dashboardData]);
-
-  // console.log("data", dataP);
+  useEffect(() => {
+    const dat = dashboardData?.sort(
+      (a: any, b: any) => Date.parse(b) - Date.parse(a)
+    );
+    setDataP(dat);
+  }, [dashboardData]);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -795,7 +797,7 @@ const FleetManagement: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {notificationsLoader && overAllAnalyticsLoader && analyticsLoader ? (
+      {notificationsLoader ? (
         <div
           style={{
             width: "100%",
@@ -1281,7 +1283,7 @@ const FleetManagement: React.FC<any> = (props) => {
                 <Grid item xs={3} className={notificationPanelGrid}>
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
-                    dashboardData={dashboardData}
+                    dashboardData={dataP}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
                     notificationCount={notificationCount}

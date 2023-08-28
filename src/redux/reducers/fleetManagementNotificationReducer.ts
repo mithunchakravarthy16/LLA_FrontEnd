@@ -5,8 +5,6 @@ const initialState = {
   fleetManagementTripDetailsData: {},
   fleetManagementOverAllTripDetailsData: {},
   fleetManagementAnalyticsData: {},
-  loadingTripDetails: true,
-  loadingNotificationData: true,
   fleetManagementOverspeeding: {},
 };
 
