@@ -205,17 +205,17 @@ export const formattedViolationsList = (data: any) => {
     const { events, incidents, alerts } = data;
     const combinedNotifications: any = [];
 
-    events?.eventsList?.forEach((event: any, index: number) => {
-      combinedNotifications.push({
-        ...event,
-        category: "fleet",
-        title: event?.reason,
-        id: event?.notificationId,
-        currentTimeStamp: moment
-          .utc(event?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
-      });
-    });
+    // events?.eventsList?.forEach((event: any, index: number) => {
+    //   combinedNotifications.push({
+    //     ...event,
+    //     category: "fleet",
+    //     title: event?.reason,
+    //     id: event?.notificationId,
+    //     currentTimeStamp: moment
+    //       .utc(event?.notificationDate)
+    //       .format("MM-DD-YYYY | h:mm A"),
+    //   });
+    // });
 
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
       combinedNotifications.push({

@@ -122,6 +122,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     headerTabStyle,
     customNotificationTabs,
     TabvalueTitle,
+    noVideoPreview,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -398,6 +399,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     },
   ];
 
+  console.log("violations", violations);
   const vehicleDetailsSubTaskBarItems: any[] = [
     {
       icon:
@@ -890,19 +892,33 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 {
                                   // @ts-ignore
                                 }
-                                <ReactPlayer
-                                  muted
-                                  playing
-                                  loop={true}
-                                  controls={true}
-                                  url={
-                                    cameraTabIndex === 0
-                                      ? FleetSampleVideo
-                                      : FleetSampleVideoTwo
-                                  }
-                                  width="100%"
-                                  height="100%"
-                                />
+                                {(
+                                  cameraTabIndex === 0
+                                    ? fleetManagementTripDetailsResponse?.data
+                                        ?.videoUrl1
+                                    : fleetManagementTripDetailsResponse?.data
+                                        ?.videoUrl2
+                                ) ? (
+                                  <ReactPlayer
+                                    muted
+                                    playing
+                                    loop={true}
+                                    controls={true}
+                                    url={
+                                      cameraTabIndex === 0
+                                        ? fleetManagementTripDetailsResponse
+                                            ?.data?.videoUrl1
+                                        : fleetManagementTripDetailsResponse
+                                            ?.data?.videoUrl2
+                                    }
+                                    width="100%"
+                                    height="100%"
+                                  />
+                                ) : (
+                                  <div className={noVideoPreview}>
+                                    No Video Content Available
+                                  </div>
+                                )}
                               </Grid>
                             </Grid>
                           </Grid>
