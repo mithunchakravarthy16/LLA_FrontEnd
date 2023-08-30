@@ -74,10 +74,7 @@ const SpeedoMeter = (props) => {
     }
   }, [selectedTheme]);
 
-  console.log(
-    "dd",
-    appTheme?.palette?.fleetManagementPage?.circularProgressBar?.background
-  );
+
   return (
     <RootContainer>
       <ProgressBar

@@ -405,7 +405,7 @@ export const CardValuesSplitter = styled("div")<{themeapi?: any}>`
   background: ${({ themeapi }) =>
   themeapi === "light"
     ? "#B6B6B6"
-    : "#fff"}; #fff;
+    : "#fff"}; 
   // transform: skew(-18deg);
   @media (max-width: 3841px) {
     height: 110px;
@@ -472,7 +472,7 @@ export const Value = styled("div")<{themeapi?: any}>`
   color: ${({ themeapi }) =>
   themeapi === "light"
     ? "#E16D38"
-    : "#ffffff"};  #fff;
+    : "#ffffff"}; 
     
   @media (max-width: 3073px) {
     font-size: 55px;
