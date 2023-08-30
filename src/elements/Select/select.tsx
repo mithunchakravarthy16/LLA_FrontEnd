@@ -43,9 +43,6 @@ const INF_Select: React.FC<any> = (props) => {
   const [appTheme, setAppTheme] = useState(selectedTheme);
 
 
-  console.log("selectedTheme", selectedTheme)
-
-
   const {
     customSelect,
     tableSelect,

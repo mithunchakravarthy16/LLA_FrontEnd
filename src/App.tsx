@@ -24,6 +24,9 @@ const App = () => {
     link.href = `data:image/png;base64,${adminPanelData?.favIcon}`;
   }, [adminPanelData]);
 
+  console.warn = console.error = console.info = console.debug = () => {};
+    // console.clear()
+
   return (
     <BrowserRouter>
       <Routes />
