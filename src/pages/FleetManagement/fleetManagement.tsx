@@ -797,7 +797,7 @@ const FleetManagement: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {notificationsLoader ? (
+      {notificationsLoader || overAllAnalyticsLoader || analyticsLoader ? (
         <div
           style={{
             width: "100%",
