@@ -148,43 +148,45 @@ const Card = ({
     security: {
       values: [
         {
-          label: dashboard.cameras,
-          value: 10,
-          suffix: "",
+          label: "Development In Progress",  
+
+          // label: dashboard.cameras,
+          // value: 10,
+          // suffix: "",
         },
-        {
-          type: "splitter",
-        },
-        {
-          label: dashboard.alerts,
-          value: 50,
-          suffix: "",
-        },
+        // {
+        //   type: "splitter",
+        // },
+        // {
+        //   label: dashboard.alerts,
+        //   value: 50,
+        //   suffix: "",
+        // },
       ],
-      // noteLabel: dashboard?.securityNoteLabel.substring(0, 23) + "...",
-      noteLabel: dashboard?.securityNoteLabel,
-      noteValue: "20",
-      noteDifference: "+",
+      // noteLabel: dashboard?.securityNoteLabel,
+      // noteValue: "20",
+      // noteDifference: "+",
     },
     lighting: {
       values: [
         {
-          label: dashboard?.smartLights,
-          value: 10,
-          suffix: "",
+          label: "Development In Progress",  
+          // label: dashboard?.smartLights,
+          // value: 10,
+          // suffix: "",
         },
-        {
-          type: "splitter",
-        },
-        {
-          label: dashboard?.alertsText,
-          value: 30,
-          suffix: "",
-        },
+        // {
+        //   type: "splitter",
+        // },
+        // {
+        //   label: dashboard?.alertsText,
+        //   value: 30,
+        //   suffix: "",
+        // },
       ],
-      noteLabel: dashboard?.electricityNoteLabel,
-      noteValue: "16kW",
-      noteDifference: "-",
+      // noteLabel: dashboard?.electricityNoteLabel,
+      // noteValue: "16kW",
+      // noteDifference: "-",
     },
     fleet_management: {
       values: [
@@ -209,22 +211,23 @@ const Card = ({
     assets_tracking: {
       values: [
         {
-          label: dashboard.assets,
-          value: 52,
-          suffix: "",
+          label: "Development In Progress",  
+          // label: dashboard.assets,
+          // value: 52,
+          // suffix: "",
         },
-        {
-          type: "splitter",
-        },
-        {
-          label: dashboard.alerts,
-          value: 50,
-          suffix: "",
-        },
+        // {
+        //   type: "splitter",
+        // },
+        // {
+        //   label: dashboard.alerts,
+        //   value: 50,
+        //   suffix: "",
+        // },
       ],
-      noteLabel: dashboard?.assetsNoteLabel,
-      noteValue: "30",
-      noteDifference: "-",
+      // noteLabel: dashboard?.assetsNoteLabel,
+      // noteValue: "30",
+      // noteDifference: "-",
     },
   };
 
@@ -279,11 +282,12 @@ const Card = ({
           <CardValuesSkewContainer themeapi={adminPanelData?.appearance}/>
           <CardValuesContainer>
             {DEMO_VALUES[card?.title].values?.map((value: any) =>
-              value?.type === "splitter" ? (
+              value?.type === "splitter" ? (                
                 <CardValuesSplitter themeapi={adminPanelData?.appearance}/>
               ) : (
                 <ValueWrapper>
                   <Value themeapi={adminPanelData?.appearance}>
+                    
                     {value.value} {value.suffix}
                   </Value>
                   <Label>{value.label}</Label>
@@ -332,6 +336,28 @@ const FlippingCard = (props: any) => {
 
   const CARD_LIST: any = [
     {
+      title: "fleet_management",
+      image:
+        focusedCategory === "fleet"
+          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
+          : selectedTheme !== "light"
+          ? fleetManagement
+          : fleetManagementLight,
+      category: "fleet",
+      translatedTitle: dashboard.fleetManagement,
+    },
+    {
+      title: "assets_tracking",
+      image:
+        focusedCategory === "asset"
+          ? selectedTheme === "light" ? assetHoverWhite : AssetHover
+          : selectedTheme !== "light"
+          ? assetTracking
+          : assetTrackingLight,
+      category: "asset",
+      translatedTitle: dashboard.assetsTracking,
+    },
+    {
       title: "parking",
       image:
         focusedCategory === "parking"
@@ -375,28 +401,7 @@ const FlippingCard = (props: any) => {
       category: "lighting",
       translatedTitle: dashboard.lighting,
     },
-    {
-      title: "fleet_management",
-      image:
-        focusedCategory === "fleet"
-          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
-          : selectedTheme !== "light"
-          ? fleetManagement
-          : fleetManagementLight,
-      category: "fleet",
-      translatedTitle: dashboard.fleetManagement,
-    },
-    {
-      title: "assets_tracking",
-      image:
-        focusedCategory === "asset"
-          ? selectedTheme === "light" ? assetHoverWhite : AssetHover
-          : selectedTheme !== "light"
-          ? assetTracking
-          : assetTrackingLight,
-      category: "asset",
-      translatedTitle: dashboard.assetsTracking,
-    },
+   
   ];
 
   return (

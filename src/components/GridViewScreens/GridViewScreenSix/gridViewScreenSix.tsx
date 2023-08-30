@@ -133,16 +133,18 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/assetTracking");
-        }}>
+        }}
+      >
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}>
+          className={gridContainers}
+        >
           <Grid item xs={12} className={containerTitleTwo}>
             {dashboard.assetsTracking}
           </Grid>
-          <Grid item xs={12}>
+          {/*<Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>52</div>
@@ -236,6 +238,19 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                 },
               ]}
             />
+          </Grid> */}
+          <Grid
+            item
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              width: "100%",
+              fontSize : "1vw"
+            }}
+          >
+            Development In Progress...
           </Grid>
         </Grid>
       </Grid>
