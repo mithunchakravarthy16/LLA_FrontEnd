@@ -140,6 +140,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [count, setCount] = useState<number>(0);
   const [routes, setRoutes] = useState<any>([]);
   const [totalTime, setTotalTime] = useState<any>("");
+  const [idleData, setIdleData] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -215,6 +216,13 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       } else {
         setTotalTime("Hr");
       }
+    }
+    if (fleetManagementTripDetailsResponse?.data?.idlehours) {
+      const totalMinutes = Math.floor(
+        fleetManagementTripDetailsResponse?.data?.idlehours / 60
+      );
+      const hours = Math.floor(totalMinutes / 60);
+      setIdleData(hours);
     }
   }, [fleetManagementTripDetailsResponse]);
 
@@ -1232,8 +1240,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   currentValue={
                                     fleetManagementTripDetailsResponse?.data
                                       ?.idlehours
-                                      ? fleetManagementTripDetailsResponse?.data
-                                          ?.idlehours
+                                      ? idleData
                                       : 0
                                   }
                                   totalValue={110}
