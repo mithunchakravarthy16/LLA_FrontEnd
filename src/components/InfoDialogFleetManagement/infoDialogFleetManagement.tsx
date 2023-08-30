@@ -399,7 +399,6 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     },
   ];
 
-  console.log("violations", violations);
   const vehicleDetailsSubTaskBarItems: any[] = [
     {
       icon:
