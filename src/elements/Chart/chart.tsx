@@ -122,7 +122,7 @@ const Chart: React.FC<any> = (props) => {
           plotBackgroundColor: "transparent",
           backgroundColor: "transparent",
           marginTop: 0,
-          // marginLeft: 0,
+          marginLeft: 0,
           // marginRight: 0,
 
           reflow: true,
@@ -300,6 +300,7 @@ const Chart: React.FC<any> = (props) => {
             (pageName === "assetTracking" || pageName === "FleetManagement") &&
             "datetime",
           labels: {
+            allowOverlap: false,
             formatter:
               pageName === "FleetManagement" &&
               function (this: any) {
@@ -337,7 +338,8 @@ const Chart: React.FC<any> = (props) => {
           gridLineWidth: 0,
           lineWidth: 0,
           tickPositioner:
-            //  pageName !== "FleetManagement" &&
+            (!selectedValue ||
+              (selectedValue !== "Today" && selectedValue !== "Month")) &&
             function (this: any) {
               const ticks: any = this.tickPositions;
 
