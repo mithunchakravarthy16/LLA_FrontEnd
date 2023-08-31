@@ -119,7 +119,7 @@ useEffect(()=>{
           plotBackgroundColor: "transparent",
           backgroundColor: "transparent",
           marginTop: 0,
-          // marginLeft: 0,
+           marginLeft: 0,
           // marginRight: 0,
 
           reflow: true,
@@ -299,7 +299,7 @@ useEffect(()=>{
             "datetime",
           labels: {
 
-            
+             allowOverlap: false,
               formatter:
               pageName === "FleetManagement" && 
               function (this:any) {
@@ -335,7 +335,7 @@ useEffect(()=>{
           gridLineWidth: 0,
           lineWidth: 0,
           tickPositioner:
-            //  pageName !== "FleetManagement" &&
+          (!selectedValue || (selectedValue !== "Today" && selectedValue !== "Month")) &&
             function (this: any) {
               
               const ticks: any = this.tickPositions;
