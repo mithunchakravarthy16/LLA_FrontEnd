@@ -194,7 +194,7 @@ const Chart: React.FC<any> = (props) => {
               return ` <table>
           <tr>
             <td style="text-align: center;">
-                ${`${value}${units}`}
+                ${`${value?.toFixed(2)}${units}`}
             </td>
           </tr>
         </table>`;
