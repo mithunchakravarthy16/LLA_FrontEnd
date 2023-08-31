@@ -119,7 +119,7 @@ useEffect(()=>{
           plotBackgroundColor: "transparent",
           backgroundColor: "transparent",
           marginTop: 0,
-          // marginLeft: 0,
+          marginLeft: 0,
           // marginRight: 0,
 
           reflow: true,
@@ -262,10 +262,12 @@ useEffect(()=>{
         },
         xAxis: {
           visible: isVisible,
-          endOnTick: true,
+          // endOnTick: true,
+          // startOnTick: true,
           categories: xAxisArray
             ? xAxisArray
             : pageName !== "FleetManagement" && lastTwntyTwoHours,
+            
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
@@ -298,7 +300,9 @@ useEffect(()=>{
             (pageName === "assetTracking" || pageName === "FleetManagement") &&
             "datetime",
           labels: {
-
+            
+              allowOverlap: false,
+         
             
               formatter:
               pageName === "FleetManagement" && 
@@ -335,7 +339,7 @@ useEffect(()=>{
           gridLineWidth: 0,
           lineWidth: 0,
           tickPositioner:
-            //  pageName !== "FleetManagement" &&
+          (!selectedValue || (selectedValue !== "Today" && selectedValue !== "Month")) &&
             function (this: any) {
               
               const ticks: any = this.tickPositions;
