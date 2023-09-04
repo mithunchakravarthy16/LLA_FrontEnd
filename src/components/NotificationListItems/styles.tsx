@@ -68,7 +68,7 @@ const useStyles = makeStyles({
       props?.pageName === "markerCallout"
         ? // ? props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg
           props?.palette?.notification?.dashBoardexpansionMarkerListBg
-        : props?.palette?.notification?.expansionListItemBg,
+        : props?.palette?.notification?.dashBoardexpansionMarkerListBg,
     backdropFilter: props?.mapPageName === "dashboard" ? "blur(2.5px)" : "none",
     padding: "4%",
     borderRadius: "10px",

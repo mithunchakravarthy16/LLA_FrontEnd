@@ -128,22 +128,23 @@ const Card = ({
     energy_management: {
       values: [
         {
-          label: dashboard?.runningUnits,
-          value: 20,
-          suffix: "",
+          label: "Development In Progress", 
+          // label: dashboard?.runningUnits,
+          // value: 20,
+          // suffix: "",
         },
-        {
-          type: "splitter",
-        },
-        {
-          label: dashboard?.alertsText,
-          value: "10",
-          suffix: "",
-        },
+        // {
+        //   type: "splitter",
+        // },
+        // {
+        //   label: dashboard?.alertsText,
+        //   value: "10",
+        //   suffix: "",
+        // },
       ],
-      noteLabel: dashboard?.energyNoteLabel,
-      noteValue: "100kWh",
-      noteDifference: "-",
+      // noteLabel: dashboard?.energyNoteLabel,
+      // noteValue: "100kWh",
+      // noteDifference: "-",
     },
     security: {
       values: [

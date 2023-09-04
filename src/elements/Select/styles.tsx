@@ -22,8 +22,8 @@ const useStyles = makeStyles(
         textAlign: "left",
         position: "relative",
         fontFamily: "HelveticaNeue-Regular",
-        color: props?.selectedTheme === "light" ? "#F1624C" : "#fff",
-        background: props?.selectedTheme === "light" ? "#FBCEBC" : "#F26522",
+        color: props?.selectedTheme === "light" ? "#fff" : "#fff",
+        background: props?.selectedTheme === "light" ? "#F1624C" : "#F26522",
         width: "5vw",
         "& .MuiSvgIcon-root": {
           position: "absolute",
@@ -37,7 +37,7 @@ const useStyles = makeStyles(
       },
 
       "& .MuiSelect-iconOutlined": {
-        color: props?.selectedTheme === "light" ? "#F1624C" : `#fff !important`,
+        color: props?.selectedTheme === "light" ? "#fff" : `#fff !important`,
       },
     }),
 

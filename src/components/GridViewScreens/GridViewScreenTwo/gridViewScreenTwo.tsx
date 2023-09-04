@@ -187,7 +187,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
               </div>
             </div>
           </Grid> */}
-          <Grid item xs={12} className={subContainer}>
+          {/* <Grid item xs={12} className={subContainer}>
             <Grid container xs={12} className={childSubContainer}>
               <Grid item xs={9} className={childSubContainer}>
                 <Grid container xs={12} className={childSubContainer}>
@@ -311,7 +311,10 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                        padding: "3%",
+                            padding: "2.5% 10%",
+                            borderRadius : "0.3vw",
+                            fontSize : "0.8vw",
+                            fontWeight : 500
                       }}>
                       {gridView.today}
                     </div>
@@ -356,6 +359,19 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                 </Grid>
               </Grid>
             </Grid>
+          </Grid> */}
+          <Grid
+            item
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "90%",
+              width: "100%",
+              fontSize : "1vw"
+            }}
+          >
+            Development In Progress...
           </Grid>
         </Grid>
       </Grid>

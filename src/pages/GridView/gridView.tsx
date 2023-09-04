@@ -202,7 +202,7 @@ const GridView: React.FC<any> = (props) => {
 
             {/* Grid 2 */}
             <GridViewScreenTwo
-              handleClick={handleClick}
+              handleClick={()=>{}}
               selectedTheme={selectedTheme}
             />
 

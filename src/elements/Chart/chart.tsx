@@ -329,10 +329,10 @@ useEffect(()=>{
               ? "{value:%b}"
               : "{value:%m/%e}",
             style: {
-              fontSize: "0.55vw",
+              fontSize: "0.65vw",
               textOverflow: "none",
               autoRotation: false,
-
+              fontWeight : 500,
               color: appTheme?.palette?.chart?.xAxisTextColor,
             },
           },
