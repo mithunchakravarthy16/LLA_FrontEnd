@@ -182,7 +182,7 @@ const useStyles = makeStyles({
 
   collapsedListItemSubTitle: (props: any) => ({
     fontSize: "0.7vw",
-    fontFamily: "HelveticaNeue-Medium",
+    fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.notification?.collapsedListItemTextColor,
     maxWidth: "10vw",
     textOverflow: "ellipsis",
@@ -229,7 +229,7 @@ const useStyles = makeStyles({
   collapsedTimeStampStyle: (props: any) => ({
     // fontSize: 10,
     fontSize: "0.7vw",
-    fontFamily: "HelveticaNeue-Medium",
+    fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.notification?.collapsedListItemTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 24,
@@ -304,8 +304,8 @@ const useStyles = makeStyles({
     },
   }),
   timeStampStyle: (props: any) => ({
-    fontSize: "0.7vw",    
-    fontFamily: "HelveticaNeue-Medium",
+    fontSize: "0.7vw",
+    fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.notification?.listItemContent,
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 24,
@@ -340,7 +340,7 @@ const useStyles = makeStyles({
     fontSize: "0.7vw",
     letterSpacing: "0.5px",
     marginBottom: "4%",
-    fontFamily: "HelveticaNeue-Medium",
+    fontFamily: "HelveticaNeue-Regular",
     // fontSize: 10,
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 24,
@@ -375,7 +375,7 @@ const useStyles = makeStyles({
     fontSize: "0.7vw",
     letterSpacing: "0.5px",
     marginBottom: "4%",
-    fontFamily: "HelveticaNeue-Medium",
+    fontFamily: "HelveticaNeue-Regular",
     // fontSize: 10,
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 24,
