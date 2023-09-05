@@ -208,13 +208,13 @@ const FleetManagement: React.FC<any> = (props) => {
         }
       );
       fleetManagementAnalyticsResponse?.data?.drivingHours?.map((item: any) => {
-        const totalMinutes = Math.floor(item?.count / 60);
-        const hours = Math.floor(totalMinutes / 60);
+        const totalMinutes = item?.count / 60;
+        const hours = totalMinutes / 60;
         hourData?.push([new Date(item?.node)?.getTime(), hours]);
       });
       fleetManagementAnalyticsResponse?.data?.idleHours?.map((item: any) => {
-        const totalMinutes = Math.floor(item?.count / 60);
-        const hours = Math.floor(totalMinutes / 60);
+        const totalMinutes = item?.count / 60;
+        const hours = totalMinutes / 60;
         idlData?.push([new Date(item?.node)?.getTime(), hours]);
       });
 
@@ -347,19 +347,19 @@ const FleetManagement: React.FC<any> = (props) => {
     {
       icon:
         selectedTheme === "light" ? LightTotalDistanceIcon : TotalDistanceIcon,
-      value: `${
-        fleetManagementTripDetailsResponse?.data?.distanceCovered
-          ? fleetManagementTripDetailsResponse?.data?.distanceCovered?.toFixed(
-              2
-            )
-          : 0
-      }Km`,
+      value: fleetManagementTripDetailsResponse?.data?.distanceCovered
+        ? `${fleetManagementTripDetailsResponse?.data?.distanceCovered?.toFixed(
+            2
+          )}Km`
+        : "--",
       name: `${gridView.total} ${gridView.distance}`,
     },
     {
       icon: selectedTheme === "light" ? LightIdleHoursIcon : IdleHoursIcon,
       value: `${
-        fleetManagementTripDetailsResponse?.data?.idleHours ? overallHours : 0
+        fleetManagementTripDetailsResponse?.data?.idleHours
+          ? overallHours
+          : "--"
       }`,
       name: `${fleetManagement.idleHrs}`,
     },
@@ -368,7 +368,7 @@ const FleetManagement: React.FC<any> = (props) => {
         selectedTheme === "light" ? LightOverSpeedingIcon : OverSpeedingIcon,
       value: fleetManagementTripDetailsResponse?.data?.overSpeed
         ? fleetManagementTripDetailsResponse?.data?.overSpeed
-        : 0,
+        : "--",
       name: gridView.overspeeding,
     },
     {
@@ -378,7 +378,7 @@ const FleetManagement: React.FC<any> = (props) => {
           : HarshAccelerationIcon,
       value: fleetManagementTripDetailsResponse?.data?.harshAcceleration
         ? fleetManagementTripDetailsResponse?.data?.harshAcceleration
-        : 0,
+        : "--",
       name: fleetManagement.harshAcceleration,
     },
     {
@@ -386,7 +386,7 @@ const FleetManagement: React.FC<any> = (props) => {
         selectedTheme === "light" ? LightHarshBreakingIcon : HarshBreakingIcon,
       value: fleetManagementTripDetailsResponse?.data?.harshBreaking
         ? fleetManagementTripDetailsResponse?.data?.harshBreaking
-        : 0,
+        : "--",
       name: gridView.harshBreaking,
     },
   ];
