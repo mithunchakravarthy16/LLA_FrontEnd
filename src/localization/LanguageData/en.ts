@@ -31,6 +31,7 @@ export default {
   noResultFound: "No Result Found",
   viewDetails: "View Details",
   takeAction: "Take Action",
+  noRecordFound: "No Records Found",
   dashboard: {
     parking: "PARKING",
     energyManagement: "ENERGY MANAGEMENT",

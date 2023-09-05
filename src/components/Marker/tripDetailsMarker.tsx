@@ -39,9 +39,7 @@ const TripDetailsMarker: React.FC<any> = (props) => {
             : undefined
         }
         position={
-          currentMarker?.id === mapMarker.id && location?.lat && location?.lng
-            ? location
-            : mapMarker?.location
+          currentMarker?.id === mapMarker.id ? location : mapMarker?.location
         }
         onClick={() => {
           toggleInfoWindow(

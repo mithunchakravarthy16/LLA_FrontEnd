@@ -42,7 +42,10 @@ import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
-import { getFleetManagementTripDetails } from "redux/actions/fleetManagementNotificationActions";
+import {
+  getFleetManagementTripDetails,
+  setFleetManagementTripDetails,
+} from "redux/actions/fleetManagementNotificationActions";
 
 const FleetManagement: React.FC<any> = (props) => {
   const navigate = useNavigate();
@@ -249,21 +252,27 @@ const FleetManagement: React.FC<any> = (props) => {
       fleetManagementNotificationResponse?.status === 500 ||
       fleetManagementTripDetailsResponse?.status === 500 ||
       fleetManagementAnalyticsResponse?.status === 500 ||
+      fleetManagementTripDetailsData?.status === 500 ||
       fleetManagementNotificationResponse?.status === 404 ||
       fleetManagementTripDetailsResponse?.status === 404 ||
       fleetManagementAnalyticsResponse?.status === 404 ||
+      fleetManagementTripDetailsData?.status === 404 ||
       fleetManagementNotificationResponse?.status === 400 ||
       fleetManagementTripDetailsResponse?.status === 400 ||
       fleetManagementAnalyticsResponse?.status === 400 ||
+      fleetManagementTripDetailsData?.status === 400 ||
       fleetManagementNotificationResponse?.status === 409 ||
       fleetManagementTripDetailsResponse?.status === 409 ||
       fleetManagementAnalyticsResponse?.status === 409 ||
+      fleetManagementTripDetailsData?.status === 409 ||
       fleetManagementNotificationResponse?.status === 413 ||
       fleetManagementTripDetailsResponse?.status === 413 ||
       fleetManagementAnalyticsResponse?.status === 413 ||
+      fleetManagementTripDetailsData?.status === 413 ||
       fleetManagementNotificationResponse?.status === 410 ||
       fleetManagementTripDetailsResponse?.status === 410 ||
-      fleetManagementAnalyticsResponse?.status === 410
+      fleetManagementAnalyticsResponse?.status === 410 ||
+      fleetManagementTripDetailsData?.status === 410
     ) {
       setSuccess(true);
     } else if (fleetManagementNotificationResponse?.status === 200) {
@@ -305,43 +314,43 @@ const FleetManagement: React.FC<any> = (props) => {
       );
 
       //
-      const updatedArray: any = [];
-      combinedNotifications?.length > 0 &&
-        combinedNotifications?.forEach(async (item: any, index: number) => {
-          if (
-            item?.location?.lat &&
-            item?.location?.lng &&
-            window.google &&
-            window.google.maps
-          ) {
-            let address: any = "";
-            const geocoder: any = new window.google.maps.Geocoder();
-            const location1: any = new window.google.maps.LatLng(
-              item?.location?.lat,
-              item?.location?.lng
-            );
-            await geocoder.geocode(
-              { latLng: location1 },
-              (results: any, status: any) => {
-                if (status === "OK" && results[0]) {
-                  address = results[0].formatted_address;
-                } else {
-                  console.error("Geocode failure: " + status);
-                  return false;
-                }
-                updatedArray.push({
-                  ...item,
-                  index: index,
-                  area: address,
-                });
-              }
-            );
-            setNotificationArray([...updatedArray]);
-          }
-        });
-      // setNotificationArray(dataValue);
+      // const updatedArray: any = [];
+      // combinedNotifications?.length > 0 &&
+      //   combinedNotifications?.forEach(async (item: any, index: number) => {
+      //     if (
+      //       item?.location?.lat &&
+      //       item?.location?.lng &&
+      //       window.google &&
+      //       window.google.maps
+      //     ) {
+      //       let address: any = "";
+      //       const geocoder: any = new window.google.maps.Geocoder();
+      //       const location1: any = new window.google.maps.LatLng(
+      //         item?.location?.lat,
+      //         item?.location?.lng
+      //       );
+      //       await geocoder.geocode(
+      //         { latLng: location1 },
+      //         (results: any, status: any) => {
+      //           if (status === "OK" && results[0]) {
+      //             address = results[0].formatted_address;
+      //           } else {
+      //             console.error("Geocode failure: " + status);
+      //             return false;
+      //           }
+      //           updatedArray.push({
+      //             ...item,
+      //             index: index,
+      //             area: address,
+      //           });
+      //         }
+      //       );
+      //       setNotificationArray([...updatedArray]);
+      //     }
+      //   });
+      setNotificationArray(dataValue);
     }
-  }, [fleetManagementNotificationResponse]);
+  }, [fleetManagementNotificationResponse, fleetManagementTripDetailsData]);
 
   const topPanelListItems: any[] = [
     {
@@ -418,6 +427,8 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const [selectedMarker, setSelectedMarker] = useState<any>();
   const [selectedMarkerLocation, setSelectedMarkerLocation] = useState<any>();
+
+  const [tripId, setTripId] = useState<any>();
 
   useEffect(() => {
     setDashboardData(
@@ -710,9 +721,39 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const handleExpandListItem = (id: any) => {
     const obj = dashboardData?.find((item: any) => item.id === id);
-    // if (obj.tripStatus === "Live") {
-    //   dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
-    // }
+    if (obj.tripStatus === "Live" && obj.reason === "Trip Started") {
+      dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
+      setTripId(obj?.tripId);
+    } else {
+      setTripId(null);
+    }
+  };
+
+  const handleMarkerIconClick = (id: any) => {
+    const obj = notificationArray?.find((item: any) => item.tripId === id);
+    if (obj.tripStatus === "Live" && obj.reason === "Trip Started") {
+      dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
+      setTripId(obj?.tripId);
+    } else {
+      setTripId(null);
+    }
+  };
+
+  useEffect(() => {
+    if (tripId) {
+      const timer = setInterval(() => {
+        dispatch(getFleetManagementTripDetails({ tripId: tripId }));
+      }, 10000);
+      return () => {
+        clearInterval(timer);
+      };
+    } else {
+      dispatch(setFleetManagementTripDetails({}));
+    }
+  }, [tripId, showInfoDialogue, showInfoDialogueVideo]);
+
+  const handleMarkerCancel = () => {
+    dispatch(setFleetManagementTripDetails({}));
   };
 
   return (
@@ -729,21 +770,27 @@ const FleetManagement: React.FC<any> = (props) => {
               fleetManagementNotificationResponse?.status === 500 ||
               fleetManagementTripDetailsResponse?.status === 500 ||
               fleetManagementAnalyticsResponse?.status === 500 ||
+              fleetManagementTripDetailsData?.status === 500 ||
               fleetManagementNotificationResponse?.status === 404 ||
               fleetManagementTripDetailsResponse?.status === 404 ||
               fleetManagementAnalyticsResponse?.status === 404 ||
+              fleetManagementTripDetailsData?.status === 404 ||
               fleetManagementNotificationResponse?.status === 400 ||
               fleetManagementTripDetailsResponse?.status === 400 ||
               fleetManagementAnalyticsResponse?.status === 400 ||
+              fleetManagementTripDetailsData?.status === 400 ||
               fleetManagementNotificationResponse?.status === 409 ||
               fleetManagementTripDetailsResponse?.status === 409 ||
               fleetManagementAnalyticsResponse?.status === 409 ||
+              fleetManagementTripDetailsData?.status === 409 ||
               fleetManagementNotificationResponse?.status === 413 ||
               fleetManagementTripDetailsResponse?.status === 413 ||
               fleetManagementAnalyticsResponse?.status === 413 ||
+              fleetManagementTripDetailsData?.status === 413 ||
               fleetManagementNotificationResponse?.status === 410 ||
               fleetManagementTripDetailsResponse?.status === 410 ||
-              fleetManagementAnalyticsResponse?.status === 410
+              fleetManagementAnalyticsResponse?.status === 410 ||
+              fleetManagementTripDetailsData?.status === 410
                 ? "error"
                 : undefined
             }
@@ -751,7 +798,8 @@ const FleetManagement: React.FC<any> = (props) => {
           >
             {(fleetManagementNotificationResponse?.status === 500 ||
               fleetManagementTripDetailsResponse?.status === 500 ||
-              fleetManagementAnalyticsResponse?.status === 500) && (
+              fleetManagementAnalyticsResponse?.status === 500 ||
+              fleetManagementTripDetailsData?.status === 500) && (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
                 <Link component="button" variant="body2" onClick={handleClick}>
@@ -761,35 +809,40 @@ const FleetManagement: React.FC<any> = (props) => {
             )}
             {(fleetManagementNotificationResponse?.status === 404 ||
               fleetManagementTripDetailsResponse?.status === 404 ||
-              fleetManagementAnalyticsResponse?.status === 404) && (
+              fleetManagementAnalyticsResponse?.status === 404 ||
+              fleetManagementTripDetailsData?.status === 404) && (
               <div style={{ display: "flex" }}>
                 <Typography>Data Not Available</Typography>
               </div>
             )}
             {(fleetManagementNotificationResponse?.status === 400 ||
               fleetManagementTripDetailsResponse?.status === 400 ||
-              fleetManagementAnalyticsResponse?.status === 400) && (
+              fleetManagementAnalyticsResponse?.status === 400 ||
+              fleetManagementTripDetailsData?.status === 400) && (
               <div style={{ display: "flex" }}>
                 <Typography>Bad Request</Typography>
               </div>
             )}
             {(fleetManagementNotificationResponse?.status === 409 ||
               fleetManagementTripDetailsResponse?.status === 409 ||
-              fleetManagementAnalyticsResponse?.status === 409) && (
+              fleetManagementAnalyticsResponse?.status === 409 ||
+              fleetManagementTripDetailsData?.status === 409) && (
               <div style={{ display: "flex" }}>
                 <Typography>Already data available</Typography>
               </div>
             )}
             {(fleetManagementNotificationResponse?.status === 413 ||
               fleetManagementTripDetailsResponse?.status === 413 ||
-              fleetManagementAnalyticsResponse?.status === 413) && (
+              fleetManagementAnalyticsResponse?.status === 413 ||
+              fleetManagementTripDetailsData?.status === 413) && (
               <div style={{ display: "flex" }}>
                 <Typography>Request too large</Typography>
               </div>
             )}
             {(fleetManagementNotificationResponse?.status === 410 ||
               fleetManagementTripDetailsResponse?.status === 410 ||
-              fleetManagementAnalyticsResponse?.status === 410) && (
+              fleetManagementAnalyticsResponse?.status === 410 ||
+              fleetManagementTripDetailsData?.status === 410) && (
               <div style={{ display: "flex" }}>
                 <Typography>Request not available</Typography>
               </div>
@@ -1276,6 +1329,11 @@ const FleetManagement: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
+                        dataPoints={
+                          fleetManagementTripDetailsData?.data?.gpsDTOs
+                        }
+                        handleMarkerIconClick={handleMarkerIconClick}
+                        handleMarkerCancel={handleMarkerCancel}
                       />
                     </Grid>
                   </Grid>
@@ -1283,7 +1341,7 @@ const FleetManagement: React.FC<any> = (props) => {
                 <Grid item xs={3} className={notificationPanelGrid}>
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
-                    dashboardData={dataP}
+                    dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
                     notificationCount={notificationCount}
@@ -1314,6 +1372,7 @@ const FleetManagement: React.FC<any> = (props) => {
           is4kDevice={selectedWidth?.is4kDevice}
           selectedTheme={selectedTheme}
           selectedMarkerLocation={selectedMarkerLocation}
+          dataPoints={fleetManagementTripDetailsData?.data}
         />
       )}
       {showInfoDialogueVideo && (

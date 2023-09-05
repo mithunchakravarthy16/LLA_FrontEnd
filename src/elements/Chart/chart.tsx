@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Chart: React.FC<any> = (props) => {
   const location = useLocation();
-  
+
   const {
     width,
     height,
@@ -42,7 +42,8 @@ const Chart: React.FC<any> = (props) => {
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  const [isEveryYAxisValuesAreZero, setIsEveryYAxisValuesAreZero] = useState<boolean>(false)
+  const [isEveryYAxisValuesAreZero, setIsEveryYAxisValuesAreZero] =
+    useState<boolean>(false);
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -62,18 +63,20 @@ const Chart: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+  useEffect(() => {
+    if (pageName === "FleetManagement") {
+      dataPoints?.length > 0 &&
+        dataPoints?.every((item: any) => {
+          setIsEveryYAxisValuesAreZero(
+            item?.data?.every(
+              (dataValues: any) =>
+                (dataValues?.length > 1 && dataValues[1]) === 0
+            )
+          );
+        });
+    }
+  }, [dataPoints]);
 
-useEffect(()=>{
-  if(pageName === "FleetManagement"){
-    dataPoints?.length > 0 && dataPoints?.every((item:any)=>{
-      setIsEveryYAxisValuesAreZero(item?.data?.every((dataValues:any)=>
-      (dataValues?.length > 1 && dataValues[1]) === 0
-      ))
-     })
-  }
-  
-},[dataPoints])
-   
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
   const [lastTwntyTwoHours, setLastTwntyTwoHours] = useState<any>(() => {
@@ -191,7 +194,7 @@ useEffect(()=>{
               return ` <table>
           <tr>
             <td style="text-align: center;">
-            ${`${value?.toFixed(2)}${units}`}     
+                ${`${value?.toFixed(2)}${units}`}
             </td>
           </tr>
         </table>`;
@@ -229,7 +232,7 @@ useEffect(()=>{
                                   margin-right:${is4kDevice ? "10px" : "5px"};
                                   border-radius:${is4kDevice ? "50%" : "50%"};
                                   "></div>` +
-                                    point?.y.toFixed(2) +
+                                    point?.y?.toFixed(2) +
                                     units +
                                     "<br/><br/>"
                                   );
@@ -263,11 +266,9 @@ useEffect(()=>{
         xAxis: {
           visible: isVisible,
           // endOnTick: true,
-          // startOnTick: true,
           categories: xAxisArray
             ? xAxisArray
             : pageName !== "FleetManagement" && lastTwntyTwoHours,
-            
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
@@ -281,9 +282,8 @@ useEffect(()=>{
               ? tickInterval
               : pageName !== "FleetManagement"
               ? 8
-              : 
-              selectedValue === "Today"
-              ? 6 * 3600 * 1000
+              : selectedValue === "Today"
+              ? 8 * 3600 * 1000
               : selectedValue === "Year"
               ? 90 * 24 * 3600 * 1000
               : selectedValue === "Month"
@@ -300,23 +300,23 @@ useEffect(()=>{
             (pageName === "assetTracking" || pageName === "FleetManagement") &&
             "datetime",
           labels: {
-            
-              allowOverlap: false,
-         
-            
-              formatter:
-              pageName === "FleetManagement" && 
-              function (this:any) {
+            allowOverlap: false,
+            formatter:
+              pageName === "FleetManagement" &&
+              function (this: any) {
                 const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
-                return convertedTime.format(formatGraph
-                  ? formatGraph
-                  : pageName === "FleetManagement" && selectedValue === "Today"
-                  ? "HH:mm"
-                  : selectedValue === "Year"
-                  ? "MMM/YY"
-                  : "MM/DD");
+                if (selectedValue === "Today") {
+                  return Highcharts.dateFormat("%I:%M %p", this.value);
+                } else {
+                  return convertedTime.format(
+                    formatGraph
+                      ? formatGraph
+                      : selectedValue === "Year"
+                      ? "MMM/YY"
+                      : "MM/DD"
+                  );
+                }
               },
-            
 
             useHTML: true,
             // overflow: "justify",
@@ -332,18 +332,18 @@ useEffect(()=>{
               fontSize: "0.65vw",
               textOverflow: "none",
               autoRotation: false,
-              fontWeight : 500,
+              fontWeight: 500,
               color: appTheme?.palette?.chart?.xAxisTextColor,
             },
           },
           gridLineWidth: 0,
           lineWidth: 0,
           tickPositioner:
-          (!selectedValue || (selectedValue !== "Today" && selectedValue !== "Month")) &&
+            (!selectedValue ||
+              (selectedValue !== "Today" && selectedValue !== "Month")) &&
             function (this: any) {
-              
               const ticks: any = this.tickPositions;
-              
+
               if (!ticks.includes(this.dataMax)) ticks.push(this.dataMax);
               ticks.sort((a: any, b: any) => a - b);
               while (ticks[ticks.length - 1] > this.dataMax) {
@@ -355,9 +355,9 @@ useEffect(()=>{
 
         setOptions: {
           time: {
-              useUTC: false
-          }
-      },
+            useUTC: false,
+          },
+        },
 
         title: false,
         plotOptions: {
@@ -381,7 +381,10 @@ useEffect(()=>{
         series: dataPoints,
         yAxis: {
           visible: false,
-          max: pageName === "FleetManagement" && isEveryYAxisValuesAreZero ? 100 : undefined,
+          max:
+            pageName === "FleetManagement" && isEveryYAxisValuesAreZero
+              ? 100
+              : undefined,
         },
         credits: false,
       }}

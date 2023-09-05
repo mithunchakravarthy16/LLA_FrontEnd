@@ -30,6 +30,7 @@ export default {
   searchText: "Buscar",
   viewDetails: "Ver detalles",
   takeAction: "Tomar acción",
+  noRecordFound: "No Records Found",
   dashboardOld: {
     parking: "Parking",
     energyManagement: "Energy Management",

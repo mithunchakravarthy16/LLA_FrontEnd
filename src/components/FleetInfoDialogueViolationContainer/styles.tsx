@@ -32,6 +32,12 @@ const useStyles = makeStyles(
       fontWeight: 300,
       color: `${props?.palette?.fleetManagementPage?.violationListSubTextColor}`,
     }),
+    noResultFoundClass: (props: any) => ({
+      fontSize: "1vw",
+      padding: "1vw",
+      fontFamily: "HelveticaNeue-Regular",
+      color: props?.palette?.notification?.noResultFoundColor,
+    }),
   },
   { index: 1 }
 );

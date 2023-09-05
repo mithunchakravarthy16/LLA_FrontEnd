@@ -114,6 +114,9 @@ const Map: React.FC<any> = (props) => {
     selectedTheme,
     setMap,
     map,
+    dataPoints,
+    handleMarkerCancel,
+    handleMarkerIconClick,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -675,7 +678,12 @@ const Map: React.FC<any> = (props) => {
     }
   };
 
-  const toggleInfoWindow = (markerId: string, type: string, location: any) => {
+  const toggleInfoWindow = (
+    markerId: string,
+    type: string,
+    location: any,
+    tripId: any
+  ) => {
     setIsMarkerClicked(true);
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
@@ -697,6 +705,7 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification((prev: any) => {
       return prev && prev == markerId ? "" : markerId;
     });
+    location?.pathname === "/fleetManagement" && handleMarkerIconClick(tripId);
   };
 
   const handleMarkerClose = () => {
@@ -716,6 +725,7 @@ const Map: React.FC<any> = (props) => {
     setSelectedMarker("");
     setSelectedListItemSource("");
     setSelectedListItemDestination("");
+    location?.pathname === "/fleetManagement" && handleMarkerCancel();
   };
 
   const handleExpandListItem = () => {
@@ -730,128 +740,6 @@ const Map: React.FC<any> = (props) => {
     setSelectedListItemSource("");
     setSelectedListItemDestination("");
   }, [tabIndex]);
-
-  // Moving Marker code
-
-  const calculatePath = () => {
-    data = points.map((coordinates: any, i: any, array: any) => {
-      if (i === 0) {
-        return { ...coordinates, distance: 0 }; // it begins here!
-      }
-      const { lat: lat1, lng: lng1 } = coordinates;
-      const latLong1 = new window.google.maps.LatLng(lat1, lng1);
-
-      const { lat: lat2, lng: lng2 } = array[0];
-      const latLong2 = new window.google.maps.LatLng(lat2, lng2);
-
-      // in meters:
-      const distance =
-        window.google.maps.geometry.spherical.computeDistanceBetween(
-          latLong1,
-          latLong2
-        );
-      return { ...coordinates, distance };
-    });
-    setData(data);
-  };
-
-  const getDistance = () => {
-    const date: any = new Date();
-    const differentInTime = (date - initialDate) / 1000; // pass to seconds
-    return differentInTime * velocity; // d = v*t -- thanks Newton!
-  };
-
-  const moveObject = () => {
-    const distance = getDistance();
-    if (!distance) {
-      return;
-    }
-    let progress = data.filter(
-      (coordinates: any) => coordinates.distance < distance
-    );
-
-    const nextLine = data.find(
-      (coordinates: any) => coordinates.distance > distance
-    );
-
-    if (!nextLine) {
-      setProgress(progress);
-      // window.clearInterval(interval);
-      return; // it's the end!
-    }
-    const lastLine = progress[progress.length - 1];
-
-    const lastLineLatLng = new window.google.maps.LatLng(
-      lastLine.lat,
-      lastLine.lng
-    );
-
-    const nextLineLatLng = new window.google.maps.LatLng(
-      nextLine.lat,
-      nextLine.lng
-    );
-
-    // distance of this line
-    const totalDistance = nextLine.distance - lastLine.distance;
-    const percentage = (distance - lastLine.distance) / totalDistance;
-
-    const position = window.google.maps.geometry.spherical.interpolate(
-      lastLineLatLng,
-      nextLineLatLng,
-      percentage
-    );
-
-    const angle = window.google.maps.geometry.spherical.computeHeading(
-      lastLineLatLng,
-      nextLineLatLng
-    );
-    const actualAngle = angle - 90;
-
-    // const marker = document.querySelector(`[src="${FleetEventIcon}"]`);
-
-    // if (marker) {
-    //   // when it hasn't loaded, it's null
-    //   marker.style.transform = `rotate(${actualAngle}deg)`;
-    // }
-    progress = progress.concat(position);
-
-    setProgress(progress);
-  };
-
-  const fetchDirection = async () => {
-    const directionService = new window.google.maps.DirectionsService();
-
-    const results = await directionService.route({
-      origin: selectedListItemSource,
-      destination: selectedListItemDestination,
-      travelMode: window.google.maps.TravelMode.DRIVING,
-    });
-
-    setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
-  };
-
-  useEffect(() => {
-    if (points?.length > 0) {
-      calculatePath();
-    }
-  }, [points]);
-
-  useEffect(() => {
-    if (points?.length > 0) {
-      const timer = setInterval(() => {
-        moveObject();
-      }, 1000);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (selectedListItemSource && selectedListItemDestination) {
-      fetchDirection();
-    }
-  }, [selectedListItemSource, selectedListItemDestination]);
 
   let lineSymbol = {
     path: "M 0,-1 0,1",
@@ -1085,7 +973,11 @@ const Map: React.FC<any> = (props) => {
                 <div>
                   {markers?.map((singleMarker: any) => {
                     // if (!window.google) return null;
-                    if (singleMarker?.tripStatus === "Live") {
+                    if (
+                      singleMarker?.tripStatus === "Live" &&
+                      singleMarker?.reason === "Trip Started" &&
+                      currentMarker !== singleMarker?.id
+                    ) {
                       return (
                         <>
                           <MapMarker
@@ -1174,7 +1066,7 @@ const Map: React.FC<any> = (props) => {
                             handleMarkerClose={handleMarkerClose}
                             handleExpandListItem={handleExpandListItem}
                             getMarkerIcon={getMarkerIcon}
-                            currentMarker={selectedMarker}
+                            currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
                             location={progress[progress.length - 1]}
                             direction={"NE"}
@@ -1185,7 +1077,7 @@ const Map: React.FC<any> = (props) => {
                             selectedTheme={selectedTheme}
                           />
                         )}
-                        {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
+                        {/* <Marker position={progress[progress.length - 1]} /> */}
                       </>
                     )}
                 </div>
@@ -1195,7 +1087,11 @@ const Map: React.FC<any> = (props) => {
             <div>
               {markers?.map((singleMarker: any) => {
                 // if (!window.google) return null;
-                if (singleMarker?.tripStatus === "Live") {
+                if (
+                  singleMarker?.tripStatus === "Live" &&
+                  singleMarker?.reason === "Trip Started" &&
+                  currentMarker !== singleMarker?.id
+                ) {
                   return (
                     <>
                       <MapMarker
@@ -1244,10 +1140,10 @@ const Map: React.FC<any> = (props) => {
               })}
 
               {location?.pathname === "/fleetManagement" &&
-                points &&
-                points.length > 0 && (
+                dataPoints &&
+                dataPoints.length > 0 && (
                   <PolylineF
-                    path={points}
+                    path={dataPoints}
                     options={{
                       strokeColor: "#976C9E",
                       strokeOpacity: 10,
@@ -1264,13 +1160,11 @@ const Map: React.FC<any> = (props) => {
                 )}
 
               {location?.pathname === "/fleetManagement" &&
-                points &&
-                points?.length > 0 &&
-                progress &&
-                progress?.length > 0 && (
+                dataPoints &&
+                dataPoints?.length > 0 && (
                   <>
                     <PolylineF
-                      path={progress}
+                      path={dataPoints}
                       options={{
                         strokeColor: "#73B35A",
                         strokeOpacity: 10,
@@ -1284,9 +1178,9 @@ const Map: React.FC<any> = (props) => {
                         handleMarkerClose={handleMarkerClose}
                         handleExpandListItem={handleExpandListItem}
                         getMarkerIcon={getMarkerIcon}
-                        currentMarker={selectedMarker}
+                        currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
-                        location={progress[progress.length - 1]}
+                        location={dataPoints[dataPoints.length - 1]}
                         direction={"NE"}
                         pageName={"FleetManagement"}
                         handleViewDetails={handleViewDetails}
@@ -1295,7 +1189,7 @@ const Map: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                       />
                     )}
-                    {/* <Marker icon={icon1} position={progress[progress.length - 1]} /> */}
+                    {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}
                   </>
                 )}
             </div>
