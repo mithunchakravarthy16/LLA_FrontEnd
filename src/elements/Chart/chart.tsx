@@ -191,7 +191,7 @@ useEffect(()=>{
               return ` <table>
           <tr>
             <td style="text-align: center;">
-                ${`${value}${units}`}
+            ${`${value?.toFixed(2)}${units}`}     
             </td>
           </tr>
         </table>`;
@@ -229,7 +229,7 @@ useEffect(()=>{
                                   margin-right:${is4kDevice ? "10px" : "5px"};
                                   border-radius:${is4kDevice ? "50%" : "50%"};
                                   "></div>` +
-                                    point?.y +
+                                    point?.y.toFixed(2) +
                                     units +
                                     "<br/><br/>"
                                   );

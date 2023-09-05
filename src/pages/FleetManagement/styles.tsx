@@ -215,7 +215,7 @@ const useStyles = makeStyles({
 
   liveContentValue: (props: any) => ({
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
-    fontSize: "1.5vw",
+    fontSize: "1.2vw",
     // lineHeight : "1vw",
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 36,

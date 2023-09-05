@@ -285,7 +285,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             ? fleetManagementResponse?.data?.liveVehicle
                             : 0}
                         </div>
-                        <div className={liveContentLabel}>
+                        <div className={liveContentLabel} style={{textTransform : "uppercase"}}>
                           {gridView.vehicles}
                         </div>
                       </div>
@@ -295,7 +295,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             ? fleetManagementResponse?.data?.completedTripCount
                             : 0}
                         </div>
-                        <div className={liveContentLabel}>{gridView.trips}</div>
+                        <div className={liveContentLabel} style={{textTransform : "uppercase"}}>{gridView.trips}</div>
                       </div>
                     </div>
                   </Grid>

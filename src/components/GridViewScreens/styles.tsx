@@ -225,34 +225,34 @@ const useStyles = makeStyles({
   }),
 
   liveContentValue: (props: any) => ({
-    fontSize: "20px",
+    fontSize: "1.2vw",
     fontWeight: 600,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 44,
+      // fontSize: 44,
       lineHeight: "72px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 36,
+      // fontSize: 36,
       lineHeight: "62px",
     },
     [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 22,
+      // fontSize: 22,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 22,
+      // fontSize: 22,
       lineHeight: "38px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 18,
+      // fontSize: 18,
       lineHeight: "34px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 15,
+      // fontSize: 15,
       lineHeight: "27px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
+      // fontSize: 10,
       lineHeight: "16px",
     },
   }),
@@ -288,35 +288,37 @@ const useStyles = makeStyles({
   }),
 
   liveContentLabel: (props: any) => ({
-    fontSize: "14px",
+    fontSize: "0.8vw",
+    fontStyle : "italic",
+    textTransform : "uppercase",
     fontWeight: 500,
     fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      // fontSize: 30,
       lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 24,
+      // fontSize: 24,
       lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 18,
+      // fontSize: 18,
       lineHeight: "30px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 18,
+      // fontSize: 18,
       lineHeight: "30px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 15,
+      // fontSize: 15,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 13,
+      // fontSize: 13,
       lineHeight: "22px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
+      // fontSize: 10,
       lineHeight: "16px",
     },
   }),
