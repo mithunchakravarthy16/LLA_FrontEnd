@@ -215,32 +215,33 @@ const useStyles = makeStyles({
 
   liveContentValue: (props: any) => ({
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
+    fontSize: "1.2vw",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 36,
+      // fontSize: 36,
       lineHeight: "52px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 26,
+      // fontSize: 26,
       lineHeight: "35px",
     },
     [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 22,
+      // fontSize: 22,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 20,
+      // fontSize: 20,
       lineHeight: "32px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 16,
+      // fontSize: 16,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 13,
+      // fontSize: 13,
       lineHeight: "24px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
+      // fontSize: 10,
       lineHeight: "18px",
     },
   }),
@@ -290,38 +291,39 @@ const useStyles = makeStyles({
   }),
 
   liveContentLabel: (props: any) => ({
-    fontSize: "14px",
+    fontSize: "0.7vw",
     fontWeight: 500,
+    fontStyle: "italic",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     textTranform: "uppercase",
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 20,
-      lineHeight: "52px",
+      // fontSize: 20,
+      // lineHeight: "52px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 16,
-      lineHeight: "35px",
+      // fontSize: 16,
+      // lineHeight: "35px",
     },
     [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 18,
-      lineHeight: "30px",
+      // fontSize: 18,
+      // lineHeight: "30px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 12,
-      lineHeight: "32px",
+      // fontSize: 12,
+      // lineHeight: "32px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 10,
-      lineHeight: "26px",
+      // fontSize: 10,
+      // lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 8,
-      lineHeight: "24px",
+      // fontSize: 8,
+      // lineHeight: "24px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 5,
-      lineHeight: "18px",
+      // fontSize: 5,
+      // lineHeight: "18px",
     },
   }),
 

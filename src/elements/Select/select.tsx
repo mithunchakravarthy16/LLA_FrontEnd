@@ -102,6 +102,7 @@ const INF_Select: React.FC<any> = (props) => {
                     // top : "254px !important",
                     marginTop: "5px !important",
                     backgroundColor: dropDownBgColor ? dropDownBgColor : "#000",
+                    boxShadow : "0px 5px 5px -3px rgb(0 0 0 / 0%), 0px 8px 10px 1px rgb(0 0 0 / 0%), 0px 3px 14px 2px rgb(0 0 0 / 9%) !important"
                   },
                 },
               },
@@ -114,8 +115,11 @@ const INF_Select: React.FC<any> = (props) => {
                     // fontSize: "10px",
 
                     "&.MuiMenuItem-root": {
-                      margin: "5px 0",
-                      fontSize : "0.7vw"
+                      fontSize : "0.8vw",                      
+                      fontWeight : 500,
+                      margin : "0.3vw",
+                      marginTop : "0",
+                      borderRadius : "2px"
                     },
 
                     "&.Mui-selected": {
@@ -126,7 +130,7 @@ const INF_Select: React.FC<any> = (props) => {
                         color: dropDownSelectedTextColor
                           ? dropDownSelectedTextColor
                           : "#fff",
-                          fontSize : "0.7vw"
+                          // fontSize : "0.7vw"
                       },
 
                       // "&.Mui-focusVisible": { background: "orange" },
