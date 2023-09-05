@@ -565,35 +565,35 @@ const useStyles = makeStyles({
   }),
 
   liveContentValue: (props: any) => ({
-    fontSize: "20px",
-    fontWeight: 600,
+    fontSize: "1vw",
+    fontWeight: 500,
     color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 30,
+      // fontSize: 30,
       lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 24,
+      // fontSize: 24,
       lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 22,
+      // fontSize: 22,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 20,
+      // fontSize: 20,
       lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 16,
+      // fontSize: 16,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 13,
+      // fontSize: 13,
       lineHeight: "20px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 10,
+      // fontSize: 10,
       lineHeight: "16px",
     },
   }),
@@ -664,35 +664,35 @@ const useStyles = makeStyles({
   }),
 
   liveContentLabel: (props: any) => ({
-    fontSize: "14px",
+    fontSize: "0.7vw",
     fontWeight: 500,
     color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
-      fontSize: 24,
+      // fontSize: 24,
       lineHeight: "56px",
     },
     [muiTheme.breakpoints.down(3073)]: {
-      fontSize: 18,
+      // fontSize: 18,
       lineHeight: "46px",
     },
     [muiTheme.breakpoints.down(2561)]: {
-      fontSize: 18,
+      // fontSize: 18,
       lineHeight: "30px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 14,
+      // fontSize: 14,
       lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(1921)]: {
-      fontSize: 10,
+      // fontSize: 10,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1537)]: {
-      fontSize: 8,
+      // fontSize: 8,
       lineHeight: "20px",
     },
     [muiTheme.breakpoints.down(1153)]: {
-      fontSize: 6,
+      // fontSize: 6,
       lineHeight: "16px",
     },
   }),

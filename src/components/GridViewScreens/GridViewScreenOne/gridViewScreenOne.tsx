@@ -305,7 +305,10 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                        padding: "3%",
+                            padding: "2.5% 10%",
+                            borderRadius : "0.3vw",
+                            fontSize : "0.8vw",
+                            fontWeight : 500
                       }}>
                       {gridView.today}
                     </div>

@@ -328,10 +328,10 @@ const Chart: React.FC<any> = (props) => {
               ? "{value:%b}"
               : "{value:%m/%e}",
             style: {
-              fontSize: "0.55vw",
+              fontSize: "0.65vw",
+              fontWeight: 500,
               textOverflow: "none",
               autoRotation: false,
-
               color: appTheme?.palette?.chart?.xAxisTextColor,
             },
           },

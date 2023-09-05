@@ -992,16 +992,18 @@ const FleetManagement: React.FC<any> = (props) => {
                                       <div className={liveContainer}>
                                         <div className={liveImgStyle}>
                                           <img
-                                            width={
-                                              selectedWidth?.is4kDevice
-                                                ? 109
-                                                : 50
-                                            }
-                                            height={
-                                              selectedWidth?.is4kDevice
-                                                ? 49
-                                                : 30
-                                            }
+                                            // width={
+                                            //   selectedWidth?.is4kDevice
+                                            //     ? 109
+                                            //     : 50
+                                            // }
+                                            // height={
+                                            //   selectedWidth?.is4kDevice
+                                            //     ? 49
+                                            //     : 30
+                                            // }
+                                            width={"100%"}
+                                            height={"100%"}
                                             src={LiveImg}
                                           />
                                         </div>

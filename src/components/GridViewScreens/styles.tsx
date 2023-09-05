@@ -730,7 +730,7 @@ const useStyles = makeStyles({
   }),
 
   liveContentLeftStyle: (props: any) => ({
-    flex: 1,
+    flex: "1 1 5%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

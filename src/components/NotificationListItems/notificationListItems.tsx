@@ -123,6 +123,14 @@ const NotificationListItems = (props: any) => {
 
   const { viewDetails, takeAction } = useTranslation();
 
+  const truncateString = (str: string, num: number) => {
+    if (str?.length > num) {
+      return str?.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
+
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({
@@ -261,7 +269,7 @@ const NotificationListItems = (props: any) => {
                 </div>
               )}
               <div className={expandedListItemRow2}>
-                {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */} {area}
+                {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */} {truncateString(area, 45)}
               </div>
               <div className={expandedListItemRow3}>
                 {`Vehicle#${vehicleId ? vehicleId : ""} | Driver-${
