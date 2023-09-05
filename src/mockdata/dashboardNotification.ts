@@ -16,7 +16,7 @@ const dashboardList = {
     },
     {
       id: "prk2",
-      title: "vehicle Exited",
+      title: "Vehicle Exited",
       area: "Parking Lot -3 ",
       entity: "LPN: 510-IBD | Spot - 05",
       venue: "",
