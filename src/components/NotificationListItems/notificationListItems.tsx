@@ -53,7 +53,6 @@ const NotificationListItems = (props: any) => {
     selectedTheme,
   } = props;
 
-
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
@@ -270,7 +269,8 @@ const NotificationListItems = (props: any) => {
                 </div>
               )}
               <div className={expandedListItemRow2}>
-                {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */} {truncateString(area, 45)}
+                {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */}{" "}
+                {truncateString(area, 45)}
               </div>
               <div className={expandedListItemRow3}>
                 {`Vehicle#${vehicleId ? vehicleId : ""} | Driver-${
@@ -287,9 +287,7 @@ const NotificationListItems = (props: any) => {
                   </Button>
                 </div>
                 <div className={timeStampStyle}>
-                  {moment(notificationDate)
-                    .utc()
-                    .format("DD-MM-YYYY | HH:mm A")}
+                  {moment(notificationDate).format("DD-MM-YYYY | HH:mm A")}
                 </div>
               </div>
             </div>
@@ -315,9 +313,7 @@ const NotificationListItems = (props: any) => {
                   }`}
                 </div>
                 <div className={collapsedTimeStampStyle}>
-                  {moment(notificationDate)
-                    .utc()
-                    .format("DD-MM-YYYY | HH:mm A")}
+                  {moment(notificationDate).format("DD-MM-YYYY | HH:mm A")}
                 </div>
               </div>
             </div>

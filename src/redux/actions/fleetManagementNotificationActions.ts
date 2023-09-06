@@ -19,6 +19,8 @@ export const fleetManagementNotification = {
   HIDE_LOADER_OVER_ALL_ANALYTICS: "Hide_LOADER_OVER_ALL_ANALYTICS",
   GET_FLEET_MANAGEMENT_OVER_SPEEDING: "GET_FLEET_MANAGEMENT_OVER_SPEEDING",
   SET_FLEET_MANAGEMENT_OVER_SPEEDING: "SET_FLEET_MANAGEMENT_OVER_SPEEDING",
+  GET_FLEET_MANAGEMENT_LIVE_TRIP: "GET_FLEET_MANAGEMENT_LIVE_TRIP",
+  SET_FLEET_MANAGEMENT_LIVE_TRIP: "SET_FLEET_MANAGEMENT_LIVE_TRIP",
 };
 
 export const getFleetManagementNotificationData = (payload: any) => ({
@@ -111,6 +113,16 @@ export const setFleetManagementOverspeeding = (
 ) => ({
   type: fleetManagementNotification.SET_FLEET_MANAGEMENT_OVER_SPEEDING,
   fleetManagementOverspeeding,
+});
+
+export const getFleetManagementLiveTrip = (payload: any) => ({
+  type: fleetManagementNotification.GET_FLEET_MANAGEMENT_LIVE_TRIP,
+  payload: payload,
+});
+
+export const setFleetManagementLiveTrip = (fleetManagementLiveTrip: any) => ({
+  type: fleetManagementNotification.SET_FLEET_MANAGEMENT_LIVE_TRIP,
+  fleetManagementLiveTrip,
 });
 
 export default fleetManagementNotification;

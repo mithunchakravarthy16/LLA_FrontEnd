@@ -1,7 +1,7 @@
 /** @format */
 
 // @ts-nocheck
-import { useState, useEffect, Fragment, useRef } from "react";
+import { useState, useEffect, Fragment, useRef, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import {
   GoogleMap,
@@ -57,17 +57,8 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
+import routeSourceIcon from "assets/sourceIcon.svg";
 import useStyles from "./styles";
-
-const defaultCenter = {
-  lat: 39.75525065792099,
-  lng: -105.00248276374698,
-};
-
-const center = {
-  lat: 39.75576345655451,
-  lng: -105.00357749556102,
-};
 
 const fleetManagementCenter = {
   lat: 25.057066876525674,
@@ -76,7 +67,7 @@ const fleetManagementCenter = {
 
 const libraries = ["places", "drawing"];
 
-const Map: React.FC<any> = (props) => {
+const FleetMap: React.FC<any> = (props) => {
   const location = useLocation();
 
   const {
@@ -94,23 +85,6 @@ const Map: React.FC<any> = (props) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
-    isDrawingEnable,
-    isCircleDrawing,
-    setCircleData,
-    setCircleRadius,
-    setCircleCenter,
-    setIsCircleDrawing,
-    setIsDrawingEnable,
-    setPolygonPath,
-    setPolygonData,
-    circleRadius,
-    circleCenter,
-    handleGeofenceCircleDrag,
-    circleRadiusUnits,
-    setCircleRadiusUnits,
-    polygonPath,
-    onCircleCompleteLocation,
-    onPolygonCompleteLocation,
     selectedTheme,
     setMap,
     map,
@@ -142,18 +116,8 @@ const Map: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
-  // const [map, setMap] = useState<any>(null);
-  // const [zoomValue, setZoomValue] = useState<number>(15);
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
   const [selectedMarker, setSelectedMarker] = useState<any>();
-  const [selectedListItemSource, setSelectedListItemSource] = useState<any>();
-  const [selectedListItemDestination, setSelectedListItemDestination] =
-    useState<any>();
-  const [progress, setProgress] = useState<any>([]);
-  let [points, setPoints] = useState<any>([]);
-  let [data, setData] = useState<any>(points);
-  const velocity: any = 20;
-  const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
@@ -506,20 +470,6 @@ const Map: React.FC<any> = (props) => {
   }, [marker]);
 
   useEffect(() => {
-    if (selectedMarker) {
-      setSelectedListItemSource(selectedMarker?.source);
-      setSelectedListItemDestination(selectedMarker?.destination);
-    } else {
-      setProgress([]);
-      setPoints([]);
-      setData([]);
-      setSelectedMarker("");
-      setSelectedListItemSource("");
-      setSelectedListItemDestination("");
-    }
-  }, [selectedMarker]);
-
-  useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
       map?.setZoom(
@@ -533,13 +483,7 @@ const Map: React.FC<any> = (props) => {
       );
       map?.panTo(markers[index]?.location);
     } else {
-      map?.panTo(
-        location?.pathname === "/home"
-          ? defaultCenter
-          : location?.pathname === "/fleetManagement"
-          ? fleetManagementCenter
-          : center
-      );
+      map?.panTo(fleetManagementCenter);
       map?.setZoom(
         selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
           ? 16.2
@@ -689,13 +633,7 @@ const Map: React.FC<any> = (props) => {
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {
       if (prev && prev === markerId) {
-        map?.panTo(
-          location?.pathname === "/home"
-            ? defaultCenter
-            : location?.pathname === "/fleetManagement"
-            ? fleetManagementCenter
-            : center
-        );
+        map?.panTo(fleetManagementCenter);
         return "";
       } else {
         map?.panTo(location);
@@ -705,27 +643,16 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification((prev: any) => {
       return prev && prev == markerId ? "" : markerId;
     });
-    location?.pathname === "/fleetManagement" && handleMarkerIconClick(tripId);
+    mapPageName === "fleet" && handleMarkerIconClick(tripId);
   };
 
   const handleMarkerClose = () => {
     setSelectedNotification("");
     setIsMarkerClicked(false);
-    map?.panTo(
-      location?.pathname === "/home"
-        ? defaultCenter
-        : location?.pathname === "/fleetManagement"
-        ? fleetManagementCenter
-        : center
-    );
+    map?.panTo(fleetManagementCenter);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
-    setProgress([]);
-    setPoints([]);
-    setData([]);
     setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
-    location?.pathname === "/fleetManagement" && handleMarkerCancel();
+    mapPageName === "fleet" && handleMarkerCancel();
   };
 
   const handleExpandListItem = () => {
@@ -733,12 +660,7 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(() => {
-    setProgress([]);
-    setPoints([]);
-    setData([]);
     setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
   }, [tabIndex]);
 
   let lineSymbol = {
@@ -760,106 +682,6 @@ const Map: React.FC<any> = (props) => {
     scale: 0.7,
   };
 
-  // geofence code -- start
-
-  const options: any = {
-    drawingControl: false,
-    drawingControlOptions: {
-      drawingModes: [
-        window &&
-          window.google &&
-          window.google.maps &&
-          window.google.maps.drawing &&
-          window.google.maps.drawing.OverlayType.POLYGON,
-        window &&
-          window.google &&
-          window.google.maps &&
-          window.google.maps.drawing &&
-          window.google.maps.drawing.OverlayType.CIRCLE,
-      ],
-    },
-    polygonOptions: {
-      fillColor: "#F26522",
-      fillOpacity: 0.1,
-      strokeWeight: 2,
-      strokeColor: "#F26522",
-      clickable: false,
-      editable: false,
-      geodesic: false,
-      visible: true,
-      zIndex: 1,
-    },
-    circleOptions: {
-      fillColor: `#F26522`,
-      fillOpacity: 0.1,
-      strokeWeight: 2,
-      strokeColor: "#F26522",
-      clickable: false,
-      editable: false,
-      zIndex: 1,
-    },
-  };
-
-  const drawModeOptions: any = [
-    window &&
-      window.google &&
-      window.google.maps &&
-      window.google.maps.drawing &&
-      window.google.maps.drawing.OverlayType.POLYGON,
-    window &&
-      window.google &&
-      window.google.maps &&
-      window.google.maps.drawing &&
-      window.google.maps.drawing.OverlayType.CIRCLE,
-  ];
-
-  const onPolygonComplete = (data: any) => {
-    let array: [] = data.getPath().getArray();
-    let points: any = [];
-    array.forEach((item: any) => {
-      points.push({ lat: item.lat(), lng: item.lng() });
-    });
-    setPolygonData(data);
-    setPolygonPath(points);
-    onPolygonCompleteLocation(points);
-  };
-
-  const onCircleComplete = (data: any) => {
-    if (isCircleDrawing) {
-      setCircleRadius(data.getRadius());
-      setCircleCenter({
-        lat: data.getCenter().lat(),
-        lng: data.getCenter().lng(),
-      });
-      setCircleRadiusUnits(data.getRadius());
-      setCircleData(data);
-    }
-    const centerCoOrdinates = {
-      lat: data.getCenter().lat(),
-      lng: data.getCenter().lng(),
-    };
-    onCircleCompleteLocation(centerCoOrdinates, data.getRadius());
-  };
-
-  const handleOverlayComplete = () => {
-    setIsDrawingEnable(false);
-    map?.setZoom(13.5);
-  };
-
-  const handleCircleDrag = (event: any) => {
-    setCircleCenter({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    });
-    const center = {
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    };
-    handleGeofenceCircleDrag(center);
-  };
-
-  // geofence code -- end
-
   function handleZoomChanged() {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
@@ -869,114 +691,183 @@ const Map: React.FC<any> = (props) => {
     clustererRef.current?.repaint();
   }, [markers, marker]);
 
-  // useEffect(()=>{
-  //   if(marker !== "") {
-  //     map?.setZoom(15);
-  //   }
-  // },[marker, markers])
+  const liveMarkerMovement = useMemo(() => {
+    // dataPoints?.length > 0 && map?.setZoom(12);
+    return (
+      <>
+        {dataPoints &&
+          dataPoints.length > 0 &&
+          window.google &&
+          window.google.maps && (
+            <MarkerF
+              key={0}
+              position={{
+                lat: dataPoints && dataPoints[0]?.lat,
+
+                lng: dataPoints && dataPoints[0]?.lng,
+              }}
+              icon={{
+                url: routeSourceIcon,
+                scaledSize: new window.google.maps.Size(35, 35),
+              }}
+            />
+          )}
+        {mapPageName === "fleet" && dataPoints && dataPoints.length > 0 && (
+          <PolylineF
+            path={dataPoints}
+            options={{
+              strokeColor: "#976C9E",
+              strokeOpacity: 10,
+              strokeWeight: 0,
+              icons: [
+                {
+                  icon: lineSymbol,
+                  offset: "0",
+                  repeat: "20px",
+                },
+              ],
+            }}
+          />
+        )}
+
+        {mapPageName === "fleet" && dataPoints && dataPoints.length > 0 && (
+          <>
+            <PolylineF
+              path={dataPoints}
+              options={{
+                strokeColor: "#73B35A",
+                strokeOpacity: 10,
+                strokeWeight: 4,
+              }}
+            />
+            {selectedMarker && (
+              <MapMarker
+                mapMarker={selectedMarker}
+                toggleInfoWindow={toggleInfoWindow}
+                handleMarkerClose={handleMarkerClose}
+                handleExpandListItem={handleExpandListItem}
+                getMarkerIcon={getMarkerIcon}
+                currentMarker={currentMarker}
+                focusedCategory={focusedCategory}
+                location={dataPoints[dataPoints.length - 1]}
+                direction={"NE"}
+                pageName={"FleetManagement"}
+                handleViewDetails={handleViewDetails}
+                handleVideoDetails={handleVideoDetails}
+                mapPageName={mapPageName}
+                selectedTheme={selectedTheme}
+              />
+            )}
+            {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}
+          </>
+        )}
+      </>
+    );
+  }, [dataPoints, mapPageName, map]);
+
+  // const liveMarkerPosition = useMemo(() => {
+  //   return dataPoints?.length > 0
+  //     ? map?.panTo(dataPoints && dataPoints[dataPoints.length - 1])
+  //     : location?.pathname === "/home"
+  //     ? defaultCenter
+  //     : !dataPoints && mapPageName === "fleet"
+  //     ? fleetManagementCenter
+  //     : center;
+  // }, [dataPoints, map, mapPageName, location]);
 
   return (
     <>
-      {isLoaded && (
-        <GoogleMap
-          mapContainerStyle={
-            mapPageName === "parking" ||
-            mapPageName === "energy" ||
-            mapPageName === "security" ||
-            mapPageName === "fleet" ||
-            mapPageName === "lighting" ||
-            mapPageName === "asset"
-              ? parkingMapContainerStyle
-              : selectedContainerStyle
-          }
-          center={
-            location?.pathname === "/home"
-              ? defaultCenter
-              : location?.pathname === "/fleetManagement"
-              ? fleetManagementCenter
-              : center
-          }
-          zoom={zoomValue}
-          onLoad={setMap}
-          options={getMapTypeControls()}
-          mapContainerClassName={googleMapStyle}
-          onZoomChanged={handleZoomChanged}
-        >
-          <DrawingManager
-            drawingMode={
-              isDrawingEnable
-                ? isCircleDrawing
-                  ? drawModeOptions[1]
-                  : drawModeOptions[0]
-                : null
-            }
-            onPolygonComplete={onPolygonComplete}
-            onCircleComplete={onCircleComplete}
-            onOverlayComplete={handleOverlayComplete}
-            options={options}
-          />
-          {circleRadiusUnits !== null && (
-            <Circle
-              radius={circleRadiusUnits}
-              center={circleCenter}
-              visible={true}
-              onDragEnd={handleCircleDrag}
-              options={{
-                fillColor: "#F26522",
-                fillOpacity: 0.1,
-                strokeWeight: 2,
-                strokeColor: "#F26522",
-                clickable: tabIndex === 0 ? false : true,
-                editable: false,
-                draggable: true,
-                zIndex: 1,
-              }}
-            />
-          )}
-          {polygonPath?.length > 0 && (
-            <Polygon
-              path={polygonPath}
-              options={{
-                fillColor: "#F26522",
-                fillOpacity: 0.1,
-                strokeWeight: 2,
-                strokeColor: "#F26522",
-                clickable: false,
-                editable: false,
-                geodesic: false,
-                visible: true,
-                draggable: false,
-                zIndex: 1,
-              }}
-            />
-          )}
-
-          {marker === "" ? (
-            <MarkerClustererF
-              averageCenter
-              enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-              gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
-              //  onLoad={clusterer => (clustererRef.current = clusterer)}
-              // styles={[
-              //   {
-              //     url: MarkerClusterIcon,
-              //     height: 45,
-              //     width: 45,
-              //     textColor : selectedTheme === "light" ? "#000" : "#FFF",
-              //     textSize:16,
-
-              //   },
-              // ]}
+      {useMemo(
+        () =>
+          isLoaded && (
+            <GoogleMap
+              mapContainerStyle={parkingMapContainerStyle}
+              center={
+                dataPoints?.length > 0
+                  ? map.panTo(dataPoints && dataPoints[dataPoints.length - 1])
+                  : fleetManagementCenter
+              }
+              zoom={zoomValue}
+              onLoad={setMap}
+              options={getMapTypeControls()}
+              mapContainerClassName={googleMapStyle}
+              onZoomChanged={handleZoomChanged}
             >
-              {(clusterer: any) => (
+              {marker === "" ? (
+                <MarkerClustererF
+                  averageCenter
+                  enableRetinaIcons
+                  maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
+                  gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
+                >
+                  {(clusterer: any) => (
+                    <div>
+                      {markers?.map((singleMarker: any) => {
+                        // if (!window.google) return null;
+                        if (
+                          singleMarker?.tripStatus === "Live" &&
+                          singleMarker?.tripId &&
+                          singleMarker?.reason &&
+                          currentMarker !== singleMarker?.id
+                        ) {
+                          return (
+                            <>
+                              <MapMarker
+                                mapMarker={singleMarker}
+                                toggleInfoWindow={toggleInfoWindow}
+                                handleMarkerClose={handleMarkerClose}
+                                handleExpandListItem={handleExpandListItem}
+                                getMarkerIcon={getMarkerIcon}
+                                currentMarker={currentMarker}
+                                focusedCategory={focusedCategory}
+                                clusterer={clusterer}
+                                location={singleMarker?.location}
+                                handleAssetViewDetails={handleAssetViewDetails}
+                                mapPageName={mapPageName}
+                                selectedTheme={selectedTheme}
+                                handleViewDetails={handleViewDetails}
+                                handleVideoDetails={handleVideoDetails}
+                              />
+                            </>
+                          );
+                        } else if (
+                          singleMarker?.category !== "fleet" &&
+                          location?.pathname !== "/fleetManagement"
+                        ) {
+                          return (
+                            <>
+                              <MapMarker
+                                mapMarker={singleMarker}
+                                toggleInfoWindow={toggleInfoWindow}
+                                handleMarkerClose={handleMarkerClose}
+                                handleExpandListItem={handleExpandListItem}
+                                getMarkerIcon={getMarkerIcon}
+                                currentMarker={currentMarker}
+                                focusedCategory={focusedCategory}
+                                clusterer={clusterer}
+                                location={singleMarker?.location}
+                                handleAssetViewDetails={handleAssetViewDetails}
+                                mapPageName={mapPageName}
+                                handleViewDetails={handleViewDetails}
+                                handleVideoDetails={handleVideoDetails}
+                                selectedTheme={selectedTheme}
+                              />
+                            </>
+                          );
+                        }
+                      })}
+                    </div>
+                  )}
+                </MarkerClustererF>
+              ) : (
                 <div>
                   {markers?.map((singleMarker: any) => {
                     // if (!window.google) return null;
                     if (
                       singleMarker?.tripStatus === "Live" &&
                       singleMarker?.tripId &&
-                      singleMarker?.reason
+                      singleMarker?.reason &&
+                      currentMarker !== singleMarker?.id
                     ) {
                       return (
                         <>
@@ -988,7 +879,7 @@ const Map: React.FC<any> = (props) => {
                             getMarkerIcon={getMarkerIcon}
                             currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
-                            clusterer={clusterer}
+                            // clusterer={clusterer}
                             location={singleMarker?.location}
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
@@ -1012,7 +903,7 @@ const Map: React.FC<any> = (props) => {
                             getMarkerIcon={getMarkerIcon}
                             currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
-                            clusterer={clusterer}
+                            // clusterer={clusterer}
                             location={singleMarker?.location}
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
@@ -1024,180 +915,21 @@ const Map: React.FC<any> = (props) => {
                       );
                     }
                   })}
-
-                  {location?.pathname === "/fleetManagement" &&
-                    points &&
-                    points.length > 0 && (
-                      <PolylineF
-                        path={points}
-                        options={{
-                          strokeColor: "#976C9E",
-                          strokeOpacity: 10,
-                          strokeWeight: 0,
-                          icons: [
-                            {
-                              icon: lineSymbol,
-                              offset: "0",
-                              repeat: "20px",
-                            },
-                          ],
-                        }}
-                      />
-                    )}
-
-                  {location?.pathname === "/fleetManagement" &&
-                    points &&
-                    points?.length > 0 &&
-                    progress &&
-                    progress?.length > 0 && (
-                      <>
-                        <PolylineF
-                          path={progress}
-                          options={{
-                            strokeColor: "#73B35A",
-                            strokeOpacity: 10,
-                            strokeWeight: 4,
-                          }}
-                        />
-                        {selectedMarker && (
-                          <MapMarker
-                            mapMarker={selectedMarker}
-                            toggleInfoWindow={toggleInfoWindow}
-                            handleMarkerClose={handleMarkerClose}
-                            handleExpandListItem={handleExpandListItem}
-                            getMarkerIcon={getMarkerIcon}
-                            currentMarker={currentMarker}
-                            focusedCategory={focusedCategory}
-                            location={progress[progress.length - 1]}
-                            direction={"NE"}
-                            pageName={"FleetManagement"}
-                            handleViewDetails={handleViewDetails}
-                            handleVideoDetails={handleVideoDetails}
-                            mapPageName={mapPageName} // === "dashboard"
-                            selectedTheme={selectedTheme}
-                          />
-                        )}
-                        {/* <Marker position={progress[progress.length - 1]} /> */}
-                      </>
-                    )}
+                  {liveMarkerMovement}
                 </div>
               )}
-            </MarkerClustererF>
-          ) : (
-            <div>
-              {markers?.map((singleMarker: any) => {
-                // if (!window.google) return null;
-                if (
-                  singleMarker?.tripStatus === "Live" &&
-                  singleMarker?.tripId &&
-                  singleMarker?.reason
-                ) {
-                  return (
-                    <>
-                      <MapMarker
-                        mapMarker={singleMarker}
-                        toggleInfoWindow={toggleInfoWindow}
-                        handleMarkerClose={handleMarkerClose}
-                        handleExpandListItem={handleExpandListItem}
-                        getMarkerIcon={getMarkerIcon}
-                        currentMarker={currentMarker}
-                        focusedCategory={focusedCategory}
-                        // clusterer={clusterer}
-                        location={singleMarker?.location}
-                        handleAssetViewDetails={handleAssetViewDetails}
-                        mapPageName={mapPageName}
-                        selectedTheme={selectedTheme}
-                        handleViewDetails={handleViewDetails}
-                        handleVideoDetails={handleVideoDetails}
-                      />
-                    </>
-                  );
-                } else if (
-                  singleMarker?.category !== "fleet" &&
-                  location?.pathname !== "/fleetManagement"
-                ) {
-                  return (
-                    <>
-                      <MapMarker
-                        mapMarker={singleMarker}
-                        toggleInfoWindow={toggleInfoWindow}
-                        handleMarkerClose={handleMarkerClose}
-                        handleExpandListItem={handleExpandListItem}
-                        getMarkerIcon={getMarkerIcon}
-                        currentMarker={currentMarker}
-                        focusedCategory={focusedCategory}
-                        // clusterer={clusterer}
-                        location={singleMarker?.location}
-                        handleAssetViewDetails={handleAssetViewDetails}
-                        mapPageName={mapPageName}
-                        handleViewDetails={handleViewDetails}
-                        handleVideoDetails={handleVideoDetails}
-                        selectedTheme={selectedTheme}
-                      />
-                    </>
-                  );
-                }
-              })}
-
-              {location?.pathname === "/fleetManagement" &&
-                dataPoints &&
-                dataPoints.length > 0 && (
-                  <PolylineF
-                    path={dataPoints}
-                    options={{
-                      strokeColor: "#976C9E",
-                      strokeOpacity: 10,
-                      strokeWeight: 0,
-                      icons: [
-                        {
-                          icon: lineSymbol,
-                          offset: "0",
-                          repeat: "20px",
-                        },
-                      ],
-                    }}
-                  />
-                )}
-
-              {location?.pathname === "/fleetManagement" &&
-                dataPoints &&
-                dataPoints?.length > 0 && (
-                  <>
-                    <PolylineF
-                      path={dataPoints}
-                      options={{
-                        strokeColor: "#73B35A",
-                        strokeOpacity: 10,
-                        strokeWeight: 4,
-                      }}
-                    />
-                    {selectedMarker && (
-                      <MapMarker
-                        mapMarker={selectedMarker}
-                        toggleInfoWindow={toggleInfoWindow}
-                        handleMarkerClose={handleMarkerClose}
-                        handleExpandListItem={handleExpandListItem}
-                        getMarkerIcon={getMarkerIcon}
-                        currentMarker={currentMarker}
-                        focusedCategory={focusedCategory}
-                        location={dataPoints[dataPoints.length - 1]}
-                        direction={"NE"}
-                        pageName={"FleetManagement"}
-                        handleViewDetails={handleViewDetails}
-                        handleVideoDetails={handleVideoDetails}
-                        mapPageName={mapPageName} // === "dashboard"
-                        selectedTheme={selectedTheme}
-                      />
-                    )}
-                    {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}
-                  </>
-                )}
-            </div>
-          )}
-        </GoogleMap>
+            </GoogleMap>
+          ),
+        [
+          mapPageName,
+          markers,
+          currentMarker,
+          liveMarkerMovement,
+          // liveMarkerPosition,
+        ]
       )}
     </>
   );
 };
 
-export default Map;
+export default FleetMap;

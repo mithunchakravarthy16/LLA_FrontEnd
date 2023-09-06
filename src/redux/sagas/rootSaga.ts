@@ -18,6 +18,7 @@ import {
   handleFleetManagementOverAllTripDetails,
   handleFleetManagementAnalyticsData,
   handleFleetManagementOverspeeding,
+  handleFleetManagementLiveTrip,
 } from "./handlers/fleetManagementNotification";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
@@ -54,6 +55,7 @@ export default function* rootSaga() {
     watchCreateGeofence(),
     watchUpdateGeofence(),
     watchEnableGeofence(),
+    watchFleetManagementLiveTrip(),
   ]);
 }
 
@@ -165,4 +167,11 @@ export function* watchUpdateGeofence() {
 
 export function* watchEnableGeofence() {
   yield takeLatest(enableGeofence.GET_ENABLE_GEOFENCE, handleEnableGeofence);
+}
+
+export function* watchFleetManagementLiveTrip() {
+  yield takeLatest(
+    fleetManagementNotification.GET_FLEET_MANAGEMENT_LIVE_TRIP,
+    handleFleetManagementLiveTrip
+  );
 }

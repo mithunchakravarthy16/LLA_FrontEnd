@@ -101,45 +101,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>();
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
-  const [selectedMarker, setSelectedMarker] = useState<any>();
-  const [selectedListItemSource, setSelectedListItemSource] = useState<any>();
-  const [selectedListItemDestination, setSelectedListItemDestination] =
-    useState<any>();
-  const [progress, setProgress] = useState<any>([]);
-  let [points, setPoints] = useState<any>([]);
-  let [data, setData] = useState<any>(points);
-  const velocity: any = 50;
-  const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
     libraries: libraries,
   });
-
-  useEffect(() => {
-    if (currentMarker) {
-      const index = markers.findIndex(
-        (marker) => marker.id === currentMarker?.id
-      );
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice
-          ? 16.2
-          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-          ? 15
-          : 14
-      );
-      map?.panTo(currentMarker?.location);
-    } else {
-      map?.panTo(currentMarker?.location);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice
-          ? 16.2
-          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-          ? 15
-          : 15
-      );
-    }
-  }, [marker, currentMarker]);
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
@@ -292,26 +258,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
-    setProgress([]);
-    setPoints([]);
-    setData([]);
-    setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
   };
 
   const handleExpandListItem = () => {
     setSelectedNotification("");
   };
-
-  useEffect(() => {
-    setProgress([]);
-    setPoints([]);
-    setData([]);
-    setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
-  }, [tabIndex]);
 
   let lineSymbol = {
     path: "M 0,-1 0,1",
@@ -328,16 +279,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
             height: "100%",
           }}
           center={currentMarker?.location}
-          zoom={
-            selectedContainerStyle?.is4kDevice
-              ? 16.2
-              : selectedContainerStyle?.is3kDevice
-              ? 16.4
-              : selectedContainerStyle?.is4kDevice &&
-                location?.pathname !== "/home"
-              ? 15
-              : 24
-          }
+          zoom={selectedContainerStyle?.is4kDevice ? 16.2 : 10}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
