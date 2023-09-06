@@ -309,9 +309,13 @@ const useStyles = makeStyles(() => ({
     fontWeight: " 500",
     bottom: "9%",
     left: 0,
+    [muiTheme.breakpoints.down(1921)]: {
+      bottom: "0%",
+    },
     [muiTheme.breakpoints.down(1681)]: {
       bottom: "0%",
     },
+
     [muiTheme.breakpoints.down(1537)]: {
       bottom: "-11%",
     },
