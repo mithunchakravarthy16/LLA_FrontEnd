@@ -848,6 +848,7 @@ const Parking: React.FC<any> = (props) => {
                         // </Grid>
                         <div className={lotImageStyle}>
                           <img
+                          onLoad={()=>setIsDataLoadedLotImg(true)}
                             src={
                               selectedTheme === "light"
                                 ? LightThemeParkingLot1
