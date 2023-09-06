@@ -20,6 +20,8 @@ import { getUserLogin } from "../../redux/actions/loginActions";
 import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
+import llaBanner from "../../assets/images/login-bg1.jpg";
+import llaLightBanner from "../../assets/lightThemeBanner.svg";
 import {
   getAdminPanelConfigData,
   setAdminPanelConfigData,
@@ -200,6 +202,20 @@ const Login = () => {
     setSuccess(false);
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
   };
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  useEffect(() => {
+    const backgroundImageUrl =
+      selectedTheme === 'light' ? llaLightBanner : llaBanner;    
+    const img = new Image();
+    img.src = backgroundImageUrl;    
+    img.onload = () => {      
+      setBackgroundLoaded(true);     
+    };
+
+    return () => {
+      img.onload = null;
+    };
+  }, [selectedTheme]);
 
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
@@ -217,7 +233,7 @@ const Login = () => {
     <>
       {!loaderAdminGetConfigData &&
       isDataLoaded &&
-      appTheme &&
+      appTheme && backgroundLoaded &&
       Object.keys(appTheme).length > 0 ? (
         <>
           {success && (
