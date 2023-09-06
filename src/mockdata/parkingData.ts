@@ -84,7 +84,7 @@ const parkingData = {
       },
       {
         id: "prk4",
-        title: "vehicle Entered",
+        title: "Vehicle Entered",
         area: "Parking Lot - 1 ",
         entity: "LPN: 530-ABD | Spot - 05",
         venue: "",
@@ -98,7 +98,7 @@ const parkingData = {
       },
       {
         id: "prk5",
-        title: "vehicle Parked",
+        title: "Vehicle Parked",
         area: "Parking Lot - 3 ",
         entity: "LPN: 110-AAC | Spot - 01",
         venue: "",
