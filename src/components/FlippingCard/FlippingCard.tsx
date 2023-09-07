@@ -192,43 +192,44 @@ const Card = ({
     fleet_management: {
       values: [
         {
-          label: dashboard?.fleet,
-          value: fleetManagementTripDetailsResponse?.data?.totalLiveVehicles,
-          suffix: "",
-        },
-        {
-          type: "splitter",
-        },
-        {
-          label: dashboard?.violations,
-          value: fleetManagementTripDetailsResponse?.data?.totalViolations,
-          suffix: "",
-        },
-      ],
-      noteLabel: dashboard?.tripsNoteLabel,
-      noteValue: fleetManagementTripDetailsResponse?.data?.totalCompletedTrip,
-      noteDifference: "+",
-    },
-    assets_tracking: {
-      values: [
-        {
           label: "Development In Progress",  
-          // label: dashboard.assets,
-          // value: 52,
+          // label: dashboard?.fleet,
+          // value: fleetManagementTripDetailsResponse?.data?.totalLiveVehicles,
           // suffix: "",
         },
         // {
         //   type: "splitter",
         // },
         // {
-        //   label: dashboard.alerts,
-        //   value: 50,
+        //   label: dashboard?.violations,
+        //   value: fleetManagementTripDetailsResponse?.data?.totalViolations,
         //   suffix: "",
         // },
       ],
-      // noteLabel: dashboard?.assetsNoteLabel,
-      // noteValue: "30",
-      // noteDifference: "-",
+      // noteLabel: dashboard?.tripsNoteLabel,
+      // noteValue: fleetManagementTripDetailsResponse?.data?.totalCompletedTrip,
+      // noteDifference: "+",
+    },
+    assets_tracking: {
+      values: [
+        {
+          // label: "Development In Progress",  
+          label: dashboard.assets,
+          value: 52,
+          suffix: "",
+        },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.alerts,
+          value: 50,
+          suffix: "",
+        },
+      ],
+      noteLabel: dashboard?.assetsNoteLabel,
+      noteValue: "30",
+      noteDifference: "-",
     },
   };
 
@@ -337,17 +338,6 @@ const FlippingCard = (props: any) => {
 
   const CARD_LIST: any = [
     {
-      title: "fleet_management",
-      image:
-        focusedCategory === "fleet"
-          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
-          : selectedTheme !== "light"
-          ? fleetManagement
-          : fleetManagementLight,
-      category: "fleet",
-      translatedTitle: dashboard.fleetManagement,
-    },
-    {
       title: "assets_tracking",
       image:
         focusedCategory === "asset"
@@ -358,6 +348,18 @@ const FlippingCard = (props: any) => {
       category: "asset",
       translatedTitle: dashboard.assetsTracking,
     },
+    {
+      title: "fleet_management",
+      image:
+        focusedCategory === "fleet"
+          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
+          : selectedTheme !== "light"
+          ? fleetManagement
+          : fleetManagementLight,
+      category: "fleet",
+      translatedTitle: dashboard.fleetManagement,
+    },
+   
     {
       title: "parking",
       image:

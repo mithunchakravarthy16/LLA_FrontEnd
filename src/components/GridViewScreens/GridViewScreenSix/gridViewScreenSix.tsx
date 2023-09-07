@@ -144,7 +144,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
           <Grid item xs={12} className={containerTitleTwo}>
             {dashboard.assetsTracking}
           </Grid>
-          {/*<Grid item xs={12}>
+          <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>52</div>
@@ -238,8 +238,8 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                 },
               ]}
             />
-          </Grid> */}
-          <Grid
+          </Grid>
+          {/* <Grid
             item
             style={{
               display: "flex",
@@ -251,7 +251,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
             }}
           >
             Development In Progress...
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </>
