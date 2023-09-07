@@ -182,18 +182,19 @@ const GridView: React.FC<any> = (props) => {
       ) : (
         <div className={rootContainer}>
           <Grid container className={mainSection}>
+             {/* Grid 6 */}
+             <GridViewScreenSix
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
              {/* Grid 5 */}
              <GridViewScreenFive
-              handleClick={handleClick}
+              handleClick={()=>{}}
               selectedTheme={selectedTheme}
               fleetManagementResponse={fleetManagementResponse}
             />
 
-            {/* Grid 6 */}
-            <GridViewScreenSix
-              handleClick={()=>{}}
-              selectedTheme={selectedTheme}
-            />
+           
             {/* Gride 1 */}
             <GridViewScreenOne
               handleClick={handleClick}
