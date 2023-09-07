@@ -43,6 +43,9 @@ const SUB_URL = {
   createGeofenceUrl: "/api/sensyon/geofence/creategeofence",
   updateGeofenceUrl: "/api/sensyon/geofence/updategeofence",
   getAssetListUrl: "/api/sensyon/tracker/v1/getAssetList",
+  getAssetNotificationUrl:
+    "/api/sensyon/asset_notification/v1/getAllAssertNotification",
+  getTrackerDetailUrl: "/api/sensyon/tracker/v1/getTrackerdetail",
   // Asset Tracking Api's -- End
 };
 
@@ -60,3 +63,5 @@ export const getCoordinatesApi = `${BASE_URL.baseUrl}${SUB_URL.getTripCordinates
 export const createGeofenceApi = `${BASE_URL.baseUrl}${SUB_URL.createGeofenceUrl}`;
 export const updateGeofenceApi = `${BASE_URL.baseUrl}${SUB_URL.updateGeofenceUrl}`;
 export const getAssetListApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetListUrl}`;
+export const getAssetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetNotificationUrl}`;
+export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailUrl}`;

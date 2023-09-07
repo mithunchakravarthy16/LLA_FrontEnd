@@ -15,13 +15,14 @@ import {
   createGeofenceApi,
   updateGeofenceApi,
   getAssetListApi,
+  getTrackerDetailApi,
 } from "../../../services/endPoints";
 
 export function* handleAssetTrackerDetail(action: any): any {
   try {
-    // const { fetchPostData } = fetchAPIServices;
-
-    const response = assetOverallTrackerDetail;
+    const { fetchPostData } = fetchAPIServices;
+    const response = yield fetchPostData(getTrackerDetailApi, action.payload);
+    // const response = assetOverallTrackerDetail;
     if (response) {
       yield put(setAssetTrackerDetail(response));
     } else {

@@ -182,7 +182,7 @@ const useStyles = makeStyles({
     fontSize: 14,
     fontFamily: "HelveticaNeue-Medium",
     color: props?.palette?.notification?.collapsedListItemTextColor,
-    maxWidth: "10vw",
+    maxWidth: "12vw",
     textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "nowrap",
