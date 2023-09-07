@@ -966,7 +966,7 @@ const Map: React.FC<any> = (props) => {
               averageCenter
               enableRetinaIcons
               maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-              gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
+              gridSize={selectedContainerStyle?.is4kDevice ? 80 : 30}
               //  onLoad={clusterer => (clustererRef.current = clusterer)}
               // styles={[
               //   {
