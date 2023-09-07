@@ -583,6 +583,9 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [selectedValue]);
 
   useEffect(() => {
+    if(assetNotificationList) {
+
+
     const { events, incidents, alerts } = assetNotificationList;
     const combinedNotifications: any = [];
 
@@ -619,6 +622,7 @@ const AssetTracking: React.FC<any> = (props) => {
       }
     );
     setNotificationArray(dataValue);
+  }
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [

@@ -122,18 +122,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.assetTracker?.assetTrackerData?.data
   );
 
+  const [infoNotificationList, setInfoNotificationList] = useState<any>([]);
 
-  const assetInfoNotificationList = [...assetTrackerDetails?.notifications?.events?.eventsList, 
-    ...assetTrackerDetails?.notifications?.alerts?.alertList,
-    ...assetTrackerDetails?.notifications?.incidents?.incidentList
-  ]
-
-  // {
-  //   title: "Out of Geofence",
-  //   details: "TR#12367 | Asset#12",
-  //   timeStamp: "06-12-2023 | 9:00 AM",
-  // },
-
+  useEffect(()=>{
+ if(assetTrackerDetails) {
   const { events, incidents, alerts } = assetTrackerDetails?.notifications;
   const combinedNotifications: any = [];
 
@@ -165,7 +157,16 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     });
   });
 
+  setInfoNotificationList(combinedNotifications)
+
   console.log("combinedNotifications", combinedNotifications)
+ }
+
+  },[assetTrackerDetails])
+
+  
+
+
 
 
   const [open, setOpen] = useState(!false);
@@ -424,7 +425,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                   <Grid container xs={12} style={{ height: "100%" }}>
                     <Grid
                       container
-                      xs={8.7}
+                      xs={7.7}
                       className={assetInfoLeftPanelMain}
                       style={{
                         marginRight: "2%",
@@ -541,12 +542,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         />
                       </Grid>
                     </Grid>
-                    <Grid item xs={3} className={assetInfoRightPanelMain}>
+                    <Grid item xs={4} className={assetInfoRightPanelMain}>
                       <Grid item xs={12} className={notificationListContainer}>
                         <Grid container xs={12} rowGap={1.5}>
-                          {combinedNotifications &&
-                            combinedNotifications?.length > 0 &&
-                            combinedNotifications?.map(
+                          {infoNotificationList &&
+                            infoNotificationList?.length > 0 &&
+                            infoNotificationList?.map(
                               (item: any) => (
                                 <Grid
                                   item
