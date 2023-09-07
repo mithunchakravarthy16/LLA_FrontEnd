@@ -105,7 +105,11 @@ const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let notificationPayload: any = {};
+    let notificationPayload: any = {
+      "filterText": "",
+      "pageNo": 0,
+      "pageSize": 100
+    };
     dispatch(getNotificationData(notificationPayload));
 
     let activeInactiveTrackerPayload: any = {};
@@ -117,8 +121,11 @@ const AssetTracking: React.FC<any> = (props) => {
     let overallAssetDetailPayload: any = {};
     dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
-    let assetTrackerDetailPayload: any = {};
-    dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
+    // let assetTrackerDetailPayload: any = {
+    //   "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+    //   "trackerId": null
+    // };
+    // dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
 
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
@@ -133,12 +140,11 @@ const AssetTracking: React.FC<any> = (props) => {
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
   );
-  const assetNotificationList = assetNotificationResponse?.notifications;
+  const assetNotificationList = assetNotificationResponse?.data;
 
   const assetTrackerData = useSelector(
     (state: any) => state?.assetActiveInactiveTracker?.assetTrackerData
   );
-
   const assetIncidentCount = useSelector(
     (state: any) => state?.assetIncidentCount?.assetIncidentCountValue
   );
@@ -147,9 +153,12 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
   );
 
-  const assetTrackerDetails = useSelector(
-    (state: any) => state?.assetTracker?.assetTrackerData
-  );
+  // const assetTrackerDetails = useSelector(
+  //   (state: any) => state?.assetTracker?.assetTrackerData
+  // );
+
+  // console.log("assetTrackerDetails", assetTrackerDetails)
+
 
   const createGeofence = useSelector(
     (state: any) => state?.createGeofence?.createGeofenceData
@@ -574,6 +583,9 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [selectedValue]);
 
   useEffect(() => {
+    if(assetNotificationList) {
+
+
     const { events, incidents, alerts } = assetNotificationList;
     const combinedNotifications: any = [];
 
@@ -610,6 +622,7 @@ const AssetTracking: React.FC<any> = (props) => {
       }
     );
     setNotificationArray(dataValue);
+  }
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
