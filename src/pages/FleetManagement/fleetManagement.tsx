@@ -21,12 +21,8 @@ import useTranslation from "localization/translations";
 import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import FleetMap from "components/Map/fleetMap";
-import moment from "moment";
-import NotificationPanel from "components/NotificationPanel";
-import {
-  formatttedDashboardNotification,
-  formatttedDashboardNotificationCount,
-} from "../../utils/utils";
+import FleetNotificationPanel from "components/FleetNotificationPanel";
+import { formatttedDashboardNotification } from "../../utils/utils";
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
@@ -764,7 +760,7 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const handleExpandListItem = (id: any) => {
     const obj = dashboardData?.find((item: any) => item.id === id);
-    if (obj.tripStatus === "Live" && obj?.reason && obj?.tripId) {
+    if (obj?.tripStatus === "Live" && obj?.reason && obj?.tripId) {
       dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
       setTripId(obj?.tripId);
     } else {
@@ -1430,7 +1426,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
                 <Grid item xs={3} className={notificationPanelGrid}>
-                  <NotificationPanel
+                  <FleetNotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}

@@ -59,12 +59,25 @@ const deleteAdminPanelConfig = async (url: string) => {
   return fetchConfig(url, options);
 };
 
+const fetchUpdateData = async (url: string, payload: any) => {
+  const options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    },
+    body: JSON.stringify(payload),
+  };
+  return fetchConfig(url, options);
+};
+
 const fetchAPIServices = {
   fetchLogin: fetchLogin,
   fetchAdminPanelConfig: fetchAdminPanelConfig,
   fetchData: fetchData,
   deleteAdminPanelConfig: deleteAdminPanelConfig,
   fetchPostData: fetchPostData,
+  fetchUpdateData: fetchUpdateData,
 };
 
 export default fetchAPIServices;
