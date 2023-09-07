@@ -59,12 +59,39 @@ const deleteAdminPanelConfig = async (url: string) => {
   return fetchConfig(url, options);
 };
 
+const fetchAssetNotification = async (url: string, payload: any) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    },
+    body: JSON.stringify(payload),
+  };
+  return fetchConfig(url, options);
+};
+
+const fetchAssetTrackerData = async (url: string, payload: any) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+    },
+    body: JSON.stringify(payload),
+  };
+  return fetchConfig(url, options);
+};
+
+
 const fetchAPIServices = {
   fetchLogin: fetchLogin,
   fetchAdminPanelConfig: fetchAdminPanelConfig,
   fetchData: fetchData,
   deleteAdminPanelConfig: deleteAdminPanelConfig,
   fetchPostData: fetchPostData,
+  fetchAssetNotification : fetchAssetNotification,
+  fetchAssetTrackerData:fetchAssetTrackerData
 };
 
 export default fetchAPIServices;

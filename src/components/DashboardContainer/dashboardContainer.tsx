@@ -80,6 +80,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state?.assetNotification?.assetNotificationData
   );
 
+  console.log("assetNotificationResponse", assetNotificationResponse)
+
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
@@ -147,7 +149,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   };
 
   useEffect(() => {
-    const assetPayload: any = {};
+    const assetPayload: any = {
+      "filterText": "",
+      "pageNo": 0,
+      "pageSize": 100
+    };
     dispatch(getNotificationData(assetPayload));
     const fleetPayload: any = {};
     dispatch(setFleetManagementNotificationData({}));
@@ -162,7 +168,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   useEffect(() => {
     if (assetNotificationResponse && fleetManagementNotificationResponse) {
       const assetNotiData: any = formatttedAssetAPINotification(
-        assetNotificationResponse?.notifications
+        assetNotificationResponse?.data
       );
       const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
         dashboardNotification?.notifications
@@ -209,7 +215,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     ) {
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
-        assetNotificationResponse?.notifications
+        assetNotificationResponse?.data
       );
       const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
         dashboardNotification?.notifications

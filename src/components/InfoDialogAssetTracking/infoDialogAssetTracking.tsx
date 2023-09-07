@@ -13,7 +13,10 @@ import useStyles from "./styles";
 import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
 import Geofence from "components/Geofence";
+import { useDispatch, useSelector } from "react-redux";
+import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
+import moment from "moment";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -57,6 +60,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     selectedMarker,
     selectedTheme,
   } = props;
+
+  console.log("infoWindowNotificationListItems", infoWindowNotificationListItems)
+
+  const dispatch = useDispatch()
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -103,6 +110,64 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+  useEffect(()=>{
+    let assetTrackerDetailPayload: any = {
+      "assetId": selectedMarker?.assetId,
+      "trackerId": null
+    };
+    dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
+  },[])
+
+  const assetTrackerDetails = useSelector(
+    (state: any) => state?.assetTracker?.assetTrackerData?.data
+  );
+
+
+  const assetInfoNotificationList = [...assetTrackerDetails?.notifications?.events?.eventsList, 
+    ...assetTrackerDetails?.notifications?.alerts?.alertList,
+    ...assetTrackerDetails?.notifications?.incidents?.incidentList
+  ]
+
+  // {
+  //   title: "Out of Geofence",
+  //   details: "TR#12367 | Asset#12",
+  //   timeStamp: "06-12-2023 | 9:00 AM",
+  // },
+
+  const { events, incidents, alerts } = assetTrackerDetails?.notifications;
+  const combinedNotifications: any = [];
+
+  events?.eventsList?.forEach((event: any, index: number) => {
+    combinedNotifications.push({
+      ...event,     
+      title: event?.reason,
+      details : `${event?.trackerName} | ${event?.assetName}`,
+      timeStamp  : moment(event?.notificationDate)?.format("DD-MM-YYYY | HH:mm A")
+    });
+  });
+
+  incidents?.incidentList?.forEach((incidents: any, index: number) => {
+    combinedNotifications.push({
+      ...incidents,     
+      title: incidents?.reason,
+      details : `${incidents?.trackerName} | ${incidents?.assetName}`,
+      timeStamp  : moment(incidents?.notificationDate)?.format("DD-MM-YYYY | HH:mm A")
+    });
+  });
+
+  alerts?.alertList?.forEach((alerts: any, index: number) => {
+    combinedNotifications.push({
+      ...alerts,
+     
+      title: alerts?.reason,
+      details : `${alerts?.trackerName} | ${alerts?.assetName}`,
+      timeStamp  : moment(alerts?.notificationDate)?.format("DD-MM-YYYY | HH:mm A")
+    });
+  });
+
+  console.log("combinedNotifications", combinedNotifications)
+
+
   const [open, setOpen] = useState(!false);
   const [selectedWidth, setSelectedWidth] = useState<any>();
   const [isDrawingEnable, setIsDrawingEnable] = useState<boolean>(false);
@@ -138,23 +203,23 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   };
 
   const assetInfoTopPanelData = [
-    { label: assetsTracking.product, value: "Lab Equipment" },
-    { label: assetsTracking.trackerId, value: 12367 },
-    { label: assetsTracking.assetsType, value: "Electronic" },
-    { label: assetsTracking.assetsId, value: 12 },
+    { label: assetsTracking.product, value: assetTrackerDetails?.product },
+    { label: assetsTracking.trackerId, value: assetTrackerDetails?.trackerId },
+    { label: assetsTracking.assetsType, value: assetTrackerDetails?.assetType },
+    { label: assetsTracking.assetsId, value: selectedMarker?.assetName },
   ];
 
   const assetCenterLeftSectionData = [
-    { label: assetsTracking.section, value: "Sec 01" },
-    { label: assetsTracking.storageLocation, value: "C17#456" },
-    { label: assetsTracking.trackerStatus, value: "Active" },
-    { label: assetsTracking.geofence, value: "With in Geofence" },
+    { label: assetsTracking.section, value: assetTrackerDetails?.section },
+    { label: assetsTracking.storageLocation, value: assetTrackerDetails?.storeageLocation },
+    { label: assetsTracking.trackerStatus, value: assetTrackerDetails?.trackerStatus },
+    { label: assetsTracking.geofence, value: assetTrackerDetails?.geofenceStatus },
   ];
 
   const assetCenterRightSectionData = [
-    { label: assetsTracking.battery, value: "83%" },
-    { label: assetsTracking.temperature, value: "24°C" },
-    { label: assetsTracking.humidity, value: "96%" },
+    { label: assetsTracking.battery, value: `${assetTrackerDetails?.battery}%` },
+    { label: assetsTracking.temperature, value: `${assetTrackerDetails?.temperature}°C`},
+    { label: assetsTracking.humidity, value: `${assetTrackerDetails?.humidity?.toFixed(2)}%` },
     { label: "", value: "" },
   ];
 
@@ -479,9 +544,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     <Grid item xs={3} className={assetInfoRightPanelMain}>
                       <Grid item xs={12} className={notificationListContainer}>
                         <Grid container xs={12} rowGap={1.5}>
-                          {infoWindowNotificationListItems &&
-                            infoWindowNotificationListItems?.length > 0 &&
-                            infoWindowNotificationListItems?.map(
+                          {combinedNotifications &&
+                            combinedNotifications?.length > 0 &&
+                            combinedNotifications?.map(
                               (item: any) => (
                                 <Grid
                                   item
@@ -502,7 +567,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   </div>
                                   <div className={assetTrackingTitle}>
                                     <div>{item?.details} </div>
-                                    <div>{item?.timeStamp}</div>
+                                    <div>{moment(item?.notificationDate)?.format("DD-MM-YYYY | HH:mm A")}</div>
                                   </div>
                                 </Grid>
                               )

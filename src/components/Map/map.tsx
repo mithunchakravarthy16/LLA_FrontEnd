@@ -74,6 +74,8 @@ const fleetManagementCenter = {
   lng: 121.36458642272018,
 };
 
+const assetTrackingCenter = { lat: 12.1651391, lng: 78.1277715 };
+
 const libraries = ["places", "drawing"];
 
 const Map: React.FC<any> = (props) => {
@@ -538,6 +540,8 @@ const Map: React.FC<any> = (props) => {
           ? defaultCenter
           : location?.pathname === "/fleetManagement"
           ? fleetManagementCenter
+          : location?.pathname === "/assetTracking"
+          ? assetTrackingCenter
           : center
       );
       map?.setZoom(
@@ -694,6 +698,8 @@ const Map: React.FC<any> = (props) => {
             ? defaultCenter
             : location?.pathname === "/fleetManagement"
             ? fleetManagementCenter
+            : location?.pathname === "/assetTracking"
+            ? assetTrackingCenter
             : center
         );
         return "";
@@ -716,6 +722,8 @@ const Map: React.FC<any> = (props) => {
         ? defaultCenter
         : location?.pathname === "/fleetManagement"
         ? fleetManagementCenter
+        : location?.pathname === "/assetTracking"
+        ? assetTrackingCenter
         : center
     );
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
@@ -894,6 +902,8 @@ const Map: React.FC<any> = (props) => {
               ? defaultCenter
               : location?.pathname === "/fleetManagement"
               ? fleetManagementCenter
+              : location?.pathname === "/assetTracking"
+              ? assetTrackingCenter
               : center
           }
           zoom={zoomValue}
