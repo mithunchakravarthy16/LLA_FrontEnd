@@ -158,9 +158,10 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
       setSuccess(true);
 
       setTimeout(() => {
+        setSuccess(false);
         dispatch(setAssetTrackingCreateGeofence({}));
         setIsGeofenceInfoWindowActive(false);
-      }, 2000);
+      }, 1000);
     }
   }, [createGeofenceResponse]);
 
@@ -408,7 +409,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
 
   return (
     <>
-      {success && (
+      {success && createGeofenceResponse?.status && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={success}
