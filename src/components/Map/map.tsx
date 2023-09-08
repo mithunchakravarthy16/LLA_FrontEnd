@@ -925,9 +925,9 @@ const Map: React.FC<any> = (props) => {
             onOverlayComplete={handleOverlayComplete}
             options={options}
           />
-          {circleRadiusUnits !== null && (
+          {circleRadius !== null && (
             <Circle
-              radius={circleRadiusUnits}
+              radius={circleRadius}
               center={circleCenter}
               visible={true}
               onDragEnd={handleCircleDrag}
