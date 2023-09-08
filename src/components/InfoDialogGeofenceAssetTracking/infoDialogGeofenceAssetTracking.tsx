@@ -146,10 +146,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
           label: item?.assetName,
           value: item?.assetName,
           assetId: item?.assetId,
-          currentLocation: {
-            lat: 39.755724996944544,
-            lng: -105.0073944803513,
-          },
+          location: item?.location,
         });
       });
       setSelectAssetsList(list);
@@ -364,7 +361,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     const data: any = {
       value: obj?.value,
       label: obj?.value,
-      location: obj?.currentLocation,
+      location: obj?.location,
       assetId: obj?.assetId,
     };
     const selectedData = selectAssetsList.filter(
@@ -387,7 +384,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     const data: any = {
       value: deletedData?.assetName,
       label: deletedData?.assetName,
-      currentLocation: deletedData?.currentLocation,
+      location: deletedData?.location,
       assetId: deletedData?.assetId,
     };
 
