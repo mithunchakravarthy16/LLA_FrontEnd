@@ -98,7 +98,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         .assetTrackingGridViewAnalyticsData
   );
 
-  console.log("assetTrackingGridViewAnalyticsDataResponse", assetTrackingGridViewAnalyticsDataResponse)
 
   // const assetNotificationResponse = assetTrackingResponse;
 
