@@ -125,6 +125,14 @@ const NotificationListItems = (props: any) => {
 
   const { viewDetails, takeAction } = useTranslation();
 
+  const truncateString = (str: string, num: number) => {
+    if (str?.length > num) {
+      return str?.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
+
   useEffect(() => {
     if (window.innerWidth > 3839) {
       setSelectedWidth({

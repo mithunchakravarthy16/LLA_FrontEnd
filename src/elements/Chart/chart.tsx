@@ -122,7 +122,7 @@ const Chart: React.FC<any> = (props) => {
           plotBackgroundColor: "transparent",
           backgroundColor: "transparent",
           marginTop: 0,
-          // marginLeft: 0,
+          marginLeft: 0,
           // marginRight: 0,
 
           reflow: true,

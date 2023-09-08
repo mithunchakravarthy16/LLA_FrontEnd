@@ -103,7 +103,6 @@ const INF_Select: React.FC<any> = (props) => {
                     marginTop: "5px !important",
                     backgroundColor: dropDownBgColor ? dropDownBgColor : "#000",
                     boxShadow : "0px 5px 5px -3px rgb(0 0 0 / 0%), 0px 8px 10px 1px rgb(0 0 0 / 0%), 0px 3px 14px 2px rgb(0 0 0 / 9%) !important"
-
                   },
                 },
               },
@@ -132,7 +131,6 @@ const INF_Select: React.FC<any> = (props) => {
                         color: dropDownSelectedTextColor
                           ? dropDownSelectedTextColor
                           : "#fff",
-
                       },
 
                       // "&.Mui-focusVisible": { background: "orange" },
