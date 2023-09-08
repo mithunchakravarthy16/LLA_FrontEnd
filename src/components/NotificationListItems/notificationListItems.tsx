@@ -149,15 +149,6 @@ const NotificationListItems = (props: any) => {
     }
   }, []);
 
-  const truncateString = (str: string, num: number) => {
-    if (str?.length > num) {
-      return str?.slice(0, num) + "...";
-    } else {
-      return str;
-    }
-  };
-
-
   if (category === "asset") {
     return (
       <>
@@ -286,7 +277,7 @@ const NotificationListItems = (props: any) => {
               )}
               <div className={expandedListItemRow2}>
                 {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */}{" "}
-                {truncateString(area, 45)}
+                {area && truncateString(area, 45)}
               </div>
               <div className={expandedListItemRow3}>
                 {`Vehicle#${vehicleId ? vehicleId : ""} | Driver-${
