@@ -7,10 +7,12 @@ import Chart from "elements/Chart";
 import theme from "../../../theme/theme";
 import useStyles from "../styles";
 import useTranslation from "localization/translations";
+import { useDispatch, useSelector } from "react-redux";
+import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
   const { handleClick, selectedTheme } = props;
-
+  const dispatch = useDispatch();
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
@@ -45,6 +47,32 @@ const GridViewScreenSix: React.FC<any> = (props) => {
   } = useStyles(appTheme);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
+
+  
+const assetTrackingGridViewAnalyticsDataResponse = useSelector(
+  (state: any) =>
+    state.assetTrackingActiveInActiveAnalytics
+      .assetTrackingGridViewAnalyticsData
+);
+
+
+const[assetGridViewAnalyticsData, setAssetGridViewAnalyticsData] = useState<any>()
+
+useEffect(()=>{
+  const assetGridViewAnalyticsData: any = [];
+
+  assetTrackingGridViewAnalyticsDataResponse?.data?.data?.map((item: any) =>
+  assetGridViewAnalyticsData?.push([
+          new Date(item?.node)?.getTime(),
+          item?.count,
+        ])
+      );
+
+      setAssetGridViewAnalyticsData(assetGridViewAnalyticsData);
+
+},[assetTrackingGridViewAnalyticsDataResponse])
+
+
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -147,19 +175,19 @@ const GridViewScreenSix: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
-                <div className={horizantalDataGridValueStyle}>52</div>
+                <div className={horizantalDataGridValueStyle}>{assetTrackingGridViewAnalyticsDataResponse?.data?.assetTrackedCount}</div>
                 <div className={horizantalDataGridLabelStyle}>
                   <p>{gridView.assets}</p> <p>{gridView.tracked}</p>
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
-                <div className={horizantalDataGridValueStyle}>30</div>
+                <div className={horizantalDataGridValueStyle}>{assetTrackingGridViewAnalyticsDataResponse?.data?.locationChangeCount}</div>
                 <div className={horizantalDataGridLabelStyle}>
                   <p>{gridView.location}</p> <p>{gridView.changes}</p>
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
-                <div className={horizantalDataGridValueStyle}>10</div>
+                <div className={horizantalDataGridValueStyle}>{assetTrackingGridViewAnalyticsDataResponse?.data?.outOfGeofenceCount}</div>
                 <div className={horizantalDataGridLabelStyle}>
                   <p>{gridView.outOf}</p>
                   <p> {gridView.geofence}</p>
@@ -181,6 +209,8 @@ const GridViewScreenSix: React.FC<any> = (props) => {
               crossHairLineColor={"#ABCD9890"}
               is4kDevice={selectedWidth?.is4kDevice}
               xAxisFontSize={selectedWidth?.xAxisFontSize}
+              selectedValue={"Today"}
+              pageName={"assetTrackingGridView"}
               dataPoints={[
                 {
                   marker: {
@@ -231,10 +261,11 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                       ],
                     ],
                   },
-                  data: [
-                    1, 3, 2, 5, 1, 3, 10, 4, 3, 4, 7, 10, 1, 1, 3, 10, 4, 3, 4,
-                    7, 10, 4, 3, 4,
-                  ],
+                  data: assetGridViewAnalyticsData
+                  // data: [
+                  //   1, 3, 2, 5, 1, 3, 10, 4, 3, 4, 7, 10, 1, 1, 3, 10, 4, 3, 4,
+                  //   7, 10, 4, 3, 4,
+                  // ],
                 },
               ]}
             />

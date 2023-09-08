@@ -90,6 +90,19 @@ const AssetTracking: React.FC<any> = (props) => {
         .assetTrackingIncidentsAnalyticsData
   );
 
+  const loaderAssetTrackingAnalyticsResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics
+        .loadingAnalytics
+  );
+const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
+  useEffect(() => {
+    setLoaderExtAnalytics(true)
+    setTimeout(() => {
+      setLoaderExtAnalytics(false);
+    }, 1000);
+  }, [loaderAssetTrackingAnalyticsResponse]);
+
   const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>();
   const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>();
   const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>();
@@ -1140,7 +1153,9 @@ const AssetTracking: React.FC<any> = (props) => {
                                       item
                                       xs={12}
                                       style={{ height: "21vh", width: "80vw" }}>
-                                      <Chart
+                                        {
+                                          !loaderAssetTrackingAnalyticsResponse && !loaderExtAnalytics ?
+                                          <Chart
                                         // width={selectedWidth?.width}
                                         // height={selectedWidth?.height}
                                         containerProps={{
@@ -1235,6 +1250,12 @@ const AssetTracking: React.FC<any> = (props) => {
                                         //   },
                                         // ]}
                                       />
+                                          :
+                                          <Loader isHundredVh={false} />
+                                          
+                                          
+                                        }
+                                      
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1268,7 +1289,9 @@ const AssetTracking: React.FC<any> = (props) => {
                                       item
                                       xs={12}
                                       style={{ height: "21vh", width: "80vw" }}>
-                                      <Chart
+                                        {
+                                          !loaderAssetTrackingAnalyticsResponse && !loaderExtAnalytics ?
+                                          <Chart
                                         // width={selectedWidth?.width1}
                                         // height={selectedWidth?.height1}
                                         containerProps={{
@@ -1412,6 +1435,11 @@ const AssetTracking: React.FC<any> = (props) => {
                                         //   },
                                         // ]}
                                       />
+                                          :
+                                          <Loader isHundredVh={false} />
+                                          
+                                      
+                                     }
                                     </Grid>
                                   </Grid>
                                 </Grid>
