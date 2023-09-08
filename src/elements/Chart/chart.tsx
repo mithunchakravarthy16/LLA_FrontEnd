@@ -311,14 +311,15 @@ const Chart: React.FC<any> = (props) => {
               : selectedValue === "Month"
               ? 5 * 24 * 3600 * 1000
               : 30 * 3600 * 1000
-              : pageName === "assetTrackingGridView" && 
+              : pageName === "assetTrackingGridView" ?
               selectedValue === "Today"
               ? 5 * 3600 * 1000
               : selectedValue === "Year"
               ? 70 * 24 * 3600 * 1000
               : selectedValue === "Month"
               ? 5 * 24 * 3600 * 1000
-              : 30 * 3600 * 1000,
+              : 30 * 3600 * 1000
+              : 8,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
