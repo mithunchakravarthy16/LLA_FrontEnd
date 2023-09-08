@@ -341,7 +341,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
       backToGeofence: isBackGeofenceChecked,
       radius: circleRadius,
       location: isCircleEnbled ? [circleCenter] : polygonPath,
-      area: await addressFound(circleCenter),
+      area: isCircleEnbled ? await addressFound(circleCenter) : "",
       recipients: ["string"],
     };
     dispatch(getAssetTrackingCreateGeofence(payload));
