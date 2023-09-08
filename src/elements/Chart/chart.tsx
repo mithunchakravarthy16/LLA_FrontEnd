@@ -76,7 +76,7 @@ const Chart: React.FC<any> = (props) => {
         });
     }
   }, [dataPoints]);
-console.log("isEveryYAxisValuesAreZero",graphType, isEveryYAxisValuesAreZero)
+
   const [toolTipBg, setToolTipBg] = useState<string>();
   const [tBorder, setTBorder] = useState<string>();
   const [lastTwntyTwoHours, setLastTwntyTwoHours] = useState<any>(() => {
@@ -337,7 +337,7 @@ console.log("isEveryYAxisValuesAreZero",graphType, isEveryYAxisValuesAreZero)
             overflow: "justify",
             format: formatGraph
               ? formatGraph
-              : pageName === "assetTracking" || pageName === "FleetManagement" && selectedValue === "Today"
+              : (pageName === "assetTracking" || pageName === "FleetManagement") && selectedValue === "Today"
               ? "{value:%H:00}"
               : selectedValue === "Year"
               ? "{value:%b}"
