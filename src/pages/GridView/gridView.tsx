@@ -18,16 +18,14 @@ import {
   setFleetManagementOverAllTripDetails,
 } from "redux/actions/fleetManagementNotificationActions";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
-import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 
 const GridView: React.FC<any> = (props) => {
   const dispatch = useDispatch();
 
- 
-    useEffect(()=>{
-      dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
-    },[])
-  
+  useEffect(() => {
+    dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+  }, []);
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -38,9 +36,8 @@ const GridView: React.FC<any> = (props) => {
   );
 
   const loaderAssetTrackingGridViewAnalytics = useSelector(
-    (state: any) => 
-    state.assetTrackingActiveInActiveAnalytics
-      .loadingOverAllAnalytics
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics.loadingOverAllAnalytics
   );
 
   const fleetManagementResponse = useSelector(
@@ -195,19 +192,6 @@ const GridView: React.FC<any> = (props) => {
       ) : (
         <div className={rootContainer}>
           <Grid container className={mainSection}>
-             {/* Grid 6 */}
-             <GridViewScreenSix
-              handleClick={handleClick}
-              selectedTheme={selectedTheme}
-            />
-             {/* Grid 5 */}
-             <GridViewScreenFive
-              handleClick={()=>{}}
-              selectedTheme={selectedTheme}
-              fleetManagementResponse={fleetManagementResponse}
-            />
-
-           
             {/* Gride 1 */}
             <GridViewScreenOne
               handleClick={handleClick}
@@ -216,23 +200,38 @@ const GridView: React.FC<any> = (props) => {
 
             {/* Grid 2 */}
             <GridViewScreenTwo
-              handleClick={()=>{}}
+              // handleClick={()=>{}}
+              handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 3 */}
             <GridViewScreenThree
-              handleClick={()=>{}}
+              // handleClick={()=>{}}
+              handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 4 */}
             <GridViewScreenFour
-              handleClick={()=>{}}
+              // handleClick={()=>{}}
+              handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
-           
+            {/* Grid 5 */}
+            <GridViewScreenFive
+              // handleClick={()=>{}}
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+              fleetManagementResponse={fleetManagementResponse}
+            />
+
+            {/* Grid 6 */}
+            <GridViewScreenSix
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
           </Grid>
         </div>
       )}

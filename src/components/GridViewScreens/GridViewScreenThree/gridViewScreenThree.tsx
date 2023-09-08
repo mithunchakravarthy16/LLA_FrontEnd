@@ -165,7 +165,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
           <Grid item xs={12} className={containerTitleTwo}>
             {dashboard.security}
           </Grid>
-          {/* <Grid item xs={12}>
+          <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>19</div>
@@ -229,8 +229,8 @@ const GridViewScreenThree: React.FC<any> = (props) => {
                 },
               ]}
             />
-          </Grid> */}
-          <Grid
+          </Grid>
+          {/* <Grid
             item
             style={{
               display: "flex",
@@ -242,7 +242,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
             }}
           >
             Development In Progress...
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </>

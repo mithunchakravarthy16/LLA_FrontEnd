@@ -155,7 +155,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
           <Grid item xs={12} className={containerTitle}>
             {dashboard.lighting}
           </Grid>
-          {/* <Grid item xs={12} className={subContainer}>
+          <Grid item xs={12} className={subContainer}>
             <Grid container xs={12} className={childSubContainer}>
               <Grid item xs={9}>
                 <Grid
@@ -334,8 +334,8 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                 </Grid>
               </Grid>
             </Grid>
-          </Grid> */}
-          <Grid
+          </Grid>
+          {/* <Grid
             item
             style={{
               display: "flex",
@@ -347,7 +347,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
             }}
           >
             Development In Progress...
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </>

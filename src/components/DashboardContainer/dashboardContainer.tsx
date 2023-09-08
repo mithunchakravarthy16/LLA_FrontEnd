@@ -194,7 +194,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         const consolidatedData = [
           ...assetNotiData,
           ...dashboardNotiData,
-          // ...fleetNotiData,
+          ...fleetNotiData,
         ];
         setDashboardNotificationList(consolidatedData);
       }
@@ -241,7 +241,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         const consolidatedData = [
           ...assetNotiData,
           ...dashboardNotiData,
-          // ...fleetNotiData,
+          ...fleetNotiData,
         ];
         setDashboardNotificationList(consolidatedData);
       }
