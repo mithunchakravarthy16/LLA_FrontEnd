@@ -35,6 +35,7 @@ import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
+import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -80,6 +81,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state?.assetNotification?.assetNotificationData
   );
 
+
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
@@ -88,6 +90,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const overAllAnalyticsLoader = useSelector(
     (state: any) => state.fleetManagementNotification?.loadingOverAllAnalytics
   );
+
+
+  const assetTrackingGridViewAnalyticsDataResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics
+        .assetTrackingGridViewAnalyticsData
+  );
+
 
   // const assetNotificationResponse = assetTrackingResponse;
 
@@ -110,6 +120,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
+    dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
   }, []);
 
   useEffect(() => {
@@ -147,7 +158,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   };
 
   useEffect(() => {
-    const assetPayload: any = {};
+    const assetPayload: any = {
+      "filterText": "",
+      "pageNo": 0,
+      "pageSize": 100
+    };
     dispatch(getNotificationData(assetPayload));
     const fleetPayload: any = {};
     dispatch(setFleetManagementNotificationData({}));
@@ -162,7 +177,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   useEffect(() => {
     if (assetNotificationResponse && fleetManagementNotificationResponse) {
       const assetNotiData: any = formatttedAssetAPINotification(
-        assetNotificationResponse?.notifications
+        assetNotificationResponse?.data
       );
       const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
         dashboardNotification?.notifications
@@ -209,7 +224,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     ) {
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
-        assetNotificationResponse?.notifications
+        assetNotificationResponse?.data
       );
       const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
         dashboardNotification?.notifications
@@ -426,6 +441,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               fleetManagementTripDetailsResponse={
                 fleetManagementTripDetailsResponse
               }
+              alertCount ={assetTrackingGridViewAnalyticsDataResponse?.data?.alertCount
+              }
+              assetCount = {assetTrackingGridViewAnalyticsDataResponse?.data?.assetTrackedCount
+              }
+              locationChangedCount = {assetTrackingGridViewAnalyticsDataResponse?.data?.locationChangeCount  }
             />
             <Grid item xs={4}>
               {notificationPanelActive && (

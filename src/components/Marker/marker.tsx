@@ -51,7 +51,8 @@ const MapMarker: React.FC<any> = (props) => {
             toggleInfoWindow(
               mapMarker.id,
               mapMarker.notificationType,
-              mapMarker?.location
+              mapMarker?.location,
+              mapMarker?.tripId
             );
           }}
           icon={{

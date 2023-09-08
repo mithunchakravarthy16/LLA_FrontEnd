@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Alert, Snackbar, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Tabs from "../../elements/Tabs";
@@ -13,7 +13,16 @@ import useStyles from "./styles";
 import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
 import Geofence from "components/Geofence";
+import { useDispatch, useSelector } from "react-redux";
+import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
+import moment from "moment";
+import {
+  getAssetTrackingCreateGeofence,
+  getAssetTrackingUpdateGeofence,
+  setAssetTrackingCreateGeofence,
+  setAssetTrackingUpdateGeofence,
+} from "redux/actions/getAssetTrackerDetailAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -57,6 +66,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     selectedMarker,
     selectedTheme,
   } = props;
+
+  const dispatch = useDispatch();
 
   const [tabIndex, setTabIndex] = useState<number>(0);
 
@@ -103,13 +114,81 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+  useEffect(() => {
+    setSuccess(false);
+    let assetTrackerDetailPayload: any = {
+      assetId: selectedMarker?.assetId,
+      trackerId: null,
+    };
+    dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
+    dispatch(setAssetTrackingCreateGeofence({}));
+    dispatch(setAssetTrackingUpdateGeofence({}));
+  }, []);
+
+  const assetTrackerDetails = useSelector(
+    (state: any) => state?.assetTracker?.assetTrackerData?.data
+  );
+
+  const createGeofenceResponse = useSelector(
+    (state: any) => state.assetTracker?.assetTrackingCreateGeofenceData
+  );
+
+  const updateGeofenceResponse = useSelector(
+    (state: any) => state.assetTracker?.assetTrackingUpdateGeofenceData
+  );
+
+  const [infoNotificationList, setInfoNotificationList] = useState<any>([]);
+
+  useEffect(() => {
+    if (assetTrackerDetails) {
+      const { events, incidents, alerts } = assetTrackerDetails?.notifications;
+      const combinedNotifications: any = [];
+
+      events?.eventsList?.forEach((event: any, index: number) => {
+        combinedNotifications.push({
+          ...event,
+          title: event?.reason,
+          details: `${event?.trackerName} | ${event?.assetName}`,
+          timeStamp: moment(event?.notificationDate)?.format(
+            "DD-MM-YYYY | HH:mm A"
+          ),
+        });
+      });
+
+      incidents?.incidentList?.forEach((incidents: any, index: number) => {
+        combinedNotifications.push({
+          ...incidents,
+          title: incidents?.reason,
+          details: `${incidents?.trackerName} | ${incidents?.assetName}`,
+          timeStamp: moment(incidents?.notificationDate)?.format(
+            "DD-MM-YYYY | HH:mm A"
+          ),
+        });
+      });
+
+      alerts?.alertList?.forEach((alerts: any, index: number) => {
+        combinedNotifications.push({
+          ...alerts,
+
+          title: alerts?.reason,
+          details: `${alerts?.trackerName} | ${alerts?.assetName}`,
+          timeStamp: moment(alerts?.notificationDate)?.format(
+            "DD-MM-YYYY | HH:mm A"
+          ),
+        });
+      });
+
+      setInfoNotificationList(combinedNotifications);
+    }
+  }, [assetTrackerDetails]);
+
   const [open, setOpen] = useState(!false);
   const [selectedWidth, setSelectedWidth] = useState<any>();
   const [isDrawingEnable, setIsDrawingEnable] = useState<boolean>(false);
   const [isCircleDrawing, setIsCircleDrawing] = useState<boolean>(false);
   const [polygonData, setPolygonData] = useState<any>(null);
   const [circleData, setCircleData] = useState<any>(null);
-  const [circleRadius, setCircleRadius] = useState<any>(null);
+  const [circleRadius, setCircleRadius] = useState<any>("");
   const [circleCenter, setCircleCenter] = useState<any>(null);
   const [polygonPath, setPolygonPath] = useState<any>(null);
   const [circleRadiusUnits, setCircleRadiusUnits] = useState<any>(null);
@@ -118,10 +197,76 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const [isBackGeofenceChecked, setIsBackGeofenceChecked] = useState<boolean>();
   const [geofenceType, setGeofenceType] = useState<string>();
   const [radiusType, setRadiusType] = useState<string>();
-  const [checked, setChecked] = useState<boolean>(true);
+  const [checked, setChecked] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [isGeofenceLocation, setIsGeofenceLocation] = useState<boolean>(false);
   const [map, setMap] = useState<any>(null);
+  const [geofenceName, setGeofenceName] = useState<any>();
+  const [isCircleEnbled, setIsCircleEnbled] = useState<boolean>(false);
+  const [isPolygonEnbled, setIsPolygonEnbled] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (assetTrackerDetails?.geofenceResponseDTO) {
+      setChecked(assetTrackerDetails?.geofenceResponseDTO?.enabledGeofence);
+      if (
+        assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Circular"
+      ) {
+        setIsCircleEnbled(
+          assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Circular"
+        );
+        setCircleCenter(
+          assetTrackerDetails?.geofenceResponseDTO?.location &&
+            assetTrackerDetails?.geofenceResponseDTO?.location[0]
+        );
+        setCircleRadius(assetTrackerDetails?.geofenceResponseDTO?.radius);
+        setPolygonPath(null);
+        setIsPolygonEnbled(false);
+      } else if (
+        assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Polygon"
+      ) {
+        setIsPolygonEnbled(
+          assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Polygon"
+        );
+        setPolygonPath(assetTrackerDetails?.geofenceResponseDTO?.location);
+        setCircleRadius(null);
+        setCircleCenter(null);
+        setIsCircleEnbled(false);
+      }
+      setGeofenceName(assetTrackerDetails?.geofenceResponseDTO?.geofenceName);
+      setIsOutsideGeofenceChecked(
+        assetTrackerDetails?.geofenceResponseDTO?.outsideGeofence
+      );
+      setIsBackGeofenceChecked(
+        assetTrackerDetails?.geofenceResponseDTO?.backGeofence
+      );
+    }
+  }, [assetTrackerDetails]);
+
+  useEffect(() => {
+    if (createGeofenceResponse?.status === 200) {
+      setSuccess(true);
+
+      setTimeout(() => {
+        setSuccess(false);
+        dispatch(setAssetTrackingCreateGeofence({}));
+        setIsInfoWindowActive(false);
+      }, 2000);
+    }
+  }, [createGeofenceResponse]);
+
+  useEffect(() => {
+    if (updateGeofenceResponse?.status === 200) {
+      setSuccess(true);
+
+      setTimeout(() => {
+        setSuccess(false);
+        dispatch(setAssetTrackingUpdateGeofence({}));
+        setIsInfoWindowActive(false);
+      }, 1000);
+    }
+  }, [updateGeofenceResponse]);
 
   const handleClose = () => {
     setOpen(!open);
@@ -138,23 +283,41 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   };
 
   const assetInfoTopPanelData = [
-    { label: assetsTracking.product, value: "Lab Equipment" },
-    { label: assetsTracking.trackerId, value: 12367 },
-    { label: assetsTracking.assetsType, value: "Electronic" },
-    { label: assetsTracking.assetsId, value: 12 },
+    { label: assetsTracking.product, value: assetTrackerDetails?.product },
+    { label: assetsTracking.trackerId, value: assetTrackerDetails?.trackerId },
+    { label: assetsTracking.assetsType, value: assetTrackerDetails?.assetType },
+    { label: assetsTracking.assetsId, value: selectedMarker?.assetName },
   ];
 
   const assetCenterLeftSectionData = [
-    { label: assetsTracking.section, value: "Sec 01" },
-    { label: assetsTracking.storageLocation, value: "C17#456" },
-    { label: assetsTracking.trackerStatus, value: "Active" },
-    { label: assetsTracking.geofence, value: "With in Geofence" },
+    { label: assetsTracking.section, value: assetTrackerDetails?.section },
+    {
+      label: assetsTracking.storageLocation,
+      value: assetTrackerDetails?.storeageLocation,
+    },
+    {
+      label: assetsTracking.trackerStatus,
+      value: assetTrackerDetails?.trackerStatus,
+    },
+    {
+      label: assetsTracking.geofence,
+      value: assetTrackerDetails?.geofenceStatus,
+    },
   ];
 
   const assetCenterRightSectionData = [
-    { label: assetsTracking.battery, value: "83%" },
-    { label: assetsTracking.temperature, value: "24°C" },
-    { label: assetsTracking.humidity, value: "96%" },
+    {
+      label: assetsTracking.battery,
+      value: `${assetTrackerDetails?.battery}%`,
+    },
+    {
+      label: assetsTracking.temperature,
+      value: `${assetTrackerDetails?.temperature}°C`,
+    },
+    {
+      label: assetsTracking.humidity,
+      value: `${assetTrackerDetails?.humidity?.toFixed(2)}%`,
+    },
     { label: "", value: "" },
   ];
 
@@ -306,12 +469,128 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     map?.setZoom(15);
   };
 
-  const handleResetClick = () => {};
+  const handleResetClick = () => {
+    if (assetTrackerDetails?.geofenceResponseDTO) {
+      setChecked(assetTrackerDetails?.geofenceResponseDTO?.enabledGeofence);
+      if (
+        assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Circular"
+      ) {
+        setIsCircleEnbled(
+          assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Circular"
+        );
+        setCircleCenter(
+          assetTrackerDetails?.geofenceResponseDTO?.location &&
+            assetTrackerDetails?.geofenceResponseDTO?.location[0]
+        );
+        setCircleRadius(assetTrackerDetails?.geofenceResponseDTO?.radius);
+        setPolygonPath(null);
+        setIsPolygonEnbled(false);
+      } else if (
+        assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Polygon"
+      ) {
+        setIsPolygonEnbled(
+          assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Polygon"
+        );
+        setPolygonPath(assetTrackerDetails?.geofenceResponseDTO?.location);
+        setCircleRadius(null);
+        setCircleCenter(null);
+        setIsCircleEnbled(false);
+      }
+      setGeofenceName(assetTrackerDetails?.geofenceResponseDTO?.geofenceName);
+      setIsOutsideGeofenceChecked(
+        assetTrackerDetails?.geofenceResponseDTO?.outsideGeofence
+      );
+      setIsBackGeofenceChecked(
+        assetTrackerDetails?.geofenceResponseDTO?.backGeofence
+      );
+    }
+    circleData?.setMap(null);
+    polygonData?.setMap(null);
+  };
 
-  const handleSaveClick = () => {};
+  const addressFound = async (LatLng: any) => {
+    const geocoder: any = new window.google.maps.Geocoder();
+    const location1: any = new window.google.maps.LatLng(LatLng);
+    return new Promise(function (resolve, reject) {
+      geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
+        if (status === "OK") {
+          resolve(results[0].formatted_address);
+        } else {
+          reject(new Error("Couldnt't find the address " + status));
+        }
+      });
+    });
+  };
+
+  const handleSaveClick = async () => {
+    const payload = {
+      geofenceType: isCircleEnbled ? "Circular" : "Polygon",
+      enabledGeofence: checked,
+      geofenceName: geofenceName,
+      outSideofGeofence: isOutsideGeofenceChecked,
+      backToGeofence: isBackGeofenceChecked,
+      radius: circleRadius,
+      location: isCircleEnbled ? [circleCenter] : polygonPath,
+      area: isCircleEnbled ? await addressFound(circleCenter) : "",
+      recipients: ["string"],
+    };
+    if (assetTrackerDetails?.geofenceResponseDTO?.geofenceId) {
+      dispatch(
+        getAssetTrackingUpdateGeofence({
+          ...payload,
+          assetId: assetTrackerDetails?.assetId,
+          geofenceId: assetTrackerDetails?.geofenceResponseDTO?.geofenceId,
+        })
+      );
+    } else {
+      dispatch(
+        getAssetTrackingCreateGeofence({
+          ...payload,
+          assetId: [assetTrackerDetails?.assetId],
+        })
+      );
+    }
+  };
+
+  const handleAlertClose = () => {
+    setSuccess(false);
+  };
 
   return (
     <>
+      {success &&
+        (createGeofenceResponse?.status || updateGeofenceResponse?.status) && (
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={success}
+            onClose={handleAlertClose}
+          >
+            <Alert
+              onClose={handleAlertClose}
+              severity={
+                assetTrackerDetails?.geofenceResponseDTO?.geofenceId
+                  ? updateGeofenceResponse?.status === 200
+                    ? "success"
+                    : "error"
+                  : createGeofenceResponse?.status === 200
+                  ? "success"
+                  : "error"
+              }
+              sx={{ width: "100%" }}
+            >
+              {createGeofenceResponse?.status === 200 && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Successfully Created Geofence.</Typography>
+                </div>
+              )}
+              {updateGeofenceResponse?.status === 200 && (
+                <div style={{ display: "flex" }}>
+                  <Typography>Updated Geofence Successfully.</Typography>
+                </div>
+              )}
+            </Alert>
+          </Snackbar>
+        )}
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
         <div>
           <IconButton
@@ -326,7 +605,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
               width: "4.2%",
               height: "4.2%",
               transition: "none",
-            }}>
+            }}
+          >
             <img
               width={"100%"}
               height={"100%"}
@@ -346,7 +626,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                   }}
                   onClick={() => {
                     handleHeaderTab(item?.val);
-                  }}>
+                  }}
+                >
                   {item?.name}
                 </Grid>
               ))}
@@ -359,11 +640,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                   <Grid container xs={12} style={{ height: "100%" }}>
                     <Grid
                       container
-                      xs={8.7}
+                      xs={7.7}
                       className={assetInfoLeftPanelMain}
                       style={{
                         marginRight: "2%",
-                      }}>
+                      }}
+                    >
                       <Grid className={assetInfoLeftPanelTop}>
                         <div>
                           <div className={leftPanelSection} style={{}}>
@@ -372,9 +654,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                 return (
                                   <div
                                     className={leftPanelLoopSection}
-                                    key={index}>
+                                    key={index}
+                                  >
                                     <div className={leftPanelChild1}>
-                                      {data?.value}
+                                      {data?.value === null ? "--" : data?.value}
                                     </div>
                                     <div className={leftPanelChild2} style={{}}>
                                       {data?.label}
@@ -394,7 +677,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-around",
-                          }}>
+                          }}
+                        >
                           {assetCenterLeftSectionData?.map(
                             (data: any, index: any) => {
                               return (
@@ -405,9 +689,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     justifyContent: "space-between",
                                     width: "100%",
                                     lineHeight: "50px",
-                                  }}>
+                                  }}
+                                >
                                   <div
-                                    style={{ width: "50%", color: "#808080" }}>
+                                    style={{ width: "50%", color: "#808080" }}
+                                  >
                                     {data?.label}
                                   </div>
                                   <div
@@ -416,8 +702,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       color:
                                         appTheme?.palette?.assetTrackingPage
                                           ?.topPanelTextColor,
-                                    }}>
-                                    {data?.value}
+                                    }}
+                                  >
+                                    {data?.value === null ? "--" : data?.value}
                                   </div>
                                 </div>
                               );
@@ -429,7 +716,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                             borderRight: `1px dashed #808080`, // Specify your desired color and border style
                             opacity: "0.5",
                             margin: "7%",
-                          }}></div>
+                          }}
+                        ></div>
                         <div
                           style={{
                             padding: "3%",
@@ -438,7 +726,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                             flexDirection: "column",
                             justifyContent: "space-around",
                             // textAlign: "right",
-                          }}>
+                          }}
+                        >
                           {assetCenterRightSectionData?.map(
                             (data: any, index: any) => {
                               return (
@@ -449,9 +738,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     justifyContent: "space-between",
                                     width: "100%",
                                     lineHeight: "50px",
-                                  }}>
+                                  }}
+                                >
                                   <div
-                                    style={{ width: "50%", color: "#808080" }}>
+                                    style={{ width: "50%", color: "#808080" }}
+                                  >
                                     {data?.label}
                                   </div>
                                   <div
@@ -460,7 +751,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       color:
                                         appTheme?.palette?.assetTrackingPage
                                           ?.topPanelTextColor,
-                                    }}>
+                                    }}
+                                  >
                                     {data?.value}
                                   </div>
                                 </div>
@@ -470,43 +762,46 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         </div>
                       </Grid>
                       <Grid className={assetInfoLeftPanelBottom}>
-                        <CustomizedSteppers
+                        {/* <CustomizedSteppers
                           packagaeData={packageData}
                           selectedTheme={selectedTheme}
-                        />
+                        /> */}
                       </Grid>
                     </Grid>
-                    <Grid item xs={3} className={assetInfoRightPanelMain}>
+                    <Grid item xs={4} className={assetInfoRightPanelMain}>
                       <Grid item xs={12} className={notificationListContainer}>
                         <Grid container xs={12} rowGap={1.5}>
-                          {infoWindowNotificationListItems &&
-                            infoWindowNotificationListItems?.length > 0 &&
-                            infoWindowNotificationListItems?.map(
-                              (item: any) => (
-                                <Grid
-                                  item
-                                  xs={12}
-                                  display="flex"
-                                  direction="column"
-                                  rowGap={2}
-                                  style={{
-                                    padding: "5% 4%",
-                                    border: `1px solid ${appTheme?.palette?.assetTrackingPage?.geofenceListBorder}`,
-                                    borderRadius: "5px",
-                                    background:
-                                      appTheme?.palette?.assetTrackingPage
-                                        ?.geofenceListItemBg,
-                                  }}>
-                                  <div className={vehicleTitle}>
-                                    {item?.title}
+                          {infoNotificationList &&
+                            infoNotificationList?.length > 0 &&
+                            infoNotificationList?.map((item: any) => (
+                              <Grid
+                                item
+                                xs={12}
+                                display="flex"
+                                direction="column"
+                                rowGap={2}
+                                style={{
+                                  padding: "5% 4%",
+                                  border: `1px solid ${appTheme?.palette?.assetTrackingPage?.geofenceListBorder}`,
+                                  borderRadius: "5px",
+                                  background:
+                                    appTheme?.palette?.assetTrackingPage
+                                      ?.geofenceListItemBg,
+                                }}
+                              >
+                                <div className={vehicleTitle}>
+                                  {item?.title}
+                                </div>
+                                <div className={assetTrackingTitle}>
+                                  <div>{item?.details} </div>
+                                  <div>
+                                    {moment(item?.notificationDate)?.format(
+                                      "DD-MM-YYYY | HH:mm A"
+                                    )}
                                   </div>
-                                  <div className={assetTrackingTitle}>
-                                    <div>{item?.details} </div>
-                                    <div>{item?.timeStamp}</div>
-                                  </div>
-                                </Grid>
-                              )
-                            )}
+                                </div>
+                              </Grid>
+                            ))}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -547,6 +842,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                       handleGeofencePolygonClick={handleGeofencePolygonClick}
                       handleGeofenceCircleClick={handleGeofenceCircleClick}
                       selectedTheme={selectedTheme}
+                      geofenceName={geofenceName}
+                      setGeofenceName={setGeofenceName}
+                      isCircleEnbled={isCircleEnbled}
+                      setIsCircleEnbled={setIsCircleEnbled}
+                      isPolygonEnbled={isPolygonEnbled}
+                      setIsPolygonEnbled={setIsPolygonEnbled}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
@@ -594,7 +895,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         </Button>
                       </div>
                       <div className={updateButtonContainer}>
-                        <Button variant="contained" onClick={handleSaveClick}>
+                        <Button
+                          variant="contained"
+                          disabled={
+                            (isCircleEnbled && circleCenter === null) ||
+                            (!isCircleEnbled && polygonPath === null)
+                          }
+                          onClick={handleSaveClick}
+                        >
                           {assetsTracking.save}
                         </Button>
                       </div>

@@ -434,6 +434,13 @@ const Parking: React.FC<any> = (props) => {
       setIsDataLoaded(!isDataLoaded);
     }, 500);
   }, []);
+  const [isDataLoadedLotImg, setIsDataLoadedLotImg] = useState<boolean>(false);
+  useEffect(() => {
+    setIsDataLoadedLotImg(false)
+    setTimeout(() => {
+      setIsDataLoadedLotImg(true);
+    }, 500);
+  }, [parkingLotIndex]);
 
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
@@ -819,7 +826,8 @@ const Parking: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                       />
 
-                      {parkingLotIndex === 0 ? (
+                      {isDataLoadedLotImg ?
+                      parkingLotIndex === 0 ? (
                         <Map
                           markers={dashboardDataList}
                           setNotificationPanelActive={
@@ -840,6 +848,7 @@ const Parking: React.FC<any> = (props) => {
                         // </Grid>
                         <div className={lotImageStyle}>
                           <img
+                          onLoad={()=>setIsDataLoadedLotImg(true)}
                             src={
                               selectedTheme === "light"
                                 ? LightThemeParkingLot1
@@ -849,7 +858,9 @@ const Parking: React.FC<any> = (props) => {
                             style={{ width: "95%" }}
                           />
                         </div>
-                      )}
+                      )
+                    : <Loader isHundredVh={false} />
+                    }
                     </Grid>
                   </Grid>
                 </Grid>

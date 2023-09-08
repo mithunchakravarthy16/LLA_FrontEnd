@@ -1,19 +1,31 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { styled } from "@mui/material/styles";
-import { Grid, Button } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import IconButton from "@mui/material/IconButton";
-import Tabs from "../../elements/Tabs";
+import {
+  Grid,
+  Button,
+  Dialog,
+  IconButton,
+  Alert,
+  Snackbar,
+  Typography,
+  Link,
+} from "@mui/material";
 import customTheme from "../../theme/theme";
 import { CloseIcon } from "../../assets/fleetInfoDialogueIcons";
 import useStyles from "./styles";
-import CustomizedSteppers from "elements/HorizontalStepper";
 import Map from "components/Map";
 import Geofence from "components/Geofence";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 import useTranslation from "localization/translations";
+import Loader from "elements/Loader";
+import {
+  getAssetTrackingList,
+  getAssetTrackingCreateGeofence,
+  setAssetTrackingCreateGeofence,
+} from "redux/actions/getAssetTrackerDetailAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -49,6 +61,20 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
 }));
 
 const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
+  const dispatch = useDispatch();
+
+  const assetsListResponse = useSelector(
+    (state: any) => state.assetTracker?.assetTrackingList
+  );
+
+  const assetsListLoader = useSelector(
+    (state: any) => state.assetTracker?.loadingAssetsList
+  );
+
+  const createGeofenceResponse = useSelector(
+    (state: any) => state.assetTracker?.assetTrackingCreateGeofenceData
+  );
+
   const { setIsGeofenceInfoWindowActive, selectedTheme } = props;
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
@@ -56,30 +82,12 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
 
   const {
     headerStyle,
-    headerTabContainerStyle,
-    headerTabStyle,
-    assetInfoLeftPanelMain,
-    assetInfoLeftPanelTop,
-    assetInfoLeftPanelCenter,
-    assetInfoLeftPanelBottom,
-    assetInfoRightPanelMain,
-    leftPanelSection,
-    leftPanelLoopSection,
-    leftPanelChild1,
-    leftPanelChild2,
-    notificationListContainer,
     buttonContainer,
     cancelButtonContainer,
     updateButtonContainer,
-    vehicleTitle,
-    assetTrackingTitle,
   } = useStyles({
     ...appTheme,
   });
-
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -106,8 +114,9 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
   const [polygonPath, setPolygonPath] = useState<any>(null);
   const [circleRadiusUnits, setCircleRadiusUnits] = useState<any>(null);
   const [isOutsideGeofenceChecked, setIsOutsideGeofenceChecked] =
-    useState<boolean>();
-  const [isBackGeofenceChecked, setIsBackGeofenceChecked] = useState<boolean>();
+    useState<boolean>(false);
+  const [isBackGeofenceChecked, setIsBackGeofenceChecked] =
+    useState<boolean>(false);
   const [geofenceType, setGeofenceType] = useState<string>();
   const [radiusType, setRadiusType] = useState<string>();
   const [checked, setChecked] = useState<boolean>(true);
@@ -116,52 +125,45 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
   const [searchData, setSearchData] = useState<any>([]);
   const [searchSelectedData, setSearchSelectedData] = useState<any>([]);
   const [selectAssetsList, setSelectAssetsList] = useState<any>([]);
+  const [selectAssetIds, setSelectAssetIds] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
+  const [geofenceName, setGeofenceName] = useState<any>();
+  const [isCircleEnbled, setIsCircleEnbled] = useState<boolean>(false);
+  const [isPolygonEnbled, setIsPolygonEnbled] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
-    setSelectAssetsList([
-      {
-        label: "Assets#1",
-        value: "Assets#1",
-        location: {
-          lat: 39.755724996944544,
-          lng: -105.0073944803513,
-        },
-      },
-      {
-        label: "Assets#2",
-        value: "Assets#2",
-        location: {
-          lat: 39.75555358586086,
-          lng: -105.01657322197286,
-        },
-      },
-      {
-        label: "Assets#3",
-        value: "Assets#3",
-        location: {
-          lat: 39.75729624533388,
-          lng: -104.9895572496697,
-        },
-      },
-      {
-        label: "Assets#4",
-        value: "Assets#4",
-        location: {
-          lat: 39.75932453116013,
-          lng: -105.01244836237774,
-        },
-      },
-      {
-        label: "Assets#5",
-        value: "Assets#5",
-        location: {
-          lat: 39.75986730174264,
-          lng: -105.00059403615393,
-        },
-      },
-    ]);
+    dispatch(getAssetTrackingList({}));
+    dispatch(setAssetTrackingCreateGeofence({}));
   }, []);
+
+  useEffect(() => {
+    if (assetsListResponse?.status === 200) {
+      const list: any = [];
+      assetsListResponse?.data?.map((item: any) => {
+        list?.push({
+          label: item?.assetName,
+          value: item?.assetName,
+          assetId: item?.assetId,
+          location: item?.location,
+        });
+      });
+      setSelectAssetsList(list);
+    }
+  }, [assetsListResponse]);
+
+  useEffect(() => {
+    if (createGeofenceResponse?.status === 200) {
+      setSuccess(true);
+
+      setTimeout(() => {
+        setSuccess(false);
+        dispatch(setAssetTrackingCreateGeofence({}));
+        setIsGeofenceInfoWindowActive(false);
+      }, 1000);
+    }
+  }, [createGeofenceResponse]);
 
   const handleClose = () => {
     setOpen(!open);
@@ -316,56 +318,37 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     map?.setZoom(15);
   };
 
-  const handleResetClick = () => {};
+  const addressFound = async (LatLng: any) => {
+    const geocoder: any = new window.google.maps.Geocoder();
+    const location1: any = new window.google.maps.LatLng(LatLng);
+    return new Promise(function (resolve, reject) {
+      geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
+        if (status === "OK") {
+          resolve(results[0].formatted_address);
+        } else {
+          reject(new Error("Couldnt't find the address " + status));
+        }
+      });
+    });
+  };
 
-  const handleSaveClick = () => {};
-
-  const selectAssetsList1 = [
-    {
-      label: "Assets#1",
-      value: "Assets#1",
-      location: {
-        lat: 39.755724996944544,
-        lng: -105.0073944803513,
-      },
-    },
-    {
-      label: "Assets#2",
-      value: "Assets#2",
-      location: {
-        lat: 39.75555358586086,
-        lng: -105.01657322197286,
-      },
-    },
-    {
-      label: "Assets#3",
-      value: "Assets#3",
-      location: {
-        lat: 39.75729624533388,
-        lng: -104.9895572496697,
-      },
-    },
-    {
-      label: "Assets#4",
-      value: "Assets#4",
-      location: {
-        lat: 39.75932453116013,
-        lng: -105.01244836237774,
-      },
-    },
-    {
-      label: "Assets#5",
-      value: "Assets#5",
-      location: {
-        lat: 39.75986730174264,
-        lng: -105.00059403615393,
-      },
-    },
-  ];
+  const handleSaveClick = async () => {
+    const payload = {
+      assetId: selectAssetIds,
+      geofenceType: isCircleEnbled ? "Circular" : "Polygon",
+      geofenceName: geofenceName,
+      outSideofGeofence: isOutsideGeofenceChecked,
+      backToGeofence: isBackGeofenceChecked,
+      radius: circleRadius,
+      location: isCircleEnbled ? [circleCenter] : polygonPath,
+      area: isCircleEnbled ? await addressFound(circleCenter) : "",
+      recipients: ["string"],
+    };
+    dispatch(getAssetTrackingCreateGeofence(payload));
+  };
 
   const handleSearch = (e: any) => {
     setSelectedAssetValue(e.target.value);
-
     let searchResult = selectAssetsList?.filter((data: any) => {
       return data?.value
         ?.toString()
@@ -377,155 +360,214 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
 
   const handleListItemClick = (e: any, obj: any) => {
     const data: any = {
-      key: obj?.value,
+      value: obj?.value,
       label: obj?.value,
       location: obj?.location,
+      assetId: obj?.assetId,
     };
     const selectedData = selectAssetsList.filter(
-      (item: any) => item.value === obj?.value
+      (item: any) => item.value !== obj?.value
     );
+    const ids: any = [];
+    ids.push(obj?.assetId);
     setSelectAssetsList(selectedData);
     setSearchSelectedData([...searchSelectedData, data]);
+    setSelectAssetIds([...selectAssetIds, ...ids]);
     setSearchData((prev: any) => {
       return prev.filter((item: any) => item?.value !== obj?.value);
     });
   };
 
-  const handleDelete = (key: string) => () => {
-    const deletedData = selectAssetsList1?.filter(
-      (item: any) => item?.value === key
+  const handleDelete = (datObj: any) => () => {
+    const deletedData = assetsListResponse?.data?.find(
+      (item: any) => item?.assetName === datObj?.value
     );
+    const data: any = {
+      value: deletedData?.assetName,
+      label: deletedData?.assetName,
+      location: deletedData?.location,
+      assetId: deletedData?.assetId,
+    };
 
     const removedData = searchSelectedData?.filter(
-      (item: any) => item?.key !== key
+      (item: any) => item?.value !== datObj?.value
     );
-    setSelectAssetsList([...selectAssetsList, ...deletedData]);
+
+    const removedIds = selectAssetIds?.filter(
+      (id: any) => id !== datObj?.assetId
+    );
+
+    setSelectAssetsList([...selectAssetsList, data]);
     setSearchSelectedData(removedData);
-    setSearchData([...searchData, ...deletedData]);
+    setSelectAssetIds(removedIds);
+    setSearchData([...searchData, data]);
+  };
+
+  const handleAlertClose = () => {
+    setSuccess(false);
   };
 
   return (
     <>
-      <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        <div>
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              padding: "0.5%",
-              right: "0.1%",
-              top: "1.5%",
-              color: "transparent",
-              width: "4.2%",
-              height: "4.2%",
-              transition: "none",
-            }}>
-            <img
-              width={"100%"}
-              height={"100%"}
-              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
-            />
-          </IconButton>
-        </div>
-        <Grid container xs={12} style={{ height: "100%" }}>
-          <Grid item xs={12} className={headerStyle}>
-            <div>GEOFENCE</div>
-          </Grid>
-          <Grid item xs={12} style={{ height: "94%", paddingTop: "1%" }}>
-            <Grid container>
-              <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                <Geofence
-                  is4kDevice={selectedWidth?.is4kDevice}
-                  isCircleDrawing={isCircleDrawing}
-                  setIsCircleDrawing={setIsCircleDrawing}
-                  setIsDrawingEnable={setIsDrawingEnable}
-                  circleRadius={circleRadius}
-                  circleCenter={circleCenter}
-                  setCircleRadius={setCircleRadius}
-                  setCircleCenter={setCircleCenter}
-                  handleCircleLatChange={handleCircleLatChange}
-                  setCircleRadiusUnits={setCircleRadiusUnits}
-                  circleRadiusUnits={circleRadiusUnits}
-                  isOutsideGeofenceChecked={isOutsideGeofenceChecked}
-                  isBackGeofenceChecked={isBackGeofenceChecked}
-                  setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
-                  setIsBackGeofenceChecked={setIsBackGeofenceChecked}
-                  setGeofenceType={setGeofenceType}
-                  geofenceType={geofenceType}
-                  radiusType={radiusType}
-                  setRadiusType={setRadiusType}
-                  setPolygonPath={setPolygonPath}
-                  checked={checked}
-                  isDisabled={isDisabled}
-                  setChecked={setChecked}
-                  setIsDisabled={setIsDisabled}
-                  polygonPath={polygonPath}
-                  handleGeofencePolygonClick={handleGeofencePolygonClick}
-                  handleGeofenceCircleClick={handleGeofenceCircleClick}
-                  isGeofence={true}
-                  selectedAssetValue={selectedAssetValue}
-                  searchData={searchData}
-                  searchSelectedData={searchSelectedData}
-                  handleSearch={handleSearch}
-                  handleListItemClick={handleListItemClick}
-                  handleDelete={handleDelete}
-                  selectedTheme={selectedTheme}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
-                <Map
-                  markers={searchSelectedData}
-                  marker={""}
-                  currentMarker={""}
-                  setCurrentMarker={() => {}}
-                  focusedCategory={""}
-                  mapPageName={"Asset Tracking"}
-                  setIsMarkerClicked={() => {}}
-                  setSelectedNotification={() => {}}
-                  setNotificationPanelActive={() => {}}
-                  setTabIndex={() => {}}
-                  isDrawingEnable={isDrawingEnable}
-                  isCircleDrawing={isCircleDrawing}
-                  setCircleData={setCircleData}
-                  setCircleRadius={setCircleRadius}
-                  setCircleCenter={setCircleCenter}
-                  setPolygonPath={setPolygonPath}
-                  setPolygonData={setPolygonData}
-                  setIsCircleDrawing={setIsCircleDrawing}
-                  setIsDrawingEnable={setIsDrawingEnable}
-                  circleRadius={circleRadius}
-                  circleCenter={circleCenter}
-                  handleGeofenceCircleDrag={handleCircleDrag}
-                  setCircleRadiusUnits={setCircleRadiusUnits}
-                  circleRadiusUnits={circleRadiusUnits}
-                  polygonPath={polygonPath}
-                  // markerArray={[selectedViewDetailsData]}
-                  onCircleCompleteLocation={onCircleCompleteLocation}
-                  onPolygonCompleteLocation={onPolygonCompleteLocation}
-                  selectedTheme={selectedTheme}
-                  setMap={setMap}
-                  map={map}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <div className={buttonContainer}>
-                  <div className={cancelButtonContainer}>
-                    <Button variant="outlined" onClick={handleResetClick}>
-                      {assetsTracking.cancel}
-                    </Button>
+      {success && createGeofenceResponse?.status && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={success}
+          onClose={handleAlertClose}
+        >
+          <Alert
+            onClose={handleAlertClose}
+            severity={
+              createGeofenceResponse?.status !== 200 ? "error" : "success"
+            }
+            sx={{ width: "100%" }}
+          >
+            {createGeofenceResponse?.status === 200 && (
+              <div style={{ display: "flex" }}>
+                <Typography>Successfully Created Geofence.</Typography>
+              </div>
+            )}
+          </Alert>
+        </Snackbar>
+      )}
+      {assetsListLoader ? (
+        <Loader />
+      ) : (
+        <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
+          <div>
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                padding: "0.5%",
+                right: "0.1%",
+                top: "1.5%",
+                color: "transparent",
+                width: "4.2%",
+                height: "4.2%",
+                transition: "none",
+              }}
+            >
+              <img
+                width={"100%"}
+                height={"100%"}
+                src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+              />
+            </IconButton>
+          </div>
+          <Grid container xs={12} style={{ height: "100%" }}>
+            <Grid item xs={12} className={headerStyle}>
+              <div>GEOFENCE</div>
+            </Grid>
+            <Grid item xs={12} style={{ height: "94%", paddingTop: "1%" }}>
+              <Grid container>
+                <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                  <Geofence
+                    is4kDevice={selectedWidth?.is4kDevice}
+                    isCircleDrawing={isCircleDrawing}
+                    setIsCircleDrawing={setIsCircleDrawing}
+                    setIsDrawingEnable={setIsDrawingEnable}
+                    circleRadius={circleRadius}
+                    circleCenter={circleCenter}
+                    setCircleRadius={setCircleRadius}
+                    setCircleCenter={setCircleCenter}
+                    handleCircleLatChange={handleCircleLatChange}
+                    setCircleRadiusUnits={setCircleRadiusUnits}
+                    circleRadiusUnits={circleRadiusUnits}
+                    isOutsideGeofenceChecked={isOutsideGeofenceChecked}
+                    isBackGeofenceChecked={isBackGeofenceChecked}
+                    setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
+                    setIsBackGeofenceChecked={setIsBackGeofenceChecked}
+                    setGeofenceType={setGeofenceType}
+                    geofenceType={geofenceType}
+                    radiusType={radiusType}
+                    setRadiusType={setRadiusType}
+                    setPolygonPath={setPolygonPath}
+                    checked={checked}
+                    isDisabled={isDisabled}
+                    setChecked={setChecked}
+                    setIsDisabled={setIsDisabled}
+                    polygonPath={polygonPath}
+                    handleGeofencePolygonClick={handleGeofencePolygonClick}
+                    handleGeofenceCircleClick={handleGeofenceCircleClick}
+                    isGeofence={true}
+                    selectedAssetValue={selectedAssetValue}
+                    searchData={searchData}
+                    searchSelectedData={searchSelectedData}
+                    handleSearch={handleSearch}
+                    handleListItemClick={handleListItemClick}
+                    handleDelete={handleDelete}
+                    selectedTheme={selectedTheme}
+                    geofenceName={geofenceName}
+                    setGeofenceName={setGeofenceName}
+                    isCircleEnbled={isCircleEnbled}
+                    setIsCircleEnbled={setIsCircleEnbled}
+                    isPolygonEnbled={isPolygonEnbled}
+                    setIsPolygonEnbled={setIsPolygonEnbled}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                  <Map
+                    markers={searchSelectedData}
+                    marker={""}
+                    currentMarker={""}
+                    setCurrentMarker={() => {}}
+                    focusedCategory={""}
+                    mapPageName={"Asset Tracking"}
+                    setIsMarkerClicked={() => {}}
+                    setSelectedNotification={() => {}}
+                    setNotificationPanelActive={() => {}}
+                    setTabIndex={() => {}}
+                    isDrawingEnable={isDrawingEnable}
+                    isCircleDrawing={isCircleDrawing}
+                    setCircleData={setCircleData}
+                    setCircleRadius={setCircleRadius}
+                    setCircleCenter={setCircleCenter}
+                    setPolygonPath={setPolygonPath}
+                    setPolygonData={setPolygonData}
+                    setIsCircleDrawing={setIsCircleDrawing}
+                    setIsDrawingEnable={setIsDrawingEnable}
+                    circleRadius={circleRadius}
+                    circleCenter={circleCenter}
+                    handleGeofenceCircleDrag={handleCircleDrag}
+                    setCircleRadiusUnits={setCircleRadiusUnits}
+                    circleRadiusUnits={circleRadiusUnits}
+                    polygonPath={polygonPath}
+                    // markerArray={[selectedViewDetailsData]}
+                    onCircleCompleteLocation={onCircleCompleteLocation}
+                    onPolygonCompleteLocation={onPolygonCompleteLocation}
+                    selectedTheme={selectedTheme}
+                    setMap={setMap}
+                    map={map}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <div className={buttonContainer}>
+                    <div className={cancelButtonContainer}>
+                      <Button variant="outlined" onClick={handleClose}>
+                        {assetsTracking.cancel}
+                      </Button>
+                    </div>
+                    <div className={updateButtonContainer}>
+                      <Button
+                        variant="contained"
+                        disabled={
+                          (isCircleEnbled && circleCenter === null) ||
+                          (!isCircleEnbled && polygonPath === null)
+                        }
+                        onClick={handleSaveClick}
+                      >
+                        {assetsTracking.save}
+                      </Button>
+                    </div>
                   </div>
-                  <div className={updateButtonContainer}>
-                    <Button variant="contained" onClick={handleSaveClick}>
-                      {assetsTracking.save}
-                    </Button>
-                  </div>
-                </div>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </DialogWrapper>
+        </DialogWrapper>
+      )}
     </>
   );
 };

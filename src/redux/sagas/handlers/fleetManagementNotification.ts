@@ -13,6 +13,7 @@ import {
   setLoaderOverAllAnalytics,
   hideLoaderOverAllAnalytics,
   setFleetManagementOverspeeding,
+  setFleetManagementLiveTrip,
 } from "redux/actions/fleetManagementNotificationActions";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
@@ -21,6 +22,7 @@ import {
   getTripDetailsApi,
   getAnalyticsApi,
   getOverSpeedingApi,
+  getCoordinatesApi,
 } from "../../../services/endPoints";
 // import fleetManagementResponse from "mockdata/fleetManagementAPI";
 
@@ -108,6 +110,20 @@ export function* handleFleetManagementOverspeeding(action: any): any {
     yield put(hideLoaderAnalytics());
   } catch (error) {
     yield put(hideLoaderAnalytics());
+    console.log(error);
+  }
+}
+
+export function* handleFleetManagementLiveTrip(action: any): any {
+  try {
+    const { fetchPostData } = fetchAPIServices;
+    const response = yield fetchPostData(getCoordinatesApi, action.payload);
+    if (response) {
+      yield put(setFleetManagementLiveTrip(response));
+    } else {
+      yield put(setFleetManagementLiveTrip({}));
+    }
+  } catch (error) {
     console.log(error);
   }
 }

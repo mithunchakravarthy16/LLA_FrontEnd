@@ -1,14 +1,16 @@
 import { put } from "redux-saga/effects";
-import assetOverallTrackerDetail from "mockdata/assetOverallTrackerDetails";
+// import assetOverallTrackerDetail from "mockdata/assetOverallTrackerDetails";
 import { setOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
-// import fetchAPIServices from "../../../services/fetchAPIServices";
-// import { loginApi, logoutApi } from "../../../services/endPoints";
+import fetchAPIServices from "../../../services/fetchAPIServices";
+import { getAssetOverallTrackerDetailsApi } from "../../../services/endPoints";
 
 export function* handleAssetOverallTrackerDetails(action: any): any {
   try {
-    // const { fetchPostData } = fetchAPIServices;
+    const { fetchData } = fetchAPIServices;
 
-    const response = assetOverallTrackerDetail;
+    const response = yield fetchData(
+      `${getAssetOverallTrackerDetailsApi}/${action?.payload}`
+    );
     if (response) {
       yield put(setOverallTrackerDetail(response));
     } else {

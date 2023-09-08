@@ -36,8 +36,8 @@ const Stepper: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    const data = routeDetails?.sort((a: any, b: any) => a.index - b.index);
-    setRouteData(data);
+    // const data = routeDetails?.sort((a: any, b: any) => a.index - b.index);
+    setRouteData(routeDetails);
   }, [routeDetails]);
 
   const {
@@ -62,7 +62,7 @@ const Stepper: React.FC<any> = (props) => {
               <TimelineItem>
                 <TimelineSeparator>
                   <TimelineDot>
-                    {index === 0 ? (
+                    {route?.stopSeq === 0 ? (
                       <Icon>
                         <img
                           src={routeSourceIcon}
@@ -71,7 +71,7 @@ const Stepper: React.FC<any> = (props) => {
                         />
                       </Icon>
                     ) : tripStatus !== "Live" &&
-                      index === routeData?.length - 1 ? (
+                    route?.stopSeq === routeData?.length - 1 ? (
                       <Icon>
                         <img
                           width={is4kDevice ? "40px" : "20px"}

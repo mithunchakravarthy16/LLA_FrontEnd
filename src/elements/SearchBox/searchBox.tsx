@@ -3,7 +3,9 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 //@ts-ignore
 // import SearchIcon from "@mui/icons-material/Search";
-import SearchIconImg from "../../assets/search-icon.svg";
+import SearchIconImg from "../../assets/searchIcon.svg";
+import closeIconBox from "../../assets/closeIconBox.svg";
+
 //@ts-ignore
 import CloseIcon from "@mui/icons-material/Close";
 import theme from "../../theme/theme";
@@ -126,7 +128,12 @@ const INF_SearchBox: React.FC<any> = (props) => {
                 />
               ) : (
                 // <SearchIcon></SearchIcon>
-                <CloseIcon onClick={handleClose} sx={{ fill: fontColor }} />
+                // <CloseIcon onClick={handleClose} sx={{ fill: fontColor }} />
+                <img
+                  src={closeIconBox}
+                  onClick={handleClose}
+                  style={{ fill: fontColor }}
+                />
               )}
             </IconButton>
           }

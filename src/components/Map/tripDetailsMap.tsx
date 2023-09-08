@@ -101,53 +101,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
   const [map, setMap] = useState<any>(null);
   const [zoomValue, setZoomValue] = useState<number>();
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
-  const [selectedMarker, setSelectedMarker] = useState<any>();
-  const [selectedListItemSource, setSelectedListItemSource] = useState<any>();
-  const [selectedListItemDestination, setSelectedListItemDestination] =
-    useState<any>();
-  const [progress, setProgress] = useState<any>([]);
-  let [points, setPoints] = useState<any>([]);
-  let [data, setData] = useState<any>(points);
-  const velocity: any = 50;
-  const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
     libraries: libraries,
   });
-
-  useEffect(() => {
-    if (currentMarker) {
-      const index = markers.findIndex(
-        (marker) => marker.id === currentMarker?.id
-      );
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice
-          ? 16.2
-          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-          ? 15
-          : 14
-      );
-      map?.panTo(currentMarker?.location);
-      setSelectedListItemSource(currentMarker?.source);
-      setSelectedListItemDestination(currentMarker?.destination);
-    } else {
-      setProgress([]);
-      setPoints([]);
-      setData([]);
-      setSelectedMarker("");
-      setSelectedListItemSource("");
-      setSelectedListItemDestination("");
-      map?.panTo(currentMarker?.location);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice
-          ? 16.2
-          : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-          ? 15
-          : 15
-      );
-    }
-  }, [marker, currentMarker]);
 
   const getMapTypeControls = () => {
     const defaultMapOptions = {
@@ -174,28 +132,28 @@ const TripDetailsMap: React.FC<any> = (props) => {
       case "Events": {
         switch (category) {
           case "parking":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? ParkingEventActiveIcon
               : ParkingEventIcon;
           case "energy":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? EnergyManagementEventActiveIcon
               : EnergyManagemnetEventIcon;
           case "security":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? SecurityEventActiveIcon
               : SecurityEventIcon;
           case "lighting":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? LightenEventActiveIcon
               : LighteningEventIcon;
           case "asset":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
-            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            return currentMarker?.id === id ? FleetEventIcon : FleetEventIcon;
           default:
             return ParkingEventIcon;
         }
@@ -203,28 +161,28 @@ const TripDetailsMap: React.FC<any> = (props) => {
       case "Alerts": {
         switch (category) {
           case "parking":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? ParkingAlertActiveIcon
               : ParkingAlertIcon;
           case "energy":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? EnergyManagementAlertActiveIcon
               : EnergyManagementAlertIcon;
           case "security":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? SecurityAlertActiveIcon
               : SecutiryAlertIcon;
           case "lighting":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? LightenAlertActiveIcon
               : LighteningAlertIcon;
           case "asset":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
-            return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            return currentMarker?.id === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
         }
@@ -233,28 +191,30 @@ const TripDetailsMap: React.FC<any> = (props) => {
       case "Incident": {
         switch (category) {
           case "parking":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? ParkingIncidentActiveIcon
               : ParkingIncidentIcon;
           case "energy":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? EnergyManagementIncidentActiveIcon
               : EnergyManagementIncidentIcon;
           case "security":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? SecurityIncidentActiveIcon
               : SecurityIncidentIcon;
           case "lighting":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? LightenIncidentActiveIcon
               : LighteningIncidentIcon;
           case "asset":
-            return currentMarker === id
+            return currentMarker?.id === id
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
-            return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            return currentMarker?.id === id
+              ? FleetIncidentIcon
+              : FleetIncidentIcon;
           default:
             return ParkingIncidentIcon;
         }
@@ -266,11 +226,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
 
   const getTabIndex = (type: string) => {
     switch (type) {
-      case "event":
+      case "Events":
         return 0;
-      case "incident":
+      case "Incident":
         return 1;
-      case "oprAlert":
+      case "Alerts":
         return 2;
     }
   };
@@ -298,150 +258,11 @@ const TripDetailsMap: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     map?.panTo(location?.pathname === "/home" ? defaultCenter : center);
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
-    setProgress([]);
-    setPoints([]);
-    setData([]);
-    setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
   };
 
   const handleExpandListItem = () => {
     setSelectedNotification("");
   };
-
-  useEffect(() => {
-    setProgress([]);
-    setPoints([]);
-    setData([]);
-    setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
-  }, [tabIndex]);
-
-  // Moving Marker code
-
-  const calculatePath = () => {
-    data = points.map((coordinates: any, i: any, array: any) => {
-      if (i === 0) {
-        return { ...coordinates, distance: 0 }; // it begins here!
-      }
-      const { lat: lat1, lng: lng1 } = coordinates;
-      const latLong1 = new window.google.maps.LatLng(lat1, lng1);
-
-      const { lat: lat2, lng: lng2 } = array[0];
-      const latLong2 = new window.google.maps.LatLng(lat2, lng2);
-
-      // in meters:
-      const distance =
-        window.google.maps.geometry.spherical.computeDistanceBetween(
-          latLong1,
-          latLong2
-        );
-      return { ...coordinates, distance };
-    });
-    setData(data);
-  };
-
-  const getDistance = () => {
-    const date: any = new Date();
-    const differentInTime = (date - initialDate) / 1000; // pass to seconds
-    return differentInTime * velocity; // d = v*t -- thanks Newton!
-  };
-
-  const moveObject = () => {
-    const distance = getDistance();
-    if (!distance) {
-      return;
-    }
-    let progress = data.filter(
-      (coordinates: any) => coordinates.distance < distance
-    );
-
-    const nextLine = data.find(
-      (coordinates: any) => coordinates.distance > distance
-    );
-
-    if (!nextLine) {
-      setProgress(progress);
-      // window.clearInterval(interval);
-      return; // it's the end!
-    }
-    const lastLine = progress[progress.length - 1];
-
-    const lastLineLatLng = new window.google.maps.LatLng(
-      lastLine.lat,
-      lastLine.lng
-    );
-
-    const nextLineLatLng = new window.google.maps.LatLng(
-      nextLine.lat,
-      nextLine.lng
-    );
-
-    // distance of this line
-    const totalDistance = nextLine.distance - lastLine.distance;
-    const percentage = (distance - lastLine.distance) / totalDistance;
-
-    const position = window.google.maps.geometry.spherical.interpolate(
-      lastLineLatLng,
-      nextLineLatLng,
-      percentage
-    );
-
-    const angle = window.google.maps.geometry.spherical.computeHeading(
-      lastLineLatLng,
-      nextLineLatLng
-    );
-    // const actualAngle = angle - 90;
-
-    // const marker = document.querySelector(`[src="${FleetEventIcon}"]`);
-
-    // if (marker) {
-    //   // when it hasn't loaded, it's null
-    //   marker.style.transform = `rotate(${actualAngle}deg)`;
-    // }
-    progress = progress.concat(position);
-
-    setProgress(progress);
-  };
-
-  // const fetchDirection = async () => {
-  //   if (currentMarker?.source?.lat) {
-  //     const directionService = new window.google.maps.DirectionsService();
-
-  //     const results = await directionService.route({
-  //       origin: currentMarker?.source,
-  //       destination: currentMarker?.destination,
-  //       travelMode: window.google.maps.TravelMode.DRIVING,
-  //     });
-
-  //     setPoints(JSON.parse(JSON.stringify(results?.routes[0]?.overview_path)));
-  //   }
-  // };
-
-  useEffect(() => {
-    if (dataPoints?.length > 0) {
-      calculatePath();
-    }
-  }, [dataPoints]);
-
-  useEffect(() => {
-    if (dataPoints?.length > 0) {
-      const timer = setInterval(() => {
-        moveObject();
-      }, 1000);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [data]);
-
-  // useEffect(() => {
-  //   if (currentMarker) {
-  //     fetchDirection();
-  //   }
-  // }, [currentMarker]);
 
   let lineSymbol = {
     path: "M 0,-1 0,1",
@@ -458,16 +279,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
             height: "100%",
           }}
           center={currentMarker?.location}
-          zoom={
-            selectedContainerStyle?.is4kDevice
-              ? 16.2
-              : selectedContainerStyle?.is3kDevice
-              ? 16.4
-              : selectedContainerStyle?.is4kDevice &&
-                location?.pathname !== "/home"
-              ? 15
-              : 14
-          }
+          zoom={selectedContainerStyle?.is4kDevice ? 16.2 : 10}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
@@ -503,12 +315,13 @@ const TripDetailsMap: React.FC<any> = (props) => {
                     }}
                     icon={{
                       url: routeSourceIcon,
+                      scaledSize: new window.google.maps.Size(35, 35),
                     }}
                     // title={"S"}
                     // label={`S`}
                   />
                 )}
-                {(tripStatus === "Finish" || tripStatus === "Live") && (
+                {tripStatus === "Finish" && (
                   <MarkerF
                     key={1}
                     position={{
@@ -519,49 +332,25 @@ const TripDetailsMap: React.FC<any> = (props) => {
                     }}
                     icon={{
                       url: routeDestinationIcon,
+                      scaledSize: new window.google.maps.Size(35, 35),
                     }}
                     // title={"D"}
                     // label={`D`}
                   />
                 )}
-                {/* {dataPoints &&
-                  dataPoints.length > 0 &&
-                  dataPoints.map((item: any, index: number) => (
-                    <>
-                      <MarkerF
-                        key={index}
-                        position={{
-                          lat: item?.lat,
-                          lng: item?.lng,
-                        }}
-                        icon={{
-                          url:
-                            index === 0
-                              ? routeSourceIcon
-                              : index === dataPoints.length - 1
-                              ? routeDestinationIcon
-                              : null,
-                        }}
-                        title={index}
-                        label={`${index + 1}`}
-                      />
-                    </>
-                  ))} */}
                 {(tripStatus === "Finish" || tripStatus === "Live") &&
                   dataPoints &&
-                  dataPoints?.length > 0 &&
-                  progress &&
-                  progress?.length > 0 && (
+                  dataPoints?.length > 0 && (
                     <>
                       <PolylineF
-                        path={progress}
+                        path={dataPoints[dataPoints?.length - 1]}
                         options={{
                           strokeColor: "#73B35A",
                           strokeOpacity: 10,
                           strokeWeight: 4,
                         }}
                       />
-                      {
+                      {tripStatus === "Live" && (
                         <TripDetailsMarker
                           mapMarker={currentMarker}
                           toggleInfoWindow={toggleInfoWindow}
@@ -570,13 +359,13 @@ const TripDetailsMap: React.FC<any> = (props) => {
                           getMarkerIcon={getMarkerIcon}
                           currentMarker={currentMarker}
                           focusedCategory={focusedCategory}
-                          location={progress[progress.length - 1]}
+                          location={dataPoints[dataPoints?.length - 1]}
                           direction={"NE"}
                           pageName={""}
                           handleViewDetails={handleViewDetails}
                           handleVideoDetails={handleVideoDetails}
                         />
-                      }
+                      )}
                     </>
                   )}
               </div>

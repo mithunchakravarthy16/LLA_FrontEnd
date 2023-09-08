@@ -216,6 +216,7 @@ const useStyles = makeStyles({
   liveContentValue: (props: any) => ({
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     fontSize: "1.2vw",
+    // lineHeight : "1vw",
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 36,
       lineHeight: "52px",
@@ -297,34 +298,34 @@ const useStyles = makeStyles({
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     textTranform: "uppercase",
-    [muiTheme.breakpoints.up(3839)]: {
-      // fontSize: 20,
-      // lineHeight: "52px",
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      // fontSize: 16,
-      // lineHeight: "35px",
-    },
-    [muiTheme.breakpoints.down(2561)]: {
-      // fontSize: 18,
-      // lineHeight: "30px",
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      // fontSize: 12,
-      // lineHeight: "32px",
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      // fontSize: 10,
-      // lineHeight: "26px",
-    },
-    [muiTheme.breakpoints.down(1537)]: {
-      // fontSize: 8,
-      // lineHeight: "24px",
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      // fontSize: 5,
-      // lineHeight: "18px",
-    },
+    // [muiTheme.breakpoints.up(3839)]: {
+    //   fontSize: 20,
+    //   lineHeight: "52px",
+    // },
+    // [muiTheme.breakpoints.down(3073)]: {
+    //   fontSize: 16,
+    //   lineHeight: "35px",
+    // },
+    // [muiTheme.breakpoints.down(2561)]: {
+    //   fontSize: 18,
+    //   lineHeight: "30px",
+    // },
+    // [muiTheme.breakpoints.down(2049)]: {
+    //   fontSize: 12,
+    //   lineHeight: "32px",
+    // },
+    // [muiTheme.breakpoints.down(1921)]: {
+    //   fontSize: 10,
+    //   lineHeight: "26px",
+    // },
+    // [muiTheme.breakpoints.down(1537)]: {
+    //   fontSize: 8,
+    //   lineHeight: "24px",
+    // },
+    // [muiTheme.breakpoints.down(1153)]: {
+    //   fontSize: 5,
+    //   lineHeight: "18px",
+    // },
   }),
 
   liveContentLabelGreen: (props: any) => ({

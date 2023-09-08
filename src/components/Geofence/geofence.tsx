@@ -63,12 +63,15 @@ const Geofence: React.FC<any> = (props: any) => {
     searchData,
     searchSelectedData,
     selectedTheme,
+    geofenceName,
+    setGeofenceName,
+    isCircleEnbled,
+    setIsCircleEnbled,
+    isPolygonEnbled,
+    setIsPolygonEnbled,
   } = props;
 
-  const [isCircleEnbled, setIsCircleEnbled] = useState<boolean>(false);
-  const [isPolygonEnbled, setIsPolygonEnbled] = useState<boolean>(false);
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
-  const [geofenceName, setGeofenceName] = useState<any>();
 
   const {
     customCheckbox,
@@ -156,14 +159,17 @@ const Geofence: React.FC<any> = (props: any) => {
 
   const handleRadiusChange = (e: any) => {
     setCircleRadius(Number(e.target.value));
+    props.handleCircleLatChange();
   };
 
   const handleCircleLatChange = (e: any) => {
     setCircleCenter({ ...circleCenter, lat: Number(e.target.value) });
+    props.handleCircleLatChange();
   };
 
   const handleCircleLngChange = (e: any) => {
     setCircleCenter({ ...circleCenter, lng: Number(e.target.value) });
+    props.handleCircleLatChange();
   };
 
   const handleGeofenceNameChange = (e: any) => {
@@ -175,57 +181,6 @@ const Geofence: React.FC<any> = (props: any) => {
     setIsDisabled(event.target.checked);
     setIsDrawingEnable(event.target.checked);
   };
-
-  // const handleCancelClick = () => {
-  //   setCircleRadius(isPreviousRadius);
-  //   setGeofenceName(isPreviousName);
-  //   if (geoFenceType === "Circular") {
-  //     setPolygonPath(null);
-  //     setCircleCenter(isPreviousCircleCenter);
-  //     setIsCircleEnbled(true);
-  //     setIsPolygonEnbled(false);
-  //   } else {
-  //     setPolygonPath(isPreviousPolygonPaths);
-  //     setCircleCenter(null);
-  //     setIsCircleEnbled(false);
-  //     setIsPolygonEnbled(true);
-  //   }
-  //   setIsOutsideGeofenceChecked(isPreviousOutsideGeofenceChecked);
-  //   setIsBackGeofenceChecked(isPreviousBackGeofenceChecked);
-  //   setIsDisabled(true);
-  //   props.handleCancelClick();
-  // };
-
-  // const handleUpdateClick = () => {
-  //   setIsDisabled(true);
-  //   setIsPolygonEnbled(false);
-  //   props.handleUpdateClick();
-  //   let data = JSON.parse(localStorage.getItem("dashboardViewDetails") || "{}");
-
-  //   data?.map((item: any) => {
-  //     for (let i = 0; i < item[selectedItem?.type].length; i++) {
-  //       if (item[selectedItem?.type][i]["id"] === selectedItem?.id) {
-  //         item[selectedItem?.type][i]["geoFence"].backToGeofence =
-  //           isBackGeofenceChecked;
-  //         item[selectedItem?.type][i]["geoFence"].outsideGeofence =
-  //           isOutsideGeofenceChecked;
-  //         item[selectedItem?.type][i]["geoFence"].name = geoFenceName;
-  //         item[selectedItem?.type][i]["geoFence"].type =
-  //           circleRadius !== null ? "Circular" : "Polygon";
-  //         item[selectedItem?.type][i]["geoFence"].radius = circleRadius;
-  //         if (circleRadius !== null) {
-  //           item[selectedItem?.type][i]["geoFence"].coOrdinates = [
-  //             circleCenter,
-  //           ];
-  //         } else {
-  //           item[selectedItem?.type][i]["geoFence"].coOrdinates = polygonPath;
-  //         }
-  //       }
-  //     }
-  //   });
-
-  //   localStorage.setItem("dashboardViewDetails", JSON.stringify(data));
-  // };
 
   const MuiSwitchLarge = styled(Switch)(() => ({
     width: 42,
@@ -272,6 +227,7 @@ const Geofence: React.FC<any> = (props: any) => {
       },
     },
   }));
+
   return (
     <>
       <div className={isGeofence ? mainGeofenceContainer : mainContainer}>
@@ -299,7 +255,8 @@ const Geofence: React.FC<any> = (props: any) => {
             </div>
             {selectedAssetValue?.length > 0 && (
               <div
-                className={searchData?.length > 1 ? assetsList : assetsLists}>
+                className={searchData?.length > 1 ? assetsList : assetsLists}
+              >
                 {searchData?.length > 0 ? (
                   searchData?.map((item: any, idx: number) => {
                     return (
@@ -307,7 +264,8 @@ const Geofence: React.FC<any> = (props: any) => {
                         key={idx}
                         component="div"
                         disablePadding
-                        onClick={(e: any) => handleListItemClick(e, item)}>
+                        onClick={(e: any) => handleListItemClick(e, item)}
+                      >
                         <ListItemButton>
                           <ListItemText primary={item?.value} />
                         </ListItemButton>
@@ -333,7 +291,7 @@ const Geofence: React.FC<any> = (props: any) => {
                       <div style={{ padding: "0.2vw" }}>
                         <Chip
                           label={data.label}
-                          onDelete={handleDelete(data?.key)}
+                          onDelete={handleDelete(data)}
                         />
                       </div>
                     );
@@ -350,7 +308,8 @@ const Geofence: React.FC<any> = (props: any) => {
             <div>
               <div
                 className={geofenceCircleType}
-                onClick={isDisabled ? handleCircleClick : () => null}>
+                onClick={isDisabled ? handleCircleClick : () => null}
+              >
                 <img
                   src={
                     !isCircleEnbled
@@ -368,7 +327,8 @@ const Geofence: React.FC<any> = (props: any) => {
             <div className={polygonContainer}>
               <div
                 className={polygonImage}
-                onClick={isDisabled ? handlePolygonClick : () => null}>
+                onClick={isDisabled ? handlePolygonClick : () => null}
+              >
                 <img
                   src={
                     !isPolygonEnbled
@@ -431,7 +391,7 @@ const Geofence: React.FC<any> = (props: any) => {
               <div className={geofenceType}>Geofence Radius</div>
               <div className={customTextField}>
                 <TextField
-                  value={radius}
+                  value={circleRadius}
                   type={"number"}
                   disabled={!isDisabled}
                   onChange={handleRadiusChange}

@@ -242,32 +242,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         />
                       </Grid>
                     </Grid>
-                    {/* <Grid container xs={12} justifyContent="space-between">
-                          <Grid item xs={6}>
-                            <CustomizableProgressBar
-                              innerHeading={"75%"}
-                              progressValue={75}
-                              radius={70}
-                              strockColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveStrockColor1} //"#688F40"
-                              trackStrokeColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveTrackStrokeColor1} //"#FFFFFF10"
-                              subTitle={"Avg. Driving Score"}
-                              strokeWidth={18}
-                              trackStrokeWidth={18}
-                            />
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CustomizableProgressBar
-                              innerHeading={"50%"}
-                              progressValue={50}
-                              radius={70}
-                              strockColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveStrockColor2} //"#3A9479"
-                              trackStrokeColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFiveTrackStrokeColor2} //"#FFFFFF10"
-                              subTitle={"Vehicle Active"}
-                              strokeWidth={18}
-                              trackStrokeWidth={18}
-                            />
-                          </Grid>
-                        </Grid> */}
+
                   </Grid>
 
                   <Grid item xs={12}>
@@ -285,7 +260,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             ? fleetManagementResponse?.data?.liveVehicle
                             : 0}
                         </div>
-                        <div className={liveContentLabel}>
+                        <div className={liveContentLabel} style={{textTransform : "uppercase"}}>
                           {gridView.vehicles}
                         </div>
                       </div>
@@ -295,7 +270,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             ? fleetManagementResponse?.data?.completedTripCount
                             : 0}
                         </div>
-                        <div className={liveContentLabel}>{gridView.trips}</div>
+                        <div className={liveContentLabel} style={{textTransform : "uppercase"}}>{gridView.trips}</div>
                       </div>
                     </div>
                   </Grid>
@@ -378,6 +353,19 @@ const GridViewScreenFive: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </Grid>
+           {/* <Grid
+            item
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              width: "100%",
+              fontSize : "1vw"
+            }}
+          >
+            Development In Progress...
+          </Grid> */}
         </Grid>
       </Grid>
     </>

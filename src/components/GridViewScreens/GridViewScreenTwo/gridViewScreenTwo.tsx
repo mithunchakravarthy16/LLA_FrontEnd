@@ -169,24 +169,6 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
           <Grid item xs={12} className={containerTitle}>
             {dashboard.energyManagement}
           </Grid>
-          {/* <Grid item xs={12}>
-            <div className={horizantalDataGridStyle}>
-              <div className={engMgntliveContentLeftStyle}>
-                <div className={horizantalDataGridValueStyle}>300kWh</div>
-                <div className={horizantalDataGridLabelStyle}>
-                  Energy Consumption
-                </div>
-              </div>
-              <div className={engMgntliveContentMiddleStyle}>
-                <div className={horizantalDataGridValueStyle}>30%</div>
-                <div className={horizantalDataGridLabelStyle}>Energy Saved</div>
-              </div>
-              <div className={engMgntliveContentStyle}>
-                <div className={horizantalDataGridValueStyle}>$500</div>
-                <div className={horizantalDataGridLabelStyle}>Cost Saved</div>
-              </div>
-            </div>
-          </Grid> */}
           <Grid item xs={12} className={subContainer}>
             <Grid container xs={12} className={childSubContainer}>
               <Grid item xs={9} className={childSubContainer}>
@@ -360,6 +342,19 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </Grid>
+          {/* <Grid
+            item
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "90%",
+              width: "100%",
+              fontSize : "1vw"
+            }}
+          >
+            Development In Progress...
+          </Grid> */}
         </Grid>
       </Grid>
     </>

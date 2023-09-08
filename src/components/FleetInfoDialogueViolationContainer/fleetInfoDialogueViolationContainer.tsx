@@ -3,6 +3,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import theme from "../../theme/theme";
+import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
 const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
@@ -30,7 +31,10 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
     violationHeading,
     listItemTitle,
     listItemDescription,
+    noResultFoundClass,
   } = useStyles(appTheme);
+
+  const { noRecordFound } = useTranslation();
 
   return (
     <>
@@ -40,8 +44,7 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
         </Grid>
         <Grid item xs={12} className={violationListContainer}>
           <Grid container xs={12} rowGap={1.5} style={{ paddingRight: "2%" }}>
-            {violationListItems &&
-              violationListItems?.length > 0 &&
+            {violationListItems && violationListItems?.length > 0 ? (
               violationListItems?.map((item: any) => (
                 <Grid
                   item
@@ -64,7 +67,10 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
                     item?.driverName ? item?.driverName : ""
                   }`}</div>
                 </Grid>
-              ))}
+              ))
+            ) : (
+              <div className={noResultFoundClass}>{noRecordFound}</div>
+            )}
           </Grid>
         </Grid>
       </Grid>

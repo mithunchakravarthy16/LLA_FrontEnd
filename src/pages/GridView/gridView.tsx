@@ -18,9 +18,14 @@ import {
   setFleetManagementOverAllTripDetails,
 } from "redux/actions/fleetManagementNotificationActions";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
+import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 
 const GridView: React.FC<any> = (props) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+  }, []);
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -28,6 +33,11 @@ const GridView: React.FC<any> = (props) => {
 
   const loaderFleetManagementNotification = useSelector(
     (state: any) => state?.fleetManagementNotification?.loadingAnalytics
+  );
+
+  const loaderAssetTrackingGridViewAnalytics = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics.loadingOverAllAnalytics
   );
 
   const fleetManagementResponse = useSelector(
@@ -177,9 +187,8 @@ const GridView: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {loaderFleetManagementNotification ? (
-        <Loader isHundredVh={true} />
-      ) : (
+      {!loaderAssetTrackingGridViewAnalytics &&
+      !loaderFleetManagementNotification ? (
         <div className={rootContainer}>
           <Grid container className={mainSection}>
             {/* Gride 1 */}
@@ -190,24 +199,28 @@ const GridView: React.FC<any> = (props) => {
 
             {/* Grid 2 */}
             <GridViewScreenTwo
+              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 3 */}
             <GridViewScreenThree
+              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 4 */}
             <GridViewScreenFour
+              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 5 */}
             <GridViewScreenFive
+              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
               fleetManagementResponse={fleetManagementResponse}
@@ -220,6 +233,8 @@ const GridView: React.FC<any> = (props) => {
             />
           </Grid>
         </div>
+      ) : (
+        <Loader isHundredVh={true} />
       )}
     </>
   );

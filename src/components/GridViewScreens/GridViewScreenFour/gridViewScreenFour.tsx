@@ -199,16 +199,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                         />
                       </Grid>
                     </Grid>
-                    {/* <CustomizableProgressBar
-                      innerHeading={"80%"}
-                      innerSubHeading={"Wifi Users"}
-                      progressValue={80}
-                      radius={90}
-                      strockColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFourStrockColor} //"#3D9B7F"
-                      trackStrokeColor={appTheme?.palette?.gridViewComponentGraphsColor?.screenFourTrackStrokeColor} //"#FFFFFF10"
-                      strokeWidth={18}
-                      trackStrokeWidth={18}
-                    /> */}
+                   
                   </Grid>
                   <Grid item xs={12}>
                     <Grid
@@ -228,7 +219,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               : "15px",
                             backgroundColor:
                               appTheme?.palette?.gridViewComponentCommonStyle
-                                ?.lightingGridProgressBarTrackBase, // "#484D52",
+                                ?.lightingGridProgressBarTrackBase, 
                             borderRadius: selectedWidth?.is4kDevice
                               ? "20px"
                               : "7.5px",
@@ -240,7 +231,7 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                               backgroundColor: "#FFA626",
                               borderRadius: "7.5px",
                               width:
-                                "60%" /* Adjust this value to set the initial progress */,
+                                "60%",
                               transition: `width 0.3s ease-in-out`,
                             }}></div>
                         </div>
@@ -344,6 +335,19 @@ const GridViewScreenFour: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </Grid>
+          {/* <Grid
+            item
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "90%",
+              width: "100%",
+              fontSize : "1vw"
+            }}
+          >
+            Development In Progress...
+          </Grid> */}
         </Grid>
       </Grid>
     </>

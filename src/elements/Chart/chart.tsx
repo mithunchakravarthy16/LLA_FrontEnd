@@ -64,7 +64,7 @@ const Chart: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    if (pageName === "FleetManagement") {
+    if (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") {
       dataPoints?.length > 0 &&
         dataPoints?.every((item: any) => {
           setIsEveryYAxisValuesAreZero(
@@ -265,10 +265,10 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          endOnTick: true,
+          // endOnTick: true,
           categories: xAxisArray
             ? xAxisArray
-            : pageName !== "FleetManagement" && lastTwntyTwoHours,
+            : pageName !== "assetTracking" && pageName !== "FleetManagement" && lastTwntyTwoHours,
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
@@ -276,19 +276,50 @@ const Chart: React.FC<any> = (props) => {
                 (is4kDevice && location.pathname === "/lighting")
                 ? 8
                 : pageName === "assetTracking"
-                ? tickInterval
+                ? selectedValue === "Today"
+                ? 5 * 3600 * 1000
+                : selectedValue === "Year"
+                ? 70 * 24 * 3600 * 1000
+                : selectedValue === "Month"
+                ? 5 * 24 * 3600 * 1000
+                : 30 * 3600 * 1000
+                : pageName === "assetTrackingGridView" ?
+                selectedValue === "Today"
+                ? 5 * 3600 * 1000
+                : selectedValue === "Year"
+                ? 70 * 24 * 3600 * 1000
+                : selectedValue === "Month"
+                ? 5 * 24 * 3600 * 1000
+                : 30 * 3600 * 1000
                 : 12
               : tickInterval
               ? tickInterval
-              : pageName !== "FleetManagement"
+              : pageName !== "FleetManagement" && pageName !== "assetTracking" &&  pageName !== "assetTrackingGridView"
               ? 8
-              : selectedValue === "Today"
-              ? 6 * 3600 * 1000
+              : pageName === "FleetManagement" ? selectedValue === "Today"
+              ? 8 * 3600 * 1000
               : selectedValue === "Year"
               ? 90 * 24 * 3600 * 1000
               : selectedValue === "Month"
               ? 5 * 24 * 3600 * 1000
-              : 40 * 3600 * 1000,
+              : 40 * 3600 * 1000
+              : pageName === "assetTracking" ?
+              selectedValue === "Today"
+              ? 5 * 3600 * 1000
+              : selectedValue === "Year"
+              ? 70 * 24 * 3600 * 1000
+              : selectedValue === "Month"
+              ? 5 * 24 * 3600 * 1000
+              : 30 * 3600 * 1000
+              : pageName === "assetTrackingGridView" ?
+              selectedValue === "Today"
+              ? 5 * 3600 * 1000
+              : selectedValue === "Year"
+              ? 70 * 24 * 3600 * 1000
+              : selectedValue === "Month"
+              ? 5 * 24 * 3600 * 1000
+              : 30 * 3600 * 1000
+              : 8,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -297,24 +328,25 @@ const Chart: React.FC<any> = (props) => {
             snap: isCrosshair,
           },
           type:
-            (pageName === "assetTracking" || pageName === "FleetManagement") &&
+            (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") &&
             "datetime",
           labels: {
             allowOverlap: false,
             formatter:
-              pageName === "FleetManagement" &&
+             (pageName === "FleetManagement" || pageName === "assetTracking" || pageName === "assetTrackingGridView") &&
               function (this: any) {
                 const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
-                return convertedTime.format(
-                  formatGraph
-                    ? formatGraph
-                    : pageName === "FleetManagement" &&
-                      selectedValue === "Today"
-                    ? "HH:mm"
-                    : selectedValue === "Year"
-                    ? "MMM/YY"
-                    : "MM/DD"
-                );
+                if (selectedValue === "Today") {
+                  return Highcharts.dateFormat("%I:%M %p", this.value);
+                } else {
+                  return convertedTime.format(
+                    formatGraph
+                      ? formatGraph
+                      : selectedValue === "Year"
+                      ? "MMM/YY"
+                      : "MM/DD"
+                  );
+                }
               },
 
             useHTML: true,
@@ -322,16 +354,16 @@ const Chart: React.FC<any> = (props) => {
             overflow: "justify",
             format: formatGraph
               ? formatGraph
-              : pageName === "FleetManagement" && selectedValue === "Today"
+              : (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && selectedValue === "Today"
               ? "{value:%H:00}"
               : selectedValue === "Year"
               ? "{value:%b}"
               : "{value:%m/%e}",
             style: {
               fontSize: "0.65vw",
-              fontWeight: 500,
               textOverflow: "none",
               autoRotation: false,
+              fontWeight: 500,
               color: appTheme?.palette?.chart?.xAxisTextColor,
             },
           },
@@ -381,7 +413,7 @@ const Chart: React.FC<any> = (props) => {
         yAxis: {
           visible: false,
           max:
-            pageName === "FleetManagement" && isEveryYAxisValuesAreZero
+          (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && isEveryYAxisValuesAreZero
               ? 100
               : undefined,
         },

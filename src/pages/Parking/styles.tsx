@@ -568,6 +568,7 @@ const useStyles = makeStyles({
     fontSize: "1vw",
     fontWeight: 500,
     color: props?.palette?.parkingPage?.topPanelTextColor,
+    lineHeight: "1vw",
     [muiTheme.breakpoints.up(3839)]: {
       // fontSize: 30,
       lineHeight: "56px",
@@ -664,7 +665,7 @@ const useStyles = makeStyles({
   }),
 
   liveContentLabel: (props: any) => ({
-    fontSize: "0.7vw",
+    fontSize: "0.8vw",
     fontWeight: 500,
     color: props?.palette?.parkingPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {

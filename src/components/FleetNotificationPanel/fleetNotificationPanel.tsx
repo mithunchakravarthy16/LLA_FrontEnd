@@ -1,21 +1,19 @@
 /** @format */
 
-import { useState, useEffect, createRef } from "react";
+import { useState, useEffect, createRef, useCallback } from "react";
+import FleetNotificationListItems from "components/FleetNotificationListItems";
 import Tabs from "elements/Tabs";
-import NotificationListItems from "components/NotificationListItems";
 import SearchBox from "elements/SearchBox";
 import SearchIcon from "../../assets/searchIcon.svg";
 import SearchIconLighttheme from "../../assets/searchIconLighttheme.svg";
-import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconLightTheme1.svg";
+import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconLightTheme.svg";
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
-
 import useStyles from "./styles";
 
-const NotificationPanel = (props: any) => {
+const FleetNotificationPanel = (props: any) => {
   const {
-    setNotificationPanelActive,
     dashboardData,
     tabIndex,
     setTabIndex,
@@ -26,10 +24,7 @@ const NotificationPanel = (props: any) => {
     setSearchOpen,
     searchValue,
     setSearchValue,
-    setCurrentMarker,
     notificationPageName,
-    setParkingLotIndex,
-    setParkingLotSelectionActive,
     isMarkerClicked,
     handleViewDetails,
     handleAssetViewDetails,
@@ -38,9 +33,6 @@ const NotificationPanel = (props: any) => {
     selectedTheme,
   } = props;
 
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
   const [appTheme, setAppTheme] = useState<any>();
 
   useEffect(() => {
@@ -84,17 +76,6 @@ const NotificationPanel = (props: any) => {
     noResultFound,
   } = useTranslation();
 
-  const [selectedRefId, setSelectedRefId] = useState("");
-
-  const handleNotificationCloseIcon = () => {
-    setNotificationPanelActive(false);
-    setSearchOpen(false);
-    setTabIndex(1);
-    setCurrentMarker("");
-    setSelectedNotification("");
-    setSearchValue(dashboardData);
-  };
-
   const tabsList = [
     {
       name: eventText,
@@ -129,20 +110,8 @@ const NotificationPanel = (props: any) => {
     // setSelectedRefId("");
   };
 
-  const handleExpandListItem = (id: any) => {
-    setSelectedNotification(selectedNotification === id ? "" : id);
-    if (notificationPageName && notificationPageName === "parking") {
-      setParkingLotIndex(0);
-      setParkingLotSelectionActive(false);
-    }
-    props.handleExpandListItem(id);
-  };
-
   const handleSearchIcon = () => {
     setSearchOpen(true);
-    if (notificationPageName && notificationPageName === "parking") {
-      setParkingLotSelectionActive(false);
-    }
   };
 
   const handleSearch = (searchText: any) => {
@@ -199,6 +168,11 @@ const NotificationPanel = (props: any) => {
     setSelectedNotification("");
   };
 
+  const handleExpandListItem = useCallback((param: any) => {
+    setSelectedNotification(selectedNotification === param ? "" : param);
+    props.handleExpandListItem(param);
+  }, []);
+
   const refs =
     searchValue && searchValue.length > 0
       ? searchValue.reduce((acc: any, value: any) => {
@@ -208,10 +182,10 @@ const NotificationPanel = (props: any) => {
       : "";
 
   useEffect(() => {
-    if ((selectedNotification || selectedRefId) && refs) {
+    if (selectedNotification && refs) {
       setTimeout(() => {
         refs[
-          selectedNotification ? selectedNotification : selectedRefId
+          selectedNotification ? selectedNotification : ""
         ]?.current?.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
@@ -225,7 +199,7 @@ const NotificationPanel = (props: any) => {
         });
       }, 300);
     }
-  }, [refs, selectedRefId, selectedNotification]);
+  }, [refs, selectedNotification]);
 
   useEffect(() => {
     if (!searchOpen) {
@@ -292,13 +266,6 @@ const NotificationPanel = (props: any) => {
               alt="Search"
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
-            {/* <img
-              className={notificationCloseIcon}
-              src={CloseIcon}
-              alt="Close"
-              width={20}
-              onClick={handleNotificationCloseIcon}
-            /> */}
           </div>
         </div>
         <div className={tabSection}>
@@ -312,22 +279,17 @@ const NotificationPanel = (props: any) => {
         </div>
         <div className={notificationListItemSection}>
           {searchValue && searchValue?.length > 0 ? (
-            searchValue?.map((data: any, index: any) => {
-              return (
-                <NotificationListItems
-                  data={data}
-                  key={index}
-                  handleExpandListItem={handleExpandListItem}
-                  selectedNotification={selectedNotification}
-                  refs={refs}
-                  handleViewDetails={handleViewDetails}
-                  handleAssetViewDetails={handleAssetViewDetails}
-                  handleVideoDetails={handleVideoDetails}
-                  notificationPageName={notificationPageName}
-                  selectedTheme={selectedTheme}
-                />
-              );
-            })
+            <FleetNotificationListItems
+              data={searchValue}
+              handleExpandListItem={handleExpandListItem}
+              selectedNotification={selectedNotification}
+              refs={refs}
+              handleViewDetails={handleViewDetails}
+              handleAssetViewDetails={handleAssetViewDetails}
+              handleVideoDetails={handleVideoDetails}
+              notificationPageName={notificationPageName}
+              selectedTheme={selectedTheme}
+            />
           ) : (
             <div className={noResultFoundClass}>{noResultFound}</div>
           )}
@@ -337,4 +299,4 @@ const NotificationPanel = (props: any) => {
   );
 };
 
-export default NotificationPanel;
+export default FleetNotificationPanel;

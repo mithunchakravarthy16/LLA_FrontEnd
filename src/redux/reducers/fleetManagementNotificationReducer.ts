@@ -6,6 +6,7 @@ const initialState = {
   fleetManagementOverAllTripDetailsData: {},
   fleetManagementAnalyticsData: {},
   fleetManagementOverspeeding: {},
+  fleetManagementLiveTrip: {},
 };
 
 export default (state = initialState, action: any) => {
@@ -41,6 +42,9 @@ export default (state = initialState, action: any) => {
     case fleetManagementNotification.SET_FLEET_MANAGEMENT_OVER_SPEEDING:
       const { fleetManagementOverspeeding } = action;
       return { ...state, fleetManagementOverspeeding };
+    case fleetManagementNotification.SET_FLEET_MANAGEMENT_LIVE_TRIP:
+      const { fleetManagementLiveTrip } = action;
+      return { ...state, fleetManagementLiveTrip };
     default:
       return state;
   }

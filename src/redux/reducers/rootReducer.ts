@@ -11,6 +11,7 @@ import assetTrackerDetailReducer from "./getAssetTrackerDetailReducer";
 import createGeofenceReducer from "./createGeofenceReducer";
 import updateGeofenceReducer from "./updateGeofenceReducer";
 import enableGeofenceReducer from "./enableGeofenceReducer";
+import assetTrackingActiveInActiveAnalyticsReducer from "./assetTrackingActiveInActiveAnalyticsReducer"
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -24,7 +25,9 @@ const rootReducer = combineReducers({
   assetTracker:assetTrackerDetailReducer,
   createGeofence : createGeofenceReducer,
   updateGeofence: updateGeofenceReducer,
-  enableGeofence : enableGeofenceReducer
+  enableGeofence : enableGeofenceReducer,
+  assetTrackingActiveInActiveAnalytics: assetTrackingActiveInActiveAnalyticsReducer,
+
 });
 
 export default rootReducer;

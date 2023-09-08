@@ -29,13 +29,32 @@ const SUB_URL = {
   adminPanelSaveUrl: apiSource.llaAdmin + "/saveconfiguration",
   adminPanelGetUrl: apiSource.llaAdmin + "/getConfigurationDetail",
   adminPanelCancelUrl: apiSource.llaAdmin + "/cancelPreviewConfiguration",
+  // FleetManagemet Api's -- Start
   getFleetNotificationsUrl:
     "/api/sensyon/fleet_notification/v1/getAllFleetNotification",
   getOverAllTripDetailsUrl: "/api/sensyon/trips/v1/getOverallTripDetail",
-  getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
+  getTripCordinatesUrl: "/api/sensyon/trips/v1/getCoordinates",
   getAnalyticsUrl: "/api/sensyon/analytics/v1/getTripAnalytics",
+  getAssetActiveInactiveAnalyticsUrl:
+    "/api/sensyon/asset_analytics/v1/getActiveInactiveTrackerCount",
+  getAssetIncidentsAnalyticsUrl:
+    "/api/sensyon/asset_notification/v1/getAllIncidentCountAnalytics",
   getOverSpeedingUrl:
     "/api/sensyon/analytics/v1/getOverSpeedHarshBreakingAnalytics",
+  getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
+  getAssetNotificationUrl:
+    "/api/sensyon/asset_notification/v1/getAllAssertNotification",
+  getTrackerDetailUrl: "/api/sensyon/tracker/v1/getTrackerdetail",
+  getAssetOverallTrackerDetailsUrl:
+    "/api/sensyon/tracker/v1/getOverAllTrackerdetail",
+  // FleetManagemet Api's -- End
+  // Asset Tracking Api's -- Start
+  createGeofenceUrl: "/api/sensyon/geofence/creategeofence",
+  updateGeofenceUrl: "/api/sensyon/geofence/updategeofence",
+  getAssetListUrl: "/api/sensyon/tracker/v1/getAssetList",
+  getAssetGridViewAnalyticsUrl:
+    "/api/sensyon/asset_analytics/v1/getAssetAnalytics",
+  // Asset Tracking Api's -- End
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -48,3 +67,13 @@ export const getOverAllTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getOverAll
 export const getTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getTripDetailsUrl}`;
 export const getAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAnalyticsUrl}`;
 export const getOverSpeedingApi = `${BASE_URL.baseUrl}${SUB_URL.getOverSpeedingUrl}`;
+export const getCoordinatesApi = `${BASE_URL.baseUrl}${SUB_URL.getTripCordinatesUrl}`;
+export const getAssetActiveInactiveAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetActiveInactiveAnalyticsUrl}`;
+export const getAssetIncidentsAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetIncidentsAnalyticsUrl}`;
+export const createGeofenceApi = `${BASE_URL.baseUrl}${SUB_URL.createGeofenceUrl}`;
+export const updateGeofenceApi = `${BASE_URL.baseUrl}${SUB_URL.updateGeofenceUrl}`;
+export const getAssetListApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetListUrl}`;
+export const getAssetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetNotificationUrl}`;
+export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailUrl}`;
+export const getAssetOverallTrackerDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetOverallTrackerDetailsUrl}`;
+export const getAssetGridViewAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetGridViewAnalyticsUrl}`;

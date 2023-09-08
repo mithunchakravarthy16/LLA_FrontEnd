@@ -180,34 +180,34 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       });
       setPoints(data);
     }
-    const updatedArray: any = [];
-    fleetManagementTripDetailsResponse?.data?.routeDtos?.forEach(
-      async (item: any, index: number) => {
-        let address: any = "";
-        const geocoder: any = new window.google.maps.Geocoder();
-        const location1: any = new window.google.maps.LatLng(
-          item?.location?.lat,
-          item?.location?.lng
-        );
-        await geocoder.geocode(
-          { latLng: location1 },
-          (results: any, status: any) => {
-            if (status === "OK" && results[0]) {
-              address = results[0].formatted_address;
-            } else {
-              console.error("Geocode failure: " + status);
-              return false;
-            }
-            updatedArray.push({
-              ...item,
-              index: index,
-              area: address,
-            });
-          }
-        );
-        setRoutes([...updatedArray]);
-      }
-    );
+    // const updatedArray: any = [];
+    // fleetManagementTripDetailsResponse?.data?.routeDtos?.forEach(
+    //   async (item: any, index: number) => {
+    //     let address: any = "";
+    //     const geocoder: any = new window.google.maps.Geocoder();
+    //     const location1: any = new window.google.maps.LatLng(
+    //       item?.location?.lat,
+    //       item?.location?.lng
+    //     );
+    //     await geocoder.geocode(
+    //       { latLng: location1 },
+    //       (results: any, status: any) => {
+    //         if (status === "OK" && results[0]) {
+    //           address = results[0].formatted_address;
+    //         } else {
+    //           console.error("Geocode failure: " + status);
+    //           return false;
+    //         }
+    //         updatedArray.push({
+    //           ...item,
+    //           index: index,
+    //           area: address,
+    //         });
+    //       }
+    //     );
+    //     setRoutes([...updatedArray]);
+    //   }
+    // );
 
     if (fleetManagementTripDetailsResponse?.data?.totalTime) {
       if (
@@ -230,9 +230,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const [open, setOpen] = useState(!false);
 
   useEffect(() => {
-    dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
-    setSuccess(false);
-  }, []);
+    if (selectedMarkerLocation?.tripStatus !== "Live") {
+      dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
+      setSuccess(false);
+    }
+  }, [selectedMarkerLocation]);
 
   useEffect(() => {
     if (tabIndex === 2) {
@@ -474,8 +476,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? `${
               fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.currentTripFuelConsumption
-                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
-                    ?.currentTripFuelConsumption
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail?.currentTripFuelConsumption?.toFixed(
+                    2
+                  )
                 : 0
             }Gal`
           : `${
@@ -683,7 +686,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         </Snackbar>
       )}
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        {loader ? (
+        {selectedMarkerLocation?.tripStatus !== "Live" && loader ? (
           <Loader />
         ) : (
           <>
@@ -783,7 +786,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                     }}
                   >
                     <Stepper
-                      routeDetails={routes}
+                      routeDetails={
+                        fleetManagementTripDetailsResponse?.data?.routeDtos
+                      }
                       tripStatus={
                         fleetManagementTripDetailsResponse?.data?.tripStatus
                       }
