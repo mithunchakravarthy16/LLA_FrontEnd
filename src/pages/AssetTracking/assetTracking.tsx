@@ -265,7 +265,6 @@ const AssetTracking: React.FC<any> = (props) => {
 
   // console.log("createGeofence", createGeofence)
   // console.log("updateGeofence", updateGeofence)
-  // console.log("enableGeofence", enableGeofence)
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
