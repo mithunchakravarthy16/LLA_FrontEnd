@@ -179,7 +179,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
       });
 
       setInfoNotificationList(combinedNotifications);
-
     }
   }, [assetTrackerDetails]);
 
@@ -470,7 +469,44 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     map?.setZoom(15);
   };
 
-  const handleResetClick = () => {};
+  const handleResetClick = () => {
+    if (assetTrackerDetails?.geofenceResponseDTO) {
+      setChecked(assetTrackerDetails?.geofenceResponseDTO?.enabledGeofence);
+      if (
+        assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Circular"
+      ) {
+        setIsCircleEnbled(
+          assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Circular"
+        );
+        setCircleCenter(
+          assetTrackerDetails?.geofenceResponseDTO?.location &&
+            assetTrackerDetails?.geofenceResponseDTO?.location[0]
+        );
+        setCircleRadius(assetTrackerDetails?.geofenceResponseDTO?.radius);
+        setPolygonPath(null);
+        setIsPolygonEnbled(false);
+      } else if (
+        assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Polygon"
+      ) {
+        setIsPolygonEnbled(
+          assetTrackerDetails?.geofenceResponseDTO?.geofenceType === "Polygon"
+        );
+        setPolygonPath(assetTrackerDetails?.geofenceResponseDTO?.location);
+        setCircleRadius(null);
+        setCircleCenter(null);
+        setIsCircleEnbled(false);
+      }
+      setGeofenceName(assetTrackerDetails?.geofenceResponseDTO?.geofenceName);
+      setIsOutsideGeofenceChecked(
+        assetTrackerDetails?.geofenceResponseDTO?.outsideGeofence
+      );
+      setIsBackGeofenceChecked(
+        assetTrackerDetails?.geofenceResponseDTO?.backGeofence
+      );
+    }
+    circleData?.setMap(null);
+    polygonData?.setMap(null);
+  };
 
   const addressFound = async (LatLng: any) => {
     const geocoder: any = new window.google.maps.Geocoder();
