@@ -64,7 +64,7 @@ const Chart: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    if (pageName === "FleetManagement") {
+    if (pageName === "assetTracking" || pageName === "FleetManagement") {
       dataPoints?.length > 0 &&
         dataPoints?.every((item: any) => {
           setIsEveryYAxisValuesAreZero(
@@ -122,7 +122,7 @@ const Chart: React.FC<any> = (props) => {
           plotBackgroundColor: "transparent",
           backgroundColor: "transparent",
           marginTop: 0,
-          marginLeft: 0,
+          // marginLeft: 0,
           // marginRight: 0,
 
           reflow: true,
@@ -268,7 +268,7 @@ const Chart: React.FC<any> = (props) => {
           // endOnTick: true,
           categories: xAxisArray
             ? xAxisArray
-            : pageName !== "FleetManagement" && lastTwntyTwoHours,
+            : pageName !== "assetTracking" && pageName !== "FleetManagement" && lastTwntyTwoHours,
           tickInterval:
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
@@ -276,19 +276,33 @@ const Chart: React.FC<any> = (props) => {
                 (is4kDevice && location.pathname === "/lighting")
                 ? 8
                 : pageName === "assetTracking"
-                ? tickInterval
+                ? selectedValue === "Today"
+                ? 5 * 3600 * 1000
+                : selectedValue === "Year"
+                ? 70 * 24 * 3600 * 1000
+                : selectedValue === "Month"
+                ? 5 * 24 * 3600 * 1000
+                : 30 * 3600 * 1000
                 : 12
               : tickInterval
               ? tickInterval
-              : pageName !== "FleetManagement"
+              : pageName !== "FleetManagement" && pageName !== "assetTracking"
               ? 8
-              : selectedValue === "Today"
+              : pageName === "FleetManagement" ? selectedValue === "Today"
               ? 8 * 3600 * 1000
               : selectedValue === "Year"
               ? 90 * 24 * 3600 * 1000
               : selectedValue === "Month"
               ? 5 * 24 * 3600 * 1000
-              : 40 * 3600 * 1000,
+              : 40 * 3600 * 1000
+              : pageName === "assetTracking" &&
+              selectedValue === "Today"
+              ? 5 * 3600 * 1000
+              : selectedValue === "Year"
+              ? 70 * 24 * 3600 * 1000
+              : selectedValue === "Month"
+              ? 5 * 24 * 3600 * 1000
+              : 30 * 3600 * 1000,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -302,7 +316,7 @@ const Chart: React.FC<any> = (props) => {
           labels: {
             allowOverlap: false,
             formatter:
-              pageName === "FleetManagement" &&
+             (pageName === "FleetManagement" || pageName === "assetTracking") &&
               function (this: any) {
                 const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
                 if (selectedValue === "Today") {
@@ -323,7 +337,7 @@ const Chart: React.FC<any> = (props) => {
             overflow: "justify",
             format: formatGraph
               ? formatGraph
-              : pageName === "FleetManagement" && selectedValue === "Today"
+              : (pageName === "assetTracking" || pageName === "FleetManagement") && selectedValue === "Today"
               ? "{value:%H:00}"
               : selectedValue === "Year"
               ? "{value:%b}"
@@ -382,7 +396,7 @@ const Chart: React.FC<any> = (props) => {
         yAxis: {
           visible: false,
           max:
-            pageName === "FleetManagement" && isEveryYAxisValuesAreZero
+          (pageName === "assetTracking" || pageName === "FleetManagement") && isEveryYAxisValuesAreZero
               ? 100
               : undefined,
         },
