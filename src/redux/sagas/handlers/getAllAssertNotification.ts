@@ -6,8 +6,11 @@ import assetTrackingResponse from "mockdata/assetTrackingAPI";
 
 export function* handleAssetNotification(action: any): any {
   try {
-    const { fetchAssetNotification } = fetchAPIServices;
-    const response = yield fetchAssetNotification(getAssetNotificationApi,  action.payload);
+    const { fetchPostData } = fetchAPIServices;
+    const response = yield fetchPostData(
+      getAssetNotificationApi,
+      action.payload
+    );
     // const response = assetTrackingResponse;
     if (response) {
       yield put(setNotificationData(response));

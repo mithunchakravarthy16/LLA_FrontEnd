@@ -41,8 +41,93 @@ import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import InfoDialogGeofenceAssetTracking from "../../components/InfoDialogGeofenceAssetTracking";
 import assetAnalyticsData from "mockdata/assetTrackingAnalytics";
 import Loader from "elements/Loader";
+import { getAssetTrackingActiveInActiveAnalyticsData, getAssetTrackingIncidentsAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 
 const AssetTracking: React.FC<any> = (props) => {
+
+  const dispatch = useDispatch();
+
+
+
+  //Analytics Api integration starts here
+  const [selectedValue, setSelectedValue] = useState<any>("Week");
+  useEffect(()=>{
+    switch (selectedValue) {
+      case "Today":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Day"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Day"));
+        break;
+
+      case "Week":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+        break;
+
+      case "Month":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
+        break;
+
+      case "Year":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Yearly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Yearly"));
+        break;
+        default: dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
+                 dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+    }
+    
+  },[selectedValue])
+
+  const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics.assetTrackingActiveInActiveAnalyticsData
+  );
+
+  const assetTrackingIncidentsAnalyticsResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics.assetTrackingIncidentsAnalyticsData
+  );
+
+
+const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>()
+const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>()
+const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>()
+useEffect(() => {
+  if (assetTrackingActiveInActiveAnalyticsResponse) {
+    const activeAnalyticsData: any = [];
+    const inActiveAnalyticsData: any = [];
+    const incidentsAnalyticsData: any = [];
+   
+    assetTrackingActiveInActiveAnalyticsResponse?.data?.filter((obj: any) => obj.metricName === 'ActiveTracker' )
+     .map((obj:any) =>  obj.analytics?.map((item:any)=>
+      activeAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
+     )
+    )
+    
+    assetTrackingActiveInActiveAnalyticsResponse?.data?.filter((obj: any) => obj.metricName === 'InactiveTracker')
+     .map((obj:any) => obj.analytics?.map((item:any)=>
+       inActiveAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
+    ))
+
+    assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item:any)=>
+    incidentsAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
+    )
+   
+    setActiveAnalyticsData(activeAnalyticsData)
+    setInActiveAnalyticsData(inActiveAnalyticsData);
+    setIncidentsAnalyticsData(incidentsAnalyticsData)
+  }
+}, [assetTrackingActiveInActiveAnalyticsResponse, assetTrackingIncidentsAnalyticsResponse]);
+
+
+
+//Analytics Api integration Ends here
+
+
+
+
+
+
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -102,7 +187,7 @@ const AssetTracking: React.FC<any> = (props) => {
     geofenceIconStyle,
   } = useStyles(appTheme);
 
-  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     let notificationPayload: any = {
@@ -470,7 +555,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
 
-  const [selectedValue, setSelectedValue] = useState<any>("Week");
+ 
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
@@ -950,6 +1035,7 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+
   return (
     <>
     {
@@ -1044,7 +1130,7 @@ const AssetTracking: React.FC<any> = (props) => {
                                     xs={12}
                                     style={{ height: "21vh", width: "80vw" }}
                                   >
-                                    <Chart
+                                     <Chart
                                       // width={selectedWidth?.width}
                                       // height={selectedWidth?.height}
                                       containerProps={{
@@ -1054,19 +1140,51 @@ const AssetTracking: React.FC<any> = (props) => {
                                         },
                                       }}
                                       pageName={"assetTracking"}
-                                      tickInterval={xAxisIntervalGraph}
-                                      formatGraph={formatGraph}
-                                      xAxisArray={xAxisChartDataGraph}
+                                      // tickInterval={xAxisIntervalGraph}
+                                      // formatGraph={formatGraph}
+                                      // xAxisArray={xAxisChartDataGraph}
                                       isVisible={true}
                                       graphType={"spline"}
                                       units={""}
                                       isCrosshair={true}
                                       crossHairLineColor={"#E5FAF6"}
                                       is4kDevice={selectedWidth?.is4kDevice}
+                                      selectedValue={selectedValue}
                                       // tooltip={"shared"}
-                                      dataPoints={
-                                        updatedActiveInactiveTrackersGraphData
-                                      }
+                                      // dataPoints={
+                                      //   updatedActiveInactiveTrackersGraphData
+                                      // }
+                                      dataPoints={[                                   
+                                  
+                                        {
+                                          data: activeAnalyticsData,
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#25796D",
+                                          color: "#25796D",
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          // data: [
+                                          //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+                                          //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                          // ],
+                                        },
+                                        {
+                                          data: inActiveAnalyticsData,
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#D25A5A",
+                                          color: "#D25A5A",
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          // data: [
+                                          //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                          //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          // ],
+                                        },
+                                      ]}
                                       // {[
                                       //   {
                                       //     marker: {
@@ -1149,16 +1267,66 @@ const AssetTracking: React.FC<any> = (props) => {
                                         },
                                       }}
                                       pageName={"assetTracking"}
-                                      tickInterval={xAxisIntervalGraph}
-                                      formatGraph={formatGraph}
-                                      xAxisArray={xAxisChartDataGraph}
+                                      // tickInterval={xAxisIntervalGraph}
+                                      // formatGraph={formatGraph}
+                                      // xAxisArray={xAxisChartDataGraph}
                                       graphType={"areaspline"}
                                       isVisible={true}
                                       units={""}
                                       isCrosshair={true}
                                       crossHairLineColor={"#EE3E35"}
                                       is4kDevice={selectedWidth?.is4kDevice}
-                                      dataPoints={updatedIncidentsGraphData}
+                                      selectedValue={selectedValue}
+                                      // dataPoints={updatedIncidentsGraphData}
+                                      dataPoints={[
+                                        {
+                                          data: incidentsAnalyticsData,
+                                  
+                                          marker: {
+                                            enabled: false,
+                                          },
+                                          lineColor: "#EE3E35",
+                                          color: "#EE3E35",
+                                          lineWidth:
+                                            selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
+                                          fillColor: {
+                                            linearGradient: [0, 0, 0, 200],
+                                            stops: [
+                                              [0, Highcharts.color("#C3362F").setOpacity(0.5).get("rgba")],
+                                              [
+                                                0.5,
+                                                Highcharts.color("#C3362F")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                                                      ? selectedTheme === "light"
+                                                        ? 0.4
+                                                        : 0.3
+                                                      : 0.3
+                                                  )
+                                                  .get("rgba"),
+                                              ],
+                                              [
+                                                1,
+                                                Highcharts.color("#C3362F")
+                                                  .setOpacity(
+                                                    selectedWidth?.is4kDevice || selectedWidth?.is3KDevice
+                                                      ? selectedTheme === "light"
+                                                        ? 0.14
+                                                        : 0.06
+                                                      : selectedTheme === "light"
+                                                      ? 0.01
+                                                      : 0.02
+                                                  )
+                                                  .get("rgba"),
+                                              ],
+                                            ],
+                                          },
+                                          // data: [
+                                          //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                          //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          // ],
+                                        }
+                                      ]}
                                       // {[
                                       //   {
                                       //     marker: {
