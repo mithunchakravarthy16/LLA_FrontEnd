@@ -242,7 +242,196 @@ useEffect(() => {
   //   (state: any) => state?.assetTracker?.assetTrackerData
   // );
 
-  // console.log("assetTrackerDetails", assetTrackerDetails)
+
+  const [assetNotificationCombinedArray, setAssetNotificationCombinedArray] = useState<any>([])
+  const [sortedCombinedArray, setSortedCombinedArray] = useState<any>([])
+
+  useEffect(() => {
+    if (assetNotificationList) {
+      const { events, incidents, alerts } = assetNotificationList;
+      const combinedNotifications: any = [];
+
+      events?.eventsList?.forEach((event: any, index: number) => {
+        combinedNotifications.push({
+          ...event,
+          notificationType : "event",
+          title: event?.reason,
+          details: `${event?.trackerName} | ${event?.assetName}`,
+          timeStamp: moment(event?.notificationDate)?.format(
+            "DD-MM-YYYY | HH:mm A"
+          ),
+        });
+      });
+
+      incidents?.incidentList?.forEach((incidents: any, index: number) => {
+        combinedNotifications.push({
+          ...incidents,
+          notificationType : "incidents",
+          title: incidents?.reason,
+          details: `${incidents?.trackerName} | ${incidents?.assetName}`,
+          timeStamp: moment(incidents?.notificationDate)?.format(
+            "DD-MM-YYYY | HH:mm A"
+          ),
+        });
+      });
+
+      alerts?.alertList?.forEach((alerts: any, index: number) => {
+        combinedNotifications.push({
+          ...alerts,
+          notificationType : "alerts",
+          title: alerts?.reason,
+          details: `${alerts?.trackerName} | ${alerts?.assetName}`,
+          timeStamp: moment(alerts?.notificationDate)?.format(
+            "DD-MM-YYYY | HH:mm A"
+          ),
+        });
+      });
+
+      setAssetNotificationCombinedArray(combinedNotifications);
+
+      const newDataList = [
+        {
+            "assetNotificationId": "dea9e950-9f18-47a9-bf9b-46bf57fa1742",
+            "notificationType": "events",
+            "reason": "High Humidity",
+            "trackerId": "740063943499",
+            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+            "trackerName": "TR#740063943499",
+            "assetName": "Unit-740063943499",
+            "notificationDate": "2023-09-08T09:44:32",
+            "location": {
+                "lat": 12.1653163,
+                "lng": 78.1271714
+            },
+            "area": null,
+            "title": "High Humidity",
+            "details": "TR#740063943499 | Unit-740063943499",
+            "timeStamp": "08-09-2023 | 09:44 AM"
+        },
+        {
+            "assetNotificationId": "3b6b6b86-3a5f-4152-be0a-23d26fd3386c",
+            "notificationType": "incidents",
+            "reason": "High Humidity",
+            "trackerId": "740063943498",
+            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+            "trackerName": "TR#740063943499",
+            "assetName": "Unit-740063943499",
+            "notificationDate": "2023-09-08T10:41:01",
+            "location": {
+                "lat": 12.1598159,
+                "lng": 78.1273548
+            },
+            "area": null,
+            "title": "High Humidity",
+            "details": "TR#740063943499 | Unit-740063943499",
+            "timeStamp": "08-09-2023 | 10:41 AM"
+        },
+        {
+            "assetNotificationId": "bb9c5cd6-a0b4-4f84-b1dc-0e80466567f2",
+            "notificationType": "incidents",
+            "reason": "High Humidity",
+            "trackerId": "740063943499",
+            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+            "trackerName": "TR#740063943499",
+            "assetName": "Unit-740063943499",
+            "notificationDate": "2023-09-08T09:41:01",
+            "location": {
+                "lat": 12.1598159,
+                "lng": 78.1273548
+            },
+            "area": null,
+            "title": "High Humidity",
+            "details": "TR#740063943499 | Unit-740063943499",
+            "timeStamp": "08-09-2023 | 09:41 AM"
+        },
+        {
+            "assetNotificationId": "dbfe4fee-e7f8-4ef9-9fe0-d839166cd9a7",
+            "notificationType": "incidents",
+            "reason": "Tag Disconnected",
+            "trackerId": "740063943498",
+            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+            "trackerName": "TR#740063943499",
+            "assetName": "Unit-740063943499",
+            "notificationDate": "2023-09-08T09:13:35.304886",
+            "location": {
+                "lat": 0,
+                "lng": 0
+            },
+            "area": null,
+            "title": "Tag Disconnected",
+            "details": "TR#740063943499 | Unit-740063943499",
+            "timeStamp": "08-09-2023 | 09:13 AM"
+        },
+        {
+            "assetNotificationId": "6719baa3-c15c-458c-9742-3966e8f455f1",
+            "notificationType": "incidents",
+            "reason": "High Humidity",
+            "trackerId": "740063943499",
+            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+            "trackerName": "TR#740063943499",
+            "assetName": "Unit-740063943499",
+            "notificationDate": "2023-09-08T09:11:16",
+            "location": {
+                "lat": 12.1592556,
+                "lng": 78.1263031
+            },
+            "area": null,
+            "title": "High Humidity",
+            "details": "TR#740063943499 | Unit-740063943499",
+            "timeStamp": "08-09-2023 | 09:11 AM"
+        },
+        {
+            "assetNotificationId": "d5bb7d6a-7eb5-4db8-9948-95736ba2f53b",
+            "notificationType": "incidents",
+            "reason": "High Humidity",
+            "trackerId": "740063943498",
+            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+            "trackerName": "TR#740063943499",
+            "assetName": "Unit-740063943499",
+            "notificationDate": "2023-09-08T08:41:15",
+            "location": {
+                "lat": 12.1566817,
+                "lng": 78.1268498
+            },
+            "area": null,
+            "title": "High Humidity",
+            "details": "TR#740063943499 | Unit-740063943499",
+            "timeStamp": "08-09-2023 | 08:41 AM"
+        }
+    
+    ]
+
+    newDataList.sort((a:any, b:any) => {
+      const dateA : any = new Date(a.notificationDate);
+      const dateB : any = new Date(b.notificationDate);
+    
+      return dateB - dateA;
+    });
+
+    console.log("newDataList", newDataList)
+
+
+      let uniqueTrackerIds : any = {};
+
+      const uniqueData = newDataList.filter((item:any) => {
+        if (!uniqueTrackerIds[item.trackerId]) {
+          uniqueTrackerIds[item.trackerId] = true;
+          return true;
+        }
+        return false;
+      });
+
+      console.log("uniqueData", uniqueData)
+
+    
+
+
+
+
+    }
+  }, [assetNotificationList]);
+
+
 
 
   const createGeofence = useSelector(
@@ -1430,7 +1619,7 @@ useEffect(() => {
                 </Grid>
               </Grid>
               <Grid item xs={3} className={notificationPanelGrid}>
-                <NotificationPanel
+                {/* <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}
                   tabIndex={tabIndex}
@@ -1448,7 +1637,7 @@ useEffect(() => {
                   setIsMarkerClicked={setIsMarkerClicked}
                   selectedTheme={selectedTheme}
                   handleExpandListItem={() => {}}
-                />
+                /> */}
               </Grid>
             </Grid>
           </Grid>
