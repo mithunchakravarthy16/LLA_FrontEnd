@@ -21,7 +21,7 @@ import {
   handleFleetManagementOverspeeding,
   handleFleetManagementLiveTrip,
 } from "./handlers/fleetManagementNotification";
-import { handleAssetTrackingActiveInActiveAnalyticsData, handleAssetTrackingIncidentsAnalyticsData } from "./handlers/assetTrackingActiveInActiveAnalytics";
+import { handleAssetTrackingActiveInActiveAnalyticsData, handleAssetTrackingIncidentsAnalyticsData, handleAssetTrackingGridViewAnalyticsData} from "./handlers/assetTrackingActiveInActiveAnalytics";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
   handleAdminPanelConfig,
@@ -68,6 +68,7 @@ export default function* rootSaga() {
     watchAssetTrackingAssetsList(),
     watchAssetTrackingCreateGeofence(),
     watchAssetTrackingUpdateGeofence(),
+    watchAssetTrackingGridViewAnalyticsData(),
   ]);
 }
 
@@ -221,4 +222,11 @@ export function* watchAssetTrackingUpdateGeofence() {
     assetTrackerDetail.GET_ASSET_TRACKING_UPDATE_GEOFENCE,
     handleAssetTrackingUpdateGeofence
   );
+}
+
+export function* watchAssetTrackingGridViewAnalyticsData() {
+  yield takeLatest(
+    assetTrackingActiveInActiveAnalytics.GET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA,
+    handleAssetTrackingGridViewAnalyticsData
+    );
 }

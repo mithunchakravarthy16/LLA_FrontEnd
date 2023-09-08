@@ -3,6 +3,7 @@ import assetTrackingActiveInActiveAnalytics from "redux/actions/assetTrackingAct
 const initialState = {
   assetTrackingActiveInActiveAnalyticsData: {},
   assetTrackingIncidentsAnalyticsData: {},
+  assetTrackingGridViewAnalyticsData: {},
 };
 
 export default (state = initialState, action: any) => {
@@ -15,6 +16,10 @@ export default (state = initialState, action: any) => {
     case assetTrackingActiveInActiveAnalytics.SET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA:
       const { assetTrackingIncidentsAnalyticsData } = action;
       return { ...state, assetTrackingIncidentsAnalyticsData };
+
+      case assetTrackingActiveInActiveAnalytics.SET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA:
+      const { assetTrackingGridViewAnalyticsData } = action;
+      return { ...state, assetTrackingGridViewAnalyticsData };
     
     case assetTrackingActiveInActiveAnalytics.SHOW_LOADER_ANALYTICS:
       return { ...state, loadingAnalytics: true };
