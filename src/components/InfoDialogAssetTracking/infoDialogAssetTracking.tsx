@@ -621,7 +621,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     key={index}
                                   >
                                     <div className={leftPanelChild1}>
-                                      {data?.value}
+                                      {data?.value === null ? "--" : data?.value}
                                     </div>
                                     <div className={leftPanelChild2} style={{}}>
                                       {data?.label}
@@ -668,7 +668,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                           ?.topPanelTextColor,
                                     }}
                                   >
-                                    {data?.value}
+                                    {data?.value === null ? "--" : data?.value}
                                   </div>
                                 </div>
                               );
@@ -726,10 +726,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         </div>
                       </Grid>
                       <Grid className={assetInfoLeftPanelBottom}>
-                        <CustomizedSteppers
+                        {/* <CustomizedSteppers
                           packagaeData={packageData}
                           selectedTheme={selectedTheme}
-                        />
+                        /> */}
                       </Grid>
                     </Grid>
                     <Grid item xs={4} className={assetInfoRightPanelMain}>
