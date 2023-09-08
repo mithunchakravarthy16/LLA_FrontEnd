@@ -18,9 +18,16 @@ import {
   setFleetManagementOverAllTripDetails,
 } from "redux/actions/fleetManagementNotificationActions";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
+import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 
 const GridView: React.FC<any> = (props) => {
   const dispatch = useDispatch();
+
+ 
+    useEffect(()=>{
+      dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+    },[])
+  
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -28,6 +35,12 @@ const GridView: React.FC<any> = (props) => {
 
   const loaderFleetManagementNotification = useSelector(
     (state: any) => state?.fleetManagementNotification?.loadingAnalytics
+  );
+
+  const loaderAssetTrackingGridViewAnalytics = useSelector(
+    (state: any) => 
+    state.assetTrackingActiveInActiveAnalytics
+      .loadingOverAllAnalytics
   );
 
   const fleetManagementResponse = useSelector(
@@ -177,7 +190,7 @@ const GridView: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {loaderFleetManagementNotification ? (
+      {loaderAssetTrackingGridViewAnalytics ? (
         <Loader isHundredVh={true} />
       ) : (
         <div className={rootContainer}>

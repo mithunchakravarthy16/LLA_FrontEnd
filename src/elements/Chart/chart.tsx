@@ -64,7 +64,7 @@ const Chart: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    if (pageName === "assetTracking" || pageName === "FleetManagement") {
+    if (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") {
       dataPoints?.length > 0 &&
         dataPoints?.every((item: any) => {
           setIsEveryYAxisValuesAreZero(
@@ -283,10 +283,18 @@ const Chart: React.FC<any> = (props) => {
                 : selectedValue === "Month"
                 ? 5 * 24 * 3600 * 1000
                 : 30 * 3600 * 1000
+                : pageName === "assetTrackingGridView" ?
+                selectedValue === "Today"
+                ? 5 * 3600 * 1000
+                : selectedValue === "Year"
+                ? 70 * 24 * 3600 * 1000
+                : selectedValue === "Month"
+                ? 5 * 24 * 3600 * 1000
+                : 30 * 3600 * 1000
                 : 12
               : tickInterval
               ? tickInterval
-              : pageName !== "FleetManagement" && pageName !== "assetTracking"
+              : pageName !== "FleetManagement" && pageName !== "assetTracking" &&  pageName !== "assetTrackingGridView"
               ? 8
               : pageName === "FleetManagement" ? selectedValue === "Today"
               ? 8 * 3600 * 1000
@@ -295,7 +303,15 @@ const Chart: React.FC<any> = (props) => {
               : selectedValue === "Month"
               ? 5 * 24 * 3600 * 1000
               : 40 * 3600 * 1000
-              : pageName === "assetTracking" &&
+              : pageName === "assetTracking" ?
+              selectedValue === "Today"
+              ? 5 * 3600 * 1000
+              : selectedValue === "Year"
+              ? 70 * 24 * 3600 * 1000
+              : selectedValue === "Month"
+              ? 5 * 24 * 3600 * 1000
+              : 30 * 3600 * 1000
+              : pageName === "assetTrackingGridView" && 
               selectedValue === "Today"
               ? 5 * 3600 * 1000
               : selectedValue === "Year"
@@ -311,12 +327,12 @@ const Chart: React.FC<any> = (props) => {
             snap: isCrosshair,
           },
           type:
-            (pageName === "assetTracking" || pageName === "FleetManagement") &&
+            (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") &&
             "datetime",
           labels: {
             allowOverlap: false,
             formatter:
-             (pageName === "FleetManagement" || pageName === "assetTracking") &&
+             (pageName === "FleetManagement" || pageName === "assetTracking" || pageName === "assetTrackingGridView") &&
               function (this: any) {
                 const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
                 if (selectedValue === "Today") {
@@ -337,7 +353,7 @@ const Chart: React.FC<any> = (props) => {
             overflow: "justify",
             format: formatGraph
               ? formatGraph
-              : (pageName === "assetTracking" || pageName === "FleetManagement") && selectedValue === "Today"
+              : (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && selectedValue === "Today"
               ? "{value:%H:00}"
               : selectedValue === "Year"
               ? "{value:%b}"
@@ -396,7 +412,7 @@ const Chart: React.FC<any> = (props) => {
         yAxis: {
           visible: false,
           max:
-          (pageName === "assetTracking" || pageName === "FleetManagement") && isEveryYAxisValuesAreZero
+          (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && isEveryYAxisValuesAreZero
               ? 100
               : undefined,
         },
