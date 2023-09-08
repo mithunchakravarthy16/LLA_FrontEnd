@@ -37,8 +37,11 @@ const SUB_URL = {
   getOverSpeedingUrl:
     "/api/sensyon/analytics/v1/getOverSpeedHarshBreakingAnalytics",
   getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
-  getAssetNotificationUrl : "/api/sensyon/asset_notification/v1/getAllAssertNotification",
-  getTrackerDetailUrl : "/api/sensyon/tracker/v1/getTrackerdetail"
+  getAssetNotificationUrl:
+    "/api/sensyon/asset_notification/v1/getAllAssertNotification",
+  getTrackerDetailUrl: "/api/sensyon/tracker/v1/getTrackerdetail",
+  getAssetOverallTrackerDetailsUrl:
+    "/api/sensyon/tracker/v1/getOverAllTrackerdetail",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -54,3 +57,4 @@ export const getOverSpeedingApi = `${BASE_URL.baseUrl}${SUB_URL.getOverSpeedingU
 export const getCoordinatesApi = `${BASE_URL.baseUrl}${SUB_URL.getTripCordinatesUrl}`;
 export const getAssetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetNotificationUrl}`;
 export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailUrl}`;
+export const getAssetOverallTrackerDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetOverallTrackerDetailsUrl}`;
