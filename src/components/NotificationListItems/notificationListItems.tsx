@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
@@ -39,6 +39,8 @@ const NotificationListItems = (props: any) => {
       tripId,
       driverName,
       notificationDate,
+      trackerName,
+      assetName,
     },
     handleExpandListItem,
     selectedNotification,
@@ -147,6 +149,7 @@ const NotificationListItems = (props: any) => {
     }
   };
 
+
   if (category === "asset") {
     return (
       <>
@@ -177,7 +180,7 @@ const NotificationListItems = (props: any) => {
               )}
               <div className={expandedListItemRow2}>{area}</div>
               <div className={expandedListItemRow3}>
-                {trackerId && trackerId} {assetId && ` | ${assetId}`}
+                {trackerName && trackerName} {assetName && ` | ${assetName}`}
               </div>
               {venue && <div className={expandedListItemRow3}>{venue}</div>}
 
@@ -190,7 +193,10 @@ const NotificationListItems = (props: any) => {
                     {viewDetails}
                   </Button>
                 </div>
-                <div className={timeStampStyle}>{currentTimeStamp}</div>
+                <div className={timeStampStyle}>
+                  {/* {currentTimeStamp} */}
+                  {moment(notificationDate).format("DD-MM-YYYY | HH:mm A")}
+                  </div>
               </div>
             </div>
           ) : (
@@ -198,10 +204,12 @@ const NotificationListItems = (props: any) => {
               <div className={collapsedListItemTitle}>{title}</div>
               <div className={collapsedlistItemRow2}>
                 <div className={collapsedListItemSubTitle}>
-                  {trackerId && trackerId} {assetId && ` | ${assetId}`}
+                  {/* {trackerId && trackerId} {assetId && ` | ${assetId}`} */}
+                  {trackerName && trackerName} {assetName && ` | ${assetName}`}
                 </div>
                 <div className={collapsedTimeStampStyle}>
-                  {currentTimeStamp}
+                  {/* {currentTimeStamp} */}
+                  {moment(notificationDate).format("DD-MM-YYYY | HH:mm A")}
                 </div>
               </div>
             </div>

@@ -13,13 +13,15 @@ const useStyles = makeStyles(() => ({
   }),
 
   vehicleTitle: (props: any) => ({
-    fontSize: "0.9vw",
+    fontSize: "1vw",
     marginBottom: "1vh",
     fontFamily: "HelveticaNeue-Regular",
+    fontWeight : 700,
     color: props?.palette?.assetTrackingPage?.topPanelTextColor,
   }),
   assetTrackingTitle: (props: any) => ({
-    fontSize: "0.6vw",
+    fontSize: "0.7vw",
+    fontWeight : 500,
     display: "flex",
     justifyContent: "space-between",
     fontFamily: "HelveticaNeue-Regular",
