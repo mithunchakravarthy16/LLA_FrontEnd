@@ -187,9 +187,8 @@ const GridView: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {loaderAssetTrackingGridViewAnalytics ? (
-        <Loader isHundredVh={true} />
-      ) : (
+      {!loaderAssetTrackingGridViewAnalytics &&
+      !loaderFleetManagementNotification ? (
         <div className={rootContainer}>
           <Grid container className={mainSection}>
             {/* Gride 1 */}
@@ -234,6 +233,8 @@ const GridView: React.FC<any> = (props) => {
             />
           </Grid>
         </div>
+      ) : (
+        <Loader isHundredVh={true} />
       )}
     </>
   );
