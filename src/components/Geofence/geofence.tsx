@@ -158,7 +158,7 @@ const Geofence: React.FC<any> = (props: any) => {
   };
 
   const handleRadiusChange = (e: any) => {
-    setCircleRadius(Number(e.target.value));
+    setCircleRadius(e.target.value);
   };
 
   const handleCircleLatChange = (e: any) => {
@@ -224,6 +224,7 @@ const Geofence: React.FC<any> = (props: any) => {
       },
     },
   }));
+
   return (
     <>
       <div className={isGeofence ? mainGeofenceContainer : mainContainer}>
@@ -387,7 +388,7 @@ const Geofence: React.FC<any> = (props: any) => {
               <div className={geofenceType}>Geofence Radius</div>
               <div className={customTextField}>
                 <TextField
-                  value={radius}
+                  value={circleRadius}
                   type={"number"}
                   disabled={!isDisabled}
                   onChange={handleRadiusChange}
