@@ -27,7 +27,12 @@ import {
   handleCancelAdminPanelConfig,
 } from "./handlers/adminPanel";
 import assetTrackerDetail from "redux/actions/getAssetTrackerDetailAction";
-import { handleAssetTrackerDetail } from "./handlers/getAssetTrackerDetail";
+import {
+  handleAssetTrackerDetail,
+  handleAssetTrackingAssetsList,
+  handleAssetTrackingCreateGeofence,
+  handleAssetTrackingUpdateGeofence,
+} from "./handlers/getAssetTrackerDetail";
 import createGeofence from "redux/actions/createGeofenceAction";
 import { handleCreateGeofence } from "./handlers/createGeofence";
 import enableGeofence from "redux/actions/enableGeofenceAction";
@@ -56,6 +61,9 @@ export default function* rootSaga() {
     watchUpdateGeofence(),
     watchEnableGeofence(),
     watchFleetManagementLiveTrip(),
+    watchAssetTrackingAssetsList(),
+    watchAssetTrackingCreateGeofence(),
+    watchAssetTrackingUpdateGeofence(),
   ]);
 }
 
@@ -173,5 +181,26 @@ export function* watchFleetManagementLiveTrip() {
   yield takeLatest(
     fleetManagementNotification.GET_FLEET_MANAGEMENT_LIVE_TRIP,
     handleFleetManagementLiveTrip
+  );
+}
+
+export function* watchAssetTrackingAssetsList() {
+  yield takeLatest(
+    assetTrackerDetail.GET_ASSET_TRACKING_ASSESTS_LIST,
+    handleAssetTrackingAssetsList
+  );
+}
+
+export function* watchAssetTrackingCreateGeofence() {
+  yield takeLatest(
+    assetTrackerDetail.GET_ASSET_TRACKING_CREATE_GEOFENCE,
+    handleAssetTrackingCreateGeofence
+  );
+}
+
+export function* watchAssetTrackingUpdateGeofence() {
+  yield takeLatest(
+    assetTrackerDetail.GET_ASSET_TRACKING_UPDATE_GEOFENCE,
+    handleAssetTrackingUpdateGeofence
   );
 }

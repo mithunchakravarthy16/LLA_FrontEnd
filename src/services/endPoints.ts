@@ -29,6 +29,7 @@ const SUB_URL = {
   adminPanelSaveUrl: apiSource.llaAdmin + "/saveconfiguration",
   adminPanelGetUrl: apiSource.llaAdmin + "/getConfigurationDetail",
   adminPanelCancelUrl: apiSource.llaAdmin + "/cancelPreviewConfiguration",
+  // FleetManagemet Api's -- Start
   getFleetNotificationsUrl:
     "/api/sensyon/fleet_notification/v1/getAllFleetNotification",
   getOverAllTripDetailsUrl: "/api/sensyon/trips/v1/getOverallTripDetail",
@@ -37,8 +38,15 @@ const SUB_URL = {
   getOverSpeedingUrl:
     "/api/sensyon/analytics/v1/getOverSpeedHarshBreakingAnalytics",
   getTripDetailsUrl: "/api/sensyon/trips/v1/getTripdetail",
-  getAssetNotificationUrl : "/api/sensyon/asset_notification/v1/getAllAssertNotification",
-  getTrackerDetailUrl : "/api/sensyon/tracker/v1/getTrackerdetail"
+  // FleetManagemet Api's -- End
+  // Asset Tracking Api's -- Start
+  createGeofenceUrl: "/api/sensyon/geofence/creategeofence",
+  updateGeofenceUrl: "/api/sensyon/geofence/updategeofence",
+  getAssetListUrl: "/api/sensyon/tracker/v1/getAssetList",
+  getAssetNotificationUrl:
+    "/api/sensyon/asset_notification/v1/getAllAssertNotification",
+  getTrackerDetailUrl: "/api/sensyon/tracker/v1/getTrackerdetail",
+  // Asset Tracking Api's -- End
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -52,5 +60,8 @@ export const getTripDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getTripDetailsUrl
 export const getAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAnalyticsUrl}`;
 export const getOverSpeedingApi = `${BASE_URL.baseUrl}${SUB_URL.getOverSpeedingUrl}`;
 export const getCoordinatesApi = `${BASE_URL.baseUrl}${SUB_URL.getTripCordinatesUrl}`;
+export const createGeofenceApi = `${BASE_URL.baseUrl}${SUB_URL.createGeofenceUrl}`;
+export const updateGeofenceApi = `${BASE_URL.baseUrl}${SUB_URL.updateGeofenceUrl}`;
+export const getAssetListApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetListUrl}`;
 export const getAssetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetNotificationUrl}`;
 export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailUrl}`;
