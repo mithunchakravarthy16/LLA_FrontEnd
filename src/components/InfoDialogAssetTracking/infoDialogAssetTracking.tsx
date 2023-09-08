@@ -180,7 +180,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
       setInfoNotificationList(combinedNotifications);
 
-      console.log("combinedNotifications", combinedNotifications);
     }
   }, [assetTrackerDetails]);
 
