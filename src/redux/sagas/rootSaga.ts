@@ -5,6 +5,7 @@ import login from "../actions/loginActions";
 import adminLogin from "../actions/adminLoginActions";
 import assetNotification from "redux/actions/getAllAssertNotificationAction";
 import fleetManagementNotification from "redux/actions/fleetManagementNotificationActions";
+import assetTrackingActiveInActiveAnalytics from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import { handleAssetNotification } from "./handlers/getAllAssertNotification";
 import assetActiveInactiveTracker from "redux/actions/getActiveInactiveTrackerCount";
 import { handleActiveInactiveTracker } from "./handlers/getActiveInactiveTrackerCount";
@@ -20,6 +21,7 @@ import {
   handleFleetManagementOverspeeding,
   handleFleetManagementLiveTrip,
 } from "./handlers/fleetManagementNotification";
+import { handleAssetTrackingActiveInActiveAnalyticsData, handleAssetTrackingIncidentsAnalyticsData } from "./handlers/assetTrackingActiveInActiveAnalytics";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
   handleAdminPanelConfig,
@@ -56,6 +58,8 @@ export default function* rootSaga() {
     watchUpdateGeofence(),
     watchEnableGeofence(),
     watchFleetManagementLiveTrip(),
+    watchAssetTrackingActiveInActiveAnalyticsData(),
+    watchAssetTrackingIncidentsAnalyticsData(),
   ]);
 }
 
@@ -173,5 +177,19 @@ export function* watchFleetManagementLiveTrip() {
   yield takeLatest(
     fleetManagementNotification.GET_FLEET_MANAGEMENT_LIVE_TRIP,
     handleFleetManagementLiveTrip
+  );
+}
+
+export function* watchAssetTrackingActiveInActiveAnalyticsData() {
+  yield takeLatest(
+    assetTrackingActiveInActiveAnalytics.GET_ASSET_TRACKING_ACTIVE_INACTIVE_ANALYTICS_DATA,
+    handleAssetTrackingActiveInActiveAnalyticsData
+  );
+}
+
+export function* watchAssetTrackingIncidentsAnalyticsData() {
+  yield takeLatest(
+    assetTrackingActiveInActiveAnalytics.GET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA,
+    handleAssetTrackingIncidentsAnalyticsData
   );
 }
