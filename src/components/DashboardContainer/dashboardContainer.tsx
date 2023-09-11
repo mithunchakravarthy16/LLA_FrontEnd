@@ -36,6 +36,7 @@ import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -316,6 +317,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setSuccess(false);
     dispatch(getFleetManagementNotificationData({}));
   };
+  const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
+  const handleAssetViewDetails = (data: any) => {
+    setIsInfoWindowActive(true);
+    setSelectedMarker(data);
+  };
 
   return (
     <>
@@ -409,7 +415,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   tabIndex={tabIndex}
                   handleVideoDetails={handleVideoDetails}
                   handleViewDetails={() => {}}
-                  handleAssetViewDetails={() => {}}
+                  handleAssetViewDetails={handleAssetViewDetails}
                   selectedTheme={selectedTheme}
                   setMap={setMap}
                   map={map}
@@ -471,7 +477,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     setIsMarkerClicked={setIsMarkerClicked}
                     handleVideoDetails={handleVideoDetails}
                     handleViewDetails={() => {}}
-                    handleAssetViewDetails={() => {}}
+                    handleAssetViewDetails={handleAssetViewDetails}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
                   />
@@ -487,6 +493,16 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       {showInfoDialogueVideo && (
         <InfoDialogFleetVideo
           setShowInfoDialogue={setShowInfoDialogueVideo}
+          selectedMarker={selectedMarker}
+          selectedTheme={selectedTheme}
+        />
+      )}
+
+      {isInfoWindowActive && (
+        <InfoDialogAssetTracking
+          setIsInfoWindowActive={setIsInfoWindowActive}
+          // packageData={packageData}
+          // infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
         />
