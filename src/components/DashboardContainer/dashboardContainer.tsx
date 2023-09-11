@@ -415,7 +415,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   tabIndex={tabIndex}
                   handleVideoDetails={handleVideoDetails}
                   handleViewDetails={() => {}}
-                  handleAssetViewDetails={() => {}}
+                  handleAssetViewDetails={handleAssetViewDetails}
                   selectedTheme={selectedTheme}
                   setMap={setMap}
                   map={map}
