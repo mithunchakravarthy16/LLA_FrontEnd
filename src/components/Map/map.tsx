@@ -158,7 +158,7 @@ const Map: React.FC<any> = (props) => {
   const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries: libraries,
   });
 
@@ -1034,62 +1034,6 @@ const Map: React.FC<any> = (props) => {
                       );
                     }
                   })}
-
-                  {location?.pathname === "/fleetManagement" &&
-                    points &&
-                    points.length > 0 && (
-                      <PolylineF
-                        path={points}
-                        options={{
-                          strokeColor: "#976C9E",
-                          strokeOpacity: 10,
-                          strokeWeight: 0,
-                          icons: [
-                            {
-                              icon: lineSymbol,
-                              offset: "0",
-                              repeat: "20px",
-                            },
-                          ],
-                        }}
-                      />
-                    )}
-
-                  {location?.pathname === "/fleetManagement" &&
-                    points &&
-                    points?.length > 0 &&
-                    progress &&
-                    progress?.length > 0 && (
-                      <>
-                        <PolylineF
-                          path={progress}
-                          options={{
-                            strokeColor: "#73B35A",
-                            strokeOpacity: 10,
-                            strokeWeight: 4,
-                          }}
-                        />
-                        {selectedMarker && (
-                          <MapMarker
-                            mapMarker={selectedMarker}
-                            toggleInfoWindow={toggleInfoWindow}
-                            handleMarkerClose={handleMarkerClose}
-                            handleExpandListItem={handleExpandListItem}
-                            getMarkerIcon={getMarkerIcon}
-                            currentMarker={currentMarker}
-                            focusedCategory={focusedCategory}
-                            location={progress[progress.length - 1]}
-                            direction={"NE"}
-                            pageName={"FleetManagement"}
-                            handleViewDetails={handleViewDetails}
-                            handleVideoDetails={handleVideoDetails}
-                            mapPageName={mapPageName} // === "dashboard"
-                            selectedTheme={selectedTheme}
-                          />
-                        )}
-                        {/* <Marker position={progress[progress.length - 1]} /> */}
-                      </>
-                    )}
                 </div>
               )}
             </MarkerClustererF>
