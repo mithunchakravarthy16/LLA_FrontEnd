@@ -111,6 +111,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     is4kDevice,
     selectedTheme,
     selectedMarkerLocation,
+    pageName,
   } = props;
 
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -228,6 +229,12 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   }, [fleetManagementTripDetailsResponse]);
 
   const [open, setOpen] = useState(!false);
+
+  useEffect(()=>{
+    if(selectedMarker && pageName === "dashboard"){
+      dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
+    }    
+  },[selectedMarker])
 
   useEffect(() => {
     if (selectedMarkerLocation?.tripStatus !== "Live") {

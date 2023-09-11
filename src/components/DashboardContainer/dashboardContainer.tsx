@@ -36,6 +36,8 @@ import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
+import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -63,6 +65,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   );
 
   const dispatch = useDispatch();
+  
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
 
@@ -301,6 +304,15 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     }
   }, [count]);
 
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+  const [selectedMarkerLocation, setSelectedMarkerLocation] = useState<any>();
+
+  const handleViewDetails = (data: any) => {
+    setSelectedMarker(data?.tripId);
+    setSelectedMarkerLocation(data);
+    setShowInfoDialogue(true);
+  };
+
   const handleVideoDetails = (event: any, data: any) => {
     event.stopPropagation();
     setShowInfoDialogueVideo(true);
@@ -315,6 +327,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setCount((prev) => prev + 1);
     setSuccess(false);
     dispatch(getFleetManagementNotificationData({}));
+  };
+
+  const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
+  const handleAssetViewDetails = (data: any) => {
+    setIsInfoWindowActive(true);
+    setSelectedMarker(data);
   };
 
   return (
@@ -408,8 +426,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   setIsMarkerClicked={setIsMarkerClicked}
                   tabIndex={tabIndex}
                   handleVideoDetails={handleVideoDetails}
-                  handleViewDetails={() => {}}
-                  handleAssetViewDetails={() => {}}
+                  handleViewDetails={handleViewDetails}
+                  handleAssetViewDetails={handleAssetViewDetails}
                   selectedTheme={selectedTheme}
                   setMap={setMap}
                   map={map}
@@ -470,8 +488,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     isMarkerClicked={isMarkerClicked}
                     setIsMarkerClicked={setIsMarkerClicked}
                     handleVideoDetails={handleVideoDetails}
-                    handleViewDetails={() => {}}
-                    handleAssetViewDetails={() => {}}
+                    handleViewDetails={handleViewDetails}
+                    handleAssetViewDetails={handleAssetViewDetails}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
                   />
@@ -491,6 +509,28 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           selectedTheme={selectedTheme}
         />
       )}
+
+{isInfoWindowActive && (
+        <InfoDialogAssetTracking
+          setIsInfoWindowActive={setIsInfoWindowActive}
+          // packageData={packageData}
+          // infoWindowNotificationListItems={infoWindowNotificationListItems}
+          selectedMarker={selectedMarker}
+          selectedTheme={selectedTheme}
+        />
+      )}
+
+{showInfoDialogue && (
+        <InfoDialogFleetManagement
+          setShowInfoDialogue={setShowInfoDialogue}
+          selectedMarker={selectedMarker}
+          is4kDevice={window.innerWidth > 3839}
+          selectedTheme={selectedTheme}
+          selectedMarkerLocation={selectedMarkerLocation}
+          pageName={"dashboard"}
+        />
+      )}
+    
     </>
   );
 };
