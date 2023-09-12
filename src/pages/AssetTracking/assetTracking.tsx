@@ -226,11 +226,6 @@ const AssetTracking: React.FC<any> = (props) => {
     // let overallAssetDetailPayload: any = {};
     // dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
-    // let assetTrackerDetailPayload: any = {
-    //   "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-    //   "trackerId": null
-    // };
-    // dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
 
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
@@ -262,7 +257,6 @@ const AssetTracking: React.FC<any> = (props) => {
   //   (state: any) => state?.assetTracker?.assetTrackerData
   // );
 
-  // console.log("assetTrackerDetails", assetTrackerDetails)
 
   const createGeofence = useSelector(
     (state: any) => state?.createGeofence?.createGeofenceData
@@ -274,8 +268,6 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.enableGeofence?.updateGeofenceData
   );
 
-  // console.log("createGeofence", createGeofence)
-  // console.log("updateGeofence", updateGeofence)
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -349,12 +341,6 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const getActiveInactiveTrackersGraphData = () => {
     let data = [
-      // {
-      //   data: graphDataManipulation(electricityConsumptionGraphDataStateUpdates),
-
-      //   color: "#77B77C",
-      // },
-
       {
         data: graphDataManipulation(activeTrackersGraphDataStateUpdates),
         marker: {
@@ -364,10 +350,6 @@ const AssetTracking: React.FC<any> = (props) => {
         color: "#25796D",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-        //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-        // ],
       },
       {
         data: graphDataManipulation(inactiveTrackersGraphDataStateUpdates),
@@ -378,10 +360,6 @@ const AssetTracking: React.FC<any> = (props) => {
         color: "#D25A5A",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -432,10 +410,6 @@ const AssetTracking: React.FC<any> = (props) => {
             ],
           ],
         },
-        // data: [
-        //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-        //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -572,6 +546,8 @@ const AssetTracking: React.FC<any> = (props) => {
   const yearFormat = "{value:%b}";
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
+    const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([])
+ 
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
@@ -729,13 +705,67 @@ const AssetTracking: React.FC<any> = (props) => {
         });
       });
 
-      const dataValue: any = combinedNotifications?.map(
-        (value: any, index: number) => {
-          return { ...value, index: index + 1 };
+    const dataValue: any = combinedNotifications?.map(
+      (value: any, index: number) => {
+        return { ...value, index: index + 1 };
+      }
+    );
+
+combinedNotifications.sort((a:any, b:any) => {
+      const dateA : any = new Date(a.notificationDate);
+      const dateB : any = new Date(b.notificationDate);
+    
+      return dateB - dateA;
+    });
+
+      let uniqueTrackerIds : any = {};
+
+      const uniqueData = combinedNotifications.filter((item:any) => {
+        if (!uniqueTrackerIds[item.trackerId]) {
+          uniqueTrackerIds[item.trackerId] = true;
+          return true;
         }
-      );
-      setNotificationArray(dataValue);
-    }
+        return false;
+      });
+
+      const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
+        const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+        
+        if (uniqueDataItem) {
+            return {
+                ...combinedDataItem,
+                location: uniqueDataItem.location,
+                recentMarkerType : uniqueDataItem.notificationType,
+            };
+        }
+    
+        return combinedDataItem;
+    });
+
+    const updatedUniqueMarkerData = combinedNotifications.map((combinedDataItem:any) => {
+      const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+      
+      if (uniqueDataItem) {
+          return {
+              ...combinedDataItem,
+              location: uniqueDataItem.location,
+              recentMarkerType : uniqueDataItem.notificationType,
+          };
+      }
+  
+      return combinedDataItem;
+  });
+
+  updatedUniqueMarkerData.sort((a:any, b:any) => {
+        const dateA : any = new Date(a.notificationDate);
+        const dateB : any = new Date(b.notificationDate);
+      
+        return dateA - dateB;
+      });
+
+    setMapMarkerArrayList(updatedUniqueMarkerData)
+    setNotificationArray(updatedUniqueData);
+  }
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
@@ -1381,66 +1411,7 @@ const AssetTracking: React.FC<any> = (props) => {
                                               // ],
                                             },
                                           ]}
-                                          // {[
-                                          //   {
-                                          //     marker: {
-                                          //       enabled: false,
-                                          //     },
-                                          //     lineColor: "#EE3E35",
-                                          //     color: "#EE3E35",
-                                          //     lineWidth:
-                                          //       selectedWidth?.is4kDevice ||
-                                          //       selectedWidth?.is3KDevice
-                                          //         ? 4
-                                          //         : 2,
-                                          //     fillColor: {
-                                          //       linearGradient: [0, 0, 0, 200],
-                                          //       stops: [
-                                          //         [
-                                          //           0,
-                                          //           Highcharts.color("#C3362F")
-                                          //             .setOpacity(0.5)
-                                          //             .get("rgba"),
-                                          //         ],
-                                          //         [
-                                          //           0.5,
-                                          //           Highcharts.color("#C3362F")
-                                          //             .setOpacity(
-                                          //               selectedWidth?.is4kDevice ||
-                                          //                 selectedWidth?.is3KDevice
-                                          //                 ? selectedTheme ===
-                                          //                   "light"
-                                          //                   ? 0.4
-                                          //                   : 0.3
-                                          //                 : 0.3
-                                          //             )
-                                          //             .get("rgba"),
-                                          //         ],
-                                          //         [
-                                          //           1,
-                                          //           Highcharts.color("#C3362F")
-                                          //             .setOpacity(
-                                          //               selectedWidth?.is4kDevice ||
-                                          //                 selectedWidth?.is3KDevice
-                                          //                 ? selectedTheme ===
-                                          //                   "light"
-                                          //                   ? 0.14
-                                          //                   : 0.06
-                                          //                 : selectedTheme ===
-                                          //                   "light"
-                                          //                 ? 0.01
-                                          //                 : 0.02
-                                          //             )
-                                          //             .get("rgba"),
-                                          //         ],
-                                          //       ],
-                                          //     },
-                                          //     data: [
-                                          //       1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                          //       6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          //     ],
-                                          //   },
-                                          // ]}
+
                                         />
                                       ) : (
                                         <Loader isHundredVh={false} />
@@ -1469,7 +1440,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         onClick={handleAssetInfoWindow}
                       /> */}
                       <Map
-                        markers={notificationArray}
+                        markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
                         marker={selectedNotification}

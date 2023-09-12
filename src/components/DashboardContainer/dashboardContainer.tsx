@@ -118,6 +118,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [selectedMarker, setSelectedMarker] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [mapMarkerArray, setMapMarkerArray] = useState<any>([])
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -197,6 +198,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           ...dashboardNotiData,
           // ...fleetNotiData,
         ];
+
+        const consolidatedMarkerData = [...consolidatedData];
+
+        consolidatedMarkerData.sort((a:any, b:any) => {
+          const dateA : any = new Date(a.notificationDate);
+          const dateB : any = new Date(b.notificationDate);
+        
+          return dateA - dateB;
+        });
+  
+        setMapMarkerArray(consolidatedMarkerData)
         setDashboardNotificationList(consolidatedData);
       }
     }
@@ -245,6 +257,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           // ...fleetNotiData,
         ];
         setDashboardNotificationList(consolidatedData);
+
+        const consolidatedMarkerData = [...consolidatedData];
+
+        consolidatedMarkerData.sort((a:any, b:any) => {
+          const dateA : any = new Date(a.notificationDate);
+          const dateB : any = new Date(b.notificationDate);
+        
+          return dateA - dateB;
+        });
+  
+        setMapMarkerArray(consolidatedMarkerData)
       }
     }
   }, [assetNotificationResponse, fleetManagementNotificationResponse]);
@@ -403,7 +426,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>
                 <Map
-                  markers={dashboardNotificationList}
+                  markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}
                   marker={selectedNotification}
