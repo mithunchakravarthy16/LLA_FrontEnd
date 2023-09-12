@@ -82,8 +82,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 410,
-        height: 280,
+        width: 420,
+        height: 270,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {
@@ -305,10 +305,10 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                            padding: "2.5% 10%",
-                            borderRadius : "0.3vw",
-                            fontSize : "0.8vw",
-                            fontWeight : 500
+                        padding: "2.5% 10%",
+                        borderRadius: "0.3vw",
+                        fontSize: "0.8vw",
+                        fontWeight: 500,
                       }}>
                       {gridView.today}
                     </div>
