@@ -16,6 +16,7 @@ import Geofence from "components/Geofence";
 import { useDispatch, useSelector } from "react-redux";
 import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
+import Tooltip from "elements/Tooltip";
 import moment from "moment";
 import {
   getAssetTrackingCreateGeofence,
@@ -275,7 +276,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   const tabsList = [
     { name: assetsTracking.assetDetails, val: 0 },
-    { name: assetsTracking.GEOFENCE, val: 1 },
+    // { name: assetsTracking.GEOFENCE, val: 1 },
   ];
 
   const handleHeaderTab = (index: number) => {
@@ -283,17 +284,18 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   };
 
   const assetInfoTopPanelData = [
-    { label: assetsTracking.product, value: assetTrackerDetails?.product },
+    { label: assetsTracking.product, value: assetTrackerDetails?.product === null ? "LLA Product" : assetTrackerDetails?.product },
     { label: assetsTracking.trackerId, value: assetTrackerDetails?.trackerId },
-    { label: assetsTracking.assetsType, value: assetTrackerDetails?.assetType },
+    { label: assetsTracking.assetsType, value: assetTrackerDetails?.assetType === null ? "LLA Asset" : assetTrackerDetails?.assetType },
     { label: assetsTracking.assetsId, value: selectedMarker?.assetName },
   ];
 
   const assetCenterLeftSectionData = [
-    { label: assetsTracking.section, value: assetTrackerDetails?.section },
+    { label: assetsTracking.section, 
+      value: assetTrackerDetails?.section === null ? "LLA Section" : assetTrackerDetails?.section },
     {
       label: assetsTracking.storageLocation,
-      value: assetTrackerDetails?.storeageLocation,
+      value: assetTrackerDetails?.storeageLocation === null ? "LLA Storage" : assetTrackerDetails?.storeageLocation,
     },
     {
       label: assetsTracking.trackerStatus,
@@ -301,7 +303,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     },
     {
       label: assetsTracking.geofence,
-      value: assetTrackerDetails?.geofenceStatus,
+      value: assetTrackerDetails?.geofenceStatus === null ? "With in Geofence" : assetTrackerDetails?.geofenceStatus,
     },
   ];
 
@@ -556,6 +558,27 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setSuccess(false);
   };
 
+  const truncateString = (str: string, num: number) => {
+    if (str.length > num) {
+      return str.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
+
+  const [screenResolution, setScreenResolution] = useState<any>("2k");
+
+  useEffect(() => {
+    if (window.innerWidth > 3839) {
+      setScreenResolution("4k");
+    } else if (window.innerWidth < 3839) {
+      setScreenResolution("2k");
+    }
+  }, []);
+  const tooltipOfset = screenResolution === "2k" ? [0, 10] : [0, 40];
+  const fontSize = screenResolution === "2k" ? [14] : [22];
+  const padding = [2];
+
   return (
     <>
       {success &&
@@ -657,7 +680,23 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     key={index}
                                   >
                                     <div className={leftPanelChild1}>
-                                      {data?.value === null ? "--" : data?.value}
+                                      {data?.value?.length > 17 ? (
+                                        <>
+                                          <Tooltip
+                                            tooltipValue={data?.value}
+                                            placement={"bottom"}
+                                            offset={tooltipOfset}
+                                            fontSize={fontSize}
+                                            padding={padding}
+                                          >
+                                            {" "}
+                                            {truncateString(data?.value, 17)}
+                                          </Tooltip>
+                                        </>
+                                      ) : (
+                                        data?.value
+                                      )}
+                                      {/* {data?.value === null ? "--" : data?.value} */}
                                     </div>
                                     <div className={leftPanelChild2} style={{}}>
                                       {data?.label}
