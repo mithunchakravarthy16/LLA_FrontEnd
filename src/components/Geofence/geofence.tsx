@@ -308,7 +308,7 @@ const Geofence: React.FC<any> = (props: any) => {
             <div>
               <div
                 className={geofenceCircleType}
-                onClick={isDisabled ? handleCircleClick : () => null}
+                onClick={checked ? handleCircleClick : () => null}
               >
                 <img
                   src={
@@ -327,7 +327,7 @@ const Geofence: React.FC<any> = (props: any) => {
             <div className={polygonContainer}>
               <div
                 className={polygonImage}
-                onClick={isDisabled ? handlePolygonClick : () => null}
+                onClick={checked ? handlePolygonClick : () => null}
               >
                 <img
                   src={
@@ -349,7 +349,7 @@ const Geofence: React.FC<any> = (props: any) => {
               <TextField
                 value={geofenceName}
                 type={"text"}
-                disabled={!isDisabled}
+                disabled={!checked}
                 onChange={handleGeofenceNameChange}
                 placeholder={"Enter"}
               />
@@ -368,7 +368,7 @@ const Geofence: React.FC<any> = (props: any) => {
                   <TextField
                     value={circleLatLng?.lat}
                     type={"number"}
-                    disabled={!isDisabled}
+                    disabled={!checked}
                     onChange={handleCircleLatChange}
                     placeholder={"Latitude"}
                   />
@@ -380,7 +380,7 @@ const Geofence: React.FC<any> = (props: any) => {
                   <TextField
                     value={circleLatLng?.lng}
                     type={"number"}
-                    disabled={!isDisabled}
+                    disabled={!checked}
                     onChange={handleCircleLngChange}
                     placeholder={"Longitude"}
                   />
@@ -393,7 +393,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 <TextField
                   value={circleRadius}
                   type={"number"}
-                  disabled={!isDisabled}
+                  disabled={!checked}
                   onChange={handleRadiusChange}
                   placeholder={"Geofence Radius"}
                 />
@@ -410,7 +410,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 name={"outside-0"}
                 label={assetsTracking.outsideGeofence}
                 isChecked={isOutsideGeofenceChecked}
-                disabled={!isDisabled}
+                disabled={!checked}
                 handleCheck={(e: any) => handleOutsideGeofenceCheck(e)}
               />
             </div>
@@ -420,7 +420,7 @@ const Geofence: React.FC<any> = (props: any) => {
                 name={"back-0"}
                 label={assetsTracking.backToGeofence}
                 isChecked={isBackGeofenceChecked}
-                disabled={!isDisabled}
+                disabled={!checked}
                 handleCheck={(e: any) => handleBacktoGeofenceCheck(e)}
               />
             </div>
