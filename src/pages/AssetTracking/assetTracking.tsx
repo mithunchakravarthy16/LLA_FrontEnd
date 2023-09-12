@@ -310,9 +310,9 @@ useEffect(() => {
         },
         {
             "assetNotificationId": "3b6b6b86-3a5f-4152-be0a-23d26fd3386c",
-            "notificationType": "incidents",
+            "notificationType": "event",
             "reason": "High Humidity",
-            "trackerId": "740063943498",
+            "trackerId": "740063943500",
             "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
             "trackerName": "TR#740063943499",
             "assetName": "Unit-740063943499",
@@ -330,7 +330,7 @@ useEffect(() => {
             "assetNotificationId": "bb9c5cd6-a0b4-4f84-b1dc-0e80466567f2",
             "notificationType": "incidents",
             "reason": "High Humidity",
-            "trackerId": "740063943499",
+            "trackerId": "740063943500",
             "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
             "trackerName": "TR#740063943499",
             "assetName": "Unit-740063943499",
@@ -408,7 +408,6 @@ useEffect(() => {
       return dateB - dateA;
     });
 
-    console.log("newDataList", newDataList)
 
 
       let uniqueTrackerIds : any = {};
@@ -421,13 +420,20 @@ useEffect(() => {
         return false;
       });
 
-      console.log("uniqueData", uniqueData)
 
+      const updatedUniqueData = newDataList.map((newDataItem) => {
+        const uniqueDataItem = uniqueData.find((uniqueDataItem) => uniqueDataItem.trackerId === newDataItem.trackerId);
+        
+        if (uniqueDataItem) {
+            return {
+                ...newDataItem,
+                location: uniqueDataItem.location,
+            };
+        }
+        
+        return newDataItem;
+    });
     
-
-
-
-
     }
   }, [assetNotificationList]);
 
@@ -444,9 +450,6 @@ useEffect(() => {
     (state: any) => state?.enableGeofence?.updateGeofenceData
   );
 
-  // console.log("createGeofence", createGeofence)
-  // console.log("updateGeofence", updateGeofence)
-  // console.log("enableGeofence", enableGeofence)
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -743,7 +746,7 @@ useEffect(() => {
   const yearFormat = "{value:%b}";
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
-
+    const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([])
  
 
   const handleSelect = (val: any) => {
@@ -895,7 +898,160 @@ useEffect(() => {
         return { ...value, index: index + 1 };
       }
     );
-    setNotificationArray(dataValue);
+
+
+
+    combinedNotifications.sort((a:any, b:any) => {
+      const dateA : any = new Date(a.notificationDate);
+      const dateB : any = new Date(b.notificationDate);
+    
+      return dateB - dateA;
+    });
+
+    const newDataList = [
+      {
+          "assetNotificationId": "dea9e950-9f18-47a9-bf9b-46bf57fa1742",
+          "notificationType": "events",
+          "reason": "High Humidity",
+          "trackerId": "740063943499",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerName": "TR#740063943499",
+          "assetName": "Unit-740063943499",
+          "notificationDate": "2023-09-08T09:44:32",
+          "location": {
+              "lat": 12.1653163,
+              "lng": 78.1271714
+          },
+          "area": null,
+          "title": "High Humidity",
+          "details": "TR#740063943499 | Unit-740063943499",
+          "timeStamp": "08-09-2023 | 09:44 AM"
+      },
+      {
+          "assetNotificationId": "3b6b6b86-3a5f-4152-be0a-23d26fd3386c",
+          "notificationType": "event",
+          "reason": "High Humidity",
+          "trackerId": "740063943500",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerName": "TR#740063943499",
+          "assetName": "Unit-740063943499",
+          "notificationDate": "2023-09-08T10:41:01",
+          "location": {
+              "lat": 12.1598159,
+              "lng": 78.1273548
+          },
+          "area": null,
+          "title": "High Humidity",
+          "details": "TR#740063943499 | Unit-740063943499",
+          "timeStamp": "08-09-2023 | 10:41 AM"
+      },
+      {
+          "assetNotificationId": "bb9c5cd6-a0b4-4f84-b1dc-0e80466567f2",
+          "notificationType": "incidents",
+          "reason": "High Humidity",
+          "trackerId": "740063943500",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerName": "TR#740063943499",
+          "assetName": "Unit-740063943499",
+          "notificationDate": "2023-09-08T09:41:01",
+          "location": {
+              "lat": 12.1598159,
+              "lng": 78.1273548
+          },
+          "area": null,
+          "title": "High Humidity",
+          "details": "TR#740063943499 | Unit-740063943499",
+          "timeStamp": "08-09-2023 | 09:41 AM"
+      },
+      {
+          "assetNotificationId": "dbfe4fee-e7f8-4ef9-9fe0-d839166cd9a7",
+          "notificationType": "incidents",
+          "reason": "Tag Disconnected",
+          "trackerId": "740063943498",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerName": "TR#740063943499",
+          "assetName": "Unit-740063943499",
+          "notificationDate": "2023-09-08T09:13:35.304886",
+          "location": {
+              "lat": 0,
+              "lng": 0
+          },
+          "area": null,
+          "title": "Tag Disconnected",
+          "details": "TR#740063943499 | Unit-740063943499",
+          "timeStamp": "08-09-2023 | 09:13 AM"
+      },
+      {
+          "assetNotificationId": "6719baa3-c15c-458c-9742-3966e8f455f1",
+          "notificationType": "incidents",
+          "reason": "High Humidity",
+          "trackerId": "740063943499",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerName": "TR#740063943499",
+          "assetName": "Unit-740063943499",
+          "notificationDate": "2023-09-08T09:11:16",
+          "location": {
+              "lat": 12.1592556,
+              "lng": 78.1263031
+          },
+          "area": null,
+          "title": "High Humidity",
+          "details": "TR#740063943499 | Unit-740063943499",
+          "timeStamp": "08-09-2023 | 09:11 AM"
+      },
+      {
+          "assetNotificationId": "d5bb7d6a-7eb5-4db8-9948-95736ba2f53b",
+          "notificationType": "incidents",
+          "reason": "High Humidity",
+          "trackerId": "740063943498",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerName": "TR#740063943499",
+          "assetName": "Unit-740063943499",
+          "notificationDate": "2023-09-08T08:41:15",
+          "location": {
+              "lat": 12.1566817,
+              "lng": 78.1268498
+          },
+          "area": null,
+          "title": "High Humidity",
+          "details": "TR#740063943499 | Unit-740063943499",
+          "timeStamp": "08-09-2023 | 08:41 AM"
+      }
+  
+  ]
+
+
+
+      let uniqueTrackerIds : any = {};
+
+      const uniqueData = combinedNotifications.filter((item:any) => {
+        if (!uniqueTrackerIds[item.trackerId]) {
+          uniqueTrackerIds[item.trackerId] = true;
+          return true;
+        }
+        return false;
+      });
+
+
+
+      const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
+        const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+        
+        if (uniqueDataItem) {
+            return {
+                ...combinedDataItem,
+                location: uniqueDataItem.location,
+                recentMarkerType : uniqueDataItem.notificationType,
+            };
+        }
+    
+        return combinedDataItem;
+    });
+
+    setMapMarkerArrayList(updatedUniqueData)
+    setNotificationArray(updatedUniqueData);
+
+
   }
   }, [assetNotificationList]);
 
@@ -1354,10 +1510,7 @@ useEffect(() => {
                                           color: "#25796D",
                                           lineWidth:
                                             selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-                                          // data: [
-                                          //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                          //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                          // ],
+
                                         },
                                         {
                                           data: inActiveAnalyticsData,
@@ -1368,46 +1521,9 @@ useEffect(() => {
                                           color: "#D25A5A",
                                           lineWidth:
                                             selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-                                          // data: [
-                                          //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                          //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          // ],
                                         },
                                       ]}
-                                      // {[
-                                      //   {
-                                      //     marker: {
-                                      //       enabled: false,
-                                      //     },
-                                      //     lineColor: "#25796D",
-                                      //     color: "#25796D",
-                                      //     lineWidth:
-                                      //       selectedWidth?.is4kDevice ||
-                                      //       selectedWidth?.is3KDevice
-                                      //         ? 4
-                                      //         : 2,
-                                      //     data: [
-                                      //       0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                      //       4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                      //     ],
-                                      //   },
-                                      //   {
-                                      //     marker: {
-                                      //       enabled: false,
-                                      //     },
-                                      //     lineColor: "#D25A5A",
-                                      //     color: "#D25A5A",
-                                      //     lineWidth:
-                                      //       selectedWidth?.is4kDevice ||
-                                      //       selectedWidth?.is3KDevice
-                                      //         ? 4
-                                      //         : 2,
-                                      //     data: [
-                                      //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                      //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                      //     ],
-                                      //   },
-                                      // ]}
+
                                     />
                                   </Grid>
                                 </Grid>
@@ -1510,72 +1626,10 @@ useEffect(() => {
                                               ],
                                             ],
                                           },
-                                          // data: [
-                                          //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                          //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          // ],
+
                                         }
                                       ]}
-                                      // {[
-                                      //   {
-                                      //     marker: {
-                                      //       enabled: false,
-                                      //     },
-                                      //     lineColor: "#EE3E35",
-                                      //     color: "#EE3E35",
-                                      //     lineWidth:
-                                      //       selectedWidth?.is4kDevice ||
-                                      //       selectedWidth?.is3KDevice
-                                      //         ? 4
-                                      //         : 2,
-                                      //     fillColor: {
-                                      //       linearGradient: [0, 0, 0, 200],
-                                      //       stops: [
-                                      //         [
-                                      //           0,
-                                      //           Highcharts.color("#C3362F")
-                                      //             .setOpacity(0.5)
-                                      //             .get("rgba"),
-                                      //         ],
-                                      //         [
-                                      //           0.5,
-                                      //           Highcharts.color("#C3362F")
-                                      //             .setOpacity(
-                                      //               selectedWidth?.is4kDevice ||
-                                      //                 selectedWidth?.is3KDevice
-                                      //                 ? selectedTheme ===
-                                      //                   "light"
-                                      //                   ? 0.4
-                                      //                   : 0.3
-                                      //                 : 0.3
-                                      //             )
-                                      //             .get("rgba"),
-                                      //         ],
-                                      //         [
-                                      //           1,
-                                      //           Highcharts.color("#C3362F")
-                                      //             .setOpacity(
-                                      //               selectedWidth?.is4kDevice ||
-                                      //                 selectedWidth?.is3KDevice
-                                      //                 ? selectedTheme ===
-                                      //                   "light"
-                                      //                   ? 0.14
-                                      //                   : 0.06
-                                      //                 : selectedTheme ===
-                                      //                   "light"
-                                      //                 ? 0.01
-                                      //                 : 0.02
-                                      //             )
-                                      //             .get("rgba"),
-                                      //         ],
-                                      //       ],
-                                      //     },
-                                      //     data: [
-                                      //       1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                      //       6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                      //     ],
-                                      //   },
-                                      // ]}
+                                     
                                     />
                                   </Grid>
                                 </Grid>
@@ -1601,7 +1655,7 @@ useEffect(() => {
                       onClick={handleAssetInfoWindow}
                     />
                     <Map
-                      markers={notificationArray}
+                      markers={mapMarkerArrayList}
                       setNotificationPanelActive={setNotificationPanelActive}
                       setSelectedNotification={setSelectedNotification}
                       marker={selectedNotification}
@@ -1619,7 +1673,7 @@ useEffect(() => {
                 </Grid>
               </Grid>
               <Grid item xs={3} className={notificationPanelGrid}>
-                {/* <NotificationPanel
+                <NotificationPanel
                   setNotificationPanelActive={setNotificationPanelActive}
                   dashboardData={dashboardData}
                   tabIndex={tabIndex}
@@ -1637,7 +1691,7 @@ useEffect(() => {
                   setIsMarkerClicked={setIsMarkerClicked}
                   selectedTheme={selectedTheme}
                   handleExpandListItem={() => {}}
-                /> */}
+                />
               </Grid>
             </Grid>
           </Grid>
