@@ -575,7 +575,8 @@ const Map: React.FC<any> = (props) => {
   const getMarkerIcon = (
     category: string,
     notificationCategory: string,
-    id: string
+    id: string,
+    marker:any
   ) => {
     switch (notificationCategory) {
       case "Events": {
@@ -999,7 +1000,7 @@ const Map: React.FC<any> = (props) => {
                             currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
                             clusterer={clusterer}
-                            location={singleMarker?.location}
+                            location={singleMarker?.currentLocation}
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
                             selectedTheme={selectedTheme}
@@ -1023,7 +1024,7 @@ const Map: React.FC<any> = (props) => {
                             currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
                             clusterer={clusterer}
-                            location={singleMarker?.location}
+                            location={singleMarker?.currentLocation}
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
                             handleViewDetails={handleViewDetails}
@@ -1113,7 +1114,7 @@ const Map: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
                         // clusterer={clusterer}
-                        location={singleMarker?.location}
+                        location={singleMarker?.currentLocation}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
                         selectedTheme={selectedTheme}
@@ -1137,7 +1138,7 @@ const Map: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
                         // clusterer={clusterer}
-                        location={singleMarker?.location}
+                        location={singleMarker?.currentLocation}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
                         handleViewDetails={handleViewDetails}

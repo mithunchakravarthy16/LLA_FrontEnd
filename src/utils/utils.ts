@@ -174,7 +174,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         if (uniqueDataItem) {
             return {
                 ...combinedDataItem,
-                location: uniqueDataItem.location,
+                location: uniqueDataItem.currentLocation,
                 recentMarkerType : uniqueDataItem.notificationType,
             };
         }
