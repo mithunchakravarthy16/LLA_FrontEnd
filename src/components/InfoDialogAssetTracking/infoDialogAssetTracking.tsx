@@ -141,7 +141,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const [infoNotificationList, setInfoNotificationList] = useState<any>([]);
 
   useEffect(() => {
-    if (assetTrackerDetails) {
+    if (assetTrackerDetails?.notifications) {
       const { events, incidents, alerts } = assetTrackerDetails?.notifications;
       const combinedNotifications: any = [];
 
@@ -291,7 +291,13 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           ? "LLA Product"
           : assetTrackerDetails?.product,
     },
-    { label: assetsTracking.trackerId, value: assetTrackerDetails?.trackerId },
+    {
+      label: assetsTracking.trackerId,
+      value:
+        assetTrackerDetails?.trackerId === null
+          ? "LLA Tracker"
+          : assetTrackerDetails?.trackerId,
+    },
     {
       label: assetsTracking.assetsType,
       value:
@@ -299,7 +305,13 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           ? "LLA Asset"
           : assetTrackerDetails?.assetType,
     },
-    { label: assetsTracking.assetsId, value: selectedMarker?.assetName },
+    {
+      label: assetsTracking.assetsId,
+      value:
+        selectedMarker?.assetName !== null
+          ? selectedMarker?.assetName
+          : "LLA Asset",
+    },
   ];
 
   const assetCenterLeftSectionData = [
@@ -337,7 +349,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     },
     {
       label: assetsTracking.temperature,
-      value: `${assetTrackerDetails?.temperature}°C`,
+      value: `${assetTrackerDetails?.temperature?.toFixed(2)}°C`,
     },
     {
       label: assetsTracking.humidity,
@@ -825,10 +837,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         </div>
                       </Grid>
                       <Grid className={assetInfoLeftPanelBottom}>
-                        {/* <CustomizedSteppers
-                          packagaeData={packageData}
+                        <CustomizedSteppers
+                          dataPoints={assetTrackerDetails?.journeyDetails}
                           selectedTheme={selectedTheme}
-                        /> */}
+                        />
                       </Grid>
                     </Grid>
                     <Grid item xs={4} className={assetInfoRightPanelMain}>

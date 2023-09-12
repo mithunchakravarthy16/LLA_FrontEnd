@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
+import moment from "moment";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -29,8 +30,8 @@ const ColorlibStepIcon: React.FC<any> = (props) => {
 };
 
 const CustomizedSteppers: React.FC<any> = (props) => {
-  const { packagaeData, selectedTheme } = props;
-  const packagaeDataCopy = packagaeData && packagaeData;
+  const { dataPoints, selectedTheme } = props;
+
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   const { stepperSx, typographySx } = useStyles(appTheme);
@@ -62,9 +63,9 @@ const CustomizedSteppers: React.FC<any> = (props) => {
         // sx={stepperSx}
         className={stepperSx}
       >
-        {packagaeDataCopy &&
-          packagaeDataCopy.length > 0 &&
-          packagaeDataCopy.map((label: any, index: number) => (
+        {dataPoints &&
+          dataPoints.length > 0 &&
+          dataPoints.map((label: any, index: number) => (
             <Step key={index} style={{ wordBreak: "break-word" }}>
               <Typography
                 // sx={typographySx} // For solution 2
@@ -78,10 +79,10 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                     appTheme?.palette?.assetTrackingPage?.topPanelTextColor,
                 }}
               >
-                {label?.packageStage}
+                {label?.area}
               </Typography>
               <StepLabel StepIconComponent={ColorlibStepIcon}>
-                {label?.timeStamp}
+                {moment(label?.timestamp)?.format("DD-MM-YYYY | HH:mm A")}
               </StepLabel>
             </Step>
           ))}

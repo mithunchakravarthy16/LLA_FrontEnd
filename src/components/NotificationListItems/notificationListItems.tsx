@@ -363,7 +363,7 @@ const NotificationListItems = (props: any) => {
                         <div className={buttonStyle}>
                           <Button
                             variant="contained"
-                            handleClick={() => handleAssetViewDetails(data)}
+                            handleClick={() => handleAssetViewDetails(item)}
                           >
                             {viewDetails}
                           </Button>
