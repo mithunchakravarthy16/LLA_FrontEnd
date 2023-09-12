@@ -561,9 +561,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
       {success &&
         (createGeofenceResponse?.status || updateGeofenceResponse?.status) && (
           <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={success}
             onClose={handleAlertClose}
+            sx={{ bottom: "7.5vw !important" }}
           >
             <Alert
               onClose={handleAlertClose}
@@ -657,7 +658,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     key={index}
                                   >
                                     <div className={leftPanelChild1}>
-                                      {data?.value === null ? "--" : data?.value}
+                                      {data?.value === null
+                                        ? "--"
+                                        : data?.value}
                                     </div>
                                     <div className={leftPanelChild2} style={{}}>
                                       {data?.label}

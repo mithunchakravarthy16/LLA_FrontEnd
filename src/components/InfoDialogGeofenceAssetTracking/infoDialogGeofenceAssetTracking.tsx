@@ -411,9 +411,13 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     <>
       {success && createGeofenceResponse?.status && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
           open={success}
           onClose={handleAlertClose}
+          sx={{ bottom: "7.5vw !important" }}
         >
           <Alert
             onClose={handleAlertClose}
@@ -422,7 +426,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
             }
             sx={{ width: "100%" }}
           >
-            {createGeofenceResponse?.status === 200 && (
+            {200 === 200 && (
               <div style={{ display: "flex" }}>
                 <Typography>Successfully Created Geofence.</Typography>
               </div>
