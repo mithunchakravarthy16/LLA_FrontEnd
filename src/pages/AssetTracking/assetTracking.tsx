@@ -1456,12 +1456,12 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "59%" }}>
-                      <img
+                      {/* <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      />
+                      /> */}
                       <Map
                         markers={notificationArray}
                         setNotificationPanelActive={setNotificationPanelActive}
