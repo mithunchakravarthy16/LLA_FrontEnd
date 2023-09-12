@@ -228,11 +228,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     let overallAssetDetailPayload: any = {};
     dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
-    // let assetTrackerDetailPayload: any = {
-    //   "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-    //   "trackerId": null
-    // };
-    // dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
 
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
@@ -263,202 +258,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   // const assetTrackerDetails = useSelector(
   //   (state: any) => state?.assetTracker?.assetTrackerData
   // );
-
-
-  const [assetNotificationCombinedArray, setAssetNotificationCombinedArray] = useState<any>([])
-  const [sortedCombinedArray, setSortedCombinedArray] = useState<any>([])
-
-  useEffect(() => {
-    if (assetNotificationList) {
-      const { events, incidents, alerts } = assetNotificationList;
-      const combinedNotifications: any = [];
-
-      events?.eventsList?.forEach((event: any, index: number) => {
-        combinedNotifications.push({
-          ...event,
-          notificationType : "event",
-          title: event?.reason,
-          details: `${event?.trackerName} | ${event?.assetName}`,
-          timeStamp: moment(event?.notificationDate)?.format(
-            "DD-MM-YYYY | HH:mm A"
-          ),
-        });
-      });
-
-      incidents?.incidentList?.forEach((incidents: any, index: number) => {
-        combinedNotifications.push({
-          ...incidents,
-          notificationType : "incidents",
-          title: incidents?.reason,
-          details: `${incidents?.trackerName} | ${incidents?.assetName}`,
-          timeStamp: moment(incidents?.notificationDate)?.format(
-            "DD-MM-YYYY | HH:mm A"
-          ),
-        });
-      });
-
-      alerts?.alertList?.forEach((alerts: any, index: number) => {
-        combinedNotifications.push({
-          ...alerts,
-          notificationType : "alerts",
-          title: alerts?.reason,
-          details: `${alerts?.trackerName} | ${alerts?.assetName}`,
-          timeStamp: moment(alerts?.notificationDate)?.format(
-            "DD-MM-YYYY | HH:mm A"
-          ),
-        });
-      });
-
-      setAssetNotificationCombinedArray(combinedNotifications);
-
-      const newDataList = [
-        {
-            "assetNotificationId": "dea9e950-9f18-47a9-bf9b-46bf57fa1742",
-            "notificationType": "events",
-            "reason": "High Humidity",
-            "trackerId": "740063943499",
-            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-            "trackerName": "TR#740063943499",
-            "assetName": "Unit-740063943499",
-            "notificationDate": "2023-09-08T09:44:32",
-            "location": {
-                "lat": 12.1653163,
-                "lng": 78.1271714
-            },
-            "area": null,
-            "title": "High Humidity",
-            "details": "TR#740063943499 | Unit-740063943499",
-            "timeStamp": "08-09-2023 | 09:44 AM"
-        },
-        {
-            "assetNotificationId": "3b6b6b86-3a5f-4152-be0a-23d26fd3386c",
-            "notificationType": "event",
-            "reason": "High Humidity",
-            "trackerId": "740063943500",
-            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-            "trackerName": "TR#740063943499",
-            "assetName": "Unit-740063943499",
-            "notificationDate": "2023-09-08T10:41:01",
-            "location": {
-                "lat": 12.1598159,
-                "lng": 78.1273548
-            },
-            "area": null,
-            "title": "High Humidity",
-            "details": "TR#740063943499 | Unit-740063943499",
-            "timeStamp": "08-09-2023 | 10:41 AM"
-        },
-        {
-            "assetNotificationId": "bb9c5cd6-a0b4-4f84-b1dc-0e80466567f2",
-            "notificationType": "incidents",
-            "reason": "High Humidity",
-            "trackerId": "740063943500",
-            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-            "trackerName": "TR#740063943499",
-            "assetName": "Unit-740063943499",
-            "notificationDate": "2023-09-08T09:41:01",
-            "location": {
-                "lat": 12.1598159,
-                "lng": 78.1273548
-            },
-            "area": null,
-            "title": "High Humidity",
-            "details": "TR#740063943499 | Unit-740063943499",
-            "timeStamp": "08-09-2023 | 09:41 AM"
-        },
-        {
-            "assetNotificationId": "dbfe4fee-e7f8-4ef9-9fe0-d839166cd9a7",
-            "notificationType": "incidents",
-            "reason": "Tag Disconnected",
-            "trackerId": "740063943498",
-            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-            "trackerName": "TR#740063943499",
-            "assetName": "Unit-740063943499",
-            "notificationDate": "2023-09-08T09:13:35.304886",
-            "location": {
-                "lat": 0,
-                "lng": 0
-            },
-            "area": null,
-            "title": "Tag Disconnected",
-            "details": "TR#740063943499 | Unit-740063943499",
-            "timeStamp": "08-09-2023 | 09:13 AM"
-        },
-        {
-            "assetNotificationId": "6719baa3-c15c-458c-9742-3966e8f455f1",
-            "notificationType": "incidents",
-            "reason": "High Humidity",
-            "trackerId": "740063943499",
-            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-            "trackerName": "TR#740063943499",
-            "assetName": "Unit-740063943499",
-            "notificationDate": "2023-09-08T09:11:16",
-            "location": {
-                "lat": 12.1592556,
-                "lng": 78.1263031
-            },
-            "area": null,
-            "title": "High Humidity",
-            "details": "TR#740063943499 | Unit-740063943499",
-            "timeStamp": "08-09-2023 | 09:11 AM"
-        },
-        {
-            "assetNotificationId": "d5bb7d6a-7eb5-4db8-9948-95736ba2f53b",
-            "notificationType": "incidents",
-            "reason": "High Humidity",
-            "trackerId": "740063943498",
-            "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-            "trackerName": "TR#740063943499",
-            "assetName": "Unit-740063943499",
-            "notificationDate": "2023-09-08T08:41:15",
-            "location": {
-                "lat": 12.1566817,
-                "lng": 78.1268498
-            },
-            "area": null,
-            "title": "High Humidity",
-            "details": "TR#740063943499 | Unit-740063943499",
-            "timeStamp": "08-09-2023 | 08:41 AM"
-        }
-    
-    ]
-
-    newDataList.sort((a:any, b:any) => {
-      const dateA : any = new Date(a.notificationDate);
-      const dateB : any = new Date(b.notificationDate);
-    
-      return dateB - dateA;
-    });
-
-
-
-      let uniqueTrackerIds : any = {};
-
-      const uniqueData = newDataList.filter((item:any) => {
-        if (!uniqueTrackerIds[item.trackerId]) {
-          uniqueTrackerIds[item.trackerId] = true;
-          return true;
-        }
-        return false;
-      });
-
-
-      const updatedUniqueData = newDataList.map((newDataItem) => {
-        const uniqueDataItem = uniqueData.find((uniqueDataItem) => uniqueDataItem.trackerId === newDataItem.trackerId);
-        
-        if (uniqueDataItem) {
-            return {
-                ...newDataItem,
-                location: uniqueDataItem.location,
-            };
-        }
-        
-        return newDataItem;
-    });
-    
-    }
-  }, [assetNotificationList]);
-
 
 
   const createGeofence = useSelector(
@@ -544,12 +343,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
 
   const getActiveInactiveTrackersGraphData = () => {
     let data = [
-      // {
-      //   data: graphDataManipulation(electricityConsumptionGraphDataStateUpdates),
-
-      //   color: "#77B77C",
-      // },
-
       {
         data: graphDataManipulation(activeTrackersGraphDataStateUpdates),
         marker: {
@@ -559,10 +352,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         color: "#25796D",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-        //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-        // ],
       },
       {
         data: graphDataManipulation(inactiveTrackersGraphDataStateUpdates),
@@ -573,10 +362,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         color: "#D25A5A",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -627,10 +412,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
             ],
           ],
         },
-        // data: [
-        //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-        //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -932,128 +713,12 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
       }
     );
 
-
-
-    combinedNotifications.sort((a:any, b:any) => {
+combinedNotifications.sort((a:any, b:any) => {
       const dateA : any = new Date(a.notificationDate);
       const dateB : any = new Date(b.notificationDate);
     
       return dateB - dateA;
     });
-
-    const newDataList = [
-      {
-          "assetNotificationId": "dea9e950-9f18-47a9-bf9b-46bf57fa1742",
-          "notificationType": "events",
-          "reason": "High Humidity",
-          "trackerId": "740063943499",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerName": "TR#740063943499",
-          "assetName": "Unit-740063943499",
-          "notificationDate": "2023-09-08T09:44:32",
-          "location": {
-              "lat": 12.1653163,
-              "lng": 78.1271714
-          },
-          "area": null,
-          "title": "High Humidity",
-          "details": "TR#740063943499 | Unit-740063943499",
-          "timeStamp": "08-09-2023 | 09:44 AM"
-      },
-      {
-          "assetNotificationId": "3b6b6b86-3a5f-4152-be0a-23d26fd3386c",
-          "notificationType": "event",
-          "reason": "High Humidity",
-          "trackerId": "740063943500",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerName": "TR#740063943499",
-          "assetName": "Unit-740063943499",
-          "notificationDate": "2023-09-08T10:41:01",
-          "location": {
-              "lat": 12.1598159,
-              "lng": 78.1273548
-          },
-          "area": null,
-          "title": "High Humidity",
-          "details": "TR#740063943499 | Unit-740063943499",
-          "timeStamp": "08-09-2023 | 10:41 AM"
-      },
-      {
-          "assetNotificationId": "bb9c5cd6-a0b4-4f84-b1dc-0e80466567f2",
-          "notificationType": "incidents",
-          "reason": "High Humidity",
-          "trackerId": "740063943500",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerName": "TR#740063943499",
-          "assetName": "Unit-740063943499",
-          "notificationDate": "2023-09-08T09:41:01",
-          "location": {
-              "lat": 12.1598159,
-              "lng": 78.1273548
-          },
-          "area": null,
-          "title": "High Humidity",
-          "details": "TR#740063943499 | Unit-740063943499",
-          "timeStamp": "08-09-2023 | 09:41 AM"
-      },
-      {
-          "assetNotificationId": "dbfe4fee-e7f8-4ef9-9fe0-d839166cd9a7",
-          "notificationType": "incidents",
-          "reason": "Tag Disconnected",
-          "trackerId": "740063943498",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerName": "TR#740063943499",
-          "assetName": "Unit-740063943499",
-          "notificationDate": "2023-09-08T09:13:35.304886",
-          "location": {
-              "lat": 0,
-              "lng": 0
-          },
-          "area": null,
-          "title": "Tag Disconnected",
-          "details": "TR#740063943499 | Unit-740063943499",
-          "timeStamp": "08-09-2023 | 09:13 AM"
-      },
-      {
-          "assetNotificationId": "6719baa3-c15c-458c-9742-3966e8f455f1",
-          "notificationType": "incidents",
-          "reason": "High Humidity",
-          "trackerId": "740063943499",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerName": "TR#740063943499",
-          "assetName": "Unit-740063943499",
-          "notificationDate": "2023-09-08T09:11:16",
-          "location": {
-              "lat": 12.1592556,
-              "lng": 78.1263031
-          },
-          "area": null,
-          "title": "High Humidity",
-          "details": "TR#740063943499 | Unit-740063943499",
-          "timeStamp": "08-09-2023 | 09:11 AM"
-      },
-      {
-          "assetNotificationId": "d5bb7d6a-7eb5-4db8-9948-95736ba2f53b",
-          "notificationType": "incidents",
-          "reason": "High Humidity",
-          "trackerId": "740063943498",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerName": "TR#740063943499",
-          "assetName": "Unit-740063943499",
-          "notificationDate": "2023-09-08T08:41:15",
-          "location": {
-              "lat": 12.1566817,
-              "lng": 78.1268498
-          },
-          "area": null,
-          "title": "High Humidity",
-          "details": "TR#740063943499 | Unit-740063943499",
-          "timeStamp": "08-09-2023 | 08:41 AM"
-      }
-  
-  ]
-
-
 
       let uniqueTrackerIds : any = {};
 
@@ -1064,8 +729,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         }
         return false;
       });
-
-
 
       const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
         const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
@@ -1081,10 +744,29 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         return combinedDataItem;
     });
 
-    setMapMarkerArrayList(updatedUniqueData)
+    const updatedUniqueMarkerData = combinedNotifications.map((combinedDataItem:any) => {
+      const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+      
+      if (uniqueDataItem) {
+          return {
+              ...combinedDataItem,
+              location: uniqueDataItem.location,
+              recentMarkerType : uniqueDataItem.notificationType,
+          };
+      }
+  
+      return combinedDataItem;
+  });
+
+  updatedUniqueMarkerData.sort((a:any, b:any) => {
+        const dateA : any = new Date(a.notificationDate);
+        const dateB : any = new Date(b.notificationDate);
+      
+        return dateA - dateB;
+      });
+
+    setMapMarkerArrayList(updatedUniqueMarkerData)
     setNotificationArray(updatedUniqueData);
-
-
   }
   }, [assetNotificationList]);
 
@@ -1722,66 +1404,7 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                             // ],
                                           },
                                         ]}
-                                        // {[
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#EE3E35",
-                                        //     color: "#EE3E35",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     fillColor: {
-                                        //       linearGradient: [0, 0, 0, 200],
-                                        //       stops: [
-                                        //         [
-                                        //           0,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(0.5)
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //         [
-                                        //           0.5,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(
-                                        //               selectedWidth?.is4kDevice ||
-                                        //                 selectedWidth?.is3KDevice
-                                        //                 ? selectedTheme ===
-                                        //                   "light"
-                                        //                   ? 0.4
-                                        //                   : 0.3
-                                        //                 : 0.3
-                                        //             )
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //         [
-                                        //           1,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(
-                                        //               selectedWidth?.is4kDevice ||
-                                        //                 selectedWidth?.is3KDevice
-                                        //                 ? selectedTheme ===
-                                        //                   "light"
-                                        //                   ? 0.14
-                                        //                   : 0.06
-                                        //                 : selectedTheme ===
-                                        //                   "light"
-                                        //                 ? 0.01
-                                        //                 : 0.02
-                                        //             )
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //       ],
-                                        //     },
-                                        //     data: [
-                                        //       1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                        //       6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                        //     ],
-                                        //   },
-                                        // ]}
+                                        
                                       />
                                           :
                                           <Loader isHundredVh={false} />
