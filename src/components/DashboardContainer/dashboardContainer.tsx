@@ -35,7 +35,7 @@ import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
-import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 
 interface DashboardContainerProps {
@@ -82,7 +82,6 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state?.assetNotification?.assetNotificationData
   );
 
-
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
@@ -92,13 +91,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     (state: any) => state.fleetManagementNotification?.loadingOverAllAnalytics
   );
 
-
   const assetTrackingGridViewAnalyticsDataResponse = useSelector(
     (state: any) =>
       state.assetTrackingActiveInActiveAnalytics
         .assetTrackingGridViewAnalyticsData
   );
-
 
   // const assetNotificationResponse = assetTrackingResponse;
 
@@ -118,7 +115,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [selectedMarker, setSelectedMarker] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
-  const [mapMarkerArray, setMapMarkerArray] = useState<any>([])
+  const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -161,9 +158,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
   useEffect(() => {
     const assetPayload: any = {
-      "filterText": "",
-      "pageNo": 0,
-      "pageSize": 100
+      filterText: "",
+      pageNo: 0,
+      pageSize: 100,
     };
     dispatch(getNotificationData(assetPayload));
     const fleetPayload: any = {};
@@ -177,7 +174,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     useState<any>([]);
 
   useEffect(() => {
-    if (assetNotificationResponse && fleetManagementNotificationResponse) {
+    if (assetNotificationResponse) {
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.data
       );
@@ -201,14 +198,14 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
         const consolidatedMarkerData = [...consolidatedData];
 
-        consolidatedMarkerData.sort((a:any, b:any) => {
-          const dateA : any = new Date(a.notificationDate);
-          const dateB : any = new Date(b.notificationDate);
-        
+        consolidatedMarkerData.sort((a: any, b: any) => {
+          const dateA: any = new Date(a.notificationDate);
+          const dateB: any = new Date(b.notificationDate);
+
           return dateA - dateB;
         });
-  
-        setMapMarkerArray(consolidatedMarkerData)
+
+        setMapMarkerArray(consolidatedMarkerData);
         setDashboardNotificationList(consolidatedData);
       }
     }
@@ -232,8 +229,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     ) {
       setSuccess(true);
     } else if (
-      assetNotificationResponse &&
-      fleetManagementNotificationResponse?.status === 200
+      assetNotificationResponse
+      // &&
+      // fleetManagementNotificationResponse?.status === 200
     ) {
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
@@ -247,9 +245,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       );
       if (
         assetNotiData &&
-        assetNotiData?.length > 0 &&
-        fleetNotiData &&
-        fleetNotiData?.length > 0
+        assetNotiData?.length > 0
+        // fleetNotiData &&
+        // fleetNotiData?.length > 0
       ) {
         const consolidatedData = [
           ...assetNotiData,
@@ -260,21 +258,20 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
         const consolidatedMarkerData = [...consolidatedData];
 
-        consolidatedMarkerData.sort((a:any, b:any) => {
-          const dateA : any = new Date(a.notificationDate);
-          const dateB : any = new Date(b.notificationDate);
-        
+        consolidatedMarkerData.sort((a: any, b: any) => {
+          const dateA: any = new Date(a.notificationDate);
+          const dateB: any = new Date(b.notificationDate);
+
           return dateA - dateB;
         });
-  
-        setMapMarkerArray(consolidatedMarkerData)
+
+        setMapMarkerArray(consolidatedMarkerData);
       }
     }
-  }, [assetNotificationResponse, fleetManagementNotificationResponse]);
-
+  }, [assetNotificationResponse]);
+  // fleetManagementNotificationResponse &&
   const [notificationCount, setNotificationCount] = useState<any>(
     assetNotificationResponse &&
-      fleetManagementNotificationResponse &&
       formatttedDashboardNotificationCount(dashboardNotificationList)
   );
 
@@ -420,9 +417,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       !loaderFleetManagementNotification &&
       // !loaderFleetManagementNotification &&
       !loaderAdminGetConfigData &&
-      !loaderAdminGetConfigData  &&
-      !overAllAnalyticsLoader
-      ? (
+      !loaderAdminGetConfigData &&
+      !overAllAnalyticsLoader ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
@@ -473,11 +469,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               fleetManagementTripDetailsResponse={
                 fleetManagementTripDetailsResponse
               }
-              alertCount ={assetTrackingGridViewAnalyticsDataResponse?.data?.alertCount
+              alertCount={
+                assetTrackingGridViewAnalyticsDataResponse?.data?.alertCount
               }
-              assetCount = {assetTrackingGridViewAnalyticsDataResponse?.data?.assetTrackedCount
+              assetCount={
+                assetTrackingGridViewAnalyticsDataResponse?.data
+                  ?.assetTrackedCount
               }
-              locationChangedCount = {assetTrackingGridViewAnalyticsDataResponse?.data?.locationChangeCount  }
+              locationChangedCount={
+                assetTrackingGridViewAnalyticsDataResponse?.data
+                  ?.locationChangeCount
+              }
             />
             <Grid item xs={4}>
               {notificationPanelActive && (
