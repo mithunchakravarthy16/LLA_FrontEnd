@@ -107,7 +107,7 @@ const useStyles = makeStyles({
       width: 32,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      width: 26,
+      width: 25,
     },
     [muiTheme.breakpoints.down(1921)]: {
       width: 20,
@@ -399,7 +399,7 @@ const useStyles = makeStyles({
           width: 36,
         },
         [muiTheme.breakpoints.down(2049)]: {
-          width: 32,
+          width: 22,
         },
         [muiTheme.breakpoints.down(1921)]: {
           width: 22,

@@ -31,6 +31,9 @@ const useStyles = makeStyles(() => ({
     [muiTheme.breakpoints.down(3073)]: {
       paddingTop: "16vh",
     },
+    [muiTheme.breakpoints.down(2049)]: {
+      paddingTop: "6vh",
+    },
     [muiTheme.breakpoints.down(1793)]: {
       paddingTop: "23vh",
     },
@@ -171,7 +174,7 @@ const useStyles = makeStyles(() => ({
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
-        opacity: 0.5,
+        opacity: 0.4,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontFamily: "HelveticaNeue-Regular",
@@ -183,7 +186,7 @@ const useStyles = makeStyles(() => ({
       },
       [muiTheme.breakpoints.down(2049)]: {
         fontWeight: " 500",
-        fontSize: "22px",
+        fontSize: "18px",
         lineHeight: "30px",
         padding: 20,
       },
@@ -223,7 +226,7 @@ const useStyles = makeStyles(() => ({
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
-        opacity: 0.5,
+        opacity: 0.4,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontFamily: "HelveticaNeue-Regular",
@@ -235,7 +238,7 @@ const useStyles = makeStyles(() => ({
       },
       [muiTheme.breakpoints.down(2049)]: {
         fontWeight: " 500",
-        fontSize: "22px",
+        fontSize: "18px",
         lineHeight: "30px",
         padding: 20,
       },
