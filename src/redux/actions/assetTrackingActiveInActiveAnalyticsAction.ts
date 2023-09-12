@@ -5,6 +5,9 @@ export const assetTrackingActiveInActiveAnalytics = {
 
   GET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA: "GET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA",
   SET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA: "SET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA",
+
+  GET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA: "GET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA",
+  SET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA: "SET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA",
   
   SHOW_LOADER_ANALYTICS: "SHOW_LOADER_ANALYTICS",
   HIDE_LOADER_ANALYTICS: "Hide_LOADER_ANALYTICS",
@@ -36,6 +39,19 @@ export const setAssetTrackingIncidentsAnalyticsData = (
 ) => ({
   type: assetTrackingActiveInActiveAnalytics.SET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA,
   assetTrackingIncidentsAnalyticsData,
+});
+
+
+export const getAssetTrackingGridViewAnalyticsData = (payload: any) => ({
+  type: assetTrackingActiveInActiveAnalytics.GET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA,
+  payload: payload,
+});
+
+export const setAssetTrackingGridViewAnalyticsData = (
+  assetTrackingGridViewAnalyticsData: any
+) => ({
+  type: assetTrackingActiveInActiveAnalytics.SET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA,
+  assetTrackingGridViewAnalyticsData,
 });
 
 

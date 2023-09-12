@@ -56,7 +56,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     todayText,
   } = useStyles(appTheme);
 
-  const {gridView } = useTranslation();
+  const { gridView } = useTranslation();
 
   const [screenResolution, setScreenResolution] = useState<any>("2k");
 
@@ -80,42 +80,45 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
   ];
 
   return (
-    
     <>
-    { appTheme && Object.keys(appTheme).length > 0 && 
-      <Grid
-        container
-        xs={12}
-        justifyContent="space-around"
-        alignItems="center"
-        className={bodyLeftTopPanelListSubContainer}
-        style={{ borderRight: "0px" }}>
-        {topPanelListItems &&
-          topPanelListItems?.length > 0 &&
-          topPanelListItems?.map((item: any) => (
-            <Grid item flex={1} className={topPanelListItemStyle}>
-              <div>
-                <Tooltip
-                  tooltipValue={item?.name}
-                  placement={"bottom"}
-                  offset={tooltipOfset}
-                  fontSize={fontSize}
-                  padding={padding}
-                  componentName={"TopPanelList"}>
-                  <img width={"100%"} height={"100%"} src={item?.icon} />
-                </Tooltip>
-              </div>
-              <div className={itemValueUnitStyle}>
-                <div className={itemValueStyle}>{item?.value}</div>{" "}
-                {item?.unit && (
-                  <span className={itemUnitStyle}>{item?.unit}</span>
-                )}
-              </div>
-            </Grid>
-          ))}
+      {appTheme && Object.keys(appTheme).length > 0 && (
+        <Grid
+          container
+          xs={12}
+          justifyContent="space-around"
+          alignItems="center"
+          className={bodyLeftTopPanelListSubContainer}
+          style={{ borderRight: "0px" }}
+        >
+          {topPanelListItems &&
+            topPanelListItems?.length > 0 &&
+            topPanelListItems?.map((item: any) => (
+              <Grid item flex={1} className={topPanelListItemStyle}>
+                <div>
+                  <Tooltip
+                    tooltipValue={item?.name}
+                    placement={"bottom"}
+                    offset={tooltipOfset}
+                    fontSize={fontSize}
+                    padding={padding}
+                    componentName={"TopPanelList"}
+                  >
+                    <img width={"100%"} height={"100%"} src={item?.icon} />
+                  </Tooltip>
+                </div>
+                <div className={itemValueUnitStyle}>
+                  <div className={itemValueStyle}>
+                    {item?.value === 0 ? "--" : item?.value}
+                  </div>{" "}
+                  {item?.unit && (
+                    <span className={itemUnitStyle}>{item?.unit}</span>
+                  )}
+                </div>
+              </Grid>
+            ))}
 
-        <Grid flex={2} item className={progressBarContainer}>
-          {/* <HorizontalProgressBar
+          <Grid flex={2} item className={progressBarContainer}>
+            {/* <HorizontalProgressBar
             progressBarTitle={"Avg. Dimming Level"} //mandatory
             progressBarTitleFontSize={"14px"}
             progressBarValue={"60%"}
@@ -125,45 +128,52 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
             progressBarValueBarRadius={"7px"}
             progressBarTrackerHeight={"18px"}
           /> */}
-          <Grid item xs={10} style={{ position: "relative" }}>
-            {pageName === "fleet" || pageName === "asset" ? (
-              <Select
-                selectList={selectList}
-                handleSelect={handleSelect}
-                // customWidth={"40%"}
-                customHeight={"3vh"}
-                // customSelectCustom={graphCustomSelectDropDown}
-                pageName={"analyticsPage"}
-                drowpDownTextColor={selectedTheme === "light" ? "#737272" : "#fff"}
-                dropDownBgColor={selectedTheme === "light" ? "#fff" : "#3F3D3D"}
-                dropDownSelectedBgColor={selectedTheme === "light" ? "#FAE5DD" :"#EF7F53"}
-                dropDownSelectedTextColor={ selectedTheme === "light" ? "#F1624C" : "#FFF"}
-                // graphName={"graph1"}
-                selectedDropDownValue={selectedValue}
-                // placeholder={"Select Trailer"}
+            <Grid item xs={10} style={{ position: "relative" }}>
+              {pageName === "fleet" || pageName === "asset" ? (
+                <Select
+                  selectList={selectList}
+                  handleSelect={handleSelect}
+                  // customWidth={"40%"}
+                  customHeight={"3vh"}
+                  // customSelectCustom={graphCustomSelectDropDown}
+                  pageName={"analyticsPage"}
+                  drowpDownTextColor={
+                    selectedTheme === "light" ? "#737272" : "#fff"
+                  }
+                  dropDownBgColor={
+                    selectedTheme === "light" ? "#fff" : "#3F3D3D"
+                  }
+                  dropDownSelectedBgColor={
+                    selectedTheme === "light" ? "#FAE5DD" : "#EF7F53"
+                  }
+                  dropDownSelectedTextColor={
+                    selectedTheme === "light" ? "#F1624C" : "#FFF"
+                  }
+                  // graphName={"graph1"}
+                  selectedDropDownValue={selectedValue}
+                  // placeholder={"Select Trailer"}
+                  selectedTheme={selectedTheme}
+                />
+              ) : (
+                <div className={todayText}>
+                  <p>{gridView.today}</p>
+                </div>
+              )}
+
+              <VerticalProgressBar
+                percent={percent}
+                strokeWidth={strokeWidth}
+                trailWidth={trailWidth}
+                strokeColor={strokeColor}
+                trailColor={trailColor}
+                title={title}
                 selectedTheme={selectedTheme}
               />
-            ) : (
-              <div className={todayText}>
-                <p>{gridView.today}</p>
-              </div>
-            )}
-
-            <VerticalProgressBar
-              percent={percent}
-              strokeWidth={strokeWidth}
-              trailWidth={trailWidth}
-              strokeColor={strokeColor}
-              trailColor={trailColor}
-              title={title}
-              selectedTheme={selectedTheme}
-            />
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-}
+      )}
     </>
-   
   );
 };
 

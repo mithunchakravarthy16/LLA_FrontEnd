@@ -6,7 +6,7 @@ import NotificationListItems from "components/NotificationListItems";
 import SearchBox from "elements/SearchBox";
 import SearchIcon from "../../assets/searchIcon.svg";
 import SearchIconLighttheme from "../../assets/searchIconLighttheme.svg";
-import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconLightTheme.svg";
+import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconLightTheme1.svg";
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";

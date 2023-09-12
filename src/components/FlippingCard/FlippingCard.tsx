@@ -73,6 +73,9 @@ type CardPropType = {
   focusedCategory: any;
   setFocusedCategory: any;
   fleetManagementTripDetailsResponse: any;
+  alertCount: any;
+  assetCount: any;
+  locationChangedCount: any;
 };
 
 const Card = ({
@@ -82,11 +85,15 @@ const Card = ({
   setFocusedCategory,
   focusedCategory,
   fleetManagementTripDetailsResponse,
+  alertCount,
+  assetCount,
+  locationChangedCount,
 }: CardPropType) => {
   const navigate = useNavigate();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
+
   setTheme(adminPanelData?.appearance);
   const containerTransform = useSpring({
     opacity: currentOpenedCard === card.title ? 1 : 0,
@@ -128,7 +135,7 @@ const Card = ({
     energy_management: {
       values: [
         {
-          label: "Development In Progress", 
+          label: "Development In Progress",
           // label: dashboard?.runningUnits,
           // value: 20,
           // suffix: "",
@@ -149,7 +156,7 @@ const Card = ({
     security: {
       values: [
         {
-          label: "Development In Progress",  
+          label: "Development In Progress",
 
           // label: dashboard.cameras,
           // value: 10,
@@ -171,7 +178,7 @@ const Card = ({
     lighting: {
       values: [
         {
-          label: "Development In Progress",  
+          label: "Development In Progress",
           // label: dashboard?.smartLights,
           // value: 10,
           // suffix: "",
@@ -192,7 +199,7 @@ const Card = ({
     fleet_management: {
       values: [
         {
-          label: "Development In Progress",  
+          label: "Development In Progress",
           // label: dashboard?.fleet,
           // value: fleetManagementTripDetailsResponse?.data?.totalLiveVehicles,
           // suffix: "",
@@ -213,9 +220,9 @@ const Card = ({
     assets_tracking: {
       values: [
         {
-          // label: "Development In Progress",  
+          // label: "Development In Progress",
           label: dashboard.assets,
-          value: 52,
+          value: assetCount,
           suffix: "",
         },
         {
@@ -223,12 +230,12 @@ const Card = ({
         },
         {
           label: dashboard.alerts,
-          value: 50,
+          value: alertCount,
           suffix: "",
         },
       ],
       noteLabel: dashboard?.assetsNoteLabel,
-      noteValue: "30",
+      noteValue: locationChangedCount,
       noteDifference: "-",
     },
   };
@@ -252,7 +259,7 @@ const Card = ({
         }}
       />
       <SkewBackContainer
-         themeapi={adminPanelData?.appearance}
+        themeapi={adminPanelData?.appearance}
         style={{
           transform: containerTransform.transform,
           opacity: containerTransform.opacity,
@@ -260,7 +267,7 @@ const Card = ({
       />
       <ContentContainer
         style={{
-           transform: contentTransform.transform,
+          transform: contentTransform.transform,
           opacity: contentTransform.opacity.to((o) => 1 - o),
         }}
       >
@@ -273,7 +280,7 @@ const Card = ({
       </ContentContainer>
       <BackContentContainer
         style={{
-           transform: contentTransform.transform,
+          transform: contentTransform.transform,
           opacity: contentTransform.opacity,
         }}
       >
@@ -281,15 +288,14 @@ const Card = ({
           {card.translatedTitle.replaceAll("_", " ")}
         </CardTitleSmall>
         <CardValuesWrapper>
-          <CardValuesSkewContainer themeapi={adminPanelData?.appearance}/>
+          <CardValuesSkewContainer themeapi={adminPanelData?.appearance} />
           <CardValuesContainer>
             {DEMO_VALUES[card?.title].values?.map((value: any) =>
-              value?.type === "splitter" ? (                
-                <CardValuesSplitter themeapi={adminPanelData?.appearance}/>
+              value?.type === "splitter" ? (
+                <CardValuesSplitter themeapi={adminPanelData?.appearance} />
               ) : (
                 <ValueWrapper>
                   <Value themeapi={adminPanelData?.appearance}>
-                    
                     {value.value} {value.suffix}
                   </Value>
                   <Label>{value.label}</Label>
@@ -330,6 +336,9 @@ const FlippingCard = (props: any) => {
     setFocusedCategory,
     selectedTheme,
     fleetManagementTripDetailsResponse,
+    alertCount,
+    assetCount,
+    locationChangedCount,
   } = props;
   const { dashboard } = useTranslation();
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -341,7 +350,9 @@ const FlippingCard = (props: any) => {
       title: "assets_tracking",
       image:
         focusedCategory === "asset"
-          ? selectedTheme === "light" ? assetHoverWhite : AssetHover
+          ? selectedTheme === "light"
+            ? assetHoverWhite
+            : AssetHover
           : selectedTheme !== "light"
           ? assetTracking
           : assetTrackingLight,
@@ -352,19 +363,23 @@ const FlippingCard = (props: any) => {
       title: "fleet_management",
       image:
         focusedCategory === "fleet"
-          ? selectedTheme === "light" ? fleetManagementWhite : FleetHover
+          ? selectedTheme === "light"
+            ? fleetManagementWhite
+            : FleetHover
           : selectedTheme !== "light"
           ? fleetManagement
           : fleetManagementLight,
       category: "fleet",
       translatedTitle: dashboard.fleetManagement,
     },
-   
+
     {
       title: "parking",
       image:
         focusedCategory === "parking"
-          ? selectedTheme === "light" ? parkingHoverWhite : ParkingHover
+          ? selectedTheme === "light"
+            ? parkingHoverWhite
+            : ParkingHover
           : selectedTheme !== "light"
           ? parking
           : parkingLight,
@@ -375,7 +390,9 @@ const FlippingCard = (props: any) => {
       title: "energy_management",
       image:
         focusedCategory === "energy"
-          ? selectedTheme === "light" ? energyManagementWhite : EnergyHover
+          ? selectedTheme === "light"
+            ? energyManagementWhite
+            : EnergyHover
           : selectedTheme !== "light"
           ? energyManagement
           : energyManagementLight,
@@ -386,7 +403,9 @@ const FlippingCard = (props: any) => {
       title: "security",
       image:
         focusedCategory === "security"
-          ? selectedTheme === "light" ? securityHoverWhite : SecurityHover
+          ? selectedTheme === "light"
+            ? securityHoverWhite
+            : SecurityHover
           : selectedTheme !== "light"
           ? security
           : securityLight,
@@ -397,14 +416,15 @@ const FlippingCard = (props: any) => {
       title: "lighting",
       image:
         focusedCategory === "lighting"
-          ? selectedTheme === "light" ? lightingHoverWhite : LightingHover
+          ? selectedTheme === "light"
+            ? lightingHoverWhite
+            : LightingHover
           : selectedTheme !== "light"
           ? lighting
           : lightingLight,
       category: "lighting",
       translatedTitle: dashboard.lighting,
     },
-   
   ];
 
   return (
@@ -419,6 +439,9 @@ const FlippingCard = (props: any) => {
           fleetManagementTripDetailsResponse={
             fleetManagementTripDetailsResponse
           }
+          alertCount={alertCount}
+          assetCount={assetCount}
+          locationChangedCount={locationChangedCount}
         />
       ))}
     </Wrapper>

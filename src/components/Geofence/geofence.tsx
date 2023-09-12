@@ -158,15 +158,18 @@ const Geofence: React.FC<any> = (props: any) => {
   };
 
   const handleRadiusChange = (e: any) => {
-    setCircleRadius(e.target.value);
+    setCircleRadius(Number(e.target.value));
+    props.handleCircleLatChange();
   };
 
   const handleCircleLatChange = (e: any) => {
     setCircleCenter({ ...circleCenter, lat: Number(e.target.value) });
+    props.handleCircleLatChange();
   };
 
   const handleCircleLngChange = (e: any) => {
     setCircleCenter({ ...circleCenter, lng: Number(e.target.value) });
+    props.handleCircleLatChange();
   };
 
   const handleGeofenceNameChange = (e: any) => {
