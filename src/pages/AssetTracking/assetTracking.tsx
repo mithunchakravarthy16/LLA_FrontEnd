@@ -226,7 +226,6 @@ const AssetTracking: React.FC<any> = (props) => {
     // let overallAssetDetailPayload: any = {};
     // dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
-
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
 
@@ -257,7 +256,6 @@ const AssetTracking: React.FC<any> = (props) => {
   //   (state: any) => state?.assetTracker?.assetTrackerData
   // );
 
-
   const createGeofence = useSelector(
     (state: any) => state?.createGeofence?.createGeofenceData
   );
@@ -267,7 +265,6 @@ const AssetTracking: React.FC<any> = (props) => {
   const enableGeofence = useSelector(
     (state: any) => state?.enableGeofence?.updateGeofenceData
   );
-
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -546,8 +543,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const yearFormat = "{value:%b}";
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
-    const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([])
- 
+  const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([]);
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
@@ -705,22 +701,22 @@ const AssetTracking: React.FC<any> = (props) => {
         });
       });
 
-    const dataValue: any = combinedNotifications?.map(
-      (value: any, index: number) => {
-        return { ...value, index: index + 1 };
-      }
-    );
+      const dataValue: any = combinedNotifications?.map(
+        (value: any, index: number) => {
+          return { ...value, index: index + 1 };
+        }
+      );
 
-combinedNotifications.sort((a:any, b:any) => {
-      const dateA : any = new Date(a.notificationDate);
-      const dateB : any = new Date(b.notificationDate);
-    
-      return dateB - dateA;
-    });
+      combinedNotifications.sort((a: any, b: any) => {
+        const dateA: any = new Date(a.notificationDate);
+        const dateB: any = new Date(b.notificationDate);
 
-      let uniqueTrackerIds : any = {};
+        return dateB - dateA;
+      });
 
-      const uniqueData = combinedNotifications.filter((item:any) => {
+      let uniqueTrackerIds: any = {};
+
+      const uniqueData = combinedNotifications.filter((item: any) => {
         if (!uniqueTrackerIds[item.trackerId]) {
           uniqueTrackerIds[item.trackerId] = true;
           return true;
@@ -728,44 +724,54 @@ combinedNotifications.sort((a:any, b:any) => {
         return false;
       });
 
-      const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
-        const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
-        
-        if (uniqueDataItem) {
-            return {
-                ...combinedDataItem,
-                location: uniqueDataItem.location,
-                recentMarkerType : uniqueDataItem.notificationType,
-            };
-        }
-    
-        return combinedDataItem;
-    });
+      const updatedUniqueData = combinedNotifications.map(
+        (combinedDataItem: any) => {
+          const uniqueDataItem = uniqueData.find(
+            (uniqueDataItem: any) =>
+              uniqueDataItem.trackerId === combinedDataItem.trackerId
+          );
 
-    const updatedUniqueMarkerData = combinedNotifications.map((combinedDataItem:any) => {
-      const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
-      
-      if (uniqueDataItem) {
-          return {
+          if (uniqueDataItem) {
+            return {
               ...combinedDataItem,
               location: uniqueDataItem.location,
-              recentMarkerType : uniqueDataItem.notificationType,
-          };
-      }
-  
-      return combinedDataItem;
-  });
+              recentMarkerType: uniqueDataItem.notificationType,
+            };
+          }
 
-  updatedUniqueMarkerData.sort((a:any, b:any) => {
-        const dateA : any = new Date(a.notificationDate);
-        const dateB : any = new Date(b.notificationDate);
-      
+          return combinedDataItem;
+        }
+      );
+
+      const updatedUniqueMarkerData = combinedNotifications.map(
+        (combinedDataItem: any) => {
+          const uniqueDataItem = uniqueData.find(
+            (uniqueDataItem: any) =>
+              uniqueDataItem.trackerId === combinedDataItem.trackerId
+          );
+
+          if (uniqueDataItem) {
+            return {
+              ...combinedDataItem,
+              location: uniqueDataItem.location,
+              recentMarkerType: uniqueDataItem.notificationType,
+            };
+          }
+
+          return combinedDataItem;
+        }
+      );
+
+      updatedUniqueMarkerData.sort((a: any, b: any) => {
+        const dateA: any = new Date(a.notificationDate);
+        const dateB: any = new Date(b.notificationDate);
+
         return dateA - dateB;
       });
 
-    setMapMarkerArrayList(updatedUniqueMarkerData)
-    setNotificationArray(updatedUniqueData);
-  }
+      setMapMarkerArrayList(updatedUniqueMarkerData);
+      setNotificationArray(updatedUniqueData);
+    }
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
@@ -1109,32 +1115,28 @@ combinedNotifications.sort((a:any, b:any) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}
-              >
+                style={{ height: "93vh" }}>
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}
-                    >
+                      style={{ height: "29%" }}>
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}
-                      >
+                        style={{ height: "100%" }}>
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}
-                        >
+                          className={bodyLeftTopPanelListContainer}>
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={topPanelList?.activeTrackerPercentage}
-                            strokeWidth={10}
-                            trailWidth={10}
+                            strokeWidth={7}
+                            trailWidth={7}
                             strokeColor="#92C07E"
                             trailColor={
                               appTheme?.palette?.fleetManagementPage
@@ -1157,19 +1159,16 @@ combinedNotifications.sort((a:any, b:any) => {
                                 style={{
                                   height: "100%",
                                   paddingLeft: "10px",
-                                }}
-                              >
+                                }}>
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ minHeight: "3vh" }}
-                                >
+                                  style={{ minHeight: "3vh" }}>
                                   <div className={graphOneGraphTitleContainer}>
                                     <div
                                       className={graphTitleOneRound}
-                                      style={{}}
-                                    ></div>
+                                      style={{}}></div>
                                     <div>{assetsTracking.activeTracker}</div>
                                   </div>
                                   <div className={graphTitleTwoStyle}>
@@ -1187,8 +1186,7 @@ combinedNotifications.sort((a:any, b:any) => {
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}
-                                    >
+                                      style={{ height: "21vh", width: "80vw" }}>
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
@@ -1300,8 +1298,7 @@ combinedNotifications.sort((a:any, b:any) => {
                                 container
                                 xs={12}
                                 className={graphTwoContainerStyle}
-                                style={{}}
-                              >
+                                style={{}}>
                                 <Grid
                                   item
                                   xs={12}
@@ -1310,8 +1307,7 @@ combinedNotifications.sort((a:any, b:any) => {
                                     display: "flex",
                                     alignItems: "center",
                                     fontSize: "0.8vw",
-                                  }}
-                                >
+                                  }}>
                                   {gridView.incidents}
                                 </Grid>
                                 {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
@@ -1319,13 +1315,11 @@ combinedNotifications.sort((a:any, b:any) => {
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}
-                                  >
+                                    style={{ height: "90%" }}>
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}
-                                    >
+                                      style={{ height: "21vh", width: "80vw" }}>
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
@@ -1411,7 +1405,6 @@ combinedNotifications.sort((a:any, b:any) => {
                                               // ],
                                             },
                                           ]}
-
                                         />
                                       ) : (
                                         <Loader isHundredVh={false} />
@@ -1431,8 +1424,7 @@ combinedNotifications.sort((a:any, b:any) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}
-                    >
+                      style={{ height: "59%" }}>
                       {/* <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
