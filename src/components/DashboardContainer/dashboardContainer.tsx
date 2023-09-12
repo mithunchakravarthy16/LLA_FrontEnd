@@ -319,7 +319,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       localStorage.clear();
       dispatch(getUserLogout());
       dispatch(setUserLogin({}));
-      // dispatch(setFleetManagementNotificationData({}));
+      dispatch(setFleetManagementNotificationData({}));
       setSuccess(false);
       navigate("/login");
     }
@@ -338,7 +338,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const handleClick = () => {
     setCount((prev) => prev + 1);
     setSuccess(false);
-    // dispatch(getFleetManagementNotificationData({}));
+    dispatch(getFleetManagementNotificationData({}));
   };
   const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
   const handleAssetViewDetails = (data: any) => {
@@ -356,25 +356,25 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         >
           <Alert
             onClose={handleClose}
-            // severity={
-            //   fleetManagementNotificationResponse?.status === 500 ||
-            //   fleetManagementNotificationResponse?.status === 404 ||
-            //   fleetManagementNotificationResponse?.status === 400 ||
-            //   fleetManagementNotificationResponse?.status === 409 ||
-            //   fleetManagementNotificationResponse?.status === 413 ||
-            //   fleetManagementNotificationResponse?.status === 410 ||
-            //   fleetManagementTripDetailsResponse?.status === 500 ||
-            //   fleetManagementTripDetailsResponse?.status === 404 ||
-            //   fleetManagementTripDetailsResponse?.status === 400 ||
-            //   fleetManagementTripDetailsResponse?.status === 409 ||
-            //   fleetManagementTripDetailsResponse?.status === 413 ||
-            //   fleetManagementTripDetailsResponse?.status === 410
-            //     ? "error"
-            //     : undefined
-            // }
+            severity={
+              fleetManagementNotificationResponse?.status === 500 ||
+              fleetManagementNotificationResponse?.status === 404 ||
+              fleetManagementNotificationResponse?.status === 400 ||
+              fleetManagementNotificationResponse?.status === 409 ||
+              fleetManagementNotificationResponse?.status === 413 ||
+              fleetManagementNotificationResponse?.status === 410 ||
+              fleetManagementTripDetailsResponse?.status === 500 ||
+              fleetManagementTripDetailsResponse?.status === 404 ||
+              fleetManagementTripDetailsResponse?.status === 400 ||
+              fleetManagementTripDetailsResponse?.status === 409 ||
+              fleetManagementTripDetailsResponse?.status === 413 ||
+              fleetManagementTripDetailsResponse?.status === 410
+                ? "error"
+                : undefined
+            }
             sx={{ width: "100%" }}
           >
-            {/* {(fleetManagementNotificationResponse?.status === 500 ||
+            {(fleetManagementNotificationResponse?.status === 500 ||
               fleetManagementTripDetailsResponse?.status === 500) && (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
@@ -412,14 +412,16 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               <div style={{ display: "flex" }}>
                 <Typography>Request not available</Typography>
               </div>
-            )} */}
+            )}
           </Alert>
         </Snackbar>
       )}
       {Object.keys(assetNotificationResponse).length > 0 &&
+      !loaderFleetManagementNotification &&
       // !loaderFleetManagementNotification &&
-      !loaderAdminGetConfigData 
-      // !overAllAnalyticsLoader 
+      !loaderAdminGetConfigData &&
+      !loaderAdminGetConfigData  &&
+      !overAllAnalyticsLoader
       ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
