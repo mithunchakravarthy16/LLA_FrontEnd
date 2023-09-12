@@ -734,7 +734,7 @@ const AssetTracking: React.FC<any> = (props) => {
           if (uniqueDataItem) {
             return {
               ...combinedDataItem,
-              location: uniqueDataItem.location,
+              location: uniqueDataItem.currentLocation,
               recentMarkerType: uniqueDataItem.notificationType,
             };
           }
@@ -742,6 +742,9 @@ const AssetTracking: React.FC<any> = (props) => {
           return combinedDataItem;
         }
       );
+
+      console.log("updatedUniqueData")
+
 
       const updatedUniqueMarkerData = combinedNotifications.map(
         (combinedDataItem: any) => {
@@ -753,7 +756,7 @@ const AssetTracking: React.FC<any> = (props) => {
           if (uniqueDataItem) {
             return {
               ...combinedDataItem,
-              location: uniqueDataItem.location,
+              location: uniqueDataItem.currentLocation,
               recentMarkerType: uniqueDataItem.notificationType,
             };
           }
