@@ -91,13 +91,11 @@ const AssetTracking: React.FC<any> = (props) => {
   );
 
   const loaderAssetTrackingAnalyticsResponse = useSelector(
-    (state: any) =>
-      state.assetTrackingActiveInActiveAnalytics
-        .loadingAnalytics
+    (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
   );
-const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
+  const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
   useEffect(() => {
-    setLoaderExtAnalytics(true)
+    setLoaderExtAnalytics(true);
     setTimeout(() => {
       setLoaderExtAnalytics(false);
     }, 1000);
@@ -225,14 +223,9 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     let incidentCountPayload: any = {};
     dispatch(getAssetIncidentCount(incidentCountPayload));
 
-    let overallAssetDetailPayload: any = {};
-    dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
+    // let overallAssetDetailPayload: any = {};
+    // dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
-    // let assetTrackerDetailPayload: any = {
-    //   "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-    //   "trackerId": null
-    // };
-    // dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
 
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
@@ -264,7 +257,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   //   (state: any) => state?.assetTracker?.assetTrackerData
   // );
 
-  // console.log("assetTrackerDetails", assetTrackerDetails)
 
   const createGeofence = useSelector(
     (state: any) => state?.createGeofence?.createGeofenceData
@@ -276,8 +268,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     (state: any) => state?.enableGeofence?.updateGeofenceData
   );
 
-  // console.log("createGeofence", createGeofence)
-  // console.log("updateGeofence", updateGeofence)
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -351,12 +341,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
 
   const getActiveInactiveTrackersGraphData = () => {
     let data = [
-      // {
-      //   data: graphDataManipulation(electricityConsumptionGraphDataStateUpdates),
-
-      //   color: "#77B77C",
-      // },
-
       {
         data: graphDataManipulation(activeTrackersGraphDataStateUpdates),
         marker: {
@@ -366,10 +350,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         color: "#25796D",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-        //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-        // ],
       },
       {
         data: graphDataManipulation(inactiveTrackersGraphDataStateUpdates),
@@ -380,10 +360,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         color: "#D25A5A",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -434,10 +410,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
             ],
           ],
         },
-        // data: [
-        //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-        //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -574,6 +546,8 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   const yearFormat = "{value:%b}";
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
+    const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([])
+ 
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
@@ -731,13 +705,67 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         });
       });
 
-      const dataValue: any = combinedNotifications?.map(
-        (value: any, index: number) => {
-          return { ...value, index: index + 1 };
+    const dataValue: any = combinedNotifications?.map(
+      (value: any, index: number) => {
+        return { ...value, index: index + 1 };
+      }
+    );
+
+combinedNotifications.sort((a:any, b:any) => {
+      const dateA : any = new Date(a.notificationDate);
+      const dateB : any = new Date(b.notificationDate);
+    
+      return dateB - dateA;
+    });
+
+      let uniqueTrackerIds : any = {};
+
+      const uniqueData = combinedNotifications.filter((item:any) => {
+        if (!uniqueTrackerIds[item.trackerId]) {
+          uniqueTrackerIds[item.trackerId] = true;
+          return true;
         }
-      );
-      setNotificationArray(dataValue);
-    }
+        return false;
+      });
+
+      const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
+        const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+        
+        if (uniqueDataItem) {
+            return {
+                ...combinedDataItem,
+                location: uniqueDataItem.location,
+                recentMarkerType : uniqueDataItem.notificationType,
+            };
+        }
+    
+        return combinedDataItem;
+    });
+
+    const updatedUniqueMarkerData = combinedNotifications.map((combinedDataItem:any) => {
+      const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+      
+      if (uniqueDataItem) {
+          return {
+              ...combinedDataItem,
+              location: uniqueDataItem.location,
+              recentMarkerType : uniqueDataItem.notificationType,
+          };
+      }
+  
+      return combinedDataItem;
+  });
+
+  updatedUniqueMarkerData.sort((a:any, b:any) => {
+        const dateA : any = new Date(a.notificationDate);
+        const dateB : any = new Date(b.notificationDate);
+      
+        return dateA - dateB;
+      });
+
+    setMapMarkerArrayList(updatedUniqueMarkerData)
+    setNotificationArray(updatedUniqueData);
+  }
   }, [assetNotificationList]);
 
   const topPanelListItems: any[] = [
@@ -1081,23 +1109,27 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}>
+                        style={{ height: "100%" }}
+                      >
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}>
+                          className={bodyLeftTopPanelListContainer}
+                        >
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={topPanelList?.activeTrackerPercentage}
@@ -1125,16 +1157,19 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                 style={{
                                   height: "100%",
                                   paddingLeft: "10px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ minHeight: "3vh" }}>
+                                  style={{ minHeight: "3vh" }}
+                                >
                                   <div className={graphOneGraphTitleContainer}>
                                     <div
                                       className={graphTitleOneRound}
-                                      style={{}}></div>
+                                      style={{}}
+                                    ></div>
                                     <div>{assetsTracking.activeTracker}</div>
                                   </div>
                                   <div className={graphTitleTwoStyle}>
@@ -1152,110 +1187,108 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
-                                        {
-                                          !loaderAssetTrackingAnalyticsResponse && !loaderExtAnalytics ?
-                                          <Chart
-                                        // width={selectedWidth?.width}
-                                        // height={selectedWidth?.height}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
-                                        }}
-                                        pageName={"assetTracking"}
-                                        // tickInterval={xAxisIntervalGraph}
-                                        // formatGraph={formatGraph}
-                                        // xAxisArray={xAxisChartDataGraph}
-                                        isVisible={true}
-                                        graphType={"spline"}
-                                        units={""}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#E5FAF6"}
-                                        is4kDevice={selectedWidth?.is4kDevice}
-                                        selectedValue={selectedValue}
-                                        // tooltip={"shared"}
-                                        // dataPoints={
-                                        //   updatedActiveInactiveTrackersGraphData
-                                        // }
-                                        dataPoints={[
-                                          {
-                                            data: activeAnalyticsData,
-                                            marker: {
-                                              enabled: false,
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
+                                      {!loaderAssetTrackingAnalyticsResponse &&
+                                      !loaderExtAnalytics ? (
+                                        <Chart
+                                          // width={selectedWidth?.width}
+                                          // height={selectedWidth?.height}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
                                             },
-                                            lineColor: "#25796D",
-                                            color: "#25796D",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            // data: [
-                                            //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                            //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                            // ],
-                                          },
-                                          {
-                                            data: inActiveAnalyticsData,
-                                            marker: {
-                                              enabled: false,
+                                          }}
+                                          pageName={"assetTracking"}
+                                          // tickInterval={xAxisIntervalGraph}
+                                          // formatGraph={formatGraph}
+                                          // xAxisArray={xAxisChartDataGraph}
+                                          isVisible={true}
+                                          graphType={"spline"}
+                                          units={""}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#E5FAF6"}
+                                          is4kDevice={selectedWidth?.is4kDevice}
+                                          selectedValue={selectedValue}
+                                          // tooltip={"shared"}
+                                          // dataPoints={
+                                          //   updatedActiveInactiveTrackersGraphData
+                                          // }
+                                          dataPoints={[
+                                            {
+                                              data: activeAnalyticsData,
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#25796D",
+                                              color: "#25796D",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              // data: [
+                                              //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+                                              //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                              // ],
                                             },
-                                            lineColor: "#D25A5A",
-                                            color: "#D25A5A",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            // data: [
-                                            //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                            //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                            // ],
-                                          },
-                                        ]}
-                                        // {[
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#25796D",
-                                        //     color: "#25796D",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     data: [
-                                        //       0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                        //       4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                        //     ],
-                                        //   },
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#D25A5A",
-                                        //     color: "#D25A5A",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     data: [
-                                        //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                        //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                        //     ],
-                                        //   },
-                                        // ]}
-                                      />
-                                          :
-                                          <Loader isHundredVh={false} />
-                                          
-                                          
-                                        }
-                                      
+                                            {
+                                              data: inActiveAnalyticsData,
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#D25A5A",
+                                              color: "#D25A5A",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              // data: [
+                                              //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                              //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                              // ],
+                                            },
+                                          ]}
+                                          // {[
+                                          //   {
+                                          //     marker: {
+                                          //       enabled: false,
+                                          //     },
+                                          //     lineColor: "#25796D",
+                                          //     color: "#25796D",
+                                          //     lineWidth:
+                                          //       selectedWidth?.is4kDevice ||
+                                          //       selectedWidth?.is3KDevice
+                                          //         ? 4
+                                          //         : 2,
+                                          //     data: [
+                                          //       0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
+                                          //       4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
+                                          //     ],
+                                          //   },
+                                          //   {
+                                          //     marker: {
+                                          //       enabled: false,
+                                          //     },
+                                          //     lineColor: "#D25A5A",
+                                          //     color: "#D25A5A",
+                                          //     lineWidth:
+                                          //       selectedWidth?.is4kDevice ||
+                                          //       selectedWidth?.is3KDevice
+                                          //         ? 4
+                                          //         : 2,
+                                          //     data: [
+                                          //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
+                                          //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                          //     ],
+                                          //   },
+                                          // ]}
+                                        />
+                                      ) : (
+                                        <Loader isHundredVh={false} />
+                                      )}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1267,7 +1300,8 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                 container
                                 xs={12}
                                 className={graphTwoContainerStyle}
-                                style={{}}>
+                                style={{}}
+                              >
                                 <Grid
                                   item
                                   xs={12}
@@ -1276,7 +1310,8 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                     display: "flex",
                                     alignItems: "center",
                                     fontSize: "0.8vw",
-                                  }}>
+                                  }}
+                                >
                                   {gridView.incidents}
                                 </Grid>
                                 {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
@@ -1284,162 +1319,103 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}>
+                                    style={{ height: "90%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
-                                        {
-                                          !loaderAssetTrackingAnalyticsResponse && !loaderExtAnalytics ?
-                                          <Chart
-                                        // width={selectedWidth?.width1}
-                                        // height={selectedWidth?.height1}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
-                                        }}
-                                        pageName={"assetTracking"}
-                                        // tickInterval={xAxisIntervalGraph}
-                                        // formatGraph={formatGraph}
-                                        // xAxisArray={xAxisChartDataGraph}
-                                        graphType={"areaspline"}
-                                        isVisible={true}
-                                        units={""}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#EE3E35"}
-                                        is4kDevice={selectedWidth?.is4kDevice}
-                                        selectedValue={selectedValue}
-                                        // dataPoints={updatedIncidentsGraphData}
-                                        dataPoints={[
-                                          {
-                                            data: incidentsAnalyticsData,
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
+                                      {!loaderAssetTrackingAnalyticsResponse &&
+                                      !loaderExtAnalytics ? (
+                                        <Chart
+                                          // width={selectedWidth?.width1}
+                                          // height={selectedWidth?.height1}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
+                                            },
+                                          }}
+                                          pageName={"assetTracking"}
+                                          // tickInterval={xAxisIntervalGraph}
+                                          // formatGraph={formatGraph}
+                                          // xAxisArray={xAxisChartDataGraph}
+                                          graphType={"areaspline"}
+                                          isVisible={true}
+                                          units={""}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#EE3E35"}
+                                          is4kDevice={selectedWidth?.is4kDevice}
+                                          selectedValue={selectedValue}
+                                          // dataPoints={updatedIncidentsGraphData}
+                                          dataPoints={[
+                                            {
+                                              data: incidentsAnalyticsData,
 
-                                            marker: {
-                                              enabled: false,
-                                            },
-                                            lineColor: "#EE3E35",
-                                            color: "#EE3E35",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            fillColor: {
-                                              linearGradient: [0, 0, 0, 200],
-                                              stops: [
-                                                [
-                                                  0,
-                                                  Highcharts.color("#C3362F")
-                                                    .setOpacity(0.5)
-                                                    .get("rgba"),
-                                                ],
-                                                [
-                                                  0.5,
-                                                  Highcharts.color("#C3362F")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.4
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#EE3E35",
+                                              color: "#EE3E35",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              fillColor: {
+                                                linearGradient: [0, 0, 0, 200],
+                                                stops: [
+                                                  [
+                                                    0,
+                                                    Highcharts.color("#C3362F")
+                                                      .setOpacity(0.5)
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    0.5,
+                                                    Highcharts.color("#C3362F")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.4
+                                                            : 0.3
                                                           : 0.3
-                                                        : 0.3
-                                                    )
-                                                    .get("rgba"),
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    1,
+                                                    Highcharts.color("#C3362F")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.14
+                                                            : 0.06
+                                                          : selectedTheme ===
+                                                            "light"
+                                                          ? 0.01
+                                                          : 0.02
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
                                                 ],
-                                                [
-                                                  1,
-                                                  Highcharts.color("#C3362F")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.14
-                                                          : 0.06
-                                                        : selectedTheme ===
-                                                          "light"
-                                                        ? 0.01
-                                                        : 0.02
-                                                    )
-                                                    .get("rgba"),
-                                                ],
-                                              ],
+                                              },
+                                              // data: [
+                                              //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
+                                              //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
+                                              // ],
                                             },
-                                            // data: [
-                                            //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                            //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                            // ],
-                                          },
-                                        ]}
-                                        // {[
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#EE3E35",
-                                        //     color: "#EE3E35",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     fillColor: {
-                                        //       linearGradient: [0, 0, 0, 200],
-                                        //       stops: [
-                                        //         [
-                                        //           0,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(0.5)
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //         [
-                                        //           0.5,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(
-                                        //               selectedWidth?.is4kDevice ||
-                                        //                 selectedWidth?.is3KDevice
-                                        //                 ? selectedTheme ===
-                                        //                   "light"
-                                        //                   ? 0.4
-                                        //                   : 0.3
-                                        //                 : 0.3
-                                        //             )
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //         [
-                                        //           1,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(
-                                        //               selectedWidth?.is4kDevice ||
-                                        //                 selectedWidth?.is3KDevice
-                                        //                 ? selectedTheme ===
-                                        //                   "light"
-                                        //                   ? 0.14
-                                        //                   : 0.06
-                                        //                 : selectedTheme ===
-                                        //                   "light"
-                                        //                 ? 0.01
-                                        //                 : 0.02
-                                        //             )
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //       ],
-                                        //     },
-                                        //     data: [
-                                        //       1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                        //       6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                        //     ],
-                                        //   },
-                                        // ]}
-                                      />
-                                          :
-                                          <Loader isHundredVh={false} />
-                                          
-                                      
-                                     }
+                                          ]}
+
+                                        />
+                                      ) : (
+                                        <Loader isHundredVh={false} />
+                                      )}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1455,7 +1431,8 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
+                      style={{ height: "59%" }}
+                    >
                       {/* <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
@@ -1463,7 +1440,7 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                         onClick={handleAssetInfoWindow}
                       /> */}
                       <Map
-                        markers={notificationArray}
+                        markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
                         marker={selectedNotification}

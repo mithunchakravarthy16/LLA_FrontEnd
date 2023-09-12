@@ -170,6 +170,24 @@ const useStyles = makeStyles(() => ({
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: `${props?.palette?.login?.inputPlaceholder} !important`,
+      boxShadow: `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+
+      '&:-webkit-autofill': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      '&:-webkit-autofill:hover': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      '&:-webkit-autofill:focus': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      '&:-webkit-autofill:active': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
 
       padding: 36,
       "&::placeholder": {
@@ -224,6 +242,26 @@ const useStyles = makeStyles(() => ({
       lineHeight: "48px",
       color: `${props?.palette?.login?.inputPlaceholder} !important`,
       padding: 36,
+
+      boxShadow: `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+
+      '&:-webkit-autofill': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      '&:-webkit-autofill:hover': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      '&:-webkit-autofill:focus': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      '&:-webkit-autofill:active': {
+        '-webkit-box-shadow': `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        '-webkit-text-fill-color': 'unset !important',
+      },
+      
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
         opacity: 0.4,

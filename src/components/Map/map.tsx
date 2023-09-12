@@ -961,7 +961,7 @@ const Map: React.FC<any> = (props) => {
             />
           )}
 
-          {marker === "" ? (
+          {marker === "" && mapPageName !== "asset" ? (
             <MarkerClustererF
               averageCenter
               enableRetinaIcons

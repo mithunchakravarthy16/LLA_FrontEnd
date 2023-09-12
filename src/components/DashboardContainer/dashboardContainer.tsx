@@ -118,6 +118,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [selectedMarker, setSelectedMarker] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [mapMarkerArray, setMapMarkerArray] = useState<any>([])
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -166,9 +167,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     };
     dispatch(getNotificationData(assetPayload));
     const fleetPayload: any = {};
-    dispatch(setFleetManagementNotificationData({}));
-    dispatch(getFleetManagementNotificationData(fleetPayload));
-    dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+    // dispatch(setFleetManagementNotificationData({}));
+    // dispatch(getFleetManagementNotificationData(fleetPayload));
+    // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
     setSuccess(false);
   }, []);
 
@@ -197,6 +198,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           ...dashboardNotiData,
           // ...fleetNotiData,
         ];
+
+        const consolidatedMarkerData = [...consolidatedData];
+
+        consolidatedMarkerData.sort((a:any, b:any) => {
+          const dateA : any = new Date(a.notificationDate);
+          const dateB : any = new Date(b.notificationDate);
+        
+          return dateA - dateB;
+        });
+  
+        setMapMarkerArray(consolidatedMarkerData)
         setDashboardNotificationList(consolidatedData);
       }
     }
@@ -245,6 +257,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           // ...fleetNotiData,
         ];
         setDashboardNotificationList(consolidatedData);
+
+        const consolidatedMarkerData = [...consolidatedData];
+
+        consolidatedMarkerData.sort((a:any, b:any) => {
+          const dateA : any = new Date(a.notificationDate);
+          const dateB : any = new Date(b.notificationDate);
+        
+          return dateA - dateB;
+        });
+  
+        setMapMarkerArray(consolidatedMarkerData)
       }
     }
   }, [assetNotificationResponse, fleetManagementNotificationResponse]);
@@ -296,7 +319,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       localStorage.clear();
       dispatch(getUserLogout());
       dispatch(setUserLogin({}));
-      dispatch(setFleetManagementNotificationData({}));
+      // dispatch(setFleetManagementNotificationData({}));
       setSuccess(false);
       navigate("/login");
     }
@@ -315,7 +338,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const handleClick = () => {
     setCount((prev) => prev + 1);
     setSuccess(false);
-    dispatch(getFleetManagementNotificationData({}));
+    // dispatch(getFleetManagementNotificationData({}));
   };
   const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
   const handleAssetViewDetails = (data: any) => {
@@ -333,25 +356,25 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         >
           <Alert
             onClose={handleClose}
-            severity={
-              fleetManagementNotificationResponse?.status === 500 ||
-              fleetManagementNotificationResponse?.status === 404 ||
-              fleetManagementNotificationResponse?.status === 400 ||
-              fleetManagementNotificationResponse?.status === 409 ||
-              fleetManagementNotificationResponse?.status === 413 ||
-              fleetManagementNotificationResponse?.status === 410 ||
-              fleetManagementTripDetailsResponse?.status === 500 ||
-              fleetManagementTripDetailsResponse?.status === 404 ||
-              fleetManagementTripDetailsResponse?.status === 400 ||
-              fleetManagementTripDetailsResponse?.status === 409 ||
-              fleetManagementTripDetailsResponse?.status === 413 ||
-              fleetManagementTripDetailsResponse?.status === 410
-                ? "error"
-                : undefined
-            }
+            // severity={
+            //   fleetManagementNotificationResponse?.status === 500 ||
+            //   fleetManagementNotificationResponse?.status === 404 ||
+            //   fleetManagementNotificationResponse?.status === 400 ||
+            //   fleetManagementNotificationResponse?.status === 409 ||
+            //   fleetManagementNotificationResponse?.status === 413 ||
+            //   fleetManagementNotificationResponse?.status === 410 ||
+            //   fleetManagementTripDetailsResponse?.status === 500 ||
+            //   fleetManagementTripDetailsResponse?.status === 404 ||
+            //   fleetManagementTripDetailsResponse?.status === 400 ||
+            //   fleetManagementTripDetailsResponse?.status === 409 ||
+            //   fleetManagementTripDetailsResponse?.status === 413 ||
+            //   fleetManagementTripDetailsResponse?.status === 410
+            //     ? "error"
+            //     : undefined
+            // }
             sx={{ width: "100%" }}
           >
-            {(fleetManagementNotificationResponse?.status === 500 ||
+            {/* {(fleetManagementNotificationResponse?.status === 500 ||
               fleetManagementTripDetailsResponse?.status === 500) && (
               <div style={{ display: "flex" }}>
                 <Typography>Something went wrong...</Typography>
@@ -389,20 +412,21 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               <div style={{ display: "flex" }}>
                 <Typography>Request not available</Typography>
               </div>
-            )}
+            )} */}
           </Alert>
         </Snackbar>
       )}
       {Object.keys(assetNotificationResponse).length > 0 &&
-      !loaderFleetManagementNotification &&
-      !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader ? (
+      // !loaderFleetManagementNotification &&
+      !loaderAdminGetConfigData 
+      // !overAllAnalyticsLoader 
+      ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>
                 <Map
-                  markers={dashboardNotificationList}
+                  markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}
                   marker={selectedNotification}

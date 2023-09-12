@@ -151,7 +151,38 @@ export const formatttedAssetAPINotification = (data: any) => {
       });
     });
 
-    return combinedNotifications;
+    combinedNotifications.sort((a:any, b:any) => {
+      const dateA : any = new Date(a.notificationDate);
+      const dateB : any = new Date(b.notificationDate);
+    
+      return dateB - dateA;
+    });
+
+      let uniqueTrackerIds : any = {};
+
+      const uniqueData = combinedNotifications.filter((item:any) => {
+        if (!uniqueTrackerIds[item.trackerId]) {
+          uniqueTrackerIds[item.trackerId] = true;
+          return true;
+        }
+        return false;
+      });
+
+      const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
+        const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
+        
+        if (uniqueDataItem) {
+            return {
+                ...combinedDataItem,
+                location: uniqueDataItem.location,
+                recentMarkerType : uniqueDataItem.notificationType,
+            };
+        }
+    
+        return combinedDataItem;
+    });
+
+    return updatedUniqueData;
   }
 };
 
