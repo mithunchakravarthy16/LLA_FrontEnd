@@ -11,6 +11,8 @@ export const assetTrackerDetail = {
   HIDE_LOADER_ASSETS_LIST: "Hide_LOADER_ASSETS_LIST",
   SHOW_LOADER_CREATE_GEOFENCE: "SHOW_LOADER_CREATE_GEOFENCE",
   HIDE_LOADER_CREATE_GEOFENCE: "Hide_LOADER_CREATE_GEOFENCET",
+  SHOW_LOADER_ASSET_INFOWINDOW : "SHOW_LOADER_ASSET_INFOWINDOW",
+  HIDE_LOADER_ASSET_INFOWINDOW : "HIDE_LOADER_ASSET_INFOWINDOW"
 };
 
 export const getAssetTrackerDetail = (payload: any) => ({
@@ -72,5 +74,13 @@ export const setLoaderCreateGeofence = () => ({
 export const hideLoaderCreateGeofence = () => ({
   type: assetTrackerDetail.HIDE_LOADER_CREATE_GEOFENCE,
 });
+
+export const setShowLoaderAssetInfoDialog = ()=>({
+  type : assetTrackerDetail.SHOW_LOADER_ASSET_INFOWINDOW
+})
+
+export const hideLoaderAssetInfoDialog = ()=>({
+  type : assetTrackerDetail.HIDE_LOADER_ASSET_INFOWINDOW
+})
 
 export default assetTrackerDetail;
