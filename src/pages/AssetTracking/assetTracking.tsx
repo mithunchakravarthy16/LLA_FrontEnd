@@ -743,8 +743,7 @@ const AssetTracking: React.FC<any> = (props) => {
         }
       );
 
-      console.log("updatedUniqueData")
-
+      console.log("updatedUniqueData");
 
       const updatedUniqueMarkerData = combinedNotifications.map(
         (combinedDataItem: any) => {
@@ -1428,12 +1427,12 @@ const AssetTracking: React.FC<any> = (props) => {
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "59%" }}>
-                      {/* <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      /> */}
+                      />
                       <Map
                         markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
