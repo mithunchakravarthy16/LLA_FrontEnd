@@ -121,7 +121,7 @@ const FleetManagement: React.FC<any> = (props) => {
     // return () => {
     //   clearInterval(timer);
     // };
-    // dispatch(getFleetManagementNotificationData(payload));
+     dispatch(getFleetManagementNotificationData(payload));
   }, []);
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"hh:mm A", tickInterval1: 8, tickInterval2: 12})
   useEffect(() => {
@@ -1489,7 +1489,7 @@ const FleetManagement: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
                 <Grid item xs={3} className={notificationPanelGrid}>
-                  {/* <FleetNotificationPanel
+                  <FleetNotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
@@ -1508,7 +1508,7 @@ const FleetManagement: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={handleExpandListItem}
-                  /> */}
+                  />
                 </Grid>
               </Grid>
             </Grid>
