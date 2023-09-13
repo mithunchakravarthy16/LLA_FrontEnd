@@ -8,6 +8,7 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 import Chart from "elements/Chart";
 import useTranslation from "localization/translations";
+import moment from "moment";
 
 const GridViewScreenFive: React.FC<any> = (props) => {
   const { handleClick, selectedTheme, fleetManagementResponse } = props;
@@ -19,6 +20,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
   const [overallHours, setOverallHours] = useState<any>();
   const [overSpeedingData, setOverSpeedingDataData] = useState<any>();
   const [harshBreakingData, setHarshBreakingData] = useState<any>();
+  const [overSpeedingDataXaxis, setOverSpeedingDataDataXaxis] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -146,12 +148,21 @@ const GridViewScreenFive: React.FC<any> = (props) => {
     if (fleetManagementResponse) {
       const overSpeeding: any = [];
       const harshBreakingData: any = [];
+      const fleetGridViewAnalyticsXAxisData: any = [];
 
       fleetManagementResponse?.data?.overSpeeding?.map((item: any) => {
-        overSpeeding?.push([new Date(item?.node)?.getTime(), item?.count]);
+        // overSpeeding?.push([new Date(item?.node)?.getTime(), item?.count]);
+        overSpeeding?.push(item?.count);
+        fleetGridViewAnalyticsXAxisData?.push(
+          moment(item?.node).format("hh:mm A")
+        );
       });
       fleetManagementResponse?.data?.harshBreaking?.map((item: any) => {
-        harshBreakingData?.push([new Date(item?.node)?.getTime(), item?.count]);
+        // harshBreakingData?.push([new Date(item?.node)?.getTime(), item?.count]);
+        harshBreakingData?.push(item?.count);
+        fleetGridViewAnalyticsXAxisData?.push(
+          moment(item?.node).format("hh:mm A")
+        );
       });
 
       const totalMinutes = Math.floor(
@@ -161,6 +172,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
       setOverallHours(hours);
       setOverSpeedingDataData(overSpeeding);
       setHarshBreakingData(harshBreakingData);
+      setOverSpeedingDataDataXaxis(fleetGridViewAnalyticsXAxisData);
     }
   }, [fleetManagementResponse]);
 
@@ -173,19 +185,21 @@ const GridViewScreenFive: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/fleetManagement");
-        }}>
+        }}
+      >
         <Grid container xs={12} className={gridContainers}>
-          <Grid item xs={12} className={containerTitleScreenFive}>
-            {dashboard.fleetManagement}
-          </Grid>
           {/* <Grid item xs={12} className={subContainerScreenFive}>
-            <Grid container xs={12} className={childSubContainer}>
-              <Grid item xs={9}>
+            <Grid container xs={9} className={childSubContainer}>
+              <Grid item xs={12} className={containerTitleScreenFive}>
+                {dashboard.fleetManagement}
+              </Grid>
+              <Grid item xs={12}>
                 <Grid
                   container
                   xs={12}
                   alignContent="space-between"
-                  className={leftSubChildContainer}>
+                  className={leftSubChildContainer}
+                >
                   <Grid item xs={12}>
                     <Grid container xs={12} rowGap={1}>
                       <Grid item xs={12} className={screenFiveGraphTitleStyle}>
@@ -210,7 +224,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                           xAxisFontSize={selectedWidth?.xAxisFontSize}
                           pageName={"FleetManagement"}
                           // tickInterval={2}
-                          selectedValue={"Today"}
+                          // selectedValue={"Today"}
+                          tickInterval={8}
+                          xAxisArray={overSpeedingDataXaxis}
                           dataPoints={[
                             {
                               marker: {
@@ -242,7 +258,6 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                         />
                       </Grid>
                     </Grid>
-
                   </Grid>
 
                   <Grid item xs={12}>
@@ -260,7 +275,10 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             ? fleetManagementResponse?.data?.liveVehicle
                             : 0}
                         </div>
-                        <div className={liveContentLabel} style={{textTransform : "uppercase"}}>
+                        <div
+                          className={liveContentLabel}
+                          style={{ textTransform: "uppercase" }}
+                        >
                           {gridView.vehicles}
                         </div>
                       </div>
@@ -270,90 +288,101 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                             ? fleetManagementResponse?.data?.completedTripCount
                             : 0}
                         </div>
-                        <div className={liveContentLabel} style={{textTransform : "uppercase"}}>{gridView.trips}</div>
+                        <div
+                          className={liveContentLabel}
+                          style={{ textTransform: "uppercase" }}
+                        >
+                          {gridView.trips}
+                        </div>
                       </div>
                     </div>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3}>
-                <Grid
-                  container
-                  xs={12}
-                  alignItems="center"
-                  textAlign="center"
-                  className={lastweekContainer}>
-                  <Grid item xs={12} className={lastweekTitleStyle}>
-                    <div
-                      style={{
-                        background:
-                          appTheme?.palette?.gridViewComponentCommonStyle
-                            ?.todayTitleBgColor,
-                            padding: "2.5% 10%",
-                            borderRadius : "0.3vw",
-                            fontSize : "0.8vw",
-                            fontWeight : 500
-                      }}>
-                      {gridView.today}
+            </Grid>
+
+            <Grid
+              container
+              xs={3}
+              alignItems="center"
+              textAlign="center"
+              className={lastweekContainer}
+            >
+              <Grid item xs={12} className={lastweekTitleStyle}>
+                <div
+                  style={{
+                    background:
+                      appTheme?.palette?.gridViewComponentCommonStyle
+                        ?.todayTitleBgColor,
+                    padding: "2.5% 10%",
+                    borderRadius: "0.3vw",
+                    fontSize: "0.8vw",
+                    fontWeight: 500,
+                  }}
+                >
+                  {gridView.today}
+                </div>
+              </Grid>
+              <Grid item xs={12} className={lastweekBodyContainer}>
+                <Grid container xs={12} className={lastweekBodySubContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={rightListItemStyle}
+                    direction="column"
+                  >
+                    <div className={listItemValueStyle}>
+                      {fleetManagementResponse?.data?.incidentCount
+                        ? fleetManagementResponse?.data?.incidentCount
+                        : 0}
+                    </div>
+                    <div className={listItemLabelStyle}>
+                      {gridView.incidents}
                     </div>
                   </Grid>
-                  <Grid item xs={12} className={lastweekBodyContainer}>
-                    <Grid
-                      container
-                      xs={12}
-                      className={lastweekBodySubContainer}>
-                      <Grid
-                        item
-                        xs={12}
-                        className={rightListItemStyle}
-                        direction="column">
-                        <div className={listItemValueStyle}>
-                          {fleetManagementResponse?.data?.incidentCount
-                            ? fleetManagementResponse?.data?.incidentCount
-                            : 0}
-                        </div>
-                        <div className={listItemLabelStyle}>
-                          {gridView.incidents}
-                        </div>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        direction="column"
-                        className={rightListItemStyle}>
-                        <div className={listItemValueStyle}>{`${
-                          fleetManagementResponse?.data?.totalDistanceCovered
-                            ? fleetManagementResponse?.data?.totalDistanceCovered?.toFixed(
-                                2
-                              )
-                            : 0
-                        }Km`}</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.total}</p> <p>{gridView.distance}</p>
-                        </div>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        direction="column"
-                        className={rightListItemStyleLastChild}>
-                        <div className={listItemValueStyle}>{`${
-                          overallHours ? overallHours : 0
-                        }Hrs`}</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.total}</p>{" "}
-                          <p>
-                            {gridView.idling} {gridView.hours}
-                          </p>
-                        </div>
-                      </Grid>
-                    </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    className={rightListItemStyle}
+                  >
+                    <div className={listItemValueStyle}>{`${
+                      fleetManagementResponse?.data?.totalDistanceCovered
+                        ? fleetManagementResponse?.data?.totalDistanceCovered?.toFixed(
+                            2
+                          )
+                        : 0
+                    }Km`}</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.total}</p> <p>{gridView.distance}</p>
+                    </div>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    className={rightListItemStyleLastChild}
+                  >
+                    <div className={listItemValueStyle}>{`${
+                      overallHours ? overallHours : 0
+                    }Hrs`}</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.total}</p>{" "}
+                      <p>
+                        {gridView.idling} {gridView.hours}
+                      </p>
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid> */}
-           <Grid
+
+          {/* //-----developer mode starts here---// */}
+          <Grid item xs={12} className={containerTitleScreenFive}>
+            {dashboard.fleetManagement}
+          </Grid>
+          <Grid
             item
             style={{
               display: "flex",
@@ -361,11 +390,12 @@ const GridViewScreenFive: React.FC<any> = (props) => {
               alignItems: "center",
               height: "100%",
               width: "100%",
-              fontSize : "1vw"
+              fontSize: "1vw",
             }}
           >
             Development In Progress...
           </Grid>
+          {/* //-----developer mode ends here---// */}
         </Grid>
       </Grid>
     </>

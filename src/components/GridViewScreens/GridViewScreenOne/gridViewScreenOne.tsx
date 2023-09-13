@@ -82,8 +82,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 410,
-        height: 280,
+        width: 420,
+        height: 270,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {
@@ -179,12 +179,13 @@ const GridViewScreenOne: React.FC<any> = (props) => {
           handleClick("/parking");
         }}>
         <Grid container xs={12} className={gridContainers}>
-          <Grid item xs={12} className={containerTitle}>
-            {dashboard.parking}
-          </Grid>
+          
           <Grid item xs={12} className={subContainer}>
-            <Grid container xs={12} className={childSubContainer}>
-              <Grid item xs={9}>
+            <Grid container xs={9} className={childSubContainer}>
+              <Grid item xs={12} className={containerTitle}>
+               {dashboard.parking}
+              </Grid>
+              <Grid item xs={12}>
                 <Grid
                   container
                   xs={12}
@@ -292,10 +293,12 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3}>
+              
+            </Grid>
+            
                 <Grid
                   container
-                  xs={12}
+                  xs={3}
                   alignItems="center"
                   textAlign="center"
                   className={lastweekContainer}>
@@ -305,10 +308,10 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                         background:
                           appTheme?.palette?.gridViewComponentCommonStyle
                             ?.todayTitleBgColor,
-                            padding: "2.5% 10%",
-                            borderRadius : "0.3vw",
-                            fontSize : "0.8vw",
-                            fontWeight : 500
+                        padding: "2.5% 10%",
+                        borderRadius: "0.3vw",
+                        fontSize: "0.8vw",
+                        fontWeight: 500,
                       }}>
                       {gridView.today}
                     </div>
@@ -352,8 +355,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
+              
           </Grid>
         </Grid>
       </Grid>

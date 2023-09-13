@@ -426,7 +426,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
             }
             sx={{ width: "100%" }}
           >
-            {200 === 200 && (
+            {createGeofenceResponse?.status === 200 && (
               <div style={{ display: "flex" }}>
                 <Typography>Successfully Created Geofence.</Typography>
               </div>
@@ -434,32 +434,33 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {assetsListLoader ? (
-        <Loader />
-      ) : (
-        <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-          <div>
-            <IconButton
-              aria-label="close"
-              onClick={handleClose}
-              sx={{
-                position: "absolute",
-                padding: "0.5%",
-                right: "0.1%",
-                top: "1.5%",
-                color: "transparent",
-                width: "4.2%",
-                height: "4.2%",
-                transition: "none",
-              }}
-            >
-              <img
-                width={"100%"}
-                height={"100%"}
-                src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
-              />
-            </IconButton>
-          </div>
+
+      <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
+        <div>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              padding: "0.5%",
+              right: "0.1%",
+              top: "1.5%",
+              color: "transparent",
+              width: "4.2%",
+              height: "4.2%",
+              transition: "none",
+            }}
+          >
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
+          </IconButton>
+        </div>
+        {assetsListLoader ? (
+          <Loader isHundredVh={false} />
+        ) : (
           <Grid container xs={12} style={{ height: "100%" }}>
             <Grid item xs={12} className={headerStyle}>
               <div>GEOFENCE</div>
@@ -570,8 +571,8 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </Grid>
-        </DialogWrapper>
-      )}
+        )}
+      </DialogWrapper>
     </>
   );
 };

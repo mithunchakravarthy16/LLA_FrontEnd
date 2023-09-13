@@ -42,6 +42,8 @@ const useStyles = makeStyles({
   containerTitleTwo: (props: any) => ({
     color: props?.palette?.gridViewComponentCommonStyle?.containerTitle,
     fontSize: "18px",
+    display: "flex",
+    justifyContent: "space-between",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       lineHeight: "56px",
@@ -100,12 +102,15 @@ const useStyles = makeStyles({
   }),
 
   subContainer: (props: any) => ({
-    height: "90%",
+    height: "100%",
+    display: "flex"
   }),
 
   subContainerScreenFive: (props: any) => ({
-    height: "87%",
-    marginTop: "2%",
+    height: "100%",
+    display: "flex",
+
+    // marginTop: "2%",
   }),
 
   dotContainerStyle: (props: any) => ({

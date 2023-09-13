@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Stack from "@mui/material/Stack";
 import moment from "moment";
+import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { ColorlibStepIconRoot } from "./styles";
+import Tooltip from "elements/Tooltip";
 
 const ColorlibStepIcon: React.FC<any> = (props) => {
   const { active, completed, className } = props;
@@ -30,7 +31,7 @@ const ColorlibStepIcon: React.FC<any> = (props) => {
 };
 
 const CustomizedSteppers: React.FC<any> = (props) => {
-  const { dataPoints, selectedTheme } = props;
+  const { dataPoints, selectedTheme, packageData } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
@@ -54,11 +55,19 @@ const CustomizedSteppers: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+  const truncateString = (str: string, num: number) => {
+    if (str?.length > num) {
+      return str?.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
+
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={5}
+        activeStep={dataPoints?.length - 1}
         // connector={<ColorlibConnector />}
         // sx={stepperSx}
         className={stepperSx}
@@ -66,7 +75,10 @@ const CustomizedSteppers: React.FC<any> = (props) => {
         {dataPoints &&
           dataPoints.length > 0 &&
           dataPoints.map((label: any, index: number) => (
-            <Step key={index} style={{ wordBreak: "break-word" }}>
+            <Step
+              key={index}
+              style={{ wordBreak: "break-word", maxWidth: "10vw" }}
+            >
               <Typography
                 // sx={typographySx} // For solution 2
                 align="center"
@@ -79,10 +91,27 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                     appTheme?.palette?.assetTrackingPage?.topPanelTextColor,
                 }}
               >
-                {label?.area}
+                {label?.area?.length > 30 ? (
+                  <>
+                    <Tooltip
+                      tooltipValue={label?.area}
+                      placement={"bottom"}
+                      offset={[0, 10]}
+                      fontSize={[14]}
+                      padding={[2]}
+                    >
+                      {" "}
+                      {truncateString(label?.area, 30)}
+                    </Tooltip>
+                  </>
+                ) : (
+                  label?.area
+                )}
+                {/* {label?.packageStage} */}
               </Typography>
               <StepLabel StepIconComponent={ColorlibStepIcon}>
                 {moment(label?.timestamp)?.format("DD-MM-YYYY | HH:mm A")}
+                {/* {label?.timeStamp} */}
               </StepLabel>
             </Step>
           ))}

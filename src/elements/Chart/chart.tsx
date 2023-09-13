@@ -70,7 +70,7 @@ const Chart: React.FC<any> = (props) => {
           setIsEveryYAxisValuesAreZero(
             item?.data?.every(
               (dataValues: any) =>
-                (dataValues?.length > 1 && dataValues[1]) === 0
+                 dataValues === 0
             )
           );
         });
@@ -265,60 +265,17 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          // endOnTick: true,
+          //  endOnTick: true,
           categories: xAxisArray
             ? xAxisArray
             : pageName !== "assetTracking" && pageName !== "FleetManagement" && lastTwntyTwoHours,
-          tickInterval:
+          tickInterval: tickInterval ? tickInterval :
             is4kDevice || is2kDevice
               ? (is4kDevice && location.pathname === "/energyManagement") ||
                 (is4kDevice && location.pathname === "/security") ||
                 (is4kDevice && location.pathname === "/lighting")
                 ? 8
-                : pageName === "assetTracking"
-                ? selectedValue === "Today"
-                ? 5 * 3600 * 1000
-                : selectedValue === "Year"
-                ? 70 * 24 * 3600 * 1000
-                : selectedValue === "Month"
-                ? 5 * 24 * 3600 * 1000
-                : 30 * 3600 * 1000
-                : pageName === "assetTrackingGridView" ?
-                selectedValue === "Today"
-                ? 5 * 3600 * 1000
-                : selectedValue === "Year"
-                ? 70 * 24 * 3600 * 1000
-                : selectedValue === "Month"
-                ? 5 * 24 * 3600 * 1000
-                : 30 * 3600 * 1000
-                : 12
-              : tickInterval
-              ? tickInterval
-              : pageName !== "FleetManagement" && pageName !== "assetTracking" &&  pageName !== "assetTrackingGridView"
-              ? 8
-              : pageName === "FleetManagement" ? selectedValue === "Today"
-              ? 8 * 3600 * 1000
-              : selectedValue === "Year"
-              ? 90 * 24 * 3600 * 1000
-              : selectedValue === "Month"
-              ? 5 * 24 * 3600 * 1000
-              : 40 * 3600 * 1000
-              : pageName === "assetTracking" ?
-              selectedValue === "Today"
-              ? 5 * 3600 * 1000
-              : selectedValue === "Year"
-              ? 70 * 24 * 3600 * 1000
-              : selectedValue === "Month"
-              ? 5 * 24 * 3600 * 1000
-              : 30 * 3600 * 1000
-              : pageName === "assetTrackingGridView" ?
-              selectedValue === "Today"
-              ? 5 * 3600 * 1000
-              : selectedValue === "Year"
-              ? 70 * 24 * 3600 * 1000
-              : selectedValue === "Month"
-              ? 5 * 24 * 3600 * 1000
-              : 30 * 3600 * 1000
+                :  12
               : 8,
           crosshair: {
             enabled: isCrosshair,
@@ -327,40 +284,40 @@ const Chart: React.FC<any> = (props) => {
             dashStyle: "ShortDash",
             snap: isCrosshair,
           },
-          type:
-            (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") &&
-            "datetime",
+          // type:
+          //   ( pageName === "FleetManagement" ) &&
+          //   "datetime",
           labels: {
             allowOverlap: false,
-            formatter:
-             (pageName === "FleetManagement" || pageName === "assetTracking" || pageName === "assetTrackingGridView") &&
-              function (this: any) {
-                const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
-                if (selectedValue === "Today") {
-                  return Highcharts.dateFormat("%I:%M %p", this.value);
-                } else {
-                  return convertedTime.format(
-                    formatGraph
-                      ? formatGraph
-                      : selectedValue === "Year"
-                      ? "MMM/YY"
-                      : "MM/DD"
-                  );
-                }
-              },
+            // formatter:
+            //  (pageName === "FleetManagement") &&
+            //   function (this: any) {
+            //     const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
+            //     if (selectedValue === "Today") {
+            //       return Highcharts.dateFormat("%I:%M %p", this.value);
+            //     } else {
+            //       return convertedTime.format(
+            //         formatGraph
+            //           ? formatGraph
+            //           : selectedValue === "Year"
+            //           ? "MMM/YY"
+            //           : "MM/DD"
+            //       );
+            //     }
+            //   },
 
             useHTML: true,
             // overflow: "justify",
             overflow: "justify",
-            format: formatGraph
-              ? formatGraph
-              : (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && selectedValue === "Today"
-              ? "{value:%H:00}"
-              : selectedValue === "Year"
-              ? "{value:%b}"
-              : "{value:%m/%e}",
+            // format: formatGraph
+            //   ? formatGraph
+            //   : ( pageName === "FleetManagement" ) ? selectedValue === "Today"
+            //   ? "{value:%H:00}"
+            //   : selectedValue === "Year"
+            //   ? "{value:%b}"
+            //   : "{value:%m/%e}" : null,
             style: {
-              fontSize: "0.65vw",
+              fontSize: "0.6vw",
               textOverflow: "none",
               autoRotation: false,
               fontWeight: 500,
@@ -371,7 +328,7 @@ const Chart: React.FC<any> = (props) => {
           lineWidth: 0,
           tickPositioner:
             (!selectedValue ||
-              (selectedValue !== "Today" && selectedValue !== "Month")) &&
+              ( selectedValue !== "Month")) && 
             function (this: any) {
               const ticks: any = this.tickPositions;
 
@@ -384,11 +341,11 @@ const Chart: React.FC<any> = (props) => {
             },
         },
 
-        setOptions: {
-          time: {
-            useUTC: false,
-          },
-        },
+        // setOptions: {
+        //   time: {
+        //     useUTC: true,
+        //   },
+        // },
 
         title: false,
         plotOptions: {

@@ -162,10 +162,23 @@ const GridViewScreenThree: React.FC<any> = (props) => {
           alignContent="space-between"
           className={gridContainers}
         >
-          <Grid item xs={12} className={containerTitleTwo}>
-            {dashboard.security}
+          {/* <Grid item xs={12} className={containerTitleTwo}>
+            <div>{dashboard.security}</div>
+            <div
+                      style={{
+                        background:
+                          appTheme?.palette?.gridViewComponentCommonStyle
+                            ?.todayTitleBgColor,
+                            padding: "0% 2%",
+                            borderRadius : "0.3vw",
+                            fontSize : "0.8vw",
+                            fontWeight : 500,
+                            marginRight: "4%"
+                      }}>
+                      {gridView.today}
+                    </div>
           </Grid>
-          {/* <Grid item xs={12}>
+          <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
                 <div className={horizantalDataGridValueStyle}>19</div>
@@ -230,6 +243,11 @@ const GridViewScreenThree: React.FC<any> = (props) => {
               ]}
             />
           </Grid> */}
+
+        {/* //-----developer mode starts here---// */}
+          <Grid item xs={12} className={containerTitleTwo}>
+            <div>{dashboard.security}</div>
+          </Grid>
           <Grid
             item
             style={{
@@ -243,6 +261,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
           >
             Development In Progress...
           </Grid>
+        {/* //-----developer mode ends here---// */}
         </Grid>
       </Grid>
     </>

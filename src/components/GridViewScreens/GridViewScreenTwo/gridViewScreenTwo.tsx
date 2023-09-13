@@ -166,9 +166,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
           xs={12}
           alignContent="space-between"
           className={gridContainers}>
-          <Grid item xs={12} className={containerTitle}>
-            {dashboard.energyManagement}
-          </Grid>
+
+          {/* ---previously commented starts here--- */}
           {/* <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
@@ -187,9 +186,15 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
               </div>
             </div>
           </Grid> */}
+          {/* ---previously commented ends here--- */}
+
+
           {/* <Grid item xs={12} className={subContainer}>
-            <Grid container xs={12} className={childSubContainer}>
-              <Grid item xs={9} className={childSubContainer}>
+            <Grid container xs={9} className={childSubContainer}>
+            <Grid item xs={12} className={containerTitle}>
+            {dashboard.energyManagement}
+          </Grid>
+              <Grid item xs={12} className={childSubContainer}>
                 <Grid container xs={12} className={childSubContainer}>
                   <Grid item xs={12}>
                     <Grid
@@ -298,10 +303,13 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3}>
+              
+            </Grid>
+
+            
                 <Grid
                   container
-                  xs={12}
+                  xs={3}
                   alignItems="center"
                   textAlign="center"
                   className={lastweekContainer}>
@@ -357,9 +365,15 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
+              
           </Grid> */}
+
+
+
+      {/* //-----developer mode starts here---// */}
+          <Grid item xs={12} className={containerTitle}>
+            {dashboard.energyManagement}
+          </Grid>
           <Grid
             item
             style={{
@@ -373,6 +387,9 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
           >
             Development In Progress...
           </Grid>
+        {/* //-----developer mode ends here---// */}  
+
+        
         </Grid>
       </Grid>
     </>
