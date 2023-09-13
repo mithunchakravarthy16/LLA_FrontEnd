@@ -8,6 +8,7 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 import Chart from "elements/Chart";
 import useTranslation from "localization/translations";
+import moment from "moment";
 
 const GridViewScreenFive: React.FC<any> = (props) => {
   const { handleClick, selectedTheme, fleetManagementResponse } = props;
@@ -19,6 +20,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
   const [overallHours, setOverallHours] = useState<any>();
   const [overSpeedingData, setOverSpeedingDataData] = useState<any>();
   const [harshBreakingData, setHarshBreakingData] = useState<any>();
+  const [overSpeedingDataXaxis, setOverSpeedingDataDataXaxis] = useState<any>();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -141,17 +143,22 @@ const GridViewScreenFive: React.FC<any> = (props) => {
       });
     }
   }, []);
-
+  
   useEffect(() => {
     if (fleetManagementResponse) {
       const overSpeeding: any = [];
       const harshBreakingData: any = [];
+      const fleetGridViewAnalyticsXAxisData: any = [];
 
       fleetManagementResponse?.data?.overSpeeding?.map((item: any) => {
-        overSpeeding?.push([new Date(item?.node)?.getTime(), item?.count]);
+        // overSpeeding?.push([new Date(item?.node)?.getTime(), item?.count]);
+        overSpeeding?.push(item?.count);
+        fleetGridViewAnalyticsXAxisData?.push(moment(item?.node).format("hh:mm A"));
       });
       fleetManagementResponse?.data?.harshBreaking?.map((item: any) => {
-        harshBreakingData?.push([new Date(item?.node)?.getTime(), item?.count]);
+        // harshBreakingData?.push([new Date(item?.node)?.getTime(), item?.count]);
+        harshBreakingData?.push(item?.count);
+        fleetGridViewAnalyticsXAxisData?.push(moment(item?.node).format("hh:mm A"));
       });
 
       const totalMinutes = Math.floor(
@@ -161,6 +168,7 @@ const GridViewScreenFive: React.FC<any> = (props) => {
       setOverallHours(hours);
       setOverSpeedingDataData(overSpeeding);
       setHarshBreakingData(harshBreakingData);
+      setOverSpeedingDataDataXaxis(fleetGridViewAnalyticsXAxisData);
     }
   }, [fleetManagementResponse]);
 
@@ -210,7 +218,9 @@ const GridViewScreenFive: React.FC<any> = (props) => {
                           xAxisFontSize={selectedWidth?.xAxisFontSize}
                           pageName={"FleetManagement"}
                           // tickInterval={2}
-                          selectedValue={"Today"}
+                          // selectedValue={"Today"}
+                          tickInterval={8}                                          
+                          xAxisArray={overSpeedingDataXaxis}                          
                           dataPoints={[
                             {
                               marker: {
