@@ -9,6 +9,7 @@ import useStyles from "../styles";
 import useTranslation from "localization/translations";
 import { useDispatch, useSelector } from "react-redux";
 import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import moment from "moment";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
   const { handleClick, selectedTheme } = props;
@@ -57,17 +58,21 @@ const assetTrackingGridViewAnalyticsDataResponse = useSelector(
 
 
 const[assetGridViewAnalyticsData, setAssetGridViewAnalyticsData] = useState<any>()
+const[assetGridViewAnalyticsXaxisData, setAssetGridViewAnalyticsXaxisData] = useState<any>()
 
 useEffect(()=>{
   const assetGridViewAnalyticsData: any = [];
+  const assetGridViewAnalyticsXAxisData: any = [];
 
-  assetTrackingGridViewAnalyticsDataResponse?.data?.data?.map((item: any) =>
-  assetGridViewAnalyticsData?.push([
-          new Date(item?.node)?.getTime(),
-          item?.count,
-        ])
-      );
-
+  assetTrackingGridViewAnalyticsDataResponse?.data?.data?.map((item: any) =>{
+  // assetGridViewAnalyticsData?.push([
+  //         new Date(item?.node)?.getTime(),
+  //         item?.count,
+  //       ])
+        assetGridViewAnalyticsData?.push(item?.count);
+        assetGridViewAnalyticsXAxisData?.push(moment(item?.node).format("hh:mm A"));
+});
+setAssetGridViewAnalyticsXaxisData(assetGridViewAnalyticsXAxisData)
       setAssetGridViewAnalyticsData(assetGridViewAnalyticsData);
 
 },[assetTrackingGridViewAnalyticsDataResponse])
@@ -209,8 +214,11 @@ useEffect(()=>{
               crossHairLineColor={"#ABCD9890"}
               is4kDevice={selectedWidth?.is4kDevice}
               xAxisFontSize={selectedWidth?.xAxisFontSize}
-              selectedValue={"Today"}
+              // selectedValue={"Today"}
               pageName={"assetTrackingGridView"}
+              tickInterval={6}                                          
+              xAxisArray={assetGridViewAnalyticsXaxisData}
+              
               dataPoints={[
                 {
                   marker: {
