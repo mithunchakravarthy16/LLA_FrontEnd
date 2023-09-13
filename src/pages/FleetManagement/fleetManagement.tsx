@@ -160,13 +160,13 @@ const FleetManagement: React.FC<any> = (props) => {
       case "Week":
         dispatch(getFleetManagementOverAllTripDetails({type: "Weekly"}));
         dispatch(getFleetManagementAnalyticsData({type: "Weekly"}));
-        setSelectedGraphFormat({format:"MM/YY", tickInterval1: 1, tickInterval2: 2});
+        setSelectedGraphFormat({format:"MM/DD", tickInterval1: 1, tickInterval2: 2});
         break;
   
       case "Month":
         dispatch(getFleetManagementOverAllTripDetails({type: "Monthly"}));
         dispatch(getFleetManagementAnalyticsData({type: "Monthly"}));
-        setSelectedGraphFormat({format:"MM/YY", tickInterval1: 6, tickInterval2: 10});
+        setSelectedGraphFormat({format:"MM/DD", tickInterval1: 6, tickInterval2: 10});
         break;
   
       case "Year":
@@ -177,7 +177,7 @@ const FleetManagement: React.FC<any> = (props) => {
       default:
         dispatch(getFleetManagementOverAllTripDetails({type: "Day"}));
         dispatch(getFleetManagementAnalyticsData({type: "Day"}));
-        setSelectedGraphFormat({format:"MM/YY", tickInterval1: 6, tickInterval2: 8});
+        setSelectedGraphFormat({format:"hh:mm A", tickInterval1: 6, tickInterval2: 8});
     }
 
   

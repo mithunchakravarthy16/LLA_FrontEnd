@@ -51,7 +51,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
 //Analytics Api integration starts here
 const [selectedValue, setSelectedValue] = useState<string>("Week");
-const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"MM/YY", tickInterval: 1})
+const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"MM/DD", tickInterval: 1})
 useEffect(() => {
   switch (selectedValue) {
     case "Today":
@@ -63,13 +63,13 @@ useEffect(() => {
     case "Week":
       dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
       dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
-      setSelectedGraphFormat({format:"MM/YY", tickInterval: 1})
+      setSelectedGraphFormat({format:"MM/DD", tickInterval: 1})
       break;
 
     case "Month":
       dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
       dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
-      setSelectedGraphFormat({format:"MM/YY", tickInterval: 3})
+      setSelectedGraphFormat({format:"MM/DD", tickInterval: 3})
       break;
 
     case "Year":
@@ -80,7 +80,7 @@ useEffect(() => {
     default:
       dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
       dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
-      setSelectedGraphFormat({format:"MM/YY", tickInterval: 1})
+      setSelectedGraphFormat({format:"MM/DD", tickInterval: 1})
   }
 }, [selectedValue]);
 
