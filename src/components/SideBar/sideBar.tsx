@@ -257,6 +257,7 @@ const SideBar = (props: SideBarProps) => {
                   offset={tooltipOfset}
                   fontSize={fontSize}
                   padding={padding}
+                  isActive={activePage === item.id}
                 >
                   <img src={item.image} />
                 </Tooltip>

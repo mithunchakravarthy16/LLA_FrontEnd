@@ -30,11 +30,11 @@ const INF_Tooltip: React.FC<any> = (props) => {
     };
   }, [tipRef]);
 
-  const { tooltipValue, children, placement, offset, fontSize, padding, componentName } =
+  const { tooltipValue, children, placement, offset, fontSize, padding, componentName, isActive} =
     props;
 
   return (
-    <div style={{cursor : "pointer", display : "flex", height : "3vh" }}>
+    <div style={{cursor : "pointer", display : "flex", height : isActive ? "5.2vh" : "3vh"}}>
       <Tooltip
         className="tooltipTest"
         arrow
