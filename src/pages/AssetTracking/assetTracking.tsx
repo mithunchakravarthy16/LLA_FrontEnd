@@ -241,29 +241,8 @@ const AssetTracking: React.FC<any> = (props) => {
   );
   const assetNotificationList = assetNotificationResponse?.data;
 
-  const assetTrackerData = useSelector(
-    (state: any) => state?.assetActiveInactiveTracker?.assetTrackerData
-  );
-  const assetIncidentCount = useSelector(
-    (state: any) => state?.assetIncidentCount?.assetIncidentCountValue
-  );
-
   const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
-  );
-
-  // const assetTrackerDetails = useSelector(
-  //   (state: any) => state?.assetTracker?.assetTrackerData
-  // );
-
-  const createGeofence = useSelector(
-    (state: any) => state?.createGeofence?.createGeofenceData
-  );
-  const updateGeofence = useSelector(
-    (state: any) => state?.updateGeofence?.updateGeofenceData
-  );
-  const enableGeofence = useSelector(
-    (state: any) => state?.enableGeofence?.updateGeofenceData
   );
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -1482,8 +1461,6 @@ const AssetTracking: React.FC<any> = (props) => {
       {isInfoWindowActive && (
         <InfoDialogAssetTracking
           setIsInfoWindowActive={setIsInfoWindowActive}
-          packageData={packageData}
-          infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
         />
