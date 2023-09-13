@@ -722,8 +722,6 @@ const AssetTracking: React.FC<any> = (props) => {
         }
       );
 
-      console.log("updatedUniqueData");
-
       const updatedUniqueMarkerData = combinedNotifications.map(
         (combinedDataItem: any) => {
           const uniqueDataItem = uniqueData.find(
