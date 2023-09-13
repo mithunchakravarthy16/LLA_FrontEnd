@@ -257,29 +257,8 @@ useEffect(() => {
   );
   const assetNotificationList = assetNotificationResponse?.data;
 
-  const assetTrackerData = useSelector(
-    (state: any) => state?.assetActiveInactiveTracker?.assetTrackerData
-  );
-  const assetIncidentCount = useSelector(
-    (state: any) => state?.assetIncidentCount?.assetIncidentCountValue
-  );
-
   const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
-  );
-
-  // const assetTrackerDetails = useSelector(
-  //   (state: any) => state?.assetTracker?.assetTrackerData
-  // );
-
-  const createGeofence = useSelector(
-    (state: any) => state?.createGeofence?.createGeofenceData
-  );
-  const updateGeofence = useSelector(
-    (state: any) => state?.updateGeofence?.updateGeofenceData
-  );
-  const enableGeofence = useSelector(
-    (state: any) => state?.enableGeofence?.updateGeofenceData
   );
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -1445,12 +1424,12 @@ useEffect(() => {
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "59%" }}>
-                      {/* <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      /> */}
+                      />
                       <Map
                         markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
@@ -1500,8 +1479,6 @@ useEffect(() => {
       {isInfoWindowActive && (
         <InfoDialogAssetTracking
           setIsInfoWindowActive={setIsInfoWindowActive}
-          packageData={packageData}
-          infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
         />

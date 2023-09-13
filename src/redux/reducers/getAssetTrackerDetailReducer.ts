@@ -28,6 +28,12 @@ export default (state = initialState, action: any) => {
       return { ...state, loadingCreateGeofence: true };
     case assetTrackerDetail.HIDE_LOADER_CREATE_GEOFENCE:
       return { ...state, loadingCreateGeofence: false };
+
+    case assetTrackerDetail.SHOW_LOADER_ASSET_INFOWINDOW :
+        return { ...state, loaderAssetInfoWindow : true };
+
+        case assetTrackerDetail.HIDE_LOADER_ASSET_INFOWINDOW :
+          return { ...state, loaderAssetInfoWindow : false };
     default:
       return state;
   }
