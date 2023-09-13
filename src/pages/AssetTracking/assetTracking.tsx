@@ -49,106 +49,122 @@ import {
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
 
-  //Analytics Api integration starts here
-  const [selectedValue, setSelectedValue] = useState<any>("Week");
-  useEffect(() => {
-    switch (selectedValue) {
-      case "Today":
-        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Day"));
-        dispatch(getAssetTrackingIncidentsAnalyticsData("Day"));
-        break;
+//Analytics Api integration starts here
+const [selectedValue, setSelectedValue] = useState<string>("Week");
+const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"MM/DD", tickInterval: 1})
+useEffect(() => {
+  switch (selectedValue) {
+    case "Today":
+      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Day"));
+      dispatch(getAssetTrackingIncidentsAnalyticsData("Day"));
+      setSelectedGraphFormat({format:"hh:mm A", tickInterval: 6})
+      break;
 
-      case "Week":
-        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
-        dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
-        break;
+    case "Week":
+      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
+      dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+      setSelectedGraphFormat({format:"MM/DD", tickInterval: 1})
+      break;
 
-      case "Month":
-        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
-        dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
-        break;
+    case "Month":
+      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
+      dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
+      setSelectedGraphFormat({format:"MM/DD", tickInterval: 3})
+      break;
 
-      case "Year":
-        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Yearly"));
-        dispatch(getAssetTrackingIncidentsAnalyticsData("Yearly"));
-        break;
-      default:
-        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
-        dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
-    }
-  }, [selectedValue]);
+    case "Year":
+      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Yearly"));
+      dispatch(getAssetTrackingIncidentsAnalyticsData("Yearly"));
+      setSelectedGraphFormat({format:"MMM/YY", tickInterval: 1})
+      break;
+    default:
+      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
+      dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+      setSelectedGraphFormat({format:"MM/DD", tickInterval: 1})
+  }
+}, [selectedValue]);
 
-  const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
-    (state: any) =>
-      state.assetTrackingActiveInActiveAnalytics
-        .assetTrackingActiveInActiveAnalyticsData
-  );
+const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
+  (state: any) =>
+    state.assetTrackingActiveInActiveAnalytics
+      .assetTrackingActiveInActiveAnalyticsData
+);
 
-  const assetTrackingIncidentsAnalyticsResponse = useSelector(
-    (state: any) =>
-      state.assetTrackingActiveInActiveAnalytics
-        .assetTrackingIncidentsAnalyticsData
-  );
+const assetTrackingIncidentsAnalyticsResponse = useSelector(
+  (state: any) =>
+    state.assetTrackingActiveInActiveAnalytics
+      .assetTrackingIncidentsAnalyticsData
+);
 
-  const loaderAssetTrackingAnalyticsResponse = useSelector(
-    (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
-  );
-  const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
-  useEffect(() => {
-    setLoaderExtAnalytics(true);
-    setTimeout(() => {
-      setLoaderExtAnalytics(false);
-    }, 1000);
-  }, [loaderAssetTrackingAnalyticsResponse]);
+const loaderAssetTrackingAnalyticsResponse = useSelector(
+  (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
+);
+const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
+useEffect(() => {
+  setLoaderExtAnalytics(true);
+  setTimeout(() => {
+    setLoaderExtAnalytics(false);
+  }, 1000);
+}, [loaderAssetTrackingAnalyticsResponse]);
 
-  const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>();
-  const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>();
-  const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>();
-  useEffect(() => {
-    if (assetTrackingActiveInActiveAnalyticsResponse) {
-      const activeAnalyticsData: any = [];
-      const inActiveAnalyticsData: any = [];
-      const incidentsAnalyticsData: any = [];
+const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>();
+const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>();
+const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>();
+const [incidentsAnalyticsDataXaxisData, setIncidentsAnalyticsDataXaxisData] = useState<any>();
+const [activeInactiveAnalyticsXaxisData, setActiveInactiveAnalyticsXaxisData] = useState<any>();
 
-      assetTrackingActiveInActiveAnalyticsResponse?.data
-        ?.filter((obj: any) => obj.metricName === "ActiveTracker")
-        .map((obj: any) =>
-          obj.analytics?.map((item: any) =>
-            activeAnalyticsData?.push([
-              new Date(item?.node)?.getTime(),
-              item?.count,
-            ])
-          )
-        );
+useEffect(() => {
+  if (assetTrackingActiveInActiveAnalyticsResponse) {
+    const activeAnalyticsData: any = [];
+    const activeAnalyticsDataXaxis: any = [];
+    const inActiveAnalyticsData: any = [];
+    const inActiveAnalyticsDataXaxis: any = [];
+    const incidentsAnalyticsData: any = [];
+    const incidentsAnalyticsDataXaxisData: any = [];
 
-      assetTrackingActiveInActiveAnalyticsResponse?.data
-        ?.filter((obj: any) => obj.metricName === "InactiveTracker")
-        .map((obj: any) =>
-          obj.analytics?.map((item: any) =>
-            inActiveAnalyticsData?.push([
-              new Date(item?.node)?.getTime(),
-              item?.count,
-            ])
-          )
-        );
-
-      assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) =>
-        incidentsAnalyticsData?.push([
-          new Date(item?.node)?.getTime(),
-          item?.count,
-        ])
+    assetTrackingActiveInActiveAnalyticsResponse?.data
+      ?.filter((obj: any) => obj.metricName === "ActiveTracker")
+      .map((obj: any) =>
+        obj.analytics?.map((item: any) =>{
+          activeAnalyticsData?.push(item?.count);
+          activeAnalyticsDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
+        }
+          
+        )
       );
 
-      setActiveAnalyticsData(activeAnalyticsData);
-      setInActiveAnalyticsData(inActiveAnalyticsData);
-      setIncidentsAnalyticsData(incidentsAnalyticsData);
-    }
-  }, [
-    assetTrackingActiveInActiveAnalyticsResponse,
-    assetTrackingIncidentsAnalyticsResponse,
-  ]);
+    assetTrackingActiveInActiveAnalyticsResponse?.data
+      ?.filter((obj: any) => obj.metricName === "InactiveTracker")
+      .map((obj: any) =>
+        obj.analytics?.map((item: any) =>{
+          // inActiveAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
+          inActiveAnalyticsData?.push(item?.count);
+          activeAnalyticsDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
+        }
+        )
+      );
 
-  //Analytics Api integration Ends here
+    assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) =>{
+      incidentsAnalyticsData?.push(item?.count);
+      incidentsAnalyticsDataXaxisData?.push(moment(item?.node).format(selectedGraphFormat?.format));
+  });
+    
+    setActiveInactiveAnalyticsXaxisData(activeAnalyticsDataXaxis)
+    setActiveAnalyticsData(activeAnalyticsData);
+    setInActiveAnalyticsData(inActiveAnalyticsData);
+
+
+    setIncidentsAnalyticsDataXaxisData(incidentsAnalyticsDataXaxisData);
+    setIncidentsAnalyticsData(incidentsAnalyticsData);
+  }
+}, [
+  assetTrackingActiveInActiveAnalyticsResponse,
+  assetTrackingIncidentsAnalyticsResponse,
+  selectedGraphFormat
+]);
+
+//Analytics Api integration Ends here
+
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -722,6 +738,9 @@ const AssetTracking: React.FC<any> = (props) => {
         }
       );
 
+   
+
+
       const updatedUniqueMarkerData = combinedNotifications.map(
         (combinedDataItem: any) => {
           const uniqueDataItem = uniqueData.find(
@@ -1178,9 +1197,10 @@ const AssetTracking: React.FC<any> = (props) => {
                                             },
                                           }}
                                           pageName={"assetTracking"}
-                                          // tickInterval={xAxisIntervalGraph}
+                                          tickInterval={selectedGraphFormat?.tickInterval}
                                           // formatGraph={formatGraph}
-                                          // xAxisArray={xAxisChartDataGraph}
+                                           xAxisArray={activeInactiveAnalyticsXaxisData}
+
                                           isVisible={true}
                                           graphType={"spline"}
                                           units={""}
@@ -1311,9 +1331,9 @@ const AssetTracking: React.FC<any> = (props) => {
                                             },
                                           }}
                                           pageName={"assetTracking"}
-                                          // tickInterval={xAxisIntervalGraph}
+                                          tickInterval={selectedGraphFormat?.tickInterval}
                                           // formatGraph={formatGraph}
-                                          // xAxisArray={xAxisChartDataGraph}
+                                           xAxisArray={incidentsAnalyticsDataXaxisData}
                                           graphType={"areaspline"}
                                           isVisible={true}
                                           units={""}
