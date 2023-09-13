@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
 import LightCloseIcon from "../../assets/lightCloseIcon.svg";
 import Tooltip from "elements/Tooltip";
+import Loader from "elements/Loader";
 import moment from "moment";
 import {
   getAssetTrackingCreateGeofence,
@@ -39,7 +40,8 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
-    background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
+    // background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
+    background: `#fff !important`,
     color: "#fff",
     padding: "1%",
     "& .MuiIconButton-root:hover": {
@@ -138,6 +140,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     (state: any) => state.assetTracker?.assetTrackingUpdateGeofenceData
   );
 
+  const assetInfoLoader = useSelector(
+    (state: any) => state.assetTracker?.loaderAssetInfoWindow
+  );
   const [infoNotificationList, setInfoNotificationList] = useState<any>([]);
 
   useEffect(() => {
@@ -276,7 +281,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   const tabsList = [
     { name: assetsTracking.assetDetails, val: 0 },
-    // { name: assetsTracking.GEOFENCE, val: 1 },
+    { name: assetsTracking.GEOFENCE, val: 1 },
   ];
 
   const handleHeaderTab = (index: number) => {
@@ -672,7 +677,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
             />
           </IconButton>
         </div>
-        <Grid container xs={12} style={{ height: "100%" }}>
+
+        {
+          !assetInfoLoader ?   
+          <Grid container xs={12} style={{ height: "100%" }}>
           <Grid item xs={12} className={headerStyle}>
             <Grid container xs={3} className={headerTabContainerStyle}>
               {tabsList?.map((item: any) => (
@@ -986,7 +994,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
               </>
             )}
           </Grid>
-        </Grid>
+        </Grid> :  <Loader isHundredVh={false} />
+       } 
+      
       </DialogWrapper>
     </>
   );

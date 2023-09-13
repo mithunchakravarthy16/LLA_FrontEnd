@@ -9,6 +9,8 @@ import {
   hideLoaderAssetsList,
   setLoaderCreateGeofence,
   hideLoaderCreateGeofence,
+  setShowLoaderAssetInfoDialog,
+  hideLoaderAssetInfoDialog
 } from "redux/actions/getAssetTrackerDetailAction";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
@@ -20,6 +22,7 @@ import {
 
 export function* handleAssetTrackerDetail(action: any): any {
   try {
+    yield put(setShowLoaderAssetInfoDialog())
     const { fetchPostData } = fetchAPIServices;
     const response = yield fetchPostData(getTrackerDetailApi, action.payload);
     // const response = assetOverallTrackerDetail;
@@ -28,6 +31,7 @@ export function* handleAssetTrackerDetail(action: any): any {
     } else {
       yield put(setAssetTrackerDetail({}));
     }
+    yield put(hideLoaderAssetInfoDialog())
   } catch (error) {
     console.log(error);
   }
