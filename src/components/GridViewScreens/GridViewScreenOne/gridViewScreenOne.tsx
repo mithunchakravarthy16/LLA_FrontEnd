@@ -179,12 +179,13 @@ const GridViewScreenOne: React.FC<any> = (props) => {
           handleClick("/parking");
         }}>
         <Grid container xs={12} className={gridContainers}>
-          <Grid item xs={12} className={containerTitle}>
-            {dashboard.parking}
-          </Grid>
+          
           <Grid item xs={12} className={subContainer}>
-            <Grid container xs={12} className={childSubContainer}>
-              <Grid item xs={9}>
+            <Grid container xs={9} className={childSubContainer}>
+              <Grid item xs={12} className={containerTitle}>
+               {dashboard.parking}
+              </Grid>
+              <Grid item xs={12}>
                 <Grid
                   container
                   xs={12}
@@ -292,10 +293,12 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3}>
+              
+            </Grid>
+            
                 <Grid
                   container
-                  xs={12}
+                  xs={3}
                   alignItems="center"
                   textAlign="center"
                   className={lastweekContainer}>
@@ -352,8 +355,7 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
+              
           </Grid>
         </Grid>
       </Grid>
