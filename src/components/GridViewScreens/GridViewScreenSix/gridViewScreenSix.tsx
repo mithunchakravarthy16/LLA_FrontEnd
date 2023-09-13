@@ -175,7 +175,20 @@ setAssetGridViewAnalyticsXaxisData(assetGridViewAnalyticsXAxisData)
           className={gridContainers}
         >
           <Grid item xs={12} className={containerTitleTwo}>
-            {dashboard.assetsTracking}
+            <div>{dashboard.assetsTracking}</div>
+            <div
+                      style={{
+                        background:
+                          appTheme?.palette?.gridViewComponentCommonStyle
+                            ?.todayTitleBgColor,
+                            padding: "0% 2%",
+                            borderRadius : "0.3vw",
+                            fontSize : "0.8vw",
+                            fontWeight : 500,
+                            marginRight: "4%"
+                      }}>
+                      {gridView.today}
+                    </div>
           </Grid>
           <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
