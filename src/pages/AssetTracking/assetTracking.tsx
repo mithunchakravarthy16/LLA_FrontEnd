@@ -241,10 +241,9 @@ const AssetTracking: React.FC<any> = (props) => {
   );
   const assetNotificationList = assetNotificationResponse?.data;
 
- const overallAssetDetails = useSelector(
+  const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
   );
-
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -722,9 +721,6 @@ const AssetTracking: React.FC<any> = (props) => {
           return combinedDataItem;
         }
       );
-
-      console.log("updatedUniqueData")
-
 
       const updatedUniqueMarkerData = combinedNotifications.map(
         (combinedDataItem: any) => {
@@ -1408,7 +1404,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "59%" }}>
-                <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
@@ -1451,7 +1447,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
-                  /> 
+                  />
                 </Grid>
               </Grid>
             </Grid>
