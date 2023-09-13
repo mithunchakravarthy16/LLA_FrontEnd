@@ -64,8 +64,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const { assetsTracking } = useTranslation();
   const {
     setIsInfoWindowActive,
-    packageData,
-    infoWindowNotificationListItems,
     selectedMarker,
     selectedTheme,
   } = props;

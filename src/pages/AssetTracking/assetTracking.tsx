@@ -1463,8 +1463,6 @@ const AssetTracking: React.FC<any> = (props) => {
       {isInfoWindowActive && (
         <InfoDialogAssetTracking
           setIsInfoWindowActive={setIsInfoWindowActive}
-          packageData={packageData}
-          infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
         />

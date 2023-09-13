@@ -12,6 +12,9 @@ const useStyles = makeStyles(
     }),
 
     stepperSx: (props: any) => ({
+      display : "flex !important",
+      alignItems : "center !important",
+      justifyContent : "center !important",
       "& .MuiStep-root": {
         padding: "0 3%",
         fontFamily: "HelveticaNeue-Regular !important",
