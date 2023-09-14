@@ -25,13 +25,14 @@ const MapMarker: React.FC<any> = (props) => {
     handleVideoDetails,
     mapPageName,
     selectedTheme,
+    assetLiveMarker,
+    handleLiveMarkerIcon,
+    handleLiveMarkerClose
   } = props;
 
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
+
 
   if (mapMarker?.category === "fleet") {
     return (
@@ -45,21 +46,21 @@ const MapMarker: React.FC<any> = (props) => {
               : undefined
           }
           position={
-            currentMarker === mapMarker.id ? location : mapMarker?.location
+            currentMarker === mapMarker?.id ? location : mapMarker?.location
           }
           onClick={() => {
             toggleInfoWindow(
-              mapMarker.id,
-              mapMarker.notificationType,
+              mapMarker?.id,
+              mapMarker?.notificationType,
               mapMarker?.location,
               mapMarker?.tripId
             );
           }}
           icon={{
             url: getMarkerIcon(
-              mapMarker.category,
-              mapMarker.notificationType,
-              mapMarker.id,            ),
+              mapMarker?.category,
+              mapMarker?.notificationType,
+              mapMarker?.id,            ),
             scaledSize: new window.google.maps.Size(
               window.innerWidth > 3839 || window.innerWidth > 3071
                 ? 160.5
@@ -69,11 +70,11 @@ const MapMarker: React.FC<any> = (props) => {
                 : 60.5
             ),
           }}
-          key={mapMarker.id}
-          zIndex={currentMarker === mapMarker.id ? 1000 : 1}
+          key={mapMarker?.id}
+          zIndex={currentMarker === mapMarker?.id ? 1000 : 1}
         />
 
-        {currentMarker === mapMarker.id && (
+        {currentMarker === mapMarker?.id && (
           <InfoWindowF
             position={location}
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
@@ -88,6 +89,61 @@ const MapMarker: React.FC<any> = (props) => {
               handleVideoDetails={handleVideoDetails}
               notificationPageName={mapPageName}
               selectedTheme={selectedTheme}
+            />
+          </InfoWindowF>
+        )}
+      </>
+    );
+  }
+
+  if(location?.pathname === "/assetTracking" || mapMarker?.category === "asset") {
+    return (
+      <>
+        <Marker
+          clusterer={(currentMarker === "" ) ? clusterer : undefined}
+          animation={
+            focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
+              ? window.google.maps.Animation.BOUNCE
+              : undefined
+          }
+          position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+          onClick={() =>  
+            handleLiveMarkerIcon(mapMarker?.assetId)
+          }
+          icon={{
+            url: getMarkerIcon(
+              mapMarker?.category,
+              mapMarker?.recentMarkerType ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
+              mapMarker?.id
+            ),
+            scaledSize: new window.google.maps.Size(
+              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+            ),
+          }}
+          key={mapMarker?.id}
+          zIndex={currentMarker === mapMarker?.id ? 1000 : 1}
+        />
+  
+        {(assetLiveMarker === mapMarker?.id || currentMarker === mapMarker?.id ) && (
+          <InfoWindowF
+            position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+            options={{ pixelOffset: new google.maps.Size(0, -20) }}
+          >
+            {/* <div>
+              {mapMarker?.trackerId}
+            </div> */}
+            <NotificationListItems
+              data={[mapMarker]}
+              pageName={"markerCallout"}
+              handleMarkerClose={handleLiveMarkerClose}
+              handleExpandListItem={handleExpandListItem}
+              handleAssetViewDetails={handleAssetViewDetails}
+              mapPageName={mapPageName}
+              handleViewDetails={handleViewDetails}
+              handleVideoDetails={handleVideoDetails}
+              selectedTheme={selectedTheme}
+              markerType = {"assetLiveMarker"}
             />
           </InfoWindowF>
         )}
@@ -114,22 +170,22 @@ const MapMarker: React.FC<any> = (props) => {
         }}
         icon={{
           url: getMarkerIcon(
-            mapMarker.category,
-            mapMarker.recentMarkerType ? mapMarker.recentMarkerType : mapMarker.notificationType,
-            mapMarker.id
+            mapMarker?.category,
+            mapMarker?.recentMarkerType ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
+            mapMarker?.id
           ),
           scaledSize: new window.google.maps.Size(
             window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
             window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
           ),
         }}
-        key={mapMarker.id}
-        zIndex={currentMarker === mapMarker.id ? 1000 : 1}
+        key={mapMarker?.id}
+        zIndex={currentMarker === mapMarker?.id ? 1000 : 1}
       />
 
-      {currentMarker === mapMarker.id && (
+      {currentMarker === mapMarker?.id && (
         <InfoWindowF
-          position={mapMarker?.location}
+          position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
           options={{ pixelOffset: new google.maps.Size(0, -20) }}
         >
           <NotificationListItems

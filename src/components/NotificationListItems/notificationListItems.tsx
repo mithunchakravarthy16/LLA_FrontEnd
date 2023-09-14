@@ -31,6 +31,7 @@ const NotificationListItems = (props: any) => {
     mapPageName,
     notificationPageName,
     selectedTheme,
+    markerType
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -363,7 +364,7 @@ const NotificationListItems = (props: any) => {
                         <div className={buttonStyle}>
                           <Button
                             variant="contained"
-                            handleClick={() => handleAssetViewDetails(item)}
+                            handleClick={() => handleAssetViewDetails(item, markerType)}
                           >
                             {viewDetails}
                           </Button>

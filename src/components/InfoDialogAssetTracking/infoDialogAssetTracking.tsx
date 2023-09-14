@@ -66,6 +66,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setIsInfoWindowActive,
     selectedMarker,
     selectedTheme,
+    selectedMarkerType
   } = props;
 
   const dispatch = useDispatch();
@@ -117,9 +118,13 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSuccess(false);
+
+    let formattedDate = moment(new Date()).format("yyyy-MM-DDTHH:mm:ss");
+
     let assetTrackerDetailPayload: any = {
       assetId: selectedMarker?.assetId,
       trackerId: null,
+      notificationDate : selectedMarkerType === "assetLiveMarker" ? formattedDate :  selectedMarker?.notificationDate
     };
     dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
     dispatch(setAssetTrackingCreateGeofence({}));

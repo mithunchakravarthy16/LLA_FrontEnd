@@ -121,6 +121,7 @@ const NotificationPanel = (props: any) => {
   };
 
   const handleExpandListItem = useCallback((param: any) => {
+    setIsMarkerClicked(false);
     setSelectedNotification(selectedNotification === param ? "" : param);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);

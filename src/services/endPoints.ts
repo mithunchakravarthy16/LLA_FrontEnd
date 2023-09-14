@@ -48,6 +48,7 @@ const SUB_URL = {
   getAssetListUrl: "/api/sensyon/tracker/v1/getAssetList",
   getAssetGridViewAnalyticsUrl:
     "/api/sensyon/asset_analytics/v1/getAssetAnalytics",
+    getTrackerLiveDetailUrl : "/api/sensyon/tracker/v1/getTrackerLiveDetail"
   // Asset Tracking Api's -- End
 };
 
@@ -71,3 +72,4 @@ export const getAssetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetNot
 export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailUrl}`;
 export const getAssetOverallTrackerDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetOverallTrackerDetailsUrl}`;
 export const getAssetGridViewAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetGridViewAnalyticsUrl}`;
+export const getTrackerLiveDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerLiveDetailUrl}`;
