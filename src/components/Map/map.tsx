@@ -907,17 +907,19 @@ const Map: React.FC<any> = (props) => {
   //   }
   // },[marker, markers])
 
-  const handleLiveMarkerIcon = (id:any) =>{
+  const handleLiveMarkerIcon = (id:any, location:any) =>{
     setSelectedNotification("")
     setAssetLiveMarker(assetLiveMarker === id ? "" : id )
- 
+    map?.panTo(location);
   }
+
+
 
     const handleLiveMarkerClose = () => {
       setAssetLiveMarker("");
       setIsMarkerClicked(false);
+      map?.panTo(homePageParkingCenter);
     }
-
   return (
     <>
       {isLoaded && (

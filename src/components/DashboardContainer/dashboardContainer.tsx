@@ -117,6 +117,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
+  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -600,6 +601,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     handleAssetViewDetails={handleAssetViewDetails}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker={setAssetLiveMarker}
                   />
                 </div>
               )}

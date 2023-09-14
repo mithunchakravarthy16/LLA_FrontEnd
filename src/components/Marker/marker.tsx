@@ -108,7 +108,7 @@ const MapMarker: React.FC<any> = (props) => {
           }
           position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
           onClick={() =>  
-            handleLiveMarkerIcon(mapMarker?.assetId)
+            handleLiveMarkerIcon(mapMarker?.assetId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location )
           }
           icon={{
             url: getMarkerIcon(

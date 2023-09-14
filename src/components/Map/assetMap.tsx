@@ -72,9 +72,8 @@ const fleetManagementCenter = {
   lng: 121.36458642272018,
 };
 
-const assetTrackingCenter = { lat: 9.012714978411129,
-
-    lng: -79.47654209348667, };
+const assetTrackingCenter = {   lat: 9.011771204307172,
+  lng: -79.47691596842526, };
 
 const libraries = ["places", "drawing"];
 
@@ -744,10 +743,10 @@ const AssetMap: React.FC<any> = (props) => {
     clustererRef.current?.repaint();
   }, [markers, marker]);
 
-  const handleLiveMarkerIcon = (id:any) =>{
+  const handleLiveMarkerIcon = (id:any, location:any) =>{
     setSelectedNotification("")
     setAssetLiveMarker(assetLiveMarker === id ? "" : id )
- 
+    map?.panTo(location);
   }
 
 
@@ -755,6 +754,7 @@ const AssetMap: React.FC<any> = (props) => {
     const handleLiveMarkerClose = () => {
       setAssetLiveMarker("");
       setIsMarkerClicked(false);
+      map?.panTo(assetTrackingCenter);
     }
 
   return (
