@@ -65,7 +65,7 @@ padding: 0px !important;
 } */
 
 
-.gmnoprint a, .gmnoprint span, .gm-style-cc {
+ .gmnoprint span, .gm-style-cc {
   display:none;
 }
 
