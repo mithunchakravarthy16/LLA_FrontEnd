@@ -55,6 +55,8 @@ const AssetTracking: React.FC<any> = (props) => {
     format: "MM/DD",
     tickInterval: 1,
   });
+  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+
   useEffect(() => {
     switch (selectedValue) {
       case "Today":
@@ -1347,6 +1349,8 @@ const AssetTracking: React.FC<any> = (props) => {
                         setMap={setMap}
                         map={map}
                         assetLiveData = {assetLiveData}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
                       />
                     </Grid>
                   </Grid>
@@ -1370,6 +1374,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker={setAssetLiveMarker}
                   />
                 </Grid>
               </Grid>

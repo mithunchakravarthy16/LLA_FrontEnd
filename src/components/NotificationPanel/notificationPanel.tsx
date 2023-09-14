@@ -36,6 +36,7 @@ const NotificationPanel = (props: any) => {
     handleVideoDetails,
     setIsMarkerClicked,
     selectedTheme,
+    setAssetLiveMarker
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -121,6 +122,7 @@ const NotificationPanel = (props: any) => {
   };
 
   const handleExpandListItem = useCallback((param: any) => {
+    setAssetLiveMarker("")
     setIsMarkerClicked(false);
     setSelectedNotification(selectedNotification === param ? "" : param);
     if (notificationPageName && notificationPageName === "parking") {

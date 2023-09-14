@@ -17,27 +17,27 @@ const useStyles = makeStyles(
       },
       [muiTheme.breakpoints.down(3841)]: {
         fontSize: "20px !important",
-        lineHeight: "37px !important",
+        lineHeight: "35px !important",
       },
       [muiTheme.breakpoints.up(3839)]: {
         fontSize: "20px !important",
-        lineHeight: "37px !important",
+        lineHeight: "35px !important",
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontSize: "18px !important",
-        lineHeight: "35px !important",
+        lineHeight: "24px !important",
       },
       [muiTheme.breakpoints.down(2049)]: {
         fontSize: "16px !important",
-        lineHeight: "33px !important",
+        lineHeight: "23px !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
         fontSize: "14px !important",
-        lineHeight: "31px !important",
+        lineHeight: "21px !important",
       },
       [muiTheme.breakpoints.down(1537)]: {
         fontSize: "12px !important",
-        lineHeight: "29px !important",
+        lineHeight: "21px !important",
       },
       [muiTheme.breakpoints.down(1153)]: {
         fontSize: "10px !important",

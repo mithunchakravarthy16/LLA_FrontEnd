@@ -100,6 +100,8 @@ const AssetMap: React.FC<any> = (props) => {
     selectedTheme,
     setMap,
     map,
+    assetLiveMarker, 
+    setAssetLiveMarker
 
   } = props;
 
@@ -126,7 +128,6 @@ const AssetMap: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
-  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
 
   // const [map, setMap] = useState<any>(null);
