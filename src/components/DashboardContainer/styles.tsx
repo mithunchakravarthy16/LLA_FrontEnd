@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     top: "106px",
     boxShadow: `0px 0px 5px 5px ${props?.palette?.notification?.notificationBoxShadow}`,
     backdropFilter: "blur(17px)",
-    borderRadius: "30px",
+    borderRadius: "14px",
     color: "white",
     // width: "466px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -55,53 +55,53 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(3073)]: {
       // width: "822px",
-      height: "calc(100vh - 319px)",
+      height: "calc(100vh - 339px)",
       top: "180px",
     },
     [muiTheme.breakpoints.down(2561)]: {
       // width: "636px",
       top: "116px",
-      height: "calc(100vh - 196px)",
+      height: "calc(100vh - 212px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
       // width: "550px",
       top: "116px",
-      height: "calc(100vh - 190px)",
+      height: "calc(100vh - 210px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       // width: "450px",
       top: "116px",
-      height: "calc(100vh - 196px)",
+      height: "calc(100vh - 212px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       // width: "450px",
       top: "88px",
-      height: "calc(100vh - 163px)",
+      height: "calc(100vh - 1183px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       // width: "450px",
       top: "88px",
-      height: "calc(100vh - 188px)",
+      height: "calc(100vh - 208px)",
     },
     [muiTheme.breakpoints.down(1537)]: {
       // width: "400px",
       top: "80px",
-      height: "calc(100vh - 140px)",
+      height: "calc(100vh - 160px)",
     },
     [muiTheme.breakpoints.down(1345)]: {
       // width: "370px",
       top: "69px",
-      height: "calc(100vh - 127px)",
+      height: "calc(100vh - 147px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       // width: "320px",
       top: "68px",
-      height: "calc(100vh - 140px)",
+      height: "calc(100vh - 160px)",
     },
     [muiTheme.breakpoints.down(1025)]: {
       // width: "280px",
       top: "68px",
-      height: "calc(100vh - 140px)",
+      height: "calc(100vh - 160px)",
     },
   }),
 });
