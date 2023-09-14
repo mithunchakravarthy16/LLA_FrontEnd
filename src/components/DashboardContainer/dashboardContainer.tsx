@@ -349,8 +349,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={success}
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <Alert
             onClose={handleClose}
             severity={
@@ -369,8 +368,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 ? "error"
                 : undefined
             }
-            sx={{ width: "100%" }}
-          >
+            sx={{ width: "100%" }}>
             {(fleetManagementNotificationResponse?.status === 500 ||
               fleetManagementTripDetailsResponse?.status === 500) && (
               <div style={{ display: "flex" }}>
@@ -485,8 +483,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               {notificationPanelActive && (
                 <div
                   className={notificationPanelSection}
-                  style={{ width: "24%" }}
-                >
+                  style={{ width: "24%" }}>
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}

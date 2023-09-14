@@ -69,6 +69,16 @@ const center = {
   lng: -105.00357749556102,
 };
 
+const parkingCenter = {
+  lat: 9.012714978411129,
+  lng: -79.47654209348667,
+};
+
+const homePageParkingCenter = { 
+  lat: 9.011771204307172,
+  lng: -79.47691596842526,
+};
+
 const fleetManagementCenter = {
   lat: 25.057066876525674,
   lng: 121.36458642272018,
@@ -156,6 +166,7 @@ const Map: React.FC<any> = (props) => {
   let [data, setData] = useState<any>(points);
   const velocity: any = 20;
   const initialDate: any = new Date();
+  
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -498,7 +509,9 @@ const Map: React.FC<any> = (props) => {
       ? 16.2
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
       ? 15
-      : 15
+      : location?.pathname === "/parking"
+          ? 17
+      : 17
   );
 
   useEffect(() => {
@@ -531,17 +544,19 @@ const Map: React.FC<any> = (props) => {
               selectedContainerStyle?.is3kDevice) &&
             location?.pathname !== "/home"
           ? 15
-          : 15
+          : 17
       );
       map?.panTo(markers[index]?.location);
     } else {
       map?.panTo(
         location?.pathname === "/home"
-          ? defaultCenter
+          ? homePageParkingCenter
           : location?.pathname === "/fleetManagement"
           ? fleetManagementCenter
           : location?.pathname === "/assetTracking"
           ? assetTrackingCenter
+          : location?.pathname === "/parking"
+              ? parkingCenter
           : center
       );
       map?.setZoom(
@@ -551,7 +566,9 @@ const Map: React.FC<any> = (props) => {
               selectedContainerStyle?.is3kDevice) &&
             location?.pathname !== "/home"
           ? 15
-          : 15
+          : location?.pathname === "/parking"
+          ? 17
+          : 17
       );
     }
   }, [currentMarker, markers]);
@@ -566,7 +583,7 @@ const Map: React.FC<any> = (props) => {
       mapTypeControl: false,
       rotateControl: false,
       fullscreenControl: false,
-      zoomControl: false,
+      zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
     };
@@ -696,11 +713,13 @@ const Map: React.FC<any> = (props) => {
       if (prev && prev === markerId) {
         map?.panTo(
           location?.pathname === "/home"
-            ? defaultCenter
+            ? homePageParkingCenter
             : location?.pathname === "/fleetManagement"
             ? fleetManagementCenter
             : location?.pathname === "/assetTracking"
             ? assetTrackingCenter
+            : location?.pathname === "/parking"
+              ? parkingCenter
             : center
         );
         return "";
@@ -720,14 +739,17 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     map?.panTo(
       location?.pathname === "/home"
-        ? defaultCenter
+        ? homePageParkingCenter
         : location?.pathname === "/fleetManagement"
         ? fleetManagementCenter
         : location?.pathname === "/assetTracking"
         ? assetTrackingCenter
+        : location?.pathname === "/parking"
+        ? parkingCenter
         : center
     );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
+    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 :  location?.pathname === "/parking"
+    ? 17 : 17);
     setProgress([]);
     setPoints([]);
     setData([]);
@@ -900,11 +922,13 @@ const Map: React.FC<any> = (props) => {
           }
           center={
             location?.pathname === "/home"
-              ? defaultCenter
+              ? homePageParkingCenter
               : location?.pathname === "/fleetManagement"
               ? fleetManagementCenter
               : location?.pathname === "/assetTracking"
               ? assetTrackingCenter
+              : location?.pathname === "/parking"
+              ? parkingCenter
               : center
           }
           zoom={zoomValue}
@@ -966,7 +990,7 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 20}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 30}
               //  onLoad={clusterer => (clustererRef.current = clusterer)}
               // styles={[
