@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect, createRef } from "react";
+import { useState, useEffect, createRef, useCallback } from "react";
 import Tabs from "elements/Tabs";
 import NotificationListItems from "components/NotificationListItems";
 import SearchBox from "elements/SearchBox";
@@ -86,15 +86,6 @@ const NotificationPanel = (props: any) => {
 
   const [selectedRefId, setSelectedRefId] = useState("");
 
-  const handleNotificationCloseIcon = () => {
-    setNotificationPanelActive(false);
-    setSearchOpen(false);
-    setTabIndex(1);
-    setCurrentMarker("");
-    setSelectedNotification("");
-    setSearchValue(dashboardData);
-  };
-
   const tabsList = [
     {
       name: eventText,
@@ -129,14 +120,14 @@ const NotificationPanel = (props: any) => {
     // setSelectedRefId("");
   };
 
-  const handleExpandListItem = (id: any) => {
-    setSelectedNotification(selectedNotification === id ? "" : id);
+  const handleExpandListItem = useCallback((param: any) => {
+    setSelectedNotification(selectedNotification === param ? "" : param);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);
       setParkingLotSelectionActive(false);
     }
-    props.handleExpandListItem(id);
-  };
+    props.handleExpandListItem(param);
+  }, []);
 
   const handleSearchIcon = () => {
     setSearchOpen(true);
@@ -208,10 +199,10 @@ const NotificationPanel = (props: any) => {
       : "";
 
   useEffect(() => {
-    if ((selectedNotification || selectedRefId) && refs) {
+    if (selectedNotification && refs) {
       setTimeout(() => {
         refs[
-          selectedNotification ? selectedNotification : selectedRefId
+          selectedNotification ? selectedNotification : ""
         ]?.current?.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
@@ -225,7 +216,7 @@ const NotificationPanel = (props: any) => {
         });
       }, 300);
     }
-  }, [refs, selectedRefId, selectedNotification]);
+  }, [refs, selectedNotification]);
 
   useEffect(() => {
     if (!searchOpen) {
@@ -292,13 +283,6 @@ const NotificationPanel = (props: any) => {
               alt="Search"
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
-            {/* <img
-              className={notificationCloseIcon}
-              src={CloseIcon}
-              alt="Close"
-              width={20}
-              onClick={handleNotificationCloseIcon}
-            /> */}
           </div>
         </div>
         <div className={tabSection}>
@@ -312,22 +296,18 @@ const NotificationPanel = (props: any) => {
         </div>
         <div className={notificationListItemSection}>
           {searchValue && searchValue?.length > 0 ? (
-            searchValue?.map((data: any, index: any) => {
-              return (
-                <NotificationListItems
-                  data={data}
-                  key={index}
-                  handleExpandListItem={handleExpandListItem}
-                  selectedNotification={selectedNotification}
-                  refs={refs}
-                  handleViewDetails={handleViewDetails}
-                  handleAssetViewDetails={handleAssetViewDetails}
-                  handleVideoDetails={handleVideoDetails}
-                  notificationPageName={notificationPageName}
-                  selectedTheme={selectedTheme}
-                />
-              );
-            })
+            <NotificationListItems
+              data={searchValue}
+              //  key={index}
+              handleExpandListItem={handleExpandListItem}
+              selectedNotification={selectedNotification}
+              refs={refs}
+              handleViewDetails={handleViewDetails}
+              handleAssetViewDetails={handleAssetViewDetails}
+              handleVideoDetails={handleVideoDetails}
+              notificationPageName={notificationPageName}
+              selectedTheme={selectedTheme}
+            />
           ) : (
             <div className={noResultFoundClass}>{noResultFound}</div>
           )}

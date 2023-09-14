@@ -79,7 +79,7 @@ const MapMarker: React.FC<any> = (props) => {
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
           >
             <NotificationListItems
-              data={mapMarker}
+              data={[mapMarker]}
               pageName={"markerCallout"}
               handleMarkerClose={handleMarkerClose}
               handleExpandListItem={handleExpandListItem}
@@ -133,7 +133,7 @@ const MapMarker: React.FC<any> = (props) => {
           options={{ pixelOffset: new google.maps.Size(0, -20) }}
         >
           <NotificationListItems
-            data={mapMarker}
+            data={[mapMarker]}
             pageName={"markerCallout"}
             handleMarkerClose={handleMarkerClose}
             handleExpandListItem={handleExpandListItem}

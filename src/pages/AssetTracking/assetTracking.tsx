@@ -49,122 +49,130 @@ import {
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
 
-//Analytics Api integration starts here
-const [selectedValue, setSelectedValue] = useState<string>("Week");
-const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"MM/DD", tickInterval: 1})
-useEffect(() => {
-  switch (selectedValue) {
-    case "Today":
-      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Day"));
-      dispatch(getAssetTrackingIncidentsAnalyticsData("Day"));
-      setSelectedGraphFormat({format:"hh:mm A", tickInterval: 6})
-      break;
-
-    case "Week":
-      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
-      dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
-      setSelectedGraphFormat({format:"MM/DD", tickInterval: 1})
-      break;
-
-    case "Month":
-      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
-      dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
-      setSelectedGraphFormat({format:"MM/DD", tickInterval: 3})
-      break;
-
-    case "Year":
-      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Yearly"));
-      dispatch(getAssetTrackingIncidentsAnalyticsData("Yearly"));
-      setSelectedGraphFormat({format:"MMM/YY", tickInterval: 1})
-      break;
-    default:
-      dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
-      dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
-      setSelectedGraphFormat({format:"MM/DD", tickInterval: 1})
-  }
-}, [selectedValue]);
-
-const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
-  (state: any) =>
-    state.assetTrackingActiveInActiveAnalytics
-      .assetTrackingActiveInActiveAnalyticsData
-);
-
-const assetTrackingIncidentsAnalyticsResponse = useSelector(
-  (state: any) =>
-    state.assetTrackingActiveInActiveAnalytics
-      .assetTrackingIncidentsAnalyticsData
-);
-
-const loaderAssetTrackingAnalyticsResponse = useSelector(
-  (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
-);
-const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
-useEffect(() => {
-  setLoaderExtAnalytics(true);
-  setTimeout(() => {
-    setLoaderExtAnalytics(false);
-  }, 1000);
-}, [loaderAssetTrackingAnalyticsResponse]);
-
-const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>();
-const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>();
-const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>();
-const [incidentsAnalyticsDataXaxisData, setIncidentsAnalyticsDataXaxisData] = useState<any>();
-const [activeInactiveAnalyticsXaxisData, setActiveInactiveAnalyticsXaxisData] = useState<any>();
-
-useEffect(() => {
-  if (assetTrackingActiveInActiveAnalyticsResponse) {
-    const activeAnalyticsData: any = [];
-    const activeAnalyticsDataXaxis: any = [];
-    const inActiveAnalyticsData: any = [];
-    const inActiveAnalyticsDataXaxis: any = [];
-    const incidentsAnalyticsData: any = [];
-    const incidentsAnalyticsDataXaxisData: any = [];
-
-    assetTrackingActiveInActiveAnalyticsResponse?.data
-      ?.filter((obj: any) => obj.metricName === "ActiveTracker")
-      .map((obj: any) =>
-        obj.analytics?.map((item: any) =>{
-          activeAnalyticsData?.push(item?.count);
-          activeAnalyticsDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
-        }
-          
-        )
-      );
-
-    assetTrackingActiveInActiveAnalyticsResponse?.data
-      ?.filter((obj: any) => obj.metricName === "InactiveTracker")
-      .map((obj: any) =>
-        obj.analytics?.map((item: any) =>{
-          // inActiveAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
-          inActiveAnalyticsData?.push(item?.count);
-          activeAnalyticsDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
-        }
-        )
-      );
-
-    assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) =>{
-      incidentsAnalyticsData?.push(item?.count);
-      incidentsAnalyticsDataXaxisData?.push(moment(item?.node).format(selectedGraphFormat?.format));
+  //Analytics Api integration starts here
+  const [selectedValue, setSelectedValue] = useState<string>("Week");
+  const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
+    format: "MM/DD",
+    tickInterval: 1,
   });
-    
-    setActiveInactiveAnalyticsXaxisData(activeAnalyticsDataXaxis)
-    setActiveAnalyticsData(activeAnalyticsData);
-    setInActiveAnalyticsData(inActiveAnalyticsData);
+  useEffect(() => {
+    switch (selectedValue) {
+      case "Today":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Day"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Day"));
+        setSelectedGraphFormat({ format: "hh:mm A", tickInterval: 6 });
+        break;
 
+      case "Week":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+        setSelectedGraphFormat({ format: "MM/DD", tickInterval: 1 });
+        break;
 
-    setIncidentsAnalyticsDataXaxisData(incidentsAnalyticsDataXaxisData);
-    setIncidentsAnalyticsData(incidentsAnalyticsData);
-  }
-}, [
-  assetTrackingActiveInActiveAnalyticsResponse,
-  assetTrackingIncidentsAnalyticsResponse,
-  selectedGraphFormat
-]);
+      case "Month":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
+        setSelectedGraphFormat({ format: "MM/DD", tickInterval: 3 });
+        break;
 
-//Analytics Api integration Ends here
+      case "Year":
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Yearly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Yearly"));
+        setSelectedGraphFormat({ format: "MMM/YY", tickInterval: 1 });
+        break;
+      default:
+        dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
+        dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+        setSelectedGraphFormat({ format: "MM/DD", tickInterval: 1 });
+    }
+  }, [selectedValue]);
 
+  const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics
+        .assetTrackingActiveInActiveAnalyticsData
+  );
+
+  const assetTrackingIncidentsAnalyticsResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics
+        .assetTrackingIncidentsAnalyticsData
+  );
+
+  const loaderAssetTrackingAnalyticsResponse = useSelector(
+    (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
+  );
+  const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
+  useEffect(() => {
+    setLoaderExtAnalytics(true);
+    setTimeout(() => {
+      setLoaderExtAnalytics(false);
+    }, 1000);
+  }, [loaderAssetTrackingAnalyticsResponse]);
+
+  const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>();
+  const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>();
+  const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>();
+  const [incidentsAnalyticsDataXaxisData, setIncidentsAnalyticsDataXaxisData] =
+    useState<any>();
+  const [
+    activeInactiveAnalyticsXaxisData,
+    setActiveInactiveAnalyticsXaxisData,
+  ] = useState<any>();
+
+  useEffect(() => {
+    if (assetTrackingActiveInActiveAnalyticsResponse) {
+      const activeAnalyticsData: any = [];
+      const activeAnalyticsDataXaxis: any = [];
+      const inActiveAnalyticsData: any = [];
+      const inActiveAnalyticsDataXaxis: any = [];
+      const incidentsAnalyticsData: any = [];
+      const incidentsAnalyticsDataXaxisData: any = [];
+
+      assetTrackingActiveInActiveAnalyticsResponse?.data
+        ?.filter((obj: any) => obj.metricName === "ActiveTracker")
+        .map((obj: any) =>
+          obj.analytics?.map((item: any) => {
+            activeAnalyticsData?.push(item?.count);
+            activeAnalyticsDataXaxis?.push(
+              moment(item?.node).format(selectedGraphFormat?.format)
+            );
+          })
+        );
+
+      assetTrackingActiveInActiveAnalyticsResponse?.data
+        ?.filter((obj: any) => obj.metricName === "InactiveTracker")
+        .map((obj: any) =>
+          obj.analytics?.map((item: any) => {
+            // inActiveAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
+            inActiveAnalyticsData?.push(item?.count);
+            activeAnalyticsDataXaxis?.push(
+              moment(item?.node).format(selectedGraphFormat?.format)
+            );
+          })
+        );
+
+      assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) => {
+        incidentsAnalyticsData?.push(item?.count);
+        incidentsAnalyticsDataXaxisData?.push(
+          moment(item?.node).format(selectedGraphFormat?.format)
+        );
+      });
+
+      setActiveInactiveAnalyticsXaxisData(activeAnalyticsDataXaxis);
+      setActiveAnalyticsData(activeAnalyticsData);
+      setInActiveAnalyticsData(inActiveAnalyticsData);
+
+      setIncidentsAnalyticsDataXaxisData(incidentsAnalyticsDataXaxisData);
+      setIncidentsAnalyticsData(incidentsAnalyticsData);
+    }
+  }, [
+    assetTrackingActiveInActiveAnalyticsResponse,
+    assetTrackingIncidentsAnalyticsResponse,
+    selectedGraphFormat,
+  ]);
+
+  //Analytics Api integration Ends here
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -738,9 +746,6 @@ useEffect(() => {
         }
       );
 
-   
-
-
       const updatedUniqueMarkerData = combinedNotifications.map(
         (combinedDataItem: any) => {
           const uniqueDataItem = uniqueData.find(
@@ -1113,23 +1118,27 @@ useEffect(() => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}>
+                        style={{ height: "100%" }}
+                      >
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}>
+                          className={bodyLeftTopPanelListContainer}
+                        >
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={topPanelList?.activeTrackerPercentage}
@@ -1157,16 +1166,19 @@ useEffect(() => {
                                 style={{
                                   height: "100%",
                                   paddingLeft: "10px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ minHeight: "3vh" }}>
+                                  style={{ minHeight: "3vh" }}
+                                >
                                   <div className={graphOneGraphTitleContainer}>
                                     <div
                                       className={graphTitleOneRound}
-                                      style={{}}></div>
+                                      style={{}}
+                                    ></div>
                                     <div>{assetsTracking.activeTracker}</div>
                                   </div>
                                   <div className={graphTitleTwoStyle}>
@@ -1184,7 +1196,8 @@ useEffect(() => {
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
@@ -1197,10 +1210,13 @@ useEffect(() => {
                                             },
                                           }}
                                           pageName={"assetTracking"}
-                                          tickInterval={selectedGraphFormat?.tickInterval}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval
+                                          }
                                           // formatGraph={formatGraph}
-                                           xAxisArray={activeInactiveAnalyticsXaxisData}
-
+                                          xAxisArray={
+                                            activeInactiveAnalyticsXaxisData
+                                          }
                                           isVisible={true}
                                           graphType={"spline"}
                                           units={""}
@@ -1297,7 +1313,8 @@ useEffect(() => {
                                 container
                                 xs={12}
                                 className={graphTwoContainerStyle}
-                                style={{}}>
+                                style={{}}
+                              >
                                 <Grid
                                   item
                                   xs={12}
@@ -1306,7 +1323,8 @@ useEffect(() => {
                                     display: "flex",
                                     alignItems: "center",
                                     fontSize: "0.8vw",
-                                  }}>
+                                  }}
+                                >
                                   {gridView.incidents}
                                 </Grid>
                                 {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
@@ -1314,11 +1332,13 @@ useEffect(() => {
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}>
+                                    style={{ height: "90%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
@@ -1331,9 +1351,13 @@ useEffect(() => {
                                             },
                                           }}
                                           pageName={"assetTracking"}
-                                          tickInterval={selectedGraphFormat?.tickInterval}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval
+                                          }
                                           // formatGraph={formatGraph}
-                                           xAxisArray={incidentsAnalyticsDataXaxisData}
+                                          xAxisArray={
+                                            incidentsAnalyticsDataXaxisData
+                                          }
                                           graphType={"areaspline"}
                                           isVisible={true}
                                           units={""}
@@ -1423,7 +1447,8 @@ useEffect(() => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
+                      style={{ height: "59%" }}
+                    >
                       <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
