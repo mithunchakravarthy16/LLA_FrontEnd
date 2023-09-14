@@ -399,10 +399,10 @@ const useStyles = makeStyles({
           width: 36,
         },
         [muiTheme.breakpoints.down(2049)]: {
-          width: 22,
+          width: 18,
         },
         [muiTheme.breakpoints.down(1921)]: {
-          width: 22,
+          width: 18,
         },
         [muiTheme.breakpoints.down(1545)]: {
           width: 17,
