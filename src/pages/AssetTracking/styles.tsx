@@ -125,6 +125,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(2561)]: {
       height: "28%",
     },
+    [muiTheme.breakpoints.down(2049)]: {
+      height: "30%",
+    },
     [muiTheme.breakpoints.down(1025)]: {
       height: "27%",
     },

@@ -51,7 +51,7 @@ const SideBar = (props: SideBarProps) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [activePage, setActivePage] = useState<number>();
 
-  const { homeText, gridsViewText, birdsViewText, settingsText, dashboard} =
+  const { homeText, gridsViewText, birdsViewText, settingsText, dashboard } =
     useTranslation();
 
   const array = [
@@ -249,15 +249,14 @@ const SideBar = (props: SideBarProps) => {
                 onClick={(event) =>
                   handleClick(event, item.id, item.path, item?.title)
                 }
-                key={index}
-              >
+                key={index}>
                 <Tooltip
                   tooltipValue={item?.title}
                   placement={"right"}
                   offset={tooltipOfset}
                   fontSize={fontSize}
                   padding={padding}
-                >
+                  marginTop={activePage === item.id}>
                   <img src={item.image} />
                 </Tooltip>
               </div>
@@ -282,16 +281,14 @@ const SideBar = (props: SideBarProps) => {
             className={customMenu}
             anchorEl={anchorElUser}
             open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
+            onClose={handleCloseUserMenu}>
             {menuOptions &&
               menuOptions.length > 0 &&
               menuOptions.map((menuOptions) => (
                 <MenuItem
                   id="demo-customized-menu"
                   key={menuOptions}
-                  onClick={() => handleCloseUserMenu(menuOptions)}
-                >
+                  onClick={() => handleCloseUserMenu(menuOptions)}>
                   <div className={logoutSection}>
                     {menuOptions && menuOptions === dashboard.logout ? (
                       <img className={logoutImg} src={Logout} alt="Logout" />

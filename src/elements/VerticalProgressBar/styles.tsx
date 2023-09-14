@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     fontSize: "30px",
     fontWeight: 700,
     fontFamily: "HelveticaNeue-Regular",
-    lineHeight : "3vh",
+    lineHeight: "3vh",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 36,
@@ -54,7 +54,8 @@ const useStyles = makeStyles({
     // marginBottom:
     //   props?.pageName && props?.pageName === "fleetInfoDialogue" ? 0 : 4,
     fontFamily: "HelveticaNeue-Regular",
-    lineHeight : "3vh",
+    // lineHeight : "3vh",
+    marginTop: "4%",
     [muiTheme.breakpoints.up(3839)]: {
       fontSize: 30,
       // lineHeight: "48px",
