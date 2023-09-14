@@ -874,7 +874,25 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   {item?.title}
                                 </div>
                                 <div className={assetTrackingTitle}>
-                                  <div>{item?.details} </div>
+                                  <div>
+                                  {item?.details?.length > 33 ? (
+                                        <>
+                                          <Tooltip
+                                            tooltipValue={item?.details}
+                                            placement={"bottom"}
+                                            offset={tooltipOfset}
+                                            fontSize={fontSize}
+                                            padding={padding}
+                                          >
+                                            {" "}
+                                            {truncateString(item?.details, 33)}
+                                          </Tooltip>
+                                        </>
+                                      ) : (
+                                        item?.details
+                                      )}
+                                    
+                                    </div>
                                   <div>
                                     {moment(item?.notificationDate)?.format(
                                       "DD-MM-YYYY | HH:mm A"

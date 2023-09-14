@@ -91,7 +91,7 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                     appTheme?.palette?.assetTrackingPage?.topPanelTextColor,
                 }}
               >
-                {label?.area?.length > 30 ? (
+                {label?.area?.length > 20 ? (
                   <>
                     <Tooltip
                       tooltipValue={label?.area}
@@ -101,7 +101,7 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                       padding={[2]}
                     >
                       {" "}
-                      {truncateString(label?.area, 30)}
+                      {truncateString(label?.area, 20)}
                     </Tooltip>
                   </>
                 ) : (
