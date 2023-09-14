@@ -1,11 +1,5 @@
 export const BASE_IP = {
-  aws: "https://apismartlabtech.sensyonsmartspaces.com",
-};
-
-export const PORTS = {
-  port1: "8081",
-  port2: "8090",
-  port3: "5000",
+  aws: process.env.REACT_APP_BASE_URL,
 };
 
 export const BASE_URL = {

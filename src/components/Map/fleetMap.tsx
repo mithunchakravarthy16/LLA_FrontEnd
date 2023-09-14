@@ -120,7 +120,7 @@ const FleetMap: React.FC<any> = (props) => {
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries: libraries,
   });
 

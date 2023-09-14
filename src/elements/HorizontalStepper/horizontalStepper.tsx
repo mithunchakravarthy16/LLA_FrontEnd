@@ -75,7 +75,10 @@ const CustomizedSteppers: React.FC<any> = (props) => {
         {dataPoints &&
           dataPoints.length > 0 &&
           dataPoints.map((label: any, index: number) => (
-            <Step key={index} style={{ wordBreak: "break-word", maxWidth : "10vw" }}>
+            <Step
+              key={index}
+              style={{ wordBreak: "break-word", maxWidth: "10vw" }}
+            >
               <Typography
                 // sx={typographySx} // For solution 2
                 align="center"

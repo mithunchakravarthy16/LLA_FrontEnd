@@ -100,7 +100,7 @@ const FleetNotificationListItems = (props: any) => {
 
   return (
     <>
-      {data.map((item: any) => {
+      {data?.map((item: any) => {
         return (
           <div
             className={rootContainer}
