@@ -166,6 +166,7 @@ const Map: React.FC<any> = (props) => {
   let [data, setData] = useState<any>(points);
   const velocity: any = 20;
   const initialDate: any = new Date();
+  
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
