@@ -127,7 +127,7 @@ const NotificationPanel = (props: any) => {
       setParkingLotSelectionActive(false);
     }
     props.handleExpandListItem(param);
-  }, []);
+  }, [selectedNotification]);
 
   const handleSearchIcon = () => {
     setSearchOpen(true);

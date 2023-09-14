@@ -22,6 +22,11 @@ const useStyles = makeStyles({
       maxWidth: "749px !important",
       backgroundColor: "unset !important",
     },
+    "& .gmnoprint" : {
+      position : "absolute !important",
+      right : "2.5vw !important",
+      top : props?.mapPageName === "dashboard" ? "41vh !important" : "23vh !important"
+    },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
       //background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
       background: props?.palette?.notification?.dashBoardexpansionMarkerListBg,
