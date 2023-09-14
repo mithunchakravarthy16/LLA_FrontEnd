@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     textTransform: "uppercase",
     letterSpacing: "0.1em",
     fontSize: 22,
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
     width: "80%",
     color: props?.palette?.notification?.notificationPanelTitle,
     [muiTheme.breakpoints.up(3839)]: {
@@ -107,10 +107,10 @@ const useStyles = makeStyles({
       width: 32,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      width: 25,
+      width: 18,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      width: 20,
+      width: 18,
     },
     [muiTheme.breakpoints.down(1545)]: {
       width: 15,
