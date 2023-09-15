@@ -28,14 +28,14 @@ const useStyles = makeStyles({
       //     ? "35vh !important"
       //     : "28vh !important",
       [muiTheme.breakpoints.up(3839)]: {
-        left: "2.6vw !important",
+        left: props?.mapPageName === "dashboard" && "2.6vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "38vh !important"
             : "29vh !important",
       },
       [muiTheme.breakpoints.down(3073)]: {
-        left: "2.6vw !important",
+        left: props?.mapPageName === "dashboard" && "2.6vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "40vh !important"
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
             : "28vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
-        left: "3.5vw !important",
+        left: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "36vh !important"
@@ -63,28 +63,28 @@ const useStyles = makeStyles({
       //     ? "30vh !important"
       //     : "24vh !important",
       [muiTheme.breakpoints.up(3839)]: {
-        right: "3.5vw !important",
+        right: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "36vh !important"
             : "26vh !important",
       },
       [muiTheme.breakpoints.down(3073)]: {
-        right: "3.5vw !important",
+        right: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "37vh !important"
             : "27vh !important",
       },
       [muiTheme.breakpoints.down(2049)]: {
-        right: "5.5vw !important",
+        right: props?.mapPageName === "dashboard" && "5.5vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "35vh !important"
             : "25vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
-        right: "5.8vw !important",
+        right: props?.mapPageName === "dashboard" && "5.8vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "32vh !important"
