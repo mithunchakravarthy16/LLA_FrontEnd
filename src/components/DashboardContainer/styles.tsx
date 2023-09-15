@@ -51,26 +51,26 @@ const useStyles = makeStyles({
     // width: "466px",
     [muiTheme.breakpoints.up(3839)]: {
       // width: "822px",
-      top: "180px",
+      top: "134px",
     },
     [muiTheme.breakpoints.down(3073)]: {
       // width: "822px",
       height: "calc(100vh - 339px)",
-      top: "180px",
+      top: "120px",
     },
     [muiTheme.breakpoints.down(2561)]: {
       // width: "636px",
-      top: "116px",
+      top: "124px",
       height: "calc(100vh - 212px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
       // width: "550px",
-      top: "116px",
+      top: "108px",
       height: "calc(100vh - 210px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       // width: "450px",
-      top: "116px",
+      top: "104px",
       height: "calc(100vh - 212px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
@@ -80,12 +80,12 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(1681)]: {
       // width: "450px",
-      top: "88px",
+      top: "98px",
       height: "calc(100vh - 208px)",
     },
     [muiTheme.breakpoints.down(1537)]: {
       // width: "400px",
-      top: "80px",
+      top: "90px",
       height: "calc(100vh - 160px)",
     },
     [muiTheme.breakpoints.down(1345)]: {
