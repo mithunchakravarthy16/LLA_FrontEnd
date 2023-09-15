@@ -30,6 +30,7 @@ import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import Loader from "elements/Loader";
 
 const Login = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { yourEmail, passwordTItle, loginNowButton, signInTitle } =
@@ -204,6 +205,7 @@ const Login = () => {
   };
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   useEffect(() => {
+    setBackgroundLoaded(false)
     const backgroundImageUrl =
       selectedTheme === 'light' ? llaLightBanner : llaBanner;    
     const img = new Image();
@@ -212,9 +214,9 @@ const Login = () => {
       setBackgroundLoaded(true);     
     };
 
-    return () => {
-      img.onload = null;
-    };
+    // return () => {
+    //   img.onload = null;
+    // };
   }, [selectedTheme]);
 
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
@@ -222,7 +224,7 @@ const Login = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsDataLoaded(!isDataLoaded);
-    }, 3000);
+    }, 5000);
   }, []);
 
   const loaderAdminGetConfigData = useSelector(
