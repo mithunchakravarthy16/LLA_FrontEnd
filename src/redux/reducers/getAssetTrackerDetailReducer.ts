@@ -4,6 +4,7 @@ const initialState = {
   assetTrackingCreateGeofenceData: {},
   assetTrackingUpdateGeofenceData: {},
   assetTrackingList: {},
+  assetLiveData: {},
 };
 
 export default (state = initialState, action: any) => {
@@ -28,12 +29,14 @@ export default (state = initialState, action: any) => {
       return { ...state, loadingCreateGeofence: true };
     case assetTrackerDetail.HIDE_LOADER_CREATE_GEOFENCE:
       return { ...state, loadingCreateGeofence: false };
+    case assetTrackerDetail.SHOW_LOADER_ASSET_INFOWINDOW:
+      return { ...state, loaderAssetInfoWindow: true };
+    case assetTrackerDetail.HIDE_LOADER_ASSET_INFOWINDOW:
+      return { ...state, loaderAssetInfoWindow: false };
+    case assetTrackerDetail.SET_ASSET_LIVE_LOCATION:
+      const {assetLiveData} = action;
+      return { ...state, assetLiveData}
 
-    case assetTrackerDetail.SHOW_LOADER_ASSET_INFOWINDOW :
-        return { ...state, loaderAssetInfoWindow : true };
-
-        case assetTrackerDetail.HIDE_LOADER_ASSET_INFOWINDOW :
-          return { ...state, loaderAssetInfoWindow : false };
     default:
       return state;
   }
