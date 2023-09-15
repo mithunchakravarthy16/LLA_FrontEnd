@@ -497,9 +497,6 @@ const AssetMap: React.FC<any> = (props) => {
       setSelectedListItemSource(selectedMarker?.source);
       setSelectedListItemDestination(selectedMarker?.destination);
     } else {
-      setProgress([]);
-      setPoints([]);
-      setData([]);
       setSelectedMarker("");
       setSelectedListItemSource("");
       setSelectedListItemDestination("");
@@ -583,7 +580,7 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenEventActiveIcon
               : LighteningEventIcon;
           case "asset":
-            return currentMarker === id
+            return (currentMarker === id || assetLiveMarker === id)
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
@@ -612,7 +609,7 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenAlertActiveIcon
               : LighteningAlertIcon;
           case "asset":
-            return currentMarker === id
+            return (currentMarker === id || assetLiveMarker === id)
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
@@ -621,7 +618,6 @@ const AssetMap: React.FC<any> = (props) => {
           default:
             return ParkingAlertIcon;
         }
-        break;
       }
       case "Incident": {
         switch (category) {
@@ -642,7 +638,7 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenIncidentActiveIcon
               : LighteningIncidentIcon;
           case "asset":
-            return currentMarker === id
+            return (currentMarker === id || assetLiveMarker === id)
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
@@ -748,7 +744,6 @@ const AssetMap: React.FC<any> = (props) => {
     setAssetLiveMarker(assetLiveMarker === id ? "" : id )
     map?.panTo(location);
   }
-
 
 
     const handleLiveMarkerClose = () => {

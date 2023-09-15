@@ -187,6 +187,13 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         });
       });
 
+      combinedNotifications.sort((a: any, b: any) => {
+        const dateA: any = new Date(a?.notificationDate);
+        const dateB: any = new Date(b?.notificationDate);
+
+        return dateB - dateA;
+      });
+
       setInfoNotificationList(combinedNotifications);
     }
   }, [assetTrackerDetails]);
@@ -716,7 +723,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         marginRight: "2%",
                       }}
                     >
-                      <Grid className={assetInfoLeftPanelTop}>
+                      <Grid  xs={12} className={assetInfoLeftPanelTop}>
                         <div>
                           <div className={leftPanelSection} style={{}}>
                             {assetInfoTopPanelData?.map(
@@ -755,7 +762,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           </div>
                         </div>
                       </Grid>
-                      <Grid className={assetInfoLeftPanelCenter}>
+                      <Grid xs={12} className={assetInfoLeftPanelCenter}>
                         <div
                           style={{
                             padding: " 3%",
@@ -847,7 +854,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           )}
                         </div>
                       </Grid>
-                      <Grid className={assetInfoLeftPanelBottom}>
+                      <Grid xs={12} className={assetInfoLeftPanelBottom}>
                         <CustomizedSteppers
                           dataPoints={assetTrackerDetails?.journeyDetails}
                           selectedTheme={selectedTheme}

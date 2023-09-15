@@ -615,7 +615,7 @@ const Map: React.FC<any> = (props) => {
               ? LightenEventActiveIcon
               : LighteningEventIcon;
           case "asset":
-            return currentMarker === id
+            return (currentMarker === id || assetLiveMarker === id)
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
@@ -644,7 +644,7 @@ const Map: React.FC<any> = (props) => {
               ? LightenAlertActiveIcon
               : LighteningAlertIcon;
           case "asset":
-            return currentMarker === id
+            return (currentMarker === id || assetLiveMarker === id)
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
@@ -674,7 +674,7 @@ const Map: React.FC<any> = (props) => {
               ? LightenIncidentActiveIcon
               : LighteningIncidentIcon;
           case "asset":
-            return currentMarker === id
+            return (currentMarker === id || assetLiveMarker === id)
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
@@ -704,9 +704,11 @@ const Map: React.FC<any> = (props) => {
     markerId: string,
     type: string,
     location: any,
-    tripId: any
+    tripId: any,
+    category : string
   ) => {
-    setIsMarkerClicked(true);
+    // setIsMarkerClicked(true);
+    setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
     setCurrentMarker((prev: any) => {

@@ -439,6 +439,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setSelectedMarker(data);
   };
 
+  // useEffect(()=>{
+  //   if(selectedNotification) {
+  //     setIsMarkerClicked(false)
+  //   }
+  // },[selectedNotification])
+
   return (
     <>
       {success && (
