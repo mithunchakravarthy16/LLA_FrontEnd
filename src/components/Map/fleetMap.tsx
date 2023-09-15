@@ -506,9 +506,19 @@ const FleetMap: React.FC<any> = (props) => {
       mapTypeControl: false,
       rotateControl: false,
       fullscreenControl: false,
-      zoomControl: false,
+      zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
+      mapTypeControlOptions: {
+        style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: window.google.maps.ControlPosition.LEFT_BOTTOM,
+        mapTypeIds: [
+          window.google.maps.MapTypeId.ROADMAP,
+          window.google.maps.MapTypeId.SATELLITE,
+          window.google.maps.MapTypeId.HYBRID,
+        ],
+      },
+      mapTypeControl: true,
     };
   };
 
