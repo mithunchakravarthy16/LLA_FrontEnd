@@ -31,7 +31,7 @@ const NotificationListItems = (props: any) => {
     mapPageName,
     notificationPageName,
     selectedTheme,
-    markerType
+    markerType,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -350,10 +350,17 @@ const NotificationListItems = (props: any) => {
                         <div className={listItemTitle}>{item?.title}</div>
                       )}
                       <div className={expandedListItemRow2}>{item?.area}</div>
-                      <div className={expandedListItemRow3}>
-                        {item?.trackerName && item?.trackerName}{" "}
-                        {item?.assetName && ` | ${item?.assetName}`}
-                      </div>
+                      {markerType === "assetLiveMarker" ? (
+                        <div className={expandedListItemRow3}>
+                          {item?.assetName}
+                        </div>
+                      ) : (
+                        <div className={expandedListItemRow3}>
+                          {item?.trackerName && item?.trackerName}{" "}
+                          {item?.assetName && ` | ${item?.assetName}`}
+                        </div>
+                      )}
+
                       {item?.venue && (
                         <div className={expandedListItemRow3}>
                           {item?.venue}
@@ -364,7 +371,9 @@ const NotificationListItems = (props: any) => {
                         <div className={buttonStyle}>
                           <Button
                             variant="contained"
-                            handleClick={() => handleAssetViewDetails(item, markerType)}
+                            handleClick={() =>
+                              handleAssetViewDetails(item, markerType)
+                            }
                           >
                             {viewDetails}
                           </Button>
