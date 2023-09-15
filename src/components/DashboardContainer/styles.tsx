@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     position: "absolute",
     right: "30px",
     background: props?.palette?.notification?.notificationBg,
-    height: "calc(100vh - 332px)",
+    height: "calc(100vh - 291px)",
     top: "106px",
     boxShadow: `0px 0px 5px 5px ${props?.palette?.notification?.notificationBoxShadow}`,
     backdropFilter: "blur(17px)",
@@ -55,18 +55,18 @@ const useStyles = makeStyles({
     },
     [muiTheme.breakpoints.down(3073)]: {
       // width: "822px",
-      height: "calc(100vh - 339px)",
+      height: "calc(100vh - 251px)",
       top: "120px",
     },
     [muiTheme.breakpoints.down(2561)]: {
       // width: "636px",
       top: "124px",
-      height: "calc(100vh - 212px)",
+      height: "calc(100vh - 202px)",
     },
     [muiTheme.breakpoints.down(2049)]: {
       // width: "550px",
       top: "108px",
-      height: "calc(100vh - 210px)",
+      height: "calc(100vh - 175px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       // width: "450px",
@@ -76,32 +76,32 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1793)]: {
       // width: "450px",
       top: "88px",
-      height: "calc(100vh - 1183px)",
+      height: "calc(100vh - 158px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       // width: "450px",
       top: "98px",
-      height: "calc(100vh - 208px)",
+      height: "calc(100vh - 190px)",
     },
     [muiTheme.breakpoints.down(1537)]: {
       // width: "400px",
       top: "90px",
-      height: "calc(100vh - 160px)",
+      height: "calc(100vh - 153px)",
     },
     [muiTheme.breakpoints.down(1345)]: {
       // width: "370px",
       top: "69px",
-      height: "calc(100vh - 147px)",
+      height: "calc(100vh - 129px)",
     },
     [muiTheme.breakpoints.down(1153)]: {
       // width: "320px",
       top: "68px",
-      height: "calc(100vh - 160px)",
+      height: "calc(100vh - 118px)",
     },
     [muiTheme.breakpoints.down(1025)]: {
       // width: "280px",
       top: "68px",
-      height: "calc(100vh - 160px)",
+      height: "calc(100vh - 143px)",
     },
   }),
 });
