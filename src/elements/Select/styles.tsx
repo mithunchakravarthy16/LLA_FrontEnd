@@ -27,7 +27,7 @@ const useStyles = makeStyles(
         background: props?.selectedTheme === "light" ? "#F1624C" : "#F26522",
         width: "5vw",
         [muiTheme.breakpoints.down(2049)]: {
-          fontSize: "0.5vw",
+          fontSize: "0.6vw",
           width: "4vw",
         },
         "& .MuiSvgIcon-root": {
