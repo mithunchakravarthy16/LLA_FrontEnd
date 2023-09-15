@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import muiTheme from "theme/muiTheme";
 import PackageActiveIcon from "../../assets/packageCompletedIcon.svg";
+import StepperBlueIcon from "../../assets/stepperIcons/stepperBlueCircle.svg"
 
 const useStyles = makeStyles(
   () => ({
@@ -23,7 +24,7 @@ const useStyles = makeStyles(
       "& .MuiStepConnector-root": {
         left: "calc(-50% + 14px)",
         right: "calc(50% + 14px)",
-        top: "1.7vh",
+        top: "2.7vh",
       },
 
       "& .MuiStepConnector-line": {
@@ -74,8 +75,6 @@ export const ColorlibStepIconRoot = styled("div")<
   color: colorWhite,
   minWidth: "1.5vw",
   minHeight: "2.5vh",
-  // width: 50,
-  // height: 50,
   display: "flex",
   borderRadius: "50%",
   boxShadow: "0px 0px 0px 8px rgba(0,79,159,0.5)",
@@ -84,8 +83,8 @@ export const ColorlibStepIconRoot = styled("div")<
   backgroundColor: purpleShades,
   ...(ownerState.active && {
     // backgroundColor: greenShade,
-    minWidth: "1.5vw",
-    minHeight: "5vh",
+    minWidth: "5vh",
+    minHeight: "6vh",
     // width: 50,
     // height: 50,
     backgroundImage: `url("${PackageActiveIcon}")`,
@@ -95,7 +94,7 @@ export const ColorlibStepIconRoot = styled("div")<
     backgroundColor: "transparent",
     border: "none",
     borderRadius: "none",
-    marginTop: "-3vh",
+    marginTop: "-2vh",
     backgroundPosition: "bottom",
     "& .MuiStepLabel-alternativeLabel": {
       color: `#FFF !important`,
@@ -111,11 +110,20 @@ export const ColorlibStepIconRoot = styled("div")<
     },
   }),
   ...(ownerState.completed && {
-    minWidth: "1vw",
-    minHeight: "2vh",
-    // width: 30,
-    // height: 30,
-    backgroundColor: purpleShades,
+    minWidth: "5vh",
+    minHeight: "5vh",
+
+    marginTop: "-1vh",
+    backgroundImage: `url("${StepperBlueIcon}")`,
+    boxShadow: "none",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain",
+    backgroundColor: "transparent",
+    border: "none",
+    borderRadius: "none",
+    // marginTop: "-3vh",
+    backgroundPosition: "bottom",
+    
     "& .MuiStepLabel-alternativeLabel": {
       color: `#FFF !important`,
       paddingBottom: "4px",

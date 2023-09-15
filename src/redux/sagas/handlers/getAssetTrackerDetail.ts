@@ -10,7 +10,8 @@ import {
   setLoaderCreateGeofence,
   hideLoaderCreateGeofence,
   setShowLoaderAssetInfoDialog,
-  hideLoaderAssetInfoDialog
+  hideLoaderAssetInfoDialog,
+  setAssetLiveLocation
 } from "redux/actions/getAssetTrackerDetailAction";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
@@ -18,6 +19,7 @@ import {
   updateGeofenceApi,
   getAssetListApi,
   getTrackerDetailApi,
+  getTrackerLiveDetailApi
 } from "../../../services/endPoints";
 
 export function* handleAssetTrackerDetail(action: any): any {
@@ -81,6 +83,20 @@ export function* handleAssetTrackingAssetsList(): any {
     yield put(hideLoaderAssetsList());
   } catch (error) {
     yield put(hideLoaderAssetsList());
+    console.log(error);
+  }
+}
+
+export function* handleAssetLiveLocation(): any {
+  try {
+    const { fetchData } = fetchAPIServices;
+    const response = yield fetchData(getTrackerLiveDetailApi);
+    if (response) {
+      yield put(setAssetLiveLocation(response));
+    } else {
+      yield put(setAssetLiveLocation({}));
+    }
+  } catch (error) {
     console.log(error);
   }
 }

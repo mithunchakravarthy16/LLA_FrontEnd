@@ -37,6 +37,7 @@ import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
+import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 
 interface DashboardContainerProps {
   handleviewDetails?: any;
@@ -116,6 +117,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
+  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -157,24 +159,45 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   };
 
   useEffect(() => {
-    const assetPayload: any = {
-      filterText: "",
-      pageNo: 0,
-      pageSize: 100,
-    };
-    dispatch(getNotificationData(assetPayload));
     const fleetPayload: any = {};
     // dispatch(setFleetManagementNotificationData({}));
     // dispatch(getFleetManagementNotificationData(fleetPayload));
     // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
     setSuccess(false);
+    let assetPayload: any = {
+      filterText: "",
+      pageNo: 0,
+      pageSize: 100000,
+    };
+
+    dispatch(getNotificationData(assetPayload));
+
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData(assetPayload));
+    }, 1 * 60 * 1000);
+
+    let assetLiveDataPayload: any = {};
+    dispatch(getAssetLiveLocation(assetLiveDataPayload));
+
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(intervalTime);
+    };
   }, []);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
     useState<any>([]);
 
+  const assetLiveData = useSelector(
+    (state: any) => state?.assetTracker?.assetLiveData?.data
+  );
+
   useEffect(() => {
-    if (assetNotificationResponse) {
+    if (assetNotificationResponse && assetLiveData) {
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.data
       );
@@ -196,17 +219,45 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           // ...fleetNotiData,
         ];
 
-        const consolidatedMarkerData = [...consolidatedData];
+        const updatedUniqueData = consolidatedData?.map(
+          (combinedDataItem: any) => {
+            const uniqueDataItem = assetLiveData.find(
+              (uniqueDataItem: any) =>
+                uniqueDataItem.trackerId === combinedDataItem.trackerId
+            );
 
-        consolidatedMarkerData.sort((a: any, b: any) => {
-          const dateA: any = new Date(a.notificationDate);
-          const dateB: any = new Date(b.notificationDate);
+            if (uniqueDataItem) {
+              return {
+                ...combinedDataItem,
+                location: uniqueDataItem?.currentLocation,
+                recentMarkerType: uniqueDataItem?.notificationType,
+                area: uniqueDataItem?.currentArea,
+                id: combinedDataItem?.assetNotificationId,
+              };
+            }
 
-          return dateA - dateB;
+            return [...dashboardNotiData, combinedDataItem];
+          }
+        );
+
+        const updatedAssetLiveData = assetLiveData.map((asset: any) => {
+          return {
+            ...asset,
+            location: asset?.currentLocation,
+            category: "asset",
+            title: `TR#${asset?.trackerId}`,
+            id: asset?.assetId,
+          };
         });
 
-        setMapMarkerArray(consolidatedMarkerData);
-        setDashboardNotificationList(consolidatedData);
+        setMapMarkerArray(
+          selectedNotification === "" && !isMarkerClicked
+            ? [...dashboardNotiData, ...updatedAssetLiveData]
+            : isMarkerClicked
+            ? [...dashboardNotiData, ...updatedAssetLiveData]
+            : updatedUniqueData
+        );
+        setDashboardNotificationList(updatedUniqueData);
       }
     }
   }, []);
@@ -254,21 +305,66 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           ...dashboardNotiData,
           // ...fleetNotiData,
         ];
-        setDashboardNotificationList(consolidatedData);
 
         const consolidatedMarkerData = [...consolidatedData];
 
-        consolidatedMarkerData.sort((a: any, b: any) => {
-          const dateA: any = new Date(a.notificationDate);
-          const dateB: any = new Date(b.notificationDate);
+        // consolidatedMarkerData.sort((a: any, b: any) => {
+        //   const dateA: any = new Date(a.notificationDate);
+        //   const dateB: any = new Date(b.notificationDate);
 
-          return dateA - dateB;
+        //   return dateA - dateB;
+        // });
+
+        // setMapMarkerArray(consolidatedMarkerData);
+        // setDashboardNotificationList(consolidatedData);
+
+        const updatedUniqueData = consolidatedMarkerData?.map(
+          (combinedDataItem: any) => {
+            const uniqueDataItem = assetLiveData.find(
+              (uniqueDataItem: any) =>
+                uniqueDataItem.trackerId === combinedDataItem.trackerId
+            );
+
+            if (uniqueDataItem) {
+              return {
+                ...combinedDataItem,
+                location: uniqueDataItem?.currentLocation,
+                recentMarkerType: uniqueDataItem?.notificationType,
+                area: uniqueDataItem?.currentArea,
+                id: combinedDataItem?.assetNotificationId,
+              };
+            }
+
+            return combinedDataItem;
+          }
+        );
+
+        const updatedAssetLiveData = assetLiveData.map((asset: any) => {
+          return {
+            ...asset,
+            location: asset?.currentLocation,
+            category: "asset",
+            title: `TR#${asset?.trackerId}`,
+            id: asset?.assetId,
+          };
         });
 
-        setMapMarkerArray(consolidatedMarkerData);
+        setMapMarkerArray(
+          selectedNotification === "" && !isMarkerClicked
+            ? [...dashboardNotiData, ...updatedAssetLiveData]
+            : isMarkerClicked
+            ? [...dashboardNotiData, ...updatedAssetLiveData]
+            : updatedUniqueData
+        );
+        setDashboardNotificationList(updatedUniqueData);
       }
     }
-  }, [assetNotificationResponse]);
+  }, [
+    assetNotificationResponse,
+    assetLiveData,
+    selectedNotification,
+    isMarkerClicked,
+  ]);
   // fleetManagementNotificationResponse &&
   const [notificationCount, setNotificationCount] = useState<any>(
     assetNotificationResponse &&
@@ -342,6 +438,12 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setIsInfoWindowActive(true);
     setSelectedMarker(data);
   };
+
+  useEffect(()=>{
+    if(selectedNotification) {
+      setIsMarkerClicked(false)
+    }
+  },[selectedNotification])
 
   return (
     <>
@@ -505,6 +607,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     handleAssetViewDetails={handleAssetViewDetails}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker={setAssetLiveMarker}
                   />
                 </div>
               )}

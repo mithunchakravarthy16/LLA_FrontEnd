@@ -66,6 +66,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setIsInfoWindowActive,
     selectedMarker,
     selectedTheme,
+    selectedMarkerType
   } = props;
 
   const dispatch = useDispatch();
@@ -117,9 +118,13 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSuccess(false);
+
+    let formattedDate = moment(new Date()).format("yyyy-MM-DDTHH:mm:ss");
+
     let assetTrackerDetailPayload: any = {
       assetId: selectedMarker?.assetId,
       trackerId: null,
+      notificationDate : selectedMarkerType === "assetLiveMarker" ? formattedDate :  selectedMarker?.notificationDate
     };
     dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
     dispatch(setAssetTrackingCreateGeofence({}));
@@ -180,6 +185,13 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
             "DD-MM-YYYY | HH:mm A"
           ),
         });
+      });
+
+      combinedNotifications.sort((a: any, b: any) => {
+        const dateA: any = new Date(a?.notificationDate);
+        const dateB: any = new Date(b?.notificationDate);
+
+        return dateB - dateA;
       });
 
       setInfoNotificationList(combinedNotifications);
@@ -279,7 +291,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   const tabsList = [
     { name: assetsTracking.assetDetails, val: 0 },
-    { name: assetsTracking.GEOFENCE, val: 1 },
+    // { name: assetsTracking.GEOFENCE, val: 1 },
   ];
 
   const handleHeaderTab = (index: number) => {
@@ -311,7 +323,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     {
       label: assetsTracking.assetsId,
       value:
-        selectedMarker?.assetName !== null
+        selectedMarker?.assetName === null
           ? selectedMarker?.assetName
           : "LLA Asset",
     },
@@ -711,7 +723,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         marginRight: "2%",
                       }}
                     >
-                      <Grid className={assetInfoLeftPanelTop}>
+                      <Grid  className={assetInfoLeftPanelTop}>
                         <div>
                           <div className={leftPanelSection} style={{}}>
                             {assetInfoTopPanelData?.map(

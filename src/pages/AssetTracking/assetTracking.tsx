@@ -16,7 +16,7 @@ import useTranslation from "localization/translations";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
-import Map from "components/Map";
+import AssetMap from "components/Map/assetMap";
 import moment from "moment";
 import Chart from "elements/Chart";
 import Highcharts from "highcharts";
@@ -33,7 +33,7 @@ import { getNotificationData } from "redux/actions/getAllAssertNotificationActio
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
-import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
+import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import { getCreateGeofence } from "redux/actions/createGeofenceAction";
 import { getUpdateGeofence } from "redux/actions/updateGeofenceAction";
 import { getEnableGeofence } from "redux/actions/enableGeofenceAction";
@@ -55,6 +55,8 @@ const AssetTracking: React.FC<any> = (props) => {
     format: "MM/DD",
     tickInterval: 1,
   });
+  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+
   useEffect(() => {
     switch (selectedValue) {
       case "Today":
@@ -184,6 +186,9 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [selectedMarkerType, setSelectedMakerType] = useState<string>("")
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -234,12 +239,7 @@ const AssetTracking: React.FC<any> = (props) => {
   } = useStyles(appTheme);
 
   useEffect(() => {
-    let notificationPayload: any = {
-      filterText: "",
-      pageNo: 0,
-      pageSize: 100,
-    };
-    dispatch(getNotificationData(notificationPayload));
+
 
     let activeInactiveTrackerPayload: any = {};
     dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload));
@@ -258,7 +258,37 @@ const AssetTracking: React.FC<any> = (props) => {
 
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
+
+    let assetPayload: any = {
+      filterText: "",
+      pageNo: 0,
+      pageSize: 100000,
+    };
+
+    dispatch(getNotificationData(assetPayload));
+
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData(assetPayload));
+    }, 1 * 60 * 1000)
+
+    let assetLiveDataPayload : any = {};
+    dispatch(getAssetLiveLocation(assetLiveDataPayload))
+
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload))
+        }, 10 * 1000)
+
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(intervalTime);
+    };
+
+    
+
   }, []);
+
+  const assetLiveData = useSelector((state:any)=>state?.assetTracker?.assetLiveData?.data)
 
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
@@ -673,7 +703,7 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [selectedValue]);
 
   useEffect(() => {
-    if (assetNotificationList) {
+    if (assetNotificationList && assetLiveData) {
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
 
@@ -719,17 +749,53 @@ const AssetTracking: React.FC<any> = (props) => {
 
       let uniqueTrackerIds: any = {};
 
-      const uniqueData = combinedNotifications.filter((item: any) => {
-        if (!uniqueTrackerIds[item.trackerId]) {
-          uniqueTrackerIds[item.trackerId] = true;
-          return true;
-        }
-        return false;
-      });
+      // const uniqueData = combinedNotifications.filter((item: any) => {
+      //   if (!uniqueTrackerIds[item.trackerId]) {
+      //     uniqueTrackerIds[item.trackerId] = true;
+      //     return true;
+      //   }
+      //   return false;
+      // });
+
+    //   const sampleLiveData = [
+    //     {
+    //         "trackerId": "740063943838",
+    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
+    //         "trackerStatus": "Active",
+    //         "notificationType": "Incident",
+    //         "currentLocation": {
+    //             "lat": 12.186451,
+    //             "lng": 78.119101
+    //         },
+    //         "currentArea": ""
+    //     },
+    //     {
+    //         "trackerId": "413051518008",
+    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
+    //         "trackerStatus": "Active",
+    //         "notificationType": "Incident",
+    //         "currentLocation": {
+    //             "lat": 9.0135021,
+    //             "lng": -79.4759242
+    //         },
+    //         "currentArea": ""
+    //     },
+    //     {
+    //         "trackerId": "740063943499",
+    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+    //         "trackerStatus": "Inactive",
+    //         "notificationType": "Incident",
+    //         "currentLocation": {
+    //             "lat": 12.1564923,
+    //             "lng": 78.1335807
+    //         },
+    //         "currentArea": ""
+    //     }
+    // ]
 
       const updatedUniqueData = combinedNotifications.map(
         (combinedDataItem: any) => {
-          const uniqueDataItem = uniqueData.find(
+          const uniqueDataItem = assetLiveData.find(
             (uniqueDataItem: any) =>
               uniqueDataItem.trackerId === combinedDataItem.trackerId
           );
@@ -737,45 +803,41 @@ const AssetTracking: React.FC<any> = (props) => {
           if (uniqueDataItem) {
             return {
               ...combinedDataItem,
-              location: uniqueDataItem.currentLocation,
-              recentMarkerType: uniqueDataItem.notificationType,
+              location: uniqueDataItem?.currentLocation,
+              recentMarkerType: uniqueDataItem?.trackerStatus === "Inactive" ? uniqueDataItem?.trackerStatus :  uniqueDataItem?.notificationType,
+              area : uniqueDataItem?.currentArea,
+              id : combinedDataItem?.assetNotificationId,
+              trackerStatus  : uniqueDataItem?.trackerStatus
             };
           }
 
           return combinedDataItem;
         }
       );
+      const updatedAssetLiveData = assetLiveData.map((asset:any) => {
 
-      const updatedUniqueMarkerData = combinedNotifications.map(
-        (combinedDataItem: any) => {
-          const uniqueDataItem = uniqueData.find(
-            (uniqueDataItem: any) =>
-              uniqueDataItem.trackerId === combinedDataItem.trackerId
-          );
-
-          if (uniqueDataItem) {
-            return {
-              ...combinedDataItem,
-              location: uniqueDataItem.currentLocation,
-              recentMarkerType: uniqueDataItem.notificationType,
-            };
-          }
-
-          return combinedDataItem;
-        }
-      );
-
-      updatedUniqueMarkerData.sort((a: any, b: any) => {
-        const dateA: any = new Date(a.notificationDate);
-        const dateB: any = new Date(b.notificationDate);
-
-        return dateA - dateB;
+        return {
+          ...asset,
+          location: asset?.currentLocation,
+          category: "asset",
+          title : `TR#${asset?.trackerId}`,
+          id : asset?.assetId,
+          recentMarkerType: asset?.trackerStatus === "Inactive" ? asset?.trackerStatus :  asset?.notificationType,
+        };
       });
-
-      setMapMarkerArrayList(updatedUniqueMarkerData);
+      setMapMarkerArrayList((selectedNotification === "" && !isMarkerClicked) ? updatedAssetLiveData : isMarkerClicked ? updatedAssetLiveData : updatedUniqueData);
       setNotificationArray(updatedUniqueData);
     }
-  }, [assetNotificationList]);
+  }, [assetNotificationList, assetLiveData, selectedNotification, isMarkerClicked, assetNotificationResponse]);
+
+  useEffect(()=>{
+    if(isMarkerClicked) {
+      setSelectedNotification("")
+    }
+    if(selectedNotification) {
+      setIsMarkerClicked(false)
+    }
+  },[isMarkerClicked, selectedNotification])
 
   const topPanelListItems: any[] = [
     {
@@ -807,7 +869,6 @@ const AssetTracking: React.FC<any> = (props) => {
   ];
 
   const [tabIndex, setTabIndex] = useState<any>(1);
-  const [selectedNotification, setSelectedNotification] = useState<any>("");
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
@@ -821,7 +882,6 @@ const AssetTracking: React.FC<any> = (props) => {
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
-  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
 
   const [notificationCount, setNotificationCount] = useState<any>([
     assetNotificationList?.events?.totalCount,
@@ -969,122 +1029,13 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, []);
 
-  const handleAssetViewDetails = (data: any) => {
+
+
+  const handleAssetViewDetails = (data: any, markerType : any) => {
+    setSelectedMakerType(markerType)
     setIsInfoWindowActive(true);
     setSelectedMarker(data);
   };
-
-  const packageData = [
-    {
-      id: "1",
-      packageStage: "Equipment Arrived",
-      timeStamp: "06-20-2023 9.00AM",
-      status: "Completed",
-    },
-    {
-      id: "2",
-      packageStage: "Initial Scan",
-      timeStamp: "06-20-2023 10.30AM",
-      status: "Completed",
-    },
-    {
-      id: "3",
-      packageStage: "Inbound Staging & Tagging",
-      timeStamp: "06-20-2023 12.30PM",
-      status: "In progress",
-    },
-    {
-      id: "4",
-      packageStage: "Allocated Space",
-      timeStamp: "06-20-2023 1.30PM",
-      status: "In progress",
-    },
-    {
-      id: "5",
-      packageStage: "Tracking Active",
-      timeStamp: "06-20-2023 3.00PM",
-      status: "Completed",
-    },
-    {
-      id: "6",
-      packageStage: "1411 Wynkoop St, Zone 1, LLA BUILDING",
-      timeStamp: "06-23-2023 04.30PM",
-      status: "Completed",
-    },
-  ];
-
-  const infoWindowNotificationListItems: any[] = [
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-  ];
 
   const handleAssetInfoWindow = () => {
     setIsGeofenceInfoWindowActive(true);
@@ -1258,46 +1209,10 @@ const AssetTracking: React.FC<any> = (props) => {
                                                 selectedWidth?.is3KDevice
                                                   ? 4
                                                   : 2,
-                                              // data: [
-                                              //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                              //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                              // ],
+
                                             },
                                           ]}
-                                          // {[
-                                          //   {
-                                          //     marker: {
-                                          //       enabled: false,
-                                          //     },
-                                          //     lineColor: "#25796D",
-                                          //     color: "#25796D",
-                                          //     lineWidth:
-                                          //       selectedWidth?.is4kDevice ||
-                                          //       selectedWidth?.is3KDevice
-                                          //         ? 4
-                                          //         : 2,
-                                          //     data: [
-                                          //       0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                          //       4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                          //     ],
-                                          //   },
-                                          //   {
-                                          //     marker: {
-                                          //       enabled: false,
-                                          //     },
-                                          //     lineColor: "#D25A5A",
-                                          //     color: "#D25A5A",
-                                          //     lineWidth:
-                                          //       selectedWidth?.is4kDevice ||
-                                          //       selectedWidth?.is3KDevice
-                                          //         ? 4
-                                          //         : 2,
-                                          //     data: [
-                                          //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                          //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          //     ],
-                                          //   },
-                                          // ]}
+
                                         />
                                       ) : (
                                         <Loader isHundredVh={false} />
@@ -1447,15 +1362,15 @@ const AssetTracking: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}
+                      style={{ height: "57.5%" }}
                     >
-                      <img
+                      {/* <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      />
-                      <Map
+                      /> */}
+                      <AssetMap
                         markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
@@ -1464,11 +1379,15 @@ const AssetTracking: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
                         setIsMarkerClicked={setIsMarkerClicked}
+                        isMarkerClicked={isMarkerClicked}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={"asset"}
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
+                        assetLiveData = {assetLiveData}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
                       />
                     </Grid>
                   </Grid>
@@ -1492,6 +1411,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker={setAssetLiveMarker}
                   />
                 </Grid>
               </Grid>
@@ -1506,6 +1426,7 @@ const AssetTracking: React.FC<any> = (props) => {
           setIsInfoWindowActive={setIsInfoWindowActive}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
+          selectedMarkerType={selectedMarkerType}
         />
       )}
       {isGeofenceInfoWindowActive && (
