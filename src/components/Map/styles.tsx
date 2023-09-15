@@ -22,10 +22,67 @@ const useStyles = makeStyles({
       maxWidth: "749px !important",
       backgroundColor: "unset !important",
     },
-    "& .gmnoprint" : {
-      position : "absolute !important",
-      right : "2.5vw !important",
-      top : props?.mapPageName === "dashboard" ? "41vh !important" : "23vh !important"
+    "& .gmnoprint .gm-style-mtc": {
+      // top:
+      //   props?.mapPageName === "dashboard"
+      //     ? "35vh !important"
+      //     : "28vh !important",
+      [muiTheme.breakpoints.up(3839)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "38vh !important"
+            : "29vh !important",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "47vh !important"
+            : "29vh !important",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "30vh !important"
+            : "28vh !important",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "26vh !important"
+            : "28vh !important",
+      },
+    },
+    "& .gmnoprint": {
+      position: "absolute !important",
+      right: "2.5vw !important",
+      // top:
+      //   props?.mapPageName === "dashboard"
+      //     ? "30vh !important"
+      //     : "24vh !important",
+      [muiTheme.breakpoints.up(3839)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "36vh !important"
+            : "26vh !important",
+      },
+      [muiTheme.breakpoints.down(3073)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "29vh !important"
+            : "27vh !important",
+      },
+      [muiTheme.breakpoints.down(2049)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "30vh !important"
+            : "25vh !important",
+      },
+      [muiTheme.breakpoints.down(1921)]: {
+        top:
+          props?.mapPageName === "dashboard"
+            ? "32vh !important"
+            : "24vh !important",
+      },
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
       //background: props?.mapPageName === "dashboard" ? props?.palette?.notification?.dashBoardexpansionMarkerListBg : props?.palette?.notification?.expansionMarkerListBg, //background: `#1D2D38 !important`, //markerInfoWindowBg
@@ -67,26 +124,26 @@ const useStyles = makeStyles({
       {
         display: "none !important",
       },
-      "& .gm-style" : {
-        "& .cluster" : {
-          width : "6vh !important",
-          height : "6vh !important",
-          display: "flex !important",
-          flexDirection: "column !important",
-          justifyContent: "center !important",
-          alignItems: "center !important",
+    "& .gm-style": {
+      "& .cluster": {
+        width: "6vh !important",
+        height: "6vh !important",
+        display: "flex !important",
+        flexDirection: "column !important",
+        justifyContent: "center !important",
+        alignItems: "center !important",
 
-          "& img" : {
-            width : "100%",
-            height : "100%",
-          },
-          "& div" : {
-            fontSize : "0.7vw !important",
-            position : "relative !important",
-            zIndex : 11
-          }
-        }
-      }     
+        "& img": {
+          width: "100%",
+          height: "100%",
+        },
+        "& div": {
+          fontSize: "0.7vw !important",
+          position: "relative !important",
+          zIndex: 11,
+        },
+      },
+    },
   }),
   footerSection: (props: any) => ({
     background: "black",

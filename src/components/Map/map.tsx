@@ -74,7 +74,7 @@ const parkingCenter = {
   lng: -79.47654209348667,
 };
 
-const homePageParkingCenter = { 
+const homePageParkingCenter = {
   lat: 9.011771204307172,
   lng: -79.47691596842526,
 };
@@ -129,6 +129,7 @@ const Map: React.FC<any> = (props) => {
     dataPoints,
     handleMarkerCancel,
     handleMarkerIconClick,
+    handleMarkerAssetIconClick,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -166,7 +167,6 @@ const Map: React.FC<any> = (props) => {
   let [data, setData] = useState<any>(points);
   const velocity: any = 20;
   const initialDate: any = new Date();
-  
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -510,7 +510,7 @@ const Map: React.FC<any> = (props) => {
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
       ? 15
       : location?.pathname === "/parking"
-          ? 17
+      ? 17
       : 17
   );
 
@@ -556,7 +556,7 @@ const Map: React.FC<any> = (props) => {
           : location?.pathname === "/assetTracking"
           ? assetTrackingCenter
           : location?.pathname === "/parking"
-              ? parkingCenter
+          ? parkingCenter
           : center
       );
       map?.setZoom(
@@ -580,12 +580,22 @@ const Map: React.FC<any> = (props) => {
     };
     return {
       ...defaultMapOptions,
-      mapTypeControl: false,
+      mapTypeControl: true,
       rotateControl: false,
       fullscreenControl: false,
       zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
+      mapTypeControlOptions: {
+        style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: window.google.maps.ControlPosition.LEFT_BOTTOM,
+        mapTypeIds: [
+          window.google.maps.MapTypeId.ROADMAP,
+          window.google.maps.MapTypeId.SATELLITE,
+          window.google.maps.MapTypeId.HYBRID,
+        ],
+      },
+      // mapTypeId: window.google.maps.MapTypeId.SATELLITE,
     };
   };
 
@@ -593,7 +603,7 @@ const Map: React.FC<any> = (props) => {
     category: string,
     notificationCategory: string,
     id: string,
-    marker:any
+    marker: any
   ) => {
     switch (notificationCategory) {
       case "Events": {
@@ -719,7 +729,7 @@ const Map: React.FC<any> = (props) => {
             : location?.pathname === "/assetTracking"
             ? assetTrackingCenter
             : location?.pathname === "/parking"
-              ? parkingCenter
+            ? parkingCenter
             : center
         );
         return "";
@@ -732,6 +742,7 @@ const Map: React.FC<any> = (props) => {
       return prev && prev == markerId ? "" : markerId;
     });
     location?.pathname === "/fleetManagement" && handleMarkerIconClick(tripId);
+    mapPageName === "asset" && handleMarkerAssetIconClick();
   };
 
   const handleMarkerClose = () => {
@@ -748,8 +759,13 @@ const Map: React.FC<any> = (props) => {
         ? parkingCenter
         : center
     );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 :  location?.pathname === "/parking"
-    ? 17 : 17);
+    map?.setZoom(
+      selectedContainerStyle?.is4kDevice
+        ? 16.2
+        : location?.pathname === "/parking"
+        ? 17
+        : 17
+    );
     setProgress([]);
     setPoints([]);
     setData([]);
