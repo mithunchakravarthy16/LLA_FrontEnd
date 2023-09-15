@@ -701,7 +701,7 @@ const Parking: React.FC<any> = (props) => {
                                   style={{ height: "10%" }}
                                   className={electricity}
                                 >
-                                  {parking.parkingViolation}
+                                  {parking && parking?.parkingViolation}
                                 </Grid>
                                 <Grid item xs={12}>
                                   <Grid
