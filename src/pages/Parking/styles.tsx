@@ -533,10 +533,11 @@ const useStyles = makeStyles({
   }),
   lotImageStyle: (props: any) => ({
     width: "100%",
+    height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // marginTop: "-1.75%",
+     marginTop: "0.1vh",
   }),
   liveContainer: (props: any) => ({
     display: "flex",
