@@ -435,10 +435,13 @@ const Parking: React.FC<any> = (props) => {
     }, 500);
   }, []);
   const [isDataLoadedLotImg, setIsDataLoadedLotImg] = useState<boolean>(false);
+  const [isDataLoadedLotOverAll, setIsDataLoadedLotOverAll] = useState<boolean>(false);
+
   useEffect(() => {
+    setIsDataLoadedLotOverAll(false)
     setIsDataLoadedLotImg(false)
     setTimeout(() => {
-      setIsDataLoadedLotImg(true);
+      setIsDataLoadedLotOverAll(true);
     }, 500);
   }, [parkingLotIndex]);
 
@@ -462,19 +465,22 @@ const Parking: React.FC<any> = (props) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}>
+                        style={{ height: "100%" }}
+                      >
                         <Grid
                           item
                           xs={12}
@@ -506,23 +512,27 @@ const Parking: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 20px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   style={{ height: "10%" }}
-                                  className={electricity}>
+                                  className={electricity}
+                                >
                                   {gridView.occupancy}
                                 </Grid>
                                 <Grid item xs={12} style={{ height: "90%" }}>
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={9}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width}
                                         // height={selectedWidth?.height}
@@ -636,7 +646,8 @@ const Parking: React.FC<any> = (props) => {
                                       style={{
                                         height: "100%",
                                         padding: "0px 0px 15px 36px",
-                                      }}>
+                                      }}
+                                    >
                                       <div className={liveContainer}>
                                         <div className={liveImgStyle}>
                                           <img
@@ -682,23 +693,27 @@ const Parking: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 20px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   style={{ height: "10%" }}
-                                  className={electricity}>
+                                  className={electricity}
+                                >
                                   {parking.parkingViolation}
                                 </Grid>
                                 <Grid item xs={12}>
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}>
+                                    style={{ height: "90%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <HighchartsReact
                                         highcharts={Highcharts}
                                         containerProps={{
@@ -814,7 +829,8 @@ const Parking: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
+                      style={{ height: "59%" }}
+                    >
                       <ParkingSlotContainer
                         parkingLotSelectionActive={parkingLotSelectionActive}
                         parkingLotIndex={parkingLotIndex}
@@ -826,7 +842,7 @@ const Parking: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                       />
 
-                      {isDataLoadedLotImg ?
+                      {isDataLoadedLotOverAll ?
                       parkingLotIndex === 0 ? (
                         <Map
                           markers={dashboardDataList}
@@ -846,9 +862,27 @@ const Parking: React.FC<any> = (props) => {
                         />
                       ) : (
                         // </Grid>
-                        <div className={lotImageStyle}>
+                        // true ?
+                        <div
+                          className={lotImageStyle}
+                          style={{ position: "relative" }}
+                        >
+                          {!isDataLoadedLotImg && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,                                
+                                left: 0,
+                                bottom: 0,
+                                background: "#fff",
+                              }}
+                            >
+                              <Loader isHundredVh={false} />
+                            </div>
+                          )}
                           <img
-                          onLoad={()=>setIsDataLoadedLotImg(true)}
+                            onLoad={() => setIsDataLoadedLotImg(true)}
                             src={
                               selectedTheme === "light"
                                 ? LightThemeParkingLot1
@@ -858,9 +892,9 @@ const Parking: React.FC<any> = (props) => {
                             style={{ width: "95%" }}
                           />
                         </div>
+                        
                       )
-                    : <Loader isHundredVh={false} />
-                    }
+                     : <Loader isHundredVh={false} />}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -868,7 +902,8 @@ const Parking: React.FC<any> = (props) => {
                   item
                   xs={3}
                   className={notificationPanelGrid}
-                  style={{ height: "100%" }}>
+                  style={{ height: "100%" }}
+                >
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}
