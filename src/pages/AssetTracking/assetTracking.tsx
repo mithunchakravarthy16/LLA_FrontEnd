@@ -757,6 +757,42 @@ const AssetTracking: React.FC<any> = (props) => {
       //   return false;
       // });
 
+    //   const sampleLiveData = [
+    //     {
+    //         "trackerId": "740063943838",
+    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
+    //         "trackerStatus": "Active",
+    //         "notificationType": "Incident",
+    //         "currentLocation": {
+    //             "lat": 12.186451,
+    //             "lng": 78.119101
+    //         },
+    //         "currentArea": ""
+    //     },
+    //     {
+    //         "trackerId": "413051518008",
+    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
+    //         "trackerStatus": "Active",
+    //         "notificationType": "Incident",
+    //         "currentLocation": {
+    //             "lat": 9.0135021,
+    //             "lng": -79.4759242
+    //         },
+    //         "currentArea": ""
+    //     },
+    //     {
+    //         "trackerId": "740063943499",
+    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+    //         "trackerStatus": "Inactive",
+    //         "notificationType": "Incident",
+    //         "currentLocation": {
+    //             "lat": 12.1564923,
+    //             "lng": 78.1335807
+    //         },
+    //         "currentArea": ""
+    //     }
+    // ]
+
       const updatedUniqueData = combinedNotifications.map(
         (combinedDataItem: any) => {
           const uniqueDataItem = assetLiveData.find(
@@ -768,9 +804,10 @@ const AssetTracking: React.FC<any> = (props) => {
             return {
               ...combinedDataItem,
               location: uniqueDataItem?.currentLocation,
-              recentMarkerType: uniqueDataItem?.notificationType,
+              recentMarkerType: uniqueDataItem?.trackerStatus === "Inactive" ? uniqueDataItem?.trackerStatus :  uniqueDataItem?.notificationType,
               area : uniqueDataItem?.currentArea,
-              id : combinedDataItem?.assetNotificationId
+              id : combinedDataItem?.assetNotificationId,
+              trackerStatus  : uniqueDataItem?.trackerStatus
             };
           }
 
@@ -784,10 +821,10 @@ const AssetTracking: React.FC<any> = (props) => {
           location: asset?.currentLocation,
           category: "asset",
           title : `TR#${asset?.trackerId}`,
-          id : asset?.assetId
+          id : asset?.assetId,
+          recentMarkerType: asset?.trackerStatus === "Inactive" ? asset?.trackerStatus :  asset?.notificationType,
         };
       });
-
       setMapMarkerArrayList((selectedNotification === "" && !isMarkerClicked) ? updatedAssetLiveData : isMarkerClicked ? updatedAssetLiveData : updatedUniqueData);
       setNotificationArray(updatedUniqueData);
     }

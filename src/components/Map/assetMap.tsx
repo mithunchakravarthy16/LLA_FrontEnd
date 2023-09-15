@@ -55,6 +55,7 @@ import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
+import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg";
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -72,8 +73,7 @@ const fleetManagementCenter = {
   lng: 121.36458642272018,
 };
 
-const assetTrackingCenter = {   lat: 9.011771204307172,
-  lng: -79.47691596842526, };
+const assetTrackingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
 const libraries = ["places", "drawing"];
 
@@ -99,9 +99,8 @@ const AssetMap: React.FC<any> = (props) => {
     selectedTheme,
     setMap,
     map,
-    assetLiveMarker, 
-    setAssetLiveMarker
-
+    assetLiveMarker,
+    setAssetLiveMarker,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -126,8 +125,6 @@ const AssetMap: React.FC<any> = (props) => {
         break;
     }
   }, [selectedTheme]);
-
-
 
   // const [map, setMap] = useState<any>(null);
   // const [zoomValue, setZoomValue] = useState<number>(15);
@@ -558,7 +555,7 @@ const AssetMap: React.FC<any> = (props) => {
     category: string,
     notificationCategory: string,
     id: string,
-    marker:any
+    marker: any
   ) => {
     switch (notificationCategory) {
       case "Events": {
@@ -580,7 +577,7 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenEventActiveIcon
               : LighteningEventIcon;
           case "asset":
-            return (currentMarker === id || assetLiveMarker === id)
+            return currentMarker === id || assetLiveMarker === id
               ? AssetTrackingEventActiveIcon
               : AssetTrackingEventIcon;
           case "fleet":
@@ -609,7 +606,7 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenAlertActiveIcon
               : LighteningAlertIcon;
           case "asset":
-            return (currentMarker === id || assetLiveMarker === id)
+            return currentMarker === id || assetLiveMarker === id
               ? AssetTrackingAlertActiveIcon
               : AssetTrackingAlertIcon;
           case "fleet":
@@ -638,7 +635,7 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenIncidentActiveIcon
               : LighteningIncidentIcon;
           case "asset":
-            return (currentMarker === id || assetLiveMarker === id)
+            return currentMarker === id || assetLiveMarker === id
               ? AssetTrackingIncidentActiveIcon
               : AssetTrackingIncidentIcon;
           case "fleet":
@@ -649,7 +646,7 @@ const AssetMap: React.FC<any> = (props) => {
         }
       }
       default:
-        return ParkingIncidentIcon;
+        return AssetInactiveIcon;
     }
   };
 
@@ -707,7 +704,7 @@ const AssetMap: React.FC<any> = (props) => {
         ? assetTrackingCenter
         : center
     );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 :16);
+    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
     setProgress([]);
     setPoints([]);
     setData([]);
@@ -729,7 +726,6 @@ const AssetMap: React.FC<any> = (props) => {
     setSelectedListItemDestination("");
   }, [tabIndex]);
 
-
   function handleZoomChanged() {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
@@ -739,18 +735,17 @@ const AssetMap: React.FC<any> = (props) => {
     clustererRef.current?.repaint();
   }, [markers, marker]);
 
-  const handleLiveMarkerIcon = (id:any, location:any) =>{
-    setSelectedNotification("")
-    setAssetLiveMarker(assetLiveMarker === id ? "" : id )
+  const handleLiveMarkerIcon = (id: any, location: any) => {
+    setSelectedNotification("");
+    setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
-  }
+  };
 
-
-    const handleLiveMarkerClose = () => {
-      setAssetLiveMarker("");
-      setIsMarkerClicked(false);
-      map?.panTo(assetTrackingCenter);
-    }
+  const handleLiveMarkerClose = () => {
+    setAssetLiveMarker("");
+    setIsMarkerClicked(false);
+    map?.panTo(assetTrackingCenter);
+  };
 
   return (
     <>
@@ -781,51 +776,46 @@ const AssetMap: React.FC<any> = (props) => {
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
         >
-
-        <MarkerClustererF
-              averageCenter
-              enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-              gridSize={selectedContainerStyle?.is4kDevice ? 80 : 30}
-           
-            >
-              {(clusterer: any) => (
-                <div>
-                  {markers?.map((singleMarker: any) => {
-
-                      return (
-                        <>
-                          <MapMarker
-                            mapMarker={singleMarker}
-                            toggleInfoWindow={toggleInfoWindow}
-                            handleMarkerClose={handleMarkerClose}
-                            handleExpandListItem={handleExpandListItem}
-                            getMarkerIcon={getMarkerIcon}
-                            currentMarker={currentMarker}
-                            focusedCategory={focusedCategory}
-                            clusterer={clusterer}
-                            location={singleMarker?.currentLocation}
-                            handleAssetViewDetails={handleAssetViewDetails}
-                            mapPageName={mapPageName}
-                            handleViewDetails={handleViewDetails}
-                            handleVideoDetails={handleVideoDetails}
-                            selectedTheme={selectedTheme}
-                            setSelectedNotification={setSelectedNotification}
-                            setIsMarkerClicked={setIsMarkerClicked}
-                            markers={markers}
-                            assetLiveMarker={assetLiveMarker}
-                            setAssetLiveMarker={setAssetLiveMarker}
-                            handleLiveMarkerIcon={handleLiveMarkerIcon}
-                            handleLiveMarkerClose={handleLiveMarkerClose}
-                          />
-                        </>
-                      );
-                    
-                  })}
-                </div>
-              )}
-            </MarkerClustererF>
-
+          <MarkerClustererF
+            averageCenter
+            enableRetinaIcons
+            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
+            gridSize={selectedContainerStyle?.is4kDevice ? 80 : 30}
+          >
+            {(clusterer: any) => (
+              <div>
+                {markers?.map((singleMarker: any) => {
+                  return (
+                    <>
+                      <MapMarker
+                        mapMarker={singleMarker}
+                        toggleInfoWindow={toggleInfoWindow}
+                        handleMarkerClose={handleMarkerClose}
+                        handleExpandListItem={handleExpandListItem}
+                        getMarkerIcon={getMarkerIcon}
+                        currentMarker={currentMarker}
+                        focusedCategory={focusedCategory}
+                        clusterer={clusterer}
+                        location={singleMarker?.currentLocation}
+                        handleAssetViewDetails={handleAssetViewDetails}
+                        mapPageName={mapPageName}
+                        handleViewDetails={handleViewDetails}
+                        handleVideoDetails={handleVideoDetails}
+                        selectedTheme={selectedTheme}
+                        setSelectedNotification={setSelectedNotification}
+                        setIsMarkerClicked={setIsMarkerClicked}
+                        markers={markers}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        handleLiveMarkerIcon={handleLiveMarkerIcon}
+                        handleLiveMarkerClose={handleLiveMarkerClose}
+                      />
+                    </>
+                  );
+                })}
+              </div>
+            )}
+          </MarkerClustererF>
         </GoogleMap>
       )}
     </>

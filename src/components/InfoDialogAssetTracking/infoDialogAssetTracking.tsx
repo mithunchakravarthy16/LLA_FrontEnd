@@ -291,7 +291,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   const tabsList = [
     { name: assetsTracking.assetDetails, val: 0 },
-    { name: assetsTracking.GEOFENCE, val: 1 },
+    // { name: assetsTracking.GEOFENCE, val: 1 },
   ];
 
   const handleHeaderTab = (index: number) => {
@@ -323,7 +323,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     {
       label: assetsTracking.assetsId,
       value:
-        selectedMarker?.assetName !== null
+        selectedMarker?.assetName === null
           ? selectedMarker?.assetName
           : "LLA Asset",
     },
@@ -723,7 +723,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         marginRight: "2%",
                       }}
                     >
-                      <Grid  xs={12} className={assetInfoLeftPanelTop}>
+                      <Grid  className={assetInfoLeftPanelTop}>
                         <div>
                           <div className={leftPanelSection} style={{}}>
                             {assetInfoTopPanelData?.map(
@@ -762,7 +762,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           </div>
                         </div>
                       </Grid>
-                      <Grid xs={12} className={assetInfoLeftPanelCenter}>
+                      <Grid className={assetInfoLeftPanelCenter}>
                         <div
                           style={{
                             padding: " 3%",
@@ -854,7 +854,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           )}
                         </div>
                       </Grid>
-                      <Grid xs={12} className={assetInfoLeftPanelBottom}>
+                      <Grid className={assetInfoLeftPanelBottom}>
                         <CustomizedSteppers
                           dataPoints={assetTrackerDetails?.journeyDetails}
                           selectedTheme={selectedTheme}

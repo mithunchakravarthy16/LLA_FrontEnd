@@ -57,6 +57,7 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
+import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg"
 import useStyles from "./styles";
 
 const defaultCenter = {
@@ -685,7 +686,7 @@ const Map: React.FC<any> = (props) => {
         }
       }
       default:
-        return ParkingIncidentIcon;
+        return AssetInactiveIcon;
     }
   };
 

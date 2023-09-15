@@ -113,7 +113,8 @@ const MapMarker: React.FC<any> = (props) => {
           icon={{
             url: getMarkerIcon(
               mapMarker?.category,
-              mapMarker?.recentMarkerType ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
+              mapMarker?.recentMarkerType,
+              // mapMarker?.recentMarkerType === "Inactive" ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
               mapMarker?.id
             ),
             scaledSize: new window.google.maps.Size(
