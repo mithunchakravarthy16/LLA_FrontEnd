@@ -24,7 +24,7 @@ const useStyles = makeStyles(
       "& .MuiStepConnector-root": {
         left: "calc(-50% + 14px)",
         right: "calc(50% + 14px)",
-        top: "1.7vh",
+        top: "2.7vh",
       },
 
       "& .MuiStepConnector-line": {
