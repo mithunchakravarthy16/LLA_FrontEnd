@@ -51,17 +51,17 @@ const useStyles = makeStyles({
         left: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "36vh !important"
+            ? "35vh !important"
             : "28vh !important",
       },
     },
     "& .gmnoprint": {
       position: "absolute !important",
       // right: "2.5vw !important",
-      // top:
-      //   props?.mapPageName === "dashboard"
-      //     ? "30vh !important"
-      //     : "24vh !important",
+      top:
+        props?.mapPageName === "dashboard"
+          ? "30vh !important"
+          : "24vh !important",
       [muiTheme.breakpoints.up(3839)]: {
         right: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
@@ -87,8 +87,8 @@ const useStyles = makeStyles({
         right: props?.mapPageName === "dashboard" && "5.8vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "32vh !important"
-            : "24vh !important",
+            ? "30vh !important"
+            : "23vh !important",
       },
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
