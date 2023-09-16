@@ -11,13 +11,7 @@ import { ColorlibStepIconRoot } from "./styles";
 import Tooltip from "elements/Tooltip";
 
 const ColorlibStepIcon: React.FC<any> = (props) => {
-  const { active, completed, className } = props;
-
-  //   const icons = {
-  //     1: <SettingsIcon />,
-  //     2: <GroupAddIcon />,
-  //     3: <VideoLabelIcon />
-  //   };
+  const { active, completed, className, trackerStatus } = props;
 
   return (
     <ColorlibStepIconRoot
@@ -26,20 +20,18 @@ const ColorlibStepIcon: React.FC<any> = (props) => {
       purpleShades={"#004F9F"}
       colorWhite={"#FFF"}
       greenShade={"#9BF15C"}
+      trackerStatus={trackerStatus}
     />
   );
 };
 
 const CustomizedSteppers: React.FC<any> = (props) => {
-  const { dataPoints, selectedTheme, packageData } = props;
+  const { dataPoints, selectedTheme, trackerStatus } = props;
+
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  const { stepperSx, typographySx } = useStyles(appTheme);
-
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
+  const { stepperSx, typographySx } = useStyles({...appTheme, trackerStatus : trackerStatus });
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -109,7 +101,7 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                 )}
                 {/* {label?.packageStage} */}
               </Typography>
-              <StepLabel StepIconComponent={ColorlibStepIcon}>
+              <StepLabel  StepIconComponent={(stepProps) => <ColorlibStepIcon {...stepProps} trackerStatus={trackerStatus} />}  >
                 {moment(label?.timestamp)?.format("DD-MM-YYYY | HH:mm A")}
                 {/* {label?.timeStamp} */}
               </StepLabel>

@@ -571,9 +571,10 @@ const AssetMap: React.FC<any> = (props) => {
       case "Events": {
         switch (category) {
           case "parking":
-            return currentMarker === id
-              ? ParkingEventActiveIcon
-              : ParkingEventIcon;
+            // return currentMarker === id
+            //   ? ParkingEventActiveIcon
+            //   : ParkingEventIcon;
+            return  ParkingEventIcon;
           case "energy":
             return currentMarker === id
               ? EnergyManagementEventActiveIcon
@@ -587,9 +588,10 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenEventActiveIcon
               : LighteningEventIcon;
           case "asset":
-            return currentMarker === id || assetLiveMarker === id
-              ? AssetTrackingEventActiveIcon
-              : AssetTrackingEventIcon;
+            // return (currentMarker === id || assetLiveMarker === id)
+            //   ? AssetTrackingEventActiveIcon
+            //   : AssetTrackingEventIcon;
+            return AssetTrackingEventIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
             return currentMarker === id ? FleetEventIcon : FleetEventIcon;
@@ -600,9 +602,10 @@ const AssetMap: React.FC<any> = (props) => {
       case "Alerts": {
         switch (category) {
           case "parking":
-            return currentMarker === id
-              ? ParkingAlertActiveIcon
-              : ParkingAlertIcon;
+            // return currentMarker === id
+            //   ? ParkingAlertActiveIcon
+            //   : ParkingAlertIcon;
+            return  ParkingAlertIcon;
           case "energy":
             return currentMarker === id
               ? EnergyManagementAlertActiveIcon
@@ -616,22 +619,25 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenAlertActiveIcon
               : LighteningAlertIcon;
           case "asset":
-            return currentMarker === id || assetLiveMarker === id
-              ? AssetTrackingAlertActiveIcon
-              : AssetTrackingAlertIcon;
+            // return (currentMarker === id || assetLiveMarker === id)
+            //   ? AssetTrackingAlertActiveIcon
+            //   : AssetTrackingAlertIcon;
+            return AssetTrackingAlertIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
             return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
           default:
             return ParkingAlertIcon;
         }
+        break;
       }
       case "Incident": {
         switch (category) {
           case "parking":
-            return currentMarker === id
-              ? ParkingIncidentActiveIcon
-              : ParkingIncidentIcon;
+            // return currentMarker === id
+            //   ? ParkingIncidentActiveIcon
+            //   : ParkingIncidentIcon;
+            return ParkingIncidentIcon;
           case "energy":
             return currentMarker === id
               ? EnergyManagementIncidentActiveIcon
@@ -645,13 +651,22 @@ const AssetMap: React.FC<any> = (props) => {
               ? LightenIncidentActiveIcon
               : LighteningIncidentIcon;
           case "asset":
-            return currentMarker === id || assetLiveMarker === id
-              ? AssetTrackingIncidentActiveIcon
-              : AssetTrackingIncidentIcon;
+            // return (currentMarker === id || assetLiveMarker === id)
+            //   ? AssetTrackingIncidentActiveIcon
+            //   : AssetTrackingIncidentIcon;
+            return AssetTrackingIncidentIcon;
           case "fleet":
             //return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
             return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
           default:
+            return ParkingIncidentIcon;
+        }
+      }
+      case "Inactive": {
+        switch (category) {
+          case "asset":
+            return AssetInactiveIcon
+      default:
             return ParkingIncidentIcon;
         }
       }

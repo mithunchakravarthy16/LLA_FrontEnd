@@ -56,8 +56,8 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
-    height: "16%",
-    marginBottom: "4%",
+    // height: "16%",
+    marginBottom: "3%",
     border: `1px solid ${props?.palette?.assetTrackingPage?.topPanelBorder}`,
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
@@ -68,12 +68,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-    height: "50%",
+    // height: "50%",
     marginottom: "4vh",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     width: "100%",
-    height: "30%",
+    // height: "30%",
   }),
   leftPanelSection: (props: any) => ({
     display: "flex",
