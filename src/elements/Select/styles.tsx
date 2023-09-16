@@ -27,15 +27,15 @@ const useStyles = makeStyles(
         background: props?.selectedTheme === "light" ? "#F1624C" : "#F26522",
         width: "5vw",
         [muiTheme.breakpoints.down(2049)]: {
-          fontSize: "0.6vw",
-          width: "4vw",
+          fontSize: "0.7vw",
+          width: "5vw",
         },
         "& .MuiSvgIcon-root": {
           position: "absolute",
           right: "10px",
           fontSize: "1.5vw",
           [muiTheme.breakpoints.down(2049)]: {
-            fontSize: "1vw",
+            fontSize: "1.3vw",
           },
         },
         "& .MuiOutlinedInput-notchedOutline": {

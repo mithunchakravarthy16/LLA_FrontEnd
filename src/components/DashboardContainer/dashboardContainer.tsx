@@ -117,7 +117,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
-  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -167,7 +167,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     let assetPayload: any = {
       filterText: "",
       pageNo: 0,
-      pageSize: 100000,
+      pageSize: 10000,
     };
 
     dispatch(getNotificationData(assetPayload));
@@ -320,7 +320,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
         const updatedUniqueData = consolidatedMarkerData?.map(
           (combinedDataItem: any) => {
-            const uniqueDataItem = assetLiveData.find(
+            const uniqueDataItem = assetLiveData?.find(
               (uniqueDataItem: any) =>
                 uniqueDataItem.trackerId === combinedDataItem.trackerId
             );
@@ -329,7 +329,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               return {
                 ...combinedDataItem,
                 location: uniqueDataItem?.currentLocation,
-                recentMarkerType: uniqueDataItem?.notificationType,
+                recentMarkerType:
+                  uniqueDataItem?.trackerStatus === "Inactive"
+                    ? uniqueDataItem?.trackerStatus
+                    : uniqueDataItem?.notificationType,
                 area: uniqueDataItem?.currentArea,
                 id: combinedDataItem?.assetNotificationId,
               };
@@ -339,13 +342,17 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
           }
         );
 
-        const updatedAssetLiveData = assetLiveData.map((asset: any) => {
+        const updatedAssetLiveData = assetLiveData?.map((asset: any) => {
           return {
             ...asset,
             location: asset?.currentLocation,
             category: "asset",
             title: `TR#${asset?.trackerId}`,
             id: asset?.assetId,
+            recentMarkerType:
+              asset?.trackerStatus === "Inactive"
+                ? asset?.trackerStatus
+                : asset?.notificationType,
           };
         });
 
@@ -443,7 +450,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     if(selectedNotification) {
       setIsMarkerClicked(false)
     }
-  },[selectedNotification])
+  }, [selectedNotification]);
 
   return (
     <>
@@ -451,7 +458,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={success}
-          onClose={handleClose}>
+          onClose={handleClose}
+        >
           <Alert
             onClose={handleClose}
             severity={
@@ -470,7 +478,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                 ? "error"
                 : undefined
             }
-            sx={{ width: "100%" }}>
+            sx={{ width: "100%" }}
+          >
             {(fleetManagementNotificationResponse?.status === 500 ||
               fleetManagementTripDetailsResponse?.status === 500) && (
               <div style={{ display: "flex" }}>
@@ -541,6 +550,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   selectedTheme={selectedTheme}
                   setMap={setMap}
                   map={map}
+                  searchOpen={searchOpen}
+                  selectedNotification={selectedNotification}
                 />
               </div>
             </Grid>
@@ -585,7 +596,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
               {notificationPanelActive && (
                 <div
                   className={notificationPanelSection}
-                  style={{ width: "24%" }}>
+                  style={{ width: "24%" }}
+                >
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}

@@ -858,6 +858,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         <CustomizedSteppers
                           dataPoints={assetTrackerDetails?.journeyDetails}
                           selectedTheme={selectedTheme}
+                          trackerStatus = {assetTrackerDetails?.trackerStatus}
                         />
                       </Grid>
                     </Grid>

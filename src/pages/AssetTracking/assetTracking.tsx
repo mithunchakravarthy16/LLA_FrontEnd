@@ -16,7 +16,7 @@ import useTranslation from "localization/translations";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
-import AssetMap from "components/Map/assetMap";
+import AssetMap from "../../components/Map/assetMap";
 import moment from "moment";
 import Chart from "elements/Chart";
 import Highcharts from "highcharts";
@@ -793,9 +793,10 @@ const AssetTracking: React.FC<any> = (props) => {
     //     }
     // ]
 
+
       const updatedUniqueData = combinedNotifications.map(
         (combinedDataItem: any) => {
-          const uniqueDataItem = assetLiveData.find(
+          const uniqueDataItem = assetLiveData?.find(
             (uniqueDataItem: any) =>
               uniqueDataItem.trackerId === combinedDataItem.trackerId
           );
@@ -814,7 +815,7 @@ const AssetTracking: React.FC<any> = (props) => {
           return combinedDataItem;
         }
       );
-      const updatedAssetLiveData = assetLiveData.map((asset:any) => {
+      const updatedAssetLiveData = assetLiveData?.map((asset:any) => {
 
         return {
           ...asset,
@@ -829,6 +830,10 @@ const AssetTracking: React.FC<any> = (props) => {
       setNotificationArray(updatedUniqueData);
     }
   }, [assetNotificationList, assetLiveData, selectedNotification, isMarkerClicked, assetNotificationResponse]);
+
+
+
+
 
   useEffect(()=>{
     if(isMarkerClicked) {
@@ -903,6 +908,18 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [notificationArray, tabIndex]);
 
   const [selectedMarker, setSelectedMarker] = useState<any>();
+
+  useEffect(()=>{
+    if(searchOpen && selectedNotification !== "") {
+      setSearchValue(searchValue)
+    }
+  },[searchOpen, selectedNotification])
+
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(notificationArray)
+    );
+  }, [searchValue]);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
