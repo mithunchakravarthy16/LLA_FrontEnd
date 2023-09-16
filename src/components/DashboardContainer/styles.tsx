@@ -71,7 +71,7 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(1921)]: {
       // width: "450px",
       top: "104px",
-      height: "calc(100vh - 212px)",
+      height: "calc(100vh - 183px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       // width: "450px",
