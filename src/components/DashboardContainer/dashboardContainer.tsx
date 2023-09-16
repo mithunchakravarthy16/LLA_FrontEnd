@@ -172,95 +172,102 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
 
     dispatch(getNotificationData(assetPayload));
 
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000);
-
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
 
-    return () => {
-      clearInterval(interval);
-      clearInterval(intervalTime);
-    };
+    // const intervalTime = setInterval(() => {
+    //   dispatch(getNotificationData(assetPayload));
+    // }, 1 * 60 * 1000);
+
+
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
+
+    // return () => {
+    //   clearInterval(interval);
+    //   clearInterval(intervalTime);
+    // };
   }, []);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
     useState<any>([]);
 
+    const [dashboardListArray, setDashboardListArray] = useState<any>()
+
   const assetLiveData = useSelector(
     (state: any) => state?.assetTracker?.assetLiveData?.data
   );
 
-  useEffect(() => {
-    if (assetNotificationResponse && assetLiveData) {
-      const assetNotiData: any = formatttedAssetAPINotification(
-        assetNotificationResponse?.data
-      );
-      const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
-        dashboardNotification?.notifications
-      );
-      const fleetNotiData: any = formatttedFleetAPINotification(
-        fleetManagementNotificationResponse?.data
-      );
-      if (
-        assetNotiData &&
-        assetNotiData?.length > 0 &&
-        fleetNotiData &&
-        fleetNotiData?.length > 0
-      ) {
-        const consolidatedData = [
-          ...assetNotiData,
-          ...dashboardNotiData,
-          // ...fleetNotiData,
-        ];
+  const [assetLiveTrackerData, setAssetLiveTrackerData] =
+    useState<any>(assetLiveData);
 
-        const updatedUniqueData = consolidatedData?.map(
-          (combinedDataItem: any) => {
-            const uniqueDataItem = assetLiveData.find(
-              (uniqueDataItem: any) =>
-                uniqueDataItem.trackerId === combinedDataItem.trackerId
-            );
+  // useEffect(() => {
+  //   if (assetNotificationResponse && assetLiveData && !searchOpen) {
+  //     const assetNotiData: any = formatttedAssetAPINotification(
+  //       assetNotificationResponse?.data
+  //     );
+  //     const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
+  //       dashboardNotification?.notifications
+  //     );
+  //     const fleetNotiData: any = formatttedFleetAPINotification(
+  //       fleetManagementNotificationResponse?.data
+  //     );
+  //     if (
+  //       assetNotiData &&
+  //       assetNotiData?.length > 0 &&
+  //       fleetNotiData &&
+  //       fleetNotiData?.length > 0
+  //     ) {
+  //       const consolidatedData = [
+  //         ...assetNotiData,
+  //         ...dashboardNotiData,
+  //         // ...fleetNotiData,
+  //       ];
 
-            if (uniqueDataItem) {
-              return {
-                ...combinedDataItem,
-                location: uniqueDataItem?.currentLocation,
-                recentMarkerType: uniqueDataItem?.notificationType,
-                area: uniqueDataItem?.currentArea,
-                id: combinedDataItem?.assetNotificationId,
-              };
-            }
+  //       const updatedUniqueData = consolidatedData?.map(
+  //         (combinedDataItem: any) => {
+  //           const uniqueDataItem = assetLiveData?.find(
+  //             (uniqueDataItem: any) =>
+  //               uniqueDataItem.trackerId === combinedDataItem.trackerId
+  //           );
 
-            return [...dashboardNotiData, combinedDataItem];
-          }
-        );
+  //           if (uniqueDataItem) {
+  //             return {
+  //               ...combinedDataItem,
+  //               location: uniqueDataItem?.currentLocation,
+  //               recentMarkerType: uniqueDataItem?.notificationType,
+  //               area: uniqueDataItem?.currentArea,
+  //               id: combinedDataItem?.assetNotificationId,
+  //             };
+  //           }
 
-        const updatedAssetLiveData = assetLiveData.map((asset: any) => {
-          return {
-            ...asset,
-            location: asset?.currentLocation,
-            category: "asset",
-            title: `TR#${asset?.trackerId}`,
-            id: asset?.assetId,
-          };
-        });
+  //           return [...dashboardNotiData, combinedDataItem];
+  //         }
+  //       );
 
-        setMapMarkerArray(
-          selectedNotification === "" && !isMarkerClicked
-            ? [...dashboardNotiData, ...updatedAssetLiveData]
-            : isMarkerClicked
-            ? [...dashboardNotiData, ...updatedAssetLiveData]
-            : updatedUniqueData
-        );
-        setDashboardNotificationList(updatedUniqueData);
-      }
-    }
-  }, []);
+  //       const updatedAssetLiveData = assetLiveData?.map((asset: any) => {
+  //         return {
+  //           ...asset,
+  //           location: asset?.currentLocation,
+  //           category: "asset",
+  //           title: `TR#${asset?.trackerId}`,
+  //           id: asset?.assetId,
+  //         };
+  //       });
+
+  //       setMapMarkerArray(
+  //         selectedNotification === "" && !isMarkerClicked
+  //           ? [...dashboardNotiData, ...updatedAssetLiveData]
+  //           : isMarkerClicked
+  //           ? [...dashboardNotiData, ...updatedAssetLiveData]
+  //           : updatedUniqueData
+  //       );
+  //       setDashboardNotificationList(updatedUniqueData);
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     setSuccess(false);
@@ -280,7 +287,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     ) {
       setSuccess(true);
     } else if (
-      assetNotificationResponse
+      assetNotificationResponse && !searchOpen
       // &&
       // fleetManagementNotificationResponse?.status === 200
     ) {
@@ -296,7 +303,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       );
       if (
         assetNotiData &&
-        assetNotiData?.length > 0
+        assetNotiData?.length > 0 && !searchOpen
         // fleetNotiData &&
         // fleetNotiData?.length > 0
       ) {
@@ -366,28 +373,105 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         setDashboardNotificationList(updatedUniqueData);
       }
     }
+  }, [assetNotificationResponse, assetLiveData, isMarkerClicked, searchOpen]);
+
+  const [assetStateLive, setAssetStateLive] = useState<any>(assetLiveData)
+
+  useEffect(() => {
+    if (assetNotificationResponse && searchOpen && selectedNotification) {
+
+      const assetNotiData: any = formatttedAssetAPINotification(
+        assetNotificationResponse?.data
+      );
+      const dashboardNotiData: any = formatttedDashboardAPINotificaiton(
+        dashboardNotification?.notifications
+      );
+      const fleetNotiData: any = formatttedFleetAPINotification(
+        fleetManagementNotificationResponse?.data
+      );
+
+      const consolidatedData = [
+        ...assetNotiData,
+        ...dashboardNotiData,
+        // ...fleetNotiData,
+      ];
+
+
+      const updatedUniqueData = consolidatedData?.map(
+        (combinedDataItem: any) => {
+          const uniqueDataItem = assetStateLive?.find(
+            (uniqueDataItem: any) =>
+              uniqueDataItem.trackerId === combinedDataItem.trackerId
+          );
+
+          if (uniqueDataItem ) {
+            return {
+              ...combinedDataItem,
+              location: uniqueDataItem?.currentLocation,
+              recentMarkerType:
+                uniqueDataItem?.trackerStatus === "Inactive"
+                  ? uniqueDataItem?.trackerStatus
+                  : uniqueDataItem?.notificationType,
+              area: uniqueDataItem?.currentArea,
+              id: combinedDataItem?.assetNotificationId,
+            };
+          }
+          return combinedDataItem;
+        }
+      );
+
+      const updatedAssetLiveData = assetStateLive?.map((asset: any) => {
+        return {
+          ...asset,
+          location: asset?.currentLocation,
+          category: "asset",
+          title: `TR#${asset?.trackerId}`,
+          id: asset?.assetId,
+          recentMarkerType:
+            asset?.trackerStatus === "Inactive"
+              ? asset?.trackerStatus
+              : asset?.notificationType,
+        };
+      });
+
+      setMapMarkerArray(
+        selectedNotification === "" && !isMarkerClicked
+          ? [...consolidatedData, ...updatedAssetLiveData]
+          : isMarkerClicked
+          ? [...dashboardNotificationList, ...updatedAssetLiveData]
+          : updatedUniqueData
+      );
+      setDashboardNotificationList(updatedUniqueData);
+    }
   }, [
-    assetNotificationResponse,
-    assetLiveData,
     selectedNotification,
-    isMarkerClicked,
+    searchOpen,
   ]);
+
+  useEffect(()=>{
+    if(searchOpen && selectedNotification !== "") {
+      setSearchValue(searchValue)
+    }
+  },[searchOpen, selectedNotification])
+
   // fleetManagementNotificationResponse &&
   const [notificationCount, setNotificationCount] = useState<any>(
     assetNotificationResponse &&
       formatttedDashboardNotificationCount(dashboardNotificationList)
   );
 
-  useEffect(() => {
-    setNotificationCount(
-      formatttedDashboardNotificationCount(dashboardNotificationList)
-    );
-  }, [dashboardNotificationList]);
 
   const [searchValue, setSearchValue] = useState<any>(
     dashboardNotificationList &&
       formatttedDashboardNotification(dashboardNotificationList, tabIndex)
   );
+
+  
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(dashboardNotificationList)
+    );
+  }, [searchValue]);
 
   const [dashboardData, setDashboardData] = useState<any>(
     dashboardNotificationList &&
