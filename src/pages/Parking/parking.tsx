@@ -205,6 +205,11 @@ const Parking: React.FC<any> = (props) => {
     Object.assign({}, item, dashboardArray[i])
   );
 
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(formatttedDashboardNotification(dashboardDataList, tabIndex));
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
+  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
+
+
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(dashboardDataList, tabIndex)
   );
@@ -449,6 +454,8 @@ const Parking: React.FC<any> = (props) => {
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  console.log("liveMarkerList", liveMarkerList)
 
   return (
     <>
@@ -860,6 +867,11 @@ const Parking: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           setMap={setMap}
                           map={map}
+                          selectedNotification={selectedNotification}
+                          liveMarkerList={dashboardDataList}
+                          listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
+                          selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}                      
+                          isMarkerClicked={isMarkerClicked}
                         />
                       ) : (
                         // </Grid>
@@ -925,7 +937,10 @@ const Parking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
-                    setAssetLiveMarker = {setAssetLiveMarker}
+                    setAssetLiveMarker={setAssetLiveMarker}
+                    liveMarkerList={liveMarkerList}
+                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}   
                   />
                 </Grid>
               </Grid>

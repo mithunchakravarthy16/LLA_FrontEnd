@@ -35,6 +35,8 @@ const MapMarker: React.FC<any> = (props) => {
     setAssetLiveMarker
   } = props;
 
+  console.log("selectedNotificationItem", selectedNotificationItem)
+
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
 
@@ -130,7 +132,7 @@ const MapMarker: React.FC<any> = (props) => {
           zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
         />
   
-        {((assetLiveMarker === mapMarker?.markerId ) || (listSelectedMarker === mapMarker?.markerId) )  && (
+        {((assetLiveMarker === selectedNotificationItem?.markerId ) || (listSelectedMarker === mapMarker?.markerId) )  && (
           <InfoWindowF
             position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
@@ -139,7 +141,7 @@ const MapMarker: React.FC<any> = (props) => {
               {mapMarker?.trackerId}
             </div> */}
             <NotificationListItems
-              data={ [((assetLiveMarker === mapMarker?.markerId ) || (listSelectedMarker === mapMarker?.markerId) ) ? mapMarker : selectedNotificationItem]}
+              data={ [((assetLiveMarker === selectedNotificationItem?.markerId ) || (listSelectedMarker === mapMarker?.markerId) ) ? mapMarker : selectedNotificationItem]}
               pageName={"markerCallout"}
               handleMarkerClose={handleLiveMarkerClose}
               handleExpandListItem={handleExpandListItem}
@@ -148,7 +150,7 @@ const MapMarker: React.FC<any> = (props) => {
               handleViewDetails={handleViewDetails}
               handleVideoDetails={handleVideoDetails}
               selectedTheme={selectedTheme}
-              markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
+              markerType = {assetLiveMarker === selectedNotificationItem?.markerId && "assetLiveMarker" }
               isMarkerClicked = {isMarkerClicked}
               setAssetLiveMarker={setAssetLiveMarker}
             />
