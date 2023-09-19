@@ -989,7 +989,10 @@ const Map: React.FC<any> = (props) => {
       setListSelectedMarker("");
       setSelectedNotification("")
       // setAssetLiveMarker("")
+    } else {
+      setAssetLiveMarker("")
     }
+    
   },[isMarkerClicked])
   return (
     <>

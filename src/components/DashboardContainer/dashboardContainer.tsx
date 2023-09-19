@@ -293,7 +293,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       }
   ]
 
-  const updatedLiveData : any = sampleLiveData?.map((asset:any) => {
+  const updatedLiveData : any = assetLiveData?.map((asset:any) => {
 
     return {
       ...asset,
