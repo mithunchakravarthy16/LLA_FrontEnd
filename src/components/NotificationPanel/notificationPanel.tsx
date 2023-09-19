@@ -10,6 +10,8 @@ import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconL
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
 
 import useStyles from "./styles";
 import { constants } from "buffer";
@@ -41,9 +43,10 @@ const NotificationPanel = (props: any) => {
     listSelectedMarker,
     setListSelectedMarker,
     selectedNotificationItem,
-setSelectedNotificationItem
+setSelectedNotificationItem,
+setDebounceSearchText
   } = props;
-
+  const dispatch = useDispatch()
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
@@ -123,6 +126,9 @@ setSelectedNotificationItem
     setTabIndex(index);
     setSearchOpen(false);
     setSelectedNotification("");
+    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
+    setDebounceSearchText("")
+    }
     // setSelectedRefId("");
   };
 
@@ -191,6 +197,51 @@ setSelectedNotificationItem
     // setSelectedNotification("");
   };
 
+   //debouncing start
+   const delayTime = notificationPageName === "asset" ? 500 : 3000;
+   const fetchingDataForSearch = (searchValue:any) => {
+    
+    let assetPayload = {};
+    if (searchValue) {
+       assetPayload = {
+    filterText: searchValue,
+    pageNo: 0,
+    pageSize: 100000,
+  };
+      // setPage(0);
+    } else {
+      assetPayload = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: 100000,
+      };
+      // setPage(0);
+      // setRowsPerPage(100);
+    }
+    dispatch(getNotificationData(assetPayload));
+     setDebounceSearchText(searchValue)
+    // setSearchPageNo("");
+    console.log("test", searchValue)
+  };
+
+  const debounce = (func:any, delay:any) => {
+    let timeout:any;
+
+    return (...arg:any) => {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func.apply(context, arg);
+      }, delay);
+    };
+  };
+
+  const handleSearchtest = useCallback(debounce(fetchingDataForSearch, delayTime),[]); 
+
+  //debouncing end
+
+
+
   const handleCloseIcon = () => {
     setSearchValue(dashboardData);
     setSelectedNotification("");
@@ -204,6 +255,9 @@ setSelectedNotificationItem
     setSelectedNotification("");
     setAssetLiveMarker("");
     setListSelectedMarker("")
+    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
+    setDebounceSearchText("")
+    }
   };
 
   const refs =
@@ -262,6 +316,7 @@ setSelectedNotificationItem
   useEffect(() => {
     setSearchOpen(false);
     setSearchValue(dashboardData);
+    
   }, [tabIndex]);
 
   useEffect(()=>{
@@ -291,6 +346,9 @@ setSelectedNotificationItem
                 handleCloseIcon={handleCloseIcon}
                 searchIsOpen={searchOpen}
                 selectedTheme={selectedTheme}
+                notificationPageName={notificationPageName}
+                handleSearchtest={handleSearchtest}
+                setDebounceSearchText={setDebounceSearchText}
               />
             ) : (
               notificationText

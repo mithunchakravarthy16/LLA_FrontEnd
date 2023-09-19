@@ -259,17 +259,7 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
-    let assetPayload: any = {
-      filterText: "",
-      pageNo: 0,
-      pageSize: 100000,
-    };
-
-    dispatch(getNotificationData(assetPayload));
-
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000)
+ 
 
     let assetLiveDataPayload : any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload))
@@ -281,12 +271,47 @@ const AssetTracking: React.FC<any> = (props) => {
 
     return () => {
       clearInterval(interval);
-      clearInterval(intervalTime);
     };
 
     
 
   }, []);
+
+  const[debounceSearchText,setDebounceSearchText]=useState<any>("")
+
+  useEffect(()=>{
+    let assetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: 0,
+      pageSize: 100000,
+    };
+    if(!debounceSearchText){
+     assetPayload = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: 100000,
+      };
+  
+      dispatch(getNotificationData(assetPayload));
+
+      
+    } else if(debounceSearchText){
+       assetPayload = {
+        filterText: debounceSearchText,
+        pageNo: 0,
+        pageSize: 100000,
+      };
+      
+    }
+
+   const intervalTime = setInterval(() => {
+      dispatch(getNotificationData(assetPayload));
+    }, 1 * 60 * 1000)
+
+    return () => {
+      clearInterval(intervalTime);
+    };
+  },[debounceSearchText])
 
   const assetLiveData = useSelector((state:any)=>state?.assetTracker?.assetLiveData?.data)
 
@@ -1437,6 +1462,8 @@ const AssetTracking: React.FC<any> = (props) => {
                     setAssetLiveMarker={setAssetLiveMarker}
                     listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
                     selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem} 
+                    notificationPageName={"asset"}
+                    setDebounceSearchText={setDebounceSearchText}
                   />
                 </Grid>
               </Grid>

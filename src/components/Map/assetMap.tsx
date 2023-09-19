@@ -724,9 +724,9 @@ const AssetMap: React.FC<any> = (props) => {
     console.log("Markerid", id)
     setIsMarkerClicked(true);
     // setSelectedNotification("");
-    // setAssetLiveMarker(id);
+    //  setAssetLiveMarker(id);
     // setListSelectedMarker(id)
-    // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
+     setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
     // setSelectedNotification((prev: any) => {
     //   return prev && prev == id ? "" : id;
@@ -763,6 +763,11 @@ const AssetMap: React.FC<any> = (props) => {
   // useEffect(()=>{
   //   map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location)
   // },[selectedNotificationItem])
+  useEffect(()=>{
+    if(selectedNotificationItem) {
+      map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
+    }
+  },[selectedNotificationItem])
 
   return (
     <>

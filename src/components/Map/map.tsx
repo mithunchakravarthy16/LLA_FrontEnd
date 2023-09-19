@@ -945,7 +945,7 @@ const Map: React.FC<any> = (props) => {
 
   useEffect(()=>{
     if(marker === "" ||assetLiveMarker === "" ) {
-      map?.setZoom(16);
+      map?.setZoom(17.2);
     }
   },[marker, markers, assetLiveMarker,])
 
@@ -993,6 +993,14 @@ const Map: React.FC<any> = (props) => {
     }
     
   },[isMarkerClicked])
+
+
+  useEffect(()=>{
+    if(selectedNotification) {
+      map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
+    }
+  },[selectedNotification])
+
   return (
     <>
       {isLoaded && (
