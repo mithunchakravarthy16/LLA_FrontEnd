@@ -140,7 +140,7 @@ const MapMarker: React.FC<any> = (props) => {
               {mapMarker?.trackerId}
             </div> */}
             <NotificationListItems
-              data={ [((assetLiveMarker === mapMarker?.markerId ) || (listSelectedMarker === mapMarker?.markerId) ) ? mapMarker : selectedNotificationItem]}
+              data={ [selectedNotificationItem]}
               pageName={"markerCallout"}
               handleMarkerClose={handleLiveMarkerClose}
               handleExpandListItem={handleExpandListItem}
