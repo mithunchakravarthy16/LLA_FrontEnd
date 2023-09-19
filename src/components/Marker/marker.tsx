@@ -35,8 +35,6 @@ const MapMarker: React.FC<any> = (props) => {
     setAssetLiveMarker
   } = props;
 
-  console.log("selectedNotificationItem", selectedNotificationItem)
-
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
 

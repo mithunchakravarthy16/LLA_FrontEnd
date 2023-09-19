@@ -455,8 +455,6 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  console.log("liveMarkerList", liveMarkerList)
-
   return (
     <>
       {!loaderAdminGetConfigData &&
