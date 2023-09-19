@@ -760,9 +760,13 @@ const AssetMap: React.FC<any> = (props) => {
   },[isMarkerClicked])
 
 
-  // useEffect(()=>{
-  //   map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location)
-  // },[selectedNotificationItem])
+  useEffect(()=>{
+    if(selectedNotificationItem) {
+      map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
+
+    }
+
+  },[selectedNotificationItem])
 
   return (
     <>
