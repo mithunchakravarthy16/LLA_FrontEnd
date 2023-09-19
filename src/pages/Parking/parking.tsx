@@ -60,6 +60,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -924,6 +925,7 @@ const Parking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker = {setAssetLiveMarker}
                   />
                 </Grid>
               </Grid>

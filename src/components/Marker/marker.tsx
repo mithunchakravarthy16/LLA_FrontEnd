@@ -27,7 +27,8 @@ const MapMarker: React.FC<any> = (props) => {
     selectedTheme,
     assetLiveMarker,
     handleLiveMarkerIcon,
-    handleLiveMarkerClose
+    handleLiveMarkerClose,
+    selectedNotification
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -100,7 +101,7 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
-          clusterer={(currentMarker === "" ) ? clusterer : undefined}
+          clusterer={(currentMarker === "" && selectedNotification !== "" ) ? clusterer : undefined}
           animation={
             focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
               ? window.google.maps.Animation.BOUNCE
@@ -108,14 +109,15 @@ const MapMarker: React.FC<any> = (props) => {
           }
           position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
           onClick={() =>  
-            handleLiveMarkerIcon(mapMarker?.assetId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location )
+            handleLiveMarkerIcon(mapMarker?.assetId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker?.recentMarkerType, )
           }
           icon={{
             url: getMarkerIcon(
               mapMarker?.category,
               mapMarker?.recentMarkerType,
               // mapMarker?.recentMarkerType === "Inactive" ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
-              mapMarker?.id
+              mapMarker?.id,
+              mapMarker
             ),
             scaledSize: new window.google.maps.Size(
               window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,

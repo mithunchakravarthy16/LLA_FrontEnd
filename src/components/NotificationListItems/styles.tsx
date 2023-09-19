@@ -139,7 +139,7 @@ const useStyles = makeStyles({
   }),
 
   collapsedListItemTitle: (props: any) => ({
-    fontSize: 20,
+    fontSize: 18,
     letterSpacing: "0.5px",
     marginBottom: "3%",
     fontFamily: "HelveticaNeue-Regular",
@@ -157,7 +157,7 @@ const useStyles = makeStyles({
       // lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      fontSize: 20,
+      fontSize: 18,
       // lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(1921)]: {
