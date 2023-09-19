@@ -727,9 +727,12 @@ const AssetMap: React.FC<any> = (props) => {
     // setListSelectedMarker(id)
      setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
-    // setSelectedNotification((prev: any) => {
-    //   return prev && prev == id ? "" : id;
-    // });
+    if(marker?.category === "parking") {
+      setSelectedNotification((prev: any) => {
+        return prev && prev == id ? "" : id;
+      });
+    }
+
   };
 
   const handleLiveMarkerClose = () => {

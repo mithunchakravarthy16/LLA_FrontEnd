@@ -950,7 +950,9 @@ const Map: React.FC<any> = (props) => {
   },[marker, markers, assetLiveMarker, selectedNotificationItem, listSelectedMarker, selectedNotification])
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
-    if(data?.category === "parking") {
+
+    if(data?.category === "parking" || location?.pathname === "/parking") {
+
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
       setTabIndex(getTabIndex(data?.notificationType));
@@ -964,9 +966,7 @@ const Map: React.FC<any> = (props) => {
     // setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
-    // setSelectedNotification((prev: any) => {
-    //   return prev && prev == id ? "" : id;
-    // });
+
   };
 
 
@@ -975,7 +975,8 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
     setListSelectedMarker("")
     setIsMarkerClicked(false);
-    setAssetLiveMarker("")
+    setAssetLiveMarker("");
+    setSelectedNotificationItem("")
     map?.panTo(
       location?.pathname === "/home"
         ? defaultCenter
@@ -988,19 +989,6 @@ const Map: React.FC<any> = (props) => {
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
     setSelectedMarker("");
   };
-
-  // useEffect(()=>{
-
-  //   if(isMarkerClicked) {
-  //     setListSelectedMarker("");
-  //     setSelectedNotification("")
-  //     // setAssetLiveMarker("")
-  //   } else {
-  //     setAssetLiveMarker("")
-  //   }
-    
-  // },[isMarkerClicked])
-
 
   useEffect(()=>{
     if(selectedNotification) {

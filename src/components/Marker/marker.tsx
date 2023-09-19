@@ -163,16 +163,16 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
-          clusterer={(selectedNotification === "" ) ? clusterer : undefined}
+          clusterer={(selectedNotificationItem === "" ) ? clusterer : undefined}
   
           position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
-          onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
+          onClick={() =>{ handleLiveMarkerIcon(mapMarker?.id, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
           }
           icon={{
             url: getMarkerIcon(
               mapMarker?.category,
              mapMarker?.notificationType,
-              mapMarker?.markerId,
+              mapMarker?.id,
               mapMarker
             ),
             scaledSize: new window.google.maps.Size(
@@ -180,11 +180,11 @@ const MapMarker: React.FC<any> = (props) => {
               window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
             ),
           }}
-          key={mapMarker?.markerId}
-          zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
+          key={mapMarker?.id}
+          zIndex={listSelectedMarker === mapMarker?.id ? 1000 : 1}
         />
   
-        {(selectedNotification === mapMarker?.id) && (
+        {(assetLiveMarker === mapMarker?.id) && (
           <InfoWindowF
             position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
