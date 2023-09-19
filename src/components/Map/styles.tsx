@@ -27,33 +27,45 @@ const useStyles = makeStyles({
       //   props?.mapPageName === "dashboard"
       //     ? "35vh !important"
       //     : "28vh !important",
+
+      "& button": {
+        fontSize: "1vw !important",
+        height: "3vh !important",
+      },
       [muiTheme.breakpoints.up(3839)]: {
         left: props?.mapPageName === "dashboard" && "2.6vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "38vh !important"
             : "29vh !important",
+        "& button": {
+          height: "2.8vh !important",
+        },
       },
       [muiTheme.breakpoints.down(3073)]: {
         left: props?.mapPageName === "dashboard" && "2.6vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "40vh !important"
+            ? "39vh !important"
             : "29vh !important",
       },
       [muiTheme.breakpoints.down(2049)]: {
+        left: props?.mapPageName === "dashboard" && "4vw !important",
         top:
           props?.mapPageName === "dashboard"
             ? "38vh !important"
             : "28vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
-        left: props?.mapPageName === "dashboard" && "3.5vw !important",
+        left: props?.mapPageName === "dashboard" && "4vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "35vh !important"
+            ? "36vh !important"
             : "28vh !important",
       },
+      // "& button": {
+      //   height: "3vh !important",
+      // },
     },
     "& .gmnoprint": {
       position: "absolute !important",

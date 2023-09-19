@@ -70,9 +70,9 @@ const GridViewScreenSix: React.FC<any> = (props) => {
       //         item?.count,
       //       ])
       assetGridViewAnalyticsData?.push(item?.count);
-      assetGridViewAnalyticsXAxisData?.push(
-        moment(item?.node).format("hh:mm A")
-      );
+      const testDateUtc = moment.utc(item?.node);
+      const localDate = testDateUtc.local();
+      assetGridViewAnalyticsXAxisData?.push(localDate.format("hh:mm A"));
     });
     setAssetGridViewAnalyticsXaxisData(assetGridViewAnalyticsXAxisData);
     setAssetGridViewAnalyticsData(assetGridViewAnalyticsData);
@@ -165,12 +165,14 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/assetTracking");
-        }}>
+        }}
+      >
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}>
+          className={gridContainers}
+        >
           <Grid item xs={12} className={containerTitleTwo}>
             <div>{dashboard.assetsTracking}</div>
             <div
@@ -183,7 +185,8 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                 fontSize: "0.8vw",
                 fontWeight: 500,
                 marginRight: "4%",
-              }}>
+              }}
+            >
               {gridView.today}
             </div>
           </Grid>

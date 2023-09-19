@@ -13,6 +13,10 @@ const App = () => {
   );
 
   useEffect(() => {
+    document.title = "Smart Lab Tech - LLA";
+  }, []);
+
+  useEffect(() => {
     document.title = adminPanelData?.siteTitle;
 
     let link = document.querySelector("link[rel~='icon']");
@@ -25,7 +29,7 @@ const App = () => {
   }, [adminPanelData]);
 
   console.warn = console.error = console.info = console.debug = () => {};
-    // console.clear()
+  // console.clear()
 
   return (
     <BrowserRouter>
