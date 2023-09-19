@@ -10,6 +10,7 @@ import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconL
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
+import { useLocation } from "react-router-dom";
 
 import useStyles from "./styles";
 import { constants } from "buffer";
@@ -48,6 +49,8 @@ setSelectedNotificationItem
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
   const [appTheme, setAppTheme] = useState<any>();
+
+  const location = useLocation()
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -127,17 +130,38 @@ setSelectedNotificationItem
   };
 
   const handleExpandListItem = useCallback((param: any, markerId : any, data : any) => {
-    setSelectedNotificationItem(data);
-    setListSelectedMarker( markerId);
-    setAssetLiveMarker("")
+    if(location?.pathname !== "/parking") {
+      setListSelectedMarker(markerId);
+      setAssetLiveMarker("")
+     
+
+    }
     setIsMarkerClicked(false);
+    setSelectedNotificationItem(data);
+
     setSelectedNotification(selectedNotification === param ? "" : param);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);
       setParkingLotSelectionActive(false);
     }
     props.handleExpandListItem(param);
-  }, [selectedNotification, listSelectedMarker, isMarkerClicked]);
+
+
+  
+  }, [selectedNotification, listSelectedMarker, isMarkerClicked, selectedNotificationItem]);
+
+  // const handleExpandListItem = (param: any, markerId : any, data : any) => {
+  //   setSelectedNotificationItem(data);
+  //   setListSelectedMarker(markerId);
+  //   setAssetLiveMarker("")
+  //   setIsMarkerClicked(false);
+  //   setSelectedNotification(selectedNotification === param ? "" : param);
+  //   if (notificationPageName && notificationPageName === "parking") {
+  //     setParkingLotIndex(0);
+  //     setParkingLotSelectionActive(false);
+  //   }
+  //   props.handleExpandListItem(param);
+  // }
 
 
 
@@ -265,13 +289,18 @@ setSelectedNotificationItem
   }, [tabIndex]);
 
   useEffect(()=>{
-    if(selectedNotification === "") {
-      setAssetLiveMarker("");
-      setListSelectedMarker("");
+    if(location?.pathname !== "/parking") {
+      if(selectedNotification === "") {
+   
+        setAssetLiveMarker("");
+        setListSelectedMarker("");
+      }
+      if(listSelectedMarker === "") {
+        setSelectedNotification("")
+      }
+
     }
-    if(listSelectedMarker === "") {
-      setSelectedNotification("")
-    }
+  
   },[selectedNotification, listSelectedMarker])
 
   return (
