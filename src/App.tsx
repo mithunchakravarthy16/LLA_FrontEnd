@@ -29,7 +29,7 @@ const App = () => {
   }, [adminPanelData]);
 
   console.warn = console.error = console.info = console.debug = () => {};
-    // console.clear()
+  // console.clear()
 
   return (
     <BrowserRouter>
