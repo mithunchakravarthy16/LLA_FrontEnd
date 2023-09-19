@@ -26,6 +26,9 @@ const INF_SearchBox: React.FC<any> = (props) => {
     handleCloseIcon,
     pageName,
     selectedTheme,
+    handleSearchtest,
+    setDebounceSearchText,
+    notificationPageName,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -57,8 +60,12 @@ const INF_SearchBox: React.FC<any> = (props) => {
   const handleClose = () => {
     setSearchValue("");
     handleSearch("");
+    // handleSearchtest("")
     setIcon("search");
-
+    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
+      setDebounceSearchText("")
+    }
+    
     if (pageName !== "dashboardTracker") {
       handleCloseIcon();
     }
@@ -72,6 +79,9 @@ const INF_SearchBox: React.FC<any> = (props) => {
       setIcon("cancel");
     }
     handleSearch(event.target.value);
+    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
+    handleSearchtest(event.target.value)
+    }
   };
   const handleSearchFocus = () => {
     setSearchFocus(true);
@@ -86,12 +96,16 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSearchValue("");
+    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
+    setDebounceSearchText("")
+    }
   }, [searchResetValue]);
 
   useEffect(() => {
     setSearchValue("");
     setIcon("search");
     handleSearch("");
+    // handleSearchtest("")
   }, [tabIndex]);
 
   return (
@@ -123,7 +137,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
                 <img
                   src={SearchIconImg}
                   onClick={handleSearchFocus}
-                  onChange={handleInput}
+                  // onChange={handleInput}
                   // sx={{ color: fontColor }}
                 />
               ) : (

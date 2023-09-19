@@ -586,7 +586,23 @@ const Map: React.FC<any> = (props) => {
       zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
-    
+      // mapTypeControlOptions: {
+
+      //   style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+
+      //   position: window.google.maps.ControlPosition.LEFT_BOTTOM,
+
+      //   mapTypeIds: [
+
+      //     window.google.maps.MapTypeId.ROADMAP,
+
+      //     window.google.maps.MapTypeId.SATELLITE,
+
+      //     window.google.maps.MapTypeId.HYBRID,
+
+      //   ],
+
+      // },
     };
   };
 
@@ -722,31 +738,34 @@ const Map: React.FC<any> = (props) => {
     tripId: any,
     category : string
   ) => {
+    // setIsMarkerClicked(true);
+
+    // setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
-    // setAssetLiveMarker((prev: any) => {
-    //   if (prev && prev === markerId) {
-    //     map?.panTo(
-    //       location?.pathname === "/home"
-    //         ? homePageParkingCenter
-    //         : location?.pathname === "/fleetManagement"
-    //         ? fleetManagementCenter
-    //         : location?.pathname === "/assetTracking"
-    //         ? assetTrackingCenter
-    //         : location?.pathname === "/parking"
-    //           ? parkingCenter
-    //         : center
-    //     );
-    //     return "";
-    //   } else {
-    //     map?.panTo(location);
-    //     return markerId;
-    //   }
-    // });
-    
-    setSelectedNotification((prev: any) => {
-      return prev && prev == markerId ? "" : markerId;
+    setAssetLiveMarker((prev: any) => {
+      if (prev && prev === markerId) {
+        map?.panTo(
+          location?.pathname === "/home"
+            ? homePageParkingCenter
+            : location?.pathname === "/fleetManagement"
+            ? fleetManagementCenter
+            : location?.pathname === "/assetTracking"
+            ? assetTrackingCenter
+            : location?.pathname === "/parking"
+              ? parkingCenter
+            : center
+        );
+        return "";
+      } else {
+        map?.panTo(location);
+        return markerId;
+      }
     });
+    
+    // setSelectedNotification((prev: any) => {
+    //   return prev && prev == markerId ? "" : markerId;
+    // });
     location?.pathname === "/fleetManagement" && handleMarkerIconClick(tripId);
   };
 
@@ -966,23 +985,21 @@ const Map: React.FC<any> = (props) => {
 
     if(isMarkerClicked) {
       setListSelectedMarker("");
-      setSelectedNotification("");
+      setSelectedNotification("")
       // setAssetLiveMarker("")
     } else {
       setAssetLiveMarker("")
     }
     
-  },[isMarkerClicked, ])
+  },[isMarkerClicked])
+
 
   useEffect(()=>{
     if(selectedNotification) {
       map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
-
-    } else {
-      map?.panTo(center)
     }
-
   },[selectedNotification])
+
   return (
     <>
       {isLoaded && (
@@ -1116,6 +1133,7 @@ const Map: React.FC<any> = (props) => {
                             handleLiveMarkerIcon={handleLiveMarkerIcon}
                             handleLiveMarkerClose={handleLiveMarkerClose}
                             listSelectedMarker= {listSelectedMarker}
+                            selectedNotificationItem={selectedNotificationItem}
 
                           />
                         </>
@@ -1195,7 +1213,6 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
                         selectedNotificationItem={selectedNotificationItem}
-
                       />
                     </>
                   );
@@ -1291,7 +1308,7 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
-
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     )}
                     {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}

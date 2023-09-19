@@ -266,6 +266,7 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
+ 
     let assetPayload: any = {
       filterText: "",
       pageNo: 0,
@@ -287,13 +288,46 @@ const AssetTracking: React.FC<any> = (props) => {
 
     return () => {
       clearInterval(interval);
-      clearInterval(intervalTime);
     };
   }, []);
 
-  const assetLiveData = useSelector(
-    (state: any) => state?.assetTracker?.assetLiveData?.data
-  );
+  const[debounceSearchText,setDebounceSearchText]=useState<any>("")
+
+  useEffect(()=>{
+    let assetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: 0,
+      pageSize: 100000,
+    };
+    if(!debounceSearchText){
+     assetPayload = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: 100000,
+      };
+  
+      dispatch(getNotificationData(assetPayload));
+
+      
+    } else if(debounceSearchText){
+       assetPayload = {
+        filterText: debounceSearchText,
+        pageNo: 0,
+        pageSize: 100000,
+      };
+      
+    }
+
+   const intervalTime = setInterval(() => {
+      dispatch(getNotificationData(assetPayload));
+    }, 1 * 60 * 1000)
+
+    return () => {
+      clearInterval(intervalTime);
+    };
+  },[debounceSearchText])
+
+  const assetLiveData = useSelector((state:any)=>state?.assetTracker?.assetLiveData?.data)
 
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
@@ -901,7 +935,6 @@ const AssetTracking: React.FC<any> = (props) => {
     useState<boolean>(false);
 
   // useEffect(() => {
-  //   console.log("Use Effect 13")
 
   //   setDashboardData(
   //     formatttedDashboardNotification(notificationArray, tabIndex)
@@ -1440,10 +1473,10 @@ const AssetTracking: React.FC<any> = (props) => {
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
-                    listSelectedMarker={listSelectedMarker}
-                    setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem}
-                    setSelectedNotificationItem={setSelectedNotificationItem}
+                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem} 
+                    notificationPageName={"asset"}
+                    setDebounceSearchText={setDebounceSearchText}
                   />
                 </Grid>
               </Grid>

@@ -44,6 +44,50 @@ export const formatttedDashboardNotification = (
   }
 };
 
+export const formatttedParkingNotification = (
+  data: any,
+  tabIndex: number
+) => {
+  if (data && data !== undefined) {
+    const sortedNotifications = data?.sort((a: any, b: any) => {
+      if (
+        moment(a?.currentTimeStamp, "MM-DD-YYYY | h:mm A").isBefore(
+          moment(b?.currentTimeStamp, "MM-DD-YYYY | h:mm A")
+        )
+      )
+        return 1;
+      else if (
+        moment(b?.currentTimeStamp, "MM-DD-YYYY | h:mm A").isBefore(
+          moment(a?.currentTimeStamp, "MM-DD-YYYY | h:mm A")
+        )
+      )
+        return -1;
+      else return 0;
+    });
+    let notiEventArray: any = [];
+    let notiIncidentArray: any = [];
+    let notiOprAlertArray: any = [];
+    sortedNotifications?.map((value: any, index: number) => {
+      if (value?.notificationType === "Events") {
+        notiEventArray?.push(value);
+      } else if (value?.notificationType === "Incident") {
+        notiIncidentArray?.push(value);
+      } else if (value?.notificationType === "Alerts") {
+        notiOprAlertArray?.push(value);
+      }
+    });
+
+    switch (tabIndex) {
+      case 0:
+        return notiEventArray;
+      case 1:
+        return notiIncidentArray;
+      case 2:
+        return notiOprAlertArray;
+    }
+  }
+};
+
 export const formatttedDashboardNotificationCount = (data: any) => {
   if (data && data !== undefined) {
     let notificationCount: any = [];

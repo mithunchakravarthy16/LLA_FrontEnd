@@ -28,7 +28,7 @@ import Map from "components/Map";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
 import {
-  formatttedDashboardNotification,
+  formatttedParkingNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import parkingData from "mockdata/parkingData";
@@ -205,17 +205,12 @@ const Parking: React.FC<any> = (props) => {
     Object.assign({}, item, dashboardArray[i])
   );
 
-  const [liveMarkerList, setLiveMarkerList] = useState<any>(formatttedDashboardNotification(dashboardDataList, tabIndex));
-  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
-  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
-
-
   const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedParkingNotification(dashboardDataList, tabIndex)
   );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedParkingNotification(dashboardDataList, tabIndex)
   );
 
   const [notificationCount, setNotificationCount] = useState<any>(
@@ -224,10 +219,10 @@ const Parking: React.FC<any> = (props) => {
 
   useEffect(() => {
     setDashboardData(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedParkingNotification(dashboardDataList, tabIndex)
     );
     setSearchValue(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedParkingNotification(dashboardDataList, tabIndex)
     );
   }, [tabIndex]);
 
@@ -454,6 +449,13 @@ const Parking: React.FC<any> = (props) => {
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
+  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
+
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList)
+
+  console.log("dashboardData", dashboardData)
 
   return (
     <>
@@ -857,6 +859,7 @@ const Parking: React.FC<any> = (props) => {
                           }
                           setSelectedNotification={setSelectedNotification}
                           marker={selectedNotification}
+                          selectedNotification={selectedNotification}
                           setTabIndex={setTabIndex}
                           currentMarker={currentMarker}
                           setCurrentMarker={setCurrentMarker}
@@ -865,11 +868,10 @@ const Parking: React.FC<any> = (props) => {
                           selectedTheme={selectedTheme}
                           setMap={setMap}
                           map={map}
-                          selectedNotification={selectedNotification}
-                          liveMarkerList={dashboardDataList}
+                          liveMarkerList={liveMarkerList}
+                          setAssetLiveMarker={setAssetLiveMarker}
                           listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                          selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}                      
-                          isMarkerClicked={isMarkerClicked}
+                          selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}  
                         />
                       ) : (
                         // </Grid>
@@ -938,7 +940,7 @@ const Parking: React.FC<any> = (props) => {
                     setAssetLiveMarker={setAssetLiveMarker}
                     liveMarkerList={liveMarkerList}
                     listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}   
+                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}  
                   />
                 </Grid>
               </Grid>
