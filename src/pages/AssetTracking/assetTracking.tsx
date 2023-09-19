@@ -923,7 +923,6 @@ const AssetTracking: React.FC<any> = (props) => {
     useState<boolean>(false);
 
   // useEffect(() => {
-  //   console.log("Use Effect 13")
 
   //   setDashboardData(
   //     formatttedDashboardNotification(notificationArray, tabIndex)
