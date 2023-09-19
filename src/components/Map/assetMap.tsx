@@ -715,10 +715,10 @@ const AssetMap: React.FC<any> = (props) => {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
 
-  // const clustererRef = useRef<any>();
-  // useEffect(() => {
-  //   clustererRef.current?.repaint();
-  // }, [markers, marker]);
+  const clustererRef = useRef<any>();
+  useEffect(() => {
+    clustererRef.current?.repaint();
+  }, [markers, marker]);
 
   const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
     setIsMarkerClicked(true);

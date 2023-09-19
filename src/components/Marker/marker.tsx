@@ -106,7 +106,7 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
-          clusterer={(listSelectedMarker === "" && selectedNotification !== "" ) ? clusterer : undefined}
+          clusterer={(listSelectedMarker === "" || selectedNotification === "" ) ? clusterer : undefined}
           animation={
             focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
               ? window.google.maps.Animation.BOUNCE
