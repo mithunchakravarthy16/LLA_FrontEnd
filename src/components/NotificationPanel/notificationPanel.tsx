@@ -144,6 +144,7 @@ setDebounceSearchText
       setParkingLotSelectionActive(false);
       setListSelectedMarker(param);
       setAssetLiveMarker(param)
+      setIsMarkerClicked(true)
       
     }
     props.handleExpandListItem(param);

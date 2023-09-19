@@ -57,20 +57,19 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
-import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg"
+import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg";
 import useStyles from "./styles";
 
-const defaultCenter ={ lat: 9.011771204307172, lng: -79.47691596842526 };
-
+const defaultCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
 const center = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
-
 const parkingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
-
-const homePageParkingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
-
+const homePageParkingCenter = {
+  lat: 9.011771204307172,
+  lng: -79.47691596842526,
+};
 
 const fleetManagementCenter = {
   lat: 25.057066876525674,
@@ -128,7 +127,7 @@ const Map: React.FC<any> = (props) => {
     setListSelectedMarker,
     selectedNotificationItem,
     setSelectedNotificationItem,
-    isMarkerClicked
+    isMarkerClicked,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -166,7 +165,7 @@ const Map: React.FC<any> = (props) => {
   let [data, setData] = useState<any>(points);
   const velocity: any = 20;
   const initialDate: any = new Date();
-  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -510,7 +509,7 @@ const Map: React.FC<any> = (props) => {
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
       ? 16
       : location?.pathname === "/parking"
-        ? 17
+      ? 17
       : 17
   );
 
@@ -556,7 +555,7 @@ const Map: React.FC<any> = (props) => {
           : location?.pathname === "/assetTracking"
           ? assetTrackingCenter
           : location?.pathname === "/parking"
-              ? parkingCenter
+          ? parkingCenter
           : center
       );
       map?.setZoom(
@@ -610,7 +609,7 @@ const Map: React.FC<any> = (props) => {
     category: string,
     notificationCategory: string,
     id: string,
-    marker:any
+    marker: any
   ) => {
     switch (notificationCategory) {
       case "Events": {
@@ -619,7 +618,7 @@ const Map: React.FC<any> = (props) => {
             // return currentMarker === id
             //   ? ParkingEventActiveIcon
             //   : ParkingEventIcon;
-            return  ParkingEventIcon;
+            return ParkingEventIcon;
           case "energy":
             return currentMarker === id
               ? EnergyManagementEventActiveIcon
@@ -650,7 +649,7 @@ const Map: React.FC<any> = (props) => {
             // return currentMarker === id
             //   ? ParkingAlertActiveIcon
             //   : ParkingAlertIcon;
-            return  ParkingAlertIcon;
+            return ParkingAlertIcon;
           case "energy":
             return currentMarker === id
               ? EnergyManagementAlertActiveIcon
@@ -710,8 +709,8 @@ const Map: React.FC<any> = (props) => {
       case "Inactive": {
         switch (category) {
           case "asset":
-            return AssetInactiveIcon
-      default:
+            return AssetInactiveIcon;
+          default:
             return ParkingIncidentIcon;
         }
       }
@@ -736,7 +735,7 @@ const Map: React.FC<any> = (props) => {
     type: string,
     location: any,
     tripId: any,
-    category : string
+    category: string
   ) => {
     // setIsMarkerClicked(true);
 
@@ -753,7 +752,7 @@ const Map: React.FC<any> = (props) => {
             : location?.pathname === "/assetTracking"
             ? assetTrackingCenter
             : location?.pathname === "/parking"
-              ? parkingCenter
+            ? parkingCenter
             : center
         );
         return "";
@@ -762,7 +761,7 @@ const Map: React.FC<any> = (props) => {
         return markerId;
       }
     });
-    
+
     // setSelectedNotification((prev: any) => {
     //   return prev && prev == markerId ? "" : markerId;
     // });
@@ -786,8 +785,13 @@ const Map: React.FC<any> = (props) => {
         ? parkingCenter
         : center
     );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 :  location?.pathname === "/parking"
-    ? 17 : 17);
+    map?.setZoom(
+      selectedContainerStyle?.is4kDevice
+        ? 16.2
+        : location?.pathname === "/parking"
+        ? 17
+        : 17
+    );
     setProgress([]);
     setPoints([]);
     setData([]);
@@ -797,8 +801,7 @@ const Map: React.FC<any> = (props) => {
     location?.pathname === "/fleetManagement" && handleMarkerCancel();
   };
 
-  const handleExpandListItem = (id:any,markerId : any, data : any ) => {
-    
+  const handleExpandListItem = (id: any, markerId: any, data: any) => {
     // setSelectedNotification(id);
     // // setAssetLiveMarker(markerId);
     // setListSelectedMarker(markerId)
@@ -942,14 +945,13 @@ const Map: React.FC<any> = (props) => {
     clustererRef.current?.repaint();
   }, [markers, marker]);
 
-  useEffect(()=>{
-    if(marker === "" ||assetLiveMarker === "" ) {
+  useEffect(() => {
+    if (marker === "" || assetLiveMarker === "") {
       map?.setZoom(17.2);
     }
-  },[marker, markers, assetLiveMarker,])
+  }, [marker, markers, assetLiveMarker]);
 
   const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
-
     setIsMarkerClicked(true);
     // setSelectedNotification("");
     setAssetLiveMarker(id);
@@ -961,13 +963,12 @@ const Map: React.FC<any> = (props) => {
     // });
   };
 
-
   const handleLiveMarkerClose = () => {
-    setCurrentMarker("")
+    setCurrentMarker("");
     setSelectedNotification("");
-    setListSelectedMarker("")
+    setListSelectedMarker("");
     setIsMarkerClicked(false);
-    setAssetLiveMarker("")
+    setAssetLiveMarker("");
     map?.panTo(
       location?.pathname === "/home"
         ? defaultCenter
@@ -981,24 +982,25 @@ const Map: React.FC<any> = (props) => {
     setSelectedMarker("");
   };
 
-  useEffect(()=>{
-
-    if(isMarkerClicked) {
+  useEffect(() => {
+    if (isMarkerClicked) {
       setListSelectedMarker("");
-      setSelectedNotification("")
+      setSelectedNotification("");
       // setAssetLiveMarker("")
     } else {
-      setAssetLiveMarker("")
+      setAssetLiveMarker("");
     }
-    
-  },[isMarkerClicked])
+  }, [isMarkerClicked]);
 
-
-  useEffect(()=>{
-    if(selectedNotification) {
-      map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
+  useEffect(() => {
+    if (selectedNotification) {
+      map?.panTo(
+        selectedNotificationItem?.currentLocation
+          ? selectedNotificationItem?.currentLocation
+          : selectedNotificationItem?.location
+      );
     }
-  },[selectedNotification])
+  }, [selectedNotification]);
 
   return (
     <>
@@ -1110,7 +1112,7 @@ const Map: React.FC<any> = (props) => {
                       return (
                         <>
                           <MapMarker
-                          selectedNotification={selectedNotification}
+                            selectedNotification={selectedNotification}
                             mapMarker={singleMarker}
                             toggleInfoWindow={toggleInfoWindow}
                             handleMarkerClose={handleMarkerClose}
@@ -1132,9 +1134,8 @@ const Map: React.FC<any> = (props) => {
                             setAssetLiveMarker={setAssetLiveMarker}
                             handleLiveMarkerIcon={handleLiveMarkerIcon}
                             handleLiveMarkerClose={handleLiveMarkerClose}
-                            listSelectedMarker= {listSelectedMarker}
+                            listSelectedMarker={listSelectedMarker}
                             selectedNotificationItem={selectedNotificationItem}
-
                           />
                         </>
                       );
@@ -1145,7 +1146,7 @@ const Map: React.FC<any> = (props) => {
                       return (
                         <>
                           <MapMarker
-                          selectedNotification={selectedNotification}
+                            selectedNotification={selectedNotification}
                             mapMarker={singleMarker}
                             toggleInfoWindow={toggleInfoWindow}
                             handleMarkerClose={handleMarkerClose}
@@ -1190,7 +1191,7 @@ const Map: React.FC<any> = (props) => {
                   return (
                     <>
                       <MapMarker
-                      selectedNotification={selectedNotification}
+                        selectedNotification={selectedNotification}
                         mapMarker={singleMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -1211,7 +1212,7 @@ const Map: React.FC<any> = (props) => {
                         setAssetLiveMarker={setAssetLiveMarker}
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
-                        listSelectedMarker= {listSelectedMarker}
+                        listSelectedMarker={listSelectedMarker}
                         selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
@@ -1223,7 +1224,7 @@ const Map: React.FC<any> = (props) => {
                   return (
                     <>
                       <MapMarker
-                      selectedNotification={selectedNotification}
+                        selectedNotification={selectedNotification}
                         mapMarker={singleMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -1244,7 +1245,7 @@ const Map: React.FC<any> = (props) => {
                         setAssetLiveMarker={setAssetLiveMarker}
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
-                        listSelectedMarker= {listSelectedMarker}
+                        listSelectedMarker={listSelectedMarker}
                         selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
@@ -1286,7 +1287,7 @@ const Map: React.FC<any> = (props) => {
                     />
                     {selectedMarker && (
                       <MapMarker
-                      selectedNotification={selectedNotification}
+                        selectedNotification={selectedNotification}
                         mapMarker={selectedMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -1307,7 +1308,7 @@ const Map: React.FC<any> = (props) => {
                         setAssetLiveMarker={setAssetLiveMarker}
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
-                        listSelectedMarker= {listSelectedMarker}
+                        listSelectedMarker={listSelectedMarker}
                         selectedNotificationItem={selectedNotificationItem}
                       />
                     )}
