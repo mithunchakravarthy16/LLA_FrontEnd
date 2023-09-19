@@ -32,7 +32,7 @@ const NotificationListItems = (props: any) => {
     notificationPageName,
     selectedTheme,
     markerType,
-    isMarkerClicked
+    isMarkerClicked,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -117,7 +117,9 @@ const NotificationListItems = (props: any) => {
             return (
               <div
                 className={rootContainer}
-                onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
+                onClick={() =>
+                  handleExpandListItem(item?.id, item?.markerId, item)
+                }
                 ref={refs && refs[item?.id]}
                 key={item?.id}
               >
@@ -193,7 +195,9 @@ const NotificationListItems = (props: any) => {
               return (
                 <div
                   className={rootContainer}
-                  onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
+                  onClick={() =>
+                    handleExpandListItem(item?.id, item?.markerId, item)
+                  }
                   ref={refs && refs[item?.id]}
                 >
                   {selectedNotification === item?.id ||
@@ -319,11 +323,15 @@ const NotificationListItems = (props: any) => {
               );
             }
           } else if (item?.category === "asset") {
+            const testDateUtc = moment.utc(item?.notificationDate);
+            const localDate = testDateUtc.local();
             {
               return (
                 <div
                   className={rootContainer}
-                  onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
+                  onClick={() =>
+                    handleExpandListItem(item?.id, item?.markerId, item)
+                  }
                   ref={refs && refs[item?.id]}
                 >
                   {selectedNotification === item?.id ||
@@ -381,9 +389,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={timeStampStyle}>
                           {/* {currentTimeStamp} */}
-                          {moment(item?.notificationDate).format(
-                            "DD-MM-YYYY | HH:mm A"
-                          )}
+                          {localDate.format("DD-MM-YYYY | HH:mm A")}
                         </div>
                       </div>
                     </div>
@@ -400,9 +406,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={collapsedTimeStampStyle}>
                           {/* {currentTimeStamp} */}
-                          {moment(item?.notificationDate).format(
-                            "DD-MM-YYYY | HH:mm A"
-                          )}
+                          {localDate.format("DD-MM-YYYY | HH:mm A")}
                         </div>
                       </div>
                     </div>
@@ -414,7 +418,9 @@ const NotificationListItems = (props: any) => {
             return (
               <div
                 className={rootContainer}
-                onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
+                onClick={() =>
+                  handleExpandListItem(item?.id, item?.markerId, item)
+                }
                 ref={refs && refs[item?.id]}
               >
                 {selectedNotification === item?.id ||
