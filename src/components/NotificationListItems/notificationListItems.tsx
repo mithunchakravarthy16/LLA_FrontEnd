@@ -117,7 +117,7 @@ const NotificationListItems = (props: any) => {
             return (
               <div
                 className={rootContainer}
-                onClick={() => handleExpandListItem(item?.id)}
+                onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
                 ref={refs && refs[item?.id]}
                 key={item?.id}
               >
@@ -193,7 +193,7 @@ const NotificationListItems = (props: any) => {
               return (
                 <div
                   className={rootContainer}
-                  onClick={() => handleExpandListItem(item?.id)}
+                  onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
                   ref={refs && refs[item?.id]}
                 >
                   {selectedNotification === item?.id ||
@@ -414,7 +414,7 @@ const NotificationListItems = (props: any) => {
             return (
               <div
                 className={rootContainer}
-                onClick={() => handleExpandListItem(item?.id)}
+                onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
                 ref={refs && refs[item?.id]}
               >
                 {selectedNotification === item?.id ||

@@ -25,11 +25,11 @@ export const formatttedDashboardNotification = (
     let notiOprAlertArray: any = [];
     sortedNotifications?.map((value: any, index: number) => {
       if (value?.notificationType === "Events") {
-        notiEventArray?.push(value);
+        notiEventArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
       } else if (value?.notificationType === "Incident") {
-        notiIncidentArray?.push(value);
+        notiIncidentArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
       } else if (value?.notificationType === "Alerts") {
-        notiOprAlertArray?.push(value);
+        notiOprAlertArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
       }
     });
 

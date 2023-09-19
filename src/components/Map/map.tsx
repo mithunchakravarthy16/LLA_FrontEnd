@@ -508,9 +508,9 @@ const Map: React.FC<any> = (props) => {
       : selectedContainerStyle?.is3kDevice
       ? 16.2
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-      ? 15
+      ? 16
       : location?.pathname === "/parking"
-          ? 17
+        ? 17
       : 17
   );
 
@@ -543,7 +543,7 @@ const Map: React.FC<any> = (props) => {
           : (selectedContainerStyle?.is4kDevice ||
               selectedContainerStyle?.is3kDevice) &&
             location?.pathname !== "/home"
-          ? 15
+          ? 16
           : 17
       );
       map?.panTo(markers[index]?.location);
@@ -565,7 +565,7 @@ const Map: React.FC<any> = (props) => {
           : (selectedContainerStyle?.is4kDevice ||
               selectedContainerStyle?.is3kDevice) &&
             location?.pathname !== "/home"
-          ? 15
+          ? 16
           : location?.pathname === "/parking"
           ? 17
           : 17
@@ -741,7 +741,7 @@ const Map: React.FC<any> = (props) => {
     // setIsMarkerClicked(true);
     console.log("toggleInfoWindowzzzz")
     console.log("SelectedmarkerId", markerId)
-    setAssetLiveMarker("")
+    // setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
     setAssetLiveMarker((prev: any) => {
@@ -797,8 +797,12 @@ const Map: React.FC<any> = (props) => {
     location?.pathname === "/fleetManagement" && handleMarkerCancel();
   };
 
-  const handleExpandListItem = () => {
-    setSelectedNotification("");
+  const handleExpandListItem = (id:any,markerId : any, data : any ) => {
+    
+    // setSelectedNotification(id);
+    // // setAssetLiveMarker(markerId);
+    // setListSelectedMarker(markerId)
+    // // setIsMarkerClicked(true)
   };
 
   useEffect(() => {
@@ -959,7 +963,7 @@ const Map: React.FC<any> = (props) => {
 
 
   const handleLiveMarkerClose = () => {
-
+    setCurrentMarker("")
     setSelectedNotification("");
     setListSelectedMarker("")
     setIsMarkerClicked(false);
@@ -1119,6 +1123,8 @@ const Map: React.FC<any> = (props) => {
                             setAssetLiveMarker={setAssetLiveMarker}
                             handleLiveMarkerIcon={handleLiveMarkerIcon}
                             handleLiveMarkerClose={handleLiveMarkerClose}
+                            listSelectedMarker= {listSelectedMarker}
+
                           />
                         </>
                       );
@@ -1195,6 +1201,8 @@ const Map: React.FC<any> = (props) => {
                         setAssetLiveMarker={setAssetLiveMarker}
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
+                        listSelectedMarker= {listSelectedMarker}
+
                       />
                     </>
                   );
@@ -1226,6 +1234,7 @@ const Map: React.FC<any> = (props) => {
                         setAssetLiveMarker={setAssetLiveMarker}
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
+                        listSelectedMarker= {listSelectedMarker}
                       />
                     </>
                   );
@@ -1287,6 +1296,8 @@ const Map: React.FC<any> = (props) => {
                         setAssetLiveMarker={setAssetLiveMarker}
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
+                        listSelectedMarker= {listSelectedMarker}
+
                       />
                     )}
                     {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}

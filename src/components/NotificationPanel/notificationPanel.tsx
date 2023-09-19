@@ -12,6 +12,7 @@ import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
 
 import useStyles from "./styles";
+import { constants } from "buffer";
 
 const NotificationPanel = (props: any) => {
   const {
@@ -126,8 +127,8 @@ setSelectedNotificationItem
   };
 
   const handleExpandListItem = useCallback((param: any, markerId : any, data : any) => {
-    setSelectedNotificationItem(data)
-    setListSelectedMarker(markerId);
+    setSelectedNotificationItem(data);
+    setListSelectedMarker( markerId);
     setAssetLiveMarker("")
     setIsMarkerClicked(false);
     setSelectedNotification(selectedNotification === param ? "" : param);
@@ -136,7 +137,9 @@ setSelectedNotificationItem
       setParkingLotSelectionActive(false);
     }
     props.handleExpandListItem(param);
-  }, [selectedNotification, listSelectedMarker]);
+  }, [selectedNotification, listSelectedMarker, isMarkerClicked]);
+
+
 
   const handleSearchIcon = () => {
     setSearchOpen(true);
@@ -266,7 +269,10 @@ setSelectedNotificationItem
       setAssetLiveMarker("");
       setListSelectedMarker("");
     }
-  },[selectedNotification])
+    if(listSelectedMarker === "") {
+      setSelectedNotification("")
+    }
+  },[selectedNotification, listSelectedMarker])
 
   return (
     <>

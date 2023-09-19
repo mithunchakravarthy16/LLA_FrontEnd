@@ -680,7 +680,6 @@ const AssetMap: React.FC<any> = (props) => {
 
   const handleMarkerClose = () => {
     setAssetLiveMarker("")
-
     setSelectedNotification("");
     setIsMarkerClicked(false);
     map?.panTo(
@@ -693,17 +692,12 @@ const AssetMap: React.FC<any> = (props) => {
         : center
     );
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
-    setProgress([]);
-    setPoints([]);
-    setData([]);
-    setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
   };
 
-  const handleExpandListItem = () => {
-    setSelectedNotification("");
-    setAssetLiveMarker("");
+  const handleExpandListItem = (id:any,markerId : any, data : any ) => {
+
+    setSelectedNotification(id);
+    setAssetLiveMarker(markerId);
     // setIsMarkerClicked(true)
   };
 
@@ -761,7 +755,8 @@ const AssetMap: React.FC<any> = (props) => {
   useEffect(()=>{
     if(isMarkerClicked) {
       setListSelectedMarker("");
-      setSelectedNotification("")
+      setSelectedNotification("");
+    
     }
   },[isMarkerClicked])
 
