@@ -39,6 +39,7 @@ const MapMarker: React.FC<any> = (props) => {
   const {} = useStyles(appTheme);
 
 
+
   if (mapMarker?.category === "fleet") {
     return (
       <>
@@ -151,6 +152,58 @@ const MapMarker: React.FC<any> = (props) => {
               markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
               isMarkerClicked = {isMarkerClicked}
               setAssetLiveMarker={setAssetLiveMarker}
+            />
+          </InfoWindowF>
+        )}
+      </>
+    );
+  }
+
+  if(location?.pathname === "/parking" || mapMarker?.category === "parking") {
+    return (
+      <>
+        <Marker
+          clusterer={(selectedNotification === "" ) ? clusterer : undefined}
+  
+          position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+          onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
+          }
+          icon={{
+            url: getMarkerIcon(
+              mapMarker?.category,
+             mapMarker?.notificationType,
+              mapMarker?.markerId,
+              mapMarker
+            ),
+            scaledSize: new window.google.maps.Size(
+              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+            ),
+          }}
+          key={mapMarker?.markerId}
+          zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
+        />
+  
+        {selectedNotification === mapMarker?.id && (
+          <InfoWindowF
+            position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+            options={{ pixelOffset: new google.maps.Size(0, -20) }}
+          >
+            {/* <div>
+              {mapMarker?.trackerId}
+            </div> */}
+            <NotificationListItems
+              data={ [mapMarker]}
+              pageName={"markerCallout"}
+              handleMarkerClose={handleLiveMarkerClose}
+              handleExpandListItem={handleExpandListItem}
+              handleAssetViewDetails={handleAssetViewDetails}
+              mapPageName={mapPageName}
+              handleViewDetails={handleViewDetails}
+              handleVideoDetails={handleVideoDetails}
+              selectedTheme={selectedTheme}
+              markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
+              isMarkerClicked = {isMarkerClicked}
             />
           </InfoWindowF>
         )}

@@ -739,8 +739,7 @@ const Map: React.FC<any> = (props) => {
     category : string
   ) => {
     // setIsMarkerClicked(true);
-    console.log("toggleInfoWindowzzzz")
-    console.log("SelectedmarkerId", markerId)
+
     // setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
@@ -764,9 +763,9 @@ const Map: React.FC<any> = (props) => {
       }
     });
     
-    setSelectedNotification((prev: any) => {
-      return prev && prev == markerId ? "" : markerId;
-    });
+    // setSelectedNotification((prev: any) => {
+    //   return prev && prev == markerId ? "" : markerId;
+    // });
     location?.pathname === "/fleetManagement" && handleMarkerIconClick(tripId);
   };
 
@@ -1134,6 +1133,7 @@ const Map: React.FC<any> = (props) => {
                             handleLiveMarkerIcon={handleLiveMarkerIcon}
                             handleLiveMarkerClose={handleLiveMarkerClose}
                             listSelectedMarker= {listSelectedMarker}
+                            selectedNotificationItem={selectedNotificationItem}
 
                           />
                         </>
@@ -1212,7 +1212,7 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
-
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
                   );
@@ -1245,6 +1245,7 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
                   );
@@ -1307,7 +1308,7 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
-
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     )}
                     {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}

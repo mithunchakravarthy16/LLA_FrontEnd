@@ -134,13 +134,17 @@ setDebounceSearchText
 
   const handleExpandListItem = useCallback((param: any, markerId : any, data : any) => {
     setSelectedNotificationItem(data);
-    setListSelectedMarker( markerId);
+
+    setListSelectedMarker(markerId);
     setAssetLiveMarker("")
     setIsMarkerClicked(false);
     setSelectedNotification(selectedNotification === param ? "" : param);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);
       setParkingLotSelectionActive(false);
+      setListSelectedMarker(param);
+      setAssetLiveMarker(param)
+      
     }
     props.handleExpandListItem(param);
   }, [selectedNotification, listSelectedMarker, isMarkerClicked]);
