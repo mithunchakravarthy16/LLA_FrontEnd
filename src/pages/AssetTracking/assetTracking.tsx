@@ -55,7 +55,7 @@ const AssetTracking: React.FC<any> = (props) => {
     format: "MM/DD",
     tickInterval: 1,
   });
-  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     switch (selectedValue) {
@@ -136,8 +136,11 @@ const AssetTracking: React.FC<any> = (props) => {
         .map((obj: any) =>
           obj.analytics?.map((item: any) => {
             activeAnalyticsData?.push(item?.count);
+            const testDateUtc = moment.utc(item?.node);
+            const localDate = testDateUtc.local();
             activeAnalyticsDataXaxis?.push(
-              moment(item?.node).format(selectedGraphFormat?.format)
+              localDate.format(selectedGraphFormat?.format)
+              // moment(item?.node).format(selectedGraphFormat?.format)
             );
           })
         );
@@ -148,16 +151,22 @@ const AssetTracking: React.FC<any> = (props) => {
           obj.analytics?.map((item: any) => {
             // inActiveAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
             inActiveAnalyticsData?.push(item?.count);
+            const testDateUtc = moment.utc(item?.node);
+            const localDate = testDateUtc.local();
             activeAnalyticsDataXaxis?.push(
-              moment(item?.node).format(selectedGraphFormat?.format)
+              localDate.format(selectedGraphFormat?.format)
+              // moment(item?.node).format(selectedGraphFormat?.format)
             );
           })
         );
 
       assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) => {
         incidentsAnalyticsData?.push(item?.count);
+        const testDateUtc = moment.utc(item?.node);
+        const localDate = testDateUtc.local();
         incidentsAnalyticsDataXaxisData?.push(
-          moment(item?.node).format(selectedGraphFormat?.format)
+          localDate.format(selectedGraphFormat?.format)
+          // moment(item?.node).format(selectedGraphFormat?.format)
         );
       });
 
@@ -188,7 +197,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const [map, setMap] = useState<any>(null);
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
-  const [selectedMarkerType, setSelectedMakerType] = useState<string>("")
+  const [selectedMarkerType, setSelectedMakerType] = useState<string>("");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -239,8 +248,6 @@ const AssetTracking: React.FC<any> = (props) => {
   } = useStyles(appTheme);
 
   useEffect(() => {
-
-
     let activeInactiveTrackerPayload: any = {};
     dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload));
 
@@ -260,21 +267,28 @@ const AssetTracking: React.FC<any> = (props) => {
     dispatch(getEnableGeofence(enableGeofencePayload));
 
  
+    let assetPayload: any = {
+      filterText: "",
+      pageNo: 0,
+      pageSize: 100000,
+    };
 
-    let assetLiveDataPayload : any = {};
-    dispatch(getAssetLiveLocation(assetLiveDataPayload))
+    dispatch(getNotificationData(assetPayload));
+
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData(assetPayload));
+    }, 1 * 60 * 1000);
+
+    let assetLiveDataPayload: any = {};
+    dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
     const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload))
-        }, 10 * 1000)
-
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
     return () => {
       clearInterval(interval);
     };
-
-    
-
   }, []);
 
   const[debounceSearchText,setDebounceSearchText]=useState<any>("")
@@ -603,7 +617,9 @@ const AssetTracking: React.FC<any> = (props) => {
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
   const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([]);
 
-  const [liveMarkerList, setLiveMarkerList] = useState<any>(assetLiveData && assetLiveData)
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(
+    assetLiveData && assetLiveData
+  );
 
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
@@ -618,7 +634,6 @@ const AssetTracking: React.FC<any> = (props) => {
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
-
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
@@ -755,7 +770,7 @@ const AssetTracking: React.FC<any> = (props) => {
           category: "asset",
           title: event?.reason,
           id: event?.assetNotificationId,
-          markerId : event?.trackerId,
+          markerId: event?.trackerId,
         });
       });
 
@@ -765,8 +780,7 @@ const AssetTracking: React.FC<any> = (props) => {
           category: "asset",
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
-          markerId : incidents?.trackerId,
-
+          markerId: incidents?.trackerId,
         });
       });
 
@@ -776,8 +790,7 @@ const AssetTracking: React.FC<any> = (props) => {
           category: "asset",
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
-          markerId : alerts?.trackerId,
-
+          markerId: alerts?.trackerId,
         });
       });
 
@@ -815,62 +828,63 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, [assetNotificationResponse, tabIndex, searchOpen]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const sampleLiveData = [
       {
-          "trackerId": "740063943838",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-          "trackerStatus": "Active",
-          "notificationType": "Incident",
-          "currentLocation": {
-            "lat": 9.0155021,
-            "lng": -79.4759242
-          },
-          "currentArea": ""
+        trackerId: "740063943838",
+        assetId:
+          "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
+        trackerStatus: "Active",
+        notificationType: "Incident",
+        currentLocation: {
+          lat: 9.0155021,
+          lng: -79.4759242,
+        },
+        currentArea: "",
       },
       {
-          "trackerId": "413051518008",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-          "trackerStatus": "Inactive",
-          "notificationType": "Incident",
-          "currentLocation": {
-              "lat": 9.0135021,
-              "lng": -79.4759242
-          },
-          "currentArea": ""
+        trackerId: "413051518008",
+        assetId:
+          "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
+        trackerStatus: "Inactive",
+        notificationType: "Incident",
+        currentLocation: {
+          lat: 9.0135021,
+          lng: -79.4759242,
+        },
+        currentArea: "",
       },
       {
-          "trackerId": "740063943499",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerStatus": "Active",
-          "notificationType": "Events",
-          "currentLocation": {
-            "lat": 9.0135021,
-            "lng": -79.4859242
-          },
-          "currentArea": ""
-      }
-  ]
+        trackerId: "740063943499",
+        assetId:
+          "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+        trackerStatus: "Active",
+        notificationType: "Events",
+        currentLocation: {
+          lat: 9.0135021,
+          lng: -79.4859242,
+        },
+        currentArea: "",
+      },
+    ];
 
-  const updatedLiveData = assetLiveData?.map((asset:any) => {
+    const updatedLiveData = assetLiveData?.map((asset: any) => {
+      return {
+        ...asset,
+        location: asset?.currentLocation,
+        category: "asset",
+        title: `TR#${asset?.trackerId}`,
+        id: asset?.trackerId,
+        recentMarkerType:
+          asset?.trackerStatus === "Inactive"
+            ? asset?.trackerStatus
+            : asset?.notificationType,
+        markerId: asset?.trackerId,
+      };
+    });
 
-    return {
-      ...asset,
-      location: asset?.currentLocation,
-      category: "asset",
-      title : `TR#${asset?.trackerId}`,
-      id : asset?.trackerId,
-      recentMarkerType: asset?.trackerStatus === "Inactive" ? asset?.trackerStatus :  asset?.notificationType,
-      markerId : asset?.trackerId,
-    };
-  });
-
-  setLiveMarkerList(updatedLiveData)
-  },[assetLiveData])
-
-
-
-
+    setLiveMarkerList(updatedLiveData);
+  }, [assetLiveData]);
 
   // useEffect(()=>{
   //   if(isMarkerClicked) {
@@ -910,8 +924,6 @@ const AssetTracking: React.FC<any> = (props) => {
     },
   ];
 
-
-
   const [notificationCount, setNotificationCount] = useState<any>([
     assetNotificationList?.events?.totalCount,
     assetNotificationList?.incidents?.totalCount,
@@ -934,11 +946,11 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
-  useEffect(()=>{
-    if(searchOpen && selectedNotification !== "") {
-      setSearchValue(searchValue)
+  useEffect(() => {
+    if (searchOpen && selectedNotification !== "") {
+      setSearchValue(searchValue);
     }
-  },[searchOpen, selectedNotification])
+  }, [searchOpen, selectedNotification]);
 
   useEffect(() => {
     setNotificationCount(
@@ -1071,10 +1083,8 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, []);
 
-
-
-  const handleAssetViewDetails = (data: any, markerType : any) => {
-    setSelectedMakerType(markerType)
+  const handleAssetViewDetails = (data: any, markerType: any) => {
+    setSelectedMakerType(markerType);
     setIsInfoWindowActive(true);
     setSelectedMarker(data);
   };
@@ -1095,8 +1105,9 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
-  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
 
   return (
     <>
@@ -1254,10 +1265,8 @@ const AssetTracking: React.FC<any> = (props) => {
                                                 selectedWidth?.is3KDevice
                                                   ? 4
                                                   : 2,
-
                                             },
                                           ]}
-
                                         />
                                       ) : (
                                         <Loader isHundredVh={false} />
@@ -1430,12 +1439,17 @@ const AssetTracking: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
-                        assetLiveData = {assetLiveData}
+                        assetLiveData={assetLiveData}
                         assetLiveMarker={assetLiveMarker}
                         setAssetLiveMarker={setAssetLiveMarker}
                         liveMarkerList={liveMarkerList}
-                        listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                        selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}                      />
+                        listSelectedMarker={listSelectedMarker}
+                        setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
+                        setSelectedNotificationItem={
+                          setSelectedNotificationItem
+                        }
+                      />
                     </Grid>
                   </Grid>
                 </Grid>

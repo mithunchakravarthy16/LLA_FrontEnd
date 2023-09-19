@@ -12,6 +12,7 @@ import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
+import { useLocation } from "react-router-dom";
 
 import useStyles from "./styles";
 import { constants } from "buffer";
@@ -51,6 +52,8 @@ setDebounceSearchText
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
   const [appTheme, setAppTheme] = useState<any>();
+
+  const location = useLocation()
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -138,6 +141,7 @@ setDebounceSearchText
     setListSelectedMarker(markerId);
     setAssetLiveMarker("")
     setIsMarkerClicked(false);
+
     setSelectedNotification(selectedNotification === param ? "" : param);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);
@@ -148,7 +152,23 @@ setDebounceSearchText
       
     }
     props.handleExpandListItem(param);
-  }, [selectedNotification, listSelectedMarker, isMarkerClicked]);
+
+
+  
+  }, [selectedNotification, listSelectedMarker, isMarkerClicked, selectedNotificationItem]);
+
+  // const handleExpandListItem = (param: any, markerId : any, data : any) => {
+  //   setSelectedNotificationItem(data);
+  //   setListSelectedMarker(markerId);
+  //   setAssetLiveMarker("")
+  //   setIsMarkerClicked(false);
+  //   setSelectedNotification(selectedNotification === param ? "" : param);
+  //   if (notificationPageName && notificationPageName === "parking") {
+  //     setParkingLotIndex(0);
+  //     setParkingLotSelectionActive(false);
+  //   }
+  //   props.handleExpandListItem(param);
+  // }
 
 
 
