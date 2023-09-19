@@ -578,6 +578,23 @@ const AssetTracking: React.FC<any> = (props) => {
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
   const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([]);
 
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(assetLiveData && assetLiveData)
+
+  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
+
+  const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(notificationArray, tabIndex)
+  );
+
+  const [dashboardData, setDashboardData] = useState<any>(
+    formatttedDashboardNotification(notificationArray, tabIndex)
+  );
+
+
   const handleSelect = (val: any) => {
     setSelectedValue(val);
 
@@ -713,6 +730,7 @@ const AssetTracking: React.FC<any> = (props) => {
           category: "asset",
           title: event?.reason,
           id: event?.assetNotificationId,
+          markerId : event?.trackerId,
         });
       });
 
@@ -722,6 +740,8 @@ const AssetTracking: React.FC<any> = (props) => {
           category: "asset",
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
+          markerId : incidents?.trackerId,
+
         });
       });
 
@@ -731,6 +751,8 @@ const AssetTracking: React.FC<any> = (props) => {
           category: "asset",
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
+          markerId : alerts?.trackerId,
+
         });
       });
 
@@ -757,92 +779,82 @@ const AssetTracking: React.FC<any> = (props) => {
       //   return false;
       // });
 
-    //   const sampleLiveData = [
-    //     {
-    //         "trackerId": "740063943838",
-    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-    //         "trackerStatus": "Active",
-    //         "notificationType": "Incident",
-    //         "currentLocation": {
-    //             "lat": 12.186451,
-    //             "lng": 78.119101
-    //         },
-    //         "currentArea": ""
-    //     },
-    //     {
-    //         "trackerId": "413051518008",
-    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-    //         "trackerStatus": "Active",
-    //         "notificationType": "Incident",
-    //         "currentLocation": {
-    //             "lat": 9.0135021,
-    //             "lng": -79.4759242
-    //         },
-    //         "currentArea": ""
-    //     },
-    //     {
-    //         "trackerId": "740063943499",
-    //         "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-    //         "trackerStatus": "Inactive",
-    //         "notificationType": "Incident",
-    //         "currentLocation": {
-    //             "lat": 12.1564923,
-    //             "lng": 78.1335807
-    //         },
-    //         "currentArea": ""
-    //     }
-    // ]
+      setNotificationArray(combinedNotifications);
 
-
-      const updatedUniqueData = combinedNotifications.map(
-        (combinedDataItem: any) => {
-          const uniqueDataItem = assetLiveData?.find(
-            (uniqueDataItem: any) =>
-              uniqueDataItem.trackerId === combinedDataItem.trackerId
-          );
-
-          if (uniqueDataItem) {
-            return {
-              ...combinedDataItem,
-              location: uniqueDataItem?.currentLocation,
-              recentMarkerType: uniqueDataItem?.trackerStatus === "Inactive" ? uniqueDataItem?.trackerStatus :  uniqueDataItem?.notificationType,
-              area : uniqueDataItem?.currentArea,
-              id : combinedDataItem?.assetNotificationId,
-              trackerStatus  : uniqueDataItem?.trackerStatus
-            };
-          }
-
-          return combinedDataItem;
-        }
+      setDashboardData(
+        formatttedDashboardNotification(combinedNotifications, tabIndex)
       );
-      const updatedAssetLiveData = assetLiveData?.map((asset:any) => {
-
-        return {
-          ...asset,
-          location: asset?.currentLocation,
-          category: "asset",
-          title : `TR#${asset?.trackerId}`,
-          id : asset?.assetId,
-          recentMarkerType: asset?.trackerStatus === "Inactive" ? asset?.trackerStatus :  asset?.notificationType,
-        };
-      });
-      setMapMarkerArrayList((selectedNotification === "" && !isMarkerClicked) ? updatedAssetLiveData : isMarkerClicked ? updatedAssetLiveData : updatedUniqueData);
-      setNotificationArray(updatedUniqueData);
+      setSearchValue(
+        formatttedDashboardNotification(combinedNotifications, tabIndex)
+      );
     }
-  }, [assetNotificationList, assetLiveData, selectedNotification, isMarkerClicked, assetNotificationResponse]);
-
-
-
-
+  }, [assetNotificationResponse, tabIndex, searchOpen]);
 
   useEffect(()=>{
-    if(isMarkerClicked) {
-      setSelectedNotification("")
-    }
-    if(selectedNotification) {
-      setIsMarkerClicked(false)
-    }
-  },[isMarkerClicked, selectedNotification])
+    const sampleLiveData = [
+      {
+          "trackerId": "740063943838",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
+          "trackerStatus": "Active",
+          "notificationType": "Incident",
+          "currentLocation": {
+            "lat": 9.0155021,
+            "lng": -79.4759242
+          },
+          "currentArea": ""
+      },
+      {
+          "trackerId": "413051518008",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
+          "trackerStatus": "Inactive",
+          "notificationType": "Incident",
+          "currentLocation": {
+              "lat": 9.0135021,
+              "lng": -79.4759242
+          },
+          "currentArea": ""
+      },
+      {
+          "trackerId": "740063943499",
+          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          "trackerStatus": "Active",
+          "notificationType": "Events",
+          "currentLocation": {
+            "lat": 9.0135021,
+            "lng": -79.4859242
+          },
+          "currentArea": ""
+      }
+  ]
+
+  const updatedLiveData = assetLiveData?.map((asset:any) => {
+
+    return {
+      ...asset,
+      location: asset?.currentLocation,
+      category: "asset",
+      title : `TR#${asset?.trackerId}`,
+      id : asset?.trackerId,
+      recentMarkerType: asset?.trackerStatus === "Inactive" ? asset?.trackerStatus :  asset?.notificationType,
+      markerId : asset?.trackerId,
+    };
+  });
+
+  setLiveMarkerList(updatedLiveData)
+  },[assetLiveData])
+
+
+
+
+
+  // useEffect(()=>{
+  //   if(isMarkerClicked) {
+  //     setSelectedNotification("")
+  //   }
+  //   if(selectedNotification) {
+  //     setIsMarkerClicked(false)
+  //   }
+  // },[isMarkerClicked, selectedNotification])
 
   const topPanelListItems: any[] = [
     {
@@ -873,19 +885,6 @@ const AssetTracking: React.FC<any> = (props) => {
     },
   ];
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const [notificationPanelActive, setNotificationPanelActive] =
-    useState<boolean>(false);
-  const [currentMarker, setCurrentMarker] = useState<any>("");
-
-  const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(notificationArray, tabIndex)
-  );
-
-  const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(notificationArray, tabIndex)
-  );
 
 
   const [notificationCount, setNotificationCount] = useState<any>([
@@ -898,14 +897,16 @@ const AssetTracking: React.FC<any> = (props) => {
   const [isGeofenceInfoWindowActive, setIsGeofenceInfoWindowActive] =
     useState<boolean>(false);
 
-  useEffect(() => {
-    setDashboardData(
-      formatttedDashboardNotification(notificationArray, tabIndex)
-    );
-    setSearchValue(
-      formatttedDashboardNotification(notificationArray, tabIndex)
-    );
-  }, [notificationArray, tabIndex]);
+  // useEffect(() => {
+  //   console.log("Use Effect 13")
+
+  //   setDashboardData(
+  //     formatttedDashboardNotification(notificationArray, tabIndex)
+  //   );
+  //   setSearchValue(
+  //     formatttedDashboardNotification(notificationArray, tabIndex)
+  //   );
+  // }, [notificationArray, tabIndex]);
 
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
@@ -1069,6 +1070,9 @@ const AssetTracking: React.FC<any> = (props) => {
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
+  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
 
   return (
     <>
@@ -1405,7 +1409,9 @@ const AssetTracking: React.FC<any> = (props) => {
                         assetLiveData = {assetLiveData}
                         assetLiveMarker={assetLiveMarker}
                         setAssetLiveMarker={setAssetLiveMarker}
-                      />
+                        liveMarkerList={liveMarkerList}
+                        listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}                      />
                     </Grid>
                   </Grid>
                 </Grid>
@@ -1429,6 +1435,8 @@ const AssetTracking: React.FC<any> = (props) => {
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
+                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem} 
                   />
                 </Grid>
               </Grid>

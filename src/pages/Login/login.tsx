@@ -21,7 +21,7 @@ import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
 import llaBanner from "../../assets/images/login-bg1.jpg";
-import llaLightBanner from "../../assets/lightThemeBanner.svg";
+import llaLightBanner from "../../assets/Optimized_Light_Theme_Bg.jpg";
 import {
   getAdminPanelConfigData,
   setAdminPanelConfigData,
@@ -224,7 +224,7 @@ const Login = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsDataLoaded(!isDataLoaded);
-    }, 5000);
+    }, 2000);
   }, []);
 
   const loaderAdminGetConfigData = useSelector(

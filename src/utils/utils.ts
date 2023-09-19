@@ -25,11 +25,11 @@ export const formatttedDashboardNotification = (
     let notiOprAlertArray: any = [];
     sortedNotifications?.map((value: any, index: number) => {
       if (value?.notificationType === "Events") {
-        notiEventArray?.push(value);
+        notiEventArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
       } else if (value?.notificationType === "Incident") {
-        notiIncidentArray?.push(value);
+        notiIncidentArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
       } else if (value?.notificationType === "Alerts") {
-        notiOprAlertArray?.push(value);
+        notiOprAlertArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
       }
     });
 
@@ -75,18 +75,23 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
   events?.eventsList?.forEach((event: any, index: number) => {
     combinedNotifications?.push({
       ...event,
+      markerId : event?.id
     });
   });
 
   incidents?.incidentList?.forEach((incidents: any, index: number) => {
     combinedNotifications?.push({
       ...incidents,
+      markerId : incidents?.id
+
     });
   });
 
   alerts?.alertList?.forEach((alerts: any, index: number) => {
     combinedNotifications?.push({
       ...alerts,
+      markerId : alerts?.id
+
     });
   });
 
@@ -121,6 +126,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         category: "asset",
         title: event?.reason,
         id: event?.assetNotificationId,
+        markerId : event?.id,
         currentTimeStamp: moment
           .utc(event?.notificationDate)
           .format("MM-DD-YYYY | h:mm A"),
@@ -133,6 +139,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         category: "asset",
         title: incidents?.reason,
         id: incidents?.assetNotificationId,
+        markerId : incidents?.id,
         currentTimeStamp: moment
           .utc(incidents?.notificationDate)
           .format("MM-DD-YYYY | h:mm A"),
