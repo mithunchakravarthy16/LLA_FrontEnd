@@ -763,6 +763,7 @@ const Map: React.FC<any> = (props) => {
         return markerId;
       }
     });
+    
     setSelectedNotification((prev: any) => {
       return prev && prev == markerId ? "" : markerId;
     });
@@ -942,11 +943,11 @@ const Map: React.FC<any> = (props) => {
     clustererRef.current?.repaint();
   }, [markers, marker]);
 
-  // useEffect(()=>{
-  //   if(marker !== "") {
-  //     map?.setZoom(15);
-  //   }
-  // },[marker, markers])
+  useEffect(()=>{
+    if(marker === "" ||assetLiveMarker === "" ) {
+      map?.setZoom(16);
+    }
+  },[marker, markers, assetLiveMarker,])
 
   const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
 
@@ -967,7 +968,6 @@ const Map: React.FC<any> = (props) => {
     setSelectedNotification("");
     setListSelectedMarker("")
     setIsMarkerClicked(false);
-    setAssetLiveMarker("");
     setAssetLiveMarker("")
     map?.panTo(
       location?.pathname === "/home"
@@ -980,7 +980,6 @@ const Map: React.FC<any> = (props) => {
     );
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
     setSelectedMarker("");
-    setAssetLiveMarker("")
   };
 
   useEffect(()=>{

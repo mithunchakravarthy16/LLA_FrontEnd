@@ -31,7 +31,8 @@ const MapMarker: React.FC<any> = (props) => {
     selectedNotification,
     listSelectedMarker,
     isMarkerClicked,
-    selectedNotificationItem
+    selectedNotificationItem,
+    setAssetLiveMarker
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -138,7 +139,7 @@ const MapMarker: React.FC<any> = (props) => {
               {mapMarker?.trackerId}
             </div> */}
             <NotificationListItems
-              data={ [assetLiveMarker === mapMarker?.markerId ? mapMarker : selectedNotificationItem]}
+              data={ [((assetLiveMarker === mapMarker?.markerId ) || (listSelectedMarker === mapMarker?.markerId) ) ? mapMarker : selectedNotificationItem]}
               pageName={"markerCallout"}
               handleMarkerClose={handleLiveMarkerClose}
               handleExpandListItem={handleExpandListItem}
@@ -149,6 +150,7 @@ const MapMarker: React.FC<any> = (props) => {
               selectedTheme={selectedTheme}
               markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
               isMarkerClicked = {isMarkerClicked}
+              setAssetLiveMarker={setAssetLiveMarker}
             />
           </InfoWindowF>
         )}

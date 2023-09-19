@@ -488,11 +488,11 @@ const AssetMap: React.FC<any> = (props) => {
       : 16
   );
 
-  // useEffect(() => {
-  //   setCurrentMarker(marker);
-  //   const selectMarker = markers?.find((item: any) => item.id === marker);
-  //   setSelectedMarker(selectMarker);
-  // }, [marker]);
+  useEffect(() => {
+    setCurrentMarker(marker);
+    const selectMarker = markers?.find((item: any) => item.id === marker);
+    setSelectedMarker(selectMarker);
+  }, [marker]);
 
   // useEffect(() => {
   //   if (selectedMarker) {
@@ -724,7 +724,7 @@ const AssetMap: React.FC<any> = (props) => {
     console.log("Markerid", id)
     setIsMarkerClicked(true);
     // setSelectedNotification("");
-    setAssetLiveMarker(id);
+    // setAssetLiveMarker(id);
     // setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
@@ -756,9 +756,13 @@ const AssetMap: React.FC<any> = (props) => {
     if(isMarkerClicked) {
       setListSelectedMarker("");
       setSelectedNotification("");
-    
     }
   },[isMarkerClicked])
+
+
+  // useEffect(()=>{
+  //   map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location)
+  // },[selectedNotificationItem])
 
   return (
     <>
