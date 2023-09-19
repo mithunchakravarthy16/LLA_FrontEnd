@@ -36,7 +36,11 @@ const NotificationPanel = (props: any) => {
     handleVideoDetails,
     setIsMarkerClicked,
     selectedTheme,
-    setAssetLiveMarker
+    setAssetLiveMarker,
+    listSelectedMarker,
+    setListSelectedMarker,
+    selectedNotificationItem,
+setSelectedNotificationItem
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -121,7 +125,9 @@ const NotificationPanel = (props: any) => {
     // setSelectedRefId("");
   };
 
-  const handleExpandListItem = useCallback((param: any) => {
+  const handleExpandListItem = useCallback((param: any, markerId : any, data : any) => {
+    setSelectedNotificationItem(data)
+    setListSelectedMarker(markerId);
     setAssetLiveMarker("")
     setIsMarkerClicked(false);
     setSelectedNotification(selectedNotification === param ? "" : param);
@@ -130,7 +136,7 @@ const NotificationPanel = (props: any) => {
       setParkingLotSelectionActive(false);
     }
     props.handleExpandListItem(param);
-  }, [selectedNotification]);
+  }, [selectedNotification, listSelectedMarker]);
 
   const handleSearchIcon = () => {
     setSearchOpen(true);
@@ -178,19 +184,23 @@ const NotificationPanel = (props: any) => {
       );
     });
     setSearchValue(searchResult);
-    setSearchOpen(true);
+    // setSearchOpen(true);
     // setSelectedNotification("");
   };
 
   const handleCloseIcon = () => {
     setSearchValue(dashboardData);
     setSelectedNotification("");
+    setAssetLiveMarker("");
+    setListSelectedMarker("")
   };
 
   const handleSearchCloseIcon = () => {
     setSearchOpen(false);
     setSearchValue(dashboardData);
     setSelectedNotification("");
+    setAssetLiveMarker("");
+    setListSelectedMarker("")
   };
 
   const refs =
@@ -227,7 +237,9 @@ const NotificationPanel = (props: any) => {
     }
     if (searchOpen) {
       setSelectedNotification("");
-      setIsMarkerClicked(false);
+      setAssetLiveMarker("");
+      setListSelectedMarker("");
+      // setIsMarkerClicked(false);
     }
   }, [searchOpen]);
 
@@ -248,6 +260,13 @@ const NotificationPanel = (props: any) => {
     setSearchOpen(false);
     setSearchValue(dashboardData);
   }, [tabIndex]);
+
+  useEffect(()=>{
+    if(selectedNotification === "") {
+      setAssetLiveMarker("");
+      setListSelectedMarker("");
+    }
+  },[selectedNotification])
 
   return (
     <>
@@ -310,6 +329,8 @@ const NotificationPanel = (props: any) => {
               handleVideoDetails={handleVideoDetails}
               notificationPageName={notificationPageName}
               selectedTheme={selectedTheme}
+              isMarkerClicked={isMarkerClicked}
+              
             />
           ) : (
             <div className={noResultFoundClass}>{noResultFound}</div>

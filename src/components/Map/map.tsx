@@ -60,32 +60,24 @@ import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
 import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg"
 import useStyles from "./styles";
 
-const defaultCenter = {
-  lat: 39.75525065792099,
-  lng: -105.00248276374698,
-};
+const defaultCenter ={ lat: 9.011771204307172, lng: -79.47691596842526 };
 
-const center = {
-  lat: 39.75576345655451,
-  lng: -105.00357749556102,
-};
 
-const parkingCenter = {
-  lat: 9.012714978411129,
-  lng: -79.47654209348667,
-};
+const center = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
-const homePageParkingCenter = { 
-  lat: 9.011771204307172,
-  lng: -79.47691596842526,
-};
+
+const parkingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
+
+
+const homePageParkingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
+
 
 const fleetManagementCenter = {
   lat: 25.057066876525674,
   lng: 121.36458642272018,
 };
 
-const assetTrackingCenter = { lat: 12.1651391, lng: 78.1277715 };
+const assetTrackingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
 const libraries = ["places", "drawing"];
 
@@ -130,7 +122,13 @@ const Map: React.FC<any> = (props) => {
     dataPoints,
     handleMarkerCancel,
     handleMarkerIconClick,
-    selectedNotification
+    selectedNotification,
+    liveMarkerList,
+    listSelectedMarker,
+    setListSelectedMarker,
+    selectedNotificationItem,
+    setSelectedNotificationItem,
+    isMarkerClicked
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -517,7 +515,7 @@ const Map: React.FC<any> = (props) => {
   );
 
   useEffect(() => {
-    setCurrentMarker(marker);
+    setAssetLiveMarker(marker);
     const selectMarker = markers?.find((item: any) => item.id === marker);
     setSelectedMarker(selectMarker);
   }, [marker]);
@@ -741,10 +739,12 @@ const Map: React.FC<any> = (props) => {
     category : string
   ) => {
     // setIsMarkerClicked(true);
+    console.log("toggleInfoWindowzzzz")
+    console.log("SelectedmarkerId", markerId)
     setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
-    setCurrentMarker((prev: any) => {
+    setAssetLiveMarker((prev: any) => {
       if (prev && prev === markerId) {
         map?.panTo(
           location?.pathname === "/home"
@@ -770,9 +770,11 @@ const Map: React.FC<any> = (props) => {
   };
 
   const handleMarkerClose = () => {
-    setSelectedNotification("");
     setAssetLiveMarker("");
     setIsMarkerClicked(false);
+    setListSelectedMarker("");
+    setSelectedNotification("");
+
     map?.panTo(
       location?.pathname === "/home"
         ? homePageParkingCenter
@@ -942,19 +944,49 @@ const Map: React.FC<any> = (props) => {
   //   }
   // },[marker, markers])
 
-  const handleLiveMarkerIcon = (id:any, location:any) =>{
-    setSelectedNotification("")
-    setAssetLiveMarker(assetLiveMarker === id ? "" : id )
+  const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
+
+    setIsMarkerClicked(true);
+    // setSelectedNotification("");
+    setAssetLiveMarker(id);
+    // setListSelectedMarker(id)
+    // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
-  }
+    // setSelectedNotification((prev: any) => {
+    //   return prev && prev == id ? "" : id;
+    // });
+  };
 
 
+  const handleLiveMarkerClose = () => {
 
-    const handleLiveMarkerClose = () => {
-      setAssetLiveMarker("");
-      setIsMarkerClicked(false);
-      map?.panTo(homePageParkingCenter);
+    setSelectedNotification("");
+    setListSelectedMarker("")
+    setIsMarkerClicked(false);
+    setAssetLiveMarker("");
+    setAssetLiveMarker("")
+    map?.panTo(
+      location?.pathname === "/home"
+        ? defaultCenter
+        : location?.pathname === "/fleetManagement"
+        ? fleetManagementCenter
+        : location?.pathname === "/assetTracking"
+        ? assetTrackingCenter
+        : center
+    );
+    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
+    setSelectedMarker("");
+    setAssetLiveMarker("")
+  };
+
+  useEffect(()=>{
+
+    if(isMarkerClicked) {
+      setListSelectedMarker("");
+      setSelectedNotification("")
+      // setAssetLiveMarker("")
     }
+  },[isMarkerClicked])
   return (
     <>
       {isLoaded && (
@@ -1055,7 +1087,7 @@ const Map: React.FC<any> = (props) => {
             >
               {(clusterer: any) => (
                 <div>
-                  {markers?.map((singleMarker: any) => {
+                  {liveMarkerList?.map((singleMarker: any) => {
                     // if (!window.google) return null;
                     if (
                       singleMarker?.tripStatus === "Live" &&
@@ -1118,6 +1150,10 @@ const Map: React.FC<any> = (props) => {
                             setAssetLiveMarker={setAssetLiveMarker}
                             handleLiveMarkerIcon={handleLiveMarkerIcon}
                             handleLiveMarkerClose={handleLiveMarkerClose}
+                            liveMarkerList={liveMarkerList}
+                            listSelectedMarker={listSelectedMarker}
+                            isMarkerClicked={isMarkerClicked}
+                            selectedNotificationItem={selectedNotificationItem}
                           />
                         </>
                       );
@@ -1128,7 +1164,7 @@ const Map: React.FC<any> = (props) => {
             </MarkerClustererF>
           ) : (
             <div>
-              {markers?.map((singleMarker: any) => {
+              {liveMarkerList?.map((singleMarker: any) => {
                 // if (!window.google) return null;
                 if (
                   singleMarker?.tripStatus === "Live" &&

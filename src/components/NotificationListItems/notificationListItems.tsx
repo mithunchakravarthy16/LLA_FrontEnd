@@ -32,6 +32,7 @@ const NotificationListItems = (props: any) => {
     notificationPageName,
     selectedTheme,
     markerType,
+    isMarkerClicked
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -322,7 +323,7 @@ const NotificationListItems = (props: any) => {
               return (
                 <div
                   className={rootContainer}
-                  onClick={() => handleExpandListItem(item?.id)}
+                  onClick={() => handleExpandListItem(item?.id, item?.markerId, item)}
                   ref={refs && refs[item?.id]}
                 >
                   {selectedNotification === item?.id ||
