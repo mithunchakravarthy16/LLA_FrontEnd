@@ -586,23 +586,7 @@ const Map: React.FC<any> = (props) => {
       zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
-      // mapTypeControlOptions: {
-
-      //   style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-
-      //   position: window.google.maps.ControlPosition.LEFT_BOTTOM,
-
-      //   mapTypeIds: [
-
-      //     window.google.maps.MapTypeId.ROADMAP,
-
-      //     window.google.maps.MapTypeId.SATELLITE,
-
-      //     window.google.maps.MapTypeId.HYBRID,
-
-      //   ],
-
-      // },
+    
     };
   };
 
@@ -738,31 +722,27 @@ const Map: React.FC<any> = (props) => {
     tripId: any,
     category : string
   ) => {
-    // setIsMarkerClicked(true);
-    console.log("toggleInfoWindowzzzz")
-    console.log("SelectedmarkerId", markerId)
-    // setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
-    setAssetLiveMarker((prev: any) => {
-      if (prev && prev === markerId) {
-        map?.panTo(
-          location?.pathname === "/home"
-            ? homePageParkingCenter
-            : location?.pathname === "/fleetManagement"
-            ? fleetManagementCenter
-            : location?.pathname === "/assetTracking"
-            ? assetTrackingCenter
-            : location?.pathname === "/parking"
-              ? parkingCenter
-            : center
-        );
-        return "";
-      } else {
-        map?.panTo(location);
-        return markerId;
-      }
-    });
+    // setAssetLiveMarker((prev: any) => {
+    //   if (prev && prev === markerId) {
+    //     map?.panTo(
+    //       location?.pathname === "/home"
+    //         ? homePageParkingCenter
+    //         : location?.pathname === "/fleetManagement"
+    //         ? fleetManagementCenter
+    //         : location?.pathname === "/assetTracking"
+    //         ? assetTrackingCenter
+    //         : location?.pathname === "/parking"
+    //           ? parkingCenter
+    //         : center
+    //     );
+    //     return "";
+    //   } else {
+    //     map?.panTo(location);
+    //     return markerId;
+    //   }
+    // });
     
     setSelectedNotification((prev: any) => {
       return prev && prev == markerId ? "" : markerId;
@@ -945,7 +925,7 @@ const Map: React.FC<any> = (props) => {
 
   useEffect(()=>{
     if(marker === "" ||assetLiveMarker === "" ) {
-      map?.setZoom(16);
+      map?.setZoom(17.2);
     }
   },[marker, markers, assetLiveMarker,])
 
@@ -983,16 +963,25 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(()=>{
+    console.log("selectedNotificationItem", selectedNotificationItem)
 
     if(isMarkerClicked) {
       setListSelectedMarker("");
-      setSelectedNotification("")
+      setSelectedNotification("");
       // setAssetLiveMarker("")
     } else {
       setAssetLiveMarker("")
     }
     
-  },[isMarkerClicked])
+  },[isMarkerClicked, ])
+
+  useEffect(()=>{
+    if(selectedNotificationItem) {
+      map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
+
+    }
+
+  },[selectedNotificationItem])
   return (
     <>
       {isLoaded && (
