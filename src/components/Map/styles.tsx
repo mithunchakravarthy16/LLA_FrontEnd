@@ -60,7 +60,7 @@ const useStyles = makeStyles({
         left: props?.mapPageName === "dashboard" && "4vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "36vh !important"
+            ? "35vh !important"
             : "28vh !important",
       },
       // "& button": {
@@ -99,8 +99,27 @@ const useStyles = makeStyles({
         right: props?.mapPageName === "dashboard" && "5.8vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "30vh !important"
+            ? "31vh !important"
             : "23vh !important",
+      },
+    },
+    "& .gm-bundled-control": {
+      [muiTheme.breakpoints.up(3839)]: {},
+      [muiTheme.breakpoints.down(3073)]: {},
+      [muiTheme.breakpoints.down(2049)]: {},
+      [muiTheme.breakpoints.down(1921)]: {
+        "& div:nth-child(1)": {
+          width: "1.8vw !important",
+          height: "6vh !important",
+          "& button": {
+            width: "1.8vw !important",
+            height: "2.8vh !important",
+            "& img": {
+              width: "1.5vw !important",
+              height: "1.5vh !important",
+            },
+          },
+        },
       },
     },
     "& .gm-style .gm-style-iw-tc::after, .gm-style .gm-style-iw-tc::before": {
