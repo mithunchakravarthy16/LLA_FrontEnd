@@ -1,21 +1,15 @@
 /** @format */
 
-import { useState, useEffect, createRef, useCallback } from "react";
+import { useState, useEffect, createRef } from "react";
 import Tabs from "elements/Tabs";
 import NotificationListItems from "components/NotificationListItems";
 import SearchBox from "elements/SearchBox";
 import SearchIcon from "../../assets/searchIcon.svg";
-import SearchIconLighttheme from "../../assets/searchIconLighttheme.svg";
-import NotificationCloseIconLightTheme from "../../assets/notificationCloseIconLightTheme1.svg";
 import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
-import { useDispatch, useSelector } from "react-redux";
-import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
-import { useLocation } from "react-router-dom";
 
 import useStyles from "./styles";
-import { constants } from "buffer";
 
 const NotificationPanel = (props: any) => {
   const {
@@ -38,22 +32,12 @@ const NotificationPanel = (props: any) => {
     handleViewDetails,
     handleAssetViewDetails,
     handleVideoDetails,
-    setIsMarkerClicked,
-    selectedTheme,
-    setAssetLiveMarker,
-    listSelectedMarker,
-    setListSelectedMarker,
-    selectedNotificationItem,
-setSelectedNotificationItem,
-setDebounceSearchText
   } = props;
-  const dispatch = useDispatch()
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
-  const [appTheme, setAppTheme] = useState<any>();
 
-  const location = useLocation()
+  const [selectedTheme, setSelectedTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")!)
+  );
+  const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -80,7 +64,6 @@ setDebounceSearchText
     tabSection,
     searchClass,
     notificationListItemSection,
-    noResultFoundClass,
   } = useStyles({
     ...appTheme,
     tabIndex: tabIndex,
@@ -97,6 +80,15 @@ setDebounceSearchText
   } = useTranslation();
 
   const [selectedRefId, setSelectedRefId] = useState("");
+
+  const handleNotificationCloseIcon = () => {
+    setNotificationPanelActive(false);
+    setSearchOpen(false);
+    setTabIndex(1);
+    setCurrentMarker("");
+    setSelectedNotification("");
+    setSearchValue(dashboardData);
+  };
 
   const tabsList = [
     {
@@ -129,160 +121,66 @@ setDebounceSearchText
     setTabIndex(index);
     setSearchOpen(false);
     setSelectedNotification("");
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-    setDebounceSearchText("")
-    }
     // setSelectedRefId("");
   };
 
-  const handleExpandListItem = useCallback((param: any, markerId : any, data : any) => {
-    setSelectedNotificationItem(data);
-
-    setListSelectedMarker(markerId);
-    setAssetLiveMarker("")
-    setIsMarkerClicked(false);
-
-    setSelectedNotification(selectedNotification === param ? "" : param);
+  const handleExpandListItem = (id: any) => {
+    setSelectedNotification(selectedNotification === id ? "" : id);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotIndex(0);
       setParkingLotSelectionActive(false);
-      setListSelectedMarker(param);
-      setAssetLiveMarker(param)
-      setIsMarkerClicked(true)
-      
     }
-    props.handleExpandListItem(param);
-
-
-  
-  }, [selectedNotification, listSelectedMarker, isMarkerClicked, selectedNotificationItem]);
-
-  // const handleExpandListItem = (param: any, markerId : any, data : any) => {
-  //   setSelectedNotificationItem(data);
-  //   setListSelectedMarker(markerId);
-  //   setAssetLiveMarker("")
-  //   setIsMarkerClicked(false);
-  //   setSelectedNotification(selectedNotification === param ? "" : param);
-  //   if (notificationPageName && notificationPageName === "parking") {
-  //     setParkingLotIndex(0);
-  //     setParkingLotSelectionActive(false);
-  //   }
-  //   props.handleExpandListItem(param);
-  // }
-
-
+  };
 
   const handleSearchIcon = () => {
-    setSearchOpen(true);
-    if (notificationPageName && notificationPageName === "parking") {
-      setParkingLotSelectionActive(false);
-    }
+    setSearchOpen(!searchOpen);
   };
 
   const handleSearch = (searchText: any) => {
     const tabData = dashboardData;
     let searchResult = tabData?.filter((value: any) => {
       return (
-        value?.title
-          ?.toString()
+        value?.title?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.area
-          ?.toString()
+        value?.area?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.subTitle
-          ?.toString()
+        value?.subTitle?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.trackerId
-          ?.toString()
+        value?.trackerId?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.assetId
-          ?.toString()
+        value?.assetId?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.entity
-          ?.toString()
+        value?.entity?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.venue
-          ?.toString()
+        value?.venue?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.equipment
-          ?.toString()
+        value?.equipment?.toString()
           ?.toLowerCase()
           .includes(searchText?.toString()?.toLowerCase())
       );
     });
     setSearchValue(searchResult);
-    // setSearchOpen(true);
-    // setSelectedNotification("");
+    setSearchOpen(true);
+    setSelectedNotification("");
   };
-
-   //debouncing start
-   const delayTime = notificationPageName === "asset" ? 500 : 3000;
-   const fetchingDataForSearch = (searchValue:any) => {
-    
-    let assetPayload = {};
-    if (searchValue) {
-       assetPayload = {
-    filterText: searchValue,
-    pageNo: 0,
-    pageSize: 100000,
-  };
-      // setPage(0);
-    } else {
-      assetPayload = {
-        filterText: "",
-        pageNo: 0,
-        pageSize: 100000,
-      };
-      // setPage(0);
-      // setRowsPerPage(100);
-    }
-    dispatch(getNotificationData(assetPayload));
-     setDebounceSearchText(searchValue)
-    // setSearchPageNo("");
-    console.log("test", searchValue)
-  };
-
-  const debounce = (func:any, delay:any) => {
-    let timeout:any;
-
-    return (...arg:any) => {
-      const context = this;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        func.apply(context, arg);
-      }, delay);
-    };
-  };
-
-  const handleSearchtest = useCallback(debounce(fetchingDataForSearch, delayTime),[]); 
-
-  //debouncing end
-
-
 
   const handleCloseIcon = () => {
     setSearchValue(dashboardData);
     setSelectedNotification("");
-    setAssetLiveMarker("");
-    setListSelectedMarker("")
+    setSearchOpen(false);
   };
 
   const handleSearchCloseIcon = () => {
     setSearchOpen(false);
     setSearchValue(dashboardData);
     setSelectedNotification("");
-    setAssetLiveMarker("");
-    setListSelectedMarker("")
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-    setDebounceSearchText("")
-    }
   };
 
   const refs =
@@ -294,65 +192,30 @@ setDebounceSearchText
       : "";
 
   useEffect(() => {
-    if (selectedNotification && refs) {
+    if ((selectedNotification || selectedRefId) && refs) {
       setTimeout(() => {
         refs[
-          selectedNotification ? selectedNotification : ""
+          selectedNotification ? selectedNotification : selectedRefId
         ]?.current?.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
         });
       }, 300);
-    } else if (selectedNotification === "") {
-      setTimeout(() => {
-        refs[searchValue[0]?.id]?.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 300);
     }
-  }, [refs, selectedNotification]);
+  }, [refs, selectedRefId, selectedNotification]);
 
   useEffect(() => {
     if (!searchOpen) {
       setSearchValue(dashboardData);
     }
-    if (searchOpen) {
-      setSelectedNotification("");
-      setAssetLiveMarker("");
-      setListSelectedMarker("");
-      // setIsMarkerClicked(false);
-    }
   }, [searchOpen]);
 
   useEffect(() => {
-    if (searchOpen && searchValue?.length === 0) {
-      setSelectedNotification("");
-    }
-  }, [searchValue]);
-
-  useEffect(() => {
-    if (isMarkerClicked) {
+    if (searchOpen && isMarkerClicked) {
       setSearchOpen(false);
       setSearchValue(dashboardData);
     }
-  }, [isMarkerClicked]);
-
-  useEffect(() => {
-    setSearchOpen(false);
-    setSearchValue(dashboardData);
-    
-  }, [tabIndex]);
-
-  useEffect(()=>{
-    if(selectedNotification === "") {
-      setAssetLiveMarker("");
-      setListSelectedMarker("");
-    }
-    if(listSelectedMarker === "") {
-      setSelectedNotification("")
-    }
-  },[selectedNotification, listSelectedMarker])
+  }, [isMarkerClicked, searchOpen, dashboardData]);
 
   return (
     <>
@@ -366,14 +229,10 @@ setDebounceSearchText
                 handleSearch={handleSearch}
                 borderRadius={2}
                 borderColor={`1px solid ${appTheme?.palette?.notification?.listItemBorder}`}
-                fontColor={appTheme?.palette?.notification?.colorWhite}
+                fontColor={appTheme?.palette?.notification?.tabListCountColor}
                 tabIndex={tabIndex}
                 handleCloseIcon={handleCloseIcon}
                 searchIsOpen={searchOpen}
-                selectedTheme={selectedTheme}
-                notificationPageName={notificationPageName}
-                handleSearchtest={handleSearchtest}
-                setDebounceSearchText={setDebounceSearchText}
               />
             ) : (
               notificationText
@@ -382,18 +241,17 @@ setDebounceSearchText
           <div className={notificationIconSection}>
             <img
               className={notificationSearchIcon}
-              src={
-                searchOpen
-                  ? selectedTheme === "light"
-                    ? NotificationCloseIconLightTheme
-                    : CloseIcon
-                  : selectedTheme === "light"
-                  ? SearchIconLighttheme
-                  : SearchIcon
-              }
+              src={searchOpen ? CloseIcon : SearchIcon}
               alt="Search"
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
+            {/* <img
+              className={notificationCloseIcon}
+              src={CloseIcon}
+              alt="Close"
+              width={20}
+              onClick={handleNotificationCloseIcon}
+            /> */}
           </div>
         </div>
         <div className={tabSection}>
@@ -407,22 +265,22 @@ setDebounceSearchText
         </div>
         <div className={notificationListItemSection}>
           {searchValue && searchValue?.length > 0 ? (
-            <NotificationListItems
-              data={searchValue}
-              //  key={index}
-              handleExpandListItem={handleExpandListItem}
-              selectedNotification={selectedNotification}
-              refs={refs}
-              handleViewDetails={handleViewDetails}
-              handleAssetViewDetails={handleAssetViewDetails}
-              handleVideoDetails={handleVideoDetails}
-              notificationPageName={notificationPageName}
-              selectedTheme={selectedTheme}
-              isMarkerClicked={isMarkerClicked}
-              
-            />
+            searchValue?.map((data: any, index: any) => {
+              return (
+                <NotificationListItems
+                  data={data}
+                  key={index}
+                  handleExpandListItem={handleExpandListItem}
+                  selectedNotification={selectedNotification}
+                  refs={refs}
+                  handleViewDetails={handleViewDetails}
+                  handleAssetViewDetails={handleAssetViewDetails}
+                  handleVideoDetails={handleVideoDetails}
+                />
+              );
+            })
           ) : (
-            <div className={noResultFoundClass}>{noResultFound}</div>
+            <div>{noResultFound}</div>
           )}
         </div>
       </div>
