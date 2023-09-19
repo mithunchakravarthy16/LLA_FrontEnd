@@ -168,7 +168,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     let assetPayload: any = {
       filterText: "",
       pageNo: 0,
-      pageSize: 100,
+      pageSize: 100000,
     };
 
     dispatch(getNotificationData(assetPayload));
