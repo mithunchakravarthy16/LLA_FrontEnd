@@ -963,7 +963,6 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(()=>{
-    console.log("selectedNotificationItem", selectedNotificationItem)
 
     if(isMarkerClicked) {
       setListSelectedMarker("");
@@ -976,12 +975,14 @@ const Map: React.FC<any> = (props) => {
   },[isMarkerClicked, ])
 
   useEffect(()=>{
-    if(selectedNotificationItem) {
+    if(selectedNotification) {
       map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
 
+    } else {
+      map?.panTo(center)
     }
 
-  },[selectedNotificationItem])
+  },[selectedNotification])
   return (
     <>
       {isLoaded && (
@@ -1193,6 +1194,7 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
 
                       />
                     </>
@@ -1226,6 +1228,7 @@ const Map: React.FC<any> = (props) => {
                         handleLiveMarkerIcon={handleLiveMarkerIcon}
                         handleLiveMarkerClose={handleLiveMarkerClose}
                         listSelectedMarker= {listSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
                   );

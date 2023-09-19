@@ -721,7 +721,6 @@ const AssetMap: React.FC<any> = (props) => {
   // }, [markers, marker]);
 
   const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
-    console.log("Markerid", id)
     setIsMarkerClicked(true);
     // setSelectedNotification("");
     // setAssetLiveMarker(id);
