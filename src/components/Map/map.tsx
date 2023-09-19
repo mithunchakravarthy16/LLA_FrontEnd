@@ -963,7 +963,6 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(()=>{
-    console.log("selectedNotificationItem", selectedNotificationItem)
 
     if(isMarkerClicked) {
       setListSelectedMarker("");
