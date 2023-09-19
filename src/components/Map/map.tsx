@@ -738,7 +738,7 @@ const Map: React.FC<any> = (props) => {
     tripId: any,
     category : string
   ) => {
-    // setIsMarkerClicked(true);
+    setIsMarkerClicked(true);
 
     // setAssetLiveMarker("")
     setNotificationPanelActive(true);
@@ -763,9 +763,9 @@ const Map: React.FC<any> = (props) => {
       }
     });
     
-    // setSelectedNotification((prev: any) => {
-    //   return prev && prev == markerId ? "" : markerId;
-    // });
+    setSelectedNotification((prev: any) => {
+      return prev && prev == markerId ? "" : markerId;
+    });
     location?.pathname === "/fleetManagement" && handleMarkerIconClick(tripId);
   };
 
@@ -943,15 +943,23 @@ const Map: React.FC<any> = (props) => {
   }, [markers, marker]);
 
   useEffect(()=>{
-    if(marker === "" ||assetLiveMarker === "" ) {
+    if(marker === "" ||assetLiveMarker === "" || listSelectedMarker === "" ||selectedNotificationItem === "" || selectedNotification === "" ) {
       map?.setZoom(17.2);
+      map?.panTo(parkingCenter)
     }
-  },[marker, markers, assetLiveMarker,])
+  },[marker, markers, assetLiveMarker, selectedNotificationItem, listSelectedMarker, selectedNotification])
 
-  const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
-
+  const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
+    if(data?.category === "parking") {
+      setNotificationPanelActive(true);
+      setListSelectedMarker(id);
+      setTabIndex(getTabIndex(data?.notificationType));
+      setSelectedNotification(id);
+    }
+    setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-    // setSelectedNotification("");
+
+    
     setAssetLiveMarker(id);
     // setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -981,17 +989,17 @@ const Map: React.FC<any> = (props) => {
     setSelectedMarker("");
   };
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    if(isMarkerClicked) {
-      setListSelectedMarker("");
-      setSelectedNotification("")
-      // setAssetLiveMarker("")
-    } else {
-      setAssetLiveMarker("")
-    }
+  //   if(isMarkerClicked) {
+  //     setListSelectedMarker("");
+  //     setSelectedNotification("")
+  //     // setAssetLiveMarker("")
+  //   } else {
+  //     setAssetLiveMarker("")
+  //   }
     
-  },[isMarkerClicked])
+  // },[isMarkerClicked])
 
 
   useEffect(()=>{

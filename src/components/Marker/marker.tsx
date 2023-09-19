@@ -184,7 +184,7 @@ const MapMarker: React.FC<any> = (props) => {
           zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
         />
   
-        {selectedNotification === mapMarker?.id && (
+        {(selectedNotification === mapMarker?.id) && (
           <InfoWindowF
             position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
             options={{ pixelOffset: new google.maps.Size(0, -20) }}

@@ -758,6 +758,15 @@ const AssetMap: React.FC<any> = (props) => {
     }
   },[isMarkerClicked])
 
+  useEffect(()=>{
+
+    if(marker === "" ||assetLiveMarker === "" || listSelectedMarker === "" ||selectedNotificationItem === "" ) {
+      map?.setZoom(17.2);
+      map?.panTo(assetTrackingCenter)
+    }
+  },[marker, markers, assetLiveMarker, selectedNotificationItem, listSelectedMarker])
+
+
 
   // useEffect(()=>{
   //   map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location)
