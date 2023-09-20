@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MainLayout from "pages/MainLayout";
@@ -17,6 +18,8 @@ import AdminPanelLogin from "pages/AdminPanelLogin";
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
+  const [mapType, setMapType] = useState("roadmap");
+
   return useRoutes([
     {
       path: "/login",
@@ -36,7 +39,7 @@ const VIOT_Routes = () => {
       children: [
         {
           path: "home",
-          element: <DashBoard />,
+          element: <DashBoard setMapType={setMapType} mapType={mapType} />,
         },
         {
           path: "gridView",
@@ -52,7 +55,7 @@ const VIOT_Routes = () => {
         },
         {
           path: "parking",
-          element: <Parking />,
+          element: <Parking mapType={mapType} setMapType={setMapType} />,
         },
         {
           path: "energyManagement",
@@ -72,7 +75,7 @@ const VIOT_Routes = () => {
         },
         {
           path: "assetTracking",
-          element: <AssetTracking />,
+          element: <AssetTracking mapType={mapType} setMapType={setMapType} />,
         },
       ],
     },
