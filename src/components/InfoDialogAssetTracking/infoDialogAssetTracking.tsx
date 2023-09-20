@@ -66,7 +66,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     setIsInfoWindowActive,
     selectedMarker,
     selectedTheme,
-    selectedMarkerType
+    selectedMarkerType,
   } = props;
 
   const dispatch = useDispatch();
@@ -124,7 +124,10 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     let assetTrackerDetailPayload: any = {
       assetId: selectedMarker?.assetId,
       trackerId: null,
-      notificationDate : selectedMarkerType === "assetLiveMarker" ? formattedDate :  selectedMarker?.notificationDate
+      notificationDate:
+        selectedMarkerType === "assetLiveMarker"
+          ? formattedDate
+          : selectedMarker?.notificationDate,
     };
     dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
     dispatch(setAssetTrackingCreateGeofence({}));
@@ -637,8 +640,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={success}
             onClose={handleAlertClose}
-            sx={{ bottom: "7.5vw !important" }}
-          >
+            sx={{ bottom: "7.5vw !important" }}>
             <Alert
               onClose={handleAlertClose}
               severity={
@@ -650,8 +652,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                   ? "success"
                   : "error"
               }
-              sx={{ width: "100%" }}
-            >
+              sx={{ width: "100%" }}>
               {createGeofenceResponse?.status === 200 && (
                 <div style={{ display: "flex" }}>
                   <Typography>Successfully Created Geofence.</Typography>
@@ -679,8 +680,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
               width: "4.2%",
               height: "4.2%",
               transition: "none",
-            }}
-          >
+            }}>
             <img
               width={"100%"}
               height={"100%"}
@@ -689,214 +689,211 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           </IconButton>
         </div>
 
-        {
-          !assetInfoLoader ?   
+        {!assetInfoLoader ? (
           <Grid container xs={12} style={{ height: "100%" }}>
-          <Grid item xs={12} className={headerStyle}>
-            <Grid container xs={3} className={headerTabContainerStyle}>
-              {tabsList?.map((item: any) => (
-                <Grid
-                  item
-                  className={headerTabStyle}
-                  style={{
-                    color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
-                  }}
-                  onClick={() => {
-                    handleHeaderTab(item?.val);
-                  }}
-                >
-                  {item?.name}
-                </Grid>
-              ))}
+            <Grid item xs={12} className={headerStyle}>
+              <Grid container xs={3} className={headerTabContainerStyle}>
+                {tabsList?.map((item: any) => (
+                  <Grid
+                    item
+                    className={headerTabStyle}
+                    style={{
+                      color: tabIndex === item?.val ? "#F2601F" : "#5F5F5F",
+                    }}
+                    onClick={() => {
+                      handleHeaderTab(item?.val);
+                    }}>
+                    {item?.name}
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} style={{ height: "94%", paddingTop: "1%" }}>
-            {tabIndex === 0 && (
-              <Grid container xs={12} style={{ height: "100%" }}>
-                <Grid item xs={12} style={{ height: "100%" }}>
-                  <Grid container xs={12} style={{ height: "100%" }}>
-                    <Grid
-                      container
-                      xs={7.7}
-                      className={assetInfoLeftPanelMain}
-                      style={{
-                        marginRight: "2%",
-                      }}
-                    >
-                      <Grid  className={assetInfoLeftPanelTop}>
-                        <div>
-                          <div className={leftPanelSection} style={{}}>
-                            {assetInfoTopPanelData?.map(
+            <Grid item xs={12} style={{ height: "94%", paddingTop: "1%" }}>
+              {tabIndex === 0 && (
+                <Grid container xs={12} style={{ height: "100%" }}>
+                  <Grid item xs={12} style={{ height: "100%" }}>
+                    <Grid container xs={12} style={{ height: "100%" }}>
+                      <Grid
+                        container
+                        xs={7.7}
+                        className={assetInfoLeftPanelMain}
+                        style={{
+                          marginRight: "2%",
+                        }}>
+                        <Grid className={assetInfoLeftPanelTop}>
+                          <div>
+                            <div className={leftPanelSection} style={{}}>
+                              {assetInfoTopPanelData?.map(
+                                (data: any, index: any) => {
+                                  return (
+                                    <div
+                                      className={leftPanelLoopSection}
+                                      key={index}>
+                                      <div className={leftPanelChild1}>
+                                        {data?.value?.length > 17 ? (
+                                          <>
+                                            <Tooltip
+                                              tooltipValue={data?.value}
+                                              placement={"bottom"}
+                                              offset={tooltipOfset}
+                                              fontSize={fontSize}
+                                              padding={padding}>
+                                              {" "}
+                                              {truncateString(data?.value, 17)}
+                                            </Tooltip>
+                                          </>
+                                        ) : (
+                                          data?.value
+                                        )}
+                                        {/* {data?.value === null ? "--" : data?.value} */}
+                                      </div>
+                                      <div
+                                        className={leftPanelChild2}
+                                        style={{}}>
+                                        {data?.label}
+                                      </div>
+                                    </div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          </div>
+                        </Grid>
+                        <Grid className={assetInfoLeftPanelCenter}>
+                          <div
+                            style={{
+                              padding: "2% 3%",
+                              flex: 1,
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-around",
+                            }}>
+                            {assetCenterLeftSectionData?.map(
                               (data: any, index: any) => {
                                 return (
                                   <div
-                                    className={leftPanelLoopSection}
                                     key={index}
-                                  >
-                                    <div className={leftPanelChild1}>
-                                      {data?.value?.length > 17 ? (
-                                        <>
-                                          <Tooltip
-                                            tooltipValue={data?.value}
-                                            placement={"bottom"}
-                                            offset={tooltipOfset}
-                                            fontSize={fontSize}
-                                            padding={padding}
-                                          >
-                                            {" "}
-                                            {truncateString(data?.value, 17)}
-                                          </Tooltip>
-                                        </>
-                                      ) : (
-                                        data?.value
-                                      )}
-                                      {/* {data?.value === null ? "--" : data?.value} */}
-                                    </div>
-                                    <div className={leftPanelChild2} style={{}}>
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      width: "100%",
+                                      lineHeight: "44px",
+                                    }}>
+                                    <div
+                                      style={{
+                                        width: "50%",
+                                        color: "#808080",
+                                      }}>
                                       {data?.label}
+                                    </div>
+                                    <div
+                                      style={{
+                                        width: "50%",
+                                        color:
+                                          appTheme?.palette?.assetTrackingPage
+                                            ?.topPanelTextColor,
+                                      }}>
+                                      {data?.value === null
+                                        ? "--"
+                                        : data?.value}
                                     </div>
                                   </div>
                                 );
                               }
                             )}
                           </div>
-                        </div>
-                      </Grid>
-                      <Grid className={assetInfoLeftPanelCenter}>
-                        <div
-                          style={{
-                            padding: " 3%",
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          {assetCenterLeftSectionData?.map(
-                            (data: any, index: any) => {
-                              return (
-                                <div
-                                  key={index}
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    lineHeight: "50px",
-                                  }}
-                                >
+                          <div
+                            style={{
+                              borderRight: `1px dashed #808080`, // Specify your desired color and border style
+                              opacity: "0.5",
+                              margin: "7%",
+                            }}></div>
+                          <div
+                            style={{
+                              padding: "2% 3%",
+                              flex: 1,
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-around",
+                              // textAlign: "right",
+                            }}>
+                            {assetCenterRightSectionData?.map(
+                              (data: any, index: any) => {
+                                return (
                                   <div
-                                    style={{ width: "50%", color: "#808080" }}
-                                  >
-                                    {data?.label}
-                                  </div>
-                                  <div
+                                    key={index}
                                     style={{
-                                      width: "50%",
-                                      color:
-                                        appTheme?.palette?.assetTrackingPage
-                                          ?.topPanelTextColor,
-                                    }}
-                                  >
-                                    {data?.value === null ? "--" : data?.value}
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      width: "100%",
+                                      lineHeight: "44px",
+                                    }}>
+                                    <div
+                                      style={{
+                                        width: "50%",
+                                        color: "#808080",
+                                      }}>
+                                      {data?.label}
+                                    </div>
+                                    <div
+                                      style={{
+                                        width: "50%",
+                                        color:
+                                          appTheme?.palette?.assetTrackingPage
+                                            ?.topPanelTextColor,
+                                      }}>
+                                      {data?.value}
+                                    </div>
                                   </div>
-                                </div>
-                              );
-                            }
-                          )}
-                        </div>
-                        <div
-                          style={{
-                            borderRight: `1px dashed #808080`, // Specify your desired color and border style
-                            opacity: "0.5",
-                            margin: "7%",
-                          }}
-                        ></div>
-                        <div
-                          style={{
-                            padding: "3%",
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-around",
-                            // textAlign: "right",
-                          }}
-                        >
-                          {assetCenterRightSectionData?.map(
-                            (data: any, index: any) => {
-                              return (
-                                <div
-                                  key={index}
+                                );
+                              }
+                            )}
+                          </div>
+                        </Grid>
+                        <Grid className={assetInfoLeftPanelBottom}>
+                          <CustomizedSteppers
+                            dataPoints={assetTrackerDetails?.journeyDetails}
+                            selectedTheme={selectedTheme}
+                            trackerStatus={assetTrackerDetails?.trackerStatus}
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={4} className={assetInfoRightPanelMain}>
+                        <Grid
+                          item
+                          xs={12}
+                          className={notificationListContainer}>
+                          <Grid container xs={12} rowGap={1.5}>
+                            {infoNotificationList &&
+                              infoNotificationList?.length > 0 &&
+                              infoNotificationList?.map((item: any) => (
+                                <Grid
+                                  item
+                                  xs={12}
+                                  display="flex"
+                                  direction="column"
+                                  rowGap={2}
                                   style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    lineHeight: "50px",
-                                  }}
-                                >
-                                  <div
-                                    style={{ width: "50%", color: "#808080" }}
-                                  >
-                                    {data?.label}
+                                    padding: "5% 4%",
+                                    border: `1px solid ${appTheme?.palette?.assetTrackingPage?.geofenceListBorder}`,
+                                    borderRadius: "5px",
+                                    background:
+                                      appTheme?.palette?.assetTrackingPage
+                                        ?.geofenceListItemBg,
+                                  }}>
+                                  <div className={vehicleTitle}>
+                                    {item?.title}
                                   </div>
-                                  <div
-                                    style={{
-                                      width: "50%",
-                                      color:
-                                        appTheme?.palette?.assetTrackingPage
-                                          ?.topPanelTextColor,
-                                    }}
-                                  >
-                                    {data?.value}
-                                  </div>
-                                </div>
-                              );
-                            }
-                          )}
-                        </div>
-                      </Grid>
-                      <Grid className={assetInfoLeftPanelBottom}>
-                        <CustomizedSteppers
-                          dataPoints={assetTrackerDetails?.journeyDetails}
-                          selectedTheme={selectedTheme}
-                          trackerStatus = {assetTrackerDetails?.trackerStatus}
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={4} className={assetInfoRightPanelMain}>
-                      <Grid item xs={12} className={notificationListContainer}>
-                        <Grid container xs={12} rowGap={1.5}>
-                          {infoNotificationList &&
-                            infoNotificationList?.length > 0 &&
-                            infoNotificationList?.map((item: any) => (
-                              <Grid
-                                item
-                                xs={12}
-                                display="flex"
-                                direction="column"
-                                rowGap={2}
-                                style={{
-                                  padding: "5% 4%",
-                                  border: `1px solid ${appTheme?.palette?.assetTrackingPage?.geofenceListBorder}`,
-                                  borderRadius: "5px",
-                                  background:
-                                    appTheme?.palette?.assetTrackingPage
-                                      ?.geofenceListItemBg,
-                                }}
-                              >
-                                <div className={vehicleTitle}>
-                                  {item?.title}
-                                </div>
-                                <div className={assetTrackingTitle}>
-                                  <div>
-                                  {item?.details?.length > 33 ? (
+                                  <div className={assetTrackingTitle}>
+                                    <div>
+                                      {item?.details?.length > 33 ? (
                                         <>
                                           <Tooltip
                                             tooltipValue={item?.details}
                                             placement={"bottom"}
                                             offset={tooltipOfset}
                                             fontSize={fontSize}
-                                            padding={padding}
-                                          >
+                                            padding={padding}>
                                             {" "}
                                             {truncateString(item?.details, 33)}
                                           </Tooltip>
@@ -904,129 +901,130 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       ) : (
                                         item?.details
                                       )}
-                                    
                                     </div>
-                                  <div>
-                                    {moment(item?.notificationDate)?.format(
-                                      "DD-MM-YYYY | HH:mm A"
-                                    )}
+                                    <div>
+                                      {moment(item?.notificationDate)?.format(
+                                        "DD-MM-YYYY | HH:mm A"
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
-                              </Grid>
-                            ))}
+                                </Grid>
+                              ))}
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            )}
-            {tabIndex === 1 && (
-              <>
-                <Grid container>
-                  <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                    <Geofence
-                      is4kDevice={selectedWidth?.is4kDevice}
-                      isCircleDrawing={isCircleDrawing}
-                      setIsCircleDrawing={setIsCircleDrawing}
-                      setIsDrawingEnable={setIsDrawingEnable}
-                      circleRadius={circleRadius}
-                      circleCenter={circleCenter}
-                      setCircleRadius={setCircleRadius}
-                      setCircleCenter={setCircleCenter}
-                      handleCircleLatChange={handleCircleLatChange}
-                      setCircleRadiusUnits={setCircleRadiusUnits}
-                      circleRadiusUnits={circleRadiusUnits}
-                      isOutsideGeofenceChecked={isOutsideGeofenceChecked}
-                      isBackGeofenceChecked={isBackGeofenceChecked}
-                      setIsOutsideGeofenceChecked={setIsOutsideGeofenceChecked}
-                      setIsBackGeofenceChecked={setIsBackGeofenceChecked}
-                      setGeofenceType={setGeofenceType}
-                      geofenceType={geofenceType}
-                      radiusType={radiusType}
-                      setRadiusType={setRadiusType}
-                      setPolygonPath={setPolygonPath}
-                      checked={checked}
-                      isDisabled={isDisabled}
-                      setChecked={setChecked}
-                      setIsDisabled={setIsDisabled}
-                      polygonPath={polygonPath}
-                      handleGeofencePolygonClick={handleGeofencePolygonClick}
-                      handleGeofenceCircleClick={handleGeofenceCircleClick}
-                      selectedTheme={selectedTheme}
-                      geofenceName={geofenceName}
-                      setGeofenceName={setGeofenceName}
-                      isCircleEnbled={isCircleEnbled}
-                      setIsCircleEnbled={setIsCircleEnbled}
-                      isPolygonEnbled={isPolygonEnbled}
-                      setIsPolygonEnbled={setIsPolygonEnbled}
-                    />
+              )}
+              {tabIndex === 1 && (
+                <>
+                  <Grid container>
+                    <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                      <Geofence
+                        is4kDevice={selectedWidth?.is4kDevice}
+                        isCircleDrawing={isCircleDrawing}
+                        setIsCircleDrawing={setIsCircleDrawing}
+                        setIsDrawingEnable={setIsDrawingEnable}
+                        circleRadius={circleRadius}
+                        circleCenter={circleCenter}
+                        setCircleRadius={setCircleRadius}
+                        setCircleCenter={setCircleCenter}
+                        handleCircleLatChange={handleCircleLatChange}
+                        setCircleRadiusUnits={setCircleRadiusUnits}
+                        circleRadiusUnits={circleRadiusUnits}
+                        isOutsideGeofenceChecked={isOutsideGeofenceChecked}
+                        isBackGeofenceChecked={isBackGeofenceChecked}
+                        setIsOutsideGeofenceChecked={
+                          setIsOutsideGeofenceChecked
+                        }
+                        setIsBackGeofenceChecked={setIsBackGeofenceChecked}
+                        setGeofenceType={setGeofenceType}
+                        geofenceType={geofenceType}
+                        radiusType={radiusType}
+                        setRadiusType={setRadiusType}
+                        setPolygonPath={setPolygonPath}
+                        checked={checked}
+                        isDisabled={isDisabled}
+                        setChecked={setChecked}
+                        setIsDisabled={setIsDisabled}
+                        polygonPath={polygonPath}
+                        handleGeofencePolygonClick={handleGeofencePolygonClick}
+                        handleGeofenceCircleClick={handleGeofenceCircleClick}
+                        selectedTheme={selectedTheme}
+                        geofenceName={geofenceName}
+                        setGeofenceName={setGeofenceName}
+                        isCircleEnbled={isCircleEnbled}
+                        setIsCircleEnbled={setIsCircleEnbled}
+                        isPolygonEnbled={isPolygonEnbled}
+                        setIsPolygonEnbled={setIsPolygonEnbled}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                      <Map
+                        markers={[selectedMarker]}
+                        marker={""}
+                        currentMarker={""}
+                        setCurrentMarker={() => {}}
+                        focusedCategory={""}
+                        mapPageName={"Asset Tracking"}
+                        setIsMarkerClicked={() => {}}
+                        setSelectedNotification={() => {}}
+                        setNotificationPanelActive={() => {}}
+                        setTabIndex={() => {}}
+                        isDrawingEnable={isDrawingEnable}
+                        isCircleDrawing={isCircleDrawing}
+                        setCircleData={setCircleData}
+                        setCircleRadius={setCircleRadius}
+                        setCircleCenter={setCircleCenter}
+                        setPolygonPath={setPolygonPath}
+                        setPolygonData={setPolygonData}
+                        setIsCircleDrawing={setIsCircleDrawing}
+                        setIsDrawingEnable={setIsDrawingEnable}
+                        circleRadius={circleRadius}
+                        circleCenter={circleCenter}
+                        handleGeofenceCircleDrag={handleCircleDrag}
+                        setCircleRadiusUnits={setCircleRadiusUnits}
+                        circleRadiusUnits={circleRadiusUnits}
+                        polygonPath={polygonPath}
+                        // markerArray={[selectedViewDetailsData]}
+                        onCircleCompleteLocation={onCircleCompleteLocation}
+                        onPolygonCompleteLocation={onPolygonCompleteLocation}
+                        selectedTheme={selectedTheme}
+                        setMap={setMap}
+                        map={map}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
-                    <Map
-                      markers={[selectedMarker]}
-                      marker={""}
-                      currentMarker={""}
-                      setCurrentMarker={() => {}}
-                      focusedCategory={""}
-                      mapPageName={"Asset Tracking"}
-                      setIsMarkerClicked={() => {}}
-                      setSelectedNotification={() => {}}
-                      setNotificationPanelActive={() => {}}
-                      setTabIndex={() => {}}
-                      isDrawingEnable={isDrawingEnable}
-                      isCircleDrawing={isCircleDrawing}
-                      setCircleData={setCircleData}
-                      setCircleRadius={setCircleRadius}
-                      setCircleCenter={setCircleCenter}
-                      setPolygonPath={setPolygonPath}
-                      setPolygonData={setPolygonData}
-                      setIsCircleDrawing={setIsCircleDrawing}
-                      setIsDrawingEnable={setIsDrawingEnable}
-                      circleRadius={circleRadius}
-                      circleCenter={circleCenter}
-                      handleGeofenceCircleDrag={handleCircleDrag}
-                      setCircleRadiusUnits={setCircleRadiusUnits}
-                      circleRadiusUnits={circleRadiusUnits}
-                      polygonPath={polygonPath}
-                      // markerArray={[selectedViewDetailsData]}
-                      onCircleCompleteLocation={onCircleCompleteLocation}
-                      onPolygonCompleteLocation={onPolygonCompleteLocation}
-                      selectedTheme={selectedTheme}
-                      setMap={setMap}
-                      map={map}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <div className={buttonContainer}>
-                      <div className={cancelButtonContainer}>
-                        <Button variant="outlined" onClick={handleResetClick}>
-                          {assetsTracking.reset}
-                        </Button>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <div className={buttonContainer}>
+                        <div className={cancelButtonContainer}>
+                          <Button variant="outlined" onClick={handleResetClick}>
+                            {assetsTracking.reset}
+                          </Button>
+                        </div>
+                        <div className={updateButtonContainer}>
+                          <Button
+                            variant="contained"
+                            disabled={
+                              (isCircleEnbled && circleCenter === null) ||
+                              (!isCircleEnbled && polygonPath === null)
+                            }
+                            onClick={handleSaveClick}>
+                            {assetsTracking.save}
+                          </Button>
+                        </div>
                       </div>
-                      <div className={updateButtonContainer}>
-                        <Button
-                          variant="contained"
-                          disabled={
-                            (isCircleEnbled && circleCenter === null) ||
-                            (!isCircleEnbled && polygonPath === null)
-                          }
-                          onClick={handleSaveClick}
-                        >
-                          {assetsTracking.save}
-                        </Button>
-                      </div>
-                    </div>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </>
-            )}
+                </>
+              )}
+            </Grid>
           </Grid>
-        </Grid> :  <Loader isHundredVh={false} />
-       } 
-      
+        ) : (
+          <Loader isHundredVh={false} />
+        )}
       </DialogWrapper>
     </>
   );
