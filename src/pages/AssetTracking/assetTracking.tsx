@@ -273,11 +273,11 @@ const AssetTracking: React.FC<any> = (props) => {
       pageSize: 100000,
     };
 
-    dispatch(getNotificationData(assetPayload));
+    // dispatch(getNotificationData(assetPayload));
 
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(getNotificationData(assetPayload));
+    // }, 1 * 60 * 1000);
 
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
@@ -285,9 +285,11 @@ const AssetTracking: React.FC<any> = (props) => {
     const interval = setInterval(() => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }, 10 * 1000);
+    
 
     return () => {
       clearInterval(interval);
+      // clearInterval(intervalTime);
     };
   }, []);
 
@@ -306,7 +308,7 @@ const AssetTracking: React.FC<any> = (props) => {
         pageSize: 100000,
       };
   
-      dispatch(getNotificationData(assetPayload));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
 
       
     } else if(debounceSearchText){
@@ -315,11 +317,11 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: 0,
         pageSize: 100000,
       };
-      
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true})); 
     }
 
    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
     }, 1 * 60 * 1000)
 
     return () => {
@@ -333,6 +335,10 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.assetNotification?.assetNotificationData
   );
   const assetNotificationList = assetNotificationResponse?.data;
+
+  const loaderAssetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.loadingAssetNotificationData
+  );
 
   const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
@@ -1477,6 +1483,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem} 
                     notificationPageName={"asset"}
                     setDebounceSearchText={setDebounceSearchText}
+                    loaderAssetNotificationResponse={loaderAssetNotificationResponse}
                   />
                 </Grid>
               </Grid>
