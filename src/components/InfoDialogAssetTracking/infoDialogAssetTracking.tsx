@@ -772,7 +772,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         <Grid className={assetInfoLeftPanelCenter}>
                           <div
                             style={{
-                              padding: " 3%",
+                              padding: "2% 3%",
                               flex: 1,
                               display: "flex",
                               flexDirection: "column",
@@ -788,11 +788,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       display: "flex",
                                       justifyContent: "space-between",
                                       width: "100%",
-                                      lineHeight: "50px",
+                                      lineHeight: "44px",
                                     }}
                                   >
                                     <div
-                                      style={{ width: "50%", color: "#808080" }}
+                                      style={{
+                                        width: "50%",
+                                        color: "#808080",
+                                      }}
                                     >
                                       {data?.label}
                                     </div>
@@ -822,7 +825,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                           ></div>
                           <div
                             style={{
-                              padding: "3%",
+                              padding: "2% 3%",
                               flex: 1,
                               display: "flex",
                               flexDirection: "column",
@@ -839,11 +842,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       display: "flex",
                                       justifyContent: "space-between",
                                       width: "100%",
-                                      lineHeight: "50px",
+                                      lineHeight: "44px",
                                     }}
                                   >
                                     <div
-                                      style={{ width: "50%", color: "#808080" }}
+                                      style={{
+                                        width: "50%",
+                                        color: "#808080",
+                                      }}
                                     >
                                       {data?.label}
                                     </div>

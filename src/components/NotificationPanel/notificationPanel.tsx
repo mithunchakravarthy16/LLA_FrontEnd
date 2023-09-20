@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 
 import useStyles from "./styles";
 import { constants } from "buffer";
+import Loader from "elements/Loader";
 
 const NotificationPanel = (props: any) => {
   const {
@@ -45,7 +46,8 @@ const NotificationPanel = (props: any) => {
     setListSelectedMarker,
     selectedNotificationItem,
 setSelectedNotificationItem,
-setDebounceSearchText
+setDebounceSearchText,
+loaderAssetNotificationResponse
   } = props;
   const dispatch = useDispatch()
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -243,7 +245,7 @@ setDebounceSearchText
       // setPage(0);
       // setRowsPerPage(100);
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
      setDebounceSearchText(searchValue)
     // setSearchPageNo("");
     console.log("test", searchValue)
@@ -408,7 +410,11 @@ setDebounceSearchText
           />
         </div>
         <div className={notificationListItemSection}>
-          {searchValue && searchValue?.length > 0 ? (
+        
+          {
+            notificationPageName === "asset" ?
+          !loaderAssetNotificationResponse ?
+          searchValue && searchValue?.length > 0 ? (
             <NotificationListItems
               data={searchValue}
               //  key={index}
@@ -425,7 +431,28 @@ setDebounceSearchText
             />
           ) : (
             <div className={noResultFoundClass}>{noResultFound}</div>
-          )}
+          )
+        :
+        <Loader isHundredVh={false} imgWidth={"20%"}/>
+      :
+      searchValue && searchValue?.length > 0 ? (
+        <NotificationListItems
+          data={searchValue}
+          //  key={index}
+          handleExpandListItem={handleExpandListItem}
+          selectedNotification={selectedNotification}
+          refs={refs}
+          handleViewDetails={handleViewDetails}
+          handleAssetViewDetails={handleAssetViewDetails}
+          handleVideoDetails={handleVideoDetails}
+          notificationPageName={notificationPageName}
+          selectedTheme={selectedTheme}
+          isMarkerClicked={isMarkerClicked}
+          
+        />
+      ) : (
+        <div className={noResultFoundClass}>{noResultFound}</div>
+      )}
         </div>
       </div>
     </>
