@@ -106,7 +106,7 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
-          clusterer={(listSelectedMarker === "" || selectedNotification === "" ) ? clusterer : undefined}
+          // clusterer={(listSelectedMarker === "" || selectedNotification === "" || assetLiveMarker === "" ) ? clusterer : undefined}
           animation={
             focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
               ? window.google.maps.Animation.BOUNCE
@@ -163,7 +163,7 @@ const MapMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
-          clusterer={(selectedNotificationItem === "" ) ? clusterer : undefined}
+          // clusterer={(selectedNotificationItem === "" ) ? clusterer : undefined}
   
           position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
           onClick={() =>{ handleLiveMarkerIcon(mapMarker?.id, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
@@ -214,7 +214,7 @@ const MapMarker: React.FC<any> = (props) => {
   return (
     <>
       <Marker
-        clusterer={(listSelectedMarker === "" && selectedNotification !== "" ) ? clusterer : undefined}
+        // clusterer={(listSelectedMarker === "" && selectedNotification !== "" ) ? clusterer : undefined}
 
         position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
         onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
