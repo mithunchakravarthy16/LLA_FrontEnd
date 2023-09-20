@@ -715,10 +715,10 @@ const AssetMap: React.FC<any> = (props) => {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
 
-  // const clustererRef = useRef<any>();
-  // useEffect(() => {
-  //   clustererRef.current?.repaint();
-  // }, [markers, marker]);
+  const clustererRef = useRef<any>();
+  useEffect(() => {
+    clustererRef.current?.repaint();
+  }, [markers, marker]);
 
   const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
     setIsMarkerClicked(true);
@@ -727,9 +727,12 @@ const AssetMap: React.FC<any> = (props) => {
     // setListSelectedMarker(id)
      setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
-    // setSelectedNotification((prev: any) => {
-    //   return prev && prev == id ? "" : id;
-    // });
+    if(marker?.category === "parking") {
+      setSelectedNotification((prev: any) => {
+        return prev && prev == id ? "" : id;
+      });
+    }
+
   };
 
   const handleLiveMarkerClose = () => {
@@ -757,6 +760,15 @@ const AssetMap: React.FC<any> = (props) => {
       setSelectedNotification("");
     }
   },[isMarkerClicked])
+
+  useEffect(()=>{
+
+    if(marker === "" ||assetLiveMarker === "" || listSelectedMarker === "" ||selectedNotificationItem === "" ) {
+      map?.setZoom(17.2);
+      map?.panTo(assetTrackingCenter)
+    }
+  },[marker, markers, assetLiveMarker, selectedNotificationItem, listSelectedMarker])
+
 
 
   // useEffect(()=>{
