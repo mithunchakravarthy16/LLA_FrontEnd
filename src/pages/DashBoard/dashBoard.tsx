@@ -12,7 +12,8 @@ import SideBar from "components/SideBar";
 import useStyles from "./styles";
 import DashboardContainer from "components/DashboardContainer";
 
-const DashBoard = () => {
+const DashBoard = (props) => {
+  const { setMapType, mapType } = props;
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -59,7 +60,11 @@ const DashBoard = () => {
       <div className={rootContainer}>
         {/* <Map /> */}
 
-        <DashboardContainer handleviewDetails={handleviewDetails} />
+        <DashboardContainer
+          handleviewDetails={handleviewDetails}
+          setMapType={setMapType}
+          mapType={mapType}
+        />
       </div>
     </>
   );

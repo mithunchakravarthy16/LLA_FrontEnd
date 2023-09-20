@@ -48,7 +48,7 @@ import {
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
-
+  const { mapType, setMapType } = props;
   //Analytics Api integration starts here
   const [selectedValue, setSelectedValue] = useState<string>("Week");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
@@ -266,7 +266,6 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
- 
     let assetPayload: any = {
       filterText: "",
       pageNo: 0,
@@ -291,43 +290,42 @@ const AssetTracking: React.FC<any> = (props) => {
     };
   }, []);
 
-  const[debounceSearchText,setDebounceSearchText]=useState<any>("")
+  const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
-  useEffect(()=>{
+  useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
       pageNo: 0,
       pageSize: 100000,
     };
-    if(!debounceSearchText){
-     assetPayload = {
+    if (!debounceSearchText) {
+      assetPayload = {
         filterText: "",
         pageNo: 0,
         pageSize: 100000,
       };
-  
-      dispatch(getNotificationData(assetPayload));
 
-      
-    } else if(debounceSearchText){
-       assetPayload = {
+      dispatch(getNotificationData(assetPayload));
+    } else if (debounceSearchText) {
+      assetPayload = {
         filterText: debounceSearchText,
         pageNo: 0,
         pageSize: 100000,
       };
-      
     }
 
-   const intervalTime = setInterval(() => {
+    const intervalTime = setInterval(() => {
       dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000)
+    }, 1 * 60 * 1000);
 
     return () => {
       clearInterval(intervalTime);
     };
-  },[debounceSearchText])
+  }, [debounceSearchText]);
 
-  const assetLiveData = useSelector((state:any)=>state?.assetTracker?.assetLiveData?.data)
+  const assetLiveData = useSelector(
+    (state: any) => state?.assetTracker?.assetLiveData?.data
+  );
 
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
@@ -1425,6 +1423,8 @@ const AssetTracking: React.FC<any> = (props) => {
                         onClick={handleAssetInfoWindow}
                       /> */}
                       <AssetMap
+                        mapType={mapType}
+                        setMapType={setMapType}
                         markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
@@ -1473,8 +1473,10 @@ const AssetTracking: React.FC<any> = (props) => {
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
-                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem} 
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
                     notificationPageName={"asset"}
                     setDebounceSearchText={setDebounceSearchText}
                   />
@@ -1492,12 +1494,16 @@ const AssetTracking: React.FC<any> = (props) => {
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
           selectedMarkerType={selectedMarkerType}
+          mapType={mapType}
+          setMapType={setMapType}
         />
       )}
       {isGeofenceInfoWindowActive && (
         <InfoDialogGeofenceAssetTracking
           setIsGeofenceInfoWindowActive={setIsGeofenceInfoWindowActive}
           selectedTheme={selectedTheme}
+          mapType={mapType}
+          setMapType={setMapType}
         />
       )}
     </>
