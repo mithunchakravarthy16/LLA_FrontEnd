@@ -113,6 +113,7 @@ export const formatttedDashboardNotificationCount = (data: any) => {
 };
 
 export const formatttedDashboardAPINotificaiton = (data: any) => {
+  if (data && data !== undefined) {
   const { events, incidents, alerts } = data;
   const combinedNotifications: any = [];
 
@@ -157,6 +158,7 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
   );
 
   return dashboardDataList;
+}
 };
 
 export const formatttedAssetAPINotification = (data: any) => {

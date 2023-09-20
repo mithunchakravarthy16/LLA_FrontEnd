@@ -38,7 +38,7 @@ import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
-
+import CustomTablePagination from "elements/CustomPagination";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -118,7 +118,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
-  
+  //Pagination 
+  const [page, setPage] = useState<any>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<any>(50);
+  const [searchPageNo, setSearchPageNo] = useState<any>();
+  //Pagination End
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -153,57 +157,61 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     dashboardRightPanelStyle,
     notificationIconSection,
     notificationPanelSection,
+    pageNumSection,
+    customPagination,
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
-  const[debounceSearchText,setDebounceSearchText]=useState<any>()
+  const [debounceSearchText, setDebounceSearchText] = useState<any>();
   useEffect(() => {
-    if(!debounceSearchText){
-
-    const fleetPayload: any = {};
-    // dispatch(setFleetManagementNotificationData({}));
-    // dispatch(getFleetManagementNotificationData(fleetPayload));
-    // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
-    setSuccess(false);
+    let assetLiveDataPayload: any = {};
     let assetPayload: any = {
       filterText: "",
-      pageNo: 0,
-      pageSize: 100000,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
     };
+    if (!debounceSearchText) {
+      const fleetPayload: any = {};
+      // dispatch(setFleetManagementNotificationData({}));
+      // dispatch(getFleetManagementNotificationData(fleetPayload));
+      // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+      setSuccess(false);
+      dispatch(getNotificationData(assetPayload));
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }
 
-    dispatch(getNotificationData(assetPayload));
-
-    let assetLiveDataPayload: any = {};
-    dispatch(getAssetLiveLocation(assetLiveDataPayload));
-  }
-
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData(assetPayload));
-    // }, 1 * 60 * 1000);
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData(assetPayload));
+    }, 1 * 60 * 1000);
 
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
-    // return () => {
-    //   clearInterval(interval);
-    //   clearInterval(intervalTime);
-    // };
+    return () => {
+      clearInterval(interval);
+      clearInterval(intervalTime);
+    };
   }, [debounceSearchText]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
     useState<any>([]);
 
-
   const assetLiveData = useSelector(
     (state: any) => state?.assetTracker?.assetLiveData?.data
   );
 
-    const [liveMarkerList, setLiveMarkerList] = useState<any>(assetLiveData && [...assetLiveData, ...formatttedDashboardAPINotificaiton(
-            dashboardNotification?.notifications)])
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(
+    assetLiveData && [
+      ...assetLiveData,
+      ...formatttedDashboardAPINotificaiton(
+        dashboardNotification?.notifications
+      ),
+    ]
+  );
 
   useEffect(() => {
     setSuccess(false);
@@ -223,7 +231,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     ) {
       setSuccess(true);
     } else if (
-      assetNotificationResponse && !searchOpen
+      assetNotificationResponse &&
+      !searchOpen
       // &&
       // fleetManagementNotificationResponse?.status === 200
     ) {
@@ -239,7 +248,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       );
       if (
         assetNotiData &&
-        assetNotiData?.length > 0 
+        assetNotiData?.length > 0
         // fleetNotiData &&
         // fleetNotiData?.length > 0
       ) {
@@ -250,74 +259,81 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         ];
 
         const consolidatedMarkerData = [...consolidatedData];
-                setDashboardNotificationList(consolidatedMarkerData);
-
+        setDashboardNotificationList(consolidatedMarkerData);
       }
     }
-  }, [assetNotificationResponse, searchOpen]);
+  }, [assetNotificationResponse, searchOpen, rowsPerPage, page]);
 
-
-
-  useEffect(()=>{
-    if(assetLiveData){
-    const sampleLiveData = [
-      {
-          "trackerId": "740063943838",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-          "trackerStatus": "Active",
-          "notificationType": "Incident",
-          "currentLocation": {
-            "lat": 9.0155021,
-            "lng": -79.4759242
+  useEffect(() => {
+    if (assetLiveData) {
+      const sampleLiveData = [
+        {
+          trackerId: "740063943838",
+          assetId:
+            "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
+          trackerStatus: "Active",
+          notificationType: "Incident",
+          currentLocation: {
+            lat: 9.0155021,
+            lng: -79.4759242,
           },
-          "currentArea": ""
-      },
-      {
-          "trackerId": "413051518008",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-          "trackerStatus": "Inactive",
-          "notificationType": "Incident",
-          "currentLocation": {
-              "lat": 9.0135021,
-              "lng": -79.4759242
+          currentArea: "",
+        },
+        {
+          trackerId: "413051518008",
+          assetId:
+            "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
+          trackerStatus: "Inactive",
+          notificationType: "Incident",
+          currentLocation: {
+            lat: 9.0135021,
+            lng: -79.4759242,
           },
-          "currentArea": ""
-      },
-      {
-          "trackerId": "740063943499",
-          "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          "trackerStatus": "Active",
-          "notificationType": "Events",
-          "currentLocation": {
-            "lat": 9.0135021,
-            "lng": -79.4859242
+          currentArea: "",
+        },
+        {
+          trackerId: "740063943499",
+          assetId:
+            "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
+          trackerStatus: "Active",
+          notificationType: "Events",
+          currentLocation: {
+            lat: 9.0135021,
+            lng: -79.4859242,
           },
-          "currentArea": ""
-      }
-  ]
+          currentArea: "",
+        },
+      ];
 
-  const updatedLiveData : any = assetLiveData?.map((asset:any) => {
+      const updatedLiveData: any = assetLiveData?.map((asset: any) => {
+        return {
+          ...asset,
+          location: asset?.currentLocation,
+          category: "asset",
+          title: `TR#${asset?.trackerId}`,
+          id: asset?.assetId,
+          recentMarkerType:
+            asset?.trackerStatus === "Inactive"
+              ? asset?.trackerStatus
+              : asset?.notificationType,
+          markerId: asset?.trackerId,
+        };
+      });
 
-    return {
-      ...asset,
-      location: asset?.currentLocation,
-      category: "asset",
-      title : `TR#${asset?.trackerId}`,
-      id : asset?.assetId,
-      recentMarkerType: asset?.trackerStatus === "Inactive" ? asset?.trackerStatus :  asset?.notificationType,
-      markerId: asset?.trackerId
-    };
-  });
-
-  setLiveMarkerList([...updatedLiveData, ...formatttedDashboardAPINotificaiton(dashboardNotification?.notifications)])
-}
-  },[assetLiveData])
-
-  useEffect(()=>{
-    if(searchOpen && selectedNotification !== "") {
-      setSearchValue(searchValue)
+      setLiveMarkerList([
+        ...updatedLiveData,
+        ...formatttedDashboardAPINotificaiton(
+          dashboardNotification?.notifications
+        ),
+      ]);
     }
-  },[searchOpen, selectedNotification])
+  }, [assetLiveData]);
+
+  useEffect(() => {
+    if (searchOpen && selectedNotification !== "") {
+      setSearchValue(searchValue);
+    }
+  }, [searchOpen, selectedNotification]);
 
   // fleetManagementNotificationResponse &&
   const [notificationCount, setNotificationCount] = useState<any>(
@@ -325,13 +341,11 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       formatttedDashboardNotificationCount(dashboardNotificationList)
   );
 
-
   const [searchValue, setSearchValue] = useState<any>(
     dashboardNotificationList &&
       formatttedDashboardNotification(dashboardNotificationList, tabIndex)
   );
 
-  
   useEffect(() => {
     setNotificationCount(
       formatttedDashboardNotificationCount(dashboardNotificationList)
@@ -348,53 +362,53 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       formatttedDashboardNotification(dashboardNotificationList, tabIndex)
     );
 
-    if(debounceSearchText){
-      const tabData = formatttedDashboardNotification(dashboardNotificationList, tabIndex);
-    let searchResult = tabData?.filter((value: any) => {
-      return (
-        value?.title
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.area
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.subTitle
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.trackerId
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.assetId
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.entity
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.venue
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-        value?.equipment
-          ?.toString()
-          ?.toLowerCase()
-          .includes(debounceSearchText?.toString()?.toLowerCase())
+    if (debounceSearchText) {
+      const tabData = formatttedDashboardNotification(
+        dashboardNotificationList,
+        tabIndex
       );
-    });
-      setSearchValue(
-        searchResult
-      );
-    }else{
+      let searchResult = tabData?.filter((value: any) => {
+        return (
+          value?.title
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.area
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.subTitle
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.trackerId
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.assetId
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.entity
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.venue
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.equipment
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase())
+        );
+      });
+      setSearchValue(searchResult);
+    } else {
       setSearchValue(
         formatttedDashboardNotification(dashboardNotificationList, tabIndex)
-      )
+      );
     }
-    
   }, [dashboardNotificationList, tabIndex, debounceSearchText]);
 
   useEffect(() => {
@@ -440,15 +454,82 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
     setSelectedMarker(data);
   };
 
-  useEffect(()=>{
-    if(selectedNotification) {
-      setIsMarkerClicked(false)
+  useEffect(() => {
+    if (selectedNotification) {
+      setIsMarkerClicked(false);
     }
   }, [selectedNotification]);
 
-  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
-  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
 
+  // PAGINATION
+
+  const handleChangePage = (newPage: any) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (data: any) => {
+    setRowsPerPage(data);
+    setSearchPageNo("");
+    setPage(0)
+    let assetPayload: any = {
+      filterText: "",
+      pageNo: parseInt(page),
+      pageSize: parseInt(data),
+    };
+    dispatch(getNotificationData(assetPayload));
+  };
+
+  const handleNextChange = () => {
+
+    let assetPayload: any = {};
+    if(page >= 0 ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page) + 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+    }
+    dispatch(getNotificationData(assetPayload));
+    setPage(page + 1);
+    setSearchPageNo("");
+  };
+
+
+  const handlePreviousChange = () => {
+    let assetPayload: any = {};
+    if(page > 0 ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+    }
+    dispatch(getNotificationData(assetPayload));
+    setPage(page - 1);
+    setSearchPageNo("");
+  };
+
+
+  const handlePageNoChange = (value: any) => {
+    setPage(0);
+    setSearchPageNo(value !== "" ? parseInt(value) : value );
+
+    let assetPayload: any = {};
+    if(page >= 0 && value !== "" ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(value) - 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+      dispatch(getNotificationData(assetPayload));
+
+    }
+  };
+
+  // PAGINATION ENDS
 
   return (
     <>
@@ -551,8 +632,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   searchOpen={searchOpen}
                   selectedNotification={selectedNotification}
                   liveMarkerList={liveMarkerList}
-                  listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                  selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}                      
+                  listSelectedMarker={listSelectedMarker}
+                  setListSelectedMarker={setListSelectedMarker}
+                  selectedNotificationItem={selectedNotificationItem}
+                  setSelectedNotificationItem={setSelectedNotificationItem}
                   isMarkerClicked={isMarkerClicked}
                 />
               </div>
@@ -627,6 +710,22 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}            
                     setDebounceSearchText={setDebounceSearchText}
                   />
+                  <div style={{ margin: "-5px 0 0 20px"}}>
+                    <CustomTablePagination
+                      rowsPerPageOptions={[50, 100, 200, 500]}
+                      count={800}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                      handleNextChange={handleNextChange}
+                      handlePreviousChange={handlePreviousChange}
+                      onPageNoChange={handlePageNoChange}
+                      value={searchPageNo}
+                      pageNumclassName={pageNumSection}
+                      reportsPaginationclassName={customPagination}
+                    />
+                  </div>
                 </div>
               )}
             </Grid>

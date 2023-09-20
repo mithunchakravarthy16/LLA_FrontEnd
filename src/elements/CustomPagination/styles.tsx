@@ -1,0 +1,83 @@
+import { makeStyles } from "@material-ui/core";
+// import "@fontsource/open-sans";
+const useStyles = makeStyles({
+  totalRecords: {
+    fontStyle: "italic",
+    fontWeight: 400,
+    fontSize: "12px",
+    lineHeight: "16px",
+    color: "#777777",
+    background: "#FBFBFF",
+    border: "0.5px solid #DADAFA",
+    borderRadius: "4px",
+    padding: "6px 10px",
+  },
+  arrowBox: {
+    color: "#626262",
+    background: " #FBFBFF",
+    border: " 0.5px solid #DADAFA",
+    borderRadius: "4px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 28,
+    height: 28,
+    // marginLeft: 11,
+    cursor: "pointer",
+  },
+  selectItem: {
+    color: "#dfdfdf",
+    background: " #FBFBFF",
+    border: " 0.5px solid #DADAFA",
+    borderRadius: "4px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 28,
+    height: 28,
+    marginLeft: 11,
+  },
+  countNum: {
+    fontWeight: 600,
+    fontSize: "0.7vw",
+    lineHeight: "16px",
+    color: "#626262",
+    // marginLeft: 11,
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "HelveticaNeue-Regular",
+
+  },
+  arrowNumberBox: {
+    color: "#ffffff",
+    background: "#38385A",
+    border: " 0.5px solid #DADAFA",
+    borderRadius: "4px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 28,
+    height: 28,
+    marginLeft: 11,
+    cursor: "pointer",
+  },
+  arrowDisableBox: {
+    color: "#626262",
+    background: "lightgrey",
+    border: " 0.5px solid #DADAFA",
+    borderRadius: "4px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 28,
+    height: 28,
+    marginLeft: 11,
+    pointerEvents: "none",
+  },
+  countNumRow: {
+    display: "flex",
+    alignItems: "center",
+
+  }
+},{index: 1});
+export default useStyles;
