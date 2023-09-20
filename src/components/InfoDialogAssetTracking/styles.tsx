@@ -1,4 +1,4 @@
-/** @format */
+//@ts-nocheck
 
 import { makeStyles } from "@mui/styles";
 import { padding } from "@mui/system";
@@ -46,8 +46,8 @@ const useStyles = makeStyles(() => ({
   }),
 
   assetInfoLeftPanelMain: (props: any) => ({
-    display: "flex",
-    flexDirection: "column",
+    display: "flex !important",
+    flexDirection: "column !important",
     justifyContent: "space-between",
   }),
   assetInfoLeftPanelTop: (props: any) => ({
