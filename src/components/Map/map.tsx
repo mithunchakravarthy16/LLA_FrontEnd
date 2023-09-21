@@ -941,21 +941,15 @@ const Map: React.FC<any> = (props) => {
   function handleZoomChanged() {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
-
-  const clustererRef = useRef<any>();
-  useEffect(() => {
-    clustererRef.current?.repaint();
-  }, [markers, marker]);
-
   useEffect(() => {
     if (
-      marker === "" ||
-      assetLiveMarker === "" ||
-      listSelectedMarker === "" ||
-      selectedNotificationItem === "" ||
+      marker === "" &&
+      assetLiveMarker === "" &&
+      listSelectedMarker === "" &&
+      selectedNotificationItem === "" &&
       selectedNotification === ""
     ) {
-      map?.setZoom(17.2);
+      map?.setZoom(17);
       map?.panTo(parkingCenter);
     }
   }, [
@@ -999,7 +993,7 @@ const Map: React.FC<any> = (props) => {
         ? assetTrackingCenter
         : center
     );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
+    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
     setSelectedMarker("");
   };
 
@@ -1107,7 +1101,6 @@ const Map: React.FC<any> = (props) => {
               enableRetinaIcons
               maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 20}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
-              onLoad={(clusterer) => (clustererRef.current = clusterer)}
               // styles={[
               //   {
               //     url: MarkerClusterIcon,

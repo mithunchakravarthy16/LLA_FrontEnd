@@ -757,12 +757,12 @@ const AssetMap: React.FC<any> = (props) => {
 
   useEffect(() => {
     if (
-      marker === "" ||
-      assetLiveMarker === "" ||
-      listSelectedMarker === "" ||
+      marker === "" &&
+      assetLiveMarker === "" &&
+      listSelectedMarker === "" &&
       selectedNotificationItem === ""
     ) {
-      map?.setZoom(17.2);
+      map?.setZoom(17);
       map?.panTo(assetTrackingCenter);
     }
   }, [
@@ -826,8 +826,8 @@ const AssetMap: React.FC<any> = (props) => {
           <MarkerClustererF
             averageCenter
             enableRetinaIcons
-            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-            gridSize={selectedContainerStyle?.is4kDevice ? 80 : 30}
+            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 20}
+            gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
           >
             {(clusterer: any) => (
               <div>

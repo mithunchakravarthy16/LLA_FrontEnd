@@ -54,6 +54,11 @@ const CustomizedSteppers: React.FC<any> = (props) => {
       return str;
     }
   };
+  const getLocaleTimeStamp = (timeStamp:any) =>{
+    const testDateUtc = moment.utc(timeStamp);
+    const localDate = testDateUtc.local();
+    return localDate.format("DD-MM-YYYY | HH:mm A");
+  }
 
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
@@ -102,7 +107,11 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                 {/* {label?.packageStage} */}
               </Typography>
               <StepLabel  StepIconComponent={(stepProps) => <ColorlibStepIcon {...stepProps} trackerStatus={trackerStatus} />}  >
-                {moment(label?.timestamp)?.format("DD-MM-YYYY | HH:mm A")}
+                {
+                  getLocaleTimeStamp(label?.timestamp)
+
+                // moment(label?.timestamp)?.format("DD-MM-YYYY | HH:mm A")
+                }
                 {/* {label?.timeStamp} */}
               </StepLabel>
             </Step>

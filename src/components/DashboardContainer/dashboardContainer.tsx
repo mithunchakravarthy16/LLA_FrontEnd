@@ -261,8 +261,12 @@ const DashboardContainer = (props: any) => {
           // ...fleetNotiData,
         ];
 
+        const consolidatedDataNextPage = [
+          ...assetNotiData,
+        ]; 
+
         const consolidatedMarkerData = [...consolidatedData];
-        setDashboardNotificationList(consolidatedMarkerData);
+        setDashboardNotificationList(page === 0 ? consolidatedMarkerData : consolidatedDataNextPage);
       }
     }
   }, [assetNotificationResponse, searchOpen]);
@@ -558,9 +562,12 @@ const DashboardContainer = (props: any) => {
 
       }
       setPaginationTotalCount(newArray)
-      setPage(0)
     }
   },[assetNotificationResponse, tabIndex])
+
+  useEffect(() => {
+    setPage(0);
+  }, [tabIndex]);
 
   // PAGINATION ENDS
 
