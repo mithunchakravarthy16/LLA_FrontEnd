@@ -300,12 +300,12 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
     return () => {
-      clearInterval(interval);
+      // clearInterval(interval);
       // clearInterval(intervalTime);
     };
   }, []);

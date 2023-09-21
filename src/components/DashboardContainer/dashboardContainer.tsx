@@ -265,7 +265,7 @@ const DashboardContainer = (props: any) => {
         setDashboardNotificationList(consolidatedMarkerData);
       }
     }
-  }, [assetNotificationResponse, searchOpen, rowsPerPage, page]);
+  }, [assetNotificationResponse, searchOpen]);
 
   useEffect(() => {
     if (assetLiveData) {
