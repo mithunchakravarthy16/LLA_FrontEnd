@@ -1428,12 +1428,12 @@ const AssetTracking: React.FC<any> = (props) => {
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "57.5%" }}
                     >
-                      {/* <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      /> */}
+                      />
                       <AssetMap
                         mapType={mapType}
                         setMapType={setMapType}
