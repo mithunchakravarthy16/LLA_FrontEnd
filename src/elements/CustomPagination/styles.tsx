@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core";
-// import "@fontsource/open-sans";
+import { makeStyles } from "@mui/styles";
+
 const useStyles = makeStyles({
   totalRecords: {
     fontStyle: "italic",

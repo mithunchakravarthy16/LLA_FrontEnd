@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
   formatttedFleetAPINotification,
+  formattedOverallNotificationCount,
 } from "../../utils/utils";
 import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
@@ -43,9 +44,8 @@ interface DashboardContainerProps {
   handleviewDetails?: any;
 }
 
-const DashboardContainer: React.FC<DashboardContainerProps> = (
-  props: DashboardContainerProps
-) => {
+const DashboardContainer = (props: any) => {
+  const { setMapType, mapType } = props;
   const navigate = useNavigate();
 
   const adminPanelData = useSelector(
@@ -122,6 +122,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   const [page, setPage] = useState<any>(0);
   const [rowsPerPage, setRowsPerPage] = useState<any>(50);
   const [searchPageNo, setSearchPageNo] = useState<any>();
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
+  const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, dashboardNotification?.notifications));
   //Pagination End
 
   useEffect(() => {
@@ -166,35 +168,36 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   };
   const [debounceSearchText, setDebounceSearchText] = useState<any>();
   useEffect(() => {
-    let assetLiveDataPayload: any = {};
-    let assetPayload: any = {
-      filterText: "",
-      pageNo: parseInt(page),
-      pageSize: parseInt(rowsPerPage),
-    };
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
       // dispatch(getFleetManagementNotificationData(fleetPayload));
       // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
       setSuccess(false);
-      dispatch(getNotificationData(assetPayload));
+      let assetPayload: any = {
+        filterText: "",
+        pageNo: page,
+        pageSize: rowsPerPage,
+      };
+
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+      
+      let assetLiveDataPayload: any = {};
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(getNotificationData(assetPayload));
+    // }, 1 * 60 * 1000);
 
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
-
-    return () => {
-      clearInterval(interval);
-      clearInterval(intervalTime);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    //   clearInterval(intervalTime);
+    // };
   }, [debounceSearchText]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -262,7 +265,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         setDashboardNotificationList(consolidatedMarkerData);
       }
     }
-  }, [assetNotificationResponse, searchOpen, rowsPerPage, page]);
+  }, [assetNotificationResponse, searchOpen]);
 
   useEffect(() => {
     if (assetLiveData) {
@@ -479,7 +482,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       pageNo: parseInt(page),
       pageSize: parseInt(data),
     };
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
   };
 
   const handleNextChange = () => {
@@ -492,7 +495,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
     setPage(page + 1);
     setSearchPageNo("");
   };
@@ -507,7 +510,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
     setPage(page - 1);
     setSearchPageNo("");
   };
@@ -524,13 +527,44 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
       };
-      dispatch(getNotificationData(assetPayload));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
 
     }
   };
 
+   //Total Records
+
+   useEffect(()=>{
+    if(assetNotificationResponse) {
+      setTotalRecords(formattedOverallNotificationCount(assetNotificationResponse?.data, dashboardNotification?.notifications, "dashboard"));
+      // formattedDashboardTotalRecords(dashboardNotification?.notifications)
+      let countArray = formattedOverallNotificationCount(assetNotificationResponse?.data, dashboardNotification?.notifications, "dashboard");
+      let newArray : any = [];
+
+      if(countArray && countArray?.length > 0) {
+        switch(tabIndex) {
+          case 0 : 
+          newArray =  countArray[0];
+          break;
+          case 1 :
+            newArray = countArray[1];
+            break;
+          case 2:
+            newArray = countArray[2];
+            break;
+          default:
+            break;
+        }
+
+      }
+      setPaginationTotalCount(newArray)
+      setPage(0)
+    }
+  },[assetNotificationResponse, tabIndex])
+
   // PAGINATION ENDS
 
+ 
   return (
     <>
       {success && (
@@ -637,6 +671,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   selectedNotificationItem={selectedNotificationItem}
                   setSelectedNotificationItem={setSelectedNotificationItem}
                   isMarkerClicked={isMarkerClicked}
+                  setMapType={setMapType}
+                  mapType={mapType}
                 />
               </div>
             </Grid>
@@ -688,7 +724,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
+                    notificationCount={totalRecords}
                     selectedNotification={selectedNotification}
                     setSelectedNotification={setSelectedNotification}
                     searchOpen={searchOpen}
@@ -706,14 +742,18 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
                     liveMarkerList={liveMarkerList}
-                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}            
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
                     setDebounceSearchText={setDebounceSearchText}
+                    page = {page}
+                    rowsPerPage = {rowsPerPage}
                   />
                   <div style={{ margin: "-5px 0 0 20px"}}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={800}
+                      count={paginationTotalCount}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onPageChange={handleChangePage}

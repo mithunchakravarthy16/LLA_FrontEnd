@@ -456,8 +456,6 @@ const Parking: React.FC<any> = (props) => {
 
   const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
 
-  console.log("dashboardData", dashboardData);
-
   return (
     <>
       {!loaderAdminGetConfigData &&

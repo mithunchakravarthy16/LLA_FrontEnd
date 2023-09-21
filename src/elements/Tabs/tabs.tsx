@@ -81,7 +81,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                     {(item?.count || item?.count === 0) && (
                       <div>
                         {/* <div className={value === index ? tabCountContainerSelected : tabCountContainer}>{item?.count}</div> */}
-                        <div className="count">{item?.count}</div>
+                        <div className="count">{item?.count > 1000 ? "999+" : item?.count}</div>
                       </div>
                     )}
 

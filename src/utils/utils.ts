@@ -328,3 +328,22 @@ export const formattedViolationsList = (data: any) => {
     return combinedNotifications;
   }
 };
+
+export const formattedOverallNotificationCount = (apiData: any, mockData : any, pageName : any) => {
+  if (apiData && apiData !== undefined) {
+    let count : any = []
+    if(pageName === "dashboard") {
+      let eventDashboardCount = apiData?.events?.overallCount + mockData?.events?.eventsList?.length;
+      let incidentDashboardCount = apiData?.incidents?.overallCount + mockData?.incidents?.incidentList?.length;
+      let alertsDashboardCount = apiData?.alerts?.overallCount + mockData?.alerts?.alertList?.length;
+      count = [eventDashboardCount,incidentDashboardCount, alertsDashboardCount ]
+    } else {
+      let eventCount = apiData?.events?.overallCount;
+      let incidentCount = apiData?.incidents?.overallCount;
+      let alertsCount = apiData?.alerts?.overallCount;
+      count = [eventCount,incidentCount, alertsCount ]
+    }
+    return count;
+  }
+};
+
