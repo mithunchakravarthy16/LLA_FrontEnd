@@ -1,11 +1,14 @@
 import { put } from "redux-saga/effects";
-import { setNotificationData } from "../../actions/getAllAssertNotificationAction";
+import { setNotificationData, setLoaderAssetNotificationData, hideLoaderAssetNotificationData } from "../../actions/getAllAssertNotificationAction";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import { getAssetNotificationApi } from "../../../services/endPoints";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
 
 export function* handleAssetNotification(action: any): any {
   try {
+    if(action.isFromSearch){
+      yield put(setLoaderAssetNotificationData());
+    }    
     const { fetchPostData } = fetchAPIServices;
     const response = yield fetchPostData(
       getAssetNotificationApi,
@@ -17,7 +20,14 @@ export function* handleAssetNotification(action: any): any {
     } else {
       yield put(setNotificationData({}));
     }
+    if(action.isFromSearch){
+    yield put(hideLoaderAssetNotificationData());
+    }
   } catch (error) {
+    if(action.isFromSearch){
+    yield put(hideLoaderAssetNotificationData());
+    }
     console.log(error);
   }
 }
+

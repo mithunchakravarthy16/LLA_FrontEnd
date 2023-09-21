@@ -75,7 +75,8 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     (state: any) => state.assetTracker?.assetTrackingCreateGeofenceData
   );
 
-  const { setIsGeofenceInfoWindowActive, selectedTheme } = props;
+  const { setIsGeofenceInfoWindowActive, selectedTheme, mapType, setMapType } =
+    props;
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
   const { assetsTracking } = useTranslation();
@@ -318,19 +319,19 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     map?.setZoom(15);
   };
 
-  const addressFound = async (LatLng: any) => {
-    const geocoder: any = new window.google.maps.Geocoder();
-    const location1: any = new window.google.maps.LatLng(LatLng);
-    return new Promise(function (resolve, reject) {
-      geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
-        if (status === "OK") {
-          resolve(results[0].formatted_address);
-        } else {
-          reject(new Error("Couldnt't find the address " + status));
-        }
-      });
-    });
-  };
+  // const addressFound = async (LatLng: any) => {
+  //   const geocoder: any = new window.google.maps.Geocoder();
+  //   const location1: any = new window.google.maps.LatLng(LatLng);
+  //   return new Promise(function (resolve, reject) {
+  //     geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
+  //       if (status === "OK") {
+  //         resolve(results[0].formatted_address);
+  //       } else {
+  //         reject(new Error("Couldnt't find the address " + status));
+  //       }
+  //     });
+  //   });
+  // };
 
   const handleSaveClick = async () => {
     const payload = {
@@ -341,7 +342,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
       backToGeofence: isBackGeofenceChecked,
       radius: circleRadius,
       location: isCircleEnbled ? [circleCenter] : polygonPath,
-      area: isCircleEnbled ? await addressFound(circleCenter) : "",
+      area: "",
       recipients: ["string"],
     };
     dispatch(getAssetTrackingCreateGeofence(payload));
@@ -514,6 +515,8 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                   <Map
+                    mapType={mapType}
+                    setMapType={setMapType}
                     markers={searchSelectedData}
                     marker={""}
                     currentMarker={""}

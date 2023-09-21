@@ -43,6 +43,7 @@ import Loader from "elements/Loader";
 HC_rounded(Highcharts);
 
 const Parking: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -60,7 +61,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
-  const[assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -221,9 +222,7 @@ const Parking: React.FC<any> = (props) => {
     setDashboardData(
       formatttedParkingNotification(dashboardDataList, tabIndex)
     );
-    setSearchValue(
-      formatttedParkingNotification(dashboardDataList, tabIndex)
-    );
+    setSearchValue(formatttedParkingNotification(dashboardDataList, tabIndex));
   }, [tabIndex]);
 
   useEffect(() => {
@@ -436,11 +435,12 @@ const Parking: React.FC<any> = (props) => {
     }, 500);
   }, []);
   const [isDataLoadedLotImg, setIsDataLoadedLotImg] = useState<boolean>(false);
-  const [isDataLoadedLotOverAll, setIsDataLoadedLotOverAll] = useState<boolean>(false);
+  const [isDataLoadedLotOverAll, setIsDataLoadedLotOverAll] =
+    useState<boolean>(false);
 
   useEffect(() => {
-    setIsDataLoadedLotOverAll(false)
-    setIsDataLoadedLotImg(false)
+    setIsDataLoadedLotOverAll(false);
+    setIsDataLoadedLotImg(false);
     setTimeout(() => {
       setIsDataLoadedLotOverAll(true);
     }, 500);
@@ -450,12 +450,13 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  const [listSelectedMarker, setListSelectedMarker] = useState<any>("")
-  const [selectedNotificationItem, setSelectedNotificationItem] = useState<any>("")
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
 
-  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList)
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
 
-  console.log("dashboardData", dashboardData)
+  console.log("dashboardData", dashboardData);
 
   return (
     <>
@@ -850,64 +851,71 @@ const Parking: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                       />
 
-                      {isDataLoadedLotOverAll ?
-                      parkingLotIndex === 0 ? (
-                        <Map
-                          markers={dashboardDataList}
-                          setNotificationPanelActive={
-                            setNotificationPanelActive
-                          }
-                          setSelectedNotification={setSelectedNotification}
-                          marker={selectedNotification}
-                          selectedNotification={selectedNotification}
-                          setTabIndex={setTabIndex}
-                          currentMarker={currentMarker}
-                          setCurrentMarker={setCurrentMarker}
-                          setIsMarkerClicked={setIsMarkerClicked}
-                          mapPageName={"parking"}
-                          selectedTheme={selectedTheme}
-                          setMap={setMap}
-                          map={map}
-                          liveMarkerList={liveMarkerList}
-                          setAssetLiveMarker={setAssetLiveMarker}
-                          listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                          selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}  
-                        />
-                      ) : (
-                        // </Grid>
-                        // true ?
-                        <div
-                          className={lotImageStyle}
-                          style={{ position: "relative" }}
-                        >
-                          {!isDataLoadedLotImg && (
-                            <div
-                              style={{
-                                position: "absolute",
-                                top: 0,
-                                right: 0,                                
-                                left: 0,
-                                bottom: 0,
-                                background: "#fff",
-                              }}
-                            >
-                              <Loader isHundredVh={false} />
-                            </div>
-                          )}
-                          <img
-                            onLoad={() => setIsDataLoadedLotImg(true)}
-                            src={
-                              selectedTheme === "light"
-                                ? LightThemeParkingLot1
-                                : ParkingLot1
+                      {isDataLoadedLotOverAll ? (
+                        parkingLotIndex === 0 ? (
+                          <Map
+                            mapType={mapType}
+                            setMapType={setMapType}
+                            markers={dashboardDataList}
+                            setNotificationPanelActive={
+                              setNotificationPanelActive
                             }
-                            alt="ParkingLot1"
-                            style={{ width: "95%" }}
+                            setSelectedNotification={setSelectedNotification}
+                            marker={selectedNotification}
+                            selectedNotification={selectedNotification}
+                            setTabIndex={setTabIndex}
+                            currentMarker={currentMarker}
+                            setCurrentMarker={setCurrentMarker}
+                            setIsMarkerClicked={setIsMarkerClicked}
+                            mapPageName={"parking"}
+                            selectedTheme={selectedTheme}
+                            setMap={setMap}
+                            map={map}
+                            liveMarkerList={liveMarkerList}
+                            setAssetLiveMarker={setAssetLiveMarker}
+                            listSelectedMarker={listSelectedMarker}
+                            setListSelectedMarker={setListSelectedMarker}
+                            selectedNotificationItem={selectedNotificationItem}
+                            setSelectedNotificationItem={
+                              setSelectedNotificationItem
+                            }
                           />
-                        </div>
-                        
-                      )
-                     : <Loader isHundredVh={false} />}
+                        ) : (
+                          // </Grid>
+                          // true ?
+                          <div
+                            className={lotImageStyle}
+                            style={{ position: "relative" }}
+                          >
+                            {!isDataLoadedLotImg && (
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: 0,
+                                  right: 0,
+                                  left: 0,
+                                  bottom: 0,
+                                  background: "#fff",
+                                }}
+                              >
+                                <Loader isHundredVh={false} />
+                              </div>
+                            )}
+                            <img
+                              onLoad={() => setIsDataLoadedLotImg(true)}
+                              src={
+                                selectedTheme === "light"
+                                  ? LightThemeParkingLot1
+                                  : ParkingLot1
+                              }
+                              alt="ParkingLot1"
+                              style={{ width: "95%" }}
+                            />
+                          </div>
+                        )
+                      ) : (
+                        <Loader isHundredVh={false} />
+                      )}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -939,8 +947,10 @@ const Parking: React.FC<any> = (props) => {
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
                     liveMarkerList={liveMarkerList}
-                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}  
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
                   />
                 </Grid>
               </Grid>

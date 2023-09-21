@@ -105,7 +105,9 @@ const AssetMap: React.FC<any> = (props) => {
     listSelectedMarker,
     setListSelectedMarker,
     selectedNotificationItem,
-    setSelectedNotificationItem
+    setSelectedNotificationItem,
+    mapType,
+    setMapType,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -153,6 +155,10 @@ const AssetMap: React.FC<any> = (props) => {
     width: "100%",
     height: "60vh",
   };
+
+  useEffect(() => {
+    map?.setMapTypeId(mapType);
+  }, [map, mapType]);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -531,15 +537,6 @@ const AssetMap: React.FC<any> = (props) => {
       zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
-      mapTypeControlOptions: {
-        style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-        position: window.google.maps.ControlPosition.LEFT_BOTTOM,
-        mapTypeIds: [
-          window.google.maps.MapTypeId.ROADMAP,
-          window.google.maps.MapTypeId.SATELLITE,
-          window.google.maps.MapTypeId.HYBRID,
-        ],
-      },
       // mapTypeId: window.google.maps.MapTypeId.SATELLITE,
     };
   };
@@ -679,7 +676,7 @@ const AssetMap: React.FC<any> = (props) => {
   // };
 
   const handleMarkerClose = () => {
-    setAssetLiveMarker("")
+    setAssetLiveMarker("");
     setSelectedNotification("");
     setIsMarkerClicked(false);
     map?.panTo(
@@ -694,13 +691,11 @@ const AssetMap: React.FC<any> = (props) => {
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
   };
 
-  const handleExpandListItem = (id:any,markerId : any, data : any ) => {
-
+  const handleExpandListItem = (id: any, markerId: any, data: any) => {
     setSelectedNotification(id);
     setAssetLiveMarker(markerId);
     // setIsMarkerClicked(true)
   };
-
 
   useEffect(() => {
     setProgress([]);
@@ -725,21 +720,20 @@ const AssetMap: React.FC<any> = (props) => {
     // setSelectedNotification("");
     //  setAssetLiveMarker(id);
     // setListSelectedMarker(id)
-     setAssetLiveMarker(assetLiveMarker === id ? "" : id);
+    setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
-    if(marker?.category === "parking") {
+    if (marker?.category === "parking") {
       setSelectedNotification((prev: any) => {
         return prev && prev == id ? "" : id;
       });
     }
-
   };
 
   const handleLiveMarkerClose = () => {
     setSelectedNotification("");
-    setListSelectedMarker("")
+    setListSelectedMarker("");
     setIsMarkerClicked(false);
-    setAssetLiveMarker("")
+    setAssetLiveMarker("");
     map?.panTo(
       location?.pathname === "/home"
         ? defaultCenter
@@ -751,35 +745,53 @@ const AssetMap: React.FC<any> = (props) => {
     );
     map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
     setSelectedMarker("");
-    setAssetLiveMarker("")
+    setAssetLiveMarker("");
   };
 
-  useEffect(()=>{
-    if(isMarkerClicked) {
+  useEffect(() => {
+    if (isMarkerClicked) {
       setListSelectedMarker("");
       setSelectedNotification("");
     }
-  },[isMarkerClicked])
+  }, [isMarkerClicked]);
 
-  useEffect(()=>{
-
-    if(marker === "" ||assetLiveMarker === "" || listSelectedMarker === "" ||selectedNotificationItem === "" ) {
+  useEffect(() => {
+    if (
+      marker === "" ||
+      assetLiveMarker === "" ||
+      listSelectedMarker === "" ||
+      selectedNotificationItem === ""
+    ) {
       map?.setZoom(17.2);
-      map?.panTo(assetTrackingCenter)
+      map?.panTo(assetTrackingCenter);
     }
-  },[marker, markers, assetLiveMarker, selectedNotificationItem, listSelectedMarker])
-
-
+  }, [
+    marker,
+    markers,
+    assetLiveMarker,
+    selectedNotificationItem,
+    listSelectedMarker,
+  ]);
 
   // useEffect(()=>{
   //   map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location)
   // },[selectedNotificationItem])
-  useEffect(()=>{
-    if(selectedNotificationItem) {
-      map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location )
+  useEffect(() => {
+    if (selectedNotificationItem) {
+      map?.panTo(
+        selectedNotificationItem?.currentLocation
+          ? selectedNotificationItem?.currentLocation
+          : selectedNotificationItem?.location
+      );
     }
-  },[selectedNotificationItem])
+  }, [selectedNotificationItem]);
 
+  const handleMapTypeChanged = () => {
+    if (map) {
+      const newMapType = map.getMapTypeId();
+      setMapType(newMapType);
+    }
+  };
   return (
     <>
       {isLoaded && (
@@ -808,6 +820,8 @@ const AssetMap: React.FC<any> = (props) => {
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
+          mapTypeId={mapType}
+          onMapTypeIdChanged={handleMapTypeChanged}
         >
           <MarkerClustererF
             averageCenter
