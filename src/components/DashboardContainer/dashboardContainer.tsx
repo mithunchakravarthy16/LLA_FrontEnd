@@ -19,6 +19,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
   formatttedFleetAPINotification,
+  formattedOverallNotificationCount,
 } from "../../utils/utils";
 import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
@@ -121,6 +122,8 @@ const DashboardContainer = (props: any) => {
   const [page, setPage] = useState<any>(0);
   const [rowsPerPage, setRowsPerPage] = useState<any>(50);
   const [searchPageNo, setSearchPageNo] = useState<any>();
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
+  const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, dashboardNotification?.notifications));
   //Pagination End
 
   useEffect(() => {
@@ -173,8 +176,8 @@ const DashboardContainer = (props: any) => {
       setSuccess(false);
       let assetPayload: any = {
         filterText: "",
-        pageNo: 0,
-        pageSize: 100000,
+        pageNo: page,
+        pageSize: rowsPerPage,
       };
 
       dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
@@ -529,8 +532,39 @@ const DashboardContainer = (props: any) => {
     }
   };
 
+   //Total Records
+
+   useEffect(()=>{
+    if(assetNotificationResponse) {
+      setTotalRecords(formattedOverallNotificationCount(assetNotificationResponse?.data, dashboardNotification?.notifications, "dashboard"));
+      // formattedDashboardTotalRecords(dashboardNotification?.notifications)
+      let countArray = formattedOverallNotificationCount(assetNotificationResponse?.data, dashboardNotification?.notifications, "dashboard");
+      let newArray : any = [];
+
+      if(countArray && countArray?.length > 0) {
+        switch(tabIndex) {
+          case 0 : 
+          newArray =  countArray[0];
+          break;
+          case 1 :
+            newArray = countArray[1];
+            break;
+          case 2:
+            newArray = countArray[2];
+            break;
+          default:
+            break;
+        }
+
+      }
+      setPaginationTotalCount(newArray)
+      setPage(0)
+    }
+  },[assetNotificationResponse, tabIndex])
+
   // PAGINATION ENDS
 
+ 
   return (
     <>
       {success && (
@@ -690,7 +724,7 @@ const DashboardContainer = (props: any) => {
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
+                    notificationCount={totalRecords}
                     selectedNotification={selectedNotification}
                     setSelectedNotification={setSelectedNotification}
                     searchOpen={searchOpen}
@@ -713,11 +747,13 @@ const DashboardContainer = (props: any) => {
                     selectedNotificationItem={selectedNotificationItem}
                     setSelectedNotificationItem={setSelectedNotificationItem}
                     setDebounceSearchText={setDebounceSearchText}
+                    page = {page}
+                    rowsPerPage = {rowsPerPage}
                   />
                   <div style={{ margin: "-5px 0 0 20px"}}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={800}
+                      count={paginationTotalCount}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onPageChange={handleChangePage}

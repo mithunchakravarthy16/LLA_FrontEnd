@@ -24,6 +24,7 @@ import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
+  formattedOverallNotificationCount
 } from "../../utils/utils";
 import assetTrackingData from "../../mockdata/assetTrackingData";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
@@ -106,6 +107,23 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
   );
 
+  const assetLiveData = useSelector(
+    (state: any) => state?.assetTracker?.assetLiveData?.data
+  );
+
+  const assetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetNotificationData
+  );
+  const assetNotificationList = assetNotificationResponse?.data;
+
+  const loaderAssetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.loadingAssetNotificationData
+  );
+
+  const overallAssetDetails = useSelector(
+    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
+  );
+
   const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
   useEffect(() => {
     setLoaderExtAnalytics(true);
@@ -128,6 +146,9 @@ const AssetTracking: React.FC<any> = (props) => {
     const [page, setPage] = useState<any>(0);
     const [rowsPerPage, setRowsPerPage] = useState<any>(50);
     const [searchPageNo, setSearchPageNo] = useState<any>();
+    const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
+    const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, assetNotificationResponse?.data, "asset"));
+    
     //Pagination End
 
   useEffect(() => {
@@ -276,18 +297,6 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
-    let assetPayload: any = {
-      filterText: "",
-      pageNo: parseInt(page),
-      pageSize: parseInt(rowsPerPage),
-    };
-
-    // dispatch(getNotificationData(assetPayload));
-
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData(assetPayload));
-    // }, 1 * 60 * 1000);
-
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
@@ -341,22 +350,7 @@ const AssetTracking: React.FC<any> = (props) => {
     };
   }, [debounceSearchText]);
 
-  const assetLiveData = useSelector(
-    (state: any) => state?.assetTracker?.assetLiveData?.data
-  );
 
-  const assetNotificationResponse = useSelector(
-    (state: any) => state?.assetNotification?.assetNotificationData
-  );
-  const assetNotificationList = assetNotificationResponse?.data;
-
-  const loaderAssetNotificationResponse = useSelector(
-    (state: any) => state?.assetNotification?.loadingAssetNotificationData
-  );
-
-  const overallAssetDetails = useSelector(
-    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
-  );
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -1184,6 +1178,31 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   };
 
+  useEffect(()=>{
+    if(assetNotificationResponse) {
+      setTotalRecords(formattedOverallNotificationCount(assetNotificationResponse?.data, assetNotificationResponse?.data, "asset"));
+      let countArray = formattedOverallNotificationCount(assetNotificationResponse?.data, assetNotificationResponse?.data, "asset");
+      let newArray : any = [];
+      if(countArray && countArray?.length > 0) {
+        switch(tabIndex) {
+          case 0 : 
+          newArray =  countArray[0];
+          break;
+          case 1 :
+            newArray = countArray[1];
+            break;
+          case 2:
+            newArray = countArray[2];
+            break;
+          default:
+            break;
+        }
+
+      }
+      setPaginationTotalCount(newArray)
+    }
+  },[assetNotificationResponse, tabIndex])
+
   // PAGINATION ENDS
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
@@ -1544,7 +1563,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
+                    notificationCount={totalRecords}
                     selectedNotification={selectedNotification}
                     setSelectedNotification={setSelectedNotification}
                     searchOpen={searchOpen}
@@ -1567,6 +1586,8 @@ const AssetTracking: React.FC<any> = (props) => {
                     loaderAssetNotificationResponse={
                       loaderAssetNotificationResponse
                     }
+                    page = {page}
+                    rowsPerPage = {rowsPerPage}
                   />
                   <div style={{ margin: "-5px 0 0 20px"}}>
                     <CustomTablePagination
