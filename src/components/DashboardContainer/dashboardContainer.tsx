@@ -170,10 +170,10 @@ const DashboardContainer = (props: any) => {
         pageSize: 100000,
       };
 
-      dispatch(getNotificationData(assetPayload));
-
-      let assetLiveDataPayload: any = {};
       dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+      
+      let assetLiveDataPayload: any = {};
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
     // const intervalTime = setInterval(() => {
