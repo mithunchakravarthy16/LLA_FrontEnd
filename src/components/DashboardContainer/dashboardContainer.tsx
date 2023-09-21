@@ -173,7 +173,7 @@ const DashboardContainer = (props: any) => {
       dispatch(getNotificationData(assetPayload));
 
       let assetLiveDataPayload: any = {};
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
     }
 
     // const intervalTime = setInterval(() => {
