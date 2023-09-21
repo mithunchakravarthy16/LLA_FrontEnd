@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
   formatttedFleetAPINotification,
+  formattedOverallNotificationCount,
 } from "../../utils/utils";
 import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
@@ -38,7 +39,7 @@ import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
-
+import CustomTablePagination from "elements/CustomPagination";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -117,6 +118,13 @@ const DashboardContainer = (props: any) => {
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  //Pagination 
+  const [page, setPage] = useState<any>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<any>(50);
+  const [searchPageNo, setSearchPageNo] = useState<any>();
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
+  const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, dashboardNotification?.notifications));
+  //Pagination End
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
@@ -151,6 +159,8 @@ const DashboardContainer = (props: any) => {
     dashboardRightPanelStyle,
     notificationIconSection,
     notificationPanelSection,
+    pageNumSection,
+    customPagination,
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
@@ -166,8 +176,8 @@ const DashboardContainer = (props: any) => {
       setSuccess(false);
       let assetPayload: any = {
         filterText: "",
-        pageNo: 0,
-        pageSize: 100000,
+        pageNo: page,
+        pageSize: rowsPerPage,
       };
 
       dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
@@ -457,6 +467,104 @@ const DashboardContainer = (props: any) => {
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
+  // PAGINATION
+
+  const handleChangePage = (newPage: any) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (data: any) => {
+    setRowsPerPage(data);
+    setSearchPageNo("");
+    setPage(0)
+    let assetPayload: any = {
+      filterText: "",
+      pageNo: parseInt(page),
+      pageSize: parseInt(data),
+    };
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+  };
+
+  const handleNextChange = () => {
+
+    let assetPayload: any = {};
+    if(page >= 0 ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page) + 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+    }
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+    setPage(page + 1);
+    setSearchPageNo("");
+  };
+
+
+  const handlePreviousChange = () => {
+    let assetPayload: any = {};
+    if(page > 0 ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+    }
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+    setPage(page - 1);
+    setSearchPageNo("");
+  };
+
+
+  const handlePageNoChange = (value: any) => {
+    setPage(0);
+    setSearchPageNo(value !== "" ? parseInt(value) : value );
+
+    let assetPayload: any = {};
+    if(page >= 0 && value !== "" ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(value) - 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+
+    }
+  };
+
+   //Total Records
+
+   useEffect(()=>{
+    if(assetNotificationResponse) {
+      setTotalRecords(formattedOverallNotificationCount(assetNotificationResponse?.data, dashboardNotification?.notifications, "dashboard"));
+      // formattedDashboardTotalRecords(dashboardNotification?.notifications)
+      let countArray = formattedOverallNotificationCount(assetNotificationResponse?.data, dashboardNotification?.notifications, "dashboard");
+      let newArray : any = [];
+
+      if(countArray && countArray?.length > 0) {
+        switch(tabIndex) {
+          case 0 : 
+          newArray =  countArray[0];
+          break;
+          case 1 :
+            newArray = countArray[1];
+            break;
+          case 2:
+            newArray = countArray[2];
+            break;
+          default:
+            break;
+        }
+
+      }
+      setPaginationTotalCount(newArray)
+      setPage(0)
+    }
+  },[assetNotificationResponse, tabIndex])
+
+  // PAGINATION ENDS
+
+ 
   return (
     <>
       {success && (
@@ -616,7 +724,7 @@ const DashboardContainer = (props: any) => {
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
+                    notificationCount={totalRecords}
                     selectedNotification={selectedNotification}
                     setSelectedNotification={setSelectedNotification}
                     searchOpen={searchOpen}
@@ -639,7 +747,25 @@ const DashboardContainer = (props: any) => {
                     selectedNotificationItem={selectedNotificationItem}
                     setSelectedNotificationItem={setSelectedNotificationItem}
                     setDebounceSearchText={setDebounceSearchText}
+                    page = {page}
+                    rowsPerPage = {rowsPerPage}
                   />
+                  <div style={{ margin: "-5px 0 0 20px"}}>
+                    <CustomTablePagination
+                      rowsPerPageOptions={[50, 100, 200, 500]}
+                      count={paginationTotalCount}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                      handleNextChange={handleNextChange}
+                      handlePreviousChange={handlePreviousChange}
+                      onPageNoChange={handlePageNoChange}
+                      value={searchPageNo}
+                      pageNumclassName={pageNumSection}
+                      reportsPaginationclassName={customPagination}
+                    />
+                  </div>
                 </div>
               )}
             </Grid>

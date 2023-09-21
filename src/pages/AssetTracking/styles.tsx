@@ -287,5 +287,25 @@ const useStyles = makeStyles({
     top: "2px",
     width: "5%",
   }),
+  pageNumSection: (props:any) => ({
+    width: "3vw",
+    margin: "0 0.8vw",
+    "& .MuiInputBase-input": {
+      padding: "6px 8px !important",
+      fontSize: 12,
+      lineHeight: "17px",
+    },
+    "& .MuiFormLabel-root": {
+      fontSize: 12,
+      lineHeight: "13px",
+      left: "-3px",
+    },
+  }),
+  customPagination: (props:any) =>({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+    // marginTop : "1vh"
+  }),
 });
 export default useStyles;

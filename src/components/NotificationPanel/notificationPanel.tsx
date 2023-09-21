@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect, createRef, useCallback } from "react";
+import { useState, useEffect, createRef, useCallback, useRef } from "react";
 import Tabs from "elements/Tabs";
 import NotificationListItems from "components/NotificationListItems";
 import SearchBox from "elements/SearchBox";
@@ -45,17 +45,19 @@ const NotificationPanel = (props: any) => {
     listSelectedMarker,
     setListSelectedMarker,
     selectedNotificationItem,
-setSelectedNotificationItem,
-setDebounceSearchText,
-loaderAssetNotificationResponse
+    setSelectedNotificationItem,
+    setDebounceSearchText,
+    loaderAssetNotificationResponse,
+    page,
+    rowsPerPage,
   } = props;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
   // );
   const [appTheme, setAppTheme] = useState<any>();
 
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -105,25 +107,43 @@ loaderAssetNotificationResponse
       name: eventText,
       val: 0,
       count:
-        searchOpen && tabIndex === 0
+        notificationPageName !== "parking"
+          ? notificationCount && notificationCount[0]
+          : searchOpen && tabIndex === 0
           ? searchValue?.length
           : notificationCount && notificationCount[0],
+      // count:
+      // searchOpen && tabIndex === 0
+      //   ? searchValue?.length
+      //   : notificationCount && notificationCount[0],
     },
     {
       name: incidentText,
       val: 1,
       count:
-        searchOpen && tabIndex === 1
+        notificationPageName !== "parking"
+          ? notificationCount && notificationCount[1]
+          : searchOpen && tabIndex === 1
           ? searchValue?.length
-          : notificationCount && notificationCount[1],
+          : notificationCount && notificationCount[1],      
+          // count:
+      //   searchOpen && tabIndex === 1
+      //     ? searchValue?.length
+      //     : notificationCount && notificationCount[1],
     },
     {
       name: oprAlertText,
       val: 1,
       count:
-        searchOpen && tabIndex === 2
+        notificationPageName !== "parking"
+          ? notificationCount && notificationCount[2]
+          : searchOpen && tabIndex === 2
           ? searchValue?.length
-          : notificationCount && notificationCount[2],
+          : notificationCount && notificationCount[2],      
+          // count:
+      //   searchOpen && tabIndex === 2
+      //     ? searchValue?.length
+      //     : notificationCount && notificationCount[2],
     },
   ];
 
@@ -131,48 +151,40 @@ loaderAssetNotificationResponse
     setTabIndex(index);
     setSearchOpen(false);
     setSelectedNotification("");
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-    setDebounceSearchText("")
+    if (
+      notificationPageName === "dashboard" ||
+      notificationPageName === "asset"
+    ) {
+      setDebounceSearchText("");
     }
     // setSelectedRefId("");
   };
 
-  const handleExpandListItem = useCallback((param: any, markerId : any, data : any) => {
-    setSelectedNotificationItem(data);
+  const handleExpandListItem = useCallback(
+    (param: any, markerId: any, data: any) => {
+      setSelectedNotificationItem(data);
 
-    setListSelectedMarker(markerId);
-    setAssetLiveMarker("")
-    setIsMarkerClicked(false);
+      setListSelectedMarker(markerId);
+      setAssetLiveMarker("");
+      setIsMarkerClicked(false);
 
-    setSelectedNotification(selectedNotification === param ? "" : param);
-    if (notificationPageName && notificationPageName === "parking") {
-      setParkingLotIndex(0);
-      setParkingLotSelectionActive(false);
-      setListSelectedMarker(param);
-      setAssetLiveMarker(param)
-      // setIsMarkerClicked(true)
-      
-    }
-    props.handleExpandListItem(param);
-
-
-  
-  }, [selectedNotification, listSelectedMarker, isMarkerClicked, selectedNotificationItem]);
-
-  // const handleExpandListItem = (param: any, markerId : any, data : any) => {
-  //   setSelectedNotificationItem(data);
-  //   setListSelectedMarker(markerId);
-  //   setAssetLiveMarker("")
-  //   setIsMarkerClicked(false);
-  //   setSelectedNotification(selectedNotification === param ? "" : param);
-  //   if (notificationPageName && notificationPageName === "parking") {
-  //     setParkingLotIndex(0);
-  //     setParkingLotSelectionActive(false);
-  //   }
-  //   props.handleExpandListItem(param);
-  // }
-
-
+      setSelectedNotification(selectedNotification === param ? "" : param);
+      if (notificationPageName && notificationPageName === "parking") {
+        setParkingLotIndex(0);
+        setParkingLotSelectionActive(false);
+        setListSelectedMarker(param);
+        setAssetLiveMarker(param);
+        // setIsMarkerClicked(true)
+      }
+      props.handleExpandListItem(param);
+    },
+    [
+      selectedNotification,
+      listSelectedMarker,
+      isMarkerClicked,
+      selectedNotificationItem,
+    ]
+  );
 
   const handleSearchIcon = () => {
     setSearchOpen(true);
@@ -230,31 +242,32 @@ loaderAssetNotificationResponse
     
     let assetPayload = {};
     if (searchValue) {
-       assetPayload = {
-    filterText: searchValue,
-    pageNo: 0,
-    pageSize: 100000,
-  };
+      assetPayload = {
+        filterText: searchValue,
+        pageNo: page,
+        pageSize: rowsPerPage,
+      };
       // setPage(0);
     } else {
       assetPayload = {
         filterText: "",
-        pageNo: 0,
-        pageSize: 100000,
+        pageNo: page,
+        pageSize: rowsPerPage,
       };
       // setPage(0);
       // setRowsPerPage(100);
     }
-    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
-     setDebounceSearchText(searchValue)
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
+    setDebounceSearchText(searchValue);
     // setSearchPageNo("");
-    console.log("test", searchValue)
   };
 
-  const debounce = (func:any, delay:any) => {
-    let timeout:any;
+  const debounce = (func: any, delay: any) => {
+    let timeout: any;
 
-    return (...arg:any) => {
+    return (...arg: any) => {
       const context = this;
       clearTimeout(timeout);
       timeout = setTimeout(() => {
@@ -263,19 +276,18 @@ loaderAssetNotificationResponse
     };
   };
 
-  const handleSearchtest = useCallback(debounce(fetchingDataForSearch, delayTime),[]); 
+  const handleSearchtest = useCallback(
+    debounce(fetchingDataForSearch, delayTime),
+    []
+  );
 
   //debouncing end
-
-  
-
-
 
   const handleCloseIcon = () => {
     setSearchValue(dashboardData);
     setSelectedNotification("");
     setAssetLiveMarker("");
-    setListSelectedMarker("")
+    setListSelectedMarker("");
   };
 
   const handleSearchCloseIcon = () => {
@@ -283,9 +295,12 @@ loaderAssetNotificationResponse
     setSearchValue(dashboardData);
     setSelectedNotification("");
     setAssetLiveMarker("");
-    setListSelectedMarker("")
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-    setDebounceSearchText("")
+    setListSelectedMarker("");
+    if (
+      notificationPageName === "dashboard" ||
+      notificationPageName === "asset"
+    ) {
+      setDebounceSearchText("");
     }
   };
 
@@ -410,11 +425,29 @@ loaderAssetNotificationResponse
           />
         </div>
         <div className={notificationListItemSection}>
-        
-          {
-            notificationPageName === "asset" ?
-          !loaderAssetNotificationResponse ?
-          searchValue && searchValue?.length > 0 ? (
+          {notificationPageName === "asset" ? (
+            !loaderAssetNotificationResponse ? (
+              searchValue && searchValue?.length > 0 ? (
+                <NotificationListItems
+                  data={searchValue}
+                  //  key={index}
+                  handleExpandListItem={handleExpandListItem}
+                  selectedNotification={selectedNotification}
+                  refs={refs}
+                  handleViewDetails={handleViewDetails}
+                  handleAssetViewDetails={handleAssetViewDetails}
+                  handleVideoDetails={handleVideoDetails}
+                  notificationPageName={notificationPageName}
+                  selectedTheme={selectedTheme}
+                  isMarkerClicked={isMarkerClicked}
+                />
+              ) : (
+                <div className={noResultFoundClass}>{noResultFound}</div>
+              )
+            ) : (
+              <Loader isHundredVh={false} imgWidth={"20%"} />
+            )
+          ) : searchValue && searchValue?.length > 0 ? (
             <NotificationListItems
               data={searchValue}
               //  key={index}
@@ -427,32 +460,10 @@ loaderAssetNotificationResponse
               notificationPageName={notificationPageName}
               selectedTheme={selectedTheme}
               isMarkerClicked={isMarkerClicked}
-              
             />
           ) : (
             <div className={noResultFoundClass}>{noResultFound}</div>
-          )
-        :
-        <Loader isHundredVh={false} imgWidth={"20%"}/>
-      :
-      searchValue && searchValue?.length > 0 ? (
-        <NotificationListItems
-          data={searchValue}
-          //  key={index}
-          handleExpandListItem={handleExpandListItem}
-          selectedNotification={selectedNotification}
-          refs={refs}
-          handleViewDetails={handleViewDetails}
-          handleAssetViewDetails={handleAssetViewDetails}
-          handleVideoDetails={handleVideoDetails}
-          notificationPageName={notificationPageName}
-          selectedTheme={selectedTheme}
-          isMarkerClicked={isMarkerClicked}
-          
-        />
-      ) : (
-        <div className={noResultFoundClass}>{noResultFound}</div>
-      )}
+          )}
         </div>
       </div>
     </>

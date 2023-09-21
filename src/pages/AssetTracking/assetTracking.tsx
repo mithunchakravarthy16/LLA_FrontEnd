@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
@@ -24,6 +24,7 @@ import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
+  formattedOverallNotificationCount
 } from "../../utils/utils";
 import assetTrackingData from "../../mockdata/assetTrackingData";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
@@ -45,6 +46,7 @@ import {
   getAssetTrackingActiveInActiveAnalyticsData,
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import CustomTablePagination from "elements/CustomPagination";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -104,6 +106,24 @@ const AssetTracking: React.FC<any> = (props) => {
   const loaderAssetTrackingAnalyticsResponse = useSelector(
     (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
   );
+
+  const assetLiveData = useSelector(
+    (state: any) => state?.assetTracker?.assetLiveData?.data
+  );
+
+  const assetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetNotificationData
+  );
+  const assetNotificationList = assetNotificationResponse?.data;
+
+  const loaderAssetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.loadingAssetNotificationData
+  );
+
+  const overallAssetDetails = useSelector(
+    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
+  );
+
   const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
   useEffect(() => {
     setLoaderExtAnalytics(true);
@@ -121,6 +141,15 @@ const AssetTracking: React.FC<any> = (props) => {
     activeInactiveAnalyticsXaxisData,
     setActiveInactiveAnalyticsXaxisData,
   ] = useState<any>();
+
+    //Pagination 
+    const [page, setPage] = useState<any>(0);
+    const [rowsPerPage, setRowsPerPage] = useState<any>(50);
+    const [searchPageNo, setSearchPageNo] = useState<any>();
+    const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
+    const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, assetNotificationResponse?.data, "asset"));
+    
+    //Pagination End
 
   useEffect(() => {
     if (assetTrackingActiveInActiveAnalyticsResponse) {
@@ -245,6 +274,8 @@ const AssetTracking: React.FC<any> = (props) => {
     graphTwoContainerStyle,
     graphTwoChartStyle,
     geofenceIconStyle,
+    pageNumSection,
+    customPagination
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -266,27 +297,15 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
-    let assetPayload: any = {
-      filterText: "",
-      pageNo: 0,
-      pageSize: 100000,
-    };
-
-    // dispatch(getNotificationData(assetPayload));
-
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData(assetPayload));
-    // }, 1 * 60 * 1000);
-
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
     return () => {
-      clearInterval(interval);
+      // clearInterval(interval);
       // clearInterval(intervalTime);
     };
   }, []);
@@ -296,14 +315,14 @@ const AssetTracking: React.FC<any> = (props) => {
   useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
-      pageNo: 0,
-      pageSize: 100000,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
     };
     if (!debounceSearchText) {
       assetPayload = {
         filterText: "",
-        pageNo: 0,
-        pageSize: 100000,
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
       };
 
       dispatch(
@@ -312,8 +331,8 @@ const AssetTracking: React.FC<any> = (props) => {
     } else if (debounceSearchText) {
       assetPayload = {
         filterText: debounceSearchText,
-        pageNo: 0,
-        pageSize: 100000,
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
       };
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -331,22 +350,7 @@ const AssetTracking: React.FC<any> = (props) => {
     };
   }, [debounceSearchText]);
 
-  const assetLiveData = useSelector(
-    (state: any) => state?.assetTracker?.assetLiveData?.data
-  );
 
-  const assetNotificationResponse = useSelector(
-    (state: any) => state?.assetNotification?.assetNotificationData
-  );
-  const assetNotificationList = assetNotificationResponse?.data;
-
-  const loaderAssetNotificationResponse = useSelector(
-    (state: any) => state?.assetNotification?.loadingAssetNotificationData
-  );
-
-  const overallAssetDetails = useSelector(
-    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
-  );
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -1115,9 +1119,97 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  // PAGINATION
+
+  const handleChangePage = (newPage: any) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (data: any) => {
+    setRowsPerPage(data);
+    setSearchPageNo("");
+    setPage(0)
+    let assetPayload: any = {
+      filterText: "",
+      pageNo: parseInt(page),
+      pageSize: parseInt(data),
+    };
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+  };
+
+  const handleNextChange = () => {
+
+    let assetPayload: any = {};
+    if(page >= 0 ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page) + 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+    }
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+  };
+
+
+  const handlePreviousChange = () => {
+    let assetPayload: any = {};
+    if(page > 0 ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+    }
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+  };
+  const handlePageNoChange = (value: any) => {
+    setPage(0);
+    setSearchPageNo(value !== "" ? parseInt(value) : value );
+
+    let assetPayload: any = {};
+    if(page >= 0 && value !== "" ) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(value) - 1,
+        pageSize: parseInt(rowsPerPage),
+      };
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+
+    }
+  };
+
+  useEffect(()=>{
+    if(assetNotificationResponse) {
+      setTotalRecords(formattedOverallNotificationCount(assetNotificationResponse?.data, assetNotificationResponse?.data, "asset"));
+      let countArray = formattedOverallNotificationCount(assetNotificationResponse?.data, assetNotificationResponse?.data, "asset");
+      let newArray : any = [];
+      if(countArray && countArray?.length > 0) {
+        switch(tabIndex) {
+          case 0 : 
+          newArray =  countArray[0];
+          break;
+          case 1 :
+            newArray = countArray[1];
+            break;
+          case 2:
+            newArray = countArray[2];
+            break;
+          default:
+            break;
+        }
+
+      }
+      setPaginationTotalCount(newArray)
+    }
+  },[assetNotificationResponse, tabIndex])
+
+  // PAGINATION ENDS
+
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
+
+    
 
   return (
     <>
@@ -1471,7 +1563,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
+                    notificationCount={totalRecords}
                     selectedNotification={selectedNotification}
                     setSelectedNotification={setSelectedNotification}
                     searchOpen={searchOpen}
@@ -1494,7 +1586,25 @@ const AssetTracking: React.FC<any> = (props) => {
                     loaderAssetNotificationResponse={
                       loaderAssetNotificationResponse
                     }
+                    page = {page}
+                    rowsPerPage = {rowsPerPage}
                   />
+                  <div style={{ margin: "-5px 0 0 20px"}}>
+                    <CustomTablePagination
+                      rowsPerPageOptions={[50, 100, 200, 500]}
+                      count={800}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                      handleNextChange={handleNextChange}
+                      handlePreviousChange={handlePreviousChange}
+                      onPageNoChange={handlePageNoChange}
+                      value={searchPageNo}
+                      pageNumclassName={pageNumSection}
+                      reportsPaginationclassName={customPagination}
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
