@@ -309,8 +309,6 @@ const AssetTracking: React.FC<any> = (props) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
-
-      dispatch(getNotificationData(assetPayload));
     } else if (debounceSearchText) {
       assetPayload = {
         filterText: debounceSearchText,
