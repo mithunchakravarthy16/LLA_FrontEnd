@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import {
@@ -49,7 +49,7 @@ import CustomTablePagination from "elements/CustomPagination";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
-
+  const { mapType, setMapType } = props;
   //Analytics Api integration starts here
   const [selectedValue, setSelectedValue] = useState<string>("Week");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
@@ -105,6 +105,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const loaderAssetTrackingAnalyticsResponse = useSelector(
     (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
   );
+
   const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
   useEffect(() => {
     setLoaderExtAnalytics(true);
@@ -275,18 +276,17 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
- 
     let assetPayload: any = {
       filterText: "",
       pageNo: parseInt(page),
       pageSize: parseInt(rowsPerPage),
     };
 
-    dispatch(getNotificationData(assetPayload));
+    // dispatch(getNotificationData(assetPayload));
 
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(getNotificationData(assetPayload));
+    // }, 1 * 60 * 1000);
 
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
@@ -297,52 +297,62 @@ const AssetTracking: React.FC<any> = (props) => {
 
     return () => {
       clearInterval(interval);
-      clearInterval(intervalTime);
+      // clearInterval(intervalTime);
     };
   }, []);
 
-  const[debounceSearchText,setDebounceSearchText]=useState<any>("")
+  const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
-  useEffect(()=>{
+  useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(rowsPerPage),
     };
-    if(!debounceSearchText){
-     assetPayload = {
+    if (!debounceSearchText) {
+      assetPayload = {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
       };
-  
-      dispatch(getNotificationData(assetPayload));
 
-      
-    } else if(debounceSearchText){
-       assetPayload = {
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    } else if (debounceSearchText) {
+      assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
       };
-      
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
     }
 
-   const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000)
+    const intervalTime = setInterval(() => {
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+      );
+    }, 1 * 60 * 1000);
 
     return () => {
       clearInterval(intervalTime);
     };
-  },[debounceSearchText])
+  }, [debounceSearchText]);
 
-  const assetLiveData = useSelector((state:any)=>state?.assetTracker?.assetLiveData?.data)
+  const assetLiveData = useSelector(
+    (state: any) => state?.assetTracker?.assetLiveData?.data
+  );
 
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
   );
   const assetNotificationList = assetNotificationResponse?.data;
+
+  const loaderAssetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.loadingAssetNotificationData
+  );
 
   const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
@@ -1130,7 +1140,7 @@ const AssetTracking: React.FC<any> = (props) => {
       pageNo: parseInt(page),
       pageSize: parseInt(data),
     };
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
   };
 
   const handleNextChange = () => {
@@ -1143,7 +1153,7 @@ const AssetTracking: React.FC<any> = (props) => {
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
   };
 
 
@@ -1156,7 +1166,7 @@ const AssetTracking: React.FC<any> = (props) => {
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
   };
   const handlePageNoChange = (value: any) => {
     setPage(0);
@@ -1169,7 +1179,7 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
       };
-      dispatch(getNotificationData(assetPayload));
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
 
     }
   };
@@ -1491,13 +1501,15 @@ const AssetTracking: React.FC<any> = (props) => {
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "57.5%" }}
                     >
-                      {/* <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      /> */}
+                      />
                       <AssetMap
+                        mapType={mapType}
+                        setMapType={setMapType}
                         markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
@@ -1546,10 +1558,15 @@ const AssetTracking: React.FC<any> = (props) => {
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
-                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem} 
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
                     notificationPageName={"asset"}
                     setDebounceSearchText={setDebounceSearchText}
+                    loaderAssetNotificationResponse={
+                      loaderAssetNotificationResponse
+                    }
                   />
                   <div style={{ margin: "-5px 0 0 20px"}}>
                     <CustomTablePagination
@@ -1581,12 +1598,16 @@ const AssetTracking: React.FC<any> = (props) => {
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
           selectedMarkerType={selectedMarkerType}
+          mapType={mapType}
+          setMapType={setMapType}
         />
       )}
       {isGeofenceInfoWindowActive && (
         <InfoDialogGeofenceAssetTracking
           setIsGeofenceInfoWindowActive={setIsGeofenceInfoWindowActive}
           selectedTheme={selectedTheme}
+          mapType={mapType}
+          setMapType={setMapType}
         />
       )}
     </>

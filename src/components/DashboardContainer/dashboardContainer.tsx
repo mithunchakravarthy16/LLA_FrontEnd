@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect, Fragment } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,9 +43,8 @@ interface DashboardContainerProps {
   handleviewDetails?: any;
 }
 
-const DashboardContainer: React.FC<DashboardContainerProps> = (
-  props: DashboardContainerProps
-) => {
+const DashboardContainer = (props: any) => {
+  const { setMapType, mapType } = props;
   const navigate = useNavigate();
 
   const adminPanelData = useSelector(
@@ -166,35 +165,36 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
   };
   const [debounceSearchText, setDebounceSearchText] = useState<any>();
   useEffect(() => {
-    let assetLiveDataPayload: any = {};
-    let assetPayload: any = {
-      filterText: "",
-      pageNo: parseInt(page),
-      pageSize: parseInt(rowsPerPage),
-    };
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
       // dispatch(getFleetManagementNotificationData(fleetPayload));
       // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
       setSuccess(false);
-      dispatch(getNotificationData(assetPayload));
+      let assetPayload: any = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: 100000,
+      };
+
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+      
+      let assetLiveDataPayload: any = {};
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData(assetPayload));
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(getNotificationData(assetPayload));
+    // }, 1 * 60 * 1000);
 
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
-
-    return () => {
-      clearInterval(interval);
-      clearInterval(intervalTime);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    //   clearInterval(intervalTime);
+    // };
   }, [debounceSearchText]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -479,7 +479,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
       pageNo: parseInt(page),
       pageSize: parseInt(data),
     };
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
   };
 
   const handleNextChange = () => {
@@ -492,7 +492,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
     setPage(page + 1);
     setSearchPageNo("");
   };
@@ -507,7 +507,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData(assetPayload));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
     setPage(page - 1);
     setSearchPageNo("");
   };
@@ -524,7 +524,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
       };
-      dispatch(getNotificationData(assetPayload));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
 
     }
   };
@@ -637,6 +637,8 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                   selectedNotificationItem={selectedNotificationItem}
                   setSelectedNotificationItem={setSelectedNotificationItem}
                   isMarkerClicked={isMarkerClicked}
+                  setMapType={setMapType}
+                  mapType={mapType}
                 />
               </div>
             </Grid>
@@ -706,8 +708,10 @@ const DashboardContainer: React.FC<DashboardContainerProps> = (
                     handleExpandListItem={() => {}}
                     setAssetLiveMarker={setAssetLiveMarker}
                     liveMarkerList={liveMarkerList}
-                    listSelectedMarker={listSelectedMarker} setListSelectedMarker={setListSelectedMarker}
-                    selectedNotificationItem={selectedNotificationItem} setSelectedNotificationItem = {setSelectedNotificationItem}            
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
                     setDebounceSearchText={setDebounceSearchText}
                   />
                   <div style={{ margin: "-5px 0 0 20px"}}>
