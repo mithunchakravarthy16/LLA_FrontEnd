@@ -73,7 +73,8 @@ const fleetManagementCenter = {
   lng: 121.36458642272018,
 };
 
-const assetTrackingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
+const assetTrackingCenter = { lat: 9.01343438,
+lng: -79.47595713 };
 
 const libraries = ["places", "drawing"];
 
@@ -762,7 +763,7 @@ const AssetMap: React.FC<any> = (props) => {
       listSelectedMarker === "" &&
       selectedNotificationItem === ""
     ) {
-      map?.setZoom(17);
+      map?.setZoom(16);
       map?.panTo(assetTrackingCenter);
     }
   }, [
@@ -785,6 +786,7 @@ const AssetMap: React.FC<any> = (props) => {
       );
     }
   }, [selectedNotificationItem]);
+
 
   const handleMapTypeChanged = () => {
     if (map) {
@@ -826,7 +828,7 @@ const AssetMap: React.FC<any> = (props) => {
           <MarkerClustererF
             averageCenter
             enableRetinaIcons
-            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 20}
+            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 16}
             gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
           >
             {(clusterer: any) => (
