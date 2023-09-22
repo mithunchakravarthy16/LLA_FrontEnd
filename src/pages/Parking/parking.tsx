@@ -458,10 +458,7 @@ const Parking: React.FC<any> = (props) => {
 
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme &&
-      Object.keys(appTheme).length > 0 ? (
+      {isDataLoaded ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
