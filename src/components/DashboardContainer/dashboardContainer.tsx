@@ -83,6 +83,10 @@ const DashboardContainer = (props: any) => {
     (state: any) => state?.assetNotification?.assetNotificationData
   );
 
+  const loaderAssetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.loadingAssetNotificationData
+  );
+
   const fleetManagementTripDetailsResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementOverAllTripDetailsData
@@ -97,6 +101,8 @@ const DashboardContainer = (props: any) => {
       state.assetTrackingActiveInActiveAnalytics
         .assetTrackingGridViewAnalyticsData
   );
+
+
 
   // const assetNotificationResponse = assetTrackingResponse;
 
@@ -166,7 +172,7 @@ const DashboardContainer = (props: any) => {
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
-  const [debounceSearchText, setDebounceSearchText] = useState<any>();
+  const [debounceSearchText, setDebounceSearchText] = useState<any>("");
   useEffect(() => {
     if (!debounceSearchText) {
       const fleetPayload: any = {};
@@ -180,7 +186,7 @@ const DashboardContainer = (props: any) => {
         pageSize: rowsPerPage,
       };
 
-      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
       
       let assetLiveDataPayload: any = {};
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
@@ -482,11 +488,11 @@ const DashboardContainer = (props: any) => {
     setSearchPageNo("");
     setPage(0)
     let assetPayload: any = {
-      filterText: "",
+      filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
     };
-    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
   };
 
   const handleNextChange = () => {
@@ -494,12 +500,12 @@ const DashboardContainer = (props: any) => {
     let assetPayload: any = {};
     if(page >= 0 ) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
     setPage(page + 1);
     setSearchPageNo("");
   };
@@ -509,12 +515,12 @@ const DashboardContainer = (props: any) => {
     let assetPayload: any = {};
     if(page > 0 ) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+    dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
     setPage(page - 1);
     setSearchPageNo("");
   };
@@ -527,11 +533,11 @@ const DashboardContainer = (props: any) => {
     let assetPayload: any = {};
     if(page >= 0 && value !== "" ) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
       };
-      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: false}));
+      dispatch(getNotificationData({payLoad: assetPayload, isFromSearch: true}));
 
     }
   };
@@ -756,6 +762,7 @@ const DashboardContainer = (props: any) => {
                     setDebounceSearchText={setDebounceSearchText}
                     page = {page}
                     rowsPerPage = {rowsPerPage}
+                    loaderAssetNotificationResponse={loaderAssetNotificationResponse}
                   />
                   <div style={{ margin: "-5px 0 0 20px"}}>
                     <CustomTablePagination
