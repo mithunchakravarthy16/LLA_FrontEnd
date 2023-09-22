@@ -187,6 +187,7 @@ const DashboardContainer = (props: any) => {
         filterText: "",
         pageNo: page,
         pageSize: rowsPerPage,
+        notificationType: "",
       };
 
       dispatch(
@@ -496,6 +497,8 @@ const DashboardContainer = (props: any) => {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incidents" : "Alerts",
     };
     dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -509,6 +512,8 @@ const DashboardContainer = (props: any) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incidents" : "Alerts",
       };
     }
     dispatch(
@@ -525,6 +530,8 @@ const DashboardContainer = (props: any) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     }
     dispatch(
@@ -544,6 +551,8 @@ const DashboardContainer = (props: any) => {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })

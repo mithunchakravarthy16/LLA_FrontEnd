@@ -323,12 +323,15 @@ const AssetTracking: React.FC<any> = (props) => {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(rowsPerPage),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
     if (!debounceSearchText) {
       assetPayload = {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
+        notificationType: "",
       };
 
       dispatch(
@@ -339,6 +342,8 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -1137,6 +1142,8 @@ const AssetTracking: React.FC<any> = (props) => {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
     dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -1150,11 +1157,15 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     }
     dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
+    setPage(page + 1);
+    setSearchPageNo("");
   };
 
   const handlePreviousChange = () => {
@@ -1164,11 +1175,15 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     }
     dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
+    setPage(page - 1);
+    setSearchPageNo("");
   };
   const handlePageNoChange = (value: any) => {
     setPage(0);
@@ -1180,6 +1195,8 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -1222,6 +1239,10 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [assetNotificationResponse, tabIndex]);
 
   // PAGINATION ENDS
+
+  useEffect(() => {
+    setPage(0);
+  }, [tabIndex]);
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
@@ -1605,7 +1626,7 @@ const AssetTracking: React.FC<any> = (props) => {
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={800}
+                      count={paginationTotalCount}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onPageChange={handleChangePage}
