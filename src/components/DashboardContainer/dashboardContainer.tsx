@@ -122,7 +122,7 @@ const DashboardContainer = (props: any) => {
   const [page, setPage] = useState<any>(0);
   const [rowsPerPage, setRowsPerPage] = useState<any>(50);
   const [searchPageNo, setSearchPageNo] = useState<any>();
-  const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>();
   const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, dashboardNotification?.notifications));
   //Pagination End
 
@@ -757,7 +757,7 @@ const DashboardContainer = (props: any) => {
                     page = {page}
                     rowsPerPage = {rowsPerPage}
                   />
-                  <div style={{ margin: "-5px 0 0 20px"}}>
+                  <div style={{ margin: "-5px 20px 0 20px"}}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
                       count={paginationTotalCount}

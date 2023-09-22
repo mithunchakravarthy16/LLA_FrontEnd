@@ -109,8 +109,8 @@ const useStyles = makeStyles({
     width: "3vw",
     margin: "0 0.8vw",
     "& .MuiInputBase-input": {
-      padding: "6px 8px !important",
-      fontSize: 12,
+      padding: "6px !important",
+      fontSize: "0.6vw",
       lineHeight: "17px",
     },
     "& .MuiFormLabel-root": {

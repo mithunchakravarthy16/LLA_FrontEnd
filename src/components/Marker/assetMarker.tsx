@@ -58,7 +58,7 @@ const AssetMarker: React.FC<any> = (props) => {
             ),
           }}
           key={mapMarker?.markerId}
-          zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
+          zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
         />
   
         {((assetLiveMarker === mapMarker?.markerId ) || listSelectedMarker === mapMarker?.markerId )  && (

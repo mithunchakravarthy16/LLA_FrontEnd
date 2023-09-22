@@ -946,8 +946,8 @@ const Map: React.FC<any> = (props) => {
       marker === "" &&
       assetLiveMarker === "" &&
       listSelectedMarker === "" &&
-      selectedNotificationItem === "" &&
-      selectedNotification === ""
+      (selectedNotificationItem === "" ||
+      selectedNotification === "")
     ) {
       map?.setZoom(17);
       map?.panTo(parkingCenter);
@@ -998,14 +998,14 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(() => {
-    if (selectedNotification) {
+    if (selectedNotification || selectedNotificationItem) {
       map?.panTo(
         selectedNotificationItem?.currentLocation
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
     }
-  }, [selectedNotification]);
+  }, [selectedNotification, selectedNotificationItem]);
 
   const handleMapTypeChanged = () => {
     if (map) {

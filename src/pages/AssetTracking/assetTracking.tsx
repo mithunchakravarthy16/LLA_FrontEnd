@@ -1589,7 +1589,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     page = {page}
                     rowsPerPage = {rowsPerPage}
                   />
-                  <div style={{ margin: "-5px 0 0 20px"}}>
+                  <div style={{ margin: "-5px 20px 0 20px"}}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
                       count={800}
