@@ -394,6 +394,7 @@ const NotificationPanel = (props: any) => {
                 notificationPageName={notificationPageName}
                 handleSearchtest={handleSearchtest}
                 setDebounceSearchText={setDebounceSearchText}
+                disabled={loaderAssetNotificationResponse}
               />
             ) : (
               notificationText
@@ -423,6 +424,7 @@ const NotificationPanel = (props: any) => {
             handleTabs={handleTabs}
             dashboardNotificationClassName={customNotificationTabs}
             pageName={"dashboard"}
+            disabled={loaderAssetNotificationResponse}
           />
         </div>
         <div className={notificationListItemSection}>
