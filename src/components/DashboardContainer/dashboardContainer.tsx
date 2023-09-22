@@ -499,7 +499,7 @@ const DashboardContainer = (props: any) => {
       pageNo: parseInt(page),
       pageSize: parseInt(data),
       notificationType:
-        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incidents" : "Alerts",
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
     dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -514,7 +514,7 @@ const DashboardContainer = (props: any) => {
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incidents" : "Alerts",
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     }
     dispatch(
