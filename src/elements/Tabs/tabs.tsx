@@ -40,7 +40,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     tabCountContainer,
     tabCountContainerSelected,
     fleetInfoDialogueTabLabelTextSelected,
-    tabLabelParkingSlot
+    tabLabelParkingSlot,
   } = useStyles({
     appTheme,
     pageName: pageName,
@@ -64,8 +64,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor={"primary"}
-          >
+            indicatorColor={"primary"}>
             {tabsList.map((item: any, index: number) => (
               <Tab
                 key={index}
@@ -74,25 +73,33 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                   <div
                     className={
                       pageName === "fleetInfoDialogue"
-                        ? tabLabelFleetInfoDialogue : pageName === "parkingSlot" ? tabLabelParkingSlot 
+                        ? tabLabelFleetInfoDialogue
+                        : pageName === "parkingSlot"
+                        ? tabLabelParkingSlot
                         : tabLabel
-                    }
-                  >
+                    }>
                     {(item?.count || item?.count === 0) && (
                       <div>
                         {/* <div className={value === index ? tabCountContainerSelected : tabCountContainer}>{item?.count}</div> */}
-                        <div className="count">{item?.count > 1000 ? "999+" : item?.count}</div>
+                        <div className="count">
+                          {item?.count > 1000 ? (
+                            <span>
+                              999<sup>+</sup>
+                            </span>
+                          ) : (
+                            item?.count
+                          )}
+                        </div>
                       </div>
                     )}
 
                     {/* <div className={value !== index ? tabLabelText : tabLabelTextSelected} >{item?.name}</div> */}
                     <div
                       className={
-                        value === index &&
-                        pageName === "fleetInfoDialogue" ?
-                        fleetInfoDialogueTabLabelTextSelected : ""
-                      }
-                    >
+                        value === index && pageName === "fleetInfoDialogue"
+                          ? fleetInfoDialogueTabLabelTextSelected
+                          : ""
+                      }>
                       {item?.name}
                     </div>
                   </div>
