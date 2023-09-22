@@ -16,6 +16,7 @@ interface tabProps {
   isEquipmentDropdown?: any;
   handleSelectEquipmentWareHouse?: any;
   selectListEquipmentWareHouse?: any;
+  disabled?: boolean;
 }
 const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
   const {
@@ -27,6 +28,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     isEquipmentDropdown,
     handleSelectEquipmentWareHouse,
     selectListEquipmentWareHouse,
+    disabled,
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -64,11 +66,13 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor={"primary"}>
+            indicatorColor={"primary"}
+          >
             {tabsList.map((item: any, index: number) => (
               <Tab
                 key={index}
                 value={pageName === "sendConfig" ? item?.val : index}
+                disabled={disabled}
                 label={
                   <div
                     className={
@@ -77,7 +81,8 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                         : pageName === "parkingSlot"
                         ? tabLabelParkingSlot
                         : tabLabel
-                    }>
+                    }
+                  >
                     {(item?.count || item?.count === 0) && (
                       <div>
                         {/* <div className={value === index ? tabCountContainerSelected : tabCountContainer}>{item?.count}</div> */}
@@ -99,7 +104,8 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
                         value === index && pageName === "fleetInfoDialogue"
                           ? fleetInfoDialogueTabLabelTextSelected
                           : ""
-                      }>
+                      }
+                    >
                       {item?.name}
                     </div>
                   </div>
