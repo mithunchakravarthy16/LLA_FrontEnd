@@ -25,11 +25,20 @@ export const formatttedDashboardNotification = (
     let notiOprAlertArray: any = [];
     sortedNotifications?.map((value: any, index: number) => {
       if (value?.notificationType === "Events") {
-        notiEventArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
+        notiEventArray?.push({
+          ...value,
+          markerId: value?.category === "asset" ? value?.trackerId : value?.id,
+        });
       } else if (value?.notificationType === "Incident") {
-        notiIncidentArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
+        notiIncidentArray?.push({
+          ...value,
+          markerId: value?.category === "asset" ? value?.trackerId : value?.id,
+        });
       } else if (value?.notificationType === "Alerts") {
-        notiOprAlertArray?.push({...value, markerId : value?.category === "asset" ? value?.trackerId :  value?.id});
+        notiOprAlertArray?.push({
+          ...value,
+          markerId: value?.category === "asset" ? value?.trackerId : value?.id,
+        });
       }
     });
 
@@ -44,10 +53,7 @@ export const formatttedDashboardNotification = (
   }
 };
 
-export const formatttedParkingNotification = (
-  data: any,
-  tabIndex: number
-) => {
+export const formatttedParkingNotification = (data: any, tabIndex: number) => {
   if (data && data !== undefined) {
     const sortedNotifications = data?.sort((a: any, b: any) => {
       if (
@@ -114,51 +120,49 @@ export const formatttedDashboardNotificationCount = (data: any) => {
 
 export const formatttedDashboardAPINotificaiton = (data: any) => {
   if (data && data !== undefined) {
-  const { events, incidents, alerts } = data;
-  const combinedNotifications: any = [];
+    const { events, incidents, alerts } = data;
+    const combinedNotifications: any = [];
 
-  events?.eventsList?.forEach((event: any, index: number) => {
-    combinedNotifications?.push({
-      ...event,
-      markerId : event?.id
+    events?.eventsList?.forEach((event: any, index: number) => {
+      combinedNotifications?.push({
+        ...event,
+        markerId: event?.id,
+      });
     });
-  });
 
-  incidents?.incidentList?.forEach((incidents: any, index: number) => {
-    combinedNotifications?.push({
-      ...incidents,
-      markerId : incidents?.id
-
+    incidents?.incidentList?.forEach((incidents: any, index: number) => {
+      combinedNotifications?.push({
+        ...incidents,
+        markerId: incidents?.id,
+      });
     });
-  });
 
-  alerts?.alertList?.forEach((alerts: any, index: number) => {
-    combinedNotifications?.push({
-      ...alerts,
-      markerId : alerts?.id
-
+    alerts?.alertList?.forEach((alerts: any, index: number) => {
+      combinedNotifications?.push({
+        ...alerts,
+        markerId: alerts?.id,
+      });
     });
-  });
 
-  let currentTimeStampValue;
-  let timeArrayNew: any = [];
-  for (let i = 0; i < combinedNotifications?.length; i++) {
-    currentTimeStampValue = moment()
-      .subtract({
-        hours: i === 0 ? i : i > 20 ? 20 : i + 1,
-        minutes: i + 59,
-        seconds: i + 49,
-      })
-      .format("MM-DD-YYYY | h:mm A");
-    timeArrayNew?.push({ currentTimeStamp: currentTimeStampValue });
+    let currentTimeStampValue;
+    let timeArrayNew: any = [];
+    for (let i = 0; i < combinedNotifications?.length; i++) {
+      currentTimeStampValue = moment()
+        .subtract({
+          hours: i === 0 ? i : i > 20 ? 20 : i + 1,
+          minutes: i + 59,
+          seconds: i + 49,
+        })
+        .format("MM-DD-YYYY | h:mm A");
+      timeArrayNew?.push({ currentTimeStamp: currentTimeStampValue });
+    }
+
+    let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
+      Object.assign({}, item, combinedNotifications[i])
+    );
+
+    return dashboardDataList;
   }
-
-  let dashboardDataList = timeArrayNew?.map((item: any, i: any) =>
-    Object.assign({}, item, combinedNotifications[i])
-  );
-
-  return dashboardDataList;
-}
 };
 
 export const formatttedAssetAPINotification = (data: any) => {
@@ -172,7 +176,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         category: "asset",
         title: event?.reason,
         id: event?.assetNotificationId,
-        markerId : event?.id,
+        markerId: event?.id,
         currentTimeStamp: moment
           .utc(event?.notificationDate)
           .format("MM-DD-YYYY | h:mm A"),
@@ -185,7 +189,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         category: "asset",
         title: incidents?.reason,
         id: incidents?.assetNotificationId,
-        markerId : incidents?.id,
+        markerId: incidents?.id,
         currentTimeStamp: moment
           .utc(incidents?.notificationDate)
           .format("MM-DD-YYYY | h:mm A"),
@@ -204,36 +208,41 @@ export const formatttedAssetAPINotification = (data: any) => {
       });
     });
 
-    combinedNotifications.sort((a:any, b:any) => {
-      const dateA : any = new Date(a.notificationDate);
-      const dateB : any = new Date(b.notificationDate);
-    
+    combinedNotifications.sort((a: any, b: any) => {
+      const dateA: any = new Date(a.notificationDate);
+      const dateB: any = new Date(b.notificationDate);
+
       return dateB - dateA;
     });
 
-      let uniqueTrackerIds : any = {};
+    let uniqueTrackerIds: any = {};
 
-      const uniqueData = combinedNotifications.filter((item:any) => {
-        if (!uniqueTrackerIds[item.trackerId]) {
-          uniqueTrackerIds[item.trackerId] = true;
-          return true;
-        }
-        return false;
-      });
-
-      const updatedUniqueData = combinedNotifications.map((combinedDataItem:any) => {
-        const uniqueDataItem = uniqueData.find((uniqueDataItem:any) => uniqueDataItem.trackerId === combinedDataItem.trackerId);
-        
-        if (uniqueDataItem) {
-            return {
-                ...combinedDataItem,
-                location: uniqueDataItem.currentLocation,
-                recentMarkerType : uniqueDataItem.notificationType,
-            };
-        }
-    
-        return combinedDataItem;
+    const uniqueData = combinedNotifications.filter((item: any) => {
+      if (!uniqueTrackerIds[item.trackerId]) {
+        uniqueTrackerIds[item.trackerId] = true;
+        return true;
+      }
+      return false;
     });
+
+    const updatedUniqueData = combinedNotifications.map(
+      (combinedDataItem: any) => {
+        const uniqueDataItem = uniqueData.find(
+          (uniqueDataItem: any) =>
+            uniqueDataItem.trackerId === combinedDataItem.trackerId
+        );
+
+        if (uniqueDataItem) {
+          return {
+            ...combinedDataItem,
+            location: uniqueDataItem.currentLocation,
+            recentMarkerType: uniqueDataItem.notificationType,
+          };
+        }
+
+        return combinedDataItem;
+      }
+    );
 
     return updatedUniqueData;
   }
@@ -329,21 +338,28 @@ export const formattedViolationsList = (data: any) => {
   }
 };
 
-export const formattedOverallNotificationCount = (apiData: any, mockData : any, pageName : any) => {
+export const formattedOverallNotificationCount = (
+  apiData: any,
+  mockData: any,
+  pageName: any
+) => {
   if (apiData && apiData !== undefined) {
-    let count : any = []
-    if(pageName === "dashboard") {
-      let eventDashboardCount = apiData?.events?.overallCount + mockData?.events?.eventsList?.length;
-      let incidentDashboardCount = apiData?.incidents?.overallCount + mockData?.incidents?.incidentList?.length;
-      let alertsDashboardCount = apiData?.alerts?.overallCount + mockData?.alerts?.alertList?.length;
-      count = [eventDashboardCount,incidentDashboardCount, alertsDashboardCount ]
+    let count: any = [];
+    if (pageName === "dashboard") {
+      let eventDashboardCount = apiData?.events?.overallCount;
+      let incidentDashboardCount = apiData?.incidents?.overallCount;
+      let alertsDashboardCount = apiData?.alerts?.overallCount;
+      count = [
+        eventDashboardCount,
+        incidentDashboardCount,
+        alertsDashboardCount,
+      ];
     } else {
       let eventCount = apiData?.events?.overallCount;
       let incidentCount = apiData?.incidents?.overallCount;
       let alertsCount = apiData?.alerts?.overallCount;
-      count = [eventCount,incidentCount, alertsCount ]
+      count = [eventCount, incidentCount, alertsCount];
     }
     return count;
   }
 };
-

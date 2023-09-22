@@ -59,13 +59,16 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleClose = () => {
     setSearchValue("");
-    handleSearch("");
+    notificationPageName === "parking" && handleSearch("");
     // handleSearchtest("")
     setIcon("search");
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-      setDebounceSearchText("")
+    if (
+      notificationPageName === "dashboard" ||
+      notificationPageName === "asset"
+    ) {
+      setDebounceSearchText("");
     }
-    
+
     if (pageName !== "dashboardTracker") {
       handleCloseIcon();
     }
@@ -78,9 +81,12 @@ const INF_SearchBox: React.FC<any> = (props) => {
     if (event.target.value.length > 0) {
       setIcon("cancel");
     }
-    handleSearch(event.target.value);
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-    handleSearchtest(event.target.value)
+    notificationPageName === "parking" && handleSearch(event.target.value);
+    if (
+      notificationPageName === "dashboard" ||
+      notificationPageName === "asset"
+    ) {
+      handleSearchtest(event.target.value);
     }
   };
   const handleSearchFocus = () => {
@@ -96,15 +102,18 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSearchValue("");
-    if(notificationPageName === "dashboard" || notificationPageName === "asset"){
-    setDebounceSearchText("")
+    if (
+      notificationPageName === "dashboard" ||
+      notificationPageName === "asset"
+    ) {
+      setDebounceSearchText("");
     }
   }, [searchResetValue]);
 
   useEffect(() => {
     setSearchValue("");
     setIcon("search");
-    handleSearch("");
+    notificationPageName === "parking" && handleSearch("");
     // handleSearchtest("")
   }, [tabIndex]);
 

@@ -237,7 +237,7 @@ const NotificationPanel = (props: any) => {
   };
 
   //debouncing start
-  const delayTime = notificationPageName === "asset" ? 500 : 3000;
+  const delayTime = notificationPageName === "asset" ? 500 : 500;
   const fetchingDataForSearch = (searchValue: any) => {
     let assetPayload = {};
     if (searchValue) {
