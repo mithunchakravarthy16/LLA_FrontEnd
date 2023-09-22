@@ -341,14 +341,18 @@ export const formattedViolationsList = (data: any) => {
 export const formattedOverallNotificationCount = (
   apiData: any,
   mockData: any,
-  pageName: any
+  pageName: any,
+  searchOpen: boolean
 ) => {
   if (apiData && apiData !== undefined) {
     let count: any = [];
     if (pageName === "dashboard") {
-      let eventDashboardCount = apiData?.events?.overallCount;
-      let incidentDashboardCount = apiData?.incidents?.overallCount;
-      let alertsDashboardCount = apiData?.alerts?.overallCount;
+      let eventDashboardCount =
+        apiData?.events?.overallCount + (searchOpen ? 0 : 2);
+      let incidentDashboardCount =
+        apiData?.incidents?.overallCount + (searchOpen ? 0 : 4);
+      let alertsDashboardCount =
+        apiData?.alerts?.overallCount + (searchOpen ? 0 : 2);
       count = [
         eventDashboardCount,
         incidentDashboardCount,

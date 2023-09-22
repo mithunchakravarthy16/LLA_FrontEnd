@@ -569,14 +569,16 @@ const DashboardContainer = (props: any) => {
         formattedOverallNotificationCount(
           assetNotificationResponse?.data,
           dashboardNotification?.notifications,
-          "dashboard"
+          "dashboard",
+          searchOpen
         )
       );
       // formattedDashboardTotalRecords(dashboardNotification?.notifications)
       let countArray = formattedOverallNotificationCount(
         assetNotificationResponse?.data,
         dashboardNotification?.notifications,
-        "dashboard"
+        "dashboard",
+        searchOpen
       );
       let newArray: any = [];
 
@@ -597,7 +599,7 @@ const DashboardContainer = (props: any) => {
       }
       setPaginationTotalCount(newArray);
     }
-  }, [assetNotificationResponse, tabIndex]);
+  }, [assetNotificationResponse, tabIndex, searchOpen]);
 
   useEffect(() => {
     setPage(0);
@@ -796,7 +798,9 @@ const DashboardContainer = (props: any) => {
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={paginationTotalCount}
+                      count={
+                        paginationTotalCount === 0 ? 1 : paginationTotalCount
+                      }
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onPageChange={handleChangePage}
