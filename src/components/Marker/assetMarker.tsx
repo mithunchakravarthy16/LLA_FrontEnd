@@ -40,7 +40,7 @@ const AssetMarker: React.FC<any> = (props) => {
     return (
       <>
         <Marker
-          clusterer={(listSelectedMarker === "" && selectedNotification !== "" ) ? clusterer : undefined}
+          // clusterer={(listSelectedMarker !== "" && selectedNotification !== "" ) ? clusterer : undefined}
 
           position={mapMarker?.currentLocation}
           onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation, mapMarker)}
