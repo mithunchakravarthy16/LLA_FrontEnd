@@ -77,7 +77,7 @@ const MapMarker: React.FC<any> = (props) => {
             ),
           }}
           key={mapMarker?.id}
-          zIndex={currentMarker === mapMarker?.id ? 1000 : 1}
+          zIndex={currentMarker === mapMarker?.id ? 1000 : 100}
         />
 
         {currentMarker === mapMarker?.id && (
@@ -128,7 +128,7 @@ const MapMarker: React.FC<any> = (props) => {
             ),
           }}
           key={mapMarker?.markerId}
-          zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
+          zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
         />
   
         {((assetLiveMarker === mapMarker?.markerId ) || (listSelectedMarker === mapMarker?.markerId) )  && (
@@ -184,7 +184,7 @@ const MapMarker: React.FC<any> = (props) => {
             ),
           }}
           key={mapMarker?.id}
-          zIndex={listSelectedMarker === mapMarker?.id ? 1000 : 1}
+          zIndex={listSelectedMarker === mapMarker?.id ? 1000 : 100}
         />
   
         {(assetLiveMarker === mapMarker?.id) && (
@@ -234,7 +234,7 @@ const MapMarker: React.FC<any> = (props) => {
           ),
         }}
         key={mapMarker?.markerId}
-        zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 1}
+        zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
       />
 
       {(listSelectedMarker === mapMarker?.id || currentMarker === mapMarker?.id) && (

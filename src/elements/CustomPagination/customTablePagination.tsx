@@ -32,23 +32,28 @@ const CustomTablePagination = (props:any) => {
   let totalPageCount = Math.ceil(count / rowsPerPage);
   const [selectedValue, setselectedValue] = useState(rowsPerPage);
   const [totalPage, setTotalPage] = useState(Math.ceil(count / rowsPerPage));
+
   useEffect(() => {
     setTotalPage(totalPageCount);
   }, [totalPageCount]);
+
   const [newPage, setNewPage] = useState(page);
   const [tooltip, setTooltip] = useState(false);
+
   const handleChange = (e) => {
     onRowsPerPageChange(e.target.value);
     setselectedValue(e.target.value);
     setTotalPage(Math.ceil(count / e.target.value));
     setNewPage(0)
   };
+
   const NextPageChange = () => {
     if (newPage < totalPage - 1) {
       setNewPage(newPage + 1);
     }
     props.handleNextChange();
   };
+
   const PreviousPageChange = () => {
     if (newPage > 0) {
       setNewPage(newPage - 1);
@@ -59,9 +64,13 @@ const CustomTablePagination = (props:any) => {
   const handleInputPageChange = (e:any) => {
     if (e.target.value > 0 && e.target.value <= totalPage) {
       onPageNoChange(e.target.value);
-    } else {
-      onPageNoChange("");
+    } else if(e.target.value >= totalPage) {
       setTooltip(true);
+      onPageNoChange("");
+
+    }
+    else {
+      onPageNoChange("");
     }
   };
 
@@ -111,10 +120,11 @@ const CustomTablePagination = (props:any) => {
                       background: "#FBFBFF",
                       borderRadius: "5px",
                       color: "#777777",
-                      fontSize: "14px",
+                      fontSize: "0.6vw",
                       fontWeight: "400",
                       textAlign: "center",
-                      minWidth : "3.2vw"
+                      minWidth : "3.2vw",
+                      minHeight : "2vh"
                     }}
                     name="select"
                     value={selectedValue}
@@ -156,6 +166,7 @@ const CustomTablePagination = (props:any) => {
                 value={value}
                 tooltip={tooltip}
                 tooltipText={"Exceeded Total Pages"}
+                placeholder={"Page No"}
               />
             </div>
           </div>

@@ -141,7 +141,7 @@ const Login = () => {
   const user = useSelector((state: any) => state.login.loginData);
 
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData
+    (state: any) => state?.adminPanel
   );
 
   const adminPanelSaveData = useSelector(
@@ -228,21 +228,21 @@ const Login = () => {
       user?.status === 409 ||
       user?.status === 413 ||
       user?.status === 410 ||
-      user?.status === 401 ||
-      adminPanelData?.status === 500 ||
-      adminPanelData?.status === 404 ||
-      adminPanelData?.status === 400 ||
-      adminPanelData?.status === 409 ||
-      adminPanelData?.status === 413 ||
-      adminPanelData?.status === 410 ||
-      adminPanelData?.status === 401 ||
-      adminPanelSaveData?.status === 500 ||
-      adminPanelSaveData?.status === 404 ||
-      adminPanelSaveData?.status === 400 ||
-      adminPanelSaveData?.status === 409 ||
-      adminPanelSaveData?.status === 413 ||
-      adminPanelSaveData?.status === 410 ||
-      adminPanelSaveData?.status === 401
+      user?.status === 401 
+      // adminPanelData?.status === 500 ||
+      // adminPanelData?.status === 404 ||
+      // adminPanelData?.status === 400 ||
+      // adminPanelData?.status === 409 ||
+      // adminPanelData?.status === 413 ||
+      // adminPanelData?.status === 410 ||
+      // adminPanelData?.status === 401 ||
+      // adminPanelSaveData?.status === 500 ||
+      // adminPanelSaveData?.status === 404 ||
+      // adminPanelSaveData?.status === 400 ||
+      // adminPanelSaveData?.status === 409 ||
+      // adminPanelSaveData?.status === 413 ||
+      // adminPanelSaveData?.status === 410 ||
+      // adminPanelSaveData?.status === 401
     ) {
       setSuccess(true);
       setInCorrectCredentials(true);
@@ -308,8 +308,8 @@ const Login = () => {
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   useEffect(() => {
     setBackgroundLoaded(false)
-    const backgroundImageUrl =
-      selectedTheme === 'light' ? llaLightBanner : llaBanner;    
+    const backgroundImageUrl = llaLightBanner
+      // selectedTheme === 'light' ? llaLightBanner : llaBanner;    
     const img = new Image();
     img.src = backgroundImageUrl;    
     img.onload = () => {      
@@ -319,14 +319,14 @@ const Login = () => {
     // return () => {
     //   img.onload = null;
     // };
-  }, [selectedTheme]);
+  }, []);
 
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
       setIsDataLoaded(!isDataLoaded);
-    }, 2000);
+    }, 100);
   }, []);
 
   const loaderAdminGetConfigData = useSelector(
@@ -355,21 +355,21 @@ const Login = () => {
                   user?.status === 409 ||
                   user?.status === 413 ||
                   user?.status === 410 ||
-                  user?.status === 401 ||
-                  adminPanelData?.status === 500 ||
-                  adminPanelData?.status === 404 ||
-                  adminPanelData?.status === 400 ||
-                  adminPanelData?.status === 409 ||
-                  adminPanelData?.status === 413 ||
-                  adminPanelData?.status === 410 ||
-                  adminPanelData?.status === 401 ||
-                  adminPanelSaveData?.status === 500 ||
-                  adminPanelSaveData?.status === 404 ||
-                  adminPanelSaveData?.status === 400 ||
-                  adminPanelSaveData?.status === 409 ||
-                  adminPanelSaveData?.status === 413 ||
-                  adminPanelSaveData?.status === 410 ||
-                  adminPanelSaveData?.status === 401
+                  user?.status === 401 
+                  // adminPanelData?.status === 500 ||
+                  // adminPanelData?.status === 404 ||
+                  // adminPanelData?.status === 400 ||
+                  // adminPanelData?.status === 409 ||
+                  // adminPanelData?.status === 413 ||
+                  // adminPanelData?.status === 410 ||
+                  // adminPanelData?.status === 401 ||
+                  // adminPanelSaveData?.status === 500 ||
+                  // adminPanelSaveData?.status === 404 ||
+                  // adminPanelSaveData?.status === 400 ||
+                  // adminPanelSaveData?.status === 409 ||
+                  // adminPanelSaveData?.status === 413 ||
+                  // adminPanelSaveData?.status === 410 ||
+                  // adminPanelSaveData?.status === 401
                     ? "error"
                     : undefined
                 }

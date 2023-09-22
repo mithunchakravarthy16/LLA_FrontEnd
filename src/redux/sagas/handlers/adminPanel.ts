@@ -14,6 +14,7 @@ import {
   adminPanelGetApi,
   adminPanelCancelApi,
 } from "services/endPoints";
+import configurationDetail from "mockdata/getConfigurationDetail";
 
 export function* handleAdminPanelConfig(action: any): any {
   try {
@@ -38,18 +39,19 @@ export function* handleAdminPanelConfig(action: any): any {
 
 export function* handleGetAdminPanelConfig(action: any): any {
   try {
-    yield put(setLoaderGetConfigData());
-    const { fetchData } = fetchAPIServices;
+    // yield put(setLoaderGetConfigData());
+    // const { fetchData } = fetchAPIServices;
 
-    const response = yield fetchData(
-      `${adminPanelGetApi}?isPreview=${action?.payload?.isPreview}&isDefault=${action?.payload?.isDefault}`
-    );
+    // const response = yield fetchData(
+    //   `${adminPanelGetApi}?isPreview=${action?.payload?.isPreview}&isDefault=${action?.payload?.isDefault}`
+    // );
+    const response = configurationDetail;
     if (response) {
       yield put(setAdminPanelConfigData(response));
     } else {
       yield put(setAdminPanelConfigData({}));
     }
-    yield put(hideLoaderGetConfigData());
+    // yield put(hideLoaderGetConfigData());
   } catch (error) {
     yield put(hideLoaderGetConfigData());
     console.log(error);
