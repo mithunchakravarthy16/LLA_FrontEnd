@@ -172,7 +172,7 @@ const DashboardContainer = (props: any) => {
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
-  const [debounceSearchText, setDebounceSearchText] = useState<any>();
+  const [debounceSearchText, setDebounceSearchText] = useState<any>("");
   useEffect(() => {
     if (!debounceSearchText) {
       const fleetPayload: any = {};
