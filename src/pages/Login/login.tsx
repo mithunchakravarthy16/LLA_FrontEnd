@@ -335,10 +335,8 @@ const Login = () => {
 
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme && backgroundLoaded &&
-      Object.keys(appTheme).length > 0 ? (
+      {
+      isDataLoaded && backgroundLoaded  ? (
         <>
           {success && (
             <Snackbar
