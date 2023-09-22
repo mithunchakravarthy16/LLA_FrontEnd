@@ -125,8 +125,8 @@ const NotificationPanel = (props: any) => {
           ? notificationCount && notificationCount[1]
           : searchOpen && tabIndex === 1
           ? searchValue?.length
-          : notificationCount && notificationCount[1],      
-          // count:
+          : notificationCount && notificationCount[1],
+      // count:
       //   searchOpen && tabIndex === 1
       //     ? searchValue?.length
       //     : notificationCount && notificationCount[1],
@@ -139,8 +139,8 @@ const NotificationPanel = (props: any) => {
           ? notificationCount && notificationCount[2]
           : searchOpen && tabIndex === 2
           ? searchValue?.length
-          : notificationCount && notificationCount[2],      
-          // count:
+          : notificationCount && notificationCount[2],
+      // count:
       //   searchOpen && tabIndex === 2
       //     ? searchValue?.length
       //     : notificationCount && notificationCount[2],
@@ -236,16 +236,17 @@ const NotificationPanel = (props: any) => {
     // setSelectedNotification("");
   };
 
-   //debouncing start
-   const delayTime = notificationPageName === "asset" ? 500 : 3000;
-   const fetchingDataForSearch = (searchValue:any) => {
-    
+  //debouncing start
+  const delayTime = notificationPageName === "asset" ? 500 : 3000;
+  const fetchingDataForSearch = (searchValue: any) => {
     let assetPayload = {};
     if (searchValue) {
       assetPayload = {
         filterText: searchValue,
         pageNo: page,
         pageSize: rowsPerPage,
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
       // setPage(0);
     } else {
@@ -253,6 +254,7 @@ const NotificationPanel = (props: any) => {
         filterText: "",
         pageNo: page,
         pageSize: rowsPerPage,
+        notificationType: "",
       };
       // setPage(0);
       // setRowsPerPage(100);
@@ -360,18 +362,17 @@ const NotificationPanel = (props: any) => {
   useEffect(() => {
     setSearchOpen(false);
     setSearchValue(dashboardData);
-    
   }, [tabIndex]);
 
-  useEffect(()=>{
-    if(selectedNotification === "") {
+  useEffect(() => {
+    if (selectedNotification === "") {
       setAssetLiveMarker("");
       setListSelectedMarker("");
     }
-    if(listSelectedMarker === "") {
-      setSelectedNotification("")
+    if (listSelectedMarker === "") {
+      setSelectedNotification("");
     }
-  },[selectedNotification, listSelectedMarker])
+  }, [selectedNotification, listSelectedMarker]);
 
   return (
     <>
@@ -425,7 +426,8 @@ const NotificationPanel = (props: any) => {
           />
         </div>
         <div className={notificationListItemSection}>
-          {notificationPageName === "asset" || notificationPageName === "dashboard" ? (
+          {notificationPageName === "asset" ||
+          notificationPageName === "dashboard" ? (
             !loaderAssetNotificationResponse ? (
               searchValue && searchValue?.length > 0 ? (
                 <NotificationListItems
