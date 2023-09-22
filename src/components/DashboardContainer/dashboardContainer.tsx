@@ -246,8 +246,7 @@ const DashboardContainer = (props: any) => {
     ) {
       setSuccess(true);
     } else if (
-      assetNotificationResponse &&
-      !searchOpen
+      assetNotificationResponse
       // &&
       // fleetManagementNotificationResponse?.status === 200
     ) {
@@ -275,9 +274,11 @@ const DashboardContainer = (props: any) => {
 
         const consolidatedDataNextPage = [...assetNotiData];
 
-        const consolidatedMarkerData = [...consolidatedData];
+        // const consolidatedMarkerData = [...consolidatedData];
         setDashboardNotificationList(
-          page === 0 ? consolidatedMarkerData : consolidatedDataNextPage
+          page === 0 && !searchOpen
+            ? consolidatedData
+            : consolidatedDataNextPage
         );
       }
     }
