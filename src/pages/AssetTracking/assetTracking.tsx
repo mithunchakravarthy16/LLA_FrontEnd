@@ -1130,11 +1130,11 @@ const AssetTracking: React.FC<any> = (props) => {
     setSearchPageNo("");
     setPage(0)
     let assetPayload: any = {
-      filterText: "",
+      filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
     };
-    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: true }));
   };
 
   const handleNextChange = () => {
@@ -1142,12 +1142,12 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetPayload: any = {};
     if(page >= 0 ) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: true }));
   };
 
 
@@ -1155,12 +1155,12 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetPayload: any = {};
     if(page > 0 ) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
       };
     }
-    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: true }));
   };
   const handlePageNoChange = (value: any) => {
     setPage(0);
@@ -1169,11 +1169,11 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetPayload: any = {};
     if(page >= 0 && value !== "" ) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
       };
-      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: true }));
 
     }
   };

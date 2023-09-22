@@ -425,7 +425,7 @@ const NotificationPanel = (props: any) => {
           />
         </div>
         <div className={notificationListItemSection}>
-          {notificationPageName === "asset" ? (
+          {notificationPageName === "asset" || notificationPageName === "dashboard" ? (
             !loaderAssetNotificationResponse ? (
               searchValue && searchValue?.length > 0 ? (
                 <NotificationListItems
