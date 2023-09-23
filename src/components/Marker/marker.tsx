@@ -131,7 +131,7 @@ const MapMarker: React.FC<any> = (props) => {
           zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
         />
   
-        {((assetLiveMarker === mapMarker?.markerId ) || (listSelectedMarker === mapMarker?.markerId) )  && (
+        {((assetLiveMarker === mapMarker?.markerId  ) || (listSelectedMarker === mapMarker?.markerId) )  && (
           <InfoWindowF
             position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
@@ -214,54 +214,59 @@ const MapMarker: React.FC<any> = (props) => {
     );
   }
 
-  return (
-    <>
-      <Marker
-        clusterer={(listSelectedMarker === "" || assetLiveMarker === "") ? clusterer : undefined}
-        position={selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location}
-        onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
-        }
-        icon={{
-          url: getMarkerIcon(
-            mapMarker?.category,
-            // mapMarker?.recentMarkerType,
-            mapMarker?.recentMarkerType === "Inactive" ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
-            mapMarker?.markerId,
-          ),
-          scaledSize: new window.google.maps.Size(
-            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
-            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
-          ),
-        }}
-        key={mapMarker?.markerId}
-        zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
-      />
+  // return (
+  //   <>
+  //     <Marker
+  //       clusterer={(listSelectedMarker === "" || assetLiveMarker === "") ? clusterer : undefined}
+  //       position={selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location}
+  //       onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
+  //       }
+  //       animation={
+  //         focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
+  //           ? window.google.maps.Animation.BOUNCE
+  //           : undefined
+  //       }
+  //       icon={{
+  //         url: getMarkerIcon(
+  //           mapMarker?.category,
+  //           // mapMarker?.recentMarkerType,
+  //           mapMarker?.recentMarkerType === "Inactive" ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
+  //           mapMarker?.markerId,
+  //         ),
+  //         scaledSize: new window.google.maps.Size(
+  //           window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+  //           window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+  //         ),
+  //       }}
+  //       key={mapMarker?.markerId}
+  //       zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
+  //     />
 
-      {(listSelectedMarker === mapMarker?.id || currentMarker === mapMarker?.id) && (
-        <InfoWindowF
-          position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
-          options={{ pixelOffset: new google.maps.Size(0, -20) }}
-        >
-          {/* <div>
-            {mapMarker?.trackerId}
-          </div> */}
-          <NotificationListItems
-            data={ [mapMarker]}
-            pageName={"markerCallout"}
-            handleMarkerClose={handleLiveMarkerClose}
-            handleExpandListItem={handleExpandListItem}
-            handleAssetViewDetails={handleAssetViewDetails}
-            mapPageName={mapPageName}
-            handleViewDetails={handleViewDetails}
-            handleVideoDetails={handleVideoDetails}
-            selectedTheme={selectedTheme}
-            markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
-            isMarkerClicked = {isMarkerClicked}
-          />
-        </InfoWindowF>
-      )}
-    </>
-  );
+  //     {(listSelectedMarker === mapMarker?.id || currentMarker === mapMarker?.id) && (
+  //       <InfoWindowF
+  //         position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+  //         options={{ pixelOffset: new google.maps.Size(0, -20) }}
+  //       >
+  //         {/* <div>
+  //           {mapMarker?.trackerId}
+  //         </div> */}
+  //         <NotificationListItems
+  //           data={ [mapMarker]}
+  //           pageName={"markerCallout"}
+  //           handleMarkerClose={handleLiveMarkerClose}
+  //           handleExpandListItem={handleExpandListItem}
+  //           handleAssetViewDetails={handleAssetViewDetails}
+  //           mapPageName={mapPageName}
+  //           handleViewDetails={handleViewDetails}
+  //           handleVideoDetails={handleVideoDetails}
+  //           selectedTheme={selectedTheme}
+  //           markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
+  //           isMarkerClicked = {isMarkerClicked}
+  //         />
+  //       </InfoWindowF>
+  //     )}
+  //   </>
+  // );
 
 
  

@@ -474,11 +474,11 @@ const DashboardContainer = (props: any) => {
     setSelectedMarker(data);
   };
 
-  useEffect(() => {
-    if (selectedNotification) {
-      setIsMarkerClicked(false);
-    }
-  }, [selectedNotification]);
+  // useEffect(() => {
+  //   if (selectedNotification) {
+  //     setIsMarkerClicked(false);
+  //   }
+  // }, [selectedNotification]);
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
@@ -794,6 +794,7 @@ const DashboardContainer = (props: any) => {
                     loaderAssetNotificationResponse={
                       loaderAssetNotificationResponse
                     }
+                    assetLiveMarker={assetLiveMarker}
                   />
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination

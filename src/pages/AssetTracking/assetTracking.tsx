@@ -1587,6 +1587,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         setSelectedNotificationItem={
                           setSelectedNotificationItem
                         }
+                        selectedNotification={selectedNotification}
                       />
                     </Grid>
                   </Grid>
@@ -1622,6 +1623,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     }
                     page={page}
                     rowsPerPage={rowsPerPage}
+                    assetLiveMarker={assetLiveMarker}
                   />
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination

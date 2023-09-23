@@ -6,22 +6,12 @@ import { useLocation } from "react-router-dom";
 import {
   GoogleMap,
   useLoadScript,
-  Marker,
-  PolylineF,
-  InfoWindowF,
-  MarkerF,
-  MarkerClusterer,
   MarkerClustererF,
-  DrawingManager,
-  Circle,
-  Polygon,
 } from "@react-google-maps/api";
 import AssetMarker from "components/Marker/assetMarker";
 import customMapStyles from "./customMapStyles";
 import customLightThemeMapStyles from "./customLightThemeMapStyles";
 import theme from "../../theme/theme";
-import appData from "../../data/appData";
-import NotificationListItems from "components/NotificationListItems";
 import ParkingEventIcon from "../../assets/markers/Parking-green.svg";
 import ParkingIncidentIcon from "../../assets/markers/Parking-red.svg";
 import ParkingAlertIcon from "../../assets/markers/Parking-orange.svg";
@@ -37,43 +27,15 @@ import LighteningAlertIcon from "../../assets/markers/Lighting-orange.svg";
 import AssetTrackingEventIcon from "../../assets/markers/Assets Tracking-green.svg";
 import AssetTrackingIncidentIcon from "../../assets/markers/Assets Tracking-red.svg";
 import AssetTrackingAlertIcon from "../../assets/markers/Assets Tracking-orange.svg";
-import EnergyManagementEventActiveIcon from "../../assets/selectedMarkers/energyManagementActiveGreen.svg";
-import EnergyManagementIncidentActiveIcon from "../../assets/selectedMarkers/Energy management-red.svg";
-import EnergyManagementAlertActiveIcon from "../../assets/selectedMarkers/Energy management-orange.svg";
-import ParkingEventActiveIcon from "../../assets/selectedMarkers/Parking-green.svg";
-import ParkingIncidentActiveIcon from "../../assets/selectedMarkers/Parking-red.svg";
-import ParkingAlertActiveIcon from "../../assets/selectedMarkers/Parking-orange.svg";
-import AssetTrackingEventActiveIcon from "../../assets/selectedMarkers/Assets Tracking-green.svg";
-import AssetTrackingIncidentActiveIcon from "../../assets/selectedMarkers/Assets Tracking-red.svg";
-import AssetTrackingAlertActiveIcon from "../../assets/selectedMarkers/Assets Tracking-orange.svg";
-import SecurityEventActiveIcon from "../../assets/selectedMarkers/Security-green.svg";
-import SecurityIncidentActiveIcon from "../../assets/selectedMarkers/Security-red.svg";
-import SecurityAlertActiveIcon from "../../assets/selectedMarkers/Security-orange.svg";
-import LightenEventActiveIcon from "../../assets/selectedMarkers/Lighting-green.svg";
-import LightenIncidentActiveIcon from "../../assets/selectedMarkers/Lighting-red.svg";
-import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange.svg";
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
+import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
 import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg";
 import useStyles from "./styles";
 
-const defaultCenter = {
-  lat: 39.75525065792099,
-  lng: -105.00248276374698,
-};
 
-const center = {
-  lat: 39.75576345655451,
-  lng: -105.00357749556102,
-};
-
-const fleetManagementCenter = {
-  lat: 25.057066876525674,
-  lng: 121.36458642272018,
-};
-
-const assetTrackingCenter = { lat: 9.01343438,
+const center = { lat: 9.01343438,
 lng: -79.47595713 };
 
 const libraries = ["places", "drawing"];
@@ -109,6 +71,7 @@ const AssetMap: React.FC<any> = (props) => {
     setSelectedNotificationItem,
     mapType,
     setMapType,
+    selectedNotification
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -119,6 +82,10 @@ const AssetMap: React.FC<any> = (props) => {
     ...appTheme,
     mapPageName: mapPageName,
   });
+
+  useEffect(() => {
+    map?.setMapTypeId(mapType);
+  }, [map, mapType]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -138,14 +105,6 @@ const AssetMap: React.FC<any> = (props) => {
   // const [zoomValue, setZoomValue] = useState<number>(15);
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
   const [selectedMarker, setSelectedMarker] = useState<any>();
-  const [selectedListItemSource, setSelectedListItemSource] = useState<any>();
-  const [selectedListItemDestination, setSelectedListItemDestination] =
-    useState<any>();
-  const [progress, setProgress] = useState<any>([]);
-  let [points, setPoints] = useState<any>([]);
-  let [data, setData] = useState<any>(points);
-  const velocity: any = 20;
-  const initialDate: any = new Date();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -492,25 +451,17 @@ const AssetMap: React.FC<any> = (props) => {
       ? 16.2
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
       ? 16
-      : 16
+      : location?.pathname === "/parking"
+      ? 17
+      : 17
   );
 
   useEffect(() => {
-    setCurrentMarker(marker);
+    setAssetLiveMarker(marker);
     const selectMarker = markers?.find((item: any) => item.id === marker);
     setSelectedMarker(selectMarker);
   }, [marker]);
 
-  // useEffect(() => {
-  //   if (selectedMarker) {
-  //     setSelectedListItemSource(selectedMarker?.source);
-  //     setSelectedListItemDestination(selectedMarker?.destination);
-  //   } else {
-  //     setSelectedMarker("");
-  //     setSelectedListItemSource("");
-  //     setSelectedListItemDestination("");
-  //   }
-  // }, [selectedMarker]);
 
   // useEffect(() => {
   //   if (listSelectedMarker) {
@@ -545,7 +496,8 @@ const AssetMap: React.FC<any> = (props) => {
   const getMarkerIcon = (
     category: string,
     notificationCategory: string,
-    id: string
+    id: string,
+    marker: any
   ) => {
     switch (notificationCategory) {
       case "Events": {
@@ -645,126 +597,46 @@ const AssetMap: React.FC<any> = (props) => {
     }
   };
 
-  // const toggleInfoWindow = (
-  //   markerId: string,
-  //   type: string,
-  //   location: any,
-  //   tripId: any
-  // ) => {
-  //   setIsMarkerClicked(true);
-  //   setNotificationPanelActive(true);
-  //   setTabIndex(getTabIndex(type));
-  //   setCurrentMarker((prev: any) => {
-  //     if (prev && prev === markerId) {
-  //       map?.panTo(
-  //         location?.pathname === "/home"
-  //           ? defaultCenter
-  //           : location?.pathname === "/fleetManagement"
-  //           ? fleetManagementCenter
-  //           : location?.pathname === "/assetTracking"
-  //           ? assetTrackingCenter
-  //           : center
-  //       );
-  //       return "";
-  //     } else {
-  //       map?.panTo(location);
-  //       return markerId;
-  //     }
-  //   });
-  //   setSelectedNotification((prev: any) => {
-  //     return prev && prev == markerId ? "" : markerId;
-  //   });
-  // };
-
   const handleMarkerClose = () => {
     setAssetLiveMarker("");
-    setSelectedNotification("");
     setIsMarkerClicked(false);
-    map?.panTo(
-      location?.pathname === "/home"
-        ? defaultCenter
-        : location?.pathname === "/fleetManagement"
-        ? fleetManagementCenter
-        : location?.pathname === "/assetTracking"
-        ? assetTrackingCenter
-        : center
+    setListSelectedMarker("");
+    setSelectedNotification("");
+    map?.panTo(center);
+    map?.setZoom(
+      selectedContainerStyle?.is4kDevice
+        ? 16.2
+        : 17
     );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
+    setSelectedMarker("");
   };
 
   const handleExpandListItem = (id: any, markerId: any, data: any) => {
-    setSelectedNotification(id);
-    setAssetLiveMarker(markerId);
-    // setIsMarkerClicked(true)
+    // setSelectedNotification(id);
+    // // setAssetLiveMarker(markerId);
+    // setListSelectedMarker(markerId)
+    // // setIsMarkerClicked(true)
   };
 
-  useEffect(() => {
-    setProgress([]);
-    setPoints([]);
-    setData([]);
-    setSelectedMarker("");
-    setSelectedListItemSource("");
-    setSelectedListItemDestination("");
-  }, [tabIndex]);
+  const[currentZoomValue, setCurrentZoomValue] = useState<any>("")
+
 
   function handleZoomChanged() {
+    setCurrentZoomValue(this.getZoom())
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
 
-  const clustererRef = useRef<any>();
-  useEffect(() => {
-    clustererRef.current?.repaint();
-  }, [markers, marker]);
-
-  const handleLiveMarkerIcon = (id: any, location: any, mapMarker: any) => {
-    setIsMarkerClicked(true);
-    // setSelectedNotification("");
-    //  setAssetLiveMarker(id);
-    // setListSelectedMarker(id)
-    setAssetLiveMarker(assetLiveMarker === id ? "" : id);
-    map?.panTo(location);
-    if (marker?.category === "parking") {
-      setSelectedNotification((prev: any) => {
-        return prev && prev == id ? "" : id;
-      });
-    }
-  };
-
-  const handleLiveMarkerClose = () => {
-    setSelectedNotification("");
-    setListSelectedMarker("");
-    setIsMarkerClicked(false);
-    setAssetLiveMarker("");
-    map?.panTo(
-      location?.pathname === "/home"
-        ? defaultCenter
-        : location?.pathname === "/fleetManagement"
-        ? fleetManagementCenter
-        : location?.pathname === "/assetTracking"
-        ? assetTrackingCenter
-        : center
-    );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 16);
-    setSelectedMarker("");
-    setAssetLiveMarker("");
-  };
-
-  useEffect(() => {
-    if (isMarkerClicked) {
-      setListSelectedMarker("");
-      setSelectedNotification("");
-    }
-  }, [isMarkerClicked]);
-
+  console.log("currentZoomValue", currentZoomValue)
   useEffect(() => {
     if (
       marker === "" &&
       assetLiveMarker === "" &&
       listSelectedMarker === "" &&
-      selectedNotificationItem === ""
+      (selectedNotificationItem === "" ||
+      selectedNotification === "")
     ) {
-      map?.setZoom(16);
-      map?.panTo(assetTrackingCenter);
+      map?.setZoom(17);
+      map?.panTo(center);
     }
   }, [
     marker,
@@ -772,21 +644,56 @@ const AssetMap: React.FC<any> = (props) => {
     assetLiveMarker,
     selectedNotificationItem,
     listSelectedMarker,
+    selectedNotification,
   ]);
 
-  // useEffect(()=>{
-  //   map?.panTo(selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location)
-  // },[selectedNotificationItem])
+  const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
+    if (data?.category === "parking" || location?.pathname === "/parking") {
+      setNotificationPanelActive(true);
+      setListSelectedMarker(id);
+      setTabIndex(getTabIndex(data?.notificationType));
+      setSelectedNotification(id);
+    }
+    setSelectedNotificationItem(data);
+    setIsMarkerClicked(true);
+
+    setAssetLiveMarker(id);
+    setListSelectedMarker(id)
+    // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
+    map?.panTo(location);
+  };
+
+  const handleLiveMarkerClose = () => {
+    setCurrentMarker("");
+    setSelectedNotification("");
+    setListSelectedMarker("");
+    setIsMarkerClicked(false);
+    setAssetLiveMarker("");
+    setSelectedNotificationItem("");
+    map?.panTo(
+       center
+    );
+    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
+    setSelectedMarker("");
+  };
+
   useEffect(() => {
-    if (selectedNotificationItem) {
+    if (selectedNotification || selectedNotificationItem) {
       map?.panTo(
         selectedNotificationItem?.currentLocation
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-    }
-  }, [selectedNotificationItem]);
+      map?.setZoom(17)
 
+    }
+    if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
+      if(isMarkerClicked) {
+        setSelectedNotification("")
+      }
+    }
+
+  }, [selectedNotification, selectedNotificationItem]);
 
   const handleMapTypeChanged = () => {
     if (map) {
@@ -794,41 +701,27 @@ const AssetMap: React.FC<any> = (props) => {
       setMapType(newMapType);
     }
   };
+
   return (
     <>
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={
-            mapPageName === "parking" ||
-            mapPageName === "energy" ||
-            mapPageName === "security" ||
-            mapPageName === "fleet" ||
-            mapPageName === "lighting" ||
-            mapPageName === "asset"
-              ? parkingMapContainerStyle
-              : selectedContainerStyle
+            parkingMapContainerStyle
           }
-          center={
-            location?.pathname === "/home"
-              ? defaultCenter
-              : location?.pathname === "/fleetManagement"
-              ? fleetManagementCenter
-              : location?.pathname === "/assetTracking"
-              ? assetTrackingCenter
-              : center
+          center={ center
           }
           zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
-          mapTypeId={mapType}
           onMapTypeIdChanged={handleMapTypeChanged}
         >
           <MarkerClustererF
             averageCenter
             enableRetinaIcons
-            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 16}
+            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
             gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
           >
             {(clusterer: any) => (

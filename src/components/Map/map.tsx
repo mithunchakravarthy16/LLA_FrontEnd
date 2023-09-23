@@ -972,7 +972,7 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked(true);
 
     setAssetLiveMarker(id);
-    // setListSelectedMarker(id)
+    setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
   };
@@ -1005,6 +1005,12 @@ const Map: React.FC<any> = (props) => {
           : selectedNotificationItem?.location
       );
     }
+    if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
+      if(isMarkerClicked) {
+        setSelectedNotification("")
+      }
+    }
+
   }, [selectedNotification, selectedNotificationItem]);
 
   const handleMapTypeChanged = () => {
