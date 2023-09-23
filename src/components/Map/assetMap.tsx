@@ -721,7 +721,7 @@ const AssetMap: React.FC<any> = (props) => {
           <MarkerClustererF
             averageCenter
             enableRetinaIcons
-            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : selectedNotification ? 4 :  17}
+            maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
             gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
           >
             {(clusterer: any) => (
