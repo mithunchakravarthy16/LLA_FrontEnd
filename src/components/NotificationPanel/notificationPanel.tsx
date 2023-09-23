@@ -365,14 +365,14 @@ const NotificationPanel = (props: any) => {
   }, [tabIndex]);
 
   useEffect(() => {
-    if (selectedNotification === "") {
-      setAssetLiveMarker("");
+    if (selectedNotification === "" && !isMarkerClicked) {
+      // setAssetLiveMarker("");
       setListSelectedMarker("");
     }
-    if (listSelectedMarker === "") {
-      setSelectedNotification("");
-    }
-  }, [selectedNotification, listSelectedMarker]);
+    // if (listSelectedMarker === "") {
+    //   setSelectedNotification("");
+    // }
+  }, [selectedNotification]);
 
   return (
     <>
