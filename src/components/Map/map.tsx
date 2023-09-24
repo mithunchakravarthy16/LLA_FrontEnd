@@ -82,7 +82,7 @@ const libraries = ["places", "drawing"];
 
 const Map: React.FC<any> = (props) => {
   const location = useLocation();
-
+console.log("test map", location.pathname)
   const {
     markers,
     setNotificationPanelActive,
