@@ -337,18 +337,19 @@ const AssetTracking: React.FC<any> = (props) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
-    } else if (debounceSearchText) {
-      assetPayload = {
-        filterText: debounceSearchText,
-        pageNo: parseInt(page),
-        pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-      };
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-      );
-    }
+    } 
+    // else if (debounceSearchText) {
+    //   assetPayload = {
+    //     filterText: debounceSearchText,
+    //     pageNo: parseInt(page),
+    //     pageSize: parseInt(rowsPerPage),
+    //     notificationType:
+    //       tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    //   };
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    //   );
+    // }
 
     const intervalTime = setInterval(() => {
       dispatch(
@@ -653,6 +654,8 @@ const AssetTracking: React.FC<any> = (props) => {
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
+
+  
 
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)

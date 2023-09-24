@@ -626,7 +626,7 @@ const AssetMap: React.FC<any> = (props) => {
     // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
 
-  console.log("currentZoomValue", currentZoomValue)
+  
   useEffect(() => {
     if (
       marker === "" &&

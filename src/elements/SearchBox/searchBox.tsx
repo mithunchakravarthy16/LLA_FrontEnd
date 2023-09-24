@@ -58,7 +58,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
   const textInput = React.createRef<any>();
 
   const handleClose = () => {
-    setSearchValue("");
+    // setSearchValue("");
     notificationPageName === "parking" && handleSearch("");
     // handleSearchtest("")
     setIcon("search");

@@ -175,8 +175,28 @@ const DashboardContainer = (props: any) => {
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
+
+  useEffect(()=>{
+    let assetLiveDataPayload: any = {};
+    dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  },[])
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
   useEffect(() => {
+    const assetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    };
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
@@ -198,18 +218,15 @@ const DashboardContainer = (props: any) => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData(assetPayload));
-    // }, 1 * 60 * 1000);
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    }, 1 * 60 * 1000);
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    
 
-    // return () => {
-    //   clearInterval(interval);
-    //   clearInterval(intervalTime);
-    // };
+    return () => {
+      clearInterval(intervalTime);
+    };
   }, [debounceSearchText]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
