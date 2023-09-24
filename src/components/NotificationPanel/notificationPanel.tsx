@@ -240,17 +240,16 @@ const NotificationPanel = (props: any) => {
     // setSearchOpen(true);
     // setSelectedNotification("");
   };
-
   //debouncing start
   const delayTime = notificationPageName === "asset" ? 500 : 500;
-  const fetchingDataForSearch = (searchValue: any) => {
+  const fetchingDataForSearch = (searchValue: any, tabIndex: number) => {
     searchTextRef.current = searchValue;
     let assetPayload = {};
     if (searchValue) {
       assetPayload = {
         filterText: searchValue,
-        pageNo: page,
-        pageSize: rowsPerPage,
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
         notificationType:
           tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
@@ -258,9 +257,9 @@ const NotificationPanel = (props: any) => {
     } else {
       assetPayload = {
         filterText: "",
-        pageNo: page,
-        pageSize: rowsPerPage,
-        notificationType: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
       // setPage(0);
       // setRowsPerPage(100);

@@ -58,7 +58,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
   const textInput = React.createRef<any>();
 
   const handleClose = () => {
-    // setSearchValue("");
+    setSearchValue("");
     notificationPageName === "parking" && handleSearch("");
     // handleSearchtest("")
     setIcon("search");
@@ -68,6 +68,8 @@ const INF_SearchBox: React.FC<any> = (props) => {
     ) {
       setDebounceSearchText("");
     }
+
+    handleCloseIcon();
 
     if (pageName !== "dashboardTracker") {
       handleCloseIcon();
@@ -86,7 +88,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
     ) {
-      handleSearchtest(event.target.value);
+      handleSearchtest(event.target.value, tabIndex);
     }
   };
   const handleSearchFocus = () => {

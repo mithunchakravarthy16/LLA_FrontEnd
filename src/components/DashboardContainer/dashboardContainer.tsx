@@ -179,7 +179,7 @@ const DashboardContainer = (props: any) => {
   useEffect(()=>{
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    
+
     const interval = setInterval(() => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }, 10 * 1000);
@@ -189,6 +189,7 @@ const DashboardContainer = (props: any) => {
     };
   },[])
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
+  
   useEffect(() => {
     const assetPayload: any = {
       filterText: debounceSearchText,
@@ -205,9 +206,9 @@ const DashboardContainer = (props: any) => {
       setSuccess(false);
       let assetPayload: any = {
         filterText: "",
-        pageNo: page,
-        pageSize: rowsPerPage,
-        notificationType: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
@@ -501,7 +502,26 @@ const DashboardContainer = (props: any) => {
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
+    useEffect(()=>{
+      if(searchPageNo){
+        setSearchPageNo("")
+        setPage(0);
+        const assetPayload = {
+          filterText: "",
+          pageNo: parseInt(0),
+          pageSize: parseInt(rowsPerPage),
+          notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        };
+  
+        dispatch(
+          getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+        );
+      }
+      
+    },[tabIndex])
+
   // PAGINATION
+  
 
   const handleChangePage = (newPage: any) => {
     setPage(newPage);

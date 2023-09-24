@@ -358,11 +358,14 @@ const NotificationListItems = (props: any) => {
                       ) : (
                         <div className={listItemTitle}>{item?.title}</div>
                       )}
-                      <div className={expandedListItemRow2}>{item?.area}</div>
+                      {item?.area && <div className={expandedListItemRow2}>{item?.area}</div>}
                       {markerType === "assetLiveMarker" ? (
+                        <>
+                        <div className={expandedListItemRow2}>{item?.currentArea}</div>
                         <div className={expandedListItemRow3}>
                           {item?.assetName}
                         </div>
+                        </>
                       ) : (
                         <div className={expandedListItemRow3}>
                           {item?.trackerName && item?.trackerName}{" "}
