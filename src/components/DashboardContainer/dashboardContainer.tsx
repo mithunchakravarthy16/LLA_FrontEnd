@@ -796,6 +796,7 @@ const DashboardContainer = (props: any) => {
                     }
                     assetLiveMarker={assetLiveMarker}
                   />
+                  { !loaderAssetNotificationResponse && (
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
@@ -814,6 +815,7 @@ const DashboardContainer = (props: any) => {
                       reportsPaginationclassName={customPagination}
                     />
                   </div>
+                  )}
                 </div>
               )}
             </Grid>

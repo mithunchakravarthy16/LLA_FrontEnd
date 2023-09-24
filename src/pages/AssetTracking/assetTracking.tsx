@@ -1625,6 +1625,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     rowsPerPage={rowsPerPage}
                     assetLiveMarker={assetLiveMarker}
                   />
+                  { !loaderAssetNotificationResponse && (
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
@@ -1643,6 +1644,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       reportsPaginationclassName={customPagination}
                     />
                   </div>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
