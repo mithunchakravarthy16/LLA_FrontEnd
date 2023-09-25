@@ -105,7 +105,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
   useEffect(() => {
     setSearchValue("");
     if (
-      notificationPageName === "dashboard" ||
+      notificationPageName === "dashboard"||
       notificationPageName === "asset"
     ) {
       setDebounceSearchText("");
@@ -118,6 +118,10 @@ const INF_SearchBox: React.FC<any> = (props) => {
     notificationPageName === "parking" && handleSearch("");
     // handleSearchtest("")
   }, [tabIndex]);
+
+  useEffect(()=>{
+    textInput.current.focus();
+  },[disabled])
 
   return (
     <>
