@@ -175,8 +175,29 @@ const DashboardContainer = (props: any) => {
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
+
+  useEffect(()=>{
+    let assetLiveDataPayload: any = {};
+    dispatch(getAssetLiveLocation(assetLiveDataPayload));
+
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  },[])
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
+  
   useEffect(() => {
+    const assetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    };
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
@@ -185,9 +206,9 @@ const DashboardContainer = (props: any) => {
       setSuccess(false);
       let assetPayload: any = {
         filterText: "",
-        pageNo: page,
-        pageSize: rowsPerPage,
-        notificationType: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
@@ -198,18 +219,15 @@ const DashboardContainer = (props: any) => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData(assetPayload));
-    // }, 1 * 60 * 1000);
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    }, 1 * 60 * 1000);
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    
 
-    // return () => {
-    //   clearInterval(interval);
-    //   clearInterval(intervalTime);
-    // };
+    return () => {
+      clearInterval(intervalTime);
+    };
   }, [debounceSearchText]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -474,17 +492,36 @@ const DashboardContainer = (props: any) => {
     setSelectedMarker(data);
   };
 
-  useEffect(() => {
-    if (selectedNotification) {
-      setIsMarkerClicked(false);
-    }
-  }, [selectedNotification]);
+  // useEffect(() => {
+  //   if (selectedNotification) {
+  //     setIsMarkerClicked(false);
+  //   }
+  // }, [selectedNotification]);
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
+    useEffect(()=>{
+      if(searchPageNo){
+        setSearchPageNo("")
+        setPage(0);
+        const assetPayload = {
+          filterText: "",
+          pageNo: parseInt(0),
+          pageSize: parseInt(rowsPerPage),
+          notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        };
+  
+        dispatch(
+          getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+        );
+      }
+      
+    },[tabIndex])
+
   // PAGINATION
+  
 
   const handleChangePage = (newPage: any) => {
     setPage(newPage);
@@ -794,7 +831,9 @@ const DashboardContainer = (props: any) => {
                     loaderAssetNotificationResponse={
                       loaderAssetNotificationResponse
                     }
+                    assetLiveMarker={assetLiveMarker}
                   />
+                  { !loaderAssetNotificationResponse && (
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
@@ -813,6 +852,7 @@ const DashboardContainer = (props: any) => {
                       reportsPaginationclassName={customPagination}
                     />
                   </div>
+                  )}
                 </div>
               )}
             </Grid>

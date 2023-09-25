@@ -185,15 +185,20 @@ const NotificationPanel = (props: any) => {
       selectedNotificationItem,
     ]
   );
+  const searchTextRef = useRef<any>("")
 
   const handleSearchIcon = () => {
+    searchTextRef.current = ""
     setSearchOpen(true);
     if (notificationPageName && notificationPageName === "parking") {
       setParkingLotSelectionActive(false);
     }
   };
 
+  
+
   const handleSearch = (searchText: any) => {
+    searchTextRef.current = searchText;
     const tabData = dashboardData;
     let searchResult = tabData?.filter((value: any) => {
       return (
@@ -235,16 +240,16 @@ const NotificationPanel = (props: any) => {
     // setSearchOpen(true);
     // setSelectedNotification("");
   };
-
   //debouncing start
   const delayTime = notificationPageName === "asset" ? 500 : 500;
-  const fetchingDataForSearch = (searchValue: any) => {
+  const fetchingDataForSearch = (searchValue: any, tabIndex: number) => {
+    searchTextRef.current = searchValue;
     let assetPayload = {};
     if (searchValue) {
       assetPayload = {
         filterText: searchValue,
-        pageNo: page,
-        pageSize: rowsPerPage,
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
         notificationType:
           tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
@@ -252,9 +257,9 @@ const NotificationPanel = (props: any) => {
     } else {
       assetPayload = {
         filterText: "",
-        pageNo: page,
-        pageSize: rowsPerPage,
-        notificationType: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
       // setPage(0);
       // setRowsPerPage(100);
@@ -286,14 +291,20 @@ const NotificationPanel = (props: any) => {
   //debouncing end
 
   const handleCloseIcon = () => {
-    setSearchValue(dashboardData);
-    setSelectedNotification("");
-    setAssetLiveMarker("");
-    setListSelectedMarker("");
+   
+    if(searchTextRef.current){
+      setSearchValue(dashboardData);
+      setSelectedNotification("");
+      setAssetLiveMarker("");
+      setListSelectedMarker("");
+    }
+    
   };
 
   const handleSearchCloseIcon = () => {
     setSearchOpen(false);
+   
+    if(searchTextRef.current){    
     setSearchValue(dashboardData);
     setSelectedNotification("");
     setAssetLiveMarker("");
@@ -304,6 +315,7 @@ const NotificationPanel = (props: any) => {
     ) {
       setDebounceSearchText("");
     }
+  }
   };
 
   const refs =
@@ -339,12 +351,20 @@ const NotificationPanel = (props: any) => {
       setSearchValue(dashboardData);
     }
     if (searchOpen) {
-      setSelectedNotification("");
-      setAssetLiveMarker("");
-      setListSelectedMarker("");
-      // setIsMarkerClicked(false);
+       searchTextRef.current && setSelectedNotification("");
+       searchTextRef.current && setAssetLiveMarker("");
+       searchTextRef.current && setListSelectedMarker("");
+       searchTextRef.current && setIsMarkerClicked(false);
     }
   }, [searchOpen]);
+
+  useEffect(()=>{
+   
+    searchTextRef.current && setSelectedNotification("");
+    searchTextRef.current &&  setAssetLiveMarker("");
+    searchTextRef.current &&  setListSelectedMarker("");
+    searchTextRef.current &&  setIsMarkerClicked(false);
+  },[searchValue])
 
   useEffect(() => {
     if (searchOpen && searchValue?.length === 0) {
@@ -365,14 +385,14 @@ const NotificationPanel = (props: any) => {
   }, [tabIndex]);
 
   useEffect(() => {
-    if (selectedNotification === "") {
-      setAssetLiveMarker("");
+    if (selectedNotification === "" && !isMarkerClicked) {
+      // setAssetLiveMarker("");
       setListSelectedMarker("");
     }
-    if (listSelectedMarker === "") {
-      setSelectedNotification("");
-    }
-  }, [selectedNotification, listSelectedMarker]);
+    // if (listSelectedMarker === "") {
+    //   setSelectedNotification("");
+    // }
+  }, [selectedNotification]);
 
   return (
     <>

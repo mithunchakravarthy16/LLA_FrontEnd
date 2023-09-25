@@ -306,18 +306,18 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
     return () => {
-      // clearInterval(interval);
+      clearInterval(interval);
       // clearInterval(intervalTime);
     };
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
-
+  const [tabIndex, setTabIndex] = useState<any>(1);
   useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
@@ -331,24 +331,25 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: "",
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
-    } else if (debounceSearchText) {
-      assetPayload = {
-        filterText: debounceSearchText,
-        pageNo: parseInt(page),
-        pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-      };
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-      );
-    }
+    } 
+    // else if (debounceSearchText) {
+    //   assetPayload = {
+    //     filterText: debounceSearchText,
+    //     pageNo: parseInt(page),
+    //     pageSize: parseInt(rowsPerPage),
+    //     notificationType:
+    //       tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    //   };
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    //   );
+    // }
 
     const intervalTime = setInterval(() => {
       dispatch(
@@ -644,7 +645,7 @@ const AssetTracking: React.FC<any> = (props) => {
     assetLiveData && assetLiveData
   );
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
+ 
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
@@ -653,6 +654,8 @@ const AssetTracking: React.FC<any> = (props) => {
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
+
+  
 
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
@@ -1124,9 +1127,29 @@ const AssetTracking: React.FC<any> = (props) => {
     }, 500);
   }, []);
 
+  
+
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  useEffect(()=>{
+    if(searchPageNo){
+      setSearchPageNo("")
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+    
+  },[tabIndex])
 
   // PAGINATION
 
@@ -1240,9 +1263,8 @@ const AssetTracking: React.FC<any> = (props) => {
 
   // PAGINATION ENDS
 
-  useEffect(() => {
-    setPage(0);
-  }, [tabIndex]);
+
+ 
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
@@ -1587,6 +1609,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         setSelectedNotificationItem={
                           setSelectedNotificationItem
                         }
+                        selectedNotification={selectedNotification}
                       />
                     </Grid>
                   </Grid>
@@ -1622,7 +1645,9 @@ const AssetTracking: React.FC<any> = (props) => {
                     }
                     page={page}
                     rowsPerPage={rowsPerPage}
+                    assetLiveMarker={assetLiveMarker}
                   />
+                  { !loaderAssetNotificationResponse && (
                   <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
@@ -1641,6 +1666,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       reportsPaginationclassName={customPagination}
                     />
                   </div>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
