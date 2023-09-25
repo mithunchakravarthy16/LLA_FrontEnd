@@ -165,7 +165,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           ...event,
           title: event?.reason,
           details: `${event?.trackerName} | ${event?.assetName}`,
-          timeStamp: localDate?.format("DD-MM-YYYY | HH:mm A"),
+          timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
         });
       });
 
@@ -176,7 +176,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           ...incidents,
           title: incidents?.reason,
           details: `${incidents?.trackerName} | ${incidents?.assetName}`,
-          timeStamp: localDate?.format("DD-MM-YYYY | HH:mm A"),
+          timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
         });
       });
 
@@ -188,7 +188,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
           title: alerts?.reason,
           details: `${alerts?.trackerName} | ${alerts?.assetName}`,
-          timeStamp: localDate?.format("DD-MM-YYYY | HH:mm A"),
+          timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
         });
       });
 
