@@ -135,7 +135,7 @@ const Stepper: React.FC<any> = (props) => {
                     {route?.reachedTime &&
                       moment(route?.reachedTime)
                         .utc()
-                        .format("DD-MM-YYYY | HH:mm A")}
+                        .format("MM-DD-YYYY | HH:mm A")}
                   </p>
                 </TimelineContent>
               </TimelineItem>

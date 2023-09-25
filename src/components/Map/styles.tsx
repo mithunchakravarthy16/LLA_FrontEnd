@@ -70,6 +70,7 @@ const useStyles = makeStyles({
     "& .gmnoprint": {
       position: "absolute !important",
       // right: "2.5vw !important",
+      maxWidth: "12vw",
       top:
         props?.mapPageName === "dashboard"
           ? "30vh !important"
