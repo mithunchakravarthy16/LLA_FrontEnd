@@ -372,12 +372,12 @@ const NotificationPanel = (props: any) => {
     }
   }, [searchValue]);
 
-  useEffect(() => {
-    if (isMarkerClicked) {
-      setSearchOpen(false);
-      setSearchValue(dashboardData);
-    }
-  }, [isMarkerClicked]);
+  // useEffect(() => {
+  //   if (isMarkerClicked) {
+  //     setSearchOpen(false);
+  //     setSearchValue(dashboardData);
+  //   }
+  // }, [isMarkerClicked]);
 
   useEffect(() => {
     setSearchOpen(false);
