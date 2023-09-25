@@ -317,7 +317,7 @@ const AssetTracking: React.FC<any> = (props) => {
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
-
+  const [tabIndex, setTabIndex] = useState<any>(1);
   useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
@@ -331,7 +331,7 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: "",
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
@@ -645,7 +645,7 @@ const AssetTracking: React.FC<any> = (props) => {
     assetLiveData && assetLiveData
   );
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
+ 
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
@@ -1127,9 +1127,29 @@ const AssetTracking: React.FC<any> = (props) => {
     }, 500);
   }, []);
 
+  
+
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  useEffect(()=>{
+    if(searchPageNo){
+      setSearchPageNo("")
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+    
+  },[tabIndex])
 
   // PAGINATION
 
@@ -1243,9 +1263,8 @@ const AssetTracking: React.FC<any> = (props) => {
 
   // PAGINATION ENDS
 
-  useEffect(() => {
-    setPage(0);
-  }, [tabIndex]);
+
+ 
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
