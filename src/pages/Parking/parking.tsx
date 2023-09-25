@@ -484,7 +484,7 @@ const Parking: React.FC<any> = (props) => {
     );
   }, [
     mapType,
-    dashboardDataList,
+    // dashboardDataList,
     selectedNotification,
     currentMarker,
     selectedTheme,
