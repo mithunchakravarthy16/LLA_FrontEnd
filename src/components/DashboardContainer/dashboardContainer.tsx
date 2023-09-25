@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, useCallback  } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -598,6 +598,26 @@ const DashboardContainer = (props: any) => {
     }
   };
 
+    //Pagination Debounce Starts
+
+    const debounce = (func: any, delay: any) => {
+      let timeOut: any;
+      return (...arg: any) => {
+        const context = this;
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+          func.apply(context, arg);
+        }, delay);
+      };
+    };
+  
+    const pageSearchCallback = useCallback(
+      debounce(handlePageNoChange, 2000),
+      []
+    );
+  
+     //Pagination Debounce Ends
+
   //Total Records
 
   useEffect(() => {
@@ -846,7 +866,7 @@ const DashboardContainer = (props: any) => {
                       onRowsPerPageChange={handleChangeRowsPerPage}
                       handleNextChange={handleNextChange}
                       handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={handlePageNoChange}
+                      onPageNoChange={pageSearchCallback}
                       value={searchPageNo}
                       pageNumclassName={pageNumSection}
                       reportsPaginationclassName={customPagination}

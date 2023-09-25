@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -1227,6 +1227,26 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   };
 
+  //Pagination Debounce Starts
+
+  const debounce = (func: any, delay: any) => {
+    let timeOut: any;
+    return (...arg: any) => {
+      const context = this;
+      clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        func.apply(context, arg);
+      }, delay);
+    };
+  };
+
+  const pageSearchCallback = useCallback(
+    debounce(handlePageNoChange, 2000),
+    []
+  );
+
+   //Pagination Debounce Ends
+
   useEffect(() => {
     if (assetNotificationResponse) {
       setTotalRecords(
@@ -1660,7 +1680,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       onRowsPerPageChange={handleChangeRowsPerPage}
                       handleNextChange={handleNextChange}
                       handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={handlePageNoChange}
+                      onPageNoChange={pageSearchCallback}
                       value={searchPageNo}
                       pageNumclassName={pageNumSection}
                       reportsPaginationclassName={customPagination}
