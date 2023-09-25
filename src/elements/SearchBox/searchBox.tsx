@@ -119,6 +119,10 @@ const INF_SearchBox: React.FC<any> = (props) => {
     // handleSearchtest("")
   }, [tabIndex]);
 
+  useEffect(()=>{
+    textInput.current.focus();
+  },[disabled])
+
   return (
     <>
       <div className={searchInput}>
