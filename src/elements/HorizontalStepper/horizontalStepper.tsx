@@ -57,7 +57,7 @@ const CustomizedSteppers: React.FC<any> = (props) => {
   const getLocaleTimeStamp = (timeStamp:any) =>{
     const testDateUtc = moment.utc(timeStamp);
     const localDate = testDateUtc.local();
-    return localDate.format("DD-MM-YYYY | HH:mm A");
+    return localDate.format("MM-DD-YYYY | HH:mm A");
   }
 
   return (
@@ -110,7 +110,7 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                 {
                   getLocaleTimeStamp(label?.timestamp)
 
-                // moment(label?.timestamp)?.format("DD-MM-YYYY | HH:mm A")
+                // moment(label?.timestamp)?.format("MM-DD-YYYY | HH:mm A")
                 }
                 {/* {label?.timeStamp} */}
               </StepLabel>

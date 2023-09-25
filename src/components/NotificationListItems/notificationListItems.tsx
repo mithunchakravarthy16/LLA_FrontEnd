@@ -277,7 +277,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={timeStampStyle}>
                           {moment(item?.notificationDate).format(
-                            "DD-MM-YYYY | HH:mm A"
+                            "MM-DD-YYYY | HH:mm A"
                           )}
                         </div>
                       </div>
@@ -313,7 +313,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={collapsedTimeStampStyle}>
                           {moment(item?.notificationDate).format(
-                            "DD-MM-YYYY | HH:mm A"
+                            "MM-DD-YYYY | HH:mm A"
                           )}
                         </div>
                       </div>
@@ -392,7 +392,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={timeStampStyle}>
                           {/* {currentTimeStamp} */}
-                          {localDate.format("DD-MM-YYYY | HH:mm A")}
+                          {localDate.format("MM-DD-YYYY | HH:mm A")}
                         </div>
                       </div>
                     </div>
@@ -409,7 +409,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={collapsedTimeStampStyle}>
                           {/* {currentTimeStamp} */}
-                          {localDate.format("DD-MM-YYYY | HH:mm A")}
+                          {localDate.format("MM-DD-YYYY | HH:mm A")}
                         </div>
                       </div>
                     </div>
