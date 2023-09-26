@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -456,12 +456,47 @@ const Parking: React.FC<any> = (props) => {
 
   const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
 
+  const parkingMapUseMeo = useMemo(() => {
+    return (
+      <Map
+        mapType={mapType}
+        setMapType={setMapType}
+        markers={dashboardDataList}
+        setNotificationPanelActive={setNotificationPanelActive}
+        setSelectedNotification={setSelectedNotification}
+        marker={selectedNotification}
+        selectedNotification={selectedNotification}
+        setTabIndex={setTabIndex}
+        currentMarker={currentMarker}
+        setCurrentMarker={setCurrentMarker}
+        setIsMarkerClicked={setIsMarkerClicked}
+        mapPageName={"parking"}
+        selectedTheme={selectedTheme}
+        setMap={setMap}
+        map={map}
+        liveMarkerList={liveMarkerList}
+        setAssetLiveMarker={setAssetLiveMarker}
+        listSelectedMarker={listSelectedMarker}
+        setListSelectedMarker={setListSelectedMarker}
+        selectedNotificationItem={selectedNotificationItem}
+        setSelectedNotificationItem={setSelectedNotificationItem}
+      />
+    );
+  }, [
+    mapType,
+    // dashboardDataList,
+    selectedNotification,
+    currentMarker,
+    selectedTheme,
+    map,
+    liveMarkerList,
+    listSelectedMarker,
+    selectedNotificationItem,
+  ]);
+
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme &&
-      Object.keys(appTheme).length > 0 ? (
+      {isDataLoaded ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -851,33 +886,7 @@ const Parking: React.FC<any> = (props) => {
 
                       {isDataLoadedLotOverAll ? (
                         parkingLotIndex === 0 ? (
-                          <Map
-                            mapType={mapType}
-                            setMapType={setMapType}
-                            markers={dashboardDataList}
-                            setNotificationPanelActive={
-                              setNotificationPanelActive
-                            }
-                            setSelectedNotification={setSelectedNotification}
-                            marker={selectedNotification}
-                            selectedNotification={selectedNotification}
-                            setTabIndex={setTabIndex}
-                            currentMarker={currentMarker}
-                            setCurrentMarker={setCurrentMarker}
-                            setIsMarkerClicked={setIsMarkerClicked}
-                            mapPageName={"parking"}
-                            selectedTheme={selectedTheme}
-                            setMap={setMap}
-                            map={map}
-                            liveMarkerList={liveMarkerList}
-                            setAssetLiveMarker={setAssetLiveMarker}
-                            listSelectedMarker={listSelectedMarker}
-                            setListSelectedMarker={setListSelectedMarker}
-                            selectedNotificationItem={selectedNotificationItem}
-                            setSelectedNotificationItem={
-                              setSelectedNotificationItem
-                            }
-                          />
+                          parkingMapUseMeo
                         ) : (
                           // </Grid>
                           // true ?

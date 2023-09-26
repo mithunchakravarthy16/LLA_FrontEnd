@@ -946,8 +946,8 @@ const Map: React.FC<any> = (props) => {
       marker === "" &&
       assetLiveMarker === "" &&
       listSelectedMarker === "" &&
-      selectedNotificationItem === "" &&
-      selectedNotification === ""
+      (selectedNotificationItem === "" ||
+      selectedNotification === "")
     ) {
       map?.setZoom(17);
       map?.panTo(parkingCenter);
@@ -972,7 +972,7 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked(true);
 
     setAssetLiveMarker(id);
-    // setListSelectedMarker(id)
+    setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
   };
@@ -998,14 +998,20 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(() => {
-    if (selectedNotification) {
+    if (selectedNotification || selectedNotificationItem) {
       map?.panTo(
         selectedNotificationItem?.currentLocation
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
     }
-  }, [selectedNotification]);
+    if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
+      if(isMarkerClicked) {
+        setSelectedNotification("")
+      }
+    }
+
+  }, [selectedNotification, selectedNotificationItem]);
 
   const handleMapTypeChanged = () => {
     if (map) {
@@ -1099,7 +1105,7 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 20}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
               // styles={[
               //   {

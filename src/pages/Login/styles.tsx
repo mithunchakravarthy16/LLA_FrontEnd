@@ -10,9 +10,10 @@ const useStyles = makeStyles(() => ({
     background: props?.palette?.login?.pageBackgroundColor,
   }),
   loginBannerSection: (props: any) => ({
-    backgroundImage: `url("${
-      props.selectedTheme === "light" ? llaLightBanner : llaBanner
-    }")`,
+    // backgroundImage: `url("${
+    //   props.selectedTheme === "light" ? llaLightBanner : llaBanner
+    // }")`,
+    backgroundImage : `url(${llaLightBanner})`,
     background: props?.palette?.login?.loginBg,
     mixBlendMode: "hard-light",
     backdropFilter: "blur(42px)",

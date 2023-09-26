@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -24,7 +24,7 @@ import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
-  formattedOverallNotificationCount
+  formattedOverallNotificationCount,
 } from "../../utils/utils";
 import assetTrackingData from "../../mockdata/assetTrackingData";
 import assetTrackingResponse from "mockdata/assetTrackingAPI";
@@ -142,14 +142,20 @@ const AssetTracking: React.FC<any> = (props) => {
     setActiveInactiveAnalyticsXaxisData,
   ] = useState<any>();
 
-    //Pagination 
-    const [page, setPage] = useState<any>(0);
-    const [rowsPerPage, setRowsPerPage] = useState<any>(50);
-    const [searchPageNo, setSearchPageNo] = useState<any>();
-    const [paginationTotalCount, setPaginationTotalCount] = useState<any>()
-    const [totalRecords, setTotalRecords] = useState<any>(formattedOverallNotificationCount(assetNotificationResponse && assetNotificationResponse?.data, assetNotificationResponse?.data, "asset"));
-    
-    //Pagination End
+  //Pagination
+  const [page, setPage] = useState<any>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<any>(50);
+  const [searchPageNo, setSearchPageNo] = useState<any>();
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>();
+  const [totalRecords, setTotalRecords] = useState<any>(
+    formattedOverallNotificationCount(
+      assetNotificationResponse && assetNotificationResponse?.data,
+      assetNotificationResponse?.data,
+      "asset"
+    )
+  );
+
+  //Pagination End
 
   useEffect(() => {
     if (assetTrackingActiveInActiveAnalyticsResponse) {
@@ -275,7 +281,7 @@ const AssetTracking: React.FC<any> = (props) => {
     graphTwoChartStyle,
     geofenceIconStyle,
     pageNumSection,
-    customPagination
+    customPagination,
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -300,44 +306,50 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
     return () => {
-      // clearInterval(interval);
+      clearInterval(interval);
       // clearInterval(intervalTime);
     };
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
-
+  const [tabIndex, setTabIndex] = useState<any>(1);
   useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(rowsPerPage),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
     if (!debounceSearchText) {
       assetPayload = {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
-    } else if (debounceSearchText) {
-      assetPayload = {
-        filterText: debounceSearchText,
-        pageNo: parseInt(page),
-        pageSize: parseInt(rowsPerPage),
-      };
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-      );
-    }
+    } 
+    // else if (debounceSearchText) {
+    //   assetPayload = {
+    //     filterText: debounceSearchText,
+    //     pageNo: parseInt(page),
+    //     pageSize: parseInt(rowsPerPage),
+    //     notificationType:
+    //       tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    //   };
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    //   );
+    // }
 
     const intervalTime = setInterval(() => {
       dispatch(
@@ -349,8 +361,6 @@ const AssetTracking: React.FC<any> = (props) => {
       clearInterval(intervalTime);
     };
   }, [debounceSearchText]);
-
-
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -635,7 +645,7 @@ const AssetTracking: React.FC<any> = (props) => {
     assetLiveData && assetLiveData
   );
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
+ 
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
@@ -644,6 +654,8 @@ const AssetTracking: React.FC<any> = (props) => {
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
+
+  
 
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
@@ -1115,9 +1127,29 @@ const AssetTracking: React.FC<any> = (props) => {
     }, 500);
   }, []);
 
+  
+
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  useEffect(()=>{
+    if(searchPageNo){
+      setSearchPageNo("")
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+    
+  },[tabIndex])
 
   // PAGINATION
 
@@ -1128,67 +1160,114 @@ const AssetTracking: React.FC<any> = (props) => {
   const handleChangeRowsPerPage = (data: any) => {
     setRowsPerPage(data);
     setSearchPageNo("");
-    setPage(0)
+    setPage(0);
     let assetPayload: any = {
-      filterText: "",
+      filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
-    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
   };
 
   const handleNextChange = () => {
-
     let assetPayload: any = {};
-    if(page >= 0 ) {
+    if (page >= 0) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     }
-    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
+    setPage(page + 1);
+    setSearchPageNo("");
   };
-
 
   const handlePreviousChange = () => {
     let assetPayload: any = {};
-    if(page > 0 ) {
+    if (page > 0) {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     }
-    dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
+    setPage(page - 1);
+    setSearchPageNo("");
   };
   const handlePageNoChange = (value: any) => {
     setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value );
+    setSearchPageNo(value !== "" ? parseInt(value) : value);
 
     let assetPayload: any = {};
-    if(page >= 0 && value !== "" ) {
+    if (page >= 0 && value !== "") {
       assetPayload = {
-        filterText: "",
+        filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
-      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
-
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
     }
   };
 
-  useEffect(()=>{
-    if(assetNotificationResponse) {
-      setTotalRecords(formattedOverallNotificationCount(assetNotificationResponse?.data, assetNotificationResponse?.data, "asset"));
-      let countArray = formattedOverallNotificationCount(assetNotificationResponse?.data, assetNotificationResponse?.data, "asset");
-      let newArray : any = [];
-      if(countArray && countArray?.length > 0) {
-        switch(tabIndex) {
-          case 0 : 
-          newArray =  countArray[0];
-          break;
-          case 1 :
+  //Pagination Debounce Starts
+
+  const debounce = (func: any, delay: any) => {
+    let timeOut: any;
+    return (...arg: any) => {
+      const context = this;
+      clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        func.apply(context, arg);
+      }, delay);
+    };
+  };
+
+  const pageSearchCallback = useCallback(
+    debounce(handlePageNoChange, 2000),
+    []
+  );
+
+   //Pagination Debounce Ends
+
+  useEffect(() => {
+    if (assetNotificationResponse) {
+      setTotalRecords(
+        formattedOverallNotificationCount(
+          assetNotificationResponse?.data,
+          assetNotificationResponse?.data,
+          "asset"
+        )
+      );
+      let countArray = formattedOverallNotificationCount(
+        assetNotificationResponse?.data,
+        assetNotificationResponse?.data,
+        "asset"
+      );
+      let newArray: any = [];
+      if (countArray && countArray?.length > 0) {
+        switch (tabIndex) {
+          case 0:
+            newArray = countArray[0];
+            break;
+          case 1:
             newArray = countArray[1];
             break;
           case 2:
@@ -1197,26 +1276,23 @@ const AssetTracking: React.FC<any> = (props) => {
           default:
             break;
         }
-
       }
-      setPaginationTotalCount(newArray)
+      setPaginationTotalCount(newArray);
     }
-  },[assetNotificationResponse, tabIndex])
+  }, [assetNotificationResponse, tabIndex]);
 
   // PAGINATION ENDS
+
+
+ 
 
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
-    
-
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme &&
-      Object.keys(appTheme).length > 0 ? (
+      {isDataLoaded ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1553,6 +1629,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         setSelectedNotificationItem={
                           setSelectedNotificationItem
                         }
+                        selectedNotification={selectedNotification}
                       />
                     </Grid>
                   </Grid>
@@ -1586,25 +1663,30 @@ const AssetTracking: React.FC<any> = (props) => {
                     loaderAssetNotificationResponse={
                       loaderAssetNotificationResponse
                     }
-                    page = {page}
-                    rowsPerPage = {rowsPerPage}
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    assetLiveMarker={assetLiveMarker}
                   />
-                  <div style={{ margin: "-5px 0 0 20px"}}>
+                  { !loaderAssetNotificationResponse && (
+                  <div style={{ margin: "-5px 20px 0 20px" }}>
                     <CustomTablePagination
                       rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={800}
+                      count={
+                        paginationTotalCount === 0 ? 1 : paginationTotalCount
+                      }
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onPageChange={handleChangePage}
                       onRowsPerPageChange={handleChangeRowsPerPage}
                       handleNextChange={handleNextChange}
                       handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={handlePageNoChange}
+                      onPageNoChange={pageSearchCallback}
                       value={searchPageNo}
                       pageNumclassName={pageNumSection}
                       reportsPaginationclassName={customPagination}
                     />
                   </div>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

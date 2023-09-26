@@ -277,7 +277,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={timeStampStyle}>
                           {moment(item?.notificationDate).format(
-                            "DD-MM-YYYY | HH:mm A"
+                            "MM-DD-YYYY | HH:mm A"
                           )}
                         </div>
                       </div>
@@ -313,7 +313,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={collapsedTimeStampStyle}>
                           {moment(item?.notificationDate).format(
-                            "DD-MM-YYYY | HH:mm A"
+                            "MM-DD-YYYY | HH:mm A"
                           )}
                         </div>
                       </div>
@@ -358,11 +358,14 @@ const NotificationListItems = (props: any) => {
                       ) : (
                         <div className={listItemTitle}>{item?.title}</div>
                       )}
-                      <div className={expandedListItemRow2}>{item?.area}</div>
+                      {item?.area && <div className={expandedListItemRow2}>{item?.area}</div>}
                       {markerType === "assetLiveMarker" ? (
+                        <>
+                        <div className={expandedListItemRow2}>{item?.currentArea}</div>
                         <div className={expandedListItemRow3}>
                           {item?.assetName}
                         </div>
+                        </>
                       ) : (
                         <div className={expandedListItemRow3}>
                           {item?.trackerName && item?.trackerName}{" "}
@@ -389,7 +392,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={timeStampStyle}>
                           {/* {currentTimeStamp} */}
-                          {localDate.format("DD-MM-YYYY | HH:mm A")}
+                          {localDate.format("MM-DD-YYYY | HH:mm A")}
                         </div>
                       </div>
                     </div>
@@ -406,7 +409,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div className={collapsedTimeStampStyle}>
                           {/* {currentTimeStamp} */}
-                          {localDate.format("DD-MM-YYYY | HH:mm A")}
+                          {localDate.format("MM-DD-YYYY | HH:mm A")}
                         </div>
                       </div>
                     </div>
