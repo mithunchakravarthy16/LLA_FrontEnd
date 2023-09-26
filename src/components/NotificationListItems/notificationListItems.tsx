@@ -14,6 +14,7 @@ import VideoLightIcon from "../../assets/videoLightIcon.svg";
 import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
 import moment from "moment";
+import Tooltip from "elements/Tooltip";
 import useTranslation from "localization/translations";
 
 const NotificationListItems = (props: any) => {
@@ -358,13 +359,53 @@ const NotificationListItems = (props: any) => {
                       ) : (
                         <div className={listItemTitle}>{item?.title}</div>
                       )}
-                      {item?.area && <div className={expandedListItemRow2}>{item?.area}</div>}
+                      {item?.area && (
+                        <div className={expandedListItemRow2}>
+                          {/* {item?.area} */}
+                          {item?.area?.length > 50 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.area}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.area, 50)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.area
+                          )}
+                        </div>
+                      )}
                       {markerType === "assetLiveMarker" ? (
                         <>
-                        <div className={expandedListItemRow2}>{item?.currentArea}</div>
-                        <div className={expandedListItemRow3}>
-                          {item?.assetName}
-                        </div>
+                          <div className={expandedListItemRow2}>
+                            {/* {item?.currentArea} */}
+                            {item?.currentArea?.length > 50 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.currentArea}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.currentArea, 50)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.currentArea
+                          )}
+                          </div>
+                          <div className={expandedListItemRow3}>
+                            {item?.assetName}
+                          </div>
                         </>
                       ) : (
                         <div className={expandedListItemRow3}>
