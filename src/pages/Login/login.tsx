@@ -109,31 +109,31 @@ const Login = () => {
   //   // connect();  
   // }, []);
 
-  useEffect(()=>{
-    const client = new Client();
+  // useEffect(()=>{
+  //   const client = new Client();
   
-    client.configure({
-      brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
-      onConnect: () => {
-        console.log('onConnect');
+  //   client.configure({
+  //     brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
+  //     onConnect: () => {
+  //       console.log('onConnect');
   
-        client.subscribe('/asset/notification', message => {
-          console.log("asset Message", JSON.parse(message.body));
-          // this.setState({serverTime: message.body});
-        });
+  //       client.subscribe('/asset/notification', message => {
+  //         console.log("asset Message", JSON.parse(message.body));
+  //         // this.setState({serverTime: message.body});
+  //       });
   
-        client.subscribe('/fleet/notification', message => {
-          console.log("fleet Message", JSON.parse(message.body));
-        });
-      },
-      // Helps during debugging, remove in production
-      debug: (str:any) => {
-        console.log(new Date(), str);
-      }
-    });
+  //       client.subscribe('/fleet/notification', message => {
+  //         console.log("fleet Message", JSON.parse(message.body));
+  //       });
+  //     },
+  //     // Helps during debugging, remove in production
+  //     debug: (str:any) => {
+  //       console.log(new Date(), str);
+  //     }
+  //   });
   
-    client.activate();
-  },[])
+  //   client.activate();
+  // },[])
   
 
 

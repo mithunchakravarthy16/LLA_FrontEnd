@@ -40,6 +40,7 @@ import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTracki
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
+import { Client } from '@stomp/stompjs';
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -219,15 +220,15 @@ const DashboardContainer = (props: any) => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    const intervalTime = setInterval(() => {
-      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    // }, 1 * 60 * 1000);
 
     
 
-    return () => {
-      clearInterval(intervalTime);
-    };
+    // return () => {
+    //   clearInterval(intervalTime);
+    // };
   }, [debounceSearchText]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -245,6 +246,41 @@ const DashboardContainer = (props: any) => {
       ),
     ]
   );
+
+
+
+
+  //---websocket Implementation starts---
+
+const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
+
+useEffect(()=>{
+  const client = new Client();
+
+  client.configure({
+    brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
+    onConnect: () => {
+      console.log('onConnect');
+
+      client.subscribe('/asset/notification', message => {
+        console.log("asset Message", JSON.parse(message.body));
+        setWebsocketLatestAssetNotification(JSON.parse(message.body))
+        // this.setState({serverTime: message.body});
+      });
+    },
+    // Helps during debugging, remove in production
+    debug: (str:any) => {
+      console.log(new Date(), str);
+    }
+  });
+
+  client.activate();
+},[])
+
+
+//---websocket Implementation ends---
+
+
 
   useEffect(() => {
     setSuccess(false);
@@ -264,10 +300,35 @@ const DashboardContainer = (props: any) => {
     ) {
       setSuccess(true);
     } else if (
-      assetNotificationResponse
+      assetNotificationResponse 
       // &&
       // fleetManagementNotificationResponse?.status === 200
     ) {
+     
+      console.log("test websocketLatestAssetNotification", websocketLatestAssetNotification)       
+      websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
+       websocketLatestAssetNotification?.map((item:any)=>{
+              if(item.notificationType?.toString()?.toLowerCase() === "incident"){
+                if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
+                }
+              }
+
+              if(item.notificationType?.toString()?.toLowerCase() === "events"){
+                if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                  assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
+                }
+              }
+
+              if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
+                if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                  assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
+                }
+              }
+
+            })
+       
+    console.log("test websocket modifineddata", assetNotificationResponse?.data)
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.data
@@ -300,7 +361,7 @@ const DashboardContainer = (props: any) => {
         );
       }
     }
-  }, [assetNotificationResponse, searchOpen]);
+  }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification]);
 
   useEffect(() => {
     if (assetLiveData) {
