@@ -35,7 +35,7 @@ let theme = {
       },
       login: {
         boxTopLineStyle: colorCodes?.orngeLinearGradient,
-        bg: colorCodes?.lightGrey3,
+        bg: colorCodes?.white5,
         welcomeTitle: colorCodes?.white5,
         loginTitle: colorCodes?.orange1,
         inputPlaceholder: colorCodes?.white5,
