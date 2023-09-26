@@ -413,7 +413,8 @@ const useStyles = makeStyles({
   }),
   buttonStyle: (props: any) => ({
     "& .MuiButton-contained": {
-      backgroundColor: props?.palette?.notification?.listItemLabelSelectedBtn,
+      // backgroundColor: props?.palette?.notification?.listItemLabelSelectedBtn,
+      backgroundColor: " #CD5209",
       [muiTheme.breakpoints.up(3839)]: {
         minWidth: "223px",
         height: "70px",
@@ -423,7 +424,8 @@ const useStyles = makeStyles({
       },
 
       "&:hover": {
-        background: props?.palette?.notification?.listItemLabelSelectedBtn,
+        // background: props?.palette?.notification?.listItemLabelSelectedBtn,
+        background: "#CD5209",
       },
     },
 
