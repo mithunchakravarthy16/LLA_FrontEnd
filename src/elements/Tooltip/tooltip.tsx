@@ -39,10 +39,11 @@ const INF_Tooltip: React.FC<any> = (props) => {
     padding,
     componentName,
     marginTop,
+    pageName
   } = props;
 
   return (
-    <div style={{ cursor: "pointer", display: "flex", height: "3vh" }}>
+    <div style={{ cursor: "pointer", display: "flex",  height: pageName === "markerCallout" ? "1.3vh" : "3vh" }}>
       <Tooltip
         className="tooltipTest"
         arrow

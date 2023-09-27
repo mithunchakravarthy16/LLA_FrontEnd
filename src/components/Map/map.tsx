@@ -1020,6 +1020,16 @@ const Map: React.FC<any> = (props) => {
     }
   };
 
+  useEffect(()=>{ 
+    if(window?.google?.maps) {
+      const bounds = new window.google.maps.LatLngBounds();
+      liveMarkerList?.forEach((mapMarker:any) => {
+        bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
+      })
+      map?.fitBounds(bounds);
+    }      
+  },[map])
+
   return (
     <>
       {isLoaded && (
