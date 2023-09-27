@@ -95,12 +95,12 @@ const CustomTablePagination = (props:any) => {
 
   const [searchPageNo, setSearchPageNo] = useState<any>()
   useEffect(()=>{
-   if (value === "" || value === undefined) {
+   if (value === "" || value === undefined || count === 1) {
     setSearchPageNo(newPage + 1)
    } else {
     setSearchPageNo(value)
    }
-  },[value, page, newPage])
+  },[value, page, newPage, count])
 
   return (
     <>
@@ -143,7 +143,7 @@ const CustomTablePagination = (props:any) => {
             </div>
             <div
               // className={(newPage !== 0 || value !== "") ? arrowBox : arrowDisableBox}
-              className={newPage !== 0  ? arrowBox : value === "" ?  arrowDisableBox : page === 0 ? arrowDisableBox : arrowBox}
+              className={newPage !== 0  ? arrowBox : ((value === "" && page === 0) || (count === 1)) ?  arrowDisableBox :  arrowBox}
 
               onClick={PreviousPageChange}
             >
