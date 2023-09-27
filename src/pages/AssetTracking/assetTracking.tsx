@@ -855,45 +855,6 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [assetNotificationResponse, tabIndex, searchOpen]);
 
   useEffect(() => {
-    const sampleLiveData = [
-      {
-        trackerId: "740063943838",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-        trackerStatus: "Active",
-        notificationType: "Incident",
-        currentLocation: {
-          lat: 9.0155021,
-          lng: -79.4759242,
-        },
-        currentArea: "",
-      },
-      {
-        trackerId: "413051518008",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-        trackerStatus: "Inactive",
-        notificationType: "Incident",
-        currentLocation: {
-          lat: 9.0135021,
-          lng: -79.4759242,
-        },
-        currentArea: "",
-      },
-      {
-        trackerId: "740063943499",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-        trackerStatus: "Active",
-        notificationType: "Events",
-        currentLocation: {
-          lat: 9.0135021,
-          lng: -79.4859242,
-        },
-        currentArea: "",
-      },
-    ];
-
     const updatedLiveData = assetLiveData?.map((asset: any) => {
       return {
         ...asset,
@@ -1135,7 +1096,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
   useEffect(()=>{
     if(searchPageNo){
-      setSearchPageNo("")
+      // setSearchPageNo("")
       setPage(0);
       const assetPayload = {
         filterText: "",
@@ -1154,7 +1115,7 @@ const AssetTracking: React.FC<any> = (props) => {
   // PAGINATION
 
   const handleChangePage = (newPage: any) => {
-    setPage(newPage);
+    setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -1208,12 +1169,10 @@ const AssetTracking: React.FC<any> = (props) => {
     setPage(page - 1);
     setSearchPageNo("");
   };
-  const handlePageNoChange = (value: any) => {
-    setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value);
-
+  const handlePageNoChange = (value: any, keyName:any) => {
     let assetPayload: any = {};
-    if (page >= 0 && value !== "") {
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(value !== "" ? parseInt(value) : value);
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -1224,8 +1183,10 @@ const AssetTracking: React.FC<any> = (props) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
+      // setSearchPageNo("");
     }
   };
+
 
   //Pagination Debounce Starts
 
@@ -1680,7 +1641,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       onRowsPerPageChange={handleChangeRowsPerPage}
                       handleNextChange={handleNextChange}
                       handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={pageSearchCallback}
+                      onPageNoChange={handlePageNoChange}
                       value={searchPageNo}
                       pageNumclassName={pageNumSection}
                       reportsPaginationclassName={customPagination}
