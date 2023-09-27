@@ -53,7 +53,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
   //Analytics Api integration starts here
-  const [selectedValue, setSelectedValue] = useState<string>("Week");
+  const [selectedValue, setSelectedValue] = useState<string>("Today");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
     format: "MM/DD",
     tickInterval: 1,
@@ -366,7 +366,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
-  const [selectedFormatGraph, setSelectedFormatGraph] = useState("weekly");
+  const [selectedFormatGraph, setSelectedFormatGraph] = useState("day");
 
   const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] =
     useState<any>();
