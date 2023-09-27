@@ -53,7 +53,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
   //Analytics Api integration starts here
-  const [selectedValue, setSelectedValue] = useState<string>("Week");
+  const [selectedValue, setSelectedValue] = useState<string>("Today");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
     format: "MM/DD",
     tickInterval: 1,
@@ -366,7 +366,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
-  const [selectedFormatGraph, setSelectedFormatGraph] = useState("weekly");
+  const [selectedFormatGraph, setSelectedFormatGraph] = useState("day");
 
   const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] =
     useState<any>();
@@ -854,45 +854,6 @@ const AssetTracking: React.FC<any> = (props) => {
   }, [assetNotificationResponse, tabIndex, searchOpen]);
 
   useEffect(() => {
-    const sampleLiveData = [
-      {
-        trackerId: "740063943838",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-        trackerStatus: "Active",
-        notificationType: "Incident",
-        currentLocation: {
-          lat: 9.0155021,
-          lng: -79.4759242,
-        },
-        currentArea: "",
-      },
-      {
-        trackerId: "413051518008",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-        trackerStatus: "Inactive",
-        notificationType: "Incident",
-        currentLocation: {
-          lat: 9.0135021,
-          lng: -79.4759242,
-        },
-        currentArea: "",
-      },
-      {
-        trackerId: "740063943499",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-        trackerStatus: "Active",
-        notificationType: "Events",
-        currentLocation: {
-          lat: 9.0135021,
-          lng: -79.4859242,
-        },
-        currentArea: "",
-      },
-    ];
-
     const updatedLiveData = assetLiveData?.map((asset: any) => {
       return {
         ...asset,
@@ -1136,9 +1097,9 @@ const AssetTracking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  useEffect(() => {
-    if (searchPageNo) {
-      setSearchPageNo("");
+  useEffect(()=>{
+    if(searchPageNo){
+      // setSearchPageNo("")
       setPage(0);
       const assetPayload = {
         filterText: "",
@@ -1157,7 +1118,7 @@ const AssetTracking: React.FC<any> = (props) => {
   // PAGINATION
 
   const handleChangePage = (newPage: any) => {
-    setPage(newPage);
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -1209,15 +1170,13 @@ const AssetTracking: React.FC<any> = (props) => {
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setPage(page - 1);
-    setSearchPageNo("");
   };
-  const handlePageNoChange = (value: any) => {
-    setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value);
-
+  const handlePageNoChange = (value: any, keyName:any) => {
     let assetPayload: any = {};
-    if (page >= 0 && value !== "") {
-      assetPayload = {
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value)-1);
+        assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
@@ -1227,28 +1186,11 @@ const AssetTracking: React.FC<any> = (props) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
+      // setSearchPageNo("");
     }
   };
 
-  //Pagination Debounce Starts
 
-  const debounce = (func: any, delay: any) => {
-    let timeOut: any;
-    return (...arg: any) => {
-      const context = this;
-      clearTimeout(timeOut);
-      timeOut = setTimeout(() => {
-        func.apply(context, arg);
-      }, delay);
-    };
-  };
-
-  const pageSearchCallback = useCallback(
-    debounce(handlePageNoChange, 2000),
-    []
-  );
-
-  //Pagination Debounce Ends
 
   useEffect(() => {
     if (assetNotificationResponse) {
@@ -1654,25 +1596,25 @@ const AssetTracking: React.FC<any> = (props) => {
                     rowsPerPage={rowsPerPage}
                     assetLiveMarker={assetLiveMarker}
                   />
-                  {!loaderAssetNotificationResponse && (
-                    <div style={{ margin: "-5px 20px 0 20px" }}>
-                      <CustomTablePagination
-                        rowsPerPageOptions={[50, 100, 200, 500]}
-                        count={
-                          paginationTotalCount === 0 ? 1 : paginationTotalCount
-                        }
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                        handleNextChange={handleNextChange}
-                        handlePreviousChange={handlePreviousChange}
-                        onPageNoChange={pageSearchCallback}
-                        value={searchPageNo}
-                        pageNumclassName={pageNumSection}
-                        reportsPaginationclassName={customPagination}
-                      />
-                    </div>
+                  { !loaderAssetNotificationResponse && (
+                  <div style={{ margin: "-5px 20px 0 20px" }}>
+                    <CustomTablePagination
+                      rowsPerPageOptions={[50, 100, 200, 500]}
+                      count={
+                        paginationTotalCount === 0 ? 1 : paginationTotalCount
+                      }
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                      handleNextChange={handleNextChange}
+                      handlePreviousChange={handlePreviousChange}
+                      onPageNoChange={handlePageNoChange}
+                      value={searchPageNo}
+                      pageNumclassName={pageNumSection}
+                      reportsPaginationclassName={customPagination}
+                    />
+                  </div>
                   )}
                 </Grid>
               </Grid>

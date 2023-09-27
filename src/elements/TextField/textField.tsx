@@ -15,6 +15,8 @@ const INF_TextField: React.FC<any> = (props: any) => {
     fullWidth,
     tooltip,
     tooltipText,
+    compName,
+    onKeyDown
   } = props;
   const { inputText } = useStyles(appTheme);
 
@@ -35,6 +37,7 @@ const INF_TextField: React.FC<any> = (props: any) => {
         onChange={onChange}
         placeholder={placeholder}
         fullWidth={fullWidth}
+        onKeyDown={compName === "pagination" && onKeyDown}
       />
     </Tooltip>
   );

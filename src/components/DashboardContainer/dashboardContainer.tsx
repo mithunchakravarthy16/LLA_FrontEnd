@@ -304,44 +304,6 @@ const DashboardContainer = (props: any) => {
 
   useEffect(() => {
     if (assetLiveData) {
-      const sampleLiveData = [
-        {
-          trackerId: "740063943838",
-          assetId:
-            "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-          trackerStatus: "Active",
-          notificationType: "Incident",
-          currentLocation: {
-            lat: 9.0155021,
-            lng: -79.4759242,
-          },
-          currentArea: "",
-        },
-        {
-          trackerId: "413051518008",
-          assetId:
-            "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-          trackerStatus: "Inactive",
-          notificationType: "Incident",
-          currentLocation: {
-            lat: 9.0135021,
-            lng: -79.4759242,
-          },
-          currentArea: "",
-        },
-        {
-          trackerId: "740063943499",
-          assetId:
-            "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          trackerStatus: "Active",
-          notificationType: "Events",
-          currentLocation: {
-            lat: 9.0135021,
-            lng: -79.4859242,
-          },
-          currentArea: "",
-        },
-      ];
 
       const updatedLiveData: any = assetLiveData?.map((asset: any) => {
         return {
@@ -504,7 +466,7 @@ const DashboardContainer = (props: any) => {
 
     useEffect(()=>{
       if(searchPageNo){
-        setSearchPageNo("")
+        // setSearchPageNo("")
         setPage(0);
         const assetPayload = {
           filterText: "",
@@ -524,7 +486,7 @@ const DashboardContainer = (props: any) => {
   
 
   const handleChangePage = (newPage: any) => {
-    setPage(newPage);
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -576,15 +538,13 @@ const DashboardContainer = (props: any) => {
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setPage(page - 1);
-    setSearchPageNo("");
   };
 
-  const handlePageNoChange = (value: any) => {
-    setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value);
-
+  const handlePageNoChange = (value: any, keyName:any) => {
     let assetPayload: any = {};
-    if (page >= 0 && value !== "") {
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value)-1)
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -595,28 +555,10 @@ const DashboardContainer = (props: any) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
+      // setSearchPageNo("");
     }
   };
 
-    //Pagination Debounce Starts
-
-    const debounce = (func: any, delay: any) => {
-      let timeOut: any;
-      return (...arg: any) => {
-        const context = this;
-        clearTimeout(timeOut);
-        timeOut = setTimeout(() => {
-          func.apply(context, arg);
-        }, delay);
-      };
-    };
-  
-    const pageSearchCallback = useCallback(
-      debounce(handlePageNoChange, 2000),
-      []
-    );
-  
-     //Pagination Debounce Ends
 
   //Total Records
 
@@ -866,7 +808,7 @@ const DashboardContainer = (props: any) => {
                       onRowsPerPageChange={handleChangeRowsPerPage}
                       handleNextChange={handleNextChange}
                       handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={pageSearchCallback}
+                      onPageNoChange={handlePageNoChange}
                       value={searchPageNo}
                       pageNumclassName={pageNumSection}
                       reportsPaginationclassName={customPagination}

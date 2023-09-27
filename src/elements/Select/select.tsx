@@ -46,7 +46,7 @@ const INF_Select: React.FC<any> = (props) => {
   } = useStyles({ ...appTheme, selectedTheme: selectedTheme });
 
   const [selectedValue, setselectedValue] = useState(
-    !placeholder ? selectList && selectList[1]?.label : placeholder
+    (!placeholder || pageName === 'asset') ? selectList && selectList[0]?.label : placeholder
   );
 
   // const [selectedIndex, setSelectedIndex] = useState(0);
