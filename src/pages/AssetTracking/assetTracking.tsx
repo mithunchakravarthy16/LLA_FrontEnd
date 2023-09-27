@@ -1115,7 +1115,7 @@ const AssetTracking: React.FC<any> = (props) => {
   // PAGINATION
 
   const handleChangePage = (newPage: any) => {
-    setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -1167,13 +1167,13 @@ const AssetTracking: React.FC<any> = (props) => {
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setPage(page - 1);
-    setSearchPageNo("");
   };
   const handlePageNoChange = (value: any, keyName:any) => {
     let assetPayload: any = {};
     if (page >= 0 && value !== "" && keyName === "Enter") {
-      setSearchPageNo(value !== "" ? parseInt(value) : value);
-      assetPayload = {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value)-1);
+        assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
@@ -1188,25 +1188,6 @@ const AssetTracking: React.FC<any> = (props) => {
   };
 
 
-  //Pagination Debounce Starts
-
-  const debounce = (func: any, delay: any) => {
-    let timeOut: any;
-    return (...arg: any) => {
-      const context = this;
-      clearTimeout(timeOut);
-      timeOut = setTimeout(() => {
-        func.apply(context, arg);
-      }, delay);
-    };
-  };
-
-  const pageSearchCallback = useCallback(
-    debounce(handlePageNoChange, 2000),
-    []
-  );
-
-   //Pagination Debounce Ends
 
   useEffect(() => {
     if (assetNotificationResponse) {

@@ -139,7 +139,7 @@ const CustomTablePagination = (props:any) => {
             </div>
             <div
               // className={(newPage !== 0 || value !== "") ? arrowBox : arrowDisableBox}
-              className={newPage !== 0  ? arrowBox : ((value === "" && page === 0) || (count === 1)) ?  arrowDisableBox :  arrowBox}
+              className={newPage !== 0  ? arrowBox : ((value === "" && page === 0) || (count === 1)) ?  arrowDisableBox :  arrowDisableBox}
 
               onClick={PreviousPageChange}
             >
