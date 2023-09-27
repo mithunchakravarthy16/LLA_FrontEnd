@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         top:
           props?.mapPageName === "dashboard"
             ? "38vh !important"
-            : "20vh !important",
+            : "23vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
         left: props?.mapPageName === "dashboard" && "4vw !important",
@@ -94,7 +94,7 @@ const useStyles = makeStyles({
         top:
           props?.mapPageName === "dashboard"
             ? "31vh !important"
-            : "20vh !important",
+            : "23vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
         right: props?.mapPageName === "dashboard" && "5.8vw !important",
