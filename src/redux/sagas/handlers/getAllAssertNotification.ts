@@ -20,13 +20,13 @@ export function* handleAssetNotification(action: any): any {
     } else {
       yield put(setNotificationData({}));
     }
-    if(action.isFromSearch){
+    
     yield put(hideLoaderAssetNotificationData());
-    }
+    
   } catch (error) {
-    if(action.isFromSearch){
+    
     yield put(hideLoaderAssetNotificationData());
-    }
+    
     console.log(error);
   }
 }

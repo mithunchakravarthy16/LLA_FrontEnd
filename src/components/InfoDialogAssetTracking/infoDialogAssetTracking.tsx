@@ -365,15 +365,21 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const assetCenterRightSectionData = [
     {
       label: assetsTracking.battery,
-      value: `${assetTrackerDetails?.battery}%`,
+      value: assetTrackerDetails.battery
+        ? `${assetTrackerDetails?.battery}%`
+        : "--",
     },
     {
       label: assetsTracking.temperature,
-      value: `${assetTrackerDetails?.temperature?.toFixed(2)}°C`,
+      value: assetTrackerDetails?.temperature
+        ? `${assetTrackerDetails?.temperature?.toFixed(2)}°C`
+        : "--",
     },
     {
       label: assetsTracking.humidity,
-      value: `${assetTrackerDetails?.humidity?.toFixed(2)}%`,
+      value: assetTrackerDetails?.humidity
+        ? `${assetTrackerDetails?.humidity?.toFixed(2)}%`
+        : "--",
     },
     { label: "", value: "" },
   ];
@@ -642,7 +648,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={success}
             onClose={handleAlertClose}
-            sx={{ bottom: "7.5vw !important" }}>
+            sx={{ bottom: "7.5vw !important" }}
+          >
             <Alert
               onClose={handleAlertClose}
               severity={
@@ -654,7 +661,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                   ? "success"
                   : "error"
               }
-              sx={{ width: "100%" }}>
+              sx={{ width: "100%" }}
+            >
               {createGeofenceResponse?.status === 200 && (
                 <div style={{ display: "flex" }}>
                   <Typography>Successfully Created Geofence.</Typography>
@@ -682,7 +690,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
               width: "4.2%",
               height: "4.2%",
               transition: "none",
-            }}>
+            }}
+          >
             <img
               width={"100%"}
               height={"100%"}
@@ -704,7 +713,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     }}
                     onClick={() => {
                       handleHeaderTab(item?.val);
-                    }}>
+                    }}
+                  >
                     {item?.name}
                   </Grid>
                 ))}
@@ -721,7 +731,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         className={assetInfoLeftPanelMain}
                         style={{
                           marginRight: "2%",
-                        }}>
+                        }}
+                      >
                         <Grid className={assetInfoLeftPanelTop}>
                           <div>
                             <div className={leftPanelSection} style={{}}>
@@ -730,7 +741,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   return (
                                     <div
                                       className={leftPanelLoopSection}
-                                      key={index}>
+                                      key={index}
+                                    >
                                       <div className={leftPanelChild1}>
                                         {data?.value?.length > 17 ? (
                                           <>
@@ -739,7 +751,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                               placement={"bottom"}
                                               offset={tooltipOfset}
                                               fontSize={fontSize}
-                                              padding={padding}>
+                                              padding={padding}
+                                            >
                                               {" "}
                                               {truncateString(data?.value, 17)}
                                             </Tooltip>
@@ -751,7 +764,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       </div>
                                       <div
                                         className={leftPanelChild2}
-                                        style={{}}>
+                                        style={{}}
+                                      >
                                         {data?.label}
                                       </div>
                                     </div>
@@ -769,7 +783,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               display: "flex",
                               flexDirection: "column",
                               justifyContent: "space-around",
-                            }}>
+                            }}
+                          >
                             {assetCenterLeftSectionData?.map(
                               (data: any, index: any) => {
                                 return (
@@ -780,12 +795,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       justifyContent: "space-between",
                                       width: "100%",
                                       lineHeight: "44px",
-                                    }}>
+                                    }}
+                                  >
                                     <div
                                       style={{
                                         width: "50%",
                                         color: "#808080",
-                                      }}>
+                                      }}
+                                    >
                                       {data?.label}
                                     </div>
                                     <div
@@ -794,7 +811,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                         color:
                                           appTheme?.palette?.assetTrackingPage
                                             ?.topPanelTextColor,
-                                      }}>
+                                      }}
+                                    >
                                       {data?.value === null
                                         ? "--"
                                         : data?.value}
@@ -809,7 +827,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               borderRight: `1px dashed #808080`, // Specify your desired color and border style
                               opacity: "0.5",
                               margin: "7%",
-                            }}></div>
+                            }}
+                          ></div>
                           <div
                             style={{
                               padding: "2% 3%",
@@ -818,7 +837,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               flexDirection: "column",
                               justifyContent: "space-around",
                               // textAlign: "right",
-                            }}>
+                            }}
+                          >
                             {assetCenterRightSectionData?.map(
                               (data: any, index: any) => {
                                 return (
@@ -829,12 +849,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       justifyContent: "space-between",
                                       width: "100%",
                                       lineHeight: "44px",
-                                    }}>
+                                    }}
+                                  >
                                     <div
                                       style={{
                                         width: "50%",
                                         color: "#808080",
-                                      }}>
+                                      }}
+                                    >
                                       {data?.label}
                                     </div>
                                     <div
@@ -843,7 +865,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                         color:
                                           appTheme?.palette?.assetTrackingPage
                                             ?.topPanelTextColor,
-                                      }}>
+                                      }}
+                                    >
                                       {data?.value}
                                     </div>
                                   </div>
@@ -864,7 +887,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                         <Grid
                           item
                           xs={12}
-                          className={notificationListContainer}>
+                          className={notificationListContainer}
+                        >
                           <Grid container xs={12} rowGap={1.5}>
                             {infoNotificationList &&
                               infoNotificationList?.length > 0 &&
@@ -882,7 +906,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     background:
                                       appTheme?.palette?.assetTrackingPage
                                         ?.geofenceListItemBg,
-                                  }}>
+                                  }}
+                                >
                                   <div className={vehicleTitle}>
                                     {item?.title}
                                   </div>
@@ -895,7 +920,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                             placement={"bottom"}
                                             offset={tooltipOfset}
                                             fontSize={fontSize}
-                                            padding={padding}>
+                                            padding={padding}
+                                          >
                                             {" "}
                                             {truncateString(item?.details, 33)}
                                           </Tooltip>
@@ -1011,7 +1037,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               (isCircleEnbled && circleCenter === null) ||
                               (!isCircleEnbled && polygonPath === null)
                             }
-                            onClick={handleSaveClick}>
+                            onClick={handleSaveClick}
+                          >
                             {assetsTracking.save}
                           </Button>
                         </div>

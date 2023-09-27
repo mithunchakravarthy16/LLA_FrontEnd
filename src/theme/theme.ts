@@ -38,7 +38,7 @@ let theme = {
         bg: colorCodes?.white5,
         welcomeTitle: colorCodes?.white5,
         loginTitle: colorCodes?.orange1,
-        inputPlaceholder: colorCodes?.white5,
+        inputPlaceholder: colorCodes?.lightGrey6,
       },
       gridViewPage: {
         gridPageBg: colorCodes?.blackShades,
