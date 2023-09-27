@@ -21,6 +21,7 @@ import moment from "moment";
 import Chart from "elements/Chart";
 import Highcharts from "highcharts";
 import NotificationPanel from "components/NotificationPanel";
+import InactiveTrackerIcon from "../../assets/topPanelListIcons/AssetTracking/InactiveTracker.svg";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
@@ -331,13 +332,14 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
-    } 
+    }
     // else if (debounceSearchText) {
     //   assetPayload = {
     //     filterText: debounceSearchText,
@@ -645,7 +647,6 @@ const AssetTracking: React.FC<any> = (props) => {
     assetLiveData && assetLiveData
   );
 
- 
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
@@ -654,8 +655,6 @@ const AssetTracking: React.FC<any> = (props) => {
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
-
-  
 
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
@@ -931,6 +930,12 @@ const AssetTracking: React.FC<any> = (props) => {
       name: assetsTracking.assetsTracked,
     },
     {
+      icon:
+        selectedTheme === "light" ? InactiveTrackerIcon : InactiveTrackerIcon,
+      value: topPanelList?.inActiveTrackerCount,
+      name: "Inactive Tracker",
+    },
+    {
       icon: selectedTheme === "light" ? LocationLightThemeIcon : LocationIcon,
       value: topPanelList?.locationChangeCount,
       name: gridView.location,
@@ -1127,29 +1132,27 @@ const AssetTracking: React.FC<any> = (props) => {
     }, 500);
   }, []);
 
-  
-
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  useEffect(()=>{
-    if(searchPageNo){
-      setSearchPageNo("")
+  useEffect(() => {
+    if (searchPageNo) {
+      setSearchPageNo("");
       setPage(0);
       const assetPayload = {
         filterText: "",
         pageNo: parseInt(0),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
     }
-    
-  },[tabIndex])
+  }, [tabIndex]);
 
   // PAGINATION
 
@@ -1245,7 +1248,7 @@ const AssetTracking: React.FC<any> = (props) => {
     []
   );
 
-   //Pagination Debounce Ends
+  //Pagination Debounce Ends
 
   useEffect(() => {
     if (assetNotificationResponse) {
@@ -1283,9 +1286,6 @@ const AssetTracking: React.FC<any> = (props) => {
 
   // PAGINATION ENDS
 
-
- 
-
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
@@ -1303,27 +1303,23 @@ const AssetTracking: React.FC<any> = (props) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}
-              >
+                style={{ height: "93vh" }}>
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}
-                    >
+                      style={{ height: "29%" }}>
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}
-                      >
+                        style={{ height: "100%" }}>
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}
-                        >
+                          className={bodyLeftTopPanelListContainer}>
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={topPanelList?.activeTrackerPercentage}
@@ -1351,19 +1347,16 @@ const AssetTracking: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   paddingLeft: "10px",
-                                }}
-                              >
+                                }}>
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ minHeight: "3vh" }}
-                                >
+                                  style={{ minHeight: "3vh" }}>
                                   <div className={graphOneGraphTitleContainer}>
                                     <div
                                       className={graphTitleOneRound}
-                                      style={{}}
-                                    ></div>
+                                      style={{}}></div>
                                     <div>{assetsTracking.activeTracker}</div>
                                   </div>
                                   <div className={graphTitleTwoStyle}>
@@ -1381,8 +1374,7 @@ const AssetTracking: React.FC<any> = (props) => {
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}
-                                    >
+                                      style={{ height: "21vh", width: "80vw" }}>
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
@@ -1460,8 +1452,7 @@ const AssetTracking: React.FC<any> = (props) => {
                                 container
                                 xs={12}
                                 className={graphTwoContainerStyle}
-                                style={{}}
-                              >
+                                style={{}}>
                                 <Grid
                                   item
                                   xs={12}
@@ -1470,8 +1461,7 @@ const AssetTracking: React.FC<any> = (props) => {
                                     display: "flex",
                                     alignItems: "center",
                                     fontSize: "0.8vw",
-                                  }}
-                                >
+                                  }}>
                                   {gridView.incidents}
                                 </Grid>
                                 {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
@@ -1479,13 +1469,11 @@ const AssetTracking: React.FC<any> = (props) => {
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}
-                                  >
+                                    style={{ height: "90%" }}>
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}
-                                    >
+                                      style={{ height: "21vh", width: "80vw" }}>
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
@@ -1594,8 +1582,7 @@ const AssetTracking: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "57.5%" }}
-                    >
+                      style={{ height: "57.5%" }}>
                       {/* <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
@@ -1667,25 +1654,25 @@ const AssetTracking: React.FC<any> = (props) => {
                     rowsPerPage={rowsPerPage}
                     assetLiveMarker={assetLiveMarker}
                   />
-                  { !loaderAssetNotificationResponse && (
-                  <div style={{ margin: "-5px 20px 0 20px" }}>
-                    <CustomTablePagination
-                      rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={
-                        paginationTotalCount === 0 ? 1 : paginationTotalCount
-                      }
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      handleNextChange={handleNextChange}
-                      handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={pageSearchCallback}
-                      value={searchPageNo}
-                      pageNumclassName={pageNumSection}
-                      reportsPaginationclassName={customPagination}
-                    />
-                  </div>
+                  {!loaderAssetNotificationResponse && (
+                    <div style={{ margin: "-5px 20px 0 20px" }}>
+                      <CustomTablePagination
+                        rowsPerPageOptions={[50, 100, 200, 500]}
+                        count={
+                          paginationTotalCount === 0 ? 1 : paginationTotalCount
+                        }
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        handleNextChange={handleNextChange}
+                        handlePreviousChange={handlePreviousChange}
+                        onPageNoChange={pageSearchCallback}
+                        value={searchPageNo}
+                        pageNumclassName={pageNumSection}
+                        reportsPaginationclassName={customPagination}
+                      />
+                    </div>
                   )}
                 </Grid>
               </Grid>
