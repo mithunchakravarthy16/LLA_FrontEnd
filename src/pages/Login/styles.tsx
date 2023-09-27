@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
       paddingTop: "16vh",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      paddingTop: "6vh",
+      paddingTop: "3vh",
     },
     [muiTheme.breakpoints.down(1793)]: {
       paddingTop: "23vh",
