@@ -188,7 +188,56 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         return dateB - dateA;
       });
 
+      //Priority Sorting, If time is same
 
+         const reasonPriority : any = {
+          "Tracker Added": 1,
+          "Out of Geofence": 2
+        };
+  
+        const notificationPriorityTestArray : any = [
+          {
+              "assetNotificationId": "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
+              "notificationType": "Events",
+              "reason": "Tracker Added",
+              "notificationDate": "2023-09-26T13:34:23.948",
+              "title": "Tracker Added",
+              "timeStamp" : "2023-09-26T13:34:23.948"
+          },
+          {
+              "assetNotificationId": "4decf676-067e-468e-aaed-e9b6b8ec0b59",
+              "notificationType": "Incident",
+              "reason": "Out of Geofence",
+              "notificationDate": "2023-09-26T13:34:23.948",
+              "title": "Out of Geofence",
+              "timeStamp" : "2023-09-26T13:34:23.948"
+          },
+          {
+              "assetNotificationId": "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
+              "notificationType": "Events",
+              "reason": "High Humidity",
+              "notificationDate": "2023-09-26T13:34:23.948",
+              "title": "High Humidity",
+              "timeStamp" : "2023-09-26T13:34:23.948"
+          },
+      ]
+  
+        const prioritizedNotificationList : any  =  notificationPriorityTestArray?.sort((a:any, b:any) => {
+          const dateA: Date = new Date(a?.notificationDate);
+          const dateB: Date = new Date(b?.notificationDate);
+          const dateComparison: number = dateA.getTime() - dateB.getTime();
+        
+          if (dateComparison === 0) {
+            // If notificationDate is equal, prioritize by reason
+            const reasonA = reasonPriority[a?.reason] || 3; // Default to 3 if reason not in priority map
+            const reasonB = reasonPriority[b?.reason] || 3;
+        
+            return reasonA - reasonB;
+          }
+        
+          return dateComparison;
+        });
+        const reversedArray = prioritizedNotificationList.reverse()
         
       setInfoNotificationList(combinedNotifications);
     }
