@@ -221,7 +221,7 @@ const DashboardContainer = (props: any) => {
     return () => {
       clearInterval(intervalTime);
     };
-  }, [debounceSearchText]);
+  }, [debounceSearchText, page, rowsPerPage]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
     useState<any>([]);

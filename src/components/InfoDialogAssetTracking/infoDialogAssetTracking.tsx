@@ -187,7 +187,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
         return dateB - dateA;
       });
-
+        
       setInfoNotificationList(combinedNotifications);
     }
   }, [assetTrackerDetails]);

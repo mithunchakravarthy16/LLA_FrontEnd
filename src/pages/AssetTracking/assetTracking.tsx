@@ -339,7 +339,7 @@ const AssetTracking: React.FC<any> = (props) => {
     return () => {
       clearInterval(intervalTime);
     };
-  }, [debounceSearchText]);
+  }, [debounceSearchText, page, rowsPerPage]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
