@@ -130,8 +130,8 @@ const Map: React.FC<any> = (props) => {
     isMarkerClicked,
     setMapType,
     mapType,
-    mapDefaultView, setMapDefaultView
-
+    mapDefaultView, 
+    setMapDefaultView
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -964,6 +964,7 @@ const Map: React.FC<any> = (props) => {
   ]);
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
+    setMapDefaultView(false)
     if (data?.category === "parking" || location?.pathname === "/parking") {
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
@@ -1023,7 +1024,7 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(()=>{ 
-    if(window?.google?.maps) {
+    if(window?.google?.maps && mapDefaultView) {
       const bounds = new window.google.maps.LatLngBounds();
       liveMarkerList?.forEach((mapMarker:any) => {
         bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
@@ -1046,17 +1047,17 @@ const Map: React.FC<any> = (props) => {
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
-          center={
-            location?.pathname === "/home"
-              ? homePageParkingCenter
-              : location?.pathname === "/fleetManagement"
-              ? fleetManagementCenter
-              : location?.pathname === "/assetTracking"
-              ? assetTrackingCenter
-              : location?.pathname === "/parking"
-              ? parkingCenter
-              : center
-          }
+          // center={
+          //   location?.pathname === "/home"
+          //     ? homePageParkingCenter
+          //     : location?.pathname === "/fleetManagement"
+          //     ? fleetManagementCenter
+          //     : location?.pathname === "/assetTracking"
+          //     ? assetTrackingCenter
+          //     : location?.pathname === "/parking"
+          //     ? parkingCenter
+          //     : center
+          // }
           zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
