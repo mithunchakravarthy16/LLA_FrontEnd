@@ -29,6 +29,8 @@ const INF_SearchBox: React.FC<any> = (props) => {
     handleSearchtest,
     setDebounceSearchText,
     notificationPageName,
+    page,
+    rowsPerPage
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -88,7 +90,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
     ) {
-      handleSearchtest(event.target.value, tabIndex);
+      handleSearchtest(event.target.value, tabIndex, page, rowsPerPage);
     }
   };
   const handleSearchFocus = () => {

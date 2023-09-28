@@ -28,12 +28,8 @@ import {
 } from "redux/actions/getAssetTrackerDetailAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
-  "& .MuiDialogContent-root": {
-    // padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    // padding: theme.spacing(1),
-  },
+  "& .MuiDialogContent-root": {},
+  "& .MuiDialogActions-root": {},
   "& .MuiBackdrop-root": {
     marginTop: "0px !important",
   },
@@ -50,8 +46,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
-    // background: "rgba(11, 16, 45 / 68%) !important",
-    // background: `${appTheme?.palette?.infoDialogue?.dialogueBackDropBg} !important`,
     backdropFilter: "blur(5.5px)",
     height: "100vh !important",
   },
@@ -246,56 +240,18 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     drawRadius: any
   ) => {
     const startLatLng = new google.maps.LatLng(centerCoOrdinates);
-    // const circle = new window.google.maps.Circle({
-    //   center: startLatLng,
-    //   radius: drawRadius,
-    // })
-    //   .getBounds()
-    //   ?.contains(selectedViewDetailsData?.location);
-
-    // if (circle) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
   };
 
   const onPolygonCompleteLocation = (path: any) => {
     const polygon = new window.google.maps.Polygon({
       paths: path,
     });
-
-    // const contains = window.google.maps.geometry.poly.containsLocation(
-    //   new window.google.maps.LatLng(
-    //     selectedViewDetailsData?.location?.lat,
-    //     selectedViewDetailsData?.location?.lng
-    //   ),
-    //   polygon
-    // );
-
-    // if (contains) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
   };
 
   const handleCircleDrag = (centerCoOrdinates: any) => {
     polygonData?.setMap(null);
     circleData?.setMap(null);
     const startLatLng = new google.maps.LatLng(centerCoOrdinates);
-    // const circle = new window.google.maps.Circle({
-    //   center: startLatLng,
-    //   radius: circleRadius,
-    // })
-    //   .getBounds()
-    //   ?.contains(selectedViewDetailsData?.location);
-
-    // if (circle) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
   };
 
   const handleCircleLatChange = () => {
@@ -318,20 +274,6 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     polygonData?.setMap(null);
     map?.setZoom(15);
   };
-
-  // const addressFound = async (LatLng: any) => {
-  //   const geocoder: any = new window.google.maps.Geocoder();
-  //   const location1: any = new window.google.maps.LatLng(LatLng);
-  //   return new Promise(function (resolve, reject) {
-  //     geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
-  //       if (status === "OK") {
-  //         resolve(results[0].formatted_address);
-  //       } else {
-  //         reject(new Error("Couldnt't find the address " + status));
-  //       }
-  //     });
-  //   });
-  // };
 
   const handleSaveClick = async () => {
     const payload = {
