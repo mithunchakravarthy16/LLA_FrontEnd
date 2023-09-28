@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -47,6 +47,10 @@ import {
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
+import { Client } from '@stomp/stompjs';
+// import { useWebSocket } from "websocketServices/useWebsocket";
+import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { UseWebSocket } from "websocketServices/useWebsocket";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -351,15 +355,15 @@ const AssetTracking: React.FC<any> = (props) => {
     //   );
     // }
 
-    const intervalTime = setInterval(() => {
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
-      );
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+    //   );
+    // }, 1 * 60 * 1000);
 
-    return () => {
-      clearInterval(intervalTime);
-    };
+    // return () => {
+    //   clearInterval(intervalTime);
+    // };
   }, [debounceSearchText]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -785,8 +789,197 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, [selectedValue]);
 
+
+
+
+
+
+
+
+
+
+
+
+  //---websocket Implementation starts---
+
+const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
+const clientRef = useRef<any>()
+useEffect(()=>{
+  UseWebSocket((message) => {
+    setWebsocketLatestAssetNotification(message)    
+  },
+  (clintReference)=>{
+    clientRef.current = clintReference
+  },
+  "openWebsocket"  )
+
+  return ()=>{
+    UseWebSocket(() => {},
+    ()=>{},
+    "closeWebsocket",
+    clientRef.current)
+  }
+},[])
+  
+  
+
+//   useEffect(()=>{
+//     const client = new Client();
+
+//     // Define the heart-beat values (interval, delay) in milliseconds.
+//   // For example, 10000 means the client sends a ping every 10 seconds, 
+//   // and expects a pong from the server within 10 seconds.
+//   const heartbeats = '10000,10000'; // Adjust these values as needed
+  
+//     client.configure({
+//       brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
+//       onConnect: () => {
+//         console.log('onConnect');
+//         // Specify the heart-beat values in the CONNECT headers.
+//         // client.publish({destination: '/meta/connect', headers: { "heart-beat": heartbeats }, body: json.stringify({})});
+
+//         client.subscribe('/asset/notification', message => {
+//           console.log("asset Message", JSON.parse(message.body));
+//           setWebsocketLatestAssetNotification(JSON.parse(message.body))
+//           // this.setState({serverTime: message.body});
+//         });
+//       },
+//       // Helps during debugging, remove in production
+//       debug: (str:any) => {
+//         console.log(new Date(), str);
+//       }
+//     });
+  
+//     client.activate();
+    
+//    // Ping function to keep the connection alive.
+// // const ping = () => {
+// //   try {
+// //     client.publish({destination: '/meta/connect', body: json.stringify({})});
+// //   } catch (error) {
+// //     console.error('Error sending ping:', error);
+// //   }
+// //   setTimeout(ping, 500); // Adjust the ping interval as needed (e.g., every 5 seconds)
+// // };
+
+//   // Start the ping-pong loop when connected.
+//   // client.onWebSocketConnect = () => {
+//   //   ping();
+//   // };
+
+//     return () =>  { console.log("disconnected test"); client.forceDisconnect(); client.deactivate()}
+//   },[])
+
+
+
+
+
+
+  // const socketUrl = 'wss://apismartlabtech.sensyonsmartspaces.com/notification'; // WebSocket URL
+  // const [latestAssetNotification, setLatestAssetNotification] = useState(null);
+
+  // const {
+  //   lastMessage,
+  //   readyState,
+  //   sendMessage,
+  //   sendPing,
+  //   disconnect,
+  // } = useWebSocket(socketUrl, {
+  //   onOpen: () => console.log('opened'),
+  //   //Will attempt to reconnect on all close events, such as server shutting down
+  //   shouldReconnect: (closeEvent) => true,
+  // });
+
+  // useEffect(() => {
+  //   if (lastMessage !== null) {
+  //     const messageData = JSON.parse(lastMessage.data);
+  //     console.log("Asset Message", messageData);
+  //     setLatestAssetNotification(messageData);
+  //   }
+  // }, [lastMessage]);
+
+
+  // useEffect(() => {
+  //   if (readyState === ReadyState.OPEN) {
+  //     // Subscribe to the '/asset/notification' channel when the WebSocket is initially opened
+  //     sendMessage(JSON.stringify({ subscribe: '/asset/notification' }));
+
+  //     // Send ping messages periodically (e.g., every 30 seconds)
+  //     const pingInterval = setInterval(() => {
+  //       sendPing();
+  //     }, 30000);
+
+  //     return () => {
+  //       // Clean up the WebSocket connection and ping interval when the component unmounts
+  //       clearInterval(pingInterval);
+  //       disconnect();
+  //     };
+  //   }
+  // }, [readyState, sendMessage, sendPing, disconnect]);
+
+
+  
+  // const connectionStatus = {
+  //   [ReadyState.CONNECTING]: 'Connecting',
+  //   [ReadyState.OPEN]: 'Open',
+  //   [ReadyState.CLOSING]: 'Closing',
+  //   [ReadyState.CLOSED]: 'Closed',
+  //   [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+  // }[readyState];
+  
+  // console.log("connectionStatus", connectionStatus)
+  
+  //---websocket Implementation ends---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     if (assetNotificationList && assetLiveData) {
+
+      console.log("test websocketLatestAssetNotification asset page", websocketLatestAssetNotification)       
+      websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
+       websocketLatestAssetNotification?.map((item:any)=>{
+              if(item.notificationType?.toString()?.toLowerCase() === "incident"){
+                if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
+                }
+              }
+
+              if(item.notificationType?.toString()?.toLowerCase() === "events"){
+                if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                  assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
+                }
+              }
+
+              if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
+                if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                  assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
+                }
+              }
+
+            })
+       
+    console.log("test websocket modifineddata asset page", assetNotificationResponse?.data)
+
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
 
@@ -832,7 +1025,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
         return dateB - dateA;
       });
-
+      console.log("testing rerender")
       let uniqueTrackerIds: any = {};
 
       // const uniqueData = combinedNotifications.filter((item: any) => {
@@ -852,7 +1045,7 @@ const AssetTracking: React.FC<any> = (props) => {
         formatttedDashboardNotification(combinedNotifications, tabIndex)
       );
     }
-  }, [assetNotificationResponse, tabIndex, searchOpen]);
+  }, [assetNotificationResponse, tabIndex, searchOpen, websocketLatestAssetNotification]);
 
   useEffect(() => {
     const sampleLiveData = [

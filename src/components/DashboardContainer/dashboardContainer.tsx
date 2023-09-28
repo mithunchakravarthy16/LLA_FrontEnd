@@ -275,6 +275,8 @@ useEffect(()=>{
   });
 
   client.activate();
+
+  return () =>  { console.log("disconnected test"); client.forceDisconnect(); client.deactivate()}
 },[])
 
 
