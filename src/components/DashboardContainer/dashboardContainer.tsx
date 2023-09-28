@@ -116,6 +116,8 @@ const DashboardContainer = (props: any) => {
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
   //Pagination
   const [page, setPage] = useState<any>(0);
   const [rowsPerPage, setRowsPerPage] = useState<any>(50);
@@ -185,8 +187,6 @@ const DashboardContainer = (props: any) => {
   }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
-  console.log("rowsPerPage Outside", rowsPerPage);
-
   useEffect(() => {
     const assetPayload: any = {
       filterText: debounceSearchText,
@@ -195,8 +195,6 @@ const DashboardContainer = (props: any) => {
       notificationType:
         tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
-    console.log("rowsPerPage Inside", rowsPerPage);
-
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
@@ -595,10 +593,17 @@ const DashboardContainer = (props: any) => {
 
   // PAGINATION ENDS
 
-  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
   const onHandleDefaultView = () => {
     setMapDefaultView(true);
+    setNotificationPanelActive(false);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setTabIndex(1);
+    setCurrentMarker("");
+    setSelectedNotification("");
+    setSearchValue(dashboardData);
     const timeOut = setTimeout(() => {
       setMapDefaultView(false);
     }, 1000);
