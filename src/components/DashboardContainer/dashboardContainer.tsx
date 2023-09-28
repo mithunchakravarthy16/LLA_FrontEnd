@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback  } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ import {
   getFleetManagementOverAllTripDetails,
 } from "redux/actions/fleetManagementNotificationActions";
 import theme from "../../theme/theme";
-import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedAssetAPINotification,
@@ -26,12 +25,8 @@ import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
-import dashboardList from "mockdata/dashboardNotification";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import dashboardNotification from "../../mockdata/dashboardNotificationAPIFormat";
-import useStyles from "./styles";
-import fleetManagementResponse from "mockdata/fleetManagementAPI";
-import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
@@ -40,6 +35,7 @@ import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTracki
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
+import useStyles from "./styles";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -77,8 +73,6 @@ const DashboardContainer = (props: any) => {
     (state: any) => state?.fleetManagementNotification?.loadingNotificationData
   );
 
-  // const fleetManagementNotificationResponse  = fleetManagementResponse;
-
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
   );
@@ -101,8 +95,6 @@ const DashboardContainer = (props: any) => {
       state.assetTrackingActiveInActiveAnalytics
         .assetTrackingGridViewAnalyticsData
   );
-
-  // const assetNotificationResponse = assetTrackingResponse;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [tabIndex, setTabIndex] = useState<any>(1);
@@ -176,20 +168,20 @@ const DashboardContainer = (props: any) => {
     setNotificationPanelActive(!notificationPanelActive);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  },[])
+    // return () => {
+    //   clearInterval(interval);
+    // };
+  }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
-  
+
   useEffect(() => {
     const assetPayload: any = {
       filterText: debounceSearchText,
@@ -208,7 +200,8 @@ const DashboardContainer = (props: any) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
@@ -220,10 +213,10 @@ const DashboardContainer = (props: any) => {
     }
 
     const intervalTime = setInterval(() => {
-      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+      );
     }, 1 * 60 * 1000);
-
-    
 
     return () => {
       clearInterval(intervalTime);
@@ -292,7 +285,6 @@ const DashboardContainer = (props: any) => {
 
         const consolidatedDataNextPage = [...assetNotiData];
 
-        // const consolidatedMarkerData = [...consolidatedData];
         setDashboardNotificationList(
           page === 0 && !searchOpen
             ? consolidatedData
@@ -304,7 +296,6 @@ const DashboardContainer = (props: any) => {
 
   useEffect(() => {
     if (assetLiveData) {
-
       const updatedLiveData: any = assetLiveData?.map((asset: any) => {
         return {
           ...asset,
@@ -454,36 +445,28 @@ const DashboardContainer = (props: any) => {
     setSelectedMarker(data);
   };
 
-  // useEffect(() => {
-  //   if (selectedNotification) {
-  //     setIsMarkerClicked(false);
-  //   }
-  // }, [selectedNotification]);
-
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
-    useEffect(()=>{
-      if(searchPageNo){
-        // setSearchPageNo("")
-        setPage(0);
-        const assetPayload = {
-          filterText: "",
-          pageNo: parseInt(0),
-          pageSize: parseInt(rowsPerPage),
-          notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-        };
-  
-        dispatch(
-          getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-        );
-      }
-      
-    },[tabIndex])
+  useEffect(() => {
+    if (searchPageNo) {
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+  }, [tabIndex]);
 
   // PAGINATION
-  
 
   const handleChangePage = (newPage: any) => {
     // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
@@ -540,11 +523,11 @@ const DashboardContainer = (props: any) => {
     setPage(page - 1);
   };
 
-  const handlePageNoChange = (value: any, keyName:any) => {
+  const handlePageNoChange = (value: any, keyName: any) => {
     let assetPayload: any = {};
     if (page >= 0 && value !== "" && keyName === "Enter") {
       setSearchPageNo(parseInt(value));
-      setPage(parseInt(value)-1)
+      setPage(parseInt(value) - 1);
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -558,7 +541,6 @@ const DashboardContainer = (props: any) => {
       // setSearchPageNo("");
     }
   };
-
 
   //Total Records
 
@@ -795,25 +777,25 @@ const DashboardContainer = (props: any) => {
                     }
                     assetLiveMarker={assetLiveMarker}
                   />
-                  { !loaderAssetNotificationResponse && (
-                  <div style={{ margin: "-5px 20px 0 20px" }}>
-                    <CustomTablePagination
-                      rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={
-                        paginationTotalCount === 0 ? 1 : paginationTotalCount
-                      }
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      handleNextChange={handleNextChange}
-                      handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={handlePageNoChange}
-                      value={searchPageNo}
-                      pageNumclassName={pageNumSection}
-                      reportsPaginationclassName={customPagination}
-                    />
-                  </div>
+                  {!loaderAssetNotificationResponse && (
+                    <div style={{ margin: "-5px 20px 0 20px" }}>
+                      <CustomTablePagination
+                        rowsPerPageOptions={[50, 100, 200, 500]}
+                        count={
+                          paginationTotalCount === 0 ? 1 : paginationTotalCount
+                        }
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        handleNextChange={handleNextChange}
+                        handlePreviousChange={handlePreviousChange}
+                        onPageNoChange={handlePageNoChange}
+                        value={searchPageNo}
+                        pageNumclassName={pageNumSection}
+                        reportsPaginationclassName={customPagination}
+                      />
+                    </div>
                   )}
                 </div>
               )}
@@ -835,8 +817,6 @@ const DashboardContainer = (props: any) => {
       {isInfoWindowActive && (
         <InfoDialogAssetTracking
           setIsInfoWindowActive={setIsInfoWindowActive}
-          // packageData={packageData}
-          // infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
         />

@@ -27,12 +27,8 @@ import {
 } from "redux/actions/getAssetTrackerDetailAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
-  "& .MuiDialogContent-root": {
-    // padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    // padding: theme.spacing(1),
-  },
+  "& .MuiDialogContent-root": {},
+  "& .MuiDialogActions-root": {},
   "& .MuiBackdrop-root": {
     marginTop: "0px !important",
   },
@@ -40,7 +36,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
-    // background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
     background: `#fff !important`,
     color: "#fff",
     padding: "1%",
@@ -50,8 +45,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
-    // background: "rgba(11, 16, 45 / 68%) !important",
-    // background: `${appTheme?.palette?.infoDialogue?.dialogueBackDropBg} !important`,
     backdropFilter: "blur(5.5px)",
     height: "100vh !important",
   },
@@ -99,10 +92,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     ...appTheme,
     tabIndex: tabIndex,
   });
-
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -571,20 +560,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     polygonData?.setMap(null);
   };
 
-  // const addressFound = async (LatLng: any) => {
-  //   const geocoder: any = new window.google.maps.Geocoder();
-  //   const location1: any = new window.google.maps.LatLng(LatLng);
-  //   return new Promise(function (resolve, reject) {
-  //     geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
-  //       if (status === "OK") {
-  //         resolve(results[0].formatted_address);
-  //       } else {
-  //         reject(new Error("Couldnt't find the address " + status));
-  //       }
-  //     });
-  //   });
-  // };
-
   const handleSaveClick = async () => {
     const payload = {
       geofenceType: isCircleEnbled ? "Circular" : "Polygon",
@@ -760,7 +735,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                         ) : (
                                           data?.value
                                         )}
-                                        {/* {data?.value === null ? "--" : data?.value} */}
                                       </div>
                                       <div
                                         className={leftPanelChild2}
@@ -836,7 +810,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               display: "flex",
                               flexDirection: "column",
                               justifyContent: "space-around",
-                              // textAlign: "right",
                             }}
                           >
                             {assetCenterRightSectionData?.map(

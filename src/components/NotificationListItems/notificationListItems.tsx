@@ -2,7 +2,6 @@
 //@ts-nocheck
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Grid from "@mui/material/Grid";
 import Button from "elements/Button";
 import theme from "../../theme/theme";
 import CloseIcon from "../../assets/markers/closeIcon.svg";
@@ -18,7 +17,6 @@ import Tooltip from "elements/Tooltip";
 import useTranslation from "localization/translations";
 
 const NotificationListItems = (props: any) => {
-  const locations = useLocation();
   const {
     data,
     handleExpandListItem,
@@ -33,12 +31,8 @@ const NotificationListItems = (props: any) => {
     notificationPageName,
     selectedTheme,
     markerType,
-    isMarkerClicked,
   } = props;
 
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
   const [appTheme, setAppTheme] = useState<any>();
 
   useEffect(() => {
@@ -61,7 +55,6 @@ const NotificationListItems = (props: any) => {
     expandedListItems,
     listItemTitle,
     collapsedlistItemRow2,
-    listItemSubTitle,
     timeStampStyle,
     expandedListItemRow2,
     expandedListItemRow3,
@@ -257,7 +250,6 @@ const NotificationListItems = (props: any) => {
                         </div>
                       )}
                       <div className={expandedListItemRow2}>
-                        {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */}{" "}
                         {truncateString(item?.area, 45)}
                       </div>
                       <div className={expandedListItemRow3}>
@@ -361,7 +353,6 @@ const NotificationListItems = (props: any) => {
                       )}
                       {item?.area && (
                         <div className={expandedListItemRow2}>
-                          {/* {item?.area} */}
                           {item?.area?.length > 50 ? (
                             <>
                               <Tooltip
@@ -384,24 +375,23 @@ const NotificationListItems = (props: any) => {
                       {markerType === "assetLiveMarker" ? (
                         <>
                           <div className={expandedListItemRow2}>
-                            {/* {item?.currentArea} */}
                             {item?.currentArea?.length > 50 ? (
-                            <>
-                              <Tooltip
-                                tooltipValue={item?.currentArea}
-                                placement={"bottom"}
-                                offset={[0, 10]}
-                                fontSize={[14]}
-                                padding={[2]}
-                                pageName={"markerCallout"}
-                              >
-                                {" "}
-                                {truncateString(item?.currentArea, 50)}
-                              </Tooltip>
-                            </>
-                          ) : (
-                            item?.currentArea
-                          )}
+                              <>
+                                <Tooltip
+                                  tooltipValue={item?.currentArea}
+                                  placement={"bottom"}
+                                  offset={[0, 10]}
+                                  fontSize={[14]}
+                                  padding={[2]}
+                                  pageName={"markerCallout"}
+                                >
+                                  {" "}
+                                  {truncateString(item?.currentArea, 50)}
+                                </Tooltip>
+                              </>
+                            ) : (
+                              item?.currentArea
+                            )}
                           </div>
                           <div className={expandedListItemRow3}>
                             {item?.assetName}
@@ -432,7 +422,6 @@ const NotificationListItems = (props: any) => {
                           </Button>
                         </div>
                         <div className={timeStampStyle}>
-                          {/* {currentTimeStamp} */}
                           {localDate.format("MM-DD-YYYY | HH:mm A")}
                         </div>
                       </div>
@@ -444,12 +433,10 @@ const NotificationListItems = (props: any) => {
                       </div>
                       <div className={collapsedlistItemRow2}>
                         <div className={collapsedListItemSubTitle}>
-                          {/* {trackerId && trackerId} {assetId && ` | ${assetId}`} */}
                           {item?.trackerName && item?.trackerName}{" "}
                           {item?.assetName && ` | ${item?.assetName}`}
                         </div>
                         <div className={collapsedTimeStampStyle}>
-                          {/* {currentTimeStamp} */}
                           {localDate.format("MM-DD-YYYY | HH:mm A")}
                         </div>
                       </div>

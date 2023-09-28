@@ -125,7 +125,6 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
     const combinedNotifications: any = [];
 
     events?.eventsList?.forEach((event: any, index: number) => {
-
       combinedNotifications?.push({
         ...event,
         markerId: event?.id,
@@ -181,8 +180,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         title: event?.reason,
         id: event?.assetNotificationId,
         markerId: event?.id,
-        currentTimeStamp: localDate
-          .format("MM-DD-YYYY | h:mm A"),
+        currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
       });
     });
 
@@ -195,8 +193,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         title: incidents?.reason,
         id: incidents?.assetNotificationId,
         markerId: incidents?.id,
-        currentTimeStamp: localDate
-          .format("MM-DD-YYYY | h:mm A"),
+        currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
       });
     });
 
@@ -208,8 +205,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         category: "asset",
         title: alerts?.reason,
         id: alerts?.assetNotificationId,
-        currentTimeStamp: localDate
-          .format("MM-DD-YYYY | h:mm A"),
+        currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
       });
     });
 
@@ -302,18 +298,6 @@ export const formattedViolationsList = (data: any) => {
   if (data && data !== undefined) {
     const { events, incidents, alerts } = data;
     const combinedNotifications: any = [];
-
-    // events?.eventsList?.forEach((event: any, index: number) => {
-    //   combinedNotifications.push({
-    //     ...event,
-    //     category: "fleet",
-    //     title: event?.reason,
-    //     id: event?.notificationId,
-    //     currentTimeStamp: moment
-    //       .utc(event?.notificationDate)
-    //       .format("MM-DD-YYYY | HH:mm A"),
-    //   });
-    // });
 
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
       combinedNotifications.push({
