@@ -145,7 +145,7 @@ const CustomTablePagination = (props:any) => {
             >
               <KeyboardArrowLeftIcon />
             </div>
-            <div className={arrowNumberBox}>{page + 1}</div>
+            <div className={arrowNumberBox}>{count === 1 ? 1 : page + 1}</div>
             {/* <div className={arrowNumberBox}>{ newPage === NaN ? 1 : newPage + 1}</div> */}
             <div className={countNum}>of {totalPage}</div>
             <div
