@@ -47,6 +47,7 @@ const NotificationPanel = (props: any) => {
     loaderAssetNotificationResponse,
     page,
     rowsPerPage,
+    setPage
   } = props;
   const dispatch = useDispatch();
 
@@ -217,22 +218,24 @@ const NotificationPanel = (props: any) => {
   };
   //debouncing start
   const delayTime = notificationPageName === "asset" ? 500 : 500;
-  const fetchingDataForSearch = (searchValue: any, tabIndex: number) => {
+  const fetchingDataForSearch = (searchValue: any, tabIndex: number, searchBoxPageNo : any, searchBoxRowsPerPage:any) => {
     searchTextRef.current = searchValue;
     let assetPayload = {};
     if (searchValue) {
+      setPage(0);
       assetPayload = {
         filterText: searchValue,
-        pageNo: parseInt(page),
-        pageSize: parseInt(rowsPerPage),
+        pageNo: 0,
+        pageSize: parseInt(searchBoxRowsPerPage),
         notificationType:
           tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     } else {
+      setPage(0);
       assetPayload = {
         filterText: "",
-        pageNo: parseInt(page),
-        pageSize: parseInt(rowsPerPage),
+        pageNo: 0,
+        pageSize: parseInt(searchBoxRowsPerPage),
         notificationType:
           tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
@@ -268,7 +271,14 @@ const NotificationPanel = (props: any) => {
       setSelectedNotification("");
       setAssetLiveMarker("");
       setListSelectedMarker("");
+      if (
+        notificationPageName === "dashboard" ||
+        notificationPageName === "asset"
+      ) {
+        setPage(0);
+      }
     }
+    
   };
 
   const handleSearchCloseIcon = () => {
@@ -284,6 +294,7 @@ const NotificationPanel = (props: any) => {
         notificationPageName === "asset"
       ) {
         setDebounceSearchText("");
+        setPage(0);
       }
     }
   };
@@ -373,6 +384,8 @@ const NotificationPanel = (props: any) => {
                 handleSearchtest={handleSearchtest}
                 setDebounceSearchText={setDebounceSearchText}
                 disabled={loaderAssetNotificationResponse}
+                page={page}
+                rowsPerPage={rowsPerPage}
               />
             ) : (
               notificationText
