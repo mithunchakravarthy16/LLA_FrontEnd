@@ -38,6 +38,7 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
 import ParkingSlotContainer from "components/ParkingSlotContainer";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
 
 HC_rounded(Highcharts);
@@ -113,6 +114,7 @@ const Parking: React.FC<any> = (props) => {
     graphTwoHeader,
     electricity,
     lotSelectionIconStyleClose,
+    globeIconSection
   } = useStyles({
     ...appTheme,
     parkingLotSelectionActive: parkingLotSelectionActive,
@@ -456,6 +458,18 @@ const Parking: React.FC<any> = (props) => {
 
   const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
 
+  const[mapDefaultView, setMapDefaultView] = useState<boolean>(true)
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    const timeOut = setTimeout(()=>{
+      setMapDefaultView(false)
+    },500)
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }
+
   const parkingMapUseMeo = useMemo(() => {
     return (
       <Map
@@ -480,6 +494,7 @@ const Parking: React.FC<any> = (props) => {
         setListSelectedMarker={setListSelectedMarker}
         selectedNotificationItem={selectedNotificationItem}
         setSelectedNotificationItem={setSelectedNotificationItem}
+        mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
       />
     );
   }, [
@@ -492,6 +507,7 @@ const Parking: React.FC<any> = (props) => {
     liveMarkerList,
     listSelectedMarker,
     selectedNotificationItem,
+    mapDefaultView
   ]);
 
   return (
@@ -883,6 +899,12 @@ const Parking: React.FC<any> = (props) => {
                         handleLotSelctionCloseIcon={handleLotSelctionCloseIcon}
                         selectedTheme={selectedTheme}
                       />
+                                    <img
+                src={GlobeIconActive}
+                alt="GlobeIcon Icon"
+                onClick={onHandleDefaultView}
+                className={globeIconSection}
+              />
 
                       {isDataLoadedLotOverAll ? (
                         parkingLotIndex === 0 ? (
@@ -958,6 +980,7 @@ const Parking: React.FC<any> = (props) => {
                     setListSelectedMarker={setListSelectedMarker}
                     selectedNotificationItem={selectedNotificationItem}
                     setSelectedNotificationItem={setSelectedNotificationItem}
+                    mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
                   />
                 </Grid>
               </Grid>

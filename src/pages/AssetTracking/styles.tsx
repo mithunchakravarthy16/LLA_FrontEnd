@@ -307,5 +307,13 @@ const useStyles = makeStyles({
     justifyContent: "space-around",
     // marginTop : "1vh"
   }),
+  globeIconSection: (props: any) => ({
+    position: "absolute",
+    top: "0.4vw",
+    right: "4vw",
+    cursor: "pointer",
+    width: "3.5vw",
+    zIndex : 1
+  }),
 });
 export default useStyles;

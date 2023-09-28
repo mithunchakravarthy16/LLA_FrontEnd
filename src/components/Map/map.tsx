@@ -1007,6 +1007,7 @@ const Map: React.FC<any> = (props) => {
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
+      map?.setZoom(20)
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -1032,6 +1033,9 @@ const Map: React.FC<any> = (props) => {
       map?.fitBounds(bounds);
     }      
   },[map, mapDefaultView])
+  const handleClusterIconClick = () =>{
+    setMapDefaultView(false)
+  }
 
   return (
     <>
@@ -1120,6 +1124,7 @@ const Map: React.FC<any> = (props) => {
               enableRetinaIcons
               maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
+              onClick={handleClusterIconClick}
               // styles={[
               //   {
               //     url: MarkerClusterIcon,

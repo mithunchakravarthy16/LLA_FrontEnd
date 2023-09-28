@@ -71,7 +71,9 @@ const AssetMap: React.FC<any> = (props) => {
     setSelectedNotificationItem,
     mapType,
     setMapType,
-    selectedNotification
+    selectedNotification,
+    mapDefaultView, 
+    setMapDefaultView
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -602,7 +604,7 @@ const AssetMap: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     setListSelectedMarker("");
     setSelectedNotification("");
-    map?.panTo(center);
+    // map?.panTo(center);
     map?.setZoom(
       selectedContainerStyle?.is4kDevice
         ? 16.2
@@ -635,8 +637,8 @@ const AssetMap: React.FC<any> = (props) => {
       (selectedNotificationItem === "" ||
       selectedNotification === "")
     ) {
-      map?.setZoom(17);
-      map?.panTo(center);
+      map?.setZoom(21);
+      // map?.panTo(center);
     }
   }, [
     marker,
@@ -670,10 +672,10 @@ const AssetMap: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     setAssetLiveMarker("");
     setSelectedNotificationItem("");
-    map?.panTo(
-       center
-    );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
+    // map?.panTo(
+    //    center
+    // );
+    // map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
     setSelectedMarker("");
   };
 
@@ -684,8 +686,7 @@ const AssetMap: React.FC<any> = (props) => {
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-      map?.setZoom(17)
-
+      // map?.setZoom(17)
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -703,14 +704,18 @@ const AssetMap: React.FC<any> = (props) => {
   };
 
   useEffect(()=>{ 
-    if(window?.google?.maps) {
+    if(window?.google?.maps && mapDefaultView) {
       const bounds = new window.google.maps.LatLngBounds();
       liveMarkerList?.forEach((mapMarker:any) => {
         bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
       })
       map?.fitBounds(bounds);
     }      
-  },[map])
+  },[map, mapDefaultView])
+
+  const handleClusterIconClick = () =>{
+    setMapDefaultView(false)
+  }
 
   return (
     <>
@@ -733,6 +738,7 @@ const AssetMap: React.FC<any> = (props) => {
             enableRetinaIcons
             maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
             gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
+            onClick={handleClusterIconClick}
           >
             {(clusterer: any) => (
               <div>

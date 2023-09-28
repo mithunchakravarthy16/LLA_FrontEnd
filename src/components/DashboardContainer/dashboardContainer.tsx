@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback  } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,7 @@ import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
 import GlobeIconActive from "../../assets/globeIcon.svg";
+import GlobeIconInactive from "../../assets/globeIconInactive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
@@ -171,14 +172,14 @@ const DashboardContainer = (props: any) => {
     notificationPanelSection,
     pageNumSection,
     customPagination,
-    globeIconSection
+    globeIconSection,
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
@@ -189,11 +190,11 @@ const DashboardContainer = (props: any) => {
     return () => {
       clearInterval(interval);
     };
-  },[])
+  }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
-  console.log("rowsPerPage Outside", rowsPerPage)
-  
+  console.log("rowsPerPage Outside", rowsPerPage);
+
   useEffect(() => {
     const assetPayload: any = {
       filterText: debounceSearchText,
@@ -202,7 +203,7 @@ const DashboardContainer = (props: any) => {
       notificationType:
         tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
-    console.log("rowsPerPage Inside", rowsPerPage)
+    console.log("rowsPerPage Inside", rowsPerPage);
 
     if (!debounceSearchText) {
       const fleetPayload: any = {};
@@ -214,7 +215,8 @@ const DashboardContainer = (props: any) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
@@ -226,10 +228,10 @@ const DashboardContainer = (props: any) => {
     }
 
     const intervalTime = setInterval(() => {
-      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+      );
     }, 1 * 60 * 1000);
-
-    
 
     return () => {
       clearInterval(intervalTime);
@@ -310,7 +312,6 @@ const DashboardContainer = (props: any) => {
 
   useEffect(() => {
     if (assetLiveData) {
-
       const updatedLiveData: any = assetLiveData?.map((asset: any) => {
         return {
           ...asset,
@@ -470,26 +471,25 @@ const DashboardContainer = (props: any) => {
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
-    useEffect(()=>{
-      if(searchPageNo){
-        // setSearchPageNo("")
-        setPage(0);
-        const assetPayload = {
-          filterText: "",
-          pageNo: parseInt(0),
-          pageSize: parseInt(rowsPerPage),
-          notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-        };
-  
-        dispatch(
-          getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-        );
-      }
-      
-    },[tabIndex])
+  useEffect(() => {
+    if (searchPageNo) {
+      // setSearchPageNo("")
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+  }, [tabIndex]);
 
   // PAGINATION
-  
 
   const handleChangePage = (newPage: any) => {
     // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
@@ -546,11 +546,11 @@ const DashboardContainer = (props: any) => {
     setPage(page - 1);
   };
 
-  const handlePageNoChange = (value: any, keyName:any) => {
+  const handlePageNoChange = (value: any, keyName: any) => {
     let assetPayload: any = {};
     if (page >= 0 && value !== "" && keyName === "Enter") {
       setSearchPageNo(parseInt(value));
-      setPage(parseInt(value)-1)
+      setPage(parseInt(value) - 1);
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -564,7 +564,6 @@ const DashboardContainer = (props: any) => {
       // setSearchPageNo("");
     }
   };
-
 
   //Total Records
 
@@ -612,11 +611,17 @@ const DashboardContainer = (props: any) => {
 
   // PAGINATION ENDS
 
-  const[mapDefaultView, setMapDefaultView] = useState<boolean>(true)
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
   const onHandleDefaultView = () => {
-    setMapDefaultView(true)
-  }
+    setMapDefaultView(true);
+    const timeOut = setTimeout(() => {
+      setMapDefaultView(false);
+    }, 1000);
+    return () => {
+      clearTimeout(timeOut);
+    };
+  };
 
   return (
     <>
@@ -726,7 +731,8 @@ const DashboardContainer = (props: any) => {
                   isMarkerClicked={isMarkerClicked}
                   setMapType={setMapType}
                   mapType={mapType}
-                  mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
+                  mapDefaultView={mapDefaultView}
+                  setMapDefaultView={setMapDefaultView}
                 />
               </div>
             </Grid>
@@ -745,10 +751,8 @@ const DashboardContainer = (props: any) => {
                 onClick={onHandleBellIcon}
                 className={notificationIconSection}
               />
-               <img
-                src={
-                 GlobeIconActive
-                }
+              <img
+                src={GlobeIconActive}
                 alt="GlobeIcon Icon"
                 onClick={onHandleDefaultView}
                 className={globeIconSection}
@@ -815,28 +819,28 @@ const DashboardContainer = (props: any) => {
                       loaderAssetNotificationResponse
                     }
                     assetLiveMarker={assetLiveMarker}
-                    mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
-
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                   />
-                  { !loaderAssetNotificationResponse && (
-                  <div style={{ margin: "-5px 20px 0 20px" }}>
-                    <CustomTablePagination
-                      rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={
-                        paginationTotalCount === 0 ? 1 : paginationTotalCount
-                      }
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      handleNextChange={handleNextChange}
-                      handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={handlePageNoChange}
-                      value={searchPageNo}
-                      pageNumclassName={pageNumSection}
-                      reportsPaginationclassName={customPagination}
-                    />
-                  </div>
+                  {!loaderAssetNotificationResponse && (
+                    <div style={{ margin: "-5px 20px 0 20px" }}>
+                      <CustomTablePagination
+                        rowsPerPageOptions={[50, 100, 200, 500]}
+                        count={
+                          paginationTotalCount === 0 ? 1 : paginationTotalCount
+                        }
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        handleNextChange={handleNextChange}
+                        handlePreviousChange={handlePreviousChange}
+                        onPageNoChange={handlePageNoChange}
+                        value={searchPageNo}
+                        pageNumclassName={pageNumSection}
+                        reportsPaginationclassName={customPagination}
+                      />
+                    </div>
                   )}
                 </div>
               )}

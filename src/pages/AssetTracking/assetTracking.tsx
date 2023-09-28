@@ -48,6 +48,7 @@ import {
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -283,6 +284,7 @@ const AssetTracking: React.FC<any> = (props) => {
     geofenceIconStyle,
     pageNumSection,
     customPagination,
+    globeIconSection
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -1232,6 +1234,18 @@ const AssetTracking: React.FC<any> = (props) => {
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
+    const[mapDefaultView, setMapDefaultView] = useState<boolean>(true)
+
+    const onHandleDefaultView = () => {
+      setMapDefaultView(true);
+      const timeOut = setTimeout(()=>{
+        setMapDefaultView(false)
+      },500)
+      return () => {
+        clearTimeout(timeOut);
+      };
+    }
+
   return (
     <>
       {isDataLoaded ? (
@@ -1531,6 +1545,12 @@ const AssetTracking: React.FC<any> = (props) => {
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
                       /> */}
+                    <img
+                      src={GlobeIconActive}
+                      alt="GlobeIcon Icon"
+                      onClick={onHandleDefaultView}
+                      className={globeIconSection}
+                    />
                       <AssetMap
                         mapType={mapType}
                         setMapType={setMapType}
@@ -1559,6 +1579,7 @@ const AssetTracking: React.FC<any> = (props) => {
                           setSelectedNotificationItem
                         }
                         selectedNotification={selectedNotification}
+                        mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>
@@ -1595,6 +1616,8 @@ const AssetTracking: React.FC<any> = (props) => {
                     page={page}
                     rowsPerPage={rowsPerPage}
                     assetLiveMarker={assetLiveMarker}
+                    mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
+
                   />
                   { !loaderAssetNotificationResponse && (
                   <div style={{ margin: "-5px 20px 0 20px" }}>
