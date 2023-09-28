@@ -63,13 +63,9 @@ const CustomTablePagination = (props:any) => {
 
   const handleInputPageChange = (e:any) => {
     if (e.target.value > 0 && e.target.value <= totalPage) {
-      onPageNoChange(e.target.value);
+      onPageNoChange(e.target.value, e.key);
     } else if(e.target.value >= totalPage) {
       setTooltip(true);
-      onPageNoChange("");
-
-    }
-    else {
       onPageNoChange("");
     }
   };
@@ -81,8 +77,8 @@ const CustomTablePagination = (props:any) => {
   }, [tooltip]);
 
   useEffect(() => {
-    onPageChange(newPage);
-  }, [newPage]);
+    onPageChange(value);
+  }, [value]);
 
   useEffect(() => {
     setNewPage(page);
@@ -93,14 +89,14 @@ const CustomTablePagination = (props:any) => {
   }, [rowsPerPage]);
 
 
-  const [searchPageNo, setSearchPageNo] = useState<any>()
-  useEffect(()=>{
-   if (value === "" || value === undefined || count === 1) {
-    setSearchPageNo(newPage + 1)
-   } else {
-    setSearchPageNo(value)
-   }
-  },[value, page, newPage, count])
+  // const [searchPageNo, setSearchPageNo] = useState<any>()
+  // useEffect(()=>{
+  //  if (value === "" || value === undefined || count === 1) {
+  //   setSearchPageNo(newPage + 1)
+  //  } else {
+  //   setSearchPageNo(value)
+  //  }
+  // },[value, page, newPage, count])
 
   return (
     <>
@@ -143,13 +139,13 @@ const CustomTablePagination = (props:any) => {
             </div>
             <div
               // className={(newPage !== 0 || value !== "") ? arrowBox : arrowDisableBox}
-              className={newPage !== 0  ? arrowBox : ((value === "" && page === 0) || (count === 1)) ?  arrowDisableBox :  arrowBox}
+              className={newPage !== 0  ? arrowBox : ((value === "" && page === 0) || (count === 1)) ?  arrowDisableBox :  arrowDisableBox}
 
               onClick={PreviousPageChange}
             >
               <KeyboardArrowLeftIcon />
             </div>
-            <div className={arrowNumberBox}>{searchPageNo}</div>
+            <div className={arrowNumberBox}>{page + 1}</div>
             {/* <div className={arrowNumberBox}>{ newPage === NaN ? 1 : newPage + 1}</div> */}
             <div className={countNum}>of {totalPage}</div>
             <div
@@ -162,11 +158,12 @@ const CustomTablePagination = (props:any) => {
               <TextField
                 name={"Page No"}
                 type={"number"}
-                onChange={handleInputPageChange}
-                value={value}
+                onKeyDown={handleInputPageChange}
+                // value={value}
                 tooltip={tooltip}
                 tooltipText={"Exceeded Total Pages"}
                 placeholder={"Page No"}
+                compName={"pagination"}
               />
             </div>
           </div>

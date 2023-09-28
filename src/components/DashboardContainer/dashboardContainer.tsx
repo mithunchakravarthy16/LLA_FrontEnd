@@ -451,7 +451,6 @@ const DashboardContainer = (props: any) => {
 
   useEffect(() => {
     if (searchPageNo) {
-      setSearchPageNo("");
       setPage(0);
       const assetPayload = {
         filterText: "",
@@ -470,7 +469,7 @@ const DashboardContainer = (props: any) => {
   // PAGINATION
 
   const handleChangePage = (newPage: any) => {
-    setPage(newPage);
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -522,15 +521,13 @@ const DashboardContainer = (props: any) => {
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setPage(page - 1);
-    setSearchPageNo("");
   };
 
-  const handlePageNoChange = (value: any) => {
-    setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value);
-
+  const handlePageNoChange = (value: any, keyName: any) => {
     let assetPayload: any = {};
-    if (page >= 0 && value !== "") {
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value) - 1);
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -541,28 +538,9 @@ const DashboardContainer = (props: any) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
+      // setSearchPageNo("");
     }
   };
-
-  //Pagination Debounce Starts
-
-  const debounce = (func: any, delay: any) => {
-    let timeOut: any;
-    return (...arg: any) => {
-      const context = this;
-      clearTimeout(timeOut);
-      timeOut = setTimeout(() => {
-        func.apply(context, arg);
-      }, delay);
-    };
-  };
-
-  const pageSearchCallback = useCallback(
-    debounce(handlePageNoChange, 2000),
-    []
-  );
-
-  //Pagination Debounce Ends
 
   //Total Records
 
@@ -812,7 +790,7 @@ const DashboardContainer = (props: any) => {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                         handleNextChange={handleNextChange}
                         handlePreviousChange={handlePreviousChange}
-                        onPageNoChange={pageSearchCallback}
+                        onPageNoChange={handlePageNoChange}
                         value={searchPageNo}
                         pageNumclassName={pageNumSection}
                         reportsPaginationclassName={customPagination}

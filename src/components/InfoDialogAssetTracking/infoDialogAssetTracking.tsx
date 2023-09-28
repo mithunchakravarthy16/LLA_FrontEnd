@@ -354,7 +354,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const assetCenterRightSectionData = [
     {
       label: assetsTracking.battery,
-      value: assetTrackerDetails.battery
+      value: assetTrackerDetails?.battery
         ? `${assetTrackerDetails?.battery}%`
         : "--",
     },
