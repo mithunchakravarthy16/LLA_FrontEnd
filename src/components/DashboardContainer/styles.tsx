@@ -12,31 +12,17 @@ const useStyles = makeStyles({
   }),
   notificationIconSection: (props: any) => ({
     position: "absolute",
-    top: "30px",
-    right: "30px",
+    top: "1.2vw",
+    right: "1.2vw",
     cursor: "pointer",
-    width: 40,
-    [muiTheme.breakpoints.up(3839)]: {
-      width: 72,
-    },
-    [muiTheme.breakpoints.down(3073)]: {
-      width: 62,
-    },
-    [muiTheme.breakpoints.down(2049)]: {
-      width: 52,
-    },
-    [muiTheme.breakpoints.down(1921)]: {
-      width: 44,
-    },
-    [muiTheme.breakpoints.down(1545)]: {
-      width: 36,
-    },
-    [muiTheme.breakpoints.down(1153)]: {
-      width: 28,
-    },
-    [muiTheme.breakpoints.down(1025)]: {
-      width: 25,
-    },
+    width: "2.5vw",
+  }),
+  globeIconSection: (props: any) => ({
+    position: "absolute",
+    top: "1.2vw",
+    right: "4.5vw",
+    cursor: "pointer",
+    width: "2.5vw",
   }),
   notificationPanelSection: (props: any) => ({
     position: "absolute",

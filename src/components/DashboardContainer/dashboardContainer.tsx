@@ -25,6 +25,7 @@ import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
+import GlobeIconActive from "../../assets/globeIcon.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import dashboardList from "mockdata/dashboardNotification";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
@@ -170,6 +171,7 @@ const DashboardContainer = (props: any) => {
     notificationPanelSection,
     pageNumSection,
     customPagination,
+    globeIconSection
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
@@ -189,6 +191,8 @@ const DashboardContainer = (props: any) => {
     };
   },[])
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
+
+  console.log("rowsPerPage Outside", rowsPerPage)
   
   useEffect(() => {
     const assetPayload: any = {
@@ -198,6 +202,8 @@ const DashboardContainer = (props: any) => {
       notificationType:
         tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
     };
+    console.log("rowsPerPage Inside", rowsPerPage)
+
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
@@ -228,7 +234,7 @@ const DashboardContainer = (props: any) => {
     return () => {
       clearInterval(intervalTime);
     };
-  }, [debounceSearchText]);
+  }, [debounceSearchText, page, rowsPerPage]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
     useState<any>([]);
@@ -606,6 +612,12 @@ const DashboardContainer = (props: any) => {
 
   // PAGINATION ENDS
 
+  const[mapDefaultView, setMapDefaultView] = useState<boolean>(true)
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true)
+  }
+
   return (
     <>
       {success && (
@@ -714,6 +726,7 @@ const DashboardContainer = (props: any) => {
                   isMarkerClicked={isMarkerClicked}
                   setMapType={setMapType}
                   mapType={mapType}
+                  mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
                 />
               </div>
             </Grid>
@@ -731,6 +744,14 @@ const DashboardContainer = (props: any) => {
                 alt="Notificaion Icon"
                 onClick={onHandleBellIcon}
                 className={notificationIconSection}
+              />
+               <img
+                src={
+                 GlobeIconActive
+                }
+                alt="GlobeIcon Icon"
+                onClick={onHandleDefaultView}
+                className={globeIconSection}
               />
             </Grid>
             <FlippingCard
@@ -794,6 +815,8 @@ const DashboardContainer = (props: any) => {
                       loaderAssetNotificationResponse
                     }
                     assetLiveMarker={assetLiveMarker}
+                    mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
+
                   />
                   { !loaderAssetNotificationResponse && (
                   <div style={{ margin: "-5px 20px 0 20px" }}>
