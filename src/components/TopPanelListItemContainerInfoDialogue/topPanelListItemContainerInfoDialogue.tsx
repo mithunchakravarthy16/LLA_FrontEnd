@@ -6,7 +6,6 @@ import VerticalProgressBar from "elements/VerticalProgressBar";
 
 import theme from "../../theme/theme";
 import useStyles from "./styles";
-import Tooltip from "elements/Tooltip";
 
 const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
   const {
@@ -21,9 +20,7 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
     horizontalProgressBarTitlePosition,
     selectedTheme,
   } = props;
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
+
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -44,8 +41,6 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
     topPanelListItemStyle,
     bodyLeftTopPanelListSubContainer,
     progressBarContainer,
-    // progressBarContainerStyle,
-    // progressBarTitleStyle,
     itemValueStyle,
     itemUnitStyle,
     itemValueUnitStyle,
@@ -62,10 +57,6 @@ const TopPanelListItemContainerInfoDialogue: React.FC<any> = (props) => {
       setScreenResolution("2k");
     }
   }, []);
-
-  const tooltipOfset = [0, 10];
-  const fontSize = screenResolution === "2k" ? [14] : [22];
-  const padding = [2];
 
   return (
     <>
