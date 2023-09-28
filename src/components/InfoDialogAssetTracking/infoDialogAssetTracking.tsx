@@ -181,12 +181,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         });
       });
 
-      combinedNotifications.sort((a: any, b: any) => {
-        const dateA: any = new Date(a?.notificationDate);
-        const dateB: any = new Date(b?.notificationDate);
+      // combinedNotifications.sort((a: any, b: any) => {
+      //   const dateA: any = new Date(a?.notificationDate);
+      //   const dateB: any = new Date(b?.notificationDate);
 
-        return dateB - dateA;
-      });
+      //   return dateB - dateA;
+      // });
 
       //Priority Sorting, If time is same
 
@@ -222,7 +222,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           },
       ]
   
-        const prioritizedNotificationList : any  =  notificationPriorityTestArray?.sort((a:any, b:any) => {
+        const prioritizedNotificationList : any  =  combinedNotifications?.sort((a:any, b:any) => {
           const dateA: Date = new Date(a?.notificationDate);
           const dateB: Date = new Date(b?.notificationDate);
           const dateComparison: number = dateA.getTime() - dateB.getTime();
@@ -239,7 +239,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         });
         const reversedArray = prioritizedNotificationList.reverse()
         
-      setInfoNotificationList(combinedNotifications);
+      setInfoNotificationList(reversedArray);
     }
   }, [assetTrackerDetails]);
 
