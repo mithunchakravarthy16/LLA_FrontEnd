@@ -1177,13 +1177,12 @@ const AssetTracking: React.FC<any> = (props) => {
 
     const onHandleDefaultView = () => {
       setMapDefaultView(true);
-      const timeOut = setTimeout(()=>{
-        setMapDefaultView(false)
-      },500)
-      return () => {
-        clearTimeout(timeOut);
-      };
-    }
+      setNotificationPanelActive(false);
+      setListSelectedMarker("");
+      setAssetLiveMarker("");
+      setSearchOpen(false);
+      setDebounceSearchText("");
+    };
 
   return (
     <>

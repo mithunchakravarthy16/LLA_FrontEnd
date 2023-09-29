@@ -1031,11 +1031,14 @@ const Map: React.FC<any> = (props) => {
         bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
       })
       map?.fitBounds(bounds);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setListSelectedMarker("");
+      setIsMarkerClicked(false);
+      setAssetLiveMarker("");
+      setSelectedNotificationItem("");      
     }      
   },[map, mapDefaultView])
-  const handleClusterIconClick = () =>{
-    setMapDefaultView(false)
-  }
 
   return (
     <>
@@ -1068,6 +1071,9 @@ const Map: React.FC<any> = (props) => {
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
           onMapTypeIdChanged={handleMapTypeChanged}
+          onClick={()=>{setMapDefaultView(false)}}
+          onDrag={()=>{setMapDefaultView(false)}}
+          onCenterChanged={()=>{setMapDefaultView(false)}}
         >
           <DrawingManager
             drawingMode={
@@ -1124,7 +1130,7 @@ const Map: React.FC<any> = (props) => {
               enableRetinaIcons
               maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
-              onClick={handleClusterIconClick}
+              onClick={()=>{setMapDefaultView(false)}}
               // styles={[
               //   {
               //     url: MarkerClusterIcon,

@@ -171,6 +171,7 @@ const DashboardContainer = (props: any) => {
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
+    setDebounceSearchText("");
   };
 
   useEffect(() => {
@@ -600,17 +601,11 @@ const DashboardContainer = (props: any) => {
     setListSelectedMarker("");
     setAssetLiveMarker("");
     setSearchOpen(false);
-    setTabIndex(1);
-    setCurrentMarker("");
-    setSelectedNotification("");
-    setSearchValue(dashboardData);
-    const timeOut = setTimeout(() => {
-      setMapDefaultView(false);
-    }, 1000);
-    return () => {
-      clearTimeout(timeOut);
-    };
+    setDebounceSearchText("");
   };
+
+
+
 
   return (
     <>
@@ -741,7 +736,7 @@ const DashboardContainer = (props: any) => {
                 className={notificationIconSection}
               />
               <img
-                src={GlobeIconActive}
+                src={ GlobeIconActive}
                 alt="GlobeIcon Icon"
                 onClick={onHandleDefaultView}
                 className={globeIconSection}
