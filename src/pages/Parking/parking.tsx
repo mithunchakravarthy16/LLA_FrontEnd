@@ -466,9 +466,12 @@ const Parking: React.FC<any> = (props) => {
   const onHandleDefaultView = () => {
     setMapDefaultView(true);
     setListSelectedMarker("");
+    setAssetLiveMarker("");
     setSearchOpen(false);
     setParkingLotSelectionActive(false);
     setParkingLotIndex(0);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
   };
 
   const parkingMapUseMemo = useMemo(() => {
@@ -510,6 +513,7 @@ const Parking: React.FC<any> = (props) => {
     listSelectedMarker,
     selectedNotificationItem,
     mapDefaultView,
+    assetLiveMarker
   ]);
 
   return (

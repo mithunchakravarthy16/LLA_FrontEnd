@@ -544,15 +544,15 @@ const Map: React.FC<any> = (props) => {
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 16
-          : 16
-      );
+      // map?.setZoom(
+      //   selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
+      //     ? 16.2
+      //     : (selectedContainerStyle?.is4kDevice ||
+      //         selectedContainerStyle?.is3kDevice) &&
+      //       location?.pathname !== "/home"
+      //     ? 16
+      //     : 16
+      // );
       map?.panTo(markers[index]?.location);
     } else {
       // map?.panTo(
@@ -943,25 +943,25 @@ const Map: React.FC<any> = (props) => {
   function handleZoomChanged() {
     console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
-  useEffect(() => {
-    if (
-      marker === "" &&
-      assetLiveMarker === "" &&
-      listSelectedMarker === "" &&
-      (selectedNotificationItem === "" ||
-      selectedNotification === "")
-    ) {
-      // map?.setZoom(17);
-      // map?.panTo(parkingCenter);
-    }
-  }, [
-    marker,
-    markers,
-    assetLiveMarker,
-    selectedNotificationItem,
-    listSelectedMarker,
-    selectedNotification,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     marker === "" &&
+  //     assetLiveMarker === "" &&
+  //     listSelectedMarker === "" &&
+  //     (selectedNotificationItem === "" ||
+  //     selectedNotification === "")
+  //   ) {
+  //     // map?.setZoom(17);
+  //     // map?.panTo(parkingCenter);
+  //   }
+  // }, [
+  //   marker,
+  //   markers,
+  //   assetLiveMarker,
+  //   selectedNotificationItem,
+  //   listSelectedMarker,
+  //   selectedNotification,
+  // ]);
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
     setMapDefaultView(false)
@@ -1036,9 +1036,11 @@ const Map: React.FC<any> = (props) => {
       setListSelectedMarker("");
       setIsMarkerClicked(false);
       setAssetLiveMarker("");
-      setSelectedNotificationItem("");      
+      setSelectedNotificationItem("");    
+      setSelectedMarker("");  
     }      
   },[map, mapDefaultView])
+
 
   return (
     <>
@@ -1065,14 +1067,14 @@ const Map: React.FC<any> = (props) => {
           //     ? parkingCenter
           //     : center
           // }
-          zoom={zoomValue}
+          // zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
           onMapTypeIdChanged={handleMapTypeChanged}
-          onClick={()=>{setMapDefaultView(false)}}
-          onDrag={()=>{setMapDefaultView(false)}}
+          // onClick={()=>{setMapDefaultView(false)}}
+          // onDrag={()=>{setMapDefaultView(false)}}
           onCenterChanged={()=>{setMapDefaultView(false)}}
         >
           <DrawingManager
