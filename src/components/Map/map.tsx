@@ -941,7 +941,7 @@ const Map: React.FC<any> = (props) => {
   // geofence code -- end
 
   function handleZoomChanged() {
-    // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
+    console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
   useEffect(() => {
     if (
@@ -973,7 +973,7 @@ const Map: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-    map?.setZoom(selectedNotificationItem?.category === "parking" ? 20 : 18)
+    map?.setZoom(location?.pathname === "/parking" ? 20 : 17)
     setAssetLiveMarker(id);
     setListSelectedMarker(id);
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -1007,7 +1007,7 @@ const Map: React.FC<any> = (props) => {
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-      map?.setZoom(selectedNotificationItem?.category === "parking" ? 20 :17)
+      map?.setZoom(location?.pathname === "/parking" ? 20 :17)
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -1128,7 +1128,7 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  18}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
               onClick={()=>{setMapDefaultView(false)}}
               // styles={[
