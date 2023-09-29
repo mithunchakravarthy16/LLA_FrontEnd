@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback  } from "react";
+import { useState, useEffect, useCallback, useRef  } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTracki
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
-import { Client } from '@stomp/stompjs';
+import { UseWebSocket } from "websocketServices/useWebsocket";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -254,30 +254,48 @@ const DashboardContainer = (props: any) => {
 
 const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
 
+const clientRef = useRef<any>()
 useEffect(()=>{
-  const client = new Client();
+  UseWebSocket((message) => {
+    setWebsocketLatestAssetNotification(message)    
+  },
+  (clintReference)=>{
+    clientRef.current = clintReference
+  },
+  "openWebsocket"  )
 
-  client.configure({
-    brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
-    onConnect: () => {
-      console.log('onConnect');
-
-      client.subscribe('/asset/notification', message => {
-        console.log("asset Message", JSON.parse(message.body));
-        setWebsocketLatestAssetNotification(JSON.parse(message.body))
-        // this.setState({serverTime: message.body});
-      });
-    },
-    // Helps during debugging, remove in production
-    debug: (str:any) => {
-      console.log(new Date(), str);
-    }
-  });
-
-  client.activate();
-
-  return () =>  { console.log("disconnected test"); client.forceDisconnect(); client.deactivate()}
+  return ()=>{
+    UseWebSocket(() => {},
+    ()=>{},
+    "closeWebsocket",
+    clientRef.current)
+  }
 },[])
+
+// useEffect(()=>{
+//   const client = new Client();
+
+//   client.configure({
+//     brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
+//     onConnect: () => {
+//       console.log('onConnect');
+
+//       client.subscribe('/asset/notification', message => {
+//         console.log("asset Message", JSON.parse(message.body));
+//         setWebsocketLatestAssetNotification(JSON.parse(message.body))
+//         // this.setState({serverTime: message.body});
+//       });
+//     },
+//     // Helps during debugging, remove in production
+//     debug: (str:any) => {
+//       console.log(new Date(), str);
+//     }
+//   });
+
+//   client.activate();
+
+//   return () =>  { console.log("disconnected test"); client.forceDisconnect(); client.deactivate()}
+// },[])
 
 
 //---websocket Implementation ends---

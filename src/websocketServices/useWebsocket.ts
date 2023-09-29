@@ -21,6 +21,10 @@ export const UseWebSocket = (
               console.log('Asset Message', JSON.parse(message.body));
               onMessageCallback(JSON.parse(message.body));
             });
+
+            client.subscribe('/topic/pushmessages', message => {
+              console.log("pong messages:",message.body);      
+            });
           },
           debug: (str: any) => {
             console.log(new Date(), str);

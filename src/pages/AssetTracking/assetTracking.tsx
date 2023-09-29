@@ -47,8 +47,6 @@ import {
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
-import { Client } from '@stomp/stompjs';
-// import { useWebSocket } from "websocketServices/useWebsocket";
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { UseWebSocket } from "websocketServices/useWebsocket";
 
@@ -955,7 +953,9 @@ useEffect(()=>{
   useEffect(() => {
     if (assetNotificationList && assetLiveData) {
 
-      console.log("test websocketLatestAssetNotification asset page", websocketLatestAssetNotification)       
+      console.log("test websocketLatestAssetNotification asset page", websocketLatestAssetNotification) 
+      
+       const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification)=>{    
       websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
        websocketLatestAssetNotification?.map((item:any)=>{
               if(item.notificationType?.toString()?.toLowerCase() === "incident"){
@@ -977,8 +977,50 @@ useEffect(()=>{
               }
 
             })
+          }     
        
-    console.log("test websocket modifineddata asset page", assetNotificationResponse?.data)
+    
+
+    if(parseInt(page) === 0 && !debounceSearchText){
+        insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
+     }else if(parseInt(page) === 0 && debounceSearchText){
+
+      const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
+        return (
+          value?.assetName
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.area
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.currentArea
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.trackerId
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.reason
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+          value?.trackerName
+            ?.toString()
+            ?.toLowerCase()
+            .includes(debounceSearchText?.toString()?.toLowerCase()) 
+        );
+      });
+
+      websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
+
+     }
+
+    
+     console.log("test websocket modifineddata asset page", assetNotificationResponse?.data)
+
 
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
