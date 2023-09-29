@@ -24,6 +24,8 @@ import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
+import GlobeIconActive from "../../assets/globeIcon.svg";
+import GlobeIconInactive from "../../assets/globeIconInactive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import dashboardNotification from "../../mockdata/dashboardNotificationAPIFormat";
@@ -114,6 +116,8 @@ const DashboardContainer = (props: any) => {
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
   //Pagination
   const [page, setPage] = useState<any>(0);
   const [rowsPerPage, setRowsPerPage] = useState<any>(50);
@@ -162,23 +166,25 @@ const DashboardContainer = (props: any) => {
     notificationPanelSection,
     pageNumSection,
     customPagination,
+    globeIconSection,
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
+    setDebounceSearchText("");
   };
 
   useEffect(() => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
@@ -588,6 +594,19 @@ const DashboardContainer = (props: any) => {
 
   // PAGINATION ENDS
 
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setNotificationPanelActive(false);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setDebounceSearchText("");
+  };
+
+
+
+
   return (
     <>
       {success && (
@@ -696,6 +715,8 @@ const DashboardContainer = (props: any) => {
                   isMarkerClicked={isMarkerClicked}
                   setMapType={setMapType}
                   mapType={mapType}
+                  mapDefaultView={mapDefaultView}
+                  setMapDefaultView={setMapDefaultView}
                 />
               </div>
             </Grid>
@@ -713,6 +734,12 @@ const DashboardContainer = (props: any) => {
                 alt="Notificaion Icon"
                 onClick={onHandleBellIcon}
                 className={notificationIconSection}
+              />
+              <img
+                src={ GlobeIconActive}
+                alt="GlobeIcon Icon"
+                onClick={onHandleDefaultView}
+                className={globeIconSection}
               />
             </Grid>
             <FlippingCard
@@ -776,6 +803,8 @@ const DashboardContainer = (props: any) => {
                       loaderAssetNotificationResponse
                     }
                     assetLiveMarker={assetLiveMarker}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                     setPage={setPage}
                   />
                   {!loaderAssetNotificationResponse && (

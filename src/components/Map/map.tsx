@@ -130,6 +130,8 @@ const Map: React.FC<any> = (props) => {
     isMarkerClicked,
     setMapType,
     mapType,
+    mapDefaultView, 
+    setMapDefaultView
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -515,8 +517,8 @@ const Map: React.FC<any> = (props) => {
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
       ? 16
       : location?.pathname === "/parking"
-      ? 17
-      : 17
+      ? 16
+      : 16
   );
 
   useEffect(() => {
@@ -542,39 +544,39 @@ const Map: React.FC<any> = (props) => {
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 16
-          : 17
-      );
+      // map?.setZoom(
+      //   selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
+      //     ? 16.2
+      //     : (selectedContainerStyle?.is4kDevice ||
+      //         selectedContainerStyle?.is3kDevice) &&
+      //       location?.pathname !== "/home"
+      //     ? 16
+      //     : 16
+      // );
       map?.panTo(markers[index]?.location);
     } else {
-      map?.panTo(
-        location?.pathname === "/home"
-          ? homePageParkingCenter
-          : location?.pathname === "/fleetManagement"
-          ? fleetManagementCenter
-          : location?.pathname === "/assetTracking"
-          ? assetTrackingCenter
-          : location?.pathname === "/parking"
-          ? parkingCenter
-          : center
-      );
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 16
-          : location?.pathname === "/parking"
-          ? 17
-          : 17
-      );
+      // map?.panTo(
+      //   location?.pathname === "/home"
+      //     ? homePageParkingCenter
+      //     : location?.pathname === "/fleetManagement"
+      //     ? fleetManagementCenter
+      //     : location?.pathname === "/assetTracking"
+      //     ? assetTrackingCenter
+      //     : location?.pathname === "/parking"
+      //     ? parkingCenter
+      //     : center
+      // );
+      // map?.setZoom(
+      //   selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
+      //     ? 16.2
+      //     : (selectedContainerStyle?.is4kDevice ||
+      //         selectedContainerStyle?.is3kDevice) &&
+      //       location?.pathname !== "/home"
+      //     ? 16
+      //     : location?.pathname === "/parking"
+      //     ? 17
+      //     : 17
+      // );
     }
   }, [currentMarker, markers]);
 
@@ -746,17 +748,17 @@ const Map: React.FC<any> = (props) => {
     setTabIndex(getTabIndex(type));
     setAssetLiveMarker((prev: any) => {
       if (prev && prev === markerId) {
-        map?.panTo(
-          location?.pathname === "/home"
-            ? homePageParkingCenter
-            : location?.pathname === "/fleetManagement"
-            ? fleetManagementCenter
-            : location?.pathname === "/assetTracking"
-            ? assetTrackingCenter
-            : location?.pathname === "/parking"
-            ? parkingCenter
-            : center
-        );
+        // map?.panTo(
+        //   location?.pathname === "/home"
+        //     ? homePageParkingCenter
+        //     : location?.pathname === "/fleetManagement"
+        //     ? fleetManagementCenter
+        //     : location?.pathname === "/assetTracking"
+        //     ? assetTrackingCenter
+        //     : location?.pathname === "/parking"
+        //     ? parkingCenter
+        //     : center
+        // );
         return "";
       } else {
         map?.panTo(location);
@@ -776,24 +778,24 @@ const Map: React.FC<any> = (props) => {
     setListSelectedMarker("");
     setSelectedNotification("");
 
-    map?.panTo(
-      location?.pathname === "/home"
-        ? homePageParkingCenter
-        : location?.pathname === "/fleetManagement"
-        ? fleetManagementCenter
-        : location?.pathname === "/assetTracking"
-        ? assetTrackingCenter
-        : location?.pathname === "/parking"
-        ? parkingCenter
-        : center
-    );
-    map?.setZoom(
-      selectedContainerStyle?.is4kDevice
-        ? 16.2
-        : location?.pathname === "/parking"
-        ? 17
-        : 17
-    );
+    // map?.panTo(
+    //   location?.pathname === "/home"
+    //     ? homePageParkingCenter
+    //     : location?.pathname === "/fleetManagement"
+    //     ? fleetManagementCenter
+    //     : location?.pathname === "/assetTracking"
+    //     ? assetTrackingCenter
+    //     : location?.pathname === "/parking"
+    //     ? parkingCenter
+    //     : center
+    // );
+    // map?.setZoom(
+    //   selectedContainerStyle?.is4kDevice
+    //     ? 16.2
+    //     : location?.pathname === "/parking"
+    //     ? 17
+    //     : 17
+    // );
     setProgress([]);
     setPoints([]);
     setData([]);
@@ -939,29 +941,30 @@ const Map: React.FC<any> = (props) => {
   // geofence code -- end
 
   function handleZoomChanged() {
-    // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
+    console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
-  useEffect(() => {
-    if (
-      marker === "" &&
-      assetLiveMarker === "" &&
-      listSelectedMarker === "" &&
-      (selectedNotificationItem === "" ||
-      selectedNotification === "")
-    ) {
-      map?.setZoom(17);
-      map?.panTo(parkingCenter);
-    }
-  }, [
-    marker,
-    markers,
-    assetLiveMarker,
-    selectedNotificationItem,
-    listSelectedMarker,
-    selectedNotification,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     marker === "" &&
+  //     assetLiveMarker === "" &&
+  //     listSelectedMarker === "" &&
+  //     (selectedNotificationItem === "" ||
+  //     selectedNotification === "")
+  //   ) {
+  //     // map?.setZoom(17);
+  //     // map?.panTo(parkingCenter);
+  //   }
+  // }, [
+  //   marker,
+  //   markers,
+  //   assetLiveMarker,
+  //   selectedNotificationItem,
+  //   listSelectedMarker,
+  //   selectedNotification,
+  // ]);
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
+    setMapDefaultView(false)
     if (data?.category === "parking" || location?.pathname === "/parking") {
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
@@ -970,9 +973,9 @@ const Map: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-
+    map?.setZoom(location?.pathname === "/parking" ? 20 : 17)
     setAssetLiveMarker(id);
-    setListSelectedMarker(id)
+    setListSelectedMarker(id);
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
     map?.panTo(location);
   };
@@ -984,26 +987,27 @@ const Map: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     setAssetLiveMarker("");
     setSelectedNotificationItem("");
-    map?.panTo(
-      location?.pathname === "/home"
-        ? defaultCenter
-        : location?.pathname === "/fleetManagement"
-        ? fleetManagementCenter
-        : location?.pathname === "/assetTracking"
-        ? assetTrackingCenter
-        : center
-    );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
+    // map?.panTo(
+    //   location?.pathname === "/home"
+    //     ? defaultCenter
+    //     : location?.pathname === "/fleetManagement"
+    //     ? fleetManagementCenter
+    //     : location?.pathname === "/assetTracking"
+    //     ? assetTrackingCenter
+    //     : center
+    // );
+    // map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
     setSelectedMarker("");
   };
 
   useEffect(() => {
-    if (selectedNotification || selectedNotificationItem) {
+    if ((selectedNotification || selectedNotificationItem) ) {
       map?.panTo(
         selectedNotificationItem?.currentLocation
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
+      map?.setZoom(location?.pathname === "/parking" ? 20 :17)
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -1021,14 +1025,22 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(()=>{ 
-    if(window?.google?.maps) {
+    if(window?.google?.maps && mapDefaultView) {
       const bounds = new window.google.maps.LatLngBounds();
       liveMarkerList?.forEach((mapMarker:any) => {
         bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
       })
       map?.fitBounds(bounds);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setListSelectedMarker("");
+      setIsMarkerClicked(false);
+      setAssetLiveMarker("");
+      setSelectedNotificationItem("");    
+      setSelectedMarker("");  
     }      
-  },[map])
+  },[map, mapDefaultView])
+
 
   return (
     <>
@@ -1044,23 +1056,26 @@ const Map: React.FC<any> = (props) => {
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
-          center={
-            location?.pathname === "/home"
-              ? homePageParkingCenter
-              : location?.pathname === "/fleetManagement"
-              ? fleetManagementCenter
-              : location?.pathname === "/assetTracking"
-              ? assetTrackingCenter
-              : location?.pathname === "/parking"
-              ? parkingCenter
-              : center
-          }
-          zoom={zoomValue}
+          // center={
+          //   location?.pathname === "/home"
+          //     ? homePageParkingCenter
+          //     : location?.pathname === "/fleetManagement"
+          //     ? fleetManagementCenter
+          //     : location?.pathname === "/assetTracking"
+          //     ? assetTrackingCenter
+          //     : location?.pathname === "/parking"
+          //     ? parkingCenter
+          //     : center
+          // }
+          // zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
           onMapTypeIdChanged={handleMapTypeChanged}
+          // onClick={()=>{setMapDefaultView(false)}}
+          // onDrag={()=>{setMapDefaultView(false)}}
+          onCenterChanged={()=>{setMapDefaultView(false)}}
         >
           <DrawingManager
             drawingMode={
@@ -1115,8 +1130,9 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  18}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
+              onClick={()=>{setMapDefaultView(false)}}
               // styles={[
               //   {
               //     url: MarkerClusterIcon,

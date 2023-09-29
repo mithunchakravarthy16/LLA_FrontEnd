@@ -47,6 +47,8 @@ const NotificationPanel = (props: any) => {
     loaderAssetNotificationResponse,
     page,
     rowsPerPage,
+    mapDefaultView, 
+    setMapDefaultView,
     setPage
   } = props;
   const dispatch = useDispatch();
@@ -142,7 +144,7 @@ const NotificationPanel = (props: any) => {
   const handleExpandListItem = useCallback(
     (param: any, markerId: any, data: any) => {
       setSelectedNotificationItem(data);
-
+      // setMapDefaultView(false);
       setListSelectedMarker(markerId);
       setAssetLiveMarker("");
       setIsMarkerClicked(false);

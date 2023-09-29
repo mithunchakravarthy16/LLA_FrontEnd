@@ -449,7 +449,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     },
 
     { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
-
+    {
+      label: "",
+      value: "",
+    },
+    {
+      label: "",
+      value: "",
+    },
   ];
 
   useEffect(() => {
@@ -920,13 +927,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       }}
                                     >
                                       {data?.value}
-                                    </div>
-                                    {
+                                      {
                                       data?.range &&
-                                      <div style={{ color : getSignalStrengthColor(data?.range)}}>
-                                        {`(${data?.range})`}
-                                      </div>
+                                      <span style={{ color : getSignalStrengthColor(data?.range)}}>
+                                        {` (${data?.range})`}
+                                      </span>
                                     }
+                                    </div>
+                                    
                                   </div>
                                 );
                               }
