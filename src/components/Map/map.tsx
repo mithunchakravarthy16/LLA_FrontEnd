@@ -973,7 +973,7 @@ const Map: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-
+    map?.setZoom(selectedNotificationItem?.category === "parking" ? 20 : 18)
     setAssetLiveMarker(id);
     setListSelectedMarker(id);
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -1007,7 +1007,7 @@ const Map: React.FC<any> = (props) => {
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-      map?.setZoom(17)
+      map?.setZoom(selectedNotificationItem?.category === "parking" ? 20 :17)
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -1128,7 +1128,7 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  20}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
               onClick={()=>{setMapDefaultView(false)}}
               // styles={[
