@@ -402,7 +402,17 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     },
   ];
 
-  const assetCenterRightSectionData = [
+  const getSignalStrengthColor = (range:any) =>{
+    switch(range) {
+      case "Good" : return "#78B64B";
+      case "Fair" : return "#FBFB0C";
+      case "Low" : return "EC080A";
+      case "Poor" : return "EC080A";
+      default : break
+    }
+  }
+
+  const assetCenterRightSectionDataCellular = [
     {
       label: assetsTracking.battery,
       value: assetTrackerDetails?.battery
@@ -416,12 +426,30 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         : "--",
     },
     {
-      label: assetsTracking.humidity,
+      label:  assetsTracking.humidity,
       value: assetTrackerDetails?.humidity
         ? `${assetTrackerDetails?.humidity?.toFixed(2)}%`
         : "--",
     },
-    { label: "", value: "" },
+    { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
+  ];
+
+  const assetCenterRightSectionDataBLE = [
+    {
+      label: assetsTracking.battery,
+      value: assetTrackerDetails?.battery
+        ? `${assetTrackerDetails?.battery}%`
+        : "--",
+    },
+    {
+      label: assetsTracking.temperature,
+      value: assetTrackerDetails?.temperature
+        ? `${assetTrackerDetails?.temperature?.toFixed(2)}°C`
+        : "--",
+    },
+
+    { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
+
   ];
 
   useEffect(() => {
@@ -863,7 +891,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               justifyContent: "space-around",
                             }}
                           >
-                            {assetCenterRightSectionData?.map(
+                            {  (assetTrackerDetails?.tagType === "CATM1_TAG" ? assetCenterRightSectionDataCellular : assetCenterRightSectionDataBLE )?.map(
                               (data: any, index: any) => {
                                 return (
                                   <div
@@ -893,6 +921,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                     >
                                       {data?.value}
                                     </div>
+                                    {
+                                      data?.range &&
+                                      <div style={{ color : getSignalStrengthColor(data?.range)}}>
+                                        {`(${data?.range})`}
+                                      </div>
+                                    }
                                   </div>
                                 );
                               }
