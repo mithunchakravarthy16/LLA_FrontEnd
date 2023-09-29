@@ -517,8 +517,8 @@ const Map: React.FC<any> = (props) => {
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
       ? 16
       : location?.pathname === "/parking"
-      ? 17
-      : 17
+      ? 16
+      : 16
   );
 
   useEffect(() => {
@@ -551,7 +551,7 @@ const Map: React.FC<any> = (props) => {
               selectedContainerStyle?.is3kDevice) &&
             location?.pathname !== "/home"
           ? 16
-          : 17
+          : 16
       );
       map?.panTo(markers[index]?.location);
     } else {
@@ -1001,13 +1001,13 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(() => {
-    if (selectedNotification || selectedNotificationItem) {
+    if ((selectedNotification || selectedNotificationItem) ) {
       map?.panTo(
         selectedNotificationItem?.currentLocation
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-      map?.setZoom(20)
+      map?.setZoom(17)
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -1128,7 +1128,7 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  20}
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
               onClick={()=>{setMapDefaultView(false)}}
               // styles={[

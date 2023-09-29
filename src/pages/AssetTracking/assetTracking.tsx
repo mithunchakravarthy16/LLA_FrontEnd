@@ -46,6 +46,7 @@ import {
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -277,7 +278,7 @@ const AssetTracking: React.FC<any> = (props) => {
     geofenceIconStyle,
     pageNumSection,
     customPagination,
-    globeIconSection
+    globeIconSection,
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -1173,16 +1174,16 @@ const AssetTracking: React.FC<any> = (props) => {
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
-    const[mapDefaultView, setMapDefaultView] = useState<boolean>(true)
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
-    const onHandleDefaultView = () => {
-      setMapDefaultView(true);
-      setNotificationPanelActive(false);
-      setListSelectedMarker("");
-      setAssetLiveMarker("");
-      setSearchOpen(false);
-      setDebounceSearchText("");
-    };
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setNotificationPanelActive(false);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setDebounceSearchText("");
+  };
 
   return (
     <>
@@ -1471,12 +1472,12 @@ const AssetTracking: React.FC<any> = (props) => {
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
                       /> */}
-                    <img
-                      src={GlobeIconActive}
-                      alt="GlobeIcon Icon"
-                      onClick={onHandleDefaultView}
-                      className={globeIconSection}
-                    />
+                      <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                       <AssetMap
                         mapType={mapType}
                         setMapType={setMapType}
@@ -1505,7 +1506,8 @@ const AssetTracking: React.FC<any> = (props) => {
                           setSelectedNotificationItem
                         }
                         selectedNotification={selectedNotification}
-                        mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>
@@ -1542,8 +1544,8 @@ const AssetTracking: React.FC<any> = (props) => {
                     page={page}
                     rowsPerPage={rowsPerPage}
                     assetLiveMarker={assetLiveMarker}
-                    mapDefaultView={mapDefaultView} setMapDefaultView={setMapDefaultView}
-
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                     setPage={setPage}
                   />
                   {!loaderAssetNotificationResponse && (

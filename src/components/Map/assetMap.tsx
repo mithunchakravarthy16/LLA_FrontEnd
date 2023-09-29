@@ -605,11 +605,11 @@ const AssetMap: React.FC<any> = (props) => {
     setListSelectedMarker("");
     setSelectedNotification("");
     // map?.panTo(center);
-    map?.setZoom(
-      selectedContainerStyle?.is4kDevice
-        ? 16.2
-        : 17
-    );
+    // map?.setZoom(
+    //   selectedContainerStyle?.is4kDevice
+    //     ? 16.2
+    //     : 17
+    // );
     setSelectedMarker("");
   };
 
@@ -637,7 +637,7 @@ const AssetMap: React.FC<any> = (props) => {
       (selectedNotificationItem === "" ||
       selectedNotification === "")
     ) {
-      map?.setZoom(21);
+      // map?.setZoom(21);
       // map?.panTo(center);
     }
   }, [
@@ -659,7 +659,7 @@ const AssetMap: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-
+    map?.setZoom(18)
     setAssetLiveMarker(id);
     setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -735,7 +735,7 @@ const AssetMap: React.FC<any> = (props) => {
             parkingMapContainerStyle
           }
           // center={ center }
-          zoom={zoomValue}
+          // zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
@@ -743,7 +743,7 @@ const AssetMap: React.FC<any> = (props) => {
           onMapTypeIdChanged={handleMapTypeChanged}
           // onClick={()=>{setMapDefaultView(false)}}
           // onDrag={()=>{setMapDefaultView(false)}}
-          // onCenterChanged={()=>{setMapDefaultView(false)}}
+          onCenterChanged={()=>{setMapDefaultView(false)}}
         >
           <MarkerClustererF
             averageCenter

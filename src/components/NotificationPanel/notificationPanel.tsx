@@ -144,7 +144,7 @@ const NotificationPanel = (props: any) => {
   const handleExpandListItem = useCallback(
     (param: any, markerId: any, data: any) => {
       setSelectedNotificationItem(data);
-      setMapDefaultView(false);
+      // setMapDefaultView(false);
       setListSelectedMarker(markerId);
       setAssetLiveMarker("");
       setIsMarkerClicked(false);
