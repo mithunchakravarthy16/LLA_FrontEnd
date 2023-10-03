@@ -17,6 +17,8 @@ import TemperatureIcon from "assets/assetTableIcons/temperature.svg";
 import HumidityIcon from "assets/assetTableIcons/humidity.svg";
 import LocationIcon from "assets/assetTableIcons/location.svg";
 import BatteryIcon from "assets/assetTableIcons/battery.svg";
+import BluetoothIcon from "assets/assetTableIcons/bluetooth.png";
+import CellularIcon from "assets/assetTableIcons/cellularIcon.png"
 import Tooltip from "elements/Tooltip";
 import { getAssetTable } from "redux/actions/getAssetTableDataAction";
 import useStyles from "./styles";
@@ -37,6 +39,7 @@ const AssetTable: React.FC<any> = (props) => {
     searchClass,
     rootContainer,
     iconStyleClass,
+    refreshButtonStyle
   } = useStyles();
 
   const assetTableResponse = useSelector((state:any)=>state?.assetTable?.assetTableData)
@@ -189,6 +192,13 @@ const AssetTable: React.FC<any> = (props) => {
       debounce(fetchingDataForSearch, delayTime),
       []
     );
+
+    const handleCloseIcon = () => {
+      if (searchTextRef.current) {
+        setSearchValue(assetTableResponse);
+      }
+      
+    };
     //debouncing end
 
 
@@ -200,19 +210,19 @@ const AssetTable: React.FC<any> = (props) => {
   }
 
   // Tooltip Props
-  const tooltipOfset = [0, 10];
-  const fontSize = [14];
-  const padding = [2];
+  const tooltipOfset = [0, 5];
+  const fontSize = [13];
+  const padding = [1];
 
   return (
     <>
       <Grid className={rootContainer}>
         <Grid>
-          <h1 style={{ textAlign: "center" }}>Asset Table</h1>
+          <h1 style={{ textAlign: "center", color : "#084476" }}>Asset Table</h1>
         </Grid>
         <Grid className={assetTableHeader} style={{ margin: "1vw 5vw" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h3 style={{ marginRight: "1vw" }}>Search By ID</h3>
+            <h3 style={{ marginRight: "1vw", color : "#084476"  }}>Search By ID</h3>
             <SearchBox
               searchInput={searchClass}
               placeHolder={"Search"}
@@ -220,21 +230,23 @@ const AssetTable: React.FC<any> = (props) => {
               borderRadius={2}
               borderColor={`1px solid #1A1919`}
               fontColor={"#1A1919"}
-              // handleCloseIcon={handleCloseIcon}
+              handleCloseIcon={handleCloseIcon}
               // searchIsOpen={searchOpen}
               // selectedTheme={selectedTheme}
               notificationPageName={"assetTable"}
             />
           </div>
-
+          <div className={refreshButtonStyle}>
           <Button variant="contained" onClick={handleRefreshButton}>
             Refresh
           </Button>
+          </div>
+
         </Grid>
-        <Grid style={{ margin: "2vw 5vw" }}>
-          <TableContainer className={tableLayoutStyle}>
-            <div style={{ overflow: "auto" }}>
-              <Table>
+        <Grid style={{ margin: "2vw 5vw", height : "78vh" }}>
+          <TableContainer className={tableLayoutStyle} style={{height : "100%"}}>
+            <div>
+              <Table stickyHeader>
                 <TableHead style={{ background: "#084476" }}>
                   <TableRow>
                     {tableHeadData?.length > 0 &&
@@ -258,7 +270,12 @@ const AssetTable: React.FC<any> = (props) => {
                             // }}
                           >
                             <TableCell>{item && item?.assetId}</TableCell>
-                            <TableCell>{item && item?.deviceId}</TableCell>
+                            <TableCell>
+                              <div style={{display:"flex"}}>
+                                <p style={{width : "1.5vh", height : "1.5vh"}}><img src={item?.deviceType === "bluetooth" ? BluetoothIcon : CellularIcon} alt="" width={"100%"} height={"100%"} /></p>
+                                <span style={{marginLeft : "0.2vw"}}>{item?.deviceId}</span>
+                              </div>
+                              </TableCell>
                             <TableCell>
                               <div className={sensorValues}>
                                 <div className={temperatureIcon}>

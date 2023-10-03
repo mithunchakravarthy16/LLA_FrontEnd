@@ -5,7 +5,8 @@ import IconButton from "@mui/material/IconButton";
 // import SearchIcon from "@mui/icons-material/Search";
 import SearchIconImg from "../../assets/searchIcon.svg";
 import closeIconBox from "../../assets/closeIconBox.svg";
-
+import SearchIconDark from "../../assets/searchIconDark.svg";
+import CloseIconDark from "../../assets/closeIconBoxDark.svg"
 //@ts-ignore
 import CloseIcon from "@mui/icons-material/Close";
 import theme from "../../theme/theme";
@@ -152,7 +153,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
               {icon === "search" ? (
                 <img
-                  src={SearchIconImg}
+                  src={notificationPageName === "assetTable" ? SearchIconDark :SearchIconImg}
                   onClick={handleSearchFocus}
                   // onChange={handleInput}
                   // sx={{ color: fontColor }}
@@ -161,7 +162,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
                 // <SearchIcon></SearchIcon>
                 // <CloseIcon onClick={handleClose} sx={{ fill: fontColor }} />
                 <img
-                  src={closeIconBox}
+                  src={notificationPageName === "assetTable" ? CloseIconDark :closeIconBox}
                   onClick={handleClose}
                   style={{ fill: fontColor }}
                 />
