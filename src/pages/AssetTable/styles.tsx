@@ -88,7 +88,9 @@ const useStyles = makeStyles({
     "& .MuiTableContainer-root": {
       height: "100%",
     },
-    "& .MuiTableCell-root": {},
+    "& .MuiTableCell-root": {
+      padding : "1vw"
+    },
     "& .MuiTableCell-head": {
       background: "#084476",
       fontSize: "0.9vw",
