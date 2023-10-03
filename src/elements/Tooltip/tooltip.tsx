@@ -43,7 +43,7 @@ const INF_Tooltip: React.FC<any> = (props) => {
   } = props;
 
   return (
-    <div style={{ cursor: "pointer", display: "flex",  height: pageName === "markerCallout" ? "1.3vh" : "3vh" }}>
+    <div style={{ cursor: "pointer", display: "flex",  height: pageName === "markerCallout" ? "1.3vh" : pageName === "assetTable" ? "1.8vh" : "3vh" }}>
       <Tooltip
         className="tooltipTest"
         arrow

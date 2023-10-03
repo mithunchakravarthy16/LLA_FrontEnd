@@ -61,7 +61,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleClose = () => {
     setSearchValue("");
-    notificationPageName === "parking" && handleSearch("");
+    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch("");
     // handleSearchtest("")
     setIcon("search");
     if (
@@ -85,7 +85,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     if (event.target.value.length > 0) {
       setIcon("cancel");
     }
-    notificationPageName === "parking" && handleSearch(event.target.value);
+    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
@@ -117,7 +117,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
   useEffect(() => {
     setSearchValue("");
     setIcon("search");
-    notificationPageName === "parking" && handleSearch("");
+    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch("");
     // handleSearchtest("")
   }, [tabIndex]);
 
