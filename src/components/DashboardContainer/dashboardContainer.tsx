@@ -178,13 +178,13 @@ const DashboardContainer = (props: any) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
@@ -198,9 +198,9 @@ const DashboardContainer = (props: any) => {
     };
     if (!debounceSearchText) {
       const fleetPayload: any = {};
-      // dispatch(setFleetManagementNotificationData({}));
-      // dispatch(getFleetManagementNotificationData(fleetPayload));
-      // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+      dispatch(setFleetManagementNotificationData({}));
+      dispatch(getFleetManagementNotificationData(fleetPayload));
+      dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
       setSuccess(false);
       let assetPayload: any = {
         filterText: "",
@@ -218,15 +218,15 @@ const DashboardContainer = (props: any) => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    const intervalTime = setInterval(() => {
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
-      );
-    }, 1 * 60 * 1000);
+    // const intervalTime = setInterval(() => {
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+    //   );
+    // }, 1 * 60 * 1000);
 
-    return () => {
-      clearInterval(intervalTime);
-    };
+    // return () => {
+    //   clearInterval(intervalTime);
+    // };
   }, [debounceSearchText, page, rowsPerPage]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -264,8 +264,8 @@ const DashboardContainer = (props: any) => {
       setSuccess(true);
     } else if (
       assetNotificationResponse
-      // &&
-      // fleetManagementNotificationResponse?.status === 200
+      &&
+      fleetManagementNotificationResponse?.status === 200
     ) {
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
@@ -279,14 +279,14 @@ const DashboardContainer = (props: any) => {
       );
       if (
         assetNotiData &&
-        assetNotiData?.length > 0
-        // fleetNotiData &&
-        // fleetNotiData?.length > 0
+        assetNotiData?.length > 0 &&
+        fleetNotiData &&
+        fleetNotiData?.length > 0
       ) {
         const consolidatedData = [
           ...assetNotiData,
           ...dashboardNotiData,
-          // ...fleetNotiData,
+          ...fleetNotiData,
         ];
 
         const consolidatedDataNextPage = [...assetNotiData];
@@ -298,7 +298,7 @@ const DashboardContainer = (props: any) => {
         );
       }
     }
-  }, [assetNotificationResponse, searchOpen]);
+  }, [assetNotificationResponse, searchOpen, fleetManagementNotificationResponse]);
 
   useEffect(() => {
     if (assetLiveData) {

@@ -624,17 +624,11 @@ const Map: React.FC<any> = (props) => {
             //   : ParkingEventIcon;
             return ParkingEventIcon;
           case "energy":
-            return currentMarker === id
-              ? EnergyManagementEventActiveIcon
-              : EnergyManagemnetEventIcon;
+            return EnergyManagemnetEventIcon;
           case "security":
-            return currentMarker === id
-              ? SecurityEventActiveIcon
-              : SecurityEventIcon;
+            return  SecurityEventIcon;
           case "lighting":
-            return currentMarker === id
-              ? LightenEventActiveIcon
-              : LighteningEventIcon;
+            return  LighteningEventIcon;
           case "asset":
             // return (currentMarker === id || assetLiveMarker === id)
             //   ? AssetTrackingEventActiveIcon
@@ -655,17 +649,11 @@ const Map: React.FC<any> = (props) => {
             //   : ParkingAlertIcon;
             return ParkingAlertIcon;
           case "energy":
-            return currentMarker === id
-              ? EnergyManagementAlertActiveIcon
-              : EnergyManagementAlertIcon;
+            return EnergyManagementAlertIcon;
           case "security":
-            return currentMarker === id
-              ? SecurityAlertActiveIcon
-              : SecutiryAlertIcon;
+            return  SecutiryAlertIcon;
           case "lighting":
-            return currentMarker === id
-              ? LightenAlertActiveIcon
-              : LighteningAlertIcon;
+            return LighteningAlertIcon;
           case "asset":
             // return (currentMarker === id || assetLiveMarker === id)
             //   ? AssetTrackingAlertActiveIcon
@@ -687,17 +675,11 @@ const Map: React.FC<any> = (props) => {
             //   : ParkingIncidentIcon;
             return ParkingIncidentIcon;
           case "energy":
-            return currentMarker === id
-              ? EnergyManagementIncidentActiveIcon
-              : EnergyManagementIncidentIcon;
+            return EnergyManagementIncidentIcon;
           case "security":
-            return currentMarker === id
-              ? SecurityIncidentActiveIcon
-              : SecurityIncidentIcon;
+            return  SecurityIncidentIcon;
           case "lighting":
-            return currentMarker === id
-              ? LightenIncidentActiveIcon
-              : LighteningIncidentIcon;
+            return LighteningIncidentIcon;
           case "asset":
             // return (currentMarker === id || assetLiveMarker === id)
             //   ? AssetTrackingIncidentActiveIcon
@@ -965,7 +947,7 @@ const Map: React.FC<any> = (props) => {
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
     setMapDefaultView(false)
-    if (data?.category === "parking" || location?.pathname === "/parking") {
+    if (data?.category === "parking" || location?.pathname === "/parking" || data?.category === "energy" || location?.pathname === "/energyManagement") {
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
       setTabIndex(getTabIndex(data?.notificationType));

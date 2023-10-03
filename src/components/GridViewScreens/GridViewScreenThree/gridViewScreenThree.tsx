@@ -162,7 +162,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
           alignContent="space-between"
           className={gridContainers}
         >
-          {/* <Grid item xs={12} className={containerTitleTwo}>
+          <Grid item xs={12} className={containerTitleTwo}>
             <div>{dashboard.security}</div>
             <div
                       style={{
@@ -242,10 +242,10 @@ const GridViewScreenThree: React.FC<any> = (props) => {
                 },
               ]}
             />
-          </Grid> */}
+          </Grid>
 
         {/* //-----developer mode starts here---// */}
-          <Grid item xs={12} className={containerTitleTwo}>
+          {/* <Grid item xs={12} className={containerTitleTwo}>
             <div>{dashboard.security}</div>
           </Grid>
           <Grid
@@ -260,7 +260,7 @@ const GridViewScreenThree: React.FC<any> = (props) => {
             }}
           >
             Development In Progress...
-          </Grid>
+          </Grid> */}
         {/* //-----developer mode ends here---// */}
         </Grid>
       </Grid>

@@ -29,9 +29,11 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import energyManagementData from "mockdata/energyManagementData";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
 
 const Parking: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -76,6 +78,7 @@ const Parking: React.FC<any> = (props) => {
     notificationPanelGrid,
     graphTwoHeader,
     screenFiveGraphTitleStyle,
+    globeIconSection
   } = useStyles(appTheme);
 
   const [selectedValue, setSelectedValue] = useState<any>("Week");
@@ -278,6 +281,22 @@ const Parking: React.FC<any> = (props) => {
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
+
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
 
   return (
     <>
@@ -544,12 +563,21 @@ const Parking: React.FC<any> = (props) => {
                     className={bodyLeftTopPanelMapContainer}
                     style={{ height: "58%" }}
                   >
+                     <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                     <Map
                       mapPageName={"energy"}
+                      mapType={mapType}
+                      setMapType={setMapType}
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}
                       setSelectedNotification={setSelectedNotification}
                       marker={selectedNotification}
+                      selectedNotification={selectedNotification}
                       setTabIndex={setTabIndex}
                       currentMarker={currentMarker}
                       setCurrentMarker={setCurrentMarker}
@@ -557,6 +585,14 @@ const Parking: React.FC<any> = (props) => {
                       selectedTheme={selectedTheme}
                       setMap={setMap}
                       map={map}
+                      liveMarkerList={liveMarkerList}
+                      setAssetLiveMarker={setAssetLiveMarker}
+                      listSelectedMarker={listSelectedMarker}
+                      setListSelectedMarker={setListSelectedMarker}
+                      selectedNotificationItem={selectedNotificationItem}
+                      setSelectedNotificationItem={setSelectedNotificationItem}
+                      mapDefaultView={mapDefaultView}
+                      setMapDefaultView={setMapDefaultView}
                     />
                   </Grid>
                 </Grid>
@@ -575,10 +611,19 @@ const Parking: React.FC<any> = (props) => {
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   setCurrentMarker={setCurrentMarker}
+                  notificationPageName={"energy"}
                   isMarkerClicked={isMarkerClicked}
                   setIsMarkerClicked={setIsMarkerClicked}
                   selectedTheme={selectedTheme}
                   handleExpandListItem={() => {}}
+                  setAssetLiveMarker={setAssetLiveMarker}
+                  liveMarkerList={liveMarkerList}
+                  listSelectedMarker={listSelectedMarker}
+                  setListSelectedMarker={setListSelectedMarker}
+                  selectedNotificationItem={selectedNotificationItem}
+                  setSelectedNotificationItem={setSelectedNotificationItem}
+                  mapDefaultView={mapDefaultView}
+                  setMapDefaultView={setMapDefaultView}
                 />
               </Grid>
             </Grid>

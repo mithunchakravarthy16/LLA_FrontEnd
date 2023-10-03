@@ -189,7 +189,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
           {/* ---previously commented ends here--- */}
 
 
-          {/* <Grid item xs={12} className={subContainer}>
+          <Grid item xs={12} className={subContainer}>
             <Grid container xs={9} className={childSubContainer}>
             <Grid item xs={12} className={containerTitle}>
             {dashboard.energyManagement}
@@ -366,12 +366,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               
-          </Grid> */}
+          </Grid>
 
 
 
       {/* //-----developer mode starts here---// */}
-          <Grid item xs={12} className={containerTitle}>
+          {/* <Grid item xs={12} className={containerTitle}>
             {dashboard.energyManagement}
           </Grid>
           <Grid
@@ -386,7 +386,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
             }}
           >
             Development In Progress...
-          </Grid>
+          </Grid> */}
         {/* //-----developer mode ends here---// */}  
 
         
