@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import {
   TableContainer,
@@ -17,10 +18,12 @@ import HumidityIcon from "assets/assetTableIcons/humidity.svg";
 import LocationIcon from "assets/assetTableIcons/location.svg";
 import BatteryIcon from "assets/assetTableIcons/battery.svg";
 import Tooltip from "elements/Tooltip";
+import { getAssetTable } from "redux/actions/getAssetTableDataAction";
 import useStyles from "./styles";
 
 const AssetTable: React.FC<any> = (props) => {
   const {} = props;
+  const dispatch = useDispatch()
 
   const {
     tableLayoutStyle,
@@ -35,6 +38,13 @@ const AssetTable: React.FC<any> = (props) => {
     rootContainer,
     iconStyleClass,
   } = useStyles();
+
+  const assetTableResponse = useSelector((state:any)=>state?.assetTable?.assetTableData)
+
+  useEffect(() => {
+    let payload: any = {};
+    dispatch(getAssetTable(payload));
+  }, []);
 
   const tableHeadData = [
     { title: "Asset", id: 0 },
@@ -51,7 +61,7 @@ const AssetTable: React.FC<any> = (props) => {
       sensorValues: {
         temperature: 24.1,
         humidity: "",
-        location: "",
+        pressure: "",
         battery: 92,
       },
       lastReported: "14 hours ago",
@@ -62,7 +72,7 @@ const AssetTable: React.FC<any> = (props) => {
       sensorValues: {
         temperature: 24.1,
         humidity: "",
-        location: "",
+        pressure: "",
         battery: 92,
       },
       lastReported: "14 hours ago",
@@ -73,7 +83,7 @@ const AssetTable: React.FC<any> = (props) => {
       sensorValues: {
         temperature: 24.1,
         humidity: "",
-        location: "",
+        pressure: "",
         battery: 92,
       },
       lastReported: "14 hours ago",
@@ -84,7 +94,7 @@ const AssetTable: React.FC<any> = (props) => {
       sensorValues: {
         temperature: 24.1,
         humidity: "",
-        location: "",
+        pressure: "",
         battery: 92,
       },
       lastReported: "14 hours ago",
@@ -95,7 +105,7 @@ const AssetTable: React.FC<any> = (props) => {
       sensorValues: {
         temperature: 24.1,
         humidity: "",
-        location: "",
+        pressure: "",
         battery: 92,
       },
       lastReported: "14 hours ago",
@@ -106,17 +116,23 @@ const AssetTable: React.FC<any> = (props) => {
       sensorValues: {
         temperature: 24.1,
         humidity: "",
-        location: "",
+        pressure: "",
         battery: 92,
       },
       lastReported: "14 hours ago",
     },
   ];
+  
+  const [searchValue, setSearchValue] = useState<any>(assetTableResponse);
 
-  const [searchValue, setSearchValue] = useState<any>(tableData);
+  useEffect(()=>{
+    if(assetTableResponse) {
+      setSearchValue(assetTableResponse)
+    }
+  },[assetTableResponse])
 
   const handleSearch = (searchValue: any) => {
-    let searchResult = tableData?.filter((value: any) => {
+    let searchResult = assetTableResponse?.filter((value: any) => {
       return (
         value?.assetId
           ?.toLowerCase()
@@ -235,7 +251,7 @@ const AssetTable: React.FC<any> = (props) => {
                                 <div className={locationIcon}>
                                   <div className={iconStyleClass}>
                                     <Tooltip
-                                      tooltipValue={"Location"}
+                                      tooltipValue={"Pressure"}
                                       placement={"bottom"}
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
@@ -250,7 +266,7 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.location === "" ? "--" : item?.sensorValues?.location}
+                                    {item && item?.sensorValues?.pressure === "" ? "--" : item?.sensorValues?.pressure}
                                   </span>
                                 </div>
                                 <div className={batteryIcon}>

@@ -46,6 +46,8 @@ import enableGeofence from "redux/actions/enableGeofenceAction";
 import updateGeofence from "redux/actions/updateGeofenceAction";
 import { handleEnableGeofence } from "./handlers/enableGeofence";
 import { handleUpdateGeofence } from "./handlers/updateGeofence";
+import assetTable from "redux/actions/getAssetTableDataAction";
+import { handleAssetTableData } from "./handlers/getAssetTable";
 
 export default function* rootSaga() {
   yield all([
@@ -74,7 +76,8 @@ export default function* rootSaga() {
     watchAssetTrackingCreateGeofence(),
     watchAssetTrackingUpdateGeofence(),
     watchAssetTrackingGridViewAnalyticsData(),
-    watchAssetLiveLocation()
+    watchAssetLiveLocation(),
+    watchAssetTableData()
   ]);
 }
 
@@ -240,5 +243,11 @@ export function* watchAssetTrackingGridViewAnalyticsData() {
 export function* watchAssetLiveLocation() {
   yield takeLatest (
     assetTrackerDetail.GET_ASSET_LIVE_LOCATION, handleAssetLiveLocation
+  )
+}
+
+export function* watchAssetTableData() {
+  yield takeLatest(
+    assetTable.GET_ASSET_TABLE, handleAssetTableData
   )
 }
