@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import {
@@ -42,7 +42,9 @@ const AssetTable: React.FC<any> = (props) => {
   const assetTableResponse = useSelector((state:any)=>state?.assetTable?.assetTableData)
 
   useEffect(() => {
-    let payload: any = {};
+    let payload: any = {
+      filterText : ""
+    };
     dispatch(getAssetTable(payload));
   }, []);
 
@@ -123,7 +125,7 @@ const AssetTable: React.FC<any> = (props) => {
     },
   ];
   
-  const [searchValue, setSearchValue] = useState<any>(assetTableResponse);
+  const [searchValue, setSearchValue] = useState<any>(assetTableResponse);  
 
   useEffect(()=>{
     if(assetTableResponse) {
@@ -146,6 +148,58 @@ const AssetTable: React.FC<any> = (props) => {
     setSearchValue(searchResult);
   };
 
+    //debouncing start
+    const [debounceSearchText, setDebounceSearchText] = useState<any>("");
+    const searchTextRef = useRef<any>("");
+
+    const delayTime =  1000;
+    const fetchingDataForSearch = (searchValue: any) => {
+      searchTextRef.current = searchValue;
+      let payload = {};
+      if (searchValue) {
+        payload = {
+          filterText: searchValue,
+          
+        };
+      } else {
+        payload = {
+          filterText: "",
+         
+        };
+      }
+      dispatch(
+        getAssetTable({ payLoad: payload})
+      );
+      setDebounceSearchText(searchValue);
+    };
+
+    const debounce = (func: any, delay: any) => {
+      let timeout: any;
+  
+      return (...arg: any) => {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(context, arg);
+        }, delay);
+      };
+    };
+  
+    const handleSearchtest = useCallback(
+      debounce(fetchingDataForSearch, delayTime),
+      []
+    );
+    //debouncing end
+
+
+  const handleRefreshButton = () => {
+    let payload: any = {
+      filterText : ""
+    };
+    dispatch(getAssetTable(payload));
+  }
+
+  // Tooltip Props
   const tooltipOfset = [0, 10];
   const fontSize = [14];
   const padding = [2];
@@ -173,7 +227,7 @@ const AssetTable: React.FC<any> = (props) => {
             />
           </div>
 
-          <Button variant="contained" onClick={() => {}}>
+          <Button variant="contained" onClick={handleRefreshButton}>
             Refresh
           </Button>
         </Grid>
