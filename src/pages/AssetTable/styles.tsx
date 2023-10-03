@@ -27,21 +27,21 @@ const useStyles = makeStyles({
     cursor: "pointer",
     display : "flex",
     alignItems : "center",
-    width: "2.3vw",
+    width: "2.8vw",
     height: "1.3vh"
     
   }),
   humidityIcon: () => ({
-    paddingLeft: "20px",
+    paddingLeft: "2vw",
     cursor: "pointer",
     display : "flex",
     alignItems : "center",
-    width: "2.3vw",
+    width: "3.3vw",
     height: "1.3vh"
     
   }),
   locationIcon: () => ({
-    paddingLeft: "20px",
+    paddingLeft: "2vw",
     cursor: "pointer",
     display : "flex",
     alignItems : "center",
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     
   }),
   batteryIcon: () => ({
-    paddingLeft: "20px",
+    paddingLeft: "2vw",
     cursor: "pointer",
     display : "flex",
     alignItems : "center",

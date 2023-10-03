@@ -272,7 +272,7 @@ const AssetTable: React.FC<any> = (props) => {
                             <TableCell>{item && item?.assetId}</TableCell>
                             <TableCell>
                               <div style={{display:"flex"}}>
-                                <p style={{width : "1.5vh", height : "1.5vh"}}><img src={item?.deviceType === "bluetooth" ? BluetoothIcon : CellularIcon} alt="" width={"100%"} height={"100%"} /></p>
+                                <p style={{width : "1.5vh", height : "1.5vh"}}><img src={item?.deviceType === "BLE_TAG" ? BluetoothIcon : CellularIcon} alt="" width={"100%"} height={"100%"} /></p>
                                 <span style={{marginLeft : "0.2vw"}}>{item?.deviceId}</span>
                               </div>
                               </TableCell>
@@ -295,7 +295,7 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.temperature}
+                                    {item && item?.sensorValues?.temperature?.toFixed(2)}
                                   </span>
                                 </div>
                                 <div className={humidityIcon}>
@@ -316,7 +316,7 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.humidity === "" ? "--" : item?.sensorValues?.humidity}
+                                    {item && item?.sensorValues?.humidity === null ? "--" : item?.sensorValues?.humidity?.toFixed(2)}
                                   </span>
                                 </div>
                                 <div className={locationIcon}>
@@ -337,7 +337,7 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.pressure === "" ? "--" : item?.sensorValues?.pressure}
+                                    {item && item?.sensorValues?.pressure === 0 ? "--" : item?.sensorValues?.pressure}
                                   </span>
                                 </div>
                                 <div className={batteryIcon}>
