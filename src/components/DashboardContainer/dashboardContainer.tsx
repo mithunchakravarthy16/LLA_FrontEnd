@@ -825,11 +825,8 @@ useEffect(()=>{
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
-              <div className={dashboardRightPanelStyle}>
-              
-              <iframe width="100%" height="900px"  src="https://digitalsky.dgca.gov.in/" frameborder="0" ></iframe>
-                
-                {/* <Map
+              <div className={dashboardRightPanelStyle}>                
+                <Map
                   markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}
@@ -857,7 +854,7 @@ useEffect(()=>{
                   isMarkerClicked={isMarkerClicked}
                   setMapType={setMapType}
                   mapType={mapType}
-                /> */}
+                />
               </div>
             </Grid>
             <Grid item xs={12}>
