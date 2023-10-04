@@ -42,11 +42,11 @@ const AssetTable: React.FC<any> = (props) => {
     refreshButtonStyle
   } = useStyles();
 
-  const assetTableResponse = useSelector((state:any)=>state?.assetTable?.assetTableData)
+  const assetTableResponse = useSelector((state:any)=>state?.assetTable?.assetTableData?.data)
 
   useEffect(() => {
     let payload: any = {
-      filterText : ""
+      assetId : ""
     };
     dispatch(getAssetTable(payload));
   }, []);
@@ -161,17 +161,17 @@ const AssetTable: React.FC<any> = (props) => {
       let payload = {};
       if (searchValue) {
         payload = {
-          filterText: searchValue,
+          assetId: searchValue,
           
         };
       } else {
         payload = {
-          filterText: "",
+          assetId: "",
          
         };
       }
       dispatch(
-        getAssetTable({ payLoad: payload})
+        getAssetTable(payload)
       );
       setDebounceSearchText(searchValue);
     };
@@ -203,10 +203,12 @@ const AssetTable: React.FC<any> = (props) => {
 
 
   const handleRefreshButton = () => {
+    searchTextRef.current = ""
     let payload: any = {
-      filterText : ""
+      assetId: ""
     };
     dispatch(getAssetTable(payload));
+    setDebounceSearchText("")
   }
 
   // Tooltip Props
@@ -226,7 +228,7 @@ const AssetTable: React.FC<any> = (props) => {
             <SearchBox
               searchInput={searchClass}
               placeHolder={"Search"}
-              handleSearch={handleSearch}
+              handleSearch={handleSearchtest}
               borderRadius={2}
               borderColor={`1px solid #1A1919`}
               fontColor={"#1A1919"}
