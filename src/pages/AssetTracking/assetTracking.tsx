@@ -47,6 +47,7 @@ import {
 import CustomTablePagination from "elements/CustomPagination";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -1185,9 +1186,19 @@ const AssetTracking: React.FC<any> = (props) => {
     setDebounceSearchText("");
   };
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
-      {isDataLoaded ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1479,6 +1490,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <AssetMap
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}

@@ -25,6 +25,7 @@ import {
   setAssetTrackingCreateGeofence,
   setAssetTrackingUpdateGeofence,
 } from "redux/actions/getAssetTrackerDetailAction";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {},
@@ -701,6 +702,16 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
       {success &&
@@ -761,7 +772,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           </IconButton>
         </div>
 
-        {!assetInfoLoader ? (
+        {!assetInfoLoader && googleMapsApiKeyResponse? (
           <Grid container xs={12} style={{ height: "100%" }}>
             <Grid item xs={12} className={headerStyle}>
               <Grid container xs={3} className={headerTabContainerStyle}>
@@ -1052,6 +1063,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                       <Map
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={[selectedMarker]}

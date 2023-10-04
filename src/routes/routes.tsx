@@ -5,6 +5,7 @@ import MainLayout from "pages/MainLayout";
 import AdminPanel from "pages/AdminPanel";
 import AdminPanelLogin from "pages/AdminPanelLogin";
 import Loader from "elements/Loader";
+import GoogleMapApiKey from "pages/GoogleMapApiKey";
 
 const Login = React.lazy(() => import("pages/Login"));
 const DashBoard = React.lazy(() => import("pages/DashBoard"));
@@ -120,6 +121,14 @@ const VIOT_Routes = () => {
           element: (
             <Suspense fallback={<Loader />}>
               <AssetTracking mapType={mapType} setMapType={setMapType} />
+            </Suspense>
+          ),
+        },
+        {
+          path: "googleMapApiKey",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <GoogleMapApiKey/>
             </Suspense>
           ),
         },
