@@ -181,6 +181,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         id: event?.assetNotificationId,
         markerId: event?.id,
         currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
+        description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
       });
     });
 
@@ -194,6 +195,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         id: incidents?.assetNotificationId,
         markerId: incidents?.id,
         currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
+        description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`                    
       });
     });
 
@@ -206,6 +208,7 @@ export const formatttedAssetAPINotification = (data: any) => {
         title: alerts?.reason,
         id: alerts?.assetNotificationId,
         currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
+        description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`                    
       });
     });
 
