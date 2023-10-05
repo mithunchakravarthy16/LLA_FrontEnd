@@ -30,6 +30,7 @@ import {
 } from "../../utils/utils";
 import energyManagementData from "mockdata/energyManagementData";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -279,10 +280,20 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
     {
-      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?
+      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0  && googleMapsApiKeyResponse ?
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -545,6 +556,7 @@ const Parking: React.FC<any> = (props) => {
                     style={{ height: "58%" }}
                   >
                     <Map
+                    googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                       mapPageName={"energy"}
                       markers={dashboardDataList}
                       setNotificationPanelActive={setNotificationPanelActive}

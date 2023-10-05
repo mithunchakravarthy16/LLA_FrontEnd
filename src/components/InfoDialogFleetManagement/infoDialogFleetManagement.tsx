@@ -50,6 +50,7 @@ import {
 import { formattedViolationsList, getFormattedAddress } from "utils/utils";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -627,6 +628,16 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
   };
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
       {success && (
@@ -686,7 +697,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         </Snackbar>
       )}
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        {selectedMarkerLocation?.tripStatus !== "Live" && loader ? (
+        {selectedMarkerLocation?.tripStatus !== "Live" && loader && !googleMapsApiKeyResponse ? (
           <Loader />
         ) : (
           <>
@@ -804,6 +815,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                     <Grid style={{ height: "100%" }} item xs={12}>
                       {tabIndex === 0 ? (
                         <TripDetailsMap
+                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                           markers={[selectedMarkerLocation]}
                           marker={selectedMarkerLocation?.id}
                           currentMarker={selectedMarkerLocation}
