@@ -32,6 +32,7 @@ import securityData from "mockdata/securityData";
 import Highcharts from "highcharts";
 import Chart from "elements/Chart";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const Parking: React.FC<any> = (props) => {
   const adminPanelData = useSelector(
@@ -304,11 +305,21 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
       {!loaderAdminGetConfigData &&
       isDataLoaded &&
-      appTheme &&
+      appTheme && googleMapsApiKeyResponse &&
       Object.keys(appTheme).length > 0 ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
@@ -596,6 +607,7 @@ const Parking: React.FC<any> = (props) => {
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "58%" }}>
                       <Map
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapPageName={"security"}
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}

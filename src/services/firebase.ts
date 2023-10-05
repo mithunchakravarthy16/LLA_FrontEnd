@@ -1,18 +1,22 @@
 // @ts-ignore
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 // @ts-ignore
 import { getFirestore } from "firebase/firestore/lite";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDyyJGEiEOv3lmVuRzsdlsMC0u50c4j0oI",
-  authDomain: "smart-logistics-2a67b.firebaseapp.com",
-  projectId: "smart-logistics-2a67b",
-  storageBucket: "smart-logistics-2a67b.appspot.com",
-  messagingSenderId: "372217265779",
-  appId: "1:372217265779:web:4a0c9d5649150bb0687406",
-  measurementId: "G-47K85Y78T1",
+  apiKey: "AIzaSyC_C_7RavzIO9LFg0eg_teYcLMgiuoAUNc",
+  authDomain: "lla--api.firebaseapp.com",
+  projectId: "lla--api",
+  storageBucket: "lla--api.appspot.com",
+  messagingSenderId: "348879339633",
+  appId: "1:348879339633:web:dfa27318c7f7025a2bdbd0"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);

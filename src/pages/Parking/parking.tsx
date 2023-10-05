@@ -40,6 +40,7 @@ import HC_rounded from "highcharts-rounded-corners";
 import ParkingSlotContainer from "components/ParkingSlotContainer";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 HC_rounded(Highcharts);
 
@@ -474,9 +475,20 @@ const Parking: React.FC<any> = (props) => {
     setSelectedNotificationItem("")
   };
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   const parkingMapUseMemo = useMemo(() => {
     return (
       <Map
+      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
         mapType={mapType}
         setMapType={setMapType}
         markers={dashboardDataList}
@@ -513,12 +525,15 @@ const Parking: React.FC<any> = (props) => {
     listSelectedMarker,
     selectedNotificationItem,
     mapDefaultView,
-    assetLiveMarker
+    assetLiveMarker,
+    googleMapsApiKeyResponse
   ]);
+
+
 
   return (
     <>
-      {isDataLoaded ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
