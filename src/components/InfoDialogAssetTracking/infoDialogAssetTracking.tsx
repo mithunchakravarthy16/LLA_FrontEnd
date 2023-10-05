@@ -156,6 +156,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: event?.reason,
           details: `${event?.trackerName} | ${event?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
+          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
+
         });
       });
 
@@ -167,6 +169,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: incidents?.reason,
           details: `${incidents?.trackerName} | ${incidents?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
+          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
+
         });
       });
 
@@ -179,6 +183,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: alerts?.reason,
           details: `${alerts?.trackerName} | ${alerts?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
+          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
+
         });
       });
 
@@ -990,21 +996,21 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   </div>
                                   <div className={assetTrackingTitle}>
                                     <div>
-                                      {item?.details?.length > 33 ? (
+                                      {item?.description?.length > 33 ? (
                                         <>
                                           <Tooltip
-                                            tooltipValue={item?.details}
+                                            tooltipValue={item?.description}
                                             placement={"bottom"}
                                             offset={tooltipOfset}
                                             fontSize={fontSize}
                                             padding={padding}
                                           >
                                             {" "}
-                                            {truncateString(item?.details, 33)}
+                                            {truncateString(item?.description, 33)}
                                           </Tooltip>
                                         </>
                                       ) : (
-                                        item?.details
+                                        item?.description
                                       )}
                                     </div>
                                     <div>{item?.timeStamp}</div>
