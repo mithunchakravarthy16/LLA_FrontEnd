@@ -315,6 +315,8 @@ const DashboardContainer = (props: any) => {
               ? asset?.trackerStatus
               : asset?.notificationType,
           markerId: asset?.trackerId,
+          description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+
         };
       });
 

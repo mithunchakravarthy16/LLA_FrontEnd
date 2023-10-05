@@ -6,6 +6,7 @@ import AdminPanel from "pages/AdminPanel";
 import AdminPanelLogin from "pages/AdminPanelLogin";
 import Loader from "elements/Loader";
 import GoogleMapApiKey from "pages/GoogleMapApiKey";
+import AssetTable from "pages/AssetTable"
 
 const Login = React.lazy(() => import("pages/Login"));
 const DashBoard = React.lazy(() => import("pages/DashBoard"));
@@ -145,6 +146,10 @@ const VIOT_Routes = () => {
     {
       path: "adminLogin",
       element: <AdminPanelLogin />,
+    },
+    {
+      path: "assetTable",
+      element: <AssetTable />,
     },
   ]);
 };

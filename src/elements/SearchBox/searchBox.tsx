@@ -5,7 +5,8 @@ import IconButton from "@mui/material/IconButton";
 // import SearchIcon from "@mui/icons-material/Search";
 import SearchIconImg from "../../assets/searchIcon.svg";
 import closeIconBox from "../../assets/closeIconBox.svg";
-
+import SearchIconDark from "../../assets/searchIconDark.svg";
+import CloseIconDark from "../../assets/closeIconBoxDark.svg"
 //@ts-ignore
 import CloseIcon from "@mui/icons-material/Close";
 import theme from "../../theme/theme";
@@ -30,7 +31,9 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setDebounceSearchText,
     notificationPageName,
     page,
-    rowsPerPage
+    rowsPerPage,
+    isRefreshClicked,
+    setIsRefreshClicked
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -61,7 +64,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleClose = () => {
     setSearchValue("");
-    notificationPageName === "parking" && handleSearch("");
+    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch("");
     // handleSearchtest("")
     setIcon("search");
     if (
@@ -80,12 +83,20 @@ const INF_SearchBox: React.FC<any> = (props) => {
       setSearchFocus(true);
     }
   };
+
+  useEffect(()=>{
+    if(isRefreshClicked && notificationPageName === "assetTable") {
+      setSearchValue("");
+      setIsRefreshClicked(false)
+    }
+  },[isRefreshClicked])
+
   const handleInput = (event: any) => {
     setSearchValue(event.target.value);
     if (event.target.value.length > 0) {
       setIcon("cancel");
     }
-    notificationPageName === "parking" && handleSearch(event.target.value);
+    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
@@ -117,7 +128,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
   useEffect(() => {
     setSearchValue("");
     setIcon("search");
-    notificationPageName === "parking" && handleSearch("");
+    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch("");
     // handleSearchtest("")
   }, [tabIndex]);
 
@@ -152,7 +163,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
               {icon === "search" ? (
                 <img
-                  src={SearchIconImg}
+                  src={notificationPageName === "assetTable" ? SearchIconDark :SearchIconImg}
                   onClick={handleSearchFocus}
                   // onChange={handleInput}
                   // sx={{ color: fontColor }}
@@ -161,7 +172,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
                 // <SearchIcon></SearchIcon>
                 // <CloseIcon onClick={handleClose} sx={{ fill: fontColor }} />
                 <img
-                  src={closeIconBox}
+                  src={notificationPageName === "assetTable" ? CloseIconDark :closeIconBox}
                   onClick={handleClose}
                   style={{ fill: fontColor }}
                 />
