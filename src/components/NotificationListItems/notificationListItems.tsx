@@ -394,13 +394,44 @@ const NotificationListItems = (props: any) => {
                             )}
                           </div>
                           <div className={expandedListItemRow3}>
-                            {item?.assetName}
+                          {item?.description?.length > 45 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.description}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.description, 45)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.description
+                          )}
                           </div>
                         </>
                       ) : (
                         <div className={expandedListItemRow3}>
-                          {item?.trackerName && item?.trackerName}{" "}
-                          {item?.assetName && ` | ${item?.assetName}`}
+                          {item?.description?.length > 45 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.description}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.description, 45)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.description
+                          )}
                         </div>
                       )}
 
@@ -433,8 +464,23 @@ const NotificationListItems = (props: any) => {
                       </div>
                       <div className={collapsedlistItemRow2}>
                         <div className={collapsedListItemSubTitle}>
-                          {item?.trackerName && item?.trackerName}{" "}
-                          {item?.assetName && ` | ${item?.assetName}`}
+                          {item?.description?.length > 37 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.description}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.description, 37)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.description
+                          )}
                         </div>
                         <div className={collapsedTimeStampStyle}>
                           {localDate.format("MM-DD-YYYY | HH:mm A")}

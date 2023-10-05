@@ -38,6 +38,7 @@ import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
 import useStyles from "./styles";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -314,6 +315,8 @@ const DashboardContainer = (props: any) => {
               ? asset?.trackerStatus
               : asset?.notificationType,
           markerId: asset?.trackerId,
+          description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+
         };
       });
 
@@ -604,7 +607,14 @@ const DashboardContainer = (props: any) => {
     setDebounceSearchText("");
   };
 
-
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+    useEffect(()=>{      
+      fetchGoogleMapApi((mapApiResponse:string)=>{
+         setGoogleMapsApiKeyResponse(mapApiResponse)
+        
+      })
+    },[])
 
 
   return (
@@ -682,12 +692,13 @@ const DashboardContainer = (props: any) => {
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader ? (
+      !overAllAnalyticsLoader && googleMapsApiKeyResponse? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>
                 <Map
+                 googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                   markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}

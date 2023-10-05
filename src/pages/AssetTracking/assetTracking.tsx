@@ -47,6 +47,7 @@ import {
 import CustomTablePagination from "elements/CustomPagination";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -770,6 +771,8 @@ const AssetTracking: React.FC<any> = (props) => {
           title: event?.reason,
           id: event?.assetNotificationId,
           markerId: event?.trackerId,
+          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
+
         });
       });
 
@@ -780,6 +783,8 @@ const AssetTracking: React.FC<any> = (props) => {
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
           markerId: incidents?.trackerId,
+          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
+
         });
       });
 
@@ -790,6 +795,8 @@ const AssetTracking: React.FC<any> = (props) => {
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
           markerId: alerts?.trackerId,
+          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
+
         });
       });
 
@@ -830,6 +837,8 @@ const AssetTracking: React.FC<any> = (props) => {
             ? asset?.trackerStatus
             : asset?.notificationType,
         markerId: asset?.trackerId,
+        description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+
       };
     });
 
@@ -1185,9 +1194,19 @@ const AssetTracking: React.FC<any> = (props) => {
     setDebounceSearchText("");
   };
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
-      {isDataLoaded ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1479,6 +1498,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <AssetMap
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}

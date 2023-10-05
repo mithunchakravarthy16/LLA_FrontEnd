@@ -31,6 +31,7 @@ import {
 import energyManagementData from "mockdata/energyManagementData";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const Parking: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
@@ -297,11 +298,20 @@ const Parking: React.FC<any> = (props) => {
     setSelectedNotification("");
     setSelectedNotificationItem("")
   };
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
 
   return (
     <>
     {
-      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?
+      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0  && googleMapsApiKeyResponse ?
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -570,6 +580,7 @@ const Parking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                     <Map
+                    googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                       mapPageName={"energy"}
                       mapType={mapType}
                       setMapType={setMapType}

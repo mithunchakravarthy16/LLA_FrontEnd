@@ -58,6 +58,7 @@ import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
 import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import useStyles from "./styles";
 
 const defaultCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
@@ -131,7 +132,8 @@ const Map: React.FC<any> = (props) => {
     setMapType,
     mapType,
     mapDefaultView, 
-    setMapDefaultView
+    setMapDefaultView,
+    googleMapsApiKeyResponse
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -175,10 +177,12 @@ const Map: React.FC<any> = (props) => {
   const initialDate: any = new Date();
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
+
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    googleMapsApiKey: googleMapsApiKeyResponse, 
     libraries: libraries,
   });
+
 
   const parkingMapContainerStyle = {
     width: "100%",
