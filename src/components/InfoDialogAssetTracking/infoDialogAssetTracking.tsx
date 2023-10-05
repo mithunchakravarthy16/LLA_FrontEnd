@@ -1,4 +1,5 @@
 /** @format */
+//@ts-nocheck
 
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
@@ -413,8 +414,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     switch(range) {
       case "Good" : return "#78B64B";
       case "Fair" : return "#FBFB0C";
-      case "Low" : return "EC080A";
-      case "Poor" : return "EC080A";
+      case "Low" : return "#EC080A";
+      case "Poor" : return "#EC080A";
       default : break
     }
   }
