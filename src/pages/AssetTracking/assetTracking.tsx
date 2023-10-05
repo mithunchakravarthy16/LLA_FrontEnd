@@ -770,6 +770,8 @@ const AssetTracking: React.FC<any> = (props) => {
           title: event?.reason,
           id: event?.assetNotificationId,
           markerId: event?.trackerId,
+          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
+
         });
       });
 
@@ -780,6 +782,8 @@ const AssetTracking: React.FC<any> = (props) => {
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
           markerId: incidents?.trackerId,
+          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
+
         });
       });
 
@@ -790,6 +794,8 @@ const AssetTracking: React.FC<any> = (props) => {
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
           markerId: alerts?.trackerId,
+          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
+
         });
       });
 
@@ -830,6 +836,8 @@ const AssetTracking: React.FC<any> = (props) => {
             ? asset?.trackerStatus
             : asset?.notificationType,
         markerId: asset?.trackerId,
+        description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+
       };
     });
 

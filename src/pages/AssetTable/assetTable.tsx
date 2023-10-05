@@ -152,7 +152,6 @@ const AssetTable: React.FC<any> = (props) => {
   };
 
     //debouncing start
-    const [debounceSearchText, setDebounceSearchText] = useState<any>("");
     const searchTextRef = useRef<any>("");
 
     const delayTime =  1000;
@@ -173,7 +172,6 @@ const AssetTable: React.FC<any> = (props) => {
       dispatch(
         getAssetTable(payload)
       );
-      setDebounceSearchText(searchValue);
     };
 
     const debounce = (func: any, delay: any) => {
@@ -202,13 +200,14 @@ const AssetTable: React.FC<any> = (props) => {
     //debouncing end
 
 
-  const handleRefreshButton = () => {
-    searchTextRef.current = ""
+    const[isRefreshClicked, setIsRefreshClicked] = useState<boolean>(false)
+
+  const onHandleRefreshButton = () => {
     let payload: any = {
       assetId: ""
     };
     dispatch(getAssetTable(payload));
-    setDebounceSearchText("")
+    setIsRefreshClicked(true)
   }
 
   // Tooltip Props
@@ -236,10 +235,12 @@ const AssetTable: React.FC<any> = (props) => {
               // searchIsOpen={searchOpen}
               // selectedTheme={selectedTheme}
               notificationPageName={"assetTable"}
+              isRefreshClicked={isRefreshClicked} 
+              setIsRefreshClicked={setIsRefreshClicked}
             />
           </div>
           <div className={refreshButtonStyle}>
-          <Button variant="contained" onClick={handleRefreshButton}>
+          <Button variant="contained" onClick={onHandleRefreshButton}>
             Refresh
           </Button>
           </div>

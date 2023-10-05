@@ -1,6 +1,6 @@
 export const BASE_IP = {
-  aws: process.env.REACT_APP_BASE_URL,
-  localHost : "https://8d4f-2406-7400-c8-2cdd-7540-9d74-c802-64ff.ngrok-free.app"
+  // aws: process.env.REACT_APP_BASE_URL,
+  aws : process.env.REACT_APP_TEST_URL
 };
 
 export const BASE_URL = {
@@ -77,4 +77,4 @@ export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetai
 export const getAssetOverallTrackerDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetOverallTrackerDetailsUrl}`;
 export const getAssetGridViewAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetGridViewAnalyticsUrl}`;
 export const getTrackerLiveDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerLiveDetailUrl}`;
-export const getAllDeviceDetailApi = `${BASE_IP.localHost}${SUB_URL.getAllDeviceDetailURL}`
+export const getAllDeviceDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getAllDeviceDetailURL}`

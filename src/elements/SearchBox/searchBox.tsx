@@ -31,7 +31,9 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setDebounceSearchText,
     notificationPageName,
     page,
-    rowsPerPage
+    rowsPerPage,
+    isRefreshClicked,
+    setIsRefreshClicked
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -81,6 +83,14 @@ const INF_SearchBox: React.FC<any> = (props) => {
       setSearchFocus(true);
     }
   };
+
+  useEffect(()=>{
+    if(isRefreshClicked && notificationPageName === "assetTable") {
+      setSearchValue("");
+      setIsRefreshClicked(false)
+    }
+  },[isRefreshClicked])
+
   const handleInput = (event: any) => {
     setSearchValue(event.target.value);
     if (event.target.value.length > 0) {
