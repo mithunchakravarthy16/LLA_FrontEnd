@@ -180,13 +180,13 @@ const DashboardContainer = (props: any) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
@@ -253,13 +253,17 @@ const DashboardContainer = (props: any) => {
   //---websocket Implementation starts---
 
 const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
+const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] = useState<any>([]);
 
 const clientRef = useRef<any>()
 useEffect(()=>{
-  UseWebSocket((message) => {
+  UseWebSocket((message:any) => {
     setWebsocketLatestAssetNotification(message)    
   },
-  (clintReference)=>{
+  (message:any) => {
+    setWebsocketLatestAssetTrackerLive(message);
+  },
+  (clintReference:any)=>{
     clientRef.current = clintReference
   },
   "openWebsocket"  )
@@ -267,36 +271,11 @@ useEffect(()=>{
   return ()=>{
     UseWebSocket(() => {},
     ()=>{},
+    ()=>{},
     "closeWebsocket",
     clientRef.current)
   }
 },[])
-
-// useEffect(()=>{
-//   const client = new Client();
-
-//   client.configure({
-//     brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
-//     onConnect: () => {
-//       console.log('onConnect');
-
-//       client.subscribe('/asset/notification', message => {
-//         console.log("asset Message", JSON.parse(message.body));
-//         setWebsocketLatestAssetNotification(JSON.parse(message.body))
-//         // this.setState({serverTime: message.body});
-//       });
-//     },
-//     // Helps during debugging, remove in production
-//     debug: (str:any) => {
-//       console.log(new Date(), str);
-//     }
-//   });
-
-//   client.activate();
-
-//   return () =>  { console.log("disconnected test"); client.forceDisconnect(); client.deactivate()}
-// },[])
-
 
 //---websocket Implementation ends---
 
@@ -324,8 +303,7 @@ useEffect(()=>{
       // &&
       // fleetManagementNotificationResponse?.status === 200
     ) {
-     
-      console.log("test websocketLatestAssetNotification", websocketLatestAssetNotification)   
+      
       const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
       websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
        websocketLatestAssetNotification?.map((item:any)=>{
@@ -388,11 +366,6 @@ useEffect(()=>{
       
            }
 
-
-
-       
-    console.log("test websocket modifineddata", assetNotificationResponse?.data)
-
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.data
@@ -427,8 +400,34 @@ useEffect(()=>{
   }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification]);
 
   useEffect(() => {
-    if (assetLiveData) {
-      const updatedLiveData: any = assetLiveData?.map((asset: any) => {
+
+      let updatedLiveTrackerDetails = assetLiveData;
+  
+      if (
+        websocketLatestAssetTrackerLive &&
+        websocketLatestAssetTrackerLive?.length > 0
+      ) {
+        updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+          ?.map((item: any) => {
+            // Check if the item should be replaced
+            let replacement = websocketLatestAssetTrackerLive?.find(
+              (replaceItem:any) => replaceItem.trackerId === item.trackerId
+            );
+            return replacement ? replacement : item;
+          })
+          .concat(
+            websocketLatestAssetTrackerLive?.filter(
+              (replaceItem:any) =>
+                !assetLiveData?.some(
+                  (item: any) => item.trackerId === replaceItem.trackerId
+                )
+            )
+          );
+      } else {
+        updatedLiveTrackerDetails = assetLiveData;
+      }
+
+      const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
         return {
           ...asset,
           location: asset?.currentLocation,
@@ -451,8 +450,8 @@ useEffect(()=>{
           dashboardNotification?.notifications
         ),
       ]);
-    }
-  }, [assetLiveData]);
+    
+  }, [assetLiveData, websocketLatestAssetTrackerLive]);
 
   useEffect(() => {
     if (searchOpen && selectedNotification !== "") {

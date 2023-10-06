@@ -302,13 +302,13 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
@@ -334,7 +334,7 @@ const AssetTracking: React.FC<any> = (props) => {
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
-    } 
+    }
 
     // const intervalTime = setInterval(() => {
     //   dispatch(
@@ -345,7 +345,7 @@ const AssetTracking: React.FC<any> = (props) => {
     // return () => {
     //   clearInterval(intervalTime);
     // };
-  }, [debounceSearchText , page, rowsPerPage]);
+  }, [debounceSearchText, page, rowsPerPage]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -761,239 +761,133 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, [selectedValue]);
 
-
-
-
-
-
-
-
-
-
-
-
   //---websocket Implementation starts---
 
-const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
-const clientRef = useRef<any>()
-useEffect(()=>{
-  UseWebSocket((message) => {
-    setWebsocketLatestAssetNotification(message)    
-  },
-  (clintReference)=>{
-    clientRef.current = clintReference
-  },
-  "openWebsocket"  )
-
-  return ()=>{
-    UseWebSocket(() => {},
-    ()=>{},
-    "closeWebsocket",
-    clientRef.current)
-  }
-},[])
-  
-  
-
-//   useEffect(()=>{
-//     const client = new Client();
-
-//     // Define the heart-beat values (interval, delay) in milliseconds.
-//   // For example, 10000 means the client sends a ping every 10 seconds, 
-//   // and expects a pong from the server within 10 seconds.
-//   const heartbeats = '10000,10000'; // Adjust these values as needed
-  
-//     client.configure({
-//       brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification', //'wss://https://apismartlabtech.sensyonsmartspaces.com/notification' 'wss://apilla.sensyonsmartspaces.com/notification'
-//       onConnect: () => {
-//         console.log('onConnect');
-//         // Specify the heart-beat values in the CONNECT headers.
-//         // client.publish({destination: '/meta/connect', headers: { "heart-beat": heartbeats }, body: json.stringify({})});
-
-//         client.subscribe('/asset/notification', message => {
-//           console.log("asset Message", JSON.parse(message.body));
-//           setWebsocketLatestAssetNotification(JSON.parse(message.body))
-//           // this.setState({serverTime: message.body});
-//         });
-//       },
-//       // Helps during debugging, remove in production
-//       debug: (str:any) => {
-//         console.log(new Date(), str);
-//       }
-//     });
-  
-//     client.activate();
-    
-//    // Ping function to keep the connection alive.
-// // const ping = () => {
-// //   try {
-// //     client.publish({destination: '/meta/connect', body: json.stringify({})});
-// //   } catch (error) {
-// //     console.error('Error sending ping:', error);
-// //   }
-// //   setTimeout(ping, 500); // Adjust the ping interval as needed (e.g., every 5 seconds)
-// // };
-
-//   // Start the ping-pong loop when connected.
-//   // client.onWebSocketConnect = () => {
-//   //   ping();
-//   // };
-
-//     return () =>  { console.log("disconnected test"); client.forceDisconnect(); client.deactivate()}
-//   },[])
-
-
-
-
-
-
-  // const socketUrl = 'wss://apismartlabtech.sensyonsmartspaces.com/notification'; // WebSocket URL
-  // const [latestAssetNotification, setLatestAssetNotification] = useState(null);
-
-  // const {
-  //   lastMessage,
-  //   readyState,
-  //   sendMessage,
-  //   sendPing,
-  //   disconnect,
-  // } = useWebSocket(socketUrl, {
-  //   onOpen: () => console.log('opened'),
-  //   //Will attempt to reconnect on all close events, such as server shutting down
-  //   shouldReconnect: (closeEvent) => true,
-  // });
-
-  // useEffect(() => {
-  //   if (lastMessage !== null) {
-  //     const messageData = JSON.parse(lastMessage.data);
-  //     console.log("Asset Message", messageData);
-  //     setLatestAssetNotification(messageData);
-  //   }
-  // }, [lastMessage]);
-
-
-  // useEffect(() => {
-  //   if (readyState === ReadyState.OPEN) {
-  //     // Subscribe to the '/asset/notification' channel when the WebSocket is initially opened
-  //     sendMessage(JSON.stringify({ subscribe: '/asset/notification' }));
-
-  //     // Send ping messages periodically (e.g., every 30 seconds)
-  //     const pingInterval = setInterval(() => {
-  //       sendPing();
-  //     }, 30000);
-
-  //     return () => {
-  //       // Clean up the WebSocket connection and ping interval when the component unmounts
-  //       clearInterval(pingInterval);
-  //       disconnect();
-  //     };
-  //   }
-  // }, [readyState, sendMessage, sendPing, disconnect]);
-
-
-  
-  // const connectionStatus = {
-  //   [ReadyState.CONNECTING]: 'Connecting',
-  //   [ReadyState.OPEN]: 'Open',
-  //   [ReadyState.CLOSING]: 'Closing',
-  //   [ReadyState.CLOSED]: 'Closed',
-  //   [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  // }[readyState];
-  
-  // console.log("connectionStatus", connectionStatus)
-  
-  //---websocket Implementation ends---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  const [
+    websocketLatestAssetNotification,
+    setWebsocketLatestAssetNotification,
+  ] = useState<any>([]);
+  const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
+    useState<any>([]);
+  const clientRef = useRef<any>();
 
 
   useEffect(() => {
+    UseWebSocket(
+      (message:any) => {
+        setWebsocketLatestAssetNotification(message);
+      },
+      (message:any) => {
+        setWebsocketLatestAssetTrackerLive(message);
+      },
+      (clintReference:any) => {
+        clientRef.current = clintReference;
+      },
+      "openWebsocket"
+    );
+
+    return () => {
+      UseWebSocket(
+        () => {},
+        () => {},
+        () => {},
+        "closeWebsocket",
+        clientRef.current
+      );
+    };
+  }, []);
+
+  //---websocket Implementation ends---
+
+  useEffect(() => {
     if (assetNotificationList && assetLiveData) {
-
-      console.log("test websocketLatestAssetNotification asset page", websocketLatestAssetNotification) 
       
-       const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{    
-      websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
-       websocketLatestAssetNotification?.map((item:any)=>{
-              if(item.notificationType?.toString()?.toLowerCase() === "incident"){
-                if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
-                }
+
+      const insertWebsocketDataToExisitingNotiData = (
+        websocketLatestAssetNotification: any
+      ) => {
+        websocketLatestAssetNotification &&
+          websocketLatestAssetNotification?.length > 0 &&
+          websocketLatestAssetNotification?.map((item: any) => {
+            if (
+              item.notificationType?.toString()?.toLowerCase() === "incident"
+            ) {
+              if (
+                !assetNotificationResponse?.data?.incidents?.incidentList.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
+                  item
+                );
               }
+            }
 
-              if(item.notificationType?.toString()?.toLowerCase() === "events"){
-                if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                  assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
-                }
+            if (item.notificationType?.toString()?.toLowerCase() === "events") {
+              if (
+                !assetNotificationResponse?.data?.events?.eventsList?.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.events?.eventsList?.unshift(
+                  item
+                );
               }
+            }
 
-              if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
-                if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                  assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
-                }
+            if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
+              if (
+                !assetNotificationResponse?.data?.alerts?.alertList?.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.alerts?.alertList?.unshift(
+                  item
+                );
               }
+            }
+          });
+      };
 
-            })
-          }     
-       
-    
-
-    if(parseInt(page) === 0 && !debounceSearchText){
-        insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
-     }else if(parseInt(page) === 0 && debounceSearchText){
-
-      const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
-        return (
-          value?.assetName
-            ?.toString()
-            ?.toLowerCase()
-            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-          value?.area
-            ?.toString()
-            ?.toLowerCase()
-            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-          value?.currentArea
-            ?.toString()
-            ?.toLowerCase()
-            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-          value?.trackerId
-            ?.toString()
-            ?.toLowerCase()
-            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-          value?.reason
-            ?.toString()
-            ?.toLowerCase()
-            .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-          value?.trackerName
-            ?.toString()
-            ?.toLowerCase()
-            .includes(debounceSearchText?.toString()?.toLowerCase()) 
+      if (parseInt(page) === 0 && !debounceSearchText) {
+        insertWebsocketDataToExisitingNotiData(
+          websocketLatestAssetNotification
         );
-      });
+      } else if (parseInt(page) === 0 && debounceSearchText) {
+        const websocketSearchResult = websocketLatestAssetNotification?.filter(
+          (value: any) => {
+            return (
+              value?.assetName
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.area
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.currentArea
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.trackerId
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.reason
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.trackerName
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase())
+            );
+          }
+        );
 
-      websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
-
-     }
-
-    
-     console.log("test websocket modifineddata asset page", assetNotificationResponse?.data)
+        websocketSearchResult &&
+          insertWebsocketDataToExisitingNotiData(websocketSearchResult);
+      }
 
 
       const { events, incidents, alerts } = assetNotificationList;
@@ -1006,8 +900,11 @@ useEffect(()=>{
           title: event?.reason,
           id: event?.assetNotificationId,
           markerId: event?.trackerId,
-          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
-
+          description: `${event?.tagType} ${
+            event?.tagType === "CATM1_TAG" && event?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${event?.gatewayType}`
+          } | ${event?.trackerId}`,
         });
       });
 
@@ -1018,8 +915,12 @@ useEffect(()=>{
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
           markerId: incidents?.trackerId,
-          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
-
+          description: `${incidents?.tagType} ${
+            incidents?.tagType === "CATM1_TAG" &&
+            incidents?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${incidents?.gatewayType}`
+          } | ${incidents?.trackerId}`,
         });
       });
 
@@ -1030,8 +931,11 @@ useEffect(()=>{
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
           markerId: alerts?.trackerId,
-          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
-
+          description: `${alerts?.tagType} ${
+            alerts?.tagType === "CATM1_TAG" && alerts?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${alerts?.gatewayType}`
+          } | ${alerts?.trackerId}`,
         });
       });
 
@@ -1047,7 +951,7 @@ useEffect(()=>{
 
         return dateB - dateA;
       });
-      console.log("testing rerender")
+
       let uniqueTrackerIds: any = {};
 
       // const uniqueData = combinedNotifications.filter((item: any) => {
@@ -1067,10 +971,41 @@ useEffect(()=>{
         formatttedDashboardNotification(combinedNotifications, tabIndex)
       );
     }
-  }, [assetNotificationResponse, tabIndex, searchOpen, websocketLatestAssetNotification]);
+  }, [
+    assetNotificationResponse,
+    tabIndex,
+    searchOpen,
+    websocketLatestAssetNotification,
+  ]);
 
   useEffect(() => {
-    const updatedLiveData = assetLiveData?.map((asset: any) => {
+    let updatedLiveTrackerDetails = assetLiveData;
+
+    if (
+      websocketLatestAssetTrackerLive &&
+      websocketLatestAssetTrackerLive?.length > 0
+    ) {
+      updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+        ?.map((item: any) => {
+          // Check if the item should be replaced
+          let replacement = websocketLatestAssetTrackerLive?.find(
+            (replaceItem:any) => replaceItem.trackerId === item.trackerId
+          );
+          return replacement ? replacement : item;
+        })
+        .concat(
+          websocketLatestAssetTrackerLive?.filter(
+            (replaceItem:any) =>
+              !assetLiveData?.some(
+                (item: any) => item.trackerId === replaceItem.trackerId
+              )
+          )
+        );
+    } else {
+      updatedLiveTrackerDetails = assetLiveData;
+    }
+
+    const updatedLiveData = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
       return {
         ...asset,
         location: asset?.currentLocation,
@@ -1082,13 +1017,16 @@ useEffect(()=>{
             ? asset?.trackerStatus
             : asset?.notificationType,
         markerId: asset?.trackerId,
-        description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
-
+        description: `${asset?.tagType} ${
+          asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
+            ? ` | Cellular`
+            : ` | ${asset?.gatewayType}`
+        } | ${asset?.trackerId}`,
       };
     });
 
     setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData]);
+  }, [assetLiveData, websocketLatestAssetTrackerLive]);
 
   const topPanelListItems: any[] = [
     {
@@ -1439,15 +1377,14 @@ useEffect(()=>{
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
+    useState<string>("");
+
+  useEffect(() => {
+    fetchGoogleMapApi((mapApiResponse: string) => {
+      setGoogleMapsApiKeyResponse(mapApiResponse);
+    });
+  }, []);
 
   return (
     <>
@@ -1743,7 +1680,7 @@ useEffect(()=>{
                         className={globeIconSection}
                       />
                       <AssetMap
-                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}

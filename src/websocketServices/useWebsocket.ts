@@ -1,7 +1,8 @@
 import { Client } from '@stomp/stompjs';
 
 export const UseWebSocket = (
-  onMessageCallback: (message: any) => void,
+  onAssetNotificationMessageCallback: (message: any) => void,
+  onAssetLiveTrackerMessageCallback: (message: any) => void,
   clintRefCallback: (ref:any)=> void,
   websocketOpenCloseCommend: string,
   clintReference?: any,
@@ -15,23 +16,24 @@ export const UseWebSocket = (
         client?.configure({ //https://apismartlabtech.sensyonsmartspaces.com/swagger-ui/index.html
           brokerURL: 'wss://testingbackend.sensyonsmartspaces.com/notification',
           onConnect: () => {
-            console.log('WebSocket connected');
+            // console.log('WebSocket connected');
 
             client?.subscribe('/asset/notification', (message:any) => {
-              console.log('Asset Message', JSON.parse(message.body));
-              onMessageCallback(JSON.parse(message.body));
+              
+              onAssetNotificationMessageCallback(JSON.parse(message.body));
             });
 
             client.subscribe('/asset/livedetail', (message:any) => {
-              console.log("livedetail Messages:",message.body);      
+              
+              onAssetLiveTrackerMessageCallback(JSON.parse(message.body))     
             });
 
             client.subscribe('/topic/pushmessages', (message:any) => {
-              console.log("pong messages:",message.body);      
+              // console.log("pong messages:",message.body);      
             });
           },
           debug: (str: any) => {
-            console.log(new Date(), str);
+            // console.log(new Date(), str);
           },
         });
          
@@ -43,7 +45,7 @@ export const UseWebSocket = (
 
 
       if(websocketOpenCloseCommend === "closeWebsocket"){
-        console.log('WebSocket disconnected');        
+        // console.log('WebSocket disconnected');        
         clintReference?.forceDisconnect();
         clintReference?.deactivate();        
       }  
