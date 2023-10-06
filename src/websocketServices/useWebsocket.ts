@@ -12,8 +12,8 @@ export const UseWebSocket = (
         
         if(websocketOpenCloseCommend === "openWebsocket"){
           clintRefCallback(client)
-        client?.configure({
-          brokerURL: 'wss://apismartlabtech.sensyonsmartspaces.com/notification',
+        client?.configure({ //https://apismartlabtech.sensyonsmartspaces.com/swagger-ui/index.html
+          brokerURL: 'wss://testingbackend.sensyonsmartspaces.com/notification',
           onConnect: () => {
             console.log('WebSocket connected');
 
@@ -22,7 +22,11 @@ export const UseWebSocket = (
               onMessageCallback(JSON.parse(message.body));
             });
 
-            client.subscribe('/topic/pushmessages', message => {
+            client.subscribe('/asset/livedetail', (message:any) => {
+              console.log("livedetail Messages:",message.body);      
+            });
+
+            client.subscribe('/topic/pushmessages', (message:any) => {
               console.log("pong messages:",message.body);      
             });
           },

@@ -325,7 +325,8 @@ useEffect(()=>{
       // fleetManagementNotificationResponse?.status === 200
     ) {
      
-      console.log("test websocketLatestAssetNotification", websocketLatestAssetNotification)       
+      console.log("test websocketLatestAssetNotification", websocketLatestAssetNotification)   
+      const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
       websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
        websocketLatestAssetNotification?.map((item:any)=>{
               if(item.notificationType?.toString()?.toLowerCase() === "incident"){
@@ -347,8 +348,51 @@ useEffect(()=>{
               }
 
             })
+          }
+
+
+            if(parseInt(page) === 0 && !debounceSearchText){
+              insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
+           }else if(parseInt(page) === 0 && debounceSearchText){
+      
+            const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
+              return (
+                value?.assetName
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.area
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.currentArea
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.trackerId
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.reason
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.trackerName
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) 
+              );
+            });
+      
+            websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
+      
+           }
+
+
+
        
     console.log("test websocket modifineddata", assetNotificationResponse?.data)
+
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.data

@@ -955,7 +955,7 @@ useEffect(()=>{
 
       console.log("test websocketLatestAssetNotification asset page", websocketLatestAssetNotification) 
       
-       const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification)=>{    
+       const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{    
       websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
        websocketLatestAssetNotification?.map((item:any)=>{
               if(item.notificationType?.toString()?.toLowerCase() === "incident"){
