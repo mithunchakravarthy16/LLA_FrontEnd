@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
@@ -311,7 +311,9 @@ const Parking: React.FC<any> = (props) => {
   return (
     <>
     {
-      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0  && googleMapsApiKeyResponse ?
+      // !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0  && googleMapsApiKeyResponse ?
+      googleMapsApiKeyResponse ?
+
       <Grid container className={rootContainer}>
         <Grid container className={mainSection}>
           <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -571,7 +573,7 @@ const Parking: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "58%" }}
+                    style={{ height: "58%", position : "relative" }}
                   >
                      <img
                         src={GlobeIconActive}
@@ -580,7 +582,7 @@ const Parking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                     <Map
-                    googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                       mapPageName={"energy"}
                       mapType={mapType}
                       setMapType={setMapType}
