@@ -46,8 +46,11 @@ import {
 } from "redux/actions/fleetManagementNotificationActions";
 import moment from "moment";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 
 const FleetManagement: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
+
   const navigate = useNavigate();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -110,6 +113,7 @@ const FleetManagement: React.FC<any> = (props) => {
     driveDot,
     driveDotOne,
     graphTitle,
+    globeIconSection
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -875,6 +879,21 @@ const FleetManagement: React.FC<any> = (props) => {
     setTripName(null);
   };
 
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardData);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
+
   const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
   
   useEffect(()=>{
@@ -1473,8 +1492,14 @@ const FleetManagement: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}
+                      style={{ height: "59%" , position : "relative"}}
                     >
+                       <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                       <FleetMap
                       googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapPageName={"fleet"}
@@ -1496,6 +1521,17 @@ const FleetManagement: React.FC<any> = (props) => {
                         }
                         handleMarkerIconClick={handleMarkerIconClick}
                         handleMarkerCancel={handleMarkerCancel}
+                        mapType = {mapType}
+                        setMapType={setMapType}
+                        selectedNotification={selectedNotification}
+                        liveMarkerList={liveMarkerList}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        listSelectedMarker={listSelectedMarker}
+                        setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
+                        setSelectedNotificationItem={setSelectedNotificationItem}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>
