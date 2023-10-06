@@ -13,6 +13,7 @@
     "@mui/styles": "^5.14.10",
     "@react-google-maps/api": "^2.18.1",
     "@react-spring/web": "^9.7.2",
+    "@stomp/stompjs": "^7.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
