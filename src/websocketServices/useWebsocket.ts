@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Client } from '@stomp/stompjs';
 
 export const UseWebSocket = (
