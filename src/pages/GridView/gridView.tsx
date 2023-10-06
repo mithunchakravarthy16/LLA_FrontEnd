@@ -199,28 +199,24 @@ const GridView: React.FC<any> = (props) => {
 
             {/* Grid 2 */}
             <GridViewScreenTwo
-              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 3 */}
             <GridViewScreenThree
-              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 4 */}
             <GridViewScreenFour
-              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 5 */}
             <GridViewScreenFive
-              // handleClick={()=>{}}
               handleClick={handleClick}
               selectedTheme={selectedTheme}
               fleetManagementResponse={fleetManagementResponse}

@@ -152,12 +152,13 @@ const GridViewScreenFour: React.FC<any> = (props) => {
           handleClick("/lighting");
         }}>
         <Grid container xs={12} className={gridContainers}>
-          <Grid item xs={12} className={containerTitle}>
-            {dashboard.lighting}
-          </Grid>
+          
           <Grid item xs={12} className={subContainer}>
-            <Grid container xs={12} className={childSubContainer}>
-              <Grid item xs={9}>
+            <Grid container xs={9} className={childSubContainer}>
+            <Grid item xs={12} className={containerTitle}>
+            {dashboard.lighting}
+            </Grid>
+              <Grid item xs={12}>
                 <Grid
                   container
                   xs={12}
@@ -272,11 +273,11 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                     </div>
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={3}>
+              </Grid>              
+            </Grid>           
                 <Grid
                   container
-                  xs={12}
+                  xs={3}
                   alignItems="center"
                   textAlign="center"
                   className={lastweekContainer}>
@@ -331,11 +332,17 @@ const GridViewScreenFour: React.FC<any> = (props) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
+                </Grid>             
           </Grid>
-          {/* <Grid
+
+
+
+
+    {/* //-----developer mode starts here---// */}
+          {/* <Grid item xs={12} className={containerTitle}>
+            {dashboard.lighting}
+            </Grid>
+          <Grid
             item
             style={{
               display: "flex",
@@ -348,6 +355,9 @@ const GridViewScreenFour: React.FC<any> = (props) => {
           >
             Development In Progress...
           </Grid> */}
+    {/* //-----developer mode ends here---// */}
+
+
         </Grid>
       </Grid>
     </>

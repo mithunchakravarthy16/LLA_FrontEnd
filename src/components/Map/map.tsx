@@ -57,16 +57,19 @@ import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
 import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
 import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
+import AssetInactiveIcon from "../../assets/markers/Asset_Grey.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import useStyles from "./styles";
 
-const defaultCenter = {
-  lat: 39.75525065792099,
-  lng: -105.00248276374698,
-};
+const defaultCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
-const center = {
-  lat: 39.75576345655451,
-  lng: -105.00357749556102,
+const center = { lat: 9.011771204307172, lng: -79.47691596842526 };
+
+const parkingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
+
+const homePageParkingCenter = {
+  lat: 9.011771204307172,
+  lng: -79.47691596842526,
 };
 
 const fleetManagementCenter = {
@@ -74,7 +77,7 @@ const fleetManagementCenter = {
   lng: 121.36458642272018,
 };
 
-const assetTrackingCenter = { lat: 12.1651391, lng: 78.1277715 };
+const assetTrackingCenter = { lat: 9.011771204307172, lng: -79.47691596842526 };
 
 const libraries = ["places", "drawing"];
 
@@ -119,6 +122,18 @@ const Map: React.FC<any> = (props) => {
     dataPoints,
     handleMarkerCancel,
     handleMarkerIconClick,
+    selectedNotification,
+    liveMarkerList,
+    listSelectedMarker,
+    setListSelectedMarker,
+    selectedNotificationItem,
+    setSelectedNotificationItem,
+    isMarkerClicked,
+    setMapType,
+    mapType,
+    mapDefaultView, 
+    setMapDefaultView,
+    googleMapsApiKeyResponse
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -129,6 +144,10 @@ const Map: React.FC<any> = (props) => {
     ...appTheme,
     mapPageName: mapPageName,
   });
+
+  useEffect(() => {
+    map?.setMapTypeId(mapType);
+  }, [map, mapType]);
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -156,11 +175,14 @@ const Map: React.FC<any> = (props) => {
   let [data, setData] = useState<any>(points);
   const velocity: any = 20;
   const initialDate: any = new Date();
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
+    googleMapsApiKey: googleMapsApiKeyResponse, 
     libraries: libraries,
   });
+
 
   const parkingMapContainerStyle = {
     width: "100%",
@@ -497,12 +519,14 @@ const Map: React.FC<any> = (props) => {
       : selectedContainerStyle?.is3kDevice
       ? 16.2
       : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-      ? 15
-      : 15
+      ? 16
+      : location?.pathname === "/parking"
+      ? 16
+      : 16
   );
 
   useEffect(() => {
-    setCurrentMarker(marker);
+    setAssetLiveMarker(marker);
     const selectMarker = markers?.find((item: any) => item.id === marker);
     setSelectedMarker(selectMarker);
   }, [marker]);
@@ -524,35 +548,39 @@ const Map: React.FC<any> = (props) => {
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 15
-          : 15
-      );
+      // map?.setZoom(
+      //   selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
+      //     ? 16.2
+      //     : (selectedContainerStyle?.is4kDevice ||
+      //         selectedContainerStyle?.is3kDevice) &&
+      //       location?.pathname !== "/home"
+      //     ? 16
+      //     : 16
+      // );
       map?.panTo(markers[index]?.location);
     } else {
-      map?.panTo(
-        location?.pathname === "/home"
-          ? defaultCenter
-          : location?.pathname === "/fleetManagement"
-          ? fleetManagementCenter
-          : location?.pathname === "/assetTracking"
-          ? assetTrackingCenter
-          : center
-      );
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 15
-          : 15
-      );
+      // map?.panTo(
+      //   location?.pathname === "/home"
+      //     ? homePageParkingCenter
+      //     : location?.pathname === "/fleetManagement"
+      //     ? fleetManagementCenter
+      //     : location?.pathname === "/assetTracking"
+      //     ? assetTrackingCenter
+      //     : location?.pathname === "/parking"
+      //     ? parkingCenter
+      //     : center
+      // );
+      // map?.setZoom(
+      //   selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
+      //     ? 16.2
+      //     : (selectedContainerStyle?.is4kDevice ||
+      //         selectedContainerStyle?.is3kDevice) &&
+      //       location?.pathname !== "/home"
+      //     ? 16
+      //     : location?.pathname === "/parking"
+      //     ? 17
+      //     : 17
+      // );
     }
   }, [currentMarker, markers]);
 
@@ -563,43 +591,53 @@ const Map: React.FC<any> = (props) => {
     };
     return {
       ...defaultMapOptions,
-      mapTypeControl: false,
+      mapTypeControl: true,
       rotateControl: false,
       fullscreenControl: false,
-      zoomControl: false,
+      zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
+      mapTypeControlOptions: {
+        // style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+
+        // position: window.google.maps.ControlPosition.LEFT_BOTTOM,
+
+        mapTypeIds: [
+          window.google.maps.MapTypeId.ROADMAP,
+
+          window.google.maps.MapTypeId.SATELLITE,
+
+          window.google.maps.MapTypeId.HYBRID,
+        ],
+      },
     };
   };
 
   const getMarkerIcon = (
     category: string,
     notificationCategory: string,
-    id: string
+    id: string,
+    marker: any
   ) => {
     switch (notificationCategory) {
       case "Events": {
         switch (category) {
           case "parking":
-            return currentMarker === id
-              ? ParkingEventActiveIcon
-              : ParkingEventIcon;
+            // return currentMarker === id
+            //   ? ParkingEventActiveIcon
+            //   : ParkingEventIcon;
+            return ParkingEventIcon;
           case "energy":
-            return currentMarker === id
-              ? EnergyManagementEventActiveIcon
-              : EnergyManagemnetEventIcon;
+            return EnergyManagemnetEventIcon;
           case "security":
-            return currentMarker === id
-              ? SecurityEventActiveIcon
-              : SecurityEventIcon;
+            return  SecurityEventIcon;
           case "lighting":
-            return currentMarker === id
-              ? LightenEventActiveIcon
-              : LighteningEventIcon;
+            return  LighteningEventIcon;
           case "asset":
-            return currentMarker === id
-              ? AssetTrackingEventActiveIcon
-              : AssetTrackingEventIcon;
+            // return (currentMarker === id || assetLiveMarker === id)
+            //   ? AssetTrackingEventActiveIcon
+            //   : AssetTrackingEventIcon;
+            return AssetTrackingEventIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
             return currentMarker === id ? FleetEventIcon : FleetEventIcon;
@@ -610,25 +648,21 @@ const Map: React.FC<any> = (props) => {
       case "Alerts": {
         switch (category) {
           case "parking":
-            return currentMarker === id
-              ? ParkingAlertActiveIcon
-              : ParkingAlertIcon;
+            // return currentMarker === id
+            //   ? ParkingAlertActiveIcon
+            //   : ParkingAlertIcon;
+            return ParkingAlertIcon;
           case "energy":
-            return currentMarker === id
-              ? EnergyManagementAlertActiveIcon
-              : EnergyManagementAlertIcon;
+            return EnergyManagementAlertIcon;
           case "security":
-            return currentMarker === id
-              ? SecurityAlertActiveIcon
-              : SecutiryAlertIcon;
+            return  SecutiryAlertIcon;
           case "lighting":
-            return currentMarker === id
-              ? LightenAlertActiveIcon
-              : LighteningAlertIcon;
+            return LighteningAlertIcon;
           case "asset":
-            return currentMarker === id
-              ? AssetTrackingAlertActiveIcon
-              : AssetTrackingAlertIcon;
+            // return (currentMarker === id || assetLiveMarker === id)
+            //   ? AssetTrackingAlertActiveIcon
+            //   : AssetTrackingAlertIcon;
+            return AssetTrackingAlertIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
             return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
@@ -640,25 +674,21 @@ const Map: React.FC<any> = (props) => {
       case "Incident": {
         switch (category) {
           case "parking":
-            return currentMarker === id
-              ? ParkingIncidentActiveIcon
-              : ParkingIncidentIcon;
+            // return currentMarker === id
+            //   ? ParkingIncidentActiveIcon
+            //   : ParkingIncidentIcon;
+            return ParkingIncidentIcon;
           case "energy":
-            return currentMarker === id
-              ? EnergyManagementIncidentActiveIcon
-              : EnergyManagementIncidentIcon;
+            return EnergyManagementIncidentIcon;
           case "security":
-            return currentMarker === id
-              ? SecurityIncidentActiveIcon
-              : SecurityIncidentIcon;
+            return  SecurityIncidentIcon;
           case "lighting":
-            return currentMarker === id
-              ? LightenIncidentActiveIcon
-              : LighteningIncidentIcon;
+            return LighteningIncidentIcon;
           case "asset":
-            return currentMarker === id
-              ? AssetTrackingIncidentActiveIcon
-              : AssetTrackingIncidentIcon;
+            // return (currentMarker === id || assetLiveMarker === id)
+            //   ? AssetTrackingIncidentActiveIcon
+            //   : AssetTrackingIncidentIcon;
+            return AssetTrackingIncidentIcon;
           case "fleet":
             //return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
             return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
@@ -666,8 +696,16 @@ const Map: React.FC<any> = (props) => {
             return ParkingIncidentIcon;
         }
       }
+      case "Inactive": {
+        switch (category) {
+          case "asset":
+            return AssetInactiveIcon;
+          default:
+            return ParkingIncidentIcon;
+        }
+      }
       default:
-        return ParkingIncidentIcon;
+        return AssetInactiveIcon;
     }
   };
 
@@ -686,28 +724,34 @@ const Map: React.FC<any> = (props) => {
     markerId: string,
     type: string,
     location: any,
-    tripId: any
+    tripId: any,
+    category: string
   ) => {
     setIsMarkerClicked(true);
+
+    // setAssetLiveMarker("")
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
-    setCurrentMarker((prev: any) => {
+    setAssetLiveMarker((prev: any) => {
       if (prev && prev === markerId) {
-        map?.panTo(
-          location?.pathname === "/home"
-            ? defaultCenter
-            : location?.pathname === "/fleetManagement"
-            ? fleetManagementCenter
-            : location?.pathname === "/assetTracking"
-            ? assetTrackingCenter
-            : center
-        );
+        // map?.panTo(
+        //   location?.pathname === "/home"
+        //     ? homePageParkingCenter
+        //     : location?.pathname === "/fleetManagement"
+        //     ? fleetManagementCenter
+        //     : location?.pathname === "/assetTracking"
+        //     ? assetTrackingCenter
+        //     : location?.pathname === "/parking"
+        //     ? parkingCenter
+        //     : center
+        // );
         return "";
       } else {
         map?.panTo(location);
         return markerId;
       }
     });
+
     setSelectedNotification((prev: any) => {
       return prev && prev == markerId ? "" : markerId;
     });
@@ -715,18 +759,29 @@ const Map: React.FC<any> = (props) => {
   };
 
   const handleMarkerClose = () => {
-    setSelectedNotification("");
+    setAssetLiveMarker("");
     setIsMarkerClicked(false);
-    map?.panTo(
-      location?.pathname === "/home"
-        ? defaultCenter
-        : location?.pathname === "/fleetManagement"
-        ? fleetManagementCenter
-        : location?.pathname === "/assetTracking"
-        ? assetTrackingCenter
-        : center
-    );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 15);
+    setListSelectedMarker("");
+    setSelectedNotification("");
+
+    // map?.panTo(
+    //   location?.pathname === "/home"
+    //     ? homePageParkingCenter
+    //     : location?.pathname === "/fleetManagement"
+    //     ? fleetManagementCenter
+    //     : location?.pathname === "/assetTracking"
+    //     ? assetTrackingCenter
+    //     : location?.pathname === "/parking"
+    //     ? parkingCenter
+    //     : center
+    // );
+    // map?.setZoom(
+    //   selectedContainerStyle?.is4kDevice
+    //     ? 16.2
+    //     : location?.pathname === "/parking"
+    //     ? 17
+    //     : 17
+    // );
     setProgress([]);
     setPoints([]);
     setData([]);
@@ -736,8 +791,11 @@ const Map: React.FC<any> = (props) => {
     location?.pathname === "/fleetManagement" && handleMarkerCancel();
   };
 
-  const handleExpandListItem = () => {
-    setSelectedNotification("");
+  const handleExpandListItem = (id: any, markerId: any, data: any) => {
+    // setSelectedNotification(id);
+    // // setAssetLiveMarker(markerId);
+    // setListSelectedMarker(markerId)
+    // // setIsMarkerClicked(true)
   };
 
   useEffect(() => {
@@ -869,19 +927,106 @@ const Map: React.FC<any> = (props) => {
   // geofence code -- end
 
   function handleZoomChanged() {
-    // console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
+    console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
   }
-
-  const clustererRef = useRef<any>();
-  useEffect(() => {
-    clustererRef.current?.repaint();
-  }, [markers, marker]);
-
-  // useEffect(()=>{
-  //   if(marker !== "") {
-  //     map?.setZoom(15);
+  // useEffect(() => {
+  //   if (
+  //     marker === "" &&
+  //     assetLiveMarker === "" &&
+  //     listSelectedMarker === "" &&
+  //     (selectedNotificationItem === "" ||
+  //     selectedNotification === "")
+  //   ) {
+  //     // map?.setZoom(17);
+  //     // map?.panTo(parkingCenter);
   //   }
-  // },[marker, markers])
+  // }, [
+  //   marker,
+  //   markers,
+  //   assetLiveMarker,
+  //   selectedNotificationItem,
+  //   listSelectedMarker,
+  //   selectedNotification,
+  // ]);
+
+  const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
+    setMapDefaultView(false)
+    if (data?.category === "parking" || location?.pathname === "/parking" || data?.category === "energy" || location?.pathname === "/energyManagement") {
+      setNotificationPanelActive(true);
+      setListSelectedMarker(id);
+      setTabIndex(getTabIndex(data?.notificationType));
+      setSelectedNotification(id);
+    }
+    setSelectedNotificationItem(data);
+    setIsMarkerClicked(true);
+    map?.setZoom(location?.pathname === "/parking" ? 20 : 17)
+    setAssetLiveMarker(id);
+    setListSelectedMarker(id);
+    // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
+    map?.panTo(location);
+  };
+
+  const handleLiveMarkerClose = () => {
+    setCurrentMarker("");
+    setSelectedNotification("");
+    setListSelectedMarker("");
+    setIsMarkerClicked(false);
+    setAssetLiveMarker("");
+    setSelectedNotificationItem("");
+    // map?.panTo(
+    //   location?.pathname === "/home"
+    //     ? defaultCenter
+    //     : location?.pathname === "/fleetManagement"
+    //     ? fleetManagementCenter
+    //     : location?.pathname === "/assetTracking"
+    //     ? assetTrackingCenter
+    //     : center
+    // );
+    // map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
+    setSelectedMarker("");
+  };
+
+  useEffect(() => {
+    if ((selectedNotification || selectedNotificationItem) ) {
+      map?.panTo(
+        selectedNotificationItem?.currentLocation
+          ? selectedNotificationItem?.currentLocation
+          : selectedNotificationItem?.location
+      );
+      map?.setZoom(location?.pathname === "/parking" ? 20 :17)
+    }
+    if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
+      if(isMarkerClicked) {
+        setSelectedNotification("")
+      }
+    }
+
+  }, [selectedNotification, selectedNotificationItem]);
+
+  const handleMapTypeChanged = () => {
+    if (map) {
+      const newMapType = map.getMapTypeId();
+      setMapType(newMapType);
+    }
+  };
+
+  useEffect(()=>{ 
+    if(window?.google?.maps && mapDefaultView) {
+      const bounds = new window.google.maps.LatLngBounds();
+      liveMarkerList?.forEach((mapMarker:any) => {
+        bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
+      })
+      map?.fitBounds(bounds);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setListSelectedMarker("");
+      setIsMarkerClicked(false);
+      setAssetLiveMarker("");
+      setSelectedNotificationItem("");    
+      setSelectedMarker("");  
+    }      
+  },[map, mapDefaultView])
+
 
   return (
     <>
@@ -897,20 +1042,26 @@ const Map: React.FC<any> = (props) => {
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
-          center={
-            location?.pathname === "/home"
-              ? defaultCenter
-              : location?.pathname === "/fleetManagement"
-              ? fleetManagementCenter
-              : location?.pathname === "/assetTracking"
-              ? assetTrackingCenter
-              : center
-          }
-          zoom={zoomValue}
+          // center={
+          //   location?.pathname === "/home"
+          //     ? homePageParkingCenter
+          //     : location?.pathname === "/fleetManagement"
+          //     ? fleetManagementCenter
+          //     : location?.pathname === "/assetTracking"
+          //     ? assetTrackingCenter
+          //     : location?.pathname === "/parking"
+          //     ? parkingCenter
+          //     : center
+          // }
+          // zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
+          onMapTypeIdChanged={handleMapTypeChanged}
+          // onClick={()=>{setMapDefaultView(false)}}
+          // onDrag={()=>{setMapDefaultView(false)}}
+          onCenterChanged={()=>{setMapDefaultView(false)}}
         >
           <DrawingManager
             drawingMode={
@@ -961,13 +1112,13 @@ const Map: React.FC<any> = (props) => {
             />
           )}
 
-          {marker === "" ? (
+          {marker === "" && mapPageName !== "asset" ? (
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-              gridSize={selectedContainerStyle?.is4kDevice ? 80 : 30}
-              //  onLoad={clusterer => (clustererRef.current = clusterer)}
+              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  18}
+              gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
+              onClick={()=>{setMapDefaultView(false)}}
               // styles={[
               //   {
               //     url: MarkerClusterIcon,
@@ -981,7 +1132,7 @@ const Map: React.FC<any> = (props) => {
             >
               {(clusterer: any) => (
                 <div>
-                  {markers?.map((singleMarker: any) => {
+                  {liveMarkerList?.map((singleMarker: any) => {
                     // if (!window.google) return null;
                     if (
                       singleMarker?.tripStatus === "Live" &&
@@ -991,6 +1142,7 @@ const Map: React.FC<any> = (props) => {
                       return (
                         <>
                           <MapMarker
+                            selectedNotification={selectedNotification}
                             mapMarker={singleMarker}
                             toggleInfoWindow={toggleInfoWindow}
                             handleMarkerClose={handleMarkerClose}
@@ -999,12 +1151,21 @@ const Map: React.FC<any> = (props) => {
                             currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
                             clusterer={clusterer}
-                            location={singleMarker?.location}
+                            location={singleMarker?.currentLocation}
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
                             selectedTheme={selectedTheme}
                             handleViewDetails={handleViewDetails}
                             handleVideoDetails={handleVideoDetails}
+                            setSelectedNotification={setSelectedNotification}
+                            setIsMarkerClicked={setIsMarkerClicked}
+                            markers={markers}
+                            assetLiveMarker={assetLiveMarker}
+                            setAssetLiveMarker={setAssetLiveMarker}
+                            handleLiveMarkerIcon={handleLiveMarkerIcon}
+                            handleLiveMarkerClose={handleLiveMarkerClose}
+                            listSelectedMarker={listSelectedMarker}
+                            selectedNotificationItem={selectedNotificationItem}
                           />
                         </>
                       );
@@ -1015,6 +1176,7 @@ const Map: React.FC<any> = (props) => {
                       return (
                         <>
                           <MapMarker
+                            selectedNotification={selectedNotification}
                             mapMarker={singleMarker}
                             toggleInfoWindow={toggleInfoWindow}
                             handleMarkerClose={handleMarkerClose}
@@ -1023,79 +1185,33 @@ const Map: React.FC<any> = (props) => {
                             currentMarker={currentMarker}
                             focusedCategory={focusedCategory}
                             clusterer={clusterer}
-                            location={singleMarker?.location}
+                            location={singleMarker?.currentLocation}
                             handleAssetViewDetails={handleAssetViewDetails}
                             mapPageName={mapPageName}
                             handleViewDetails={handleViewDetails}
                             handleVideoDetails={handleVideoDetails}
                             selectedTheme={selectedTheme}
+                            setIsMarkerClicked={setIsMarkerClicked}
+                            markers={markers}
+                            assetLiveMarker={assetLiveMarker}
+                            setAssetLiveMarker={setAssetLiveMarker}
+                            handleLiveMarkerIcon={handleLiveMarkerIcon}
+                            handleLiveMarkerClose={handleLiveMarkerClose}
+                            liveMarkerList={liveMarkerList}
+                            listSelectedMarker={listSelectedMarker}
+                            isMarkerClicked={isMarkerClicked}
+                            selectedNotificationItem={selectedNotificationItem}
                           />
                         </>
                       );
                     }
                   })}
-
-                  {location?.pathname === "/fleetManagement" &&
-                    points &&
-                    points.length > 0 && (
-                      <PolylineF
-                        path={points}
-                        options={{
-                          strokeColor: "#976C9E",
-                          strokeOpacity: 10,
-                          strokeWeight: 0,
-                          icons: [
-                            {
-                              icon: lineSymbol,
-                              offset: "0",
-                              repeat: "20px",
-                            },
-                          ],
-                        }}
-                      />
-                    )}
-
-                  {location?.pathname === "/fleetManagement" &&
-                    points &&
-                    points?.length > 0 &&
-                    progress &&
-                    progress?.length > 0 && (
-                      <>
-                        <PolylineF
-                          path={progress}
-                          options={{
-                            strokeColor: "#73B35A",
-                            strokeOpacity: 10,
-                            strokeWeight: 4,
-                          }}
-                        />
-                        {selectedMarker && (
-                          <MapMarker
-                            mapMarker={selectedMarker}
-                            toggleInfoWindow={toggleInfoWindow}
-                            handleMarkerClose={handleMarkerClose}
-                            handleExpandListItem={handleExpandListItem}
-                            getMarkerIcon={getMarkerIcon}
-                            currentMarker={currentMarker}
-                            focusedCategory={focusedCategory}
-                            location={progress[progress.length - 1]}
-                            direction={"NE"}
-                            pageName={"FleetManagement"}
-                            handleViewDetails={handleViewDetails}
-                            handleVideoDetails={handleVideoDetails}
-                            mapPageName={mapPageName} // === "dashboard"
-                            selectedTheme={selectedTheme}
-                          />
-                        )}
-                        {/* <Marker position={progress[progress.length - 1]} /> */}
-                      </>
-                    )}
                 </div>
               )}
             </MarkerClustererF>
           ) : (
             <div>
-              {markers?.map((singleMarker: any) => {
+              {liveMarkerList?.map((singleMarker: any) => {
                 // if (!window.google) return null;
                 if (
                   singleMarker?.tripStatus === "Live" &&
@@ -1105,6 +1221,7 @@ const Map: React.FC<any> = (props) => {
                   return (
                     <>
                       <MapMarker
+                        selectedNotification={selectedNotification}
                         mapMarker={singleMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -1113,12 +1230,20 @@ const Map: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
                         // clusterer={clusterer}
-                        location={singleMarker?.location}
+                        location={singleMarker?.currentLocation}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
                         selectedTheme={selectedTheme}
                         handleViewDetails={handleViewDetails}
                         handleVideoDetails={handleVideoDetails}
+                        setIsMarkerClicked={setIsMarkerClicked}
+                        markers={markers}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        handleLiveMarkerIcon={handleLiveMarkerIcon}
+                        handleLiveMarkerClose={handleLiveMarkerClose}
+                        listSelectedMarker={listSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
                   );
@@ -1129,6 +1254,7 @@ const Map: React.FC<any> = (props) => {
                   return (
                     <>
                       <MapMarker
+                        selectedNotification={selectedNotification}
                         mapMarker={singleMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -1137,12 +1263,20 @@ const Map: React.FC<any> = (props) => {
                         currentMarker={currentMarker}
                         focusedCategory={focusedCategory}
                         // clusterer={clusterer}
-                        location={singleMarker?.location}
+                        location={singleMarker?.currentLocation}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={mapPageName}
                         handleViewDetails={handleViewDetails}
                         handleVideoDetails={handleVideoDetails}
                         selectedTheme={selectedTheme}
+                        setIsMarkerClicked={setIsMarkerClicked}
+                        markers={markers}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        handleLiveMarkerIcon={handleLiveMarkerIcon}
+                        handleLiveMarkerClose={handleLiveMarkerClose}
+                        listSelectedMarker={listSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     </>
                   );
@@ -1183,6 +1317,7 @@ const Map: React.FC<any> = (props) => {
                     />
                     {selectedMarker && (
                       <MapMarker
+                        selectedNotification={selectedNotification}
                         mapMarker={selectedMarker}
                         toggleInfoWindow={toggleInfoWindow}
                         handleMarkerClose={handleMarkerClose}
@@ -1197,6 +1332,14 @@ const Map: React.FC<any> = (props) => {
                         handleVideoDetails={handleVideoDetails}
                         mapPageName={mapPageName} // === "dashboard"
                         selectedTheme={selectedTheme}
+                        setIsMarkerClicked={setIsMarkerClicked}
+                        markers={markers}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        handleLiveMarkerIcon={handleLiveMarkerIcon}
+                        handleLiveMarkerClose={handleLiveMarkerClose}
+                        listSelectedMarker={listSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
                       />
                     )}
                     {/* <Marker position={dataPoints[dataPoints.length - 1]} /> */}

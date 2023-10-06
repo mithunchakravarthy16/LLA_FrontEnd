@@ -2,7 +2,7 @@
 
 import { makeStyles } from "@mui/styles";
 import llaBanner from "../../assets/images/login-bg1.jpg";
-import llaLightBanner from "../../assets/lightThemeBanner.svg";
+import llaLightBanner from "../../assets/lightThemeBanner.png";
 import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles(() => ({
@@ -10,9 +10,10 @@ const useStyles = makeStyles(() => ({
     background: props?.palette?.login?.pageBackgroundColor,
   }),
   loginBannerSection: (props: any) => ({
-    backgroundImage: `url("${
-      props.selectedTheme === "light" ? llaLightBanner : llaBanner
-    }")`,
+    // backgroundImage: `url("${
+    //   props.selectedTheme === "light" ? llaLightBanner : llaBanner
+    // }")`,
+    backgroundImage: `url(${llaLightBanner})`,
     background: props?.palette?.login?.loginBg,
     mixBlendMode: "hard-light",
     backdropFilter: "blur(42px)",
@@ -30,6 +31,9 @@ const useStyles = makeStyles(() => ({
     },
     [muiTheme.breakpoints.down(3073)]: {
       paddingTop: "16vh",
+    },
+    [muiTheme.breakpoints.down(2049)]: {
+      paddingTop: "3vh",
     },
     [muiTheme.breakpoints.down(1793)]: {
       paddingTop: "23vh",
@@ -167,11 +171,29 @@ const useStyles = makeStyles(() => ({
       fontSize: "0.8vw",
       lineHeight: "48px",
       color: `${props?.palette?.login?.inputPlaceholder} !important`,
+      boxShadow: `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+
+      "&:-webkit-autofill": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+      "&:-webkit-autofill:hover": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+      "&:-webkit-autofill:focus": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+      "&:-webkit-autofill:active": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
 
       padding: 36,
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
-        opacity: 0.5,
+        opacity: 0.4,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontFamily: "HelveticaNeue-Regular",
@@ -183,7 +205,7 @@ const useStyles = makeStyles(() => ({
       },
       [muiTheme.breakpoints.down(2049)]: {
         fontWeight: " 500",
-        fontSize: "22px",
+        fontSize: "18px",
         lineHeight: "30px",
         padding: 20,
       },
@@ -221,9 +243,29 @@ const useStyles = makeStyles(() => ({
       lineHeight: "48px",
       color: `${props?.palette?.login?.inputPlaceholder} !important`,
       padding: 36,
+
+      boxShadow: `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+
+      "&:-webkit-autofill": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+      "&:-webkit-autofill:hover": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+      "&:-webkit-autofill:focus": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+      "&:-webkit-autofill:active": {
+        "-webkit-box-shadow": `0 0 0px 100px ${props?.palette?.login?.bg} inset !important`,
+        "-webkit-text-fill-color": "unset !important",
+      },
+
       "&::placeholder": {
         color: props?.palette?.login?.inputPlaceholder,
-        opacity: 0.5,
+        opacity: 0.4,
       },
       [muiTheme.breakpoints.down(3073)]: {
         fontFamily: "HelveticaNeue-Regular",
@@ -235,7 +277,7 @@ const useStyles = makeStyles(() => ({
       },
       [muiTheme.breakpoints.down(2049)]: {
         fontWeight: " 500",
-        fontSize: "22px",
+        fontSize: "18px",
         lineHeight: "30px",
         padding: 20,
       },

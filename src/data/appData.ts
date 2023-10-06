@@ -1,5 +1,4 @@
 const appData = {
-  googleApiKey: "AIzaSyBjnsedFLB4nVkgtsi5nl3fMcCHxLcDMVI",
   googleMapColor: {
     mapBgColor: "#121213",
     roadColor: "#1A1B1C",

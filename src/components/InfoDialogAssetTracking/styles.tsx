@@ -1,4 +1,4 @@
-/** @format */
+//@ts-nocheck
 
 import { makeStyles } from "@mui/styles";
 import { padding } from "@mui/system";
@@ -16,12 +16,12 @@ const useStyles = makeStyles(() => ({
     fontSize: "1vw",
     marginBottom: "1vh",
     fontFamily: "HelveticaNeue-Regular",
-    fontWeight : 700,
+    fontWeight: 700,
     color: props?.palette?.assetTrackingPage?.topPanelTextColor,
   }),
   assetTrackingTitle: (props: any) => ({
     fontSize: "0.7vw",
-    fontWeight : 500,
+    fontWeight: 500,
     display: "flex",
     justifyContent: "space-between",
     fontFamily: "HelveticaNeue-Regular",
@@ -46,8 +46,8 @@ const useStyles = makeStyles(() => ({
   }),
 
   assetInfoLeftPanelMain: (props: any) => ({
-    display: "flex",
-    flexDirection: "column",
+    display: "flex !important",
+    flexDirection: "column !important",
     justifyContent: "space-between",
   }),
   assetInfoLeftPanelTop: (props: any) => ({
@@ -56,8 +56,8 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     padding: "2%",
     width: "100%",
-    height: "15%",
-    marginBottom: "4%",
+    // height: "16%",
+    marginBottom: "3%",
     border: `1px solid ${props?.palette?.assetTrackingPage?.topPanelBorder}`,
   }),
   assetInfoLeftPanelCenter: (props: any) => ({
@@ -68,12 +68,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     fontSize: "0.9vw",
     fontFamily: "HelveticaNeue-Regular",
-    height: "50%",
+    // height: "50%",
     marginottom: "4vh",
   }),
   assetInfoLeftPanelBottom: (props: any) => ({
     width: "100%",
-    height: "30%",
+    // height: "30%",
   }),
   leftPanelSection: (props: any) => ({
     display: "flex",
@@ -111,6 +111,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: "2.4vh",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.assetTrackingPage?.topPanelTextColor,
+    height: "3vh",
   }),
   leftPanelChild2: (props: any) => ({
     color: "#F26522",

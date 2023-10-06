@@ -26,14 +26,11 @@ import {
   getAssetTrackingCreateGeofence,
   setAssetTrackingCreateGeofence,
 } from "redux/actions/getAssetTrackerDetailAction";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
-  "& .MuiDialogContent-root": {
-    // padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    // padding: theme.spacing(1),
-  },
+  "& .MuiDialogContent-root": {},
+  "& .MuiDialogActions-root": {},
   "& .MuiBackdrop-root": {
     marginTop: "0px !important",
   },
@@ -50,8 +47,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
-    // background: "rgba(11, 16, 45 / 68%) !important",
-    // background: `${appTheme?.palette?.infoDialogue?.dialogueBackDropBg} !important`,
     backdropFilter: "blur(5.5px)",
     height: "100vh !important",
   },
@@ -75,7 +70,8 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     (state: any) => state.assetTracker?.assetTrackingCreateGeofenceData
   );
 
-  const { setIsGeofenceInfoWindowActive, selectedTheme } = props;
+  const { setIsGeofenceInfoWindowActive, selectedTheme, mapType, setMapType } =
+    props;
 
   const [appTheme, setAppTheme] = useState(customTheme?.defaultTheme);
   const { assetsTracking } = useTranslation();
@@ -245,56 +241,18 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     drawRadius: any
   ) => {
     const startLatLng = new google.maps.LatLng(centerCoOrdinates);
-    // const circle = new window.google.maps.Circle({
-    //   center: startLatLng,
-    //   radius: drawRadius,
-    // })
-    //   .getBounds()
-    //   ?.contains(selectedViewDetailsData?.location);
-
-    // if (circle) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
   };
 
   const onPolygonCompleteLocation = (path: any) => {
     const polygon = new window.google.maps.Polygon({
       paths: path,
     });
-
-    // const contains = window.google.maps.geometry.poly.containsLocation(
-    //   new window.google.maps.LatLng(
-    //     selectedViewDetailsData?.location?.lat,
-    //     selectedViewDetailsData?.location?.lng
-    //   ),
-    //   polygon
-    // );
-
-    // if (contains) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
   };
 
   const handleCircleDrag = (centerCoOrdinates: any) => {
     polygonData?.setMap(null);
     circleData?.setMap(null);
     const startLatLng = new google.maps.LatLng(centerCoOrdinates);
-    // const circle = new window.google.maps.Circle({
-    //   center: startLatLng,
-    //   radius: circleRadius,
-    // })
-    //   .getBounds()
-    //   ?.contains(selectedViewDetailsData?.location);
-
-    // if (circle) {
-    //   setIsGeofenceLocation(true);
-    // } else {
-    //   setIsGeofenceLocation(false);
-    // }
   };
 
   const handleCircleLatChange = () => {
@@ -318,20 +276,6 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     map?.setZoom(15);
   };
 
-  const addressFound = async (LatLng: any) => {
-    const geocoder: any = new window.google.maps.Geocoder();
-    const location1: any = new window.google.maps.LatLng(LatLng);
-    return new Promise(function (resolve, reject) {
-      geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
-        if (status === "OK") {
-          resolve(results[0].formatted_address);
-        } else {
-          reject(new Error("Couldnt't find the address " + status));
-        }
-      });
-    });
-  };
-
   const handleSaveClick = async () => {
     const payload = {
       assetId: selectAssetIds,
@@ -341,7 +285,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
       backToGeofence: isBackGeofenceChecked,
       radius: circleRadius,
       location: isCircleEnbled ? [circleCenter] : polygonPath,
-      area: isCircleEnbled ? await addressFound(circleCenter) : "",
+      area: "",
       recipients: ["string"],
     };
     dispatch(getAssetTrackingCreateGeofence(payload));
@@ -407,13 +351,27 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     setSuccess(false);
   };
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
       {success && createGeofenceResponse?.status && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
           open={success}
           onClose={handleAlertClose}
+          sx={{ bottom: "7.5vw !important" }}
         >
           <Alert
             onClose={handleAlertClose}
@@ -430,32 +388,33 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {assetsListLoader ? (
-        <Loader />
-      ) : (
-        <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-          <div>
-            <IconButton
-              aria-label="close"
-              onClick={handleClose}
-              sx={{
-                position: "absolute",
-                padding: "0.5%",
-                right: "0.1%",
-                top: "1.5%",
-                color: "transparent",
-                width: "4.2%",
-                height: "4.2%",
-                transition: "none",
-              }}
-            >
-              <img
-                width={"100%"}
-                height={"100%"}
-                src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
-              />
-            </IconButton>
-          </div>
+
+      <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
+        <div>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              padding: "0.5%",
+              right: "0.1%",
+              top: "1.5%",
+              color: "transparent",
+              width: "4.2%",
+              height: "4.2%",
+              transition: "none",
+            }}
+          >
+            <img
+              width={"100%"}
+              height={"100%"}
+              src={selectedTheme === "light" ? LightCloseIcon : CloseIcon}
+            />
+          </IconButton>
+        </div>
+        {assetsListLoader && !googleMapsApiKeyResponse ? (
+          <Loader isHundredVh={false} />
+        ) : (
           <Grid container xs={12} style={{ height: "100%" }}>
             <Grid item xs={12} className={headerStyle}>
               <div>GEOFENCE</div>
@@ -509,6 +468,9 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                   <Map
+                  googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                    mapType={mapType}
+                    setMapType={setMapType}
                     markers={searchSelectedData}
                     marker={""}
                     currentMarker={""}
@@ -566,8 +528,8 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
               </Grid>
             </Grid>
           </Grid>
-        </DialogWrapper>
-      )}
+        )}
+      </DialogWrapper>
     </>
   );
 };

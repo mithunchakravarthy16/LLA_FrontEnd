@@ -9,7 +9,10 @@ export default (state=initialState, action:any) => {
         case assetNotification.SET_ASSET_NOTIFICATION :
             const { assetNotificationData } = action;
             return{...state, assetNotificationData};
-
+        case assetNotification.SHOW_LOADER_ASSET_NOTIFICATIONDATA:
+                return { ...state, loadingAssetNotificationData: true };
+        case assetNotification.HIDE_LOADER_ASSET_NOTIFICATIONDATA:
+                return { ...state, loadingAssetNotificationData: false };
         default:
             return state;
     }

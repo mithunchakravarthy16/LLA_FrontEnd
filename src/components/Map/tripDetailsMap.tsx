@@ -90,6 +90,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
     selectedTheme,
     dataPoints,
     tripStatus,
+    googleMapsApiKeyResponse,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -103,7 +104,7 @@ const TripDetailsMap: React.FC<any> = (props) => {
   const [selectedContainerStyle, setSelectedContainerStyle] = useState<any>();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
+    googleMapsApiKey: googleMapsApiKeyResponse,
     libraries: libraries,
   });
 

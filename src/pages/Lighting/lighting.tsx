@@ -32,8 +32,13 @@ import {
 } from "../../assets/lightingTopPanelLightThemeIcons";
 import useStyles from "./styles";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+
 
 const Parking: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
+
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -88,6 +93,7 @@ const Parking: React.FC<any> = (props) => {
     aqiCircleStyle,
     graphTwoHeader,
     electricity,
+    globeIconSection
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
@@ -294,9 +300,36 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
-      {!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 ?  (
+      {
+      // !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 && 
+      googleMapsApiKeyResponse ?  (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -626,9 +659,16 @@ const Parking: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "58%" }}
+                      style={{ height: "58%", position : "relative"  }}
                     >
+                         <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                       <Map
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
@@ -641,6 +681,18 @@ const Parking: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
+                        selectedNotification={selectedNotification}
+                        liveMarkerList={liveMarkerList}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        listSelectedMarker={listSelectedMarker}
+                        setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
+                        setSelectedNotificationItem={setSelectedNotificationItem}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
+                        mapType={mapType}
+                      setMapType={setMapType}
+
                       />
                     </Grid>
                   </Grid>
@@ -663,6 +715,15 @@ const Parking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    notificationPageName={"lighting"}
+                    setAssetLiveMarker={setAssetLiveMarker}
+                  liveMarkerList={liveMarkerList}
+                  listSelectedMarker={listSelectedMarker}
+                  setListSelectedMarker={setListSelectedMarker}
+                  selectedNotificationItem={selectedNotificationItem}
+                  setSelectedNotificationItem={setSelectedNotificationItem}
+                  mapDefaultView={mapDefaultView}
+                  setMapDefaultView={setMapDefaultView}
                   />
                 </Grid>
               </Grid>

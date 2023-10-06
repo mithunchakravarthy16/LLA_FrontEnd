@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -28,7 +28,7 @@ import Map from "components/Map";
 import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
 import {
-  formatttedDashboardNotification,
+  formatttedParkingNotification,
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import parkingData from "mockdata/parkingData";
@@ -38,11 +38,14 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
 import ParkingSlotContainer from "components/ParkingSlotContainer";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 HC_rounded(Highcharts);
 
 const Parking: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -60,6 +63,7 @@ const Parking: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [parkingLotIndex, setParkingLotIndex] = useState<any>(0);
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -111,6 +115,7 @@ const Parking: React.FC<any> = (props) => {
     graphTwoHeader,
     electricity,
     lotSelectionIconStyleClose,
+    globeIconSection,
   } = useStyles({
     ...appTheme,
     parkingLotSelectionActive: parkingLotSelectionActive,
@@ -205,11 +210,11 @@ const Parking: React.FC<any> = (props) => {
   );
 
   const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedParkingNotification(dashboardDataList, tabIndex)
   );
 
   const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(dashboardDataList, tabIndex)
+    formatttedParkingNotification(dashboardDataList, tabIndex)
   );
 
   const [notificationCount, setNotificationCount] = useState<any>(
@@ -218,11 +223,9 @@ const Parking: React.FC<any> = (props) => {
 
   useEffect(() => {
     setDashboardData(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
+      formatttedParkingNotification(dashboardDataList, tabIndex)
     );
-    setSearchValue(
-      formatttedDashboardNotification(dashboardDataList, tabIndex)
-    );
+    setSearchValue(formatttedParkingNotification(dashboardDataList, tabIndex));
   }, [tabIndex]);
 
   useEffect(() => {
@@ -234,6 +237,7 @@ const Parking: React.FC<any> = (props) => {
   const handleParkingLot = (index: number) => {
     setParkingLotIndex(index);
     setParkingLotSelectionActive(false);
+    setMapDefaultView(true);
   };
 
   const [selectedParkingLot, setSelectedParkingLot] = useState<any>(
@@ -248,10 +252,12 @@ const Parking: React.FC<any> = (props) => {
     setParkingLotSelectionActive(true);
     setSelectedNotification("");
     setSearchOpen(false);
+    setMapDefaultView(true);
   };
 
   const handleLotSelctionCloseIcon = () => {
     setParkingLotSelectionActive(false);
+    setMapDefaultView(true);
   };
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -435,10 +441,14 @@ const Parking: React.FC<any> = (props) => {
     }, 500);
   }, []);
   const [isDataLoadedLotImg, setIsDataLoadedLotImg] = useState<boolean>(false);
+  const [isDataLoadedLotOverAll, setIsDataLoadedLotOverAll] =
+    useState<boolean>(false);
+
   useEffect(() => {
-    setIsDataLoadedLotImg(false)
+    setIsDataLoadedLotOverAll(false);
+    setIsDataLoadedLotImg(false);
     setTimeout(() => {
-      setIsDataLoadedLotImg(true);
+      setIsDataLoadedLotOverAll(true);
     }, 500);
   }, [parkingLotIndex]);
 
@@ -446,12 +456,84 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
+
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setParkingLotSelectionActive(false);
+    setParkingLotIndex(0);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
+  const parkingMapUseMemo = useMemo(() => {
+    return (
+      <Map
+      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+        mapType={mapType}
+        setMapType={setMapType}
+        markers={dashboardDataList}
+        setNotificationPanelActive={setNotificationPanelActive}
+        setSelectedNotification={setSelectedNotification}
+        marker={selectedNotification}
+        selectedNotification={selectedNotification}
+        setTabIndex={setTabIndex}
+        currentMarker={currentMarker}
+        setCurrentMarker={setCurrentMarker}
+        setIsMarkerClicked={setIsMarkerClicked}
+        mapPageName={"parking"}
+        selectedTheme={selectedTheme}
+        setMap={setMap}
+        map={map}
+        liveMarkerList={liveMarkerList}
+        setAssetLiveMarker={setAssetLiveMarker}
+        listSelectedMarker={listSelectedMarker}
+        setListSelectedMarker={setListSelectedMarker}
+        selectedNotificationItem={selectedNotificationItem}
+        setSelectedNotificationItem={setSelectedNotificationItem}
+        mapDefaultView={mapDefaultView}
+        setMapDefaultView={setMapDefaultView}
+      />
+    );
+  }, [
+    mapType,
+    // dashboardDataList,
+    selectedNotification,
+    currentMarker,
+    selectedTheme,
+    map,
+    liveMarkerList,
+    listSelectedMarker,
+    selectedNotificationItem,
+    mapDefaultView,
+    assetLiveMarker,
+    googleMapsApiKeyResponse
+  ]);
+
+
+
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme &&
-      Object.keys(appTheme).length > 0 ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -462,19 +544,22 @@ const Parking: React.FC<any> = (props) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}>
+                        style={{ height: "100%" }}
+                      >
                         <Grid
                           item
                           xs={12}
@@ -506,23 +591,27 @@ const Parking: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 20px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   style={{ height: "10%" }}
-                                  className={electricity}>
+                                  className={electricity}
+                                >
                                   {gridView.occupancy}
                                 </Grid>
                                 <Grid item xs={12} style={{ height: "90%" }}>
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={9}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width}
                                         // height={selectedWidth?.height}
@@ -636,7 +725,8 @@ const Parking: React.FC<any> = (props) => {
                                       style={{
                                         height: "100%",
                                         padding: "0px 0px 15px 36px",
-                                      }}>
+                                      }}
+                                    >
                                       <div className={liveContainer}>
                                         <div className={liveImgStyle}>
                                           <img
@@ -682,23 +772,27 @@ const Parking: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 20px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   style={{ height: "10%" }}
-                                  className={electricity}>
-                                  {parking.parkingViolation}
+                                  className={electricity}
+                                >
+                                  {parking && parking?.parkingViolation}
                                 </Grid>
                                 <Grid item xs={12}>
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}>
+                                    style={{ height: "90%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <HighchartsReact
                                         highcharts={Highcharts}
                                         containerProps={{
@@ -814,7 +908,8 @@ const Parking: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
+                      style={{ height: "59%" }}
+                    >
                       <ParkingSlotContainer
                         parkingLotSelectionActive={parkingLotSelectionActive}
                         parkingLotIndex={parkingLotIndex}
@@ -825,42 +920,52 @@ const Parking: React.FC<any> = (props) => {
                         handleLotSelctionCloseIcon={handleLotSelctionCloseIcon}
                         selectedTheme={selectedTheme}
                       />
+                      <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
 
-                      {isDataLoadedLotImg ?
-                      parkingLotIndex === 0 ? (
-                        <Map
-                          markers={dashboardDataList}
-                          setNotificationPanelActive={
-                            setNotificationPanelActive
-                          }
-                          setSelectedNotification={setSelectedNotification}
-                          marker={selectedNotification}
-                          setTabIndex={setTabIndex}
-                          currentMarker={currentMarker}
-                          setCurrentMarker={setCurrentMarker}
-                          setIsMarkerClicked={setIsMarkerClicked}
-                          mapPageName={"parking"}
-                          selectedTheme={selectedTheme}
-                          setMap={setMap}
-                          map={map}
-                        />
+                      {isDataLoadedLotOverAll ? (
+                        parkingLotIndex === 0 ? (
+                          parkingMapUseMemo
+                        ) : (
+                          // </Grid>
+                          // true ?
+                          <div
+                            className={lotImageStyle}
+                            style={{ position: "relative" }}
+                          >
+                            {!isDataLoadedLotImg && (
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: 0,
+                                  right: 0,
+                                  left: 0,
+                                  bottom: 0,
+                                  background: "#fff",
+                                }}
+                              >
+                                <Loader isHundredVh={false} />
+                              </div>
+                            )}
+                            <img
+                              onLoad={() => setIsDataLoadedLotImg(true)}
+                              src={
+                                selectedTheme === "light"
+                                  ? LightThemeParkingLot1
+                                  : ParkingLot1
+                              }
+                              alt="ParkingLot1"
+                              style={{ width: "95%" }}
+                            />
+                          </div>
+                        )
                       ) : (
-                        // </Grid>
-                        <div className={lotImageStyle}>
-                          <img
-                          onLoad={()=>setIsDataLoadedLotImg(true)}
-                            src={
-                              selectedTheme === "light"
-                                ? LightThemeParkingLot1
-                                : ParkingLot1
-                            }
-                            alt="ParkingLot1"
-                            style={{ width: "95%" }}
-                          />
-                        </div>
-                      )
-                    : <Loader isHundredVh={false} />
-                    }
+                        <Loader isHundredVh={false} />
+                      )}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -868,7 +973,8 @@ const Parking: React.FC<any> = (props) => {
                   item
                   xs={3}
                   className={notificationPanelGrid}
-                  style={{ height: "100%" }}>
+                  style={{ height: "100%" }}
+                >
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}
@@ -889,6 +995,14 @@ const Parking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker={setAssetLiveMarker}
+                    liveMarkerList={liveMarkerList}
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                   />
                 </Grid>
               </Grid>

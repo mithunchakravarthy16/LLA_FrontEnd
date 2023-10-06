@@ -34,7 +34,8 @@ const INF_Button: React.FC<any> = (props) => {
     disabled,
   } = props;
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (event:any) => {
+    event.stopPropagation();
     handleClick(children);
   };
   return (

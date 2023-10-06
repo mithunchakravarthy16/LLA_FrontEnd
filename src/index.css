@@ -65,7 +65,7 @@ padding: 0px !important;
 } */
 
 
-.gmnoprint a, .gmnoprint span, .gm-style-cc {
+ .gmnoprint span, .gm-style-cc {
   display:none;
 }
 
@@ -117,3 +117,4 @@ a[href^="https://www.google.com/maps"] {
   font-weight: 100;
   font-style: normal;
 }
+.gm-style iframe + div { border:none!important; }

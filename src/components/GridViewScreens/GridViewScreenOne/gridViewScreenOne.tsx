@@ -82,8 +82,8 @@ const GridViewScreenOne: React.FC<any> = (props) => {
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 410,
-        height: 280,
+        width: 420,
+        height: 270,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1919) {
@@ -177,19 +177,21 @@ const GridViewScreenOne: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/parking");
-        }}>
+        }}
+      >
         <Grid container xs={12} className={gridContainers}>
-          <Grid item xs={12} className={containerTitle}>
-            {dashboard.parking}
-          </Grid>
           <Grid item xs={12} className={subContainer}>
-            <Grid container xs={12} className={childSubContainer}>
-              <Grid item xs={9}>
+            <Grid container xs={9} className={childSubContainer}>
+              <Grid item xs={12} className={containerTitle}>
+                {dashboard.parking}
+              </Grid>
+              <Grid item xs={12}>
                 <Grid
                   container
                   xs={12}
                   alignContent="space-between"
-                  className={leftSubChildContainer}>
+                  className={leftSubChildContainer}
+                >
                   <Grid item xs={12}>
                     <div className={graphTitleScreenOne}>
                       {gridView.occupancy}
@@ -277,13 +279,13 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                         />
                       </div>
                       <div className={liveContentLeftStyle}>
-                        <div className={liveContentValue}>398</div>
+                        <div className={liveContentValue}>228</div>
                         <div className={liveContentLabel}>
                           {dashboard.available}
                         </div>
                       </div>
                       <div className={liveContentStyle}>
-                        <div className={liveContentValue}>354</div>
+                        <div className={liveContentValue}>370</div>
                         <div className={liveContentLabel}>
                           {dashboard.occupied}
                         </div>
@@ -292,64 +294,65 @@ const GridViewScreenOne: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3}>
-                <Grid
-                  container
-                  xs={12}
-                  alignItems="center"
-                  textAlign="center"
-                  className={lastweekContainer}>
-                  <Grid item xs={12} className={lastweekTitleStyle}>
-                    <div
-                      style={{
-                        background:
-                          appTheme?.palette?.gridViewComponentCommonStyle
-                            ?.todayTitleBgColor,
-                            padding: "2.5% 10%",
-                            borderRadius : "0.3vw",
-                            fontSize : "0.8vw",
-                            fontWeight : 500
-                      }}>
-                      {gridView.today}
+            </Grid>
+
+            <Grid
+              container
+              xs={3}
+              alignItems="center"
+              textAlign="center"
+              className={lastweekContainer}
+            >
+              <Grid item xs={12} className={lastweekTitleStyle}>
+                <div
+                  style={{
+                    background:
+                      appTheme?.palette?.gridViewComponentCommonStyle
+                        ?.todayTitleBgColor,
+                    padding: "2.5% 10%",
+                    borderRadius: "0.3vw",
+                    fontSize: "0.8vw",
+                    fontWeight: 500,
+                  }}
+                >
+                  {gridView.today}
+                </div>
+              </Grid>
+              <Grid item xs={12} className={lastweekBodyContainer}>
+                <Grid container xs={12} className={lastweekBodySubContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={rightListItemStyle}
+                    direction="column"
+                  >
+                    <div className={listItemValueStyle}>10Hrs</div>
+                    <div className={listItemLabelStyle}>
+                      {gridView.avg}
+                      <p>{gridView.parkingHours}</p>
                     </div>
                   </Grid>
-                  <Grid item xs={12} className={lastweekBodyContainer}>
-                    <Grid
-                      container
-                      xs={12}
-                      className={lastweekBodySubContainer}>
-                      <Grid
-                        item
-                        xs={12}
-                        className={rightListItemStyle}
-                        direction="column">
-                        <div className={listItemValueStyle}>10Hrs</div>
-                        <div className={listItemLabelStyle}>
-                          {gridView.avg}
-                          <p>{gridView.parkingHours}</p>
-                        </div>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        direction="column"
-                        className={rightListItemStyle}>
-                        <div className={listItemValueStyle}>1.5</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.rotation}</p> <p>{gridView.index}</p>
-                        </div>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        direction="column"
-                        className={rightListItemStyleLastChild}>
-                        <div className={listItemValueStyle}>20Kg</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.carbon}</p> <p>{gridView.emission}</p>
-                        </div>
-                      </Grid>
-                    </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    className={rightListItemStyle}
+                  >
+                    <div className={listItemValueStyle}>1.5</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.rotation}</p> <p>{gridView.index}</p>
+                    </div>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    className={rightListItemStyleLastChild}
+                  >
+                    <div className={listItemValueStyle}>20Kg</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.carbon}</p> <p>{gridView.emission}</p>
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>

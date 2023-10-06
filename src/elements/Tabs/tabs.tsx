@@ -16,6 +16,7 @@ interface tabProps {
   isEquipmentDropdown?: any;
   handleSelectEquipmentWareHouse?: any;
   selectListEquipmentWareHouse?: any;
+  disabled?: boolean;
 }
 const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
   const {
@@ -27,6 +28,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     isEquipmentDropdown,
     handleSelectEquipmentWareHouse,
     selectListEquipmentWareHouse,
+    disabled,
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -40,7 +42,7 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
     tabCountContainer,
     tabCountContainerSelected,
     fleetInfoDialogueTabLabelTextSelected,
-    tabLabelParkingSlot
+    tabLabelParkingSlot,
   } = useStyles({
     appTheme,
     pageName: pageName,
@@ -70,27 +72,38 @@ const INF_Tabs: React.FC<tabProps> = (props: tabProps) => {
               <Tab
                 key={index}
                 value={pageName === "sendConfig" ? item?.val : index}
+                disabled={disabled}
                 label={
                   <div
                     className={
                       pageName === "fleetInfoDialogue"
-                        ? tabLabelFleetInfoDialogue : pageName === "parkingSlot" ? tabLabelParkingSlot 
+                        ? tabLabelFleetInfoDialogue
+                        : pageName === "parkingSlot"
+                        ? tabLabelParkingSlot
                         : tabLabel
                     }
                   >
                     {(item?.count || item?.count === 0) && (
                       <div>
                         {/* <div className={value === index ? tabCountContainerSelected : tabCountContainer}>{item?.count}</div> */}
-                        <div className="count">{item?.count}</div>
+                        <div className="count">
+                          {item?.count > 1000 ? (
+                            <span>
+                              999<sup>+</sup>
+                            </span>
+                          ) : (
+                            item?.count
+                          )}
+                        </div>
                       </div>
                     )}
 
                     {/* <div className={value !== index ? tabLabelText : tabLabelTextSelected} >{item?.name}</div> */}
                     <div
                       className={
-                        value === index &&
-                        pageName === "fleetInfoDialogue" ?
-                        fleetInfoDialogueTabLabelTextSelected : ""
+                        value === index && pageName === "fleetInfoDialogue"
+                          ? fleetInfoDialogueTabLabelTextSelected
+                          : ""
                       }
                     >
                       {item?.name}

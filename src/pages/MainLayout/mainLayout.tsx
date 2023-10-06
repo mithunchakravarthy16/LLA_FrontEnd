@@ -4,20 +4,16 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import SideBar from "../../components/SideBar";
 import theme from "../../theme/theme";
-import FooterIcon from "../../assets/images/footer-logo-1.svg";
-import useTranslation from "localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUserLogout, setUserLogin } from "../../redux/actions/loginActions";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //@ts-ignore
 import { useIdleTimer } from "react-idle-timer";
 
 const MainLayout = (props: any) => {
-  const [selectedTheme, setSelectedTheme] = useState<any>(
-    JSON.parse(localStorage.getItem("theme") || "{}")
-  );
+  const [selectedTheme, setSelectedTheme] = useState<any>();
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
   useEffect(() => {
@@ -34,17 +30,7 @@ const MainLayout = (props: any) => {
     }
   }, [selectedTheme]);
 
-  const {
-    loaderStyle,
-    footerSection,
-    footerContent,
-    footerIconStyle,
-    copyrights,
-    allRights,
-  } = useStyles(appTheme);
-
-  const { poweredByText, allRightsReservedText, titleText, subTitleText } =
-    useTranslation();
+  const { loaderStyle } = useStyles(appTheme);
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -67,7 +53,7 @@ const MainLayout = (props: any) => {
 
   useIdleTimer({
     timeout: 600000,
-    onIdle: handleOnIdle
+    onIdle: handleOnIdle,
   });
 
   return (
@@ -94,9 +80,7 @@ const MainLayout = (props: any) => {
             <Footer pageName={"dashboard"} />
           </>
         ) : (
-          <div className={loaderStyle}>
-            {/* <img width={60} height={60} src={LoaderGif} /> */}
-          </div>
+          <div className={loaderStyle}></div>
         )}
       </div>
     </div>

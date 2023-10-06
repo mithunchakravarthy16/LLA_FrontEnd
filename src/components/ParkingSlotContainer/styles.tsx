@@ -11,10 +11,10 @@ const useStyles = makeStyles({
   mapFilterStyle: (props: any) => ({
     position: "absolute",
     color: "white",
-    right: "1vh",
+    right: "8.6vh",
     top: "1vh",
     zIndex: 1,
-    background: props?.palette?.parkingPage?.parkingSlotBgColor, 
+    background: props?.palette?.parkingPage?.parkingSlotBgColor,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -22,11 +22,10 @@ const useStyles = makeStyles({
     cursor: "pointer",
     width: "35%",
     height: "8%",
-    padding: "1vh", 
+    padding: "1vh",
     [muiTheme.breakpoints.between(2049, 3073)]: {
       height: "7%",
     },
-
   }),
   customNotificationTabs: (props: any) => ({
     "& .MuiTabs-scroller": {
@@ -64,7 +63,6 @@ const useStyles = makeStyles({
           color: `${props?.palette?.notification?.listTextColor} !important`,
         },
       },
-
     },
     "& .MuiTabs-root .MuiTabs-indicator": {
       display: "none",
@@ -82,7 +80,7 @@ const useStyles = makeStyles({
     // width: "6vh",
     height: "12%",
     fontSize: "0.8vw",
-    right: "1vh",
+    right: "8vh",
     // top: "50%",
     // transform: "translateY(-50%)",
     borderRadius: "50%",

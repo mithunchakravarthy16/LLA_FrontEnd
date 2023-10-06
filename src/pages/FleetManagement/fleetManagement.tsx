@@ -44,8 +44,13 @@ import {
   getFleetManagementLiveTrip,
   setFleetManagementLiveTrip,
 } from "redux/actions/fleetManagementNotificationActions";
+import moment from "moment";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 
 const FleetManagement: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
+
   const navigate = useNavigate();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -108,6 +113,7 @@ const FleetManagement: React.FC<any> = (props) => {
     driveDot,
     driveDotOne,
     graphTitle,
+    globeIconSection
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -120,34 +126,66 @@ const FleetManagement: React.FC<any> = (props) => {
     // return () => {
     //   clearInterval(timer);
     // };
-    dispatch(getFleetManagementNotificationData(payload));
+     dispatch(getFleetManagementNotificationData(payload));
   }, []);
-
+  const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"hh:mm A", tickInterval1: 8, tickInterval2: 12})
   useEffect(() => {
-    dispatch(
-      getFleetManagementOverAllTripDetails({
-        type:
-          selectedValue === "Today"
-            ? "Day"
-            : selectedValue === "Week"
-            ? "Weekly"
-            : selectedValue === "Month"
-            ? "Monthly"
-            : "Yearly",
-      })
-    );
-    dispatch(
-      getFleetManagementAnalyticsData({
-        type:
-          selectedValue === "Today"
-            ? "Day"
-            : selectedValue === "Week"
-            ? "Weekly"
-            : selectedValue === "Month"
-            ? "Monthly"
-            : "Yearly",
-      })
-    );
+    // dispatch(
+    //   getFleetManagementOverAllTripDetails({
+    //     type:
+    //       selectedValue === "Today"
+    //         ? "Day"
+    //         : selectedValue === "Week"
+    //         ? "Weekly"
+    //         : selectedValue === "Month"
+    //         ? "Monthly"
+    //         : "Yearly",
+    //   })
+    // );
+    // dispatch(
+    //   getFleetManagementAnalyticsData({
+    //     type:
+    //       selectedValue === "Today"
+    //         ? "Day"
+    //         : selectedValue === "Week"
+    //         ? "Weekly"
+    //         : selectedValue === "Month"
+    //         ? "Monthly"
+    //         : "Yearly",
+    //   })
+    // );
+
+    switch (selectedValue) {
+      case "Today":
+        dispatch(getFleetManagementOverAllTripDetails({type: "Day"}));
+        dispatch(getFleetManagementAnalyticsData({type: "Day"}));
+        setSelectedGraphFormat({format:"hh:mm A", tickInterval1: 8, tickInterval2: 12});
+        break;
+  
+      case "Week":
+        dispatch(getFleetManagementOverAllTripDetails({type: "Weekly"}));
+        dispatch(getFleetManagementAnalyticsData({type: "Weekly"}));
+        setSelectedGraphFormat({format:"MM/DD", tickInterval1: 1, tickInterval2: 2});
+        break;
+  
+      case "Month":
+        dispatch(getFleetManagementOverAllTripDetails({type: "Monthly"}));
+        dispatch(getFleetManagementAnalyticsData({type: "Monthly"}));
+        setSelectedGraphFormat({format:"MM/DD", tickInterval1: 6, tickInterval2: 10});
+        break;
+  
+      case "Year":
+        dispatch(getFleetManagementOverAllTripDetails({type: "Yearly"}));
+        dispatch(getFleetManagementAnalyticsData({type: "Yearly"}));
+        setSelectedGraphFormat({format:"MMM/YY", tickInterval1: 2, tickInterval2: 6});
+        break;
+      default:
+        dispatch(getFleetManagementOverAllTripDetails({type: "Day"}));
+        dispatch(getFleetManagementAnalyticsData({type: "Day"}));
+        setSelectedGraphFormat({format:"hh:mm A", tickInterval1: 6, tickInterval2: 8});
+    }
+
+  
   }, [selectedValue]);
 
   const fleetManagementNotificationResponse = useSelector(
@@ -193,8 +231,11 @@ const FleetManagement: React.FC<any> = (props) => {
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
   const [tripsData, setTripsData] = useState<any>();
+  const [tripsDataXaxis, setTripsDataXaxis] = useState<any>();
   const [distanceData, setDistanceData] = useState<any>();
+  const [distanceDataXaxis, setDistanceDataXaxis] = useState<any>();
   const [idleData, setIdleData] = useState<any>();
+  const [idleHoursXaxisData, setIdleHoursXaxisData] = useState<any>();
   const [hoursData, setHoursData] = useState<any>();
   const [overallHours, setOverallHours] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
@@ -204,30 +245,48 @@ const FleetManagement: React.FC<any> = (props) => {
   useEffect(() => {
     if (fleetManagementAnalyticsResponse) {
       const data: any = [];
+      const tripsDataXaxis: any = [];
       const distanceTravelledData: any = [];
+      const distanceTravelledDataXaxis: any = [];
       const idlData: any = [];
+      const idlDataXaxis: any = [];
       const hourData: any = [];
+      const hourDataXaxi: any = [];
       fleetManagementAnalyticsResponse?.data?.trips?.map((item: any) => {
-        data?.push([new Date(item?.node)?.getTime(), item?.count]);
+        // data?.push([new Date(item?.node)?.getTime(), item?.count]);
+        data?.push(item?.count);
+        tripsDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
       });
       fleetManagementAnalyticsResponse?.data?.distanceTravelled?.map(
         (item: any) => {
-          distanceTravelledData?.push([
-            new Date(item?.node)?.getTime(),
-            item?.count,
-          ]);
+          // distanceTravelledData?.push([
+          //   new Date(item?.node)?.getTime(),
+          //   item?.count,
+          // ]);
+          distanceTravelledData?.push(item?.count);
+          distanceTravelledDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
         }
       );
       fleetManagementAnalyticsResponse?.data?.drivingHours?.map((item: any) => {
         const totalMinutes = item?.count / 60;
         const hours = totalMinutes / 60;
-        hourData?.push([new Date(item?.node)?.getTime(), hours]);
+        // hourData?.push([new Date(item?.node)?.getTime(), hours]);
+        hourData?.push(hours);
+        hourDataXaxi?.push(moment(item?.node).format(selectedGraphFormat?.format));
+
       });
       fleetManagementAnalyticsResponse?.data?.idleHours?.map((item: any) => {
         const totalMinutes = item?.count / 60;
         const hours = totalMinutes / 60;
-        idlData?.push([new Date(item?.node)?.getTime(), hours]);
+        // idlData?.push([new Date(item?.node)?.getTime(), hours]);
+        idlData?.push(hours);
+        idlDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
       });
+
+
+
+
+
 
       if (fleetManagementTripDetailsResponse?.data?.idleHours) {
         const totalMinutes = Math.floor(
@@ -249,11 +308,14 @@ const FleetManagement: React.FC<any> = (props) => {
       }
 
       setTripsData(data);
+      setTripsDataXaxis(tripsDataXaxis);
       setDistanceData(distanceTravelledData);
+      setDistanceDataXaxis(distanceTravelledDataXaxis)
       setIdleData(idlData);
       setHoursData(hourData);
+      setIdleHoursXaxisData(idlDataXaxis)
     }
-  }, [fleetManagementAnalyticsResponse]);
+  }, [fleetManagementAnalyticsResponse, selectedGraphFormat]);
 
   useEffect(() => {
     if (
@@ -817,6 +879,31 @@ const FleetManagement: React.FC<any> = (props) => {
     setTripName(null);
   };
 
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardData);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
       {success && (
@@ -937,7 +1024,7 @@ const FleetManagement: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {notificationsLoader || overAllAnalyticsLoader || analyticsLoader ? (
+      {(notificationsLoader || overAllAnalyticsLoader || analyticsLoader) && !googleMapsApiKeyResponse ? (
         <div
           style={{
             width: "100%",
@@ -949,7 +1036,7 @@ const FleetManagement: React.FC<any> = (props) => {
         >
           <img src={llaLoader} width={"10%"} />
         </div>
-      ) : (
+      ) : ( googleMapsApiKeyResponse &&
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1054,9 +1141,11 @@ const FleetManagement: React.FC<any> = (props) => {
                                         crossHairLineColor={"#6B70AB90"}
                                         // is4kDevice={selectedWidth?.is4kDevice}
                                         // is2kDevice={selectedWidth?.is2kDevice}
-                                        pageName={"FleetManagement"}
+                                        pageName={"FleetManagement"}                                        
+                                        tickInterval={selectedGraphFormat?.tickInterval1}                                         
+                                        xAxisArray={tripsDataXaxis}
                                         // tickInterval={2}
-                                        selectedValue={selectedValue}
+                                       selectedValue={selectedValue}
                                         dataPoints={[
                                           {
                                             marker: {
@@ -1226,7 +1315,9 @@ const FleetManagement: React.FC<any> = (props) => {
                                         // is2kDevice={selectedWidth?.is2kDevice}
                                         pageName={"FleetManagement"}
                                         // tickInterval={0}
-                                        selectedValue={selectedValue}
+                                         selectedValue={selectedValue}
+                                        tickInterval={selectedGraphFormat?.tickInterval2}                                         
+                                        xAxisArray={distanceDataXaxis}
                                         dataPoints={[
                                           {
                                             marker: {
@@ -1357,7 +1448,9 @@ const FleetManagement: React.FC<any> = (props) => {
                                         // is2kDevice={selectedWidth?.is2kDevice}
                                         tooltip={"shared"}
                                         pageName={"FleetManagement"}
-                                        selectedValue={selectedValue}
+                                       selectedValue={selectedValue}
+                                        tickInterval={selectedGraphFormat?.tickInterval2}                                         
+                                        xAxisArray={idleHoursXaxisData}
                                         dataPoints={[
                                           {
                                             marker: {
@@ -1401,9 +1494,16 @@ const FleetManagement: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}
+                      style={{ height: "59%" , position : "relative"}}
                     >
+                       <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                       <FleetMap
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapPageName={"fleet"}
                         markers={notificationArray}
                         setNotificationPanelActive={setNotificationPanelActive}
@@ -1423,6 +1523,17 @@ const FleetManagement: React.FC<any> = (props) => {
                         }
                         handleMarkerIconClick={handleMarkerIconClick}
                         handleMarkerCancel={handleMarkerCancel}
+                        mapType = {mapType}
+                        setMapType={setMapType}
+                        selectedNotification={selectedNotification}
+                        liveMarkerList={liveMarkerList}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        listSelectedMarker={listSelectedMarker}
+                        setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
+                        setSelectedNotificationItem={setSelectedNotificationItem}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>

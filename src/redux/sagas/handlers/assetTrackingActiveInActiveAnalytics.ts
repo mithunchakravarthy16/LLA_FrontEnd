@@ -58,7 +58,6 @@ export function* handleAssetTrackingGridViewAnalyticsData(action: any): any {
     } else {
       yield put(setAssetTrackingGridViewAnalyticsData({}));
     }
-    console.log("hello")
     yield put(hideLoaderOverAllAnalytics());
   } catch (error) {
     yield put(hideLoaderOverAllAnalytics());

@@ -1,6 +1,6 @@
 /** @format */
-
-import { useState, useEffect } from "react";
+//@ts-nocheck
+import { useState, useEffect, useCallback, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -16,24 +16,23 @@ import useTranslation from "localization/translations";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
-import Map from "components/Map";
+import AssetMap from "../../components/Map/assetMap";
 import moment from "moment";
 import Chart from "elements/Chart";
 import Highcharts from "highcharts";
 import NotificationPanel from "components/NotificationPanel";
+import InactiveTrackerIcon from "../../assets/topPanelListIcons/AssetTracking/InactiveTracker.svg";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
+  formattedOverallNotificationCount,
 } from "../../utils/utils";
-import assetTrackingData from "../../mockdata/assetTrackingData";
-import assetTrackingResponse from "mockdata/assetTrackingAPI";
-import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
-import { getAssetTrackerDetail } from "redux/actions/getAssetTrackerDetailAction";
+import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import { getCreateGeofence } from "redux/actions/createGeofenceAction";
 import { getUpdateGeofence } from "redux/actions/updateGeofenceAction";
 import { getEnableGeofence } from "redux/actions/enableGeofenceAction";
@@ -45,36 +44,52 @@ import {
   getAssetTrackingActiveInActiveAnalyticsData,
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import CustomTablePagination from "elements/CustomPagination";
+import { UseWebSocket } from "websocketServices/useWebsocket";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import GeofenceIcon from "../../assets/GeofenceIcon.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
-
+  const { mapType, setMapType } = props;
   //Analytics Api integration starts here
-  const [selectedValue, setSelectedValue] = useState<any>("Week");
+  const [selectedValue, setSelectedValue] = useState<string>("Today");
+  const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
+    format: "MM/DD",
+    tickInterval: 1,
+  });
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+
   useEffect(() => {
     switch (selectedValue) {
       case "Today":
         dispatch(getAssetTrackingActiveInActiveAnalyticsData("Day"));
         dispatch(getAssetTrackingIncidentsAnalyticsData("Day"));
+        setSelectedGraphFormat({ format: "hh:mm A", tickInterval: 6 });
         break;
 
       case "Week":
         dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
         dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+        setSelectedGraphFormat({ format: "MM/DD", tickInterval: 1 });
         break;
 
       case "Month":
         dispatch(getAssetTrackingActiveInActiveAnalyticsData("Monthly"));
         dispatch(getAssetTrackingIncidentsAnalyticsData("Monthly"));
+        setSelectedGraphFormat({ format: "MM/DD", tickInterval: 3 });
         break;
 
       case "Year":
         dispatch(getAssetTrackingActiveInActiveAnalyticsData("Yearly"));
         dispatch(getAssetTrackingIncidentsAnalyticsData("Yearly"));
+        setSelectedGraphFormat({ format: "MMM/YY", tickInterval: 1 });
         break;
       default:
         dispatch(getAssetTrackingActiveInActiveAnalyticsData("Weekly"));
         dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
+        setSelectedGraphFormat({ format: "MM/DD", tickInterval: 1 });
     }
   }, [selectedValue]);
 
@@ -91,13 +106,29 @@ const AssetTracking: React.FC<any> = (props) => {
   );
 
   const loaderAssetTrackingAnalyticsResponse = useSelector(
-    (state: any) =>
-      state.assetTrackingActiveInActiveAnalytics
-        .loadingAnalytics
+    (state: any) => state.assetTrackingActiveInActiveAnalytics.loadingAnalytics
   );
-const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
+
+  const assetLiveData = useSelector(
+    (state: any) => state?.assetTracker?.assetLiveData?.data
+  );
+
+  const assetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetNotificationData
+  );
+  const assetNotificationList = assetNotificationResponse?.data;
+
+  const loaderAssetNotificationResponse = useSelector(
+    (state: any) => state?.assetNotification?.loadingAssetNotificationData
+  );
+
+  const overallAssetDetails = useSelector(
+    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
+  );
+
+  const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
   useEffect(() => {
-    setLoaderExtAnalytics(true)
+    setLoaderExtAnalytics(true);
     setTimeout(() => {
       setLoaderExtAnalytics(false);
     }, 1000);
@@ -106,48 +137,83 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   const [activeAnalyticsData, setActiveAnalyticsData] = useState<any>();
   const [inActiveAnalyticsData, setInActiveAnalyticsData] = useState<any>();
   const [incidentsAnalyticsData, setIncidentsAnalyticsData] = useState<any>();
+  const [incidentsAnalyticsDataXaxisData, setIncidentsAnalyticsDataXaxisData] =
+    useState<any>();
+  const [
+    activeInactiveAnalyticsXaxisData,
+    setActiveInactiveAnalyticsXaxisData,
+  ] = useState<any>();
+
+  //Pagination
+  const [page, setPage] = useState<any>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<any>(50);
+  const [searchPageNo, setSearchPageNo] = useState<any>();
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>();
+  const [totalRecords, setTotalRecords] = useState<any>(
+    formattedOverallNotificationCount(
+      assetNotificationResponse && assetNotificationResponse?.data,
+      assetNotificationResponse?.data,
+      "asset"
+    )
+  );
+
+  //Pagination End
+
   useEffect(() => {
     if (assetTrackingActiveInActiveAnalyticsResponse) {
       const activeAnalyticsData: any = [];
+      const activeAnalyticsDataXaxis: any = [];
       const inActiveAnalyticsData: any = [];
+      const inActiveAnalyticsDataXaxis: any = [];
       const incidentsAnalyticsData: any = [];
+      const incidentsAnalyticsDataXaxisData: any = [];
 
       assetTrackingActiveInActiveAnalyticsResponse?.data
         ?.filter((obj: any) => obj.metricName === "ActiveTracker")
         .map((obj: any) =>
-          obj.analytics?.map((item: any) =>
-            activeAnalyticsData?.push([
-              new Date(item?.node)?.getTime(),
-              item?.count,
-            ])
-          )
+          obj.analytics?.map((item: any) => {
+            activeAnalyticsData?.push(item?.count);
+            const testDateUtc = moment.utc(item?.node);
+            const localDate = testDateUtc.local();
+            activeAnalyticsDataXaxis?.push(
+              localDate.format(selectedGraphFormat?.format)
+            );
+          })
         );
 
       assetTrackingActiveInActiveAnalyticsResponse?.data
         ?.filter((obj: any) => obj.metricName === "InactiveTracker")
         .map((obj: any) =>
-          obj.analytics?.map((item: any) =>
-            inActiveAnalyticsData?.push([
-              new Date(item?.node)?.getTime(),
-              item?.count,
-            ])
-          )
+          obj.analytics?.map((item: any) => {
+            inActiveAnalyticsData?.push(item?.count);
+            const testDateUtc = moment.utc(item?.node);
+            const localDate = testDateUtc.local();
+            activeAnalyticsDataXaxis?.push(
+              localDate.format(selectedGraphFormat?.format)
+            );
+          })
         );
 
-      assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) =>
-        incidentsAnalyticsData?.push([
-          new Date(item?.node)?.getTime(),
-          item?.count,
-        ])
-      );
+      assetTrackingIncidentsAnalyticsResponse?.data?.data?.map((item: any) => {
+        incidentsAnalyticsData?.push(item?.count);
+        const testDateUtc = moment.utc(item?.node);
+        const localDate = testDateUtc.local();
+        incidentsAnalyticsDataXaxisData?.push(
+          localDate.format(selectedGraphFormat?.format)
+        );
+      });
 
+      setActiveInactiveAnalyticsXaxisData(activeAnalyticsDataXaxis);
       setActiveAnalyticsData(activeAnalyticsData);
       setInActiveAnalyticsData(inActiveAnalyticsData);
+
+      setIncidentsAnalyticsDataXaxisData(incidentsAnalyticsDataXaxisData);
       setIncidentsAnalyticsData(incidentsAnalyticsData);
     }
   }, [
     assetTrackingActiveInActiveAnalyticsResponse,
     assetTrackingIncidentsAnalyticsResponse,
+    selectedGraphFormat,
   ]);
 
   //Analytics Api integration Ends here
@@ -162,6 +228,9 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
 
   const [notificationArray, setNotificationArray] = useState<any>([]);
   const [map, setMap] = useState<any>(null);
+  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
+  const [selectedNotification, setSelectedNotification] = useState<any>("");
+  const [selectedMarkerType, setSelectedMakerType] = useState<string>("");
 
   useEffect(() => {
     setSelectedTheme(adminPanelData?.appearance);
@@ -209,30 +278,17 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     graphTwoContainerStyle,
     graphTwoChartStyle,
     geofenceIconStyle,
+    pageNumSection,
+    customPagination,
+    globeIconSection,
   } = useStyles(appTheme);
 
   useEffect(() => {
-    let notificationPayload: any = {
-      filterText: "",
-      pageNo: 0,
-      pageSize: 100,
-    };
-    dispatch(getNotificationData(notificationPayload));
-
     let activeInactiveTrackerPayload: any = {};
     dispatch(getAssetActiveInactiveTracker(activeInactiveTrackerPayload));
 
     let incidentCountPayload: any = {};
     dispatch(getAssetIncidentCount(incidentCountPayload));
-
-    let overallAssetDetailPayload: any = {};
-    dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
-
-    // let assetTrackerDetailPayload: any = {
-    //   "assetId": "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-    //   "trackerId": null
-    // };
-    // dispatch(getAssetTrackerDetail(assetTrackerDetailPayload));
 
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
@@ -242,46 +298,58 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
 
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
+
+    let assetLiveDataPayload: any = {};
+    dispatch(getAssetLiveLocation(assetLiveDataPayload));
+
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
+
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
-  const assetNotificationResponse = useSelector(
-    (state: any) => state?.assetNotification?.assetNotificationData
-  );
-  const assetNotificationList = assetNotificationResponse?.data;
+  const [debounceSearchText, setDebounceSearchText] = useState<any>("");
+  const [tabIndex, setTabIndex] = useState<any>(1);
 
-  const assetTrackerData = useSelector(
-    (state: any) => state?.assetActiveInactiveTracker?.assetTrackerData
-  );
-  const assetIncidentCount = useSelector(
-    (state: any) => state?.assetIncidentCount?.assetIncidentCountValue
-  );
+  useEffect(() => {
+    let assetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    };
+    if (!debounceSearchText) {
+      assetPayload = {
+        filterText: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
 
-  const overallAssetDetails = useSelector(
-    (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
-  );
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
 
-  // const assetTrackerDetails = useSelector(
-  //   (state: any) => state?.assetTracker?.assetTrackerData
-  // );
+    // const intervalTime = setInterval(() => {
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+    //   );
+    // }, 1 * 60 * 1000);
 
-  // console.log("assetTrackerDetails", assetTrackerDetails)
-
-  const createGeofence = useSelector(
-    (state: any) => state?.createGeofence?.createGeofenceData
-  );
-  const updateGeofence = useSelector(
-    (state: any) => state?.updateGeofence?.updateGeofenceData
-  );
-  const enableGeofence = useSelector(
-    (state: any) => state?.enableGeofence?.updateGeofenceData
-  );
-
-  // console.log("createGeofence", createGeofence)
-  // console.log("updateGeofence", updateGeofence)
+    // return () => {
+    //   clearInterval(intervalTime);
+    // };
+  }, [debounceSearchText, page, rowsPerPage]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
-  const [selectedFormatGraph, setSelectedFormatGraph] = useState("weekly");
+  const [selectedFormatGraph, setSelectedFormatGraph] = useState("day");
 
   const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] =
     useState<any>();
@@ -325,8 +393,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
           break;
 
         default:
-        // setTempratureGraphDataStateUpdates(data?.data?.weekly?.analyticsData);
-        // setTempratureGraphData(data?.data);
       }
     });
   }, []);
@@ -351,12 +417,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
 
   const getActiveInactiveTrackersGraphData = () => {
     let data = [
-      // {
-      //   data: graphDataManipulation(electricityConsumptionGraphDataStateUpdates),
-
-      //   color: "#77B77C",
-      // },
-
       {
         data: graphDataManipulation(activeTrackersGraphDataStateUpdates),
         marker: {
@@ -366,10 +426,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         color: "#25796D",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-        //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-        // ],
       },
       {
         data: graphDataManipulation(inactiveTrackersGraphDataStateUpdates),
@@ -380,10 +436,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
         color: "#D25A5A",
         lineWidth:
           selectedWidth?.is4kDevice || selectedWidth?.is3KDevice ? 4 : 2,
-        // data: [
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-        //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -434,10 +486,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
             ],
           ],
         },
-        // data: [
-        //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-        //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-        // ],
       },
     ];
 
@@ -574,6 +622,24 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   const yearFormat = "{value:%b}";
 
   const [formatGraph, setFormatGraph] = useState(monthFomrat);
+  const [mapMarkerArrayList, setMapMarkerArrayList] = useState<any>([]);
+
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(
+    assetLiveData && assetLiveData
+  );
+
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [notificationPanelActive, setNotificationPanelActive] =
+    useState<boolean>(false);
+  const [currentMarker, setCurrentMarker] = useState<any>("");
+
+  const [searchValue, setSearchValue] = useState<any>(
+    formatttedDashboardNotification(notificationArray, tabIndex)
+  );
+
+  const [dashboardData, setDashboardData] = useState<any>(
+    formatttedDashboardNotification(notificationArray, tabIndex)
+  );
 
   const handleSelect = (val: any) => {
     setSelectedValue(val);
@@ -672,24 +738,20 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   useEffect(() => {
     switch (selectedValue) {
       case "Today":
-        // setTopPanelList(overallAssetDetails?.day);
         dispatch(getOverallTrackerDetail("Day"));
         return;
 
       case "Week":
-        // setTopPanelList(overallAssetDetails?.week);
         dispatch(getOverallTrackerDetail("Weekly"));
 
         return;
 
       case "Month":
-        // setTopPanelList(overallAssetDetails?.month);
         dispatch(getOverallTrackerDetail("Monthly"));
 
         return;
 
       case "Year":
-        // setTopPanelList(overallAssetDetails?.year);
         dispatch(getOverallTrackerDetail("Yearly"));
 
         return;
@@ -699,8 +761,135 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     }
   }, [selectedValue]);
 
+  //---websocket Implementation starts---
+
+  const [
+    websocketLatestAssetNotification,
+    setWebsocketLatestAssetNotification,
+  ] = useState<any>([]);
+  const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
+    useState<any>([]);
+  const clientRef = useRef<any>();
+
+
   useEffect(() => {
-    if (assetNotificationList) {
+    UseWebSocket(
+      (message:any) => {
+        setWebsocketLatestAssetNotification(message);
+      },
+      (message:any) => {
+        setWebsocketLatestAssetTrackerLive(message);
+      },
+      (clintReference:any) => {
+        clientRef.current = clintReference;
+      },
+      "openWebsocket"
+    );
+
+    return () => {
+      UseWebSocket(
+        () => {},
+        () => {},
+        () => {},
+        "closeWebsocket",
+        clientRef.current
+      );
+    };
+  }, []);
+
+  //---websocket Implementation ends---
+
+  useEffect(() => {
+    if (assetNotificationList && assetLiveData) {
+      
+
+      const insertWebsocketDataToExisitingNotiData = (
+        websocketLatestAssetNotification: any
+      ) => {
+        websocketLatestAssetNotification &&
+          websocketLatestAssetNotification?.length > 0 &&
+          websocketLatestAssetNotification?.map((item: any) => {
+            if (
+              item.notificationType?.toString()?.toLowerCase() === "incident"
+            ) {
+              if (
+                !assetNotificationResponse?.data?.incidents?.incidentList.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
+                  item
+                );
+              }
+            }
+
+            if (item.notificationType?.toString()?.toLowerCase() === "events") {
+              if (
+                !assetNotificationResponse?.data?.events?.eventsList?.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.events?.eventsList?.unshift(
+                  item
+                );
+              }
+            }
+
+            if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
+              if (
+                !assetNotificationResponse?.data?.alerts?.alertList?.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.alerts?.alertList?.unshift(
+                  item
+                );
+              }
+            }
+          });
+      };
+
+      if (parseInt(page) === 0 && !debounceSearchText) {
+        insertWebsocketDataToExisitingNotiData(
+          websocketLatestAssetNotification
+        );
+      } else if (parseInt(page) === 0 && debounceSearchText) {
+        const websocketSearchResult = websocketLatestAssetNotification?.filter(
+          (value: any) => {
+            return (
+              value?.assetName
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.area
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.currentArea
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.trackerId
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.reason
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.trackerName
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase())
+            );
+          }
+        );
+
+        websocketSearchResult &&
+          insertWebsocketDataToExisitingNotiData(websocketSearchResult);
+      }
+
+
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
 
@@ -710,6 +899,12 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
           category: "asset",
           title: event?.reason,
           id: event?.assetNotificationId,
+          markerId: event?.trackerId,
+          description: `${event?.tagType} ${
+            event?.tagType === "CATM1_TAG" && event?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${event?.gatewayType}`
+          } | ${event?.trackerId}`,
         });
       });
 
@@ -719,6 +914,13 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
           category: "asset",
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
+          markerId: incidents?.trackerId,
+          description: `${incidents?.tagType} ${
+            incidents?.tagType === "CATM1_TAG" &&
+            incidents?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${incidents?.gatewayType}`
+          } | ${incidents?.trackerId}`,
         });
       });
 
@@ -728,6 +930,12 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
           category: "asset",
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
+          markerId: alerts?.trackerId,
+          description: `${alerts?.tagType} ${
+            alerts?.tagType === "CATM1_TAG" && alerts?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${alerts?.gatewayType}`
+          } | ${alerts?.trackerId}`,
         });
       });
 
@@ -736,9 +944,89 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
           return { ...value, index: index + 1 };
         }
       );
-      setNotificationArray(dataValue);
+
+      combinedNotifications.sort((a: any, b: any) => {
+        const dateA: any = new Date(a.notificationDate);
+        const dateB: any = new Date(b.notificationDate);
+
+        return dateB - dateA;
+      });
+
+      let uniqueTrackerIds: any = {};
+
+      // const uniqueData = combinedNotifications.filter((item: any) => {
+      //   if (!uniqueTrackerIds[item.trackerId]) {
+      //     uniqueTrackerIds[item.trackerId] = true;
+      //     return true;
+      //   }
+      //   return false;
+      // });
+
+      setNotificationArray(combinedNotifications);
+
+      setDashboardData(
+        formatttedDashboardNotification(combinedNotifications, tabIndex)
+      );
+      setSearchValue(
+        formatttedDashboardNotification(combinedNotifications, tabIndex)
+      );
     }
-  }, [assetNotificationList]);
+  }, [
+    assetNotificationResponse,
+    tabIndex,
+    searchOpen,
+    websocketLatestAssetNotification,
+  ]);
+
+  useEffect(() => {
+    let updatedLiveTrackerDetails = assetLiveData;
+
+    if (
+      websocketLatestAssetTrackerLive &&
+      websocketLatestAssetTrackerLive?.length > 0
+    ) {
+      updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+        ?.map((item: any) => {
+          // Check if the item should be replaced
+          let replacement = websocketLatestAssetTrackerLive?.find(
+            (replaceItem:any) => replaceItem.trackerId === item.trackerId
+          );
+          return replacement ? replacement : item;
+        })
+        .concat(
+          websocketLatestAssetTrackerLive?.filter(
+            (replaceItem:any) =>
+              !assetLiveData?.some(
+                (item: any) => item.trackerId === replaceItem.trackerId
+              )
+          )
+        );
+    } else {
+      updatedLiveTrackerDetails = assetLiveData;
+    }
+
+    const updatedLiveData = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
+      return {
+        ...asset,
+        location: asset?.currentLocation,
+        category: "asset",
+        title: `TR#${asset?.trackerId}`,
+        id: asset?.trackerId,
+        recentMarkerType:
+          asset?.trackerStatus === "Inactive"
+            ? asset?.trackerStatus
+            : asset?.notificationType,
+        markerId: asset?.trackerId,
+        description: `${asset?.tagType} ${
+          asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
+            ? ` | Cellular`
+            : ` | ${asset?.gatewayType}`
+        } | ${asset?.trackerId}`,
+      };
+    });
+
+    setLiveMarkerList(updatedLiveData);
+  }, [assetLiveData, websocketLatestAssetTrackerLive]);
 
   const topPanelListItems: any[] = [
     {
@@ -748,6 +1036,12 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
           : AssetTrackedIcon,
       value: topPanelList?.assetTrackedCount,
       name: assetsTracking.assetsTracked,
+    },
+    {
+      icon:
+        selectedTheme === "light" ? InactiveTrackerIcon : InactiveTrackerIcon,
+      value: topPanelList?.inActiveTrackerCount,
+      name: "Inactive Tracker",
     },
     {
       icon: selectedTheme === "light" ? LocationLightThemeIcon : LocationIcon,
@@ -769,23 +1063,6 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     },
   ];
 
-  const [tabIndex, setTabIndex] = useState<any>(1);
-  const [selectedNotification, setSelectedNotification] = useState<any>("");
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const [notificationPanelActive, setNotificationPanelActive] =
-    useState<boolean>(false);
-  const [currentMarker, setCurrentMarker] = useState<any>("");
-
-  const [searchValue, setSearchValue] = useState<any>(
-    formatttedDashboardNotification(notificationArray, tabIndex)
-  );
-
-  const [dashboardData, setDashboardData] = useState<any>(
-    formatttedDashboardNotification(notificationArray, tabIndex)
-  );
-
-  const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
-
   const [notificationCount, setNotificationCount] = useState<any>([
     assetNotificationList?.events?.totalCount,
     assetNotificationList?.incidents?.totalCount,
@@ -796,16 +1073,19 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
   const [isGeofenceInfoWindowActive, setIsGeofenceInfoWindowActive] =
     useState<boolean>(false);
 
-  useEffect(() => {
-    setDashboardData(
-      formatttedDashboardNotification(notificationArray, tabIndex)
-    );
-    setSearchValue(
-      formatttedDashboardNotification(notificationArray, tabIndex)
-    );
-  }, [notificationArray, tabIndex]);
-
   const [selectedMarker, setSelectedMarker] = useState<any>();
+
+  useEffect(() => {
+    if (searchOpen && selectedNotification !== "") {
+      setSearchValue(searchValue);
+    }
+  }, [searchOpen, selectedNotification]);
+
+  useEffect(() => {
+    setNotificationCount(
+      formatttedDashboardNotificationCount(notificationArray)
+    );
+  }, [searchValue]);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -932,122 +1212,11 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     }
   }, []);
 
-  const handleAssetViewDetails = (data: any) => {
+  const handleAssetViewDetails = (data: any, markerType: any) => {
+    setSelectedMakerType(markerType);
     setIsInfoWindowActive(true);
     setSelectedMarker(data);
   };
-
-  const packageData = [
-    {
-      id: "1",
-      packageStage: "Equipment Arrived",
-      timeStamp: "06-20-2023 9.00AM",
-      status: "Completed",
-    },
-    {
-      id: "2",
-      packageStage: "Initial Scan",
-      timeStamp: "06-20-2023 10.30AM",
-      status: "Completed",
-    },
-    {
-      id: "3",
-      packageStage: "Inbound Staging & Tagging",
-      timeStamp: "06-20-2023 12.30PM",
-      status: "In progress",
-    },
-    {
-      id: "4",
-      packageStage: "Allocated Space",
-      timeStamp: "06-20-2023 1.30PM",
-      status: "In progress",
-    },
-    {
-      id: "5",
-      packageStage: "Tracking Active",
-      timeStamp: "06-20-2023 3.00PM",
-      status: "Completed",
-    },
-    {
-      id: "6",
-      packageStage: "1411 Wynkoop St, Zone 1, LLA BUILDING",
-      timeStamp: "06-23-2023 04.30PM",
-      status: "Completed",
-    },
-  ];
-
-  const infoWindowNotificationListItems: any[] = [
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Out of Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-    {
-      title: "Within Geofence",
-      details: "TR#12367 | Asset#12",
-      timeStamp: "06-12-2023 | 9:00 AM",
-    },
-  ];
 
   const handleAssetInfoWindow = () => {
     setIsGeofenceInfoWindowActive(true);
@@ -1065,12 +1234,161 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  useEffect(() => {
+    if (searchPageNo) {
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+  }, [tabIndex]);
+
+  // PAGINATION
+
+  const handleChangePage = (newPage: any) => {
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
+  };
+
+  const handleChangeRowsPerPage = (data: any) => {
+    setRowsPerPage(data);
+    setSearchPageNo("");
+    setPage(0);
+    let assetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(data),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    };
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
+  };
+
+  const handleNextChange = () => {
+    let assetPayload: any = {};
+    if (page >= 0) {
+      assetPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(page) + 1,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+    }
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
+    setPage(page + 1);
+    setSearchPageNo("");
+  };
+
+  const handlePreviousChange = () => {
+    let assetPayload: any = {};
+    if (page > 0) {
+      assetPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+    }
+    dispatch(
+      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+    );
+    setPage(page - 1);
+  };
+  const handlePageNoChange = (value: any, keyName: any) => {
+    let assetPayload: any = {};
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value) - 1);
+      assetPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(value) - 1,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+      // setSearchPageNo("");
+    }
+  };
+
+  useEffect(() => {
+    if (assetNotificationResponse) {
+      setTotalRecords(
+        formattedOverallNotificationCount(
+          assetNotificationResponse?.data,
+          assetNotificationResponse?.data,
+          "asset"
+        )
+      );
+      let countArray = formattedOverallNotificationCount(
+        assetNotificationResponse?.data,
+        assetNotificationResponse?.data,
+        "asset"
+      );
+      let newArray: any = [];
+      if (countArray && countArray?.length > 0) {
+        switch (tabIndex) {
+          case 0:
+            newArray = countArray[0];
+            break;
+          case 1:
+            newArray = countArray[1];
+            break;
+          case 2:
+            newArray = countArray[2];
+            break;
+          default:
+            break;
+        }
+      }
+      setPaginationTotalCount(newArray);
+    }
+  }, [assetNotificationResponse, tabIndex]);
+
+  // PAGINATION ENDS
+
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setNotificationPanelActive(false);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setDebounceSearchText("");
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
+    useState<string>("");
+
+  useEffect(() => {
+    fetchGoogleMapApi((mapApiResponse: string) => {
+      setGoogleMapsApiKeyResponse(mapApiResponse);
+    });
+  }, []);
+
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme &&
-      Object.keys(appTheme).length > 0 ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1081,28 +1399,32 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
                         className={bodyLeftTopPanelSubContainer}
-                        style={{ height: "100%" }}>
+                        style={{ height: "100%" }}
+                      >
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}>
+                          className={bodyLeftTopPanelListContainer}
+                        >
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={topPanelList?.activeTrackerPercentage}
-                            strokeWidth={10}
-                            trailWidth={10}
+                            strokeWidth={7}
+                            trailWidth={7}
                             strokeColor="#92C07E"
                             trailColor={
                               appTheme?.palette?.fleetManagementPage
@@ -1121,20 +1443,22 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                               <Grid
                                 container
                                 xs={12}
-                                // className={graphOneContainerStyle}
                                 style={{
                                   height: "100%",
                                   paddingLeft: "10px",
-                                }}>
+                                }}
+                              >
                                 <Grid
                                   item
                                   xs={12}
                                   className={screenFiveGraphTitleStyle}
-                                  style={{ minHeight: "3vh" }}>
+                                  style={{ minHeight: "3vh" }}
+                                >
                                   <div className={graphOneGraphTitleContainer}>
                                     <div
                                       className={graphTitleOneRound}
-                                      style={{}}></div>
+                                      style={{}}
+                                    ></div>
                                     <div>{assetsTracking.activeTracker}</div>
                                   </div>
                                   <div className={graphTitleTwoStyle}>
@@ -1142,120 +1466,68 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                     <div>{assetsTracking.inactiveTracker}</div>
                                   </div>
                                 </Grid>
-                                {/* <Grid item xs={12} className={graphOneChartStyle}> */}
                                 <Grid item xs={12} style={{ height: "90%" }}>
-                                  <Grid
-                                    container
-                                    xs={12}
-                                    // style={{ height: "100%" }}
-                                  >
+                                  <Grid container xs={12}>
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
-                                        {
-                                          !loaderAssetTrackingAnalyticsResponse && !loaderExtAnalytics ?
-                                          <Chart
-                                        // width={selectedWidth?.width}
-                                        // height={selectedWidth?.height}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
-                                        }}
-                                        pageName={"assetTracking"}
-                                        // tickInterval={xAxisIntervalGraph}
-                                        // formatGraph={formatGraph}
-                                        // xAxisArray={xAxisChartDataGraph}
-                                        isVisible={true}
-                                        graphType={"spline"}
-                                        units={""}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#E5FAF6"}
-                                        is4kDevice={selectedWidth?.is4kDevice}
-                                        selectedValue={selectedValue}
-                                        // tooltip={"shared"}
-                                        // dataPoints={
-                                        //   updatedActiveInactiveTrackersGraphData
-                                        // }
-                                        dataPoints={[
-                                          {
-                                            data: activeAnalyticsData,
-                                            marker: {
-                                              enabled: false,
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
+                                      {!loaderAssetTrackingAnalyticsResponse &&
+                                      !loaderExtAnalytics ? (
+                                        <Chart
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
                                             },
-                                            lineColor: "#25796D",
-                                            color: "#25796D",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            // data: [
-                                            //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                            //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                            // ],
-                                          },
-                                          {
-                                            data: inActiveAnalyticsData,
-                                            marker: {
-                                              enabled: false,
+                                          }}
+                                          pageName={"assetTracking"}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval
+                                          }
+                                          xAxisArray={
+                                            activeInactiveAnalyticsXaxisData
+                                          }
+                                          isVisible={true}
+                                          graphType={"spline"}
+                                          units={""}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#E5FAF6"}
+                                          is4kDevice={selectedWidth?.is4kDevice}
+                                          selectedValue={selectedValue}
+                                          dataPoints={[
+                                            {
+                                              data: activeAnalyticsData,
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#25796D",
+                                              color: "#25796D",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
                                             },
-                                            lineColor: "#D25A5A",
-                                            color: "#D25A5A",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            // data: [
-                                            //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                            //   1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                            // ],
-                                          },
-                                        ]}
-                                        // {[
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#25796D",
-                                        //     color: "#25796D",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     data: [
-                                        //       0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                        //       4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                        //     ],
-                                        //   },
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#D25A5A",
-                                        //     color: "#D25A5A",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     data: [
-                                        //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                        //       1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                        //     ],
-                                        //   },
-                                        // ]}
-                                      />
-                                          :
-                                          <Loader isHundredVh={false} />
-                                          
-                                          
-                                        }
-                                      
+                                            {
+                                              data: inActiveAnalyticsData,
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#D25A5A",
+                                              color: "#D25A5A",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                            },
+                                          ]}
+                                        />
+                                      ) : (
+                                        <Loader isHundredVh={false} />
+                                      )}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1267,7 +1539,8 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                 container
                                 xs={12}
                                 className={graphTwoContainerStyle}
-                                style={{}}>
+                                style={{}}
+                              >
                                 <Grid
                                   item
                                   xs={12}
@@ -1276,170 +1549,107 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                                     display: "flex",
                                     alignItems: "center",
                                     fontSize: "0.8vw",
-                                  }}>
+                                  }}
+                                >
                                   {gridView.incidents}
                                 </Grid>
-                                {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
+
                                 <Grid item xs={12}>
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "90%" }}>
+                                    style={{ height: "90%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
-                                        {
-                                          !loaderAssetTrackingAnalyticsResponse && !loaderExtAnalytics ?
-                                          <Chart
-                                        // width={selectedWidth?.width1}
-                                        // height={selectedWidth?.height1}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
-                                        }}
-                                        pageName={"assetTracking"}
-                                        // tickInterval={xAxisIntervalGraph}
-                                        // formatGraph={formatGraph}
-                                        // xAxisArray={xAxisChartDataGraph}
-                                        graphType={"areaspline"}
-                                        isVisible={true}
-                                        units={""}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#EE3E35"}
-                                        is4kDevice={selectedWidth?.is4kDevice}
-                                        selectedValue={selectedValue}
-                                        // dataPoints={updatedIncidentsGraphData}
-                                        dataPoints={[
-                                          {
-                                            data: incidentsAnalyticsData,
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
+                                      {!loaderAssetTrackingAnalyticsResponse &&
+                                      !loaderExtAnalytics ? (
+                                        <Chart
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
+                                            },
+                                          }}
+                                          pageName={"assetTracking"}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval
+                                          }
+                                          xAxisArray={
+                                            incidentsAnalyticsDataXaxisData
+                                          }
+                                          graphType={"areaspline"}
+                                          isVisible={true}
+                                          units={""}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#EE3E35"}
+                                          is4kDevice={selectedWidth?.is4kDevice}
+                                          selectedValue={selectedValue}
+                                          dataPoints={[
+                                            {
+                                              data: incidentsAnalyticsData,
 
-                                            marker: {
-                                              enabled: false,
-                                            },
-                                            lineColor: "#EE3E35",
-                                            color: "#EE3E35",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            fillColor: {
-                                              linearGradient: [0, 0, 0, 200],
-                                              stops: [
-                                                [
-                                                  0,
-                                                  Highcharts.color("#C3362F")
-                                                    .setOpacity(0.5)
-                                                    .get("rgba"),
-                                                ],
-                                                [
-                                                  0.5,
-                                                  Highcharts.color("#C3362F")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.4
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#EE3E35",
+                                              color: "#EE3E35",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              fillColor: {
+                                                linearGradient: [0, 0, 0, 200],
+                                                stops: [
+                                                  [
+                                                    0,
+                                                    Highcharts.color("#C3362F")
+                                                      .setOpacity(0.5)
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    0.5,
+                                                    Highcharts.color("#C3362F")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.4
+                                                            : 0.3
                                                           : 0.3
-                                                        : 0.3
-                                                    )
-                                                    .get("rgba"),
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    1,
+                                                    Highcharts.color("#C3362F")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.14
+                                                            : 0.06
+                                                          : selectedTheme ===
+                                                            "light"
+                                                          ? 0.01
+                                                          : 0.02
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
                                                 ],
-                                                [
-                                                  1,
-                                                  Highcharts.color("#C3362F")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.14
-                                                          : 0.06
-                                                        : selectedTheme ===
-                                                          "light"
-                                                        ? 0.01
-                                                        : 0.02
-                                                    )
-                                                    .get("rgba"),
-                                                ],
-                                              ],
+                                              },
                                             },
-                                            // data: [
-                                            //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                            //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                            // ],
-                                          },
-                                        ]}
-                                        // {[
-                                        //   {
-                                        //     marker: {
-                                        //       enabled: false,
-                                        //     },
-                                        //     lineColor: "#EE3E35",
-                                        //     color: "#EE3E35",
-                                        //     lineWidth:
-                                        //       selectedWidth?.is4kDevice ||
-                                        //       selectedWidth?.is3KDevice
-                                        //         ? 4
-                                        //         : 2,
-                                        //     fillColor: {
-                                        //       linearGradient: [0, 0, 0, 200],
-                                        //       stops: [
-                                        //         [
-                                        //           0,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(0.5)
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //         [
-                                        //           0.5,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(
-                                        //               selectedWidth?.is4kDevice ||
-                                        //                 selectedWidth?.is3KDevice
-                                        //                 ? selectedTheme ===
-                                        //                   "light"
-                                        //                   ? 0.4
-                                        //                   : 0.3
-                                        //                 : 0.3
-                                        //             )
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //         [
-                                        //           1,
-                                        //           Highcharts.color("#C3362F")
-                                        //             .setOpacity(
-                                        //               selectedWidth?.is4kDevice ||
-                                        //                 selectedWidth?.is3KDevice
-                                        //                 ? selectedTheme ===
-                                        //                   "light"
-                                        //                   ? 0.14
-                                        //                   : 0.06
-                                        //                 : selectedTheme ===
-                                        //                   "light"
-                                        //                 ? 0.01
-                                        //                 : 0.02
-                                        //             )
-                                        //             .get("rgba"),
-                                        //         ],
-                                        //       ],
-                                        //     },
-                                        //     data: [
-                                        //       1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                        //       6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                        //     ],
-                                        //   },
-                                        // ]}
-                                      />
-                                          :
-                                          <Loader isHundredVh={false} />
-                                          
-                                      
-                                     }
+                                          ]}
+                                        />
+                                      ) : (
+                                        <Loader isHundredVh={false} />
+                                      )}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1455,15 +1665,25 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}>
-                      <img
+                      style={{ height: "57.5%" }}
+                    >
+                      {/* <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
+                      /> */}
+                      <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
                       />
-                      <Map
-                        markers={notificationArray}
+                      <AssetMap
+                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                        mapType={mapType}
+                        setMapType={setMapType}
+                        markers={mapMarkerArrayList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
                         marker={selectedNotification}
@@ -1471,11 +1691,25 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
                         setIsMarkerClicked={setIsMarkerClicked}
+                        isMarkerClicked={isMarkerClicked}
                         handleAssetViewDetails={handleAssetViewDetails}
                         mapPageName={"asset"}
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
+                        assetLiveData={assetLiveData}
+                        assetLiveMarker={assetLiveMarker}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        liveMarkerList={liveMarkerList}
+                        listSelectedMarker={listSelectedMarker}
+                        setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
+                        setSelectedNotificationItem={
+                          setSelectedNotificationItem
+                        }
+                        selectedNotification={selectedNotification}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>
@@ -1486,7 +1720,7 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                     dashboardData={dashboardData}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
+                    notificationCount={totalRecords}
                     selectedNotification={selectedNotification}
                     setSelectedNotification={setSelectedNotification}
                     searchOpen={searchOpen}
@@ -1499,7 +1733,43 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                    setAssetLiveMarker={setAssetLiveMarker}
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
+                    notificationPageName={"asset"}
+                    setDebounceSearchText={setDebounceSearchText}
+                    loaderAssetNotificationResponse={
+                      loaderAssetNotificationResponse
+                    }
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    assetLiveMarker={assetLiveMarker}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
+                    setPage={setPage}
                   />
+                  {!loaderAssetNotificationResponse && (
+                    <div style={{ margin: "-5px 20px 0 20px" }}>
+                      <CustomTablePagination
+                        rowsPerPageOptions={[50, 100, 200, 500]}
+                        count={
+                          paginationTotalCount === 0 ? 1 : paginationTotalCount
+                        }
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        handleNextChange={handleNextChange}
+                        handlePreviousChange={handlePreviousChange}
+                        onPageNoChange={handlePageNoChange}
+                        value={searchPageNo}
+                        pageNumclassName={pageNumSection}
+                        reportsPaginationclassName={customPagination}
+                      />
+                    </div>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
@@ -1511,16 +1781,19 @@ const[loaderExtAnalytics, setLoaderExtAnalytics]=useState<boolean>(true)
       {isInfoWindowActive && (
         <InfoDialogAssetTracking
           setIsInfoWindowActive={setIsInfoWindowActive}
-          packageData={packageData}
-          infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
+          selectedMarkerType={selectedMarkerType}
+          mapType={mapType}
+          setMapType={setMapType}
         />
       )}
       {isGeofenceInfoWindowActive && (
         <InfoDialogGeofenceAssetTracking
           setIsGeofenceInfoWindowActive={setIsGeofenceInfoWindowActive}
           selectedTheme={selectedTheme}
+          mapType={mapType}
+          setMapType={setMapType}
         />
       )}
     </>

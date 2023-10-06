@@ -8,7 +8,8 @@ import theme from "../../../theme/theme";
 import useStyles from "../styles";
 import useTranslation from "localization/translations";
 import { useDispatch, useSelector } from "react-redux";
-import {getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
+import moment from "moment";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
   const { handleClick, selectedTheme } = props;
@@ -48,31 +49,34 @@ const GridViewScreenSix: React.FC<any> = (props) => {
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
-  
-const assetTrackingGridViewAnalyticsDataResponse = useSelector(
-  (state: any) =>
-    state.assetTrackingActiveInActiveAnalytics
-      .assetTrackingGridViewAnalyticsData
-);
+  const assetTrackingGridViewAnalyticsDataResponse = useSelector(
+    (state: any) =>
+      state.assetTrackingActiveInActiveAnalytics
+        .assetTrackingGridViewAnalyticsData
+  );
 
+  const [assetGridViewAnalyticsData, setAssetGridViewAnalyticsData] =
+    useState<any>();
+  const [assetGridViewAnalyticsXaxisData, setAssetGridViewAnalyticsXaxisData] =
+    useState<any>();
 
-const[assetGridViewAnalyticsData, setAssetGridViewAnalyticsData] = useState<any>()
+  useEffect(() => {
+    const assetGridViewAnalyticsData: any = [];
+    const assetGridViewAnalyticsXAxisData: any = [];
 
-useEffect(()=>{
-  const assetGridViewAnalyticsData: any = [];
-
-  assetTrackingGridViewAnalyticsDataResponse?.data?.data?.map((item: any) =>
-  assetGridViewAnalyticsData?.push([
-          new Date(item?.node)?.getTime(),
-          item?.count,
-        ])
-      );
-
-      setAssetGridViewAnalyticsData(assetGridViewAnalyticsData);
-
-},[assetTrackingGridViewAnalyticsDataResponse])
-
-
+    assetTrackingGridViewAnalyticsDataResponse?.data?.data?.map((item: any) => {
+      // assetGridViewAnalyticsData?.push([
+      //         new Date(item?.node)?.getTime(),
+      //         item?.count,
+      //       ])
+      assetGridViewAnalyticsData?.push(item?.count);
+      const testDateUtc = moment.utc(item?.node);
+      const localDate = testDateUtc.local();
+      assetGridViewAnalyticsXAxisData?.push(localDate.format("hh:mm A"));
+    });
+    setAssetGridViewAnalyticsXaxisData(assetGridViewAnalyticsXAxisData);
+    setAssetGridViewAnalyticsData(assetGridViewAnalyticsData);
+  }, [assetTrackingGridViewAnalyticsDataResponse]);
 
   useEffect(() => {
     if (window.innerWidth > 3839) {
@@ -97,7 +101,7 @@ useEffect(()=>{
       });
     } else if (window.innerWidth > 2047) {
       setSelectedWidth({
-        width: 560,
+        width: 600,
         height: 280,
         is4kDevice: false,
       });
@@ -170,24 +174,53 @@ useEffect(()=>{
           className={gridContainers}
         >
           <Grid item xs={12} className={containerTitleTwo}>
-            {dashboard.assetsTracking}
+            <div>{dashboard.assetsTracking}</div>
+            <div
+              style={{
+                background:
+                  appTheme?.palette?.gridViewComponentCommonStyle
+                    ?.todayTitleBgColor,
+                padding: "0% 2%",
+                borderRadius: "0.3vw",
+                fontSize: "0.8vw",
+                fontWeight: 500,
+                marginRight: "4%",
+              }}
+            >
+              {gridView.today}
+            </div>
           </Grid>
           <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
               <div className={engMgntliveContentLeftStyle}>
-                <div className={horizantalDataGridValueStyle}>{assetTrackingGridViewAnalyticsDataResponse?.data?.assetTrackedCount}</div>
+                <div className={horizantalDataGridValueStyle}>
+                  {
+                    assetTrackingGridViewAnalyticsDataResponse?.data
+                      ?.assetTrackedCount
+                  }
+                </div>
                 <div className={horizantalDataGridLabelStyle}>
                   <p>{gridView.assets}</p> <p>{gridView.tracked}</p>
                 </div>
               </div>
               <div className={engMgntliveContentMiddleStyle}>
-                <div className={horizantalDataGridValueStyle}>{assetTrackingGridViewAnalyticsDataResponse?.data?.locationChangeCount}</div>
+                <div className={horizantalDataGridValueStyle}>
+                  {
+                    assetTrackingGridViewAnalyticsDataResponse?.data
+                      ?.locationChangeCount
+                  }
+                </div>
                 <div className={horizantalDataGridLabelStyle}>
                   <p>{gridView.location}</p> <p>{gridView.changes}</p>
                 </div>
               </div>
               <div className={engMgntliveContentStyle}>
-                <div className={horizantalDataGridValueStyle}>{assetTrackingGridViewAnalyticsDataResponse?.data?.outOfGeofenceCount}</div>
+                <div className={horizantalDataGridValueStyle}>
+                  {
+                    assetTrackingGridViewAnalyticsDataResponse?.data
+                      ?.outOfGeofenceCount
+                  }
+                </div>
                 <div className={horizantalDataGridLabelStyle}>
                   <p>{gridView.outOf}</p>
                   <p> {gridView.geofence}</p>
@@ -209,8 +242,10 @@ useEffect(()=>{
               crossHairLineColor={"#ABCD9890"}
               is4kDevice={selectedWidth?.is4kDevice}
               xAxisFontSize={selectedWidth?.xAxisFontSize}
-              selectedValue={"Today"}
+              // selectedValue={"Today"}
               pageName={"assetTrackingGridView"}
+              tickInterval={6}
+              xAxisArray={assetGridViewAnalyticsXaxisData}
               dataPoints={[
                 {
                   marker: {
@@ -261,7 +296,7 @@ useEffect(()=>{
                       ],
                     ],
                   },
-                  data: assetGridViewAnalyticsData
+                  data: assetGridViewAnalyticsData,
                   // data: [
                   //   1, 3, 2, 5, 1, 3, 10, 4, 3, 4, 7, 10, 1, 1, 3, 10, 4, 3, 4,
                   //   7, 10, 4, 3, 4,

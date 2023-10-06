@@ -125,6 +125,9 @@ const useStyles = makeStyles({
     [muiTheme.breakpoints.down(2561)]: {
       height: "28%",
     },
+    [muiTheme.breakpoints.down(2049)]: {
+      height: "30%",
+    },
     [muiTheme.breakpoints.down(1025)]: {
       height: "27%",
     },
@@ -280,9 +283,37 @@ const useStyles = makeStyles({
     // padding: "15px 5px 15px 5px",
     // width: "53px",
     // height: "30px",
-    right: "5px",
-    top: "2px",
-    width: "5%",
+    right: "8.5vh",
+    top: "1.1vh",
+    width: "3.2vw",
+  }),
+  pageNumSection: (props:any) => ({
+    width: "3vw",
+    margin: "0 0.8vw",
+    "& .MuiInputBase-input": {
+      padding: "6px !important",
+      fontSize: "0.6vw",
+      lineHeight: "17px",
+    },
+    "& .MuiFormLabel-root": {
+      fontSize: 12,
+      lineHeight: "13px",
+      left: "-3px",
+    },
+  }),
+  customPagination: (props:any) =>({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+    // marginTop : "1vh"
+  }),
+  globeIconSection: (props: any) => ({
+    position: "absolute",
+    top: "0.4vw",
+    right: "1vh",
+    cursor: "pointer",
+    width: "3.5vw",
+    zIndex : 1
   }),
 });
 export default useStyles;

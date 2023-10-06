@@ -91,6 +91,7 @@ const FleetMap: React.FC<any> = (props) => {
     dataPoints,
     handleMarkerCancel,
     handleMarkerIconClick,
+    googleMapsApiKeyResponse,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -120,7 +121,7 @@ const FleetMap: React.FC<any> = (props) => {
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: appData?.googleApiKey, //"AIzaSyCmwqbYb48dfmPqYiWWU0A2kRr54I2L3wE",
+    googleMapsApiKey: googleMapsApiKeyResponse,
     libraries: libraries,
   });
 
@@ -506,9 +507,19 @@ const FleetMap: React.FC<any> = (props) => {
       mapTypeControl: false,
       rotateControl: false,
       fullscreenControl: false,
-      zoomControl: false,
+      zoomControl: true,
       streetViewControl: false,
       disableDefaultUI: false,
+      mapTypeControlOptions: {
+        style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: window.google.maps.ControlPosition.LEFT_BOTTOM,
+        mapTypeIds: [
+          window.google.maps.MapTypeId.ROADMAP,
+          window.google.maps.MapTypeId.SATELLITE,
+          window.google.maps.MapTypeId.HYBRID,
+        ],
+      },
+      mapTypeControl: true,
     };
   };
 
@@ -777,8 +788,8 @@ const FleetMap: React.FC<any> = (props) => {
 
   return (
     <>
-      {useMemo(
-        () =>
+      {
+      // useMemo(        () =>
           isLoaded && (
             <GoogleMap
               mapContainerStyle={parkingMapContainerStyle}
@@ -919,14 +930,14 @@ const FleetMap: React.FC<any> = (props) => {
                 </div>
               )}
             </GoogleMap>
-          ),
-        [
-          mapPageName,
-          markers,
-          currentMarker,
-          liveMarkerMovement,
-          // liveMarkerPosition,
-        ]
+        //   ),
+        // [
+        //   mapPageName,
+        //   markers,
+        //   currentMarker,
+        //   liveMarkerMovement,
+        //   // liveMarkerPosition,
+        // ]
       )}
     </>
   );

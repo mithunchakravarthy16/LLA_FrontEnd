@@ -51,7 +51,7 @@ const SideBar = (props: SideBarProps) => {
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [activePage, setActivePage] = useState<number>();
 
-  const { homeText, gridsViewText, birdsViewText, settingsText, dashboard} =
+  const { homeText, gridsViewText, birdsViewText, settingsText, dashboard } =
     useTranslation();
 
   const array = [
@@ -257,6 +257,7 @@ const SideBar = (props: SideBarProps) => {
                   offset={tooltipOfset}
                   fontSize={fontSize}
                   padding={padding}
+                  marginTop={activePage === item.id}
                 >
                   <img src={item.image} />
                 </Tooltip>

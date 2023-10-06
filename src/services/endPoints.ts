@@ -1,11 +1,6 @@
 export const BASE_IP = {
-  aws: "https://apismartlabtech.sensyonsmartspaces.com",
-};
-
-export const PORTS = {
-  port1: "8081",
-  port2: "8090",
-  port3: "5000",
+  // aws: process.env.REACT_APP_BASE_URL,
+  aws : process.env.REACT_APP_TEST_URL
 };
 
 export const BASE_URL = {
@@ -54,7 +49,11 @@ const SUB_URL = {
   getAssetListUrl: "/api/sensyon/tracker/v1/getAssetList",
   getAssetGridViewAnalyticsUrl:
     "/api/sensyon/asset_analytics/v1/getAssetAnalytics",
+    getTrackerLiveDetailUrl : "/api/sensyon/tracker/v1/getTrackerLiveDetail",
   // Asset Tracking Api's -- End
+
+  //Asset Table API
+  getAllDeviceDetailURL : "/api/sensyon/tracker/v1/getAllDeviceDetails"
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -77,3 +76,5 @@ export const getAssetNotificationApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetNot
 export const getTrackerDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailUrl}`;
 export const getAssetOverallTrackerDetailsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetOverallTrackerDetailsUrl}`;
 export const getAssetGridViewAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAssetGridViewAnalyticsUrl}`;
+export const getTrackerLiveDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerLiveDetailUrl}`;
+export const getAllDeviceDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getAllDeviceDetailURL}`

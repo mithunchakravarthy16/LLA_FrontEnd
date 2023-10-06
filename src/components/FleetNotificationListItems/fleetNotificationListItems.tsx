@@ -100,7 +100,7 @@ const FleetNotificationListItems = (props: any) => {
 
   return (
     <>
-      {data.map((item: any) => {
+      {data?.map((item: any) => {
         return (
           <div
             className={rootContainer}
@@ -182,7 +182,7 @@ const FleetNotificationListItems = (props: any) => {
                   </div>
                   <div className={timeStampStyle}>
                     {moment(item?.notificationDate).format(
-                      "DD-MM-YYYY | HH:mm A"
+                      "MM-DD-YYYY | HH:mm A"
                     )}
                   </div>
                 </div>
@@ -212,7 +212,7 @@ const FleetNotificationListItems = (props: any) => {
                   </div>
                   <div className={collapsedTimeStampStyle}>
                     {moment(item?.notificationDate).format(
-                      "DD-MM-YYYY | HH:mm A"
+                      "MM-DD-YYYY | HH:mm A"
                     )}
                   </div>
                 </div>

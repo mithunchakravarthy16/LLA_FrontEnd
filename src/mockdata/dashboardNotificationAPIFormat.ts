@@ -9,12 +9,12 @@ const dashboardNotification = {
           area: "Parking Lot -1 ",
           entity: "LPN: ADL-D21| Sot - 18",
           venue: "",
-          category: "parking",
+          category: "parking", 
           notificationType: "Events",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.75932453116013,
-            lng: -105.01244836237774,
+          location: { 
+            lat: 9.014096630027934,
+            lng: -79.47521540383975,
           },
         },
         {
@@ -26,9 +26,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Events",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.75986730174264,
-            lng: -105.00059403615393,
+          location: { 
+            lat: 9.013239745072982,
+            lng: -79.47535575072835,
           },
         },
         {
@@ -135,9 +135,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Incident",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.76323809694557,
-            lng: -105.00263788550286,
+          location: { 
+            lat: 9.012428180574371,
+            lng: -79.4765136370769,
           },
         },
         {
@@ -149,9 +149,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Incident",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.758410381562285,
-            lng: -104.99914476116105,
+          location: { 
+            lat: 9.011771204307172,
+            lng: -79.47691596842526,
           },
         },
         {
@@ -163,9 +163,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Incident",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.76146903388253,
-            lng: -105.00182251057917,
+          location: { 
+            lat: 9.011641398371088,
+            lng: -79.47636075116453,
           },
         },
         {
@@ -177,9 +177,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Incident",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.758186488708766,
-            lng: -105.00474075387679,
+          location: { 
+            lat: 9.011151314308657,
+            lng: -79.47718955374224,
           },
         },
         {
@@ -286,9 +286,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Alerts",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.75423942004732,
-            lng: -105.00910388162495,
+          location: { 
+            lat: 9.010871706435426,
+            lng: -79.47682753009195,
           },
         },
         {
@@ -300,9 +300,9 @@ const dashboardNotification = {
           category: "parking",
           notificationType: "Alerts",
           timeStamp: "09:41 AM",
-          location: {
-            lat: 39.75883889069712,
-            lng: -105.00156021948253,
+          location: { 
+            lat: 9.012501191964672,
+            lng: -79.4757609694814,
           },
         },
         {

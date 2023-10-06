@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     textTransform: "uppercase",
     letterSpacing: "0.1em",
     fontSize: 22,
-    fontFamily: "HelveticaNeue-Regular",
+    fontFamily: "HelveticaNeue-Medium",
     width: "80%",
     color: props?.palette?.notification?.notificationPanelTitle,
     [muiTheme.breakpoints.up(3839)]: {
@@ -107,10 +107,10 @@ const useStyles = makeStyles({
       width: 32,
     },
     [muiTheme.breakpoints.down(2049)]: {
-      width: 26,
+      width: 18,
     },
     [muiTheme.breakpoints.down(1921)]: {
-      width: 20,
+      width: 18,
     },
     [muiTheme.breakpoints.down(1545)]: {
       width: 15,
@@ -399,10 +399,10 @@ const useStyles = makeStyles({
           width: 36,
         },
         [muiTheme.breakpoints.down(2049)]: {
-          width: 32,
+          width: 18,
         },
         [muiTheme.breakpoints.down(1921)]: {
-          width: 22,
+          width: 18,
         },
         [muiTheme.breakpoints.down(1545)]: {
           width: 17,
@@ -482,12 +482,16 @@ const useStyles = makeStyles({
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 450px)"
-          : "calc(100vh - 333px)",
+          : props?.notificationPageName === "parking"
+          ? "calc(100vh - 342px)"
+          : "calc(100vh - 392px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       height:
         props?.notificationPageName === "dashboard"
-          ? "calc(100vh - 432px)"
+          ? "calc(100vh - 433px)"
+          : props?.notificationPageName === "asset"
+          ? "calc(100vh - 342px)"
           : "calc(100vh - 293px)",
     },
     [muiTheme.breakpoints.down(1793)]: {

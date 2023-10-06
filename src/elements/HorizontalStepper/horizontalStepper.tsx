@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -7,15 +8,10 @@ import { Typography } from "@mui/material";
 import theme from "../../theme/theme";
 import useStyles from "./styles";
 import { ColorlibStepIconRoot } from "./styles";
+import Tooltip from "elements/Tooltip";
 
 const ColorlibStepIcon: React.FC<any> = (props) => {
-  const { active, completed, className } = props;
-
-  //   const icons = {
-  //     1: <SettingsIcon />,
-  //     2: <GroupAddIcon />,
-  //     3: <VideoLabelIcon />
-  //   };
+  const { active, completed, className, trackerStatus } = props;
 
   return (
     <ColorlibStepIconRoot
@@ -24,20 +20,18 @@ const ColorlibStepIcon: React.FC<any> = (props) => {
       purpleShades={"#004F9F"}
       colorWhite={"#FFF"}
       greenShade={"#9BF15C"}
+      trackerStatus={trackerStatus}
     />
   );
 };
 
 const CustomizedSteppers: React.FC<any> = (props) => {
-  const { packagaeData, selectedTheme } = props;
-  const packagaeDataCopy = packagaeData && packagaeData;
+  const { dataPoints, selectedTheme, trackerStatus } = props;
+
+
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
 
-  const { stepperSx, typographySx } = useStyles(appTheme);
-
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
+  const { stepperSx, typographySx } = useStyles({...appTheme, trackerStatus : trackerStatus });
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -53,19 +47,35 @@ const CustomizedSteppers: React.FC<any> = (props) => {
     }
   }, [selectedTheme]);
 
+  const truncateString = (str: string, num: number) => {
+    if (str?.length > num) {
+      return str?.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
+  const getLocaleTimeStamp = (timeStamp:any) =>{
+    const testDateUtc = moment.utc(timeStamp);
+    const localDate = testDateUtc.local();
+    return localDate.format("MM-DD-YYYY | HH:mm A");
+  }
+
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={5}
+        activeStep={dataPoints?.length - 1}
         // connector={<ColorlibConnector />}
         // sx={stepperSx}
         className={stepperSx}
       >
-        {packagaeDataCopy &&
-          packagaeDataCopy.length > 0 &&
-          packagaeDataCopy.map((label: any, index: number) => (
-            <Step key={index} style={{ wordBreak: "break-word" }}>
+        {dataPoints &&
+          dataPoints.length > 0 &&
+          dataPoints.map((label: any, index: number) => (
+            <Step
+              key={index}
+              style={{ wordBreak: "break-word", maxWidth: "10vw" }}
+            >
               <Typography
                 // sx={typographySx} // For solution 2
                 align="center"
@@ -78,10 +88,31 @@ const CustomizedSteppers: React.FC<any> = (props) => {
                     appTheme?.palette?.assetTrackingPage?.topPanelTextColor,
                 }}
               >
-                {label?.packageStage}
+                {label?.area?.length > 20 ? (
+                  <>
+                    <Tooltip
+                      tooltipValue={label?.area}
+                      placement={"bottom"}
+                      offset={[0, 10]}
+                      fontSize={[14]}
+                      padding={[2]}
+                    >
+                      {" "}
+                      {truncateString(label?.area, 20)}
+                    </Tooltip>
+                  </>
+                ) : (
+                  label?.area
+                )}
+                {/* {label?.packageStage} */}
               </Typography>
-              <StepLabel StepIconComponent={ColorlibStepIcon}>
-                {label?.timeStamp}
+              <StepLabel  StepIconComponent={(stepProps) => <ColorlibStepIcon {...stepProps} trackerStatus={trackerStatus} />}  >
+                {
+                  getLocaleTimeStamp(label?.timestamp)
+
+                // moment(label?.timestamp)?.format("MM-DD-YYYY | HH:mm A")
+                }
+                {/* {label?.timeStamp} */}
               </StepLabel>
             </Step>
           ))}

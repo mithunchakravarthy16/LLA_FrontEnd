@@ -1,4 +1,5 @@
 /** @format */
+//@ts-nocheck
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ import useTranslation from "../../localization/translations";
 import useStyles from "./styles";
 import Footer from "components/Footer";
 import llaBanner from "../../assets/images/login-bg1.jpg";
-import llaLightBanner from "../../assets/lightThemeBanner.svg";
+import llaLightBanner from "../../assets/Optimized_Light_Theme_Bg.jpg";
 import {
   getAdminPanelConfigData,
   setAdminPanelConfigData,
@@ -30,6 +31,8 @@ import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
 import Loader from "elements/Loader";
 
 const Login = () => {
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { yourEmail, passwordTItle, loginNowButton, signInTitle } =
@@ -38,7 +41,7 @@ const Login = () => {
   const user = useSelector((state: any) => state.login.loginData);
 
   const adminPanelData = useSelector(
-    (state: any) => state?.adminPanel?.getConfigData
+    (state: any) => state?.adminPanel
   );
 
   const adminPanelSaveData = useSelector(
@@ -125,21 +128,21 @@ const Login = () => {
       user?.status === 409 ||
       user?.status === 413 ||
       user?.status === 410 ||
-      user?.status === 401 ||
-      adminPanelData?.status === 500 ||
-      adminPanelData?.status === 404 ||
-      adminPanelData?.status === 400 ||
-      adminPanelData?.status === 409 ||
-      adminPanelData?.status === 413 ||
-      adminPanelData?.status === 410 ||
-      adminPanelData?.status === 401 ||
-      adminPanelSaveData?.status === 500 ||
-      adminPanelSaveData?.status === 404 ||
-      adminPanelSaveData?.status === 400 ||
-      adminPanelSaveData?.status === 409 ||
-      adminPanelSaveData?.status === 413 ||
-      adminPanelSaveData?.status === 410 ||
-      adminPanelSaveData?.status === 401
+      user?.status === 401 
+      // adminPanelData?.status === 500 ||
+      // adminPanelData?.status === 404 ||
+      // adminPanelData?.status === 400 ||
+      // adminPanelData?.status === 409 ||
+      // adminPanelData?.status === 413 ||
+      // adminPanelData?.status === 410 ||
+      // adminPanelData?.status === 401 ||
+      // adminPanelSaveData?.status === 500 ||
+      // adminPanelSaveData?.status === 404 ||
+      // adminPanelSaveData?.status === 400 ||
+      // adminPanelSaveData?.status === 409 ||
+      // adminPanelSaveData?.status === 413 ||
+      // adminPanelSaveData?.status === 410 ||
+      // adminPanelSaveData?.status === 401
     ) {
       setSuccess(true);
       setInCorrectCredentials(true);
@@ -204,25 +207,26 @@ const Login = () => {
   };
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   useEffect(() => {
-    const backgroundImageUrl =
-      selectedTheme === 'light' ? llaLightBanner : llaBanner;    
+    setBackgroundLoaded(false)
+    const backgroundImageUrl = llaLightBanner
+      // selectedTheme === 'light' ? llaLightBanner : llaBanner;    
     const img = new Image();
     img.src = backgroundImageUrl;    
     img.onload = () => {      
       setBackgroundLoaded(true);     
     };
 
-    return () => {
-      img.onload = null;
-    };
-  }, [selectedTheme]);
+    // return () => {
+    //   img.onload = null;
+    // };
+  }, []);
 
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
       setIsDataLoaded(!isDataLoaded);
-    }, 3000);
+    }, 100);
   }, []);
 
   const loaderAdminGetConfigData = useSelector(
@@ -231,10 +235,8 @@ const Login = () => {
 
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme && backgroundLoaded &&
-      Object.keys(appTheme).length > 0 ? (
+      {
+      isDataLoaded && backgroundLoaded  ? (
         <>
           {success && (
             <Snackbar
@@ -251,21 +253,21 @@ const Login = () => {
                   user?.status === 409 ||
                   user?.status === 413 ||
                   user?.status === 410 ||
-                  user?.status === 401 ||
-                  adminPanelData?.status === 500 ||
-                  adminPanelData?.status === 404 ||
-                  adminPanelData?.status === 400 ||
-                  adminPanelData?.status === 409 ||
-                  adminPanelData?.status === 413 ||
-                  adminPanelData?.status === 410 ||
-                  adminPanelData?.status === 401 ||
-                  adminPanelSaveData?.status === 500 ||
-                  adminPanelSaveData?.status === 404 ||
-                  adminPanelSaveData?.status === 400 ||
-                  adminPanelSaveData?.status === 409 ||
-                  adminPanelSaveData?.status === 413 ||
-                  adminPanelSaveData?.status === 410 ||
-                  adminPanelSaveData?.status === 401
+                  user?.status === 401 
+                  // adminPanelData?.status === 500 ||
+                  // adminPanelData?.status === 404 ||
+                  // adminPanelData?.status === 400 ||
+                  // adminPanelData?.status === 409 ||
+                  // adminPanelData?.status === 413 ||
+                  // adminPanelData?.status === 410 ||
+                  // adminPanelData?.status === 401 ||
+                  // adminPanelSaveData?.status === 500 ||
+                  // adminPanelSaveData?.status === 404 ||
+                  // adminPanelSaveData?.status === 400 ||
+                  // adminPanelSaveData?.status === 409 ||
+                  // adminPanelSaveData?.status === 413 ||
+                  // adminPanelSaveData?.status === 410 ||
+                  // adminPanelSaveData?.status === 401
                     ? "error"
                     : undefined
                 }

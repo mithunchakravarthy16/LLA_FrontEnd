@@ -21,7 +21,11 @@ import {
   handleFleetManagementOverspeeding,
   handleFleetManagementLiveTrip,
 } from "./handlers/fleetManagementNotification";
-import { handleAssetTrackingActiveInActiveAnalyticsData, handleAssetTrackingIncidentsAnalyticsData, handleAssetTrackingGridViewAnalyticsData} from "./handlers/assetTrackingActiveInActiveAnalytics";
+import {
+  handleAssetTrackingActiveInActiveAnalyticsData,
+  handleAssetTrackingIncidentsAnalyticsData,
+  handleAssetTrackingGridViewAnalyticsData,
+} from "./handlers/assetTrackingActiveInActiveAnalytics";
 import adminPanelConfig from "redux/actions/adminPanel";
 import {
   handleAdminPanelConfig,
@@ -34,6 +38,7 @@ import {
   handleAssetTrackingAssetsList,
   handleAssetTrackingCreateGeofence,
   handleAssetTrackingUpdateGeofence,
+  handleAssetLiveLocation
 } from "./handlers/getAssetTrackerDetail";
 import createGeofence from "redux/actions/createGeofenceAction";
 import { handleCreateGeofence } from "./handlers/createGeofence";
@@ -41,6 +46,8 @@ import enableGeofence from "redux/actions/enableGeofenceAction";
 import updateGeofence from "redux/actions/updateGeofenceAction";
 import { handleEnableGeofence } from "./handlers/enableGeofence";
 import { handleUpdateGeofence } from "./handlers/updateGeofence";
+import assetTable from "redux/actions/getAssetTableDataAction";
+import { handleAssetTableData } from "./handlers/getAssetTable";
 
 export default function* rootSaga() {
   yield all([
@@ -69,6 +76,8 @@ export default function* rootSaga() {
     watchAssetTrackingCreateGeofence(),
     watchAssetTrackingUpdateGeofence(),
     watchAssetTrackingGridViewAnalyticsData(),
+    watchAssetLiveLocation(),
+    watchAssetTableData()
   ]);
 }
 
@@ -200,7 +209,7 @@ export function* watchAssetTrackingIncidentsAnalyticsData() {
   yield takeLatest(
     assetTrackingActiveInActiveAnalytics.GET_ASSET_TRACKING_INCIDENTS_ANALYTICS_DATA,
     handleAssetTrackingIncidentsAnalyticsData
-    );
+  );
 }
 
 export function* watchAssetTrackingAssetsList() {
@@ -228,5 +237,17 @@ export function* watchAssetTrackingGridViewAnalyticsData() {
   yield takeLatest(
     assetTrackingActiveInActiveAnalytics.GET_ASSET_TRACKING_GRID_VIEW_ANALYTICS_DATA,
     handleAssetTrackingGridViewAnalyticsData
-    );
+  );
+}
+
+export function* watchAssetLiveLocation() {
+  yield takeLatest (
+    assetTrackerDetail.GET_ASSET_LIVE_LOCATION, handleAssetLiveLocation
+  )
+}
+
+export function* watchAssetTableData() {
+  yield takeLatest(
+    assetTable.GET_ASSET_TABLE, handleAssetTableData
+  )
 }

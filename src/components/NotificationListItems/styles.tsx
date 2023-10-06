@@ -140,8 +140,7 @@ const useStyles = makeStyles({
   }),
 
   collapsedListItemTitle: (props: any) => ({
-    // fontSize: 20,
-    fontSize: "0.7vw",
+    fontSize: 18,
     letterSpacing: "0.5px",
     marginBottom: "3%",
     fontFamily: "HelveticaNeue-Regular",
@@ -159,7 +158,7 @@ const useStyles = makeStyles({
       // lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      // fontSize: 20,
+      fontSize: 18,
       // lineHeight: "36px",
     },
     [muiTheme.breakpoints.down(1921)]: {
@@ -184,8 +183,8 @@ const useStyles = makeStyles({
     fontSize: "0.7vw",
     fontFamily: "HelveticaNeue-Medium",
     color: props?.palette?.notification?.collapsedListItemTextColor,
-    maxWidth: "10vw",
-    textOverflow: "ellipsis",
+    // maxWidth: "12vw",
+    // textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "nowrap",
     [muiTheme.breakpoints.up(3839)]: {
@@ -417,7 +416,8 @@ const useStyles = makeStyles({
   }),
   buttonStyle: (props: any) => ({
     "& .MuiButton-contained": {
-      backgroundColor: props?.palette?.notification?.listItemLabelSelectedBtn,
+      // backgroundColor: props?.palette?.notification?.listItemLabelSelectedBtn,
+      backgroundColor: " #CD5209",
       [muiTheme.breakpoints.up(3839)]: {
         minWidth: "223px",
         height: "70px",
@@ -427,7 +427,8 @@ const useStyles = makeStyles({
       },
 
       "&:hover": {
-        background: props?.palette?.notification?.listItemLabelSelectedBtn,
+        // background: props?.palette?.notification?.listItemLabelSelectedBtn,
+        background: "#CD5209",
       },
     },
 

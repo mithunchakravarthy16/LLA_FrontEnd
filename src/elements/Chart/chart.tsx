@@ -1,8 +1,7 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import muiTheme from "theme/muiTheme";
 import theme from "../../theme/theme";
 import moment from "moment";
 import { useSelector } from "react-redux";
@@ -22,18 +21,12 @@ const Chart: React.FC<any> = (props) => {
     is4kDevice,
     tooltip,
     tickInterval,
-    xAxisFontSize,
     pageName,
     is2kDevice,
     is3kDevice,
-    formatGraph,
     xAxisArray,
     selectedValue,
   } = props;
-
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
 
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -64,14 +57,15 @@ const Chart: React.FC<any> = (props) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    if (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") {
+    if (
+      pageName === "assetTracking" ||
+      pageName === "FleetManagement" ||
+      pageName === "assetTrackingGridView"
+    ) {
       dataPoints?.length > 0 &&
         dataPoints?.every((item: any) => {
           setIsEveryYAxisValuesAreZero(
-            item?.data?.every(
-              (dataValues: any) =>
-                (dataValues?.length > 1 && dataValues[1]) === 0
-            )
+            item?.data?.every((dataValues: any) => dataValues === 0)
           );
         });
     }
@@ -122,9 +116,6 @@ const Chart: React.FC<any> = (props) => {
           plotBackgroundColor: "transparent",
           backgroundColor: "transparent",
           marginTop: 0,
-          marginLeft: 0,
-          // marginRight: 0,
-
           reflow: true,
           height: height,
           width: width,
@@ -242,22 +233,6 @@ const Chart: React.FC<any> = (props) => {
                             </td>
                       </tr>
                     </table>`;
-
-              // return `<table>
-              //         <tr>
-              //         <td style="font-weight:bold;color:black">
-              //           ${this?.points?.reduce((s:any, point:any):any =>{
-              //             return (
-              //               point?.series?.name + ": " + point?.y + "<br/>" + s
-              //             );
-              //           },
-              //           `<b>
-              //             ${new Date(thisXCopy).toLocaleDateString("nl-Nl")}
-              //            </b>`
-              //           )}
-              //         </td>
-              //   </tr>
-              // </table>`;
             } else {
               return false;
             }
@@ -265,61 +240,21 @@ const Chart: React.FC<any> = (props) => {
         },
         xAxis: {
           visible: isVisible,
-          // endOnTick: true,
+          //  endOnTick: true,
           categories: xAxisArray
             ? xAxisArray
-            : pageName !== "assetTracking" && pageName !== "FleetManagement" && lastTwntyTwoHours,
-          tickInterval:
-            is4kDevice || is2kDevice
-              ? (is4kDevice && location.pathname === "/energyManagement") ||
-                (is4kDevice && location.pathname === "/security") ||
-                (is4kDevice && location.pathname === "/lighting")
-                ? 8
-                : pageName === "assetTracking"
-                ? selectedValue === "Today"
-                ? 5 * 3600 * 1000
-                : selectedValue === "Year"
-                ? 70 * 24 * 3600 * 1000
-                : selectedValue === "Month"
-                ? 5 * 24 * 3600 * 1000
-                : 30 * 3600 * 1000
-                : pageName === "assetTrackingGridView" ?
-                selectedValue === "Today"
-                ? 5 * 3600 * 1000
-                : selectedValue === "Year"
-                ? 70 * 24 * 3600 * 1000
-                : selectedValue === "Month"
-                ? 5 * 24 * 3600 * 1000
-                : 30 * 3600 * 1000
-                : 12
-              : tickInterval
-              ? tickInterval
-              : pageName !== "FleetManagement" && pageName !== "assetTracking" &&  pageName !== "assetTrackingGridView"
+            : pageName !== "assetTracking" &&
+              pageName !== "FleetManagement" &&
+              lastTwntyTwoHours,
+          tickInterval: tickInterval
+            ? tickInterval
+            : is4kDevice || is2kDevice
+            ? (is4kDevice && location.pathname === "/energyManagement") ||
+              (is4kDevice && location.pathname === "/security") ||
+              (is4kDevice && location.pathname === "/lighting")
               ? 8
-              : pageName === "FleetManagement" ? selectedValue === "Today"
-              ? 8 * 3600 * 1000
-              : selectedValue === "Year"
-              ? 90 * 24 * 3600 * 1000
-              : selectedValue === "Month"
-              ? 5 * 24 * 3600 * 1000
-              : 40 * 3600 * 1000
-              : pageName === "assetTracking" ?
-              selectedValue === "Today"
-              ? 5 * 3600 * 1000
-              : selectedValue === "Year"
-              ? 70 * 24 * 3600 * 1000
-              : selectedValue === "Month"
-              ? 5 * 24 * 3600 * 1000
-              : 30 * 3600 * 1000
-              : pageName === "assetTrackingGridView" ?
-              selectedValue === "Today"
-              ? 5 * 3600 * 1000
-              : selectedValue === "Year"
-              ? 70 * 24 * 3600 * 1000
-              : selectedValue === "Month"
-              ? 5 * 24 * 3600 * 1000
-              : 30 * 3600 * 1000
-              : 8,
+              : 12
+            : 8,
           crosshair: {
             enabled: isCrosshair,
             width: isCrosshair ? 1 : 0,
@@ -327,40 +262,12 @@ const Chart: React.FC<any> = (props) => {
             dashStyle: "ShortDash",
             snap: isCrosshair,
           },
-          type:
-            (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") &&
-            "datetime",
           labels: {
             allowOverlap: false,
-            formatter:
-             (pageName === "FleetManagement" || pageName === "assetTracking" || pageName === "assetTrackingGridView") &&
-              function (this: any) {
-                const convertedTime = moment.utc(this.value).utcOffset(330); // 330 minutes = GMT+05:30
-                if (selectedValue === "Today") {
-                  return Highcharts.dateFormat("%I:%M %p", this.value);
-                } else {
-                  return convertedTime.format(
-                    formatGraph
-                      ? formatGraph
-                      : selectedValue === "Year"
-                      ? "MMM/YY"
-                      : "MM/DD"
-                  );
-                }
-              },
-
             useHTML: true,
-            // overflow: "justify",
             overflow: "justify",
-            format: formatGraph
-              ? formatGraph
-              : (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && selectedValue === "Today"
-              ? "{value:%H:00}"
-              : selectedValue === "Year"
-              ? "{value:%b}"
-              : "{value:%m/%e}",
             style: {
-              fontSize: "0.65vw",
+              fontSize: "0.6vw",
               textOverflow: "none",
               autoRotation: false,
               fontWeight: 500,
@@ -370,8 +277,7 @@ const Chart: React.FC<any> = (props) => {
           gridLineWidth: 0,
           lineWidth: 0,
           tickPositioner:
-            (!selectedValue ||
-              (selectedValue !== "Today" && selectedValue !== "Month")) &&
+            (!selectedValue || selectedValue !== "Month") &&
             function (this: any) {
               const ticks: any = this.tickPositions;
 
@@ -383,13 +289,6 @@ const Chart: React.FC<any> = (props) => {
               return ticks;
             },
         },
-
-        setOptions: {
-          time: {
-            useUTC: false,
-          },
-        },
-
         title: false,
         plotOptions: {
           pie: {
@@ -397,23 +296,16 @@ const Chart: React.FC<any> = (props) => {
               enabled: false,
             },
           },
-          series: {
-            // fillColor: {
-            //   linearGradient: [0, 0, 0, 200],
-            //   stops: [
-            //     [0, Highcharts.color("#3DFFDC").setOpacity(0.4).get("rgba")],
-            //     [0.8, Highcharts.color("#000").setOpacity(0).get("rgba")],
-            //     //  [0.8, Highcharts.color("#3DFFDC").setOpacity(0).get("rgba")],
-            //     //  [1, "rgba(61, 255, 220, 0)"],
-            //   ],
-            // },
-          },
+          series: {},
         },
         series: dataPoints,
         yAxis: {
           visible: false,
           max:
-          (pageName === "assetTracking" || pageName === "FleetManagement" || pageName === "assetTrackingGridView") && isEveryYAxisValuesAreZero
+            (pageName === "assetTracking" ||
+              pageName === "FleetManagement" ||
+              pageName === "assetTrackingGridView") &&
+            isEveryYAxisValuesAreZero
               ? 100
               : undefined,
         },
