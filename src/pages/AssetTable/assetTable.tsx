@@ -219,11 +219,11 @@ const AssetTable: React.FC<any> = (props) => {
     <>
       <Grid className={rootContainer}>
         <Grid>
-          <h1 style={{ textAlign: "center", color : "#084476" }}>Asset Table</h1>
+          <h1 style={{ textAlign: "center", color : "#333333" }}>Asset Table</h1>
         </Grid>
         <Grid className={assetTableHeader} style={{ margin: "1vw 5vw" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h3 style={{ marginRight: "1vw", color : "#084476"  }}>Search By ID</h3>
+            <h3 style={{ marginRight: "1vw", color : "#333333"  }}>Search By ID</h3>
             <SearchBox
               searchInput={searchClass}
               placeHolder={"Search"}
