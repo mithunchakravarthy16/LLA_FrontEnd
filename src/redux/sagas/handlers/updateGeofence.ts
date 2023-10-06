@@ -14,6 +14,6 @@ export function* handleUpdateGeofence(action:any) :any {
           yield put(setUpdateGeofence({}));
         }
       } catch (error) {
-        console.log(error);
+        console.log(error);  
       }
 }

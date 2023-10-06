@@ -54,3 +54,35 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 100px rgba(51, 51, 51) inset !important;
   -webkit-text-fill-color: #fff !important;
 }
+
+@keyframes aitf {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+
+.animated-text {
+  font: 700 2em/1 "Oswald", sans-serif;
+  letter-spacing: 0;
+  /* padding: 105px; */
+  display: block;
+  margin: 0 auto;
+  text-shadow: 0 0 80px rgba(255,255,255,.5);
+
+  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png);
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: aitf 80s linear infinite;
+  animation: aitf 80s linear infinite;
+
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

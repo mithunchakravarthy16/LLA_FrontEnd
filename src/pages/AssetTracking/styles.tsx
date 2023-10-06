@@ -283,9 +283,9 @@ const useStyles = makeStyles({
     // padding: "15px 5px 15px 5px",
     // width: "53px",
     // height: "30px",
-    right: "5px",
-    top: "2px",
-    width: "5%",
+    right: "8.5vh",
+    top: "1.1vh",
+    width: "3.2vw",
   }),
   pageNumSection: (props:any) => ({
     width: "3vw",
@@ -306,6 +306,14 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "space-around",
     // marginTop : "1vh"
+  }),
+  globeIconSection: (props: any) => ({
+    position: "absolute",
+    top: "0.4vw",
+    right: "1vh",
+    cursor: "pointer",
+    width: "3.5vw",
+    zIndex : 1
   }),
 });
 export default useStyles;

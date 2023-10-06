@@ -1,20 +1,24 @@
-import { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MainLayout from "pages/MainLayout";
-import Login from "../pages/Login";
-import DashBoard from "../pages/DashBoard";
-import BirdsView from "pages/BirdsView";
-import Settings from "pages/Settings";
-import GridView from "pages/GridView";
-import Lighting from "pages/Lighting";
-import EnergyManagement from "pages/EnenrgyManagement";
-import Security from "pages/Security";
-import Parking from "pages/Parking";
-import FleetManagement from "pages/FleetManagement";
-import AssetTracking from "pages/AssetTracking";
 import AdminPanel from "pages/AdminPanel";
 import AdminPanelLogin from "pages/AdminPanelLogin";
+import Loader from "elements/Loader";
+import GoogleMapApiKey from "pages/GoogleMapApiKey";
+import AssetTable from "pages/AssetTable"
+
+const Login = React.lazy(() => import("pages/Login"));
+const DashBoard = React.lazy(() => import("pages/DashBoard"));
+const GridView = React.lazy(() => import("pages/GridView"));
+const Settings = React.lazy(() => import("pages/Settings"));
+const BirdsView = React.lazy(() => import("pages/BirdsView"));
+const Lighting = React.lazy(() => import("pages/Lighting"));
+const EnergyManagement = React.lazy(() => import("pages/EnenrgyManagement"));
+const Parking = React.lazy(() => import("pages/Parking"));
+const Security = React.lazy(() => import("pages/Security"));
+const FleetManagement = React.lazy(() => import("pages/FleetManagement"));
+const AssetTracking = React.lazy(() => import("pages/AssetTracking"));
 
 const VIOT_Routes = () => {
   const user = useSelector((state: any) => state.login.loginData);
@@ -23,7 +27,11 @@ const VIOT_Routes = () => {
   return useRoutes([
     {
       path: "/login",
-      element: <Login />,
+      element: (
+        <Suspense fallback={<Loader />}>
+          <Login />
+        </Suspense>
+      ),
     },
     {
       path: "/",
@@ -39,43 +47,91 @@ const VIOT_Routes = () => {
       children: [
         {
           path: "home",
-          element: <DashBoard setMapType={setMapType} mapType={mapType} />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <DashBoard setMapType={setMapType} mapType={mapType} />
+            </Suspense>
+          ),
         },
         {
           path: "gridView",
-          element: <GridView />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <GridView />
+            </Suspense>
+          ),
         },
         {
           path: "birdsView",
-          element: <BirdsView />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <BirdsView />
+            </Suspense>
+          ),
         },
         {
           path: "settings",
-          element: <Settings />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <Settings />
+            </Suspense>
+          ),
         },
         {
           path: "parking",
-          element: <Parking mapType={mapType} setMapType={setMapType} />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <Parking mapType={mapType} setMapType={setMapType} />
+            </Suspense>
+          ),
         },
         {
           path: "energyManagement",
-          element: <EnergyManagement />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <EnergyManagement />
+            </Suspense>
+          ),
         },
         {
           path: "security",
-          element: <Security />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <Security />
+            </Suspense>
+          ),
         },
         {
           path: "lighting",
-          element: <Lighting />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <Lighting />
+            </Suspense>
+          ),
         },
         {
           path: "fleetManagement",
-          element: <FleetManagement />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <FleetManagement />
+            </Suspense>
+          ),
         },
         {
           path: "assetTracking",
-          element: <AssetTracking mapType={mapType} setMapType={setMapType} />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <AssetTracking mapType={mapType} setMapType={setMapType} />
+            </Suspense>
+          ),
+        },
+        {
+          path: "googleMapApiKey",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <GoogleMapApiKey/>
+            </Suspense>
+          ),
         },
       ],
     },
@@ -90,6 +146,10 @@ const VIOT_Routes = () => {
     {
       path: "adminLogin",
       element: <AdminPanelLogin />,
+    },
+    {
+      path: "assetTable",
+      element: <AssetTable />,
     },
   ]);
 };

@@ -7,19 +7,20 @@ export const formatttedDashboardNotification = (
   if (data && data !== undefined) {
     const sortedNotifications = data?.sort((a: any, b: any) => {
       if (
-        moment(a?.currentTimeStamp, "MM-DD-YYYY | h:mm A").isBefore(
-          moment(b?.currentTimeStamp, "MM-DD-YYYY | h:mm A")
+        moment(a?.currentTimeStamp, "MM-DD-YYYY | HH:mm A").isBefore(
+          moment(b?.currentTimeStamp, "MM-DD-YYYY | HH:mm A")
         )
       )
         return 1;
       else if (
-        moment(b?.currentTimeStamp, "MM-DD-YYYY | h:mm A").isBefore(
-          moment(a?.currentTimeStamp, "MM-DD-YYYY | h:mm A")
+        moment(b?.currentTimeStamp, "MM-DD-YYYY | HH:mm A").isBefore(
+          moment(a?.currentTimeStamp, "MM-DD-YYYY | HH:mm A")
         )
       )
         return -1;
       else return 0;
     });
+
     let notiEventArray: any = [];
     let notiIncidentArray: any = [];
     let notiOprAlertArray: any = [];
@@ -153,7 +154,7 @@ export const formatttedDashboardAPINotificaiton = (data: any) => {
           minutes: i + 59,
           seconds: i + 49,
         })
-        .format("MM-DD-YYYY | h:mm A");
+        .format("MM-DD-YYYY | HH:mm A");
       timeArrayNew?.push({ currentTimeStamp: currentTimeStampValue });
     }
 
@@ -171,40 +172,43 @@ export const formatttedAssetAPINotification = (data: any) => {
     const combinedNotifications: any = [];
 
     events?.eventsList?.forEach((event: any, index: number) => {
+      const testDateUtc = moment.utc(event?.notificationDate);
+      const localDate = testDateUtc.local();
       combinedNotifications?.push({
         ...event,
         category: "asset",
         title: event?.reason,
         id: event?.assetNotificationId,
         markerId: event?.id,
-        currentTimeStamp: moment
-          .utc(event?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+        currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
+        description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
       });
     });
 
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
+      const testDateUtc = moment.utc(incidents?.notificationDate);
+      const localDate = testDateUtc.local();
       combinedNotifications?.push({
         ...incidents,
         category: "asset",
         title: incidents?.reason,
         id: incidents?.assetNotificationId,
         markerId: incidents?.id,
-        currentTimeStamp: moment
-          .utc(incidents?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+        currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
+        description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`                    
       });
     });
 
     alerts?.alertList?.forEach((alerts: any, index: number) => {
+      const testDateUtc = moment.utc(alerts?.notificationDate);
+      const localDate = testDateUtc.local();
       combinedNotifications?.push({
         ...alerts,
         category: "asset",
         title: alerts?.reason,
         id: alerts?.assetNotificationId,
-        currentTimeStamp: moment
-          .utc(alerts?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+        currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
+        description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`                    
       });
     });
 
@@ -261,7 +265,7 @@ export const formatttedFleetAPINotification = (data: any) => {
         id: event?.notificationId,
         currentTimeStamp: moment
           .utc(event?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+          .format("MM-DD-YYYY | HH:mm A"),
       });
     });
 
@@ -273,7 +277,7 @@ export const formatttedFleetAPINotification = (data: any) => {
         id: incidents?.notificationId,
         currentTimeStamp: moment
           .utc(incidents?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+          .format("MM-DD-YYYY | HH:mm A"),
       });
     });
 
@@ -285,7 +289,7 @@ export const formatttedFleetAPINotification = (data: any) => {
         id: alerts?.notificationId,
         currentTimeStamp: moment
           .utc(alerts?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+          .format("MM-DD-YYYY | HH:mm A"),
       });
     });
 
@@ -298,18 +302,6 @@ export const formattedViolationsList = (data: any) => {
     const { events, incidents, alerts } = data;
     const combinedNotifications: any = [];
 
-    // events?.eventsList?.forEach((event: any, index: number) => {
-    //   combinedNotifications.push({
-    //     ...event,
-    //     category: "fleet",
-    //     title: event?.reason,
-    //     id: event?.notificationId,
-    //     currentTimeStamp: moment
-    //       .utc(event?.notificationDate)
-    //       .format("MM-DD-YYYY | h:mm A"),
-    //   });
-    // });
-
     incidents?.incidentList?.forEach((incidents: any, index: number) => {
       combinedNotifications.push({
         ...incidents,
@@ -318,7 +310,7 @@ export const formattedViolationsList = (data: any) => {
         id: incidents?.notificationId,
         currentTimeStamp: moment
           .utc(incidents?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+          .format("MM-DD-YYYY | HH:mm A"),
       });
     });
 
@@ -330,7 +322,7 @@ export const formattedViolationsList = (data: any) => {
         id: alerts?.notificationId,
         currentTimeStamp: moment
           .utc(alerts?.notificationDate)
-          .format("MM-DD-YYYY | h:mm A"),
+          .format("MM-DD-YYYY | HH:mm A"),
       });
     });
 

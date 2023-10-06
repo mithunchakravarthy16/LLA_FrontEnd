@@ -24,9 +24,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     selectedValue,
     pageName,
   } = props;
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
+
   const [appTheme, setAppTheme] = useState<any>();
 
   useEffect(() => {
@@ -47,8 +45,6 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
     topPanelListItemStyle,
     bodyLeftTopPanelListSubContainer,
     progressBarContainer,
-    // progressBarContainerStyle,
-    // progressBarTitleStyle,
     itemValueStyle,
     itemUnitStyle,
     itemValueUnitStyle,
@@ -118,24 +114,12 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
             ))}
 
           <Grid flex={2} item className={progressBarContainer}>
-            {/* <HorizontalProgressBar
-            progressBarTitle={"Avg. Dimming Level"} //mandatory
-            progressBarTitleFontSize={"14px"}
-            progressBarValue={"60%"}
-            progressBarValueColor={"#FFA626"}
-            progressBarTrackerColor={"#484D52"}
-            progressBarTrackerRadius={"7px"}
-            progressBarValueBarRadius={"7px"}
-            progressBarTrackerHeight={"18px"}
-          /> */}
             <Grid item xs={10} style={{ position: "relative" }}>
               {pageName === "fleet" || pageName === "asset" ? (
                 <Select
                   selectList={selectList}
                   handleSelect={handleSelect}
-                  // customWidth={"40%"}
                   customHeight={"3vh"}
-                  // customSelectCustom={graphCustomSelectDropDown}
                   pageName={"analyticsPage"}
                   drowpDownTextColor={
                     selectedTheme === "light" ? "#737272" : "#fff"
@@ -149,9 +133,7 @@ const TopPanelListItemContainer: React.FC<any> = (props) => {
                   dropDownSelectedTextColor={
                     selectedTheme === "light" ? "#F1624C" : "#FFF"
                   }
-                  // graphName={"graph1"}
                   selectedDropDownValue={selectedValue}
-                  // placeholder={"Select Trailer"}
                   selectedTheme={selectedTheme}
                 />
               ) : (

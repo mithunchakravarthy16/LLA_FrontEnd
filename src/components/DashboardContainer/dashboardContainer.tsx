@@ -11,7 +11,6 @@ import {
   getFleetManagementOverAllTripDetails,
 } from "redux/actions/fleetManagementNotificationActions";
 import theme from "../../theme/theme";
-import moment from "moment";
 import NotificationPanel from "components/NotificationPanel";
 import {
   formatttedAssetAPINotification,
@@ -25,13 +24,11 @@ import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
+import GlobeIconActive from "../../assets/globeIcon.svg";
+import GlobeIconInactive from "../../assets/globeIconInactive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
-import dashboardList from "mockdata/dashboardNotification";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
 import dashboardNotification from "../../mockdata/dashboardNotificationAPIFormat";
-import useStyles from "./styles";
-import fleetManagementResponse from "mockdata/fleetManagementAPI";
-import assetTrackingResponse from "mockdata/assetTrackingAPI";
 import { getAdminPanelConfigData } from "redux/actions/adminPanel";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import Loader from "elements/Loader";
@@ -41,6 +38,8 @@ import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
 import { UseWebSocket } from "websocketServices/useWebsocket";
+import useStyles from "./styles";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -78,8 +77,6 @@ const DashboardContainer = (props: any) => {
     (state: any) => state?.fleetManagementNotification?.loadingNotificationData
   );
 
-  // const fleetManagementNotificationResponse  = fleetManagementResponse;
-
   const assetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.assetNotificationData
   );
@@ -103,8 +100,6 @@ const DashboardContainer = (props: any) => {
         .assetTrackingGridViewAnalyticsData
   );
 
-  // const assetNotificationResponse = assetTrackingResponse;
-
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [tabIndex, setTabIndex] = useState<any>(1);
   const [selectedNotification, setSelectedNotification] = useState<any>("");
@@ -123,6 +118,8 @@ const DashboardContainer = (props: any) => {
   const [count, setCount] = useState<number>(0);
   const [mapMarkerArray, setMapMarkerArray] = useState<any>([]);
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
   //Pagination
   const [page, setPage] = useState<any>(0);
   const [rowsPerPage, setRowsPerPage] = useState<any>(50);
@@ -171,13 +168,15 @@ const DashboardContainer = (props: any) => {
     notificationPanelSection,
     pageNumSection,
     customPagination,
+    globeIconSection,
   } = useStyles(appTheme);
 
   const onHandleBellIcon = () => {
     setNotificationPanelActive(!notificationPanelActive);
+    setDebounceSearchText("");
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
@@ -188,9 +187,9 @@ const DashboardContainer = (props: any) => {
     return () => {
       clearInterval(interval);
     };
-  },[])
+  }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
-  
+
   useEffect(() => {
     const assetPayload: any = {
       filterText: debounceSearchText,
@@ -209,7 +208,8 @@ const DashboardContainer = (props: any) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
@@ -229,7 +229,7 @@ const DashboardContainer = (props: any) => {
     // return () => {
     //   clearInterval(intervalTime);
     // };
-  }, [debounceSearchText]);
+  }, [debounceSearchText, page, rowsPerPage]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
     useState<any>([]);
@@ -417,7 +417,6 @@ useEffect(()=>{
 
         const consolidatedDataNextPage = [...assetNotiData];
 
-        // const consolidatedMarkerData = [...consolidatedData];
         setDashboardNotificationList(
           page === 0 && !searchOpen
             ? consolidatedData
@@ -429,45 +428,6 @@ useEffect(()=>{
 
   useEffect(() => {
     if (assetLiveData) {
-      const sampleLiveData = [
-        {
-          trackerId: "740063943838",
-          assetId:
-            "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-          trackerStatus: "Active",
-          notificationType: "Incident",
-          currentLocation: {
-            lat: 9.0155021,
-            lng: -79.4759242,
-          },
-          currentArea: "",
-        },
-        {
-          trackerId: "413051518008",
-          assetId:
-            "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-          trackerStatus: "Inactive",
-          notificationType: "Incident",
-          currentLocation: {
-            lat: 9.0135021,
-            lng: -79.4759242,
-          },
-          currentArea: "",
-        },
-        {
-          trackerId: "740063943499",
-          assetId:
-            "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-          trackerStatus: "Active",
-          notificationType: "Events",
-          currentLocation: {
-            lat: 9.0135021,
-            lng: -79.4859242,
-          },
-          currentArea: "",
-        },
-      ];
-
       const updatedLiveData: any = assetLiveData?.map((asset: any) => {
         return {
           ...asset,
@@ -480,6 +440,8 @@ useEffect(()=>{
               ? asset?.trackerStatus
               : asset?.notificationType,
           markerId: asset?.trackerId,
+          description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+
         };
       });
 
@@ -617,39 +579,31 @@ useEffect(()=>{
     setSelectedMarker(data);
   };
 
-  // useEffect(() => {
-  //   if (selectedNotification) {
-  //     setIsMarkerClicked(false);
-  //   }
-  // }, [selectedNotification]);
-
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
-    useEffect(()=>{
-      if(searchPageNo){
-        setSearchPageNo("")
-        setPage(0);
-        const assetPayload = {
-          filterText: "",
-          pageNo: parseInt(0),
-          pageSize: parseInt(rowsPerPage),
-          notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-        };
-  
-        dispatch(
-          getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-        );
-      }
-      
-    },[tabIndex])
+  useEffect(() => {
+    if (searchPageNo) {
+      setPage(0);
+      const assetPayload = {
+        filterText: "",
+        pageNo: parseInt(0),
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
+    }
+  }, [tabIndex]);
 
   // PAGINATION
-  
 
   const handleChangePage = (newPage: any) => {
-    setPage(newPage);
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -701,15 +655,13 @@ useEffect(()=>{
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setPage(page - 1);
-    setSearchPageNo("");
   };
 
-  const handlePageNoChange = (value: any) => {
-    setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value);
-
+  const handlePageNoChange = (value: any, keyName: any) => {
     let assetPayload: any = {};
-    if (page >= 0 && value !== "") {
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value) - 1);
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -720,28 +672,9 @@ useEffect(()=>{
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
+      // setSearchPageNo("");
     }
   };
-
-    //Pagination Debounce Starts
-
-    const debounce = (func: any, delay: any) => {
-      let timeOut: any;
-      return (...arg: any) => {
-        const context = this;
-        clearTimeout(timeOut);
-        timeOut = setTimeout(() => {
-          func.apply(context, arg);
-        }, delay);
-      };
-    };
-  
-    const pageSearchCallback = useCallback(
-      debounce(handlePageNoChange, 2000),
-      []
-    );
-  
-     //Pagination Debounce Ends
 
   //Total Records
 
@@ -788,6 +721,25 @@ useEffect(()=>{
   }, [tabIndex]);
 
   // PAGINATION ENDS
+
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setNotificationPanelActive(false);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setDebounceSearchText("");
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+    useEffect(()=>{      
+      fetchGoogleMapApi((mapApiResponse:string)=>{
+         setGoogleMapsApiKeyResponse(mapApiResponse)
+        
+      })
+    },[])
 
 
   return (
@@ -865,12 +817,13 @@ useEffect(()=>{
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader ? (
+      !overAllAnalyticsLoader && googleMapsApiKeyResponse? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>                
                 <Map
+                 googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                   markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}
@@ -898,6 +851,8 @@ useEffect(()=>{
                   isMarkerClicked={isMarkerClicked}
                   setMapType={setMapType}
                   mapType={mapType}
+                  mapDefaultView={mapDefaultView}
+                  setMapDefaultView={setMapDefaultView}
                 />
               </div>
             </Grid>
@@ -915,6 +870,12 @@ useEffect(()=>{
                 alt="Notificaion Icon"
                 onClick={onHandleBellIcon}
                 className={notificationIconSection}
+              />
+              <img
+                src={ GlobeIconActive}
+                alt="GlobeIcon Icon"
+                onClick={onHandleDefaultView}
+                className={globeIconSection}
               />
             </Grid>
             <FlippingCard
@@ -978,26 +939,29 @@ useEffect(()=>{
                       loaderAssetNotificationResponse
                     }
                     assetLiveMarker={assetLiveMarker}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
+                    setPage={setPage}
                   />
-                  { !loaderAssetNotificationResponse && (
-                  <div style={{ margin: "-5px 20px 0 20px" }}>
-                    <CustomTablePagination
-                      rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={
-                        paginationTotalCount === 0 ? 1 : paginationTotalCount
-                      }
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      handleNextChange={handleNextChange}
-                      handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={pageSearchCallback}
-                      value={searchPageNo}
-                      pageNumclassName={pageNumSection}
-                      reportsPaginationclassName={customPagination}
-                    />
-                  </div>
+                  {!loaderAssetNotificationResponse && (
+                    <div style={{ margin: "-5px 20px 0 20px" }}>
+                      <CustomTablePagination
+                        rowsPerPageOptions={[50, 100, 200, 500]}
+                        count={
+                          paginationTotalCount === 0 ? 1 : paginationTotalCount
+                        }
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        handleNextChange={handleNextChange}
+                        handlePreviousChange={handlePreviousChange}
+                        onPageNoChange={handlePageNoChange}
+                        value={searchPageNo}
+                        pageNumclassName={pageNumSection}
+                        reportsPaginationclassName={customPagination}
+                      />
+                    </div>
                   )}
                 </div>
               )}
@@ -1019,8 +983,6 @@ useEffect(()=>{
       {isInfoWindowActive && (
         <InfoDialogAssetTracking
           setIsInfoWindowActive={setIsInfoWindowActive}
-          // packageData={packageData}
-          // infoWindowNotificationListItems={infoWindowNotificationListItems}
           selectedMarker={selectedMarker}
           selectedTheme={selectedTheme}
         />

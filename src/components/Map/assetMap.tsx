@@ -71,7 +71,10 @@ const AssetMap: React.FC<any> = (props) => {
     setSelectedNotificationItem,
     mapType,
     setMapType,
-    selectedNotification
+    selectedNotification,
+    mapDefaultView, 
+    setMapDefaultView,
+    googleMapsApiKeyResponse
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -107,7 +110,7 @@ const AssetMap: React.FC<any> = (props) => {
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    googleMapsApiKey: googleMapsApiKeyResponse,
     libraries: libraries,
   });
 
@@ -602,12 +605,12 @@ const AssetMap: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     setListSelectedMarker("");
     setSelectedNotification("");
-    map?.panTo(center);
-    map?.setZoom(
-      selectedContainerStyle?.is4kDevice
-        ? 16.2
-        : 17
-    );
+    // map?.panTo(center);
+    // map?.setZoom(
+    //   selectedContainerStyle?.is4kDevice
+    //     ? 16.2
+    //     : 17
+    // );
     setSelectedMarker("");
   };
 
@@ -635,8 +638,8 @@ const AssetMap: React.FC<any> = (props) => {
       (selectedNotificationItem === "" ||
       selectedNotification === "")
     ) {
-      map?.setZoom(17);
-      map?.panTo(center);
+      // map?.setZoom(21);
+      // map?.panTo(center);
     }
   }, [
     marker,
@@ -648,6 +651,7 @@ const AssetMap: React.FC<any> = (props) => {
   ]);
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
+    setMapDefaultView(false)
     if (data?.category === "parking" || location?.pathname === "/parking") {
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
@@ -656,7 +660,7 @@ const AssetMap: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-
+    map?.setZoom(18)
     setAssetLiveMarker(id);
     setListSelectedMarker(id)
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -670,10 +674,10 @@ const AssetMap: React.FC<any> = (props) => {
     setIsMarkerClicked(false);
     setAssetLiveMarker("");
     setSelectedNotificationItem("");
-    map?.panTo(
-       center
-    );
-    map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
+    // map?.panTo(
+    //    center
+    // );
+    // map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
     setSelectedMarker("");
   };
 
@@ -685,7 +689,6 @@ const AssetMap: React.FC<any> = (props) => {
           : selectedNotificationItem?.location
       );
       map?.setZoom(17)
-
     }
     if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
       if(isMarkerClicked) {
@@ -702,15 +705,28 @@ const AssetMap: React.FC<any> = (props) => {
     }
   };
 
+  useEffect(()=>{
+    setIsMarkerClicked(true);
+  },[])
+
+
   useEffect(()=>{ 
-    if(window?.google?.maps) {
+    if(window?.google?.maps && mapDefaultView) {
       const bounds = new window.google.maps.LatLngBounds();
       liveMarkerList?.forEach((mapMarker:any) => {
         bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
       })
       map?.fitBounds(bounds);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setListSelectedMarker("");
+      setIsMarkerClicked(false);
+      setAssetLiveMarker("");
+      setSelectedNotificationItem("");   
     }      
-  },[map])
+  },[map, mapDefaultView])
+
+
 
   return (
     <>
@@ -719,20 +735,23 @@ const AssetMap: React.FC<any> = (props) => {
           mapContainerStyle={
             parkingMapContainerStyle
           }
-          center={ center
-          }
-          zoom={zoomValue}
+          // center={ center }
+          // zoom={zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
           onZoomChanged={handleZoomChanged}
           onMapTypeIdChanged={handleMapTypeChanged}
+          // onClick={()=>{setMapDefaultView(false)}}
+          // onDrag={()=>{setMapDefaultView(false)}}
+          onCenterChanged={()=>{setMapDefaultView(false)}}
         >
           <MarkerClustererF
             averageCenter
             enableRetinaIcons
             maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  17}
             gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
+            onClick={()=>{setMapDefaultView(false)}}
           >
             {(clusterer: any) => (
               <div>

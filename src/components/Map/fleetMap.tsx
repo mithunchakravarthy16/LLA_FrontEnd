@@ -91,6 +91,7 @@ const FleetMap: React.FC<any> = (props) => {
     dataPoints,
     handleMarkerCancel,
     handleMarkerIconClick,
+    googleMapsApiKeyResponse,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -120,7 +121,7 @@ const FleetMap: React.FC<any> = (props) => {
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    googleMapsApiKey: googleMapsApiKeyResponse,
     libraries: libraries,
   });
 

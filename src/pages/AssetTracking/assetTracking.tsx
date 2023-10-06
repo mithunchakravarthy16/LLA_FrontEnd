@@ -21,14 +21,12 @@ import moment from "moment";
 import Chart from "elements/Chart";
 import Highcharts from "highcharts";
 import NotificationPanel from "components/NotificationPanel";
+import InactiveTrackerIcon from "../../assets/topPanelListIcons/AssetTracking/InactiveTracker.svg";
 import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
   formattedOverallNotificationCount,
 } from "../../utils/utils";
-import assetTrackingData from "../../mockdata/assetTrackingData";
-import assetTrackingResponse from "mockdata/assetTrackingAPI";
-import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
@@ -47,14 +45,16 @@ import {
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
-import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { UseWebSocket } from "websocketServices/useWebsocket";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import GeofenceIcon from "../../assets/GeofenceIcon.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
   //Analytics Api integration starts here
-  const [selectedValue, setSelectedValue] = useState<string>("Week");
+  const [selectedValue, setSelectedValue] = useState<string>("Today");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
     format: "MM/DD",
     tickInterval: 1,
@@ -177,7 +177,6 @@ const AssetTracking: React.FC<any> = (props) => {
             const localDate = testDateUtc.local();
             activeAnalyticsDataXaxis?.push(
               localDate.format(selectedGraphFormat?.format)
-              // moment(item?.node).format(selectedGraphFormat?.format)
             );
           })
         );
@@ -186,13 +185,11 @@ const AssetTracking: React.FC<any> = (props) => {
         ?.filter((obj: any) => obj.metricName === "InactiveTracker")
         .map((obj: any) =>
           obj.analytics?.map((item: any) => {
-            // inActiveAnalyticsData?.push([new Date(item?.node)?.getTime(), item?.count])
             inActiveAnalyticsData?.push(item?.count);
             const testDateUtc = moment.utc(item?.node);
             const localDate = testDateUtc.local();
             activeAnalyticsDataXaxis?.push(
               localDate.format(selectedGraphFormat?.format)
-              // moment(item?.node).format(selectedGraphFormat?.format)
             );
           })
         );
@@ -203,7 +200,6 @@ const AssetTracking: React.FC<any> = (props) => {
         const localDate = testDateUtc.local();
         incidentsAnalyticsDataXaxisData?.push(
           localDate.format(selectedGraphFormat?.format)
-          // moment(item?.node).format(selectedGraphFormat?.format)
         );
       });
 
@@ -284,6 +280,7 @@ const AssetTracking: React.FC<any> = (props) => {
     geofenceIconStyle,
     pageNumSection,
     customPagination,
+    globeIconSection,
   } = useStyles(appTheme);
 
   useEffect(() => {
@@ -292,9 +289,6 @@ const AssetTracking: React.FC<any> = (props) => {
 
     let incidentCountPayload: any = {};
     dispatch(getAssetIncidentCount(incidentCountPayload));
-
-    // let overallAssetDetailPayload: any = {};
-    // dispatch(getOverallTrackerDetail(overallAssetDetailPayload));
 
     let createGeofencePayload: any = {};
     dispatch(getCreateGeofence(createGeofencePayload));
@@ -314,12 +308,12 @@ const AssetTracking: React.FC<any> = (props) => {
 
     return () => {
       clearInterval(interval);
-      // clearInterval(intervalTime);
     };
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
   const [tabIndex, setTabIndex] = useState<any>(1);
+
   useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
@@ -333,25 +327,14 @@ const AssetTracking: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
     } 
-    // else if (debounceSearchText) {
-    //   assetPayload = {
-    //     filterText: debounceSearchText,
-    //     pageNo: parseInt(page),
-    //     pageSize: parseInt(rowsPerPage),
-    //     notificationType:
-    //       tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-    //   };
-    //   dispatch(
-    //     getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-    //   );
-    // }
 
     // const intervalTime = setInterval(() => {
     //   dispatch(
@@ -362,11 +345,11 @@ const AssetTracking: React.FC<any> = (props) => {
     // return () => {
     //   clearInterval(intervalTime);
     // };
-  }, [debounceSearchText]);
+  }, [debounceSearchText , page, rowsPerPage]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
-  const [selectedFormatGraph, setSelectedFormatGraph] = useState("weekly");
+  const [selectedFormatGraph, setSelectedFormatGraph] = useState("day");
 
   const [activeInactiveTrackersGraphData, setActiveInactiveTrackersGraphData] =
     useState<any>();
@@ -410,8 +393,6 @@ const AssetTracking: React.FC<any> = (props) => {
           break;
 
         default:
-        // setTempratureGraphDataStateUpdates(data?.data?.weekly?.analyticsData);
-        // setTempratureGraphData(data?.data);
       }
     });
   }, []);
@@ -647,7 +628,6 @@ const AssetTracking: React.FC<any> = (props) => {
     assetLiveData && assetLiveData
   );
 
- 
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [notificationPanelActive, setNotificationPanelActive] =
     useState<boolean>(false);
@@ -656,8 +636,6 @@ const AssetTracking: React.FC<any> = (props) => {
   const [searchValue, setSearchValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
-
-  
 
   const [dashboardData, setDashboardData] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
@@ -760,24 +738,20 @@ const AssetTracking: React.FC<any> = (props) => {
   useEffect(() => {
     switch (selectedValue) {
       case "Today":
-        // setTopPanelList(overallAssetDetails?.day);
         dispatch(getOverallTrackerDetail("Day"));
         return;
 
       case "Week":
-        // setTopPanelList(overallAssetDetails?.week);
         dispatch(getOverallTrackerDetail("Weekly"));
 
         return;
 
       case "Month":
-        // setTopPanelList(overallAssetDetails?.month);
         dispatch(getOverallTrackerDetail("Monthly"));
 
         return;
 
       case "Year":
-        // setTopPanelList(overallAssetDetails?.year);
         dispatch(getOverallTrackerDetail("Yearly"));
 
         return;
@@ -1032,6 +1006,8 @@ useEffect(()=>{
           title: event?.reason,
           id: event?.assetNotificationId,
           markerId: event?.trackerId,
+          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
+
         });
       });
 
@@ -1042,6 +1018,8 @@ useEffect(()=>{
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
           markerId: incidents?.trackerId,
+          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
+
         });
       });
 
@@ -1052,6 +1030,8 @@ useEffect(()=>{
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
           markerId: alerts?.trackerId,
+          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
+
         });
       });
 
@@ -1090,45 +1070,6 @@ useEffect(()=>{
   }, [assetNotificationResponse, tabIndex, searchOpen, websocketLatestAssetNotification]);
 
   useEffect(() => {
-    const sampleLiveData = [
-      {
-        trackerId: "740063943838",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PTNhNmU3M2YwLTNjYWQtMTFlZS1hNzFjLTAxNWQxZjkxMWE2NA==",
-        trackerStatus: "Active",
-        notificationType: "Incident",
-        currentLocation: {
-          lat: 9.0155021,
-          lng: -79.4759242,
-        },
-        currentArea: "",
-      },
-      {
-        trackerId: "413051518008",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PTdjOTkyMDgwLTRjMGQtMTFlZS05MzFhLWM5MTFiMjY5ZmJjNQ==",
-        trackerStatus: "Inactive",
-        notificationType: "Incident",
-        currentLocation: {
-          lat: 9.0135021,
-          lng: -79.4759242,
-        },
-        currentArea: "",
-      },
-      {
-        trackerId: "740063943499",
-        assetId:
-          "WkdWMmFXTmxTVzVtYnc9PThhYjU0YjkwLTNjYWQtMTFlZS04NzYwLTdkYjZhNjJlNzM4ZA==",
-        trackerStatus: "Active",
-        notificationType: "Events",
-        currentLocation: {
-          lat: 9.0135021,
-          lng: -79.4859242,
-        },
-        currentArea: "",
-      },
-    ];
-
     const updatedLiveData = assetLiveData?.map((asset: any) => {
       return {
         ...asset,
@@ -1141,20 +1082,13 @@ useEffect(()=>{
             ? asset?.trackerStatus
             : asset?.notificationType,
         markerId: asset?.trackerId,
+        description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+
       };
     });
 
     setLiveMarkerList(updatedLiveData);
   }, [assetLiveData]);
-
-  // useEffect(()=>{
-  //   if(isMarkerClicked) {
-  //     setSelectedNotification("")
-  //   }
-  //   if(selectedNotification) {
-  //     setIsMarkerClicked(false)
-  //   }
-  // },[isMarkerClicked, selectedNotification])
 
   const topPanelListItems: any[] = [
     {
@@ -1164,6 +1098,12 @@ useEffect(()=>{
           : AssetTrackedIcon,
       value: topPanelList?.assetTrackedCount,
       name: assetsTracking.assetsTracked,
+    },
+    {
+      icon:
+        selectedTheme === "light" ? InactiveTrackerIcon : InactiveTrackerIcon,
+      value: topPanelList?.inActiveTrackerCount,
+      name: "Inactive Tracker",
     },
     {
       icon: selectedTheme === "light" ? LocationLightThemeIcon : LocationIcon,
@@ -1194,16 +1134,6 @@ useEffect(()=>{
   const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
   const [isGeofenceInfoWindowActive, setIsGeofenceInfoWindowActive] =
     useState<boolean>(false);
-
-  // useEffect(() => {
-
-  //   setDashboardData(
-  //     formatttedDashboardNotification(notificationArray, tabIndex)
-  //   );
-  //   setSearchValue(
-  //     formatttedDashboardNotification(notificationArray, tabIndex)
-  //   );
-  // }, [notificationArray, tabIndex]);
 
   const [selectedMarker, setSelectedMarker] = useState<any>();
 
@@ -1362,34 +1292,31 @@ useEffect(()=>{
     }, 500);
   }, []);
 
-  
-
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  useEffect(()=>{
-    if(searchPageNo){
-      setSearchPageNo("")
+  useEffect(() => {
+    if (searchPageNo) {
       setPage(0);
       const assetPayload = {
         filterText: "",
         pageNo: parseInt(0),
         pageSize: parseInt(rowsPerPage),
-        notificationType: tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
     }
-    
-  },[tabIndex])
+  }, [tabIndex]);
 
   // PAGINATION
 
   const handleChangePage = (newPage: any) => {
-    setPage(newPage);
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
   };
 
   const handleChangeRowsPerPage = (data: any) => {
@@ -1441,14 +1368,12 @@ useEffect(()=>{
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setPage(page - 1);
-    setSearchPageNo("");
   };
-  const handlePageNoChange = (value: any) => {
-    setPage(0);
-    setSearchPageNo(value !== "" ? parseInt(value) : value);
-
+  const handlePageNoChange = (value: any, keyName: any) => {
     let assetPayload: any = {};
-    if (page >= 0 && value !== "") {
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value) - 1);
       assetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(value) - 1,
@@ -1459,28 +1384,9 @@ useEffect(()=>{
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
+      // setSearchPageNo("");
     }
   };
-
-  //Pagination Debounce Starts
-
-  const debounce = (func: any, delay: any) => {
-    let timeOut: any;
-    return (...arg: any) => {
-      const context = this;
-      clearTimeout(timeOut);
-      timeOut = setTimeout(() => {
-        func.apply(context, arg);
-      }, delay);
-    };
-  };
-
-  const pageSearchCallback = useCallback(
-    debounce(handlePageNoChange, 2000),
-    []
-  );
-
-   //Pagination Debounce Ends
 
   useEffect(() => {
     if (assetNotificationResponse) {
@@ -1518,16 +1424,34 @@ useEffect(()=>{
 
   // PAGINATION ENDS
 
-
- 
-
   const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
   const [selectedNotificationItem, setSelectedNotificationItem] =
     useState<any>("");
 
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setNotificationPanelActive(false);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setDebounceSearchText("");
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
-      {isDataLoaded ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1582,7 +1506,6 @@ useEffect(()=>{
                               <Grid
                                 container
                                 xs={12}
-                                // className={graphOneContainerStyle}
                                 style={{
                                   height: "100%",
                                   paddingLeft: "10px",
@@ -1606,13 +1529,8 @@ useEffect(()=>{
                                     <div>{assetsTracking.inactiveTracker}</div>
                                   </div>
                                 </Grid>
-                                {/* <Grid item xs={12} className={graphOneChartStyle}> */}
                                 <Grid item xs={12} style={{ height: "90%" }}>
-                                  <Grid
-                                    container
-                                    xs={12}
-                                    // style={{ height: "100%" }}
-                                  >
+                                  <Grid container xs={12}>
                                     <Grid
                                       item
                                       xs={12}
@@ -1621,8 +1539,6 @@ useEffect(()=>{
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
-                                          // width={selectedWidth?.width}
-                                          // height={selectedWidth?.height}
                                           containerProps={{
                                             style: {
                                               height: "100%",
@@ -1633,7 +1549,6 @@ useEffect(()=>{
                                           tickInterval={
                                             selectedGraphFormat?.tickInterval
                                           }
-                                          // formatGraph={formatGraph}
                                           xAxisArray={
                                             activeInactiveAnalyticsXaxisData
                                           }
@@ -1644,10 +1559,6 @@ useEffect(()=>{
                                           crossHairLineColor={"#E5FAF6"}
                                           is4kDevice={selectedWidth?.is4kDevice}
                                           selectedValue={selectedValue}
-                                          // tooltip={"shared"}
-                                          // dataPoints={
-                                          //   updatedActiveInactiveTrackersGraphData
-                                          // }
                                           dataPoints={[
                                             {
                                               data: activeAnalyticsData,
@@ -1661,10 +1572,6 @@ useEffect(()=>{
                                                 selectedWidth?.is3KDevice
                                                   ? 4
                                                   : 2,
-                                              // data: [
-                                              //   0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                              //   4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                              // ],
                                             },
                                             {
                                               data: inActiveAnalyticsData,
@@ -1709,7 +1616,7 @@ useEffect(()=>{
                                 >
                                   {gridView.incidents}
                                 </Grid>
-                                {/* <Grid item xs={12} className={graphTwoChartStyle}> */}
+
                                 <Grid item xs={12}>
                                   <Grid
                                     container
@@ -1724,8 +1631,6 @@ useEffect(()=>{
                                       {!loaderAssetTrackingAnalyticsResponse &&
                                       !loaderExtAnalytics ? (
                                         <Chart
-                                          // width={selectedWidth?.width1}
-                                          // height={selectedWidth?.height1}
                                           containerProps={{
                                             style: {
                                               height: "100%",
@@ -1736,7 +1641,6 @@ useEffect(()=>{
                                           tickInterval={
                                             selectedGraphFormat?.tickInterval
                                           }
-                                          // formatGraph={formatGraph}
                                           xAxisArray={
                                             incidentsAnalyticsDataXaxisData
                                           }
@@ -1747,7 +1651,6 @@ useEffect(()=>{
                                           crossHairLineColor={"#EE3E35"}
                                           is4kDevice={selectedWidth?.is4kDevice}
                                           selectedValue={selectedValue}
-                                          // dataPoints={updatedIncidentsGraphData}
                                           dataPoints={[
                                             {
                                               data: incidentsAnalyticsData,
@@ -1804,10 +1707,6 @@ useEffect(()=>{
                                                   ],
                                                 ],
                                               },
-                                              // data: [
-                                              //   1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                              //   6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                              // ],
                                             },
                                           ]}
                                         />
@@ -1837,7 +1736,14 @@ useEffect(()=>{
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
                       /> */}
+                      <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                       <AssetMap
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}
@@ -1865,6 +1771,8 @@ useEffect(()=>{
                           setSelectedNotificationItem
                         }
                         selectedNotification={selectedNotification}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>
@@ -1901,26 +1809,29 @@ useEffect(()=>{
                     page={page}
                     rowsPerPage={rowsPerPage}
                     assetLiveMarker={assetLiveMarker}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
+                    setPage={setPage}
                   />
-                  { !loaderAssetNotificationResponse && (
-                  <div style={{ margin: "-5px 20px 0 20px" }}>
-                    <CustomTablePagination
-                      rowsPerPageOptions={[50, 100, 200, 500]}
-                      count={
-                        paginationTotalCount === 0 ? 1 : paginationTotalCount
-                      }
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      handleNextChange={handleNextChange}
-                      handlePreviousChange={handlePreviousChange}
-                      onPageNoChange={pageSearchCallback}
-                      value={searchPageNo}
-                      pageNumclassName={pageNumSection}
-                      reportsPaginationclassName={customPagination}
-                    />
-                  </div>
+                  {!loaderAssetNotificationResponse && (
+                    <div style={{ margin: "-5px 20px 0 20px" }}>
+                      <CustomTablePagination
+                        rowsPerPageOptions={[50, 100, 200, 500]}
+                        count={
+                          paginationTotalCount === 0 ? 1 : paginationTotalCount
+                        }
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        handleNextChange={handleNextChange}
+                        handlePreviousChange={handlePreviousChange}
+                        onPageNoChange={handlePageNoChange}
+                        value={searchPageNo}
+                        pageNumclassName={pageNumSection}
+                        reportsPaginationclassName={customPagination}
+                      />
+                    </div>
                   )}
                 </Grid>
               </Grid>

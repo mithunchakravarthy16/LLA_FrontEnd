@@ -45,6 +45,7 @@ import {
   setFleetManagementLiveTrip,
 } from "redux/actions/fleetManagementNotificationActions";
 import moment from "moment";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const FleetManagement: React.FC<any> = (props) => {
   const navigate = useNavigate();
@@ -874,6 +875,16 @@ const FleetManagement: React.FC<any> = (props) => {
     setTripName(null);
   };
 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
   return (
     <>
       {success && (
@@ -994,7 +1005,7 @@ const FleetManagement: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {notificationsLoader || overAllAnalyticsLoader || analyticsLoader ? (
+      {(notificationsLoader || overAllAnalyticsLoader || analyticsLoader) && !googleMapsApiKeyResponse ? (
         <div
           style={{
             width: "100%",
@@ -1465,6 +1476,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       style={{ height: "59%" }}
                     >
                       <FleetMap
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapPageName={"fleet"}
                         markers={notificationArray}
                         setNotificationPanelActive={setNotificationPanelActive}

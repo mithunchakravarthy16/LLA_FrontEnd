@@ -1,4 +1,5 @@
 /** @format */
+//@ts-nocheck
 
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
@@ -25,14 +26,11 @@ import {
   setAssetTrackingCreateGeofence,
   setAssetTrackingUpdateGeofence,
 } from "redux/actions/getAssetTrackerDetailAction";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
-  "& .MuiDialogContent-root": {
-    // padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    // padding: theme.spacing(1),
-  },
+  "& .MuiDialogContent-root": {},
+  "& .MuiDialogActions-root": {},
   "& .MuiBackdrop-root": {
     marginTop: "0px !important",
   },
@@ -40,7 +38,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
     height: "80vh",
     minWidth: "75vw",
     maxWidth: "75vw",
-    // background: `${appTheme?.palette?.assetTrackingPage?.pageBg} !important`,
     background: `#fff !important`,
     color: "#fff",
     padding: "1%",
@@ -50,8 +47,6 @@ const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   },
   "& .MuiDialog-container": {
     marginTop: "0px !important",
-    // background: "rgba(11, 16, 45 / 68%) !important",
-    // background: `${appTheme?.palette?.infoDialogue?.dialogueBackDropBg} !important`,
     backdropFilter: "blur(5.5px)",
     height: "100vh !important",
   },
@@ -99,10 +94,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     ...appTheme,
     tabIndex: tabIndex,
   });
-
-  // const [selectedTheme, setSelectedTheme] = useState(
-  //   JSON.parse(localStorage.getItem("theme")!)
-  // );
 
   useEffect(() => {
     switch (selectedTheme) {
@@ -166,6 +157,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: event?.reason,
           details: `${event?.trackerName} | ${event?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
+          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
+
         });
       });
 
@@ -177,6 +170,8 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: incidents?.reason,
           details: `${incidents?.trackerName} | ${incidents?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
+          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
+
         });
       });
 
@@ -189,17 +184,70 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: alerts?.reason,
           details: `${alerts?.trackerName} | ${alerts?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
+          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
+
         });
       });
 
-      combinedNotifications.sort((a: any, b: any) => {
-        const dateA: any = new Date(a?.notificationDate);
-        const dateB: any = new Date(b?.notificationDate);
+      // combinedNotifications.sort((a: any, b: any) => {
+      //   const dateA: any = new Date(a?.notificationDate);
+      //   const dateB: any = new Date(b?.notificationDate);
 
-        return dateB - dateA;
-      });
+      //   return dateB - dateA;
+      // });
 
-      setInfoNotificationList(combinedNotifications);
+      //Priority Sorting, If time is same
+
+         const reasonPriority : any = {
+          "Tracker Added": 1,
+          "Out of Geofence": 2
+        };
+  
+        const notificationPriorityTestArray : any = [
+          {
+              "assetNotificationId": "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
+              "notificationType": "Events",
+              "reason": "Tracker Added",
+              "notificationDate": "2023-09-26T13:34:23.948",
+              "title": "Tracker Added",
+              "timeStamp" : "2023-09-26T13:34:23.948"
+          },
+          {
+              "assetNotificationId": "4decf676-067e-468e-aaed-e9b6b8ec0b59",
+              "notificationType": "Incident",
+              "reason": "Out of Geofence",
+              "notificationDate": "2023-09-26T13:34:23.948",
+              "title": "Out of Geofence",
+              "timeStamp" : "2023-09-26T13:34:23.948"
+          },
+          {
+              "assetNotificationId": "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
+              "notificationType": "Events",
+              "reason": "High Humidity",
+              "notificationDate": "2023-09-26T13:34:23.948",
+              "title": "High Humidity",
+              "timeStamp" : "2023-09-26T13:34:23.948"
+          },
+      ]
+  
+        const prioritizedNotificationList : any  =  combinedNotifications?.sort((a:any, b:any) => {
+          const dateA: Date = new Date(a?.notificationDate);
+          const dateB: Date = new Date(b?.notificationDate);
+          const dateComparison: number = dateA.getTime() - dateB.getTime();
+        
+          if (dateComparison === 0) {
+            // If notificationDate is equal, prioritize by reason
+            const reasonA = reasonPriority[a?.reason] || 3; // Default to 3 if reason not in priority map
+            const reasonB = reasonPriority[b?.reason] || 3;
+        
+            return reasonA - reasonB;
+          }
+        
+          return dateComparison;
+        });
+        const reversedArray = prioritizedNotificationList.reverse()
+        
+      setInfoNotificationList(reversedArray);
     }
   }, [assetTrackerDetails]);
 
@@ -362,10 +410,20 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     },
   ];
 
-  const assetCenterRightSectionData = [
+  const getSignalStrengthColor = (range:any) =>{
+    switch(range) {
+      case "Good" : return "#78B64B";
+      case "Fair" : return "#FBFB0C";
+      case "Low" : return "#EC080A";
+      case "Poor" : return "#EC080A";
+      default : break
+    }
+  }
+
+  const assetCenterRightSectionDataCellular = [
     {
       label: assetsTracking.battery,
-      value: assetTrackerDetails.battery
+      value: assetTrackerDetails?.battery
         ? `${assetTrackerDetails?.battery}%`
         : "--",
     },
@@ -376,12 +434,37 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         : "--",
     },
     {
-      label: assetsTracking.humidity,
+      label:  assetsTracking.humidity,
       value: assetTrackerDetails?.humidity
         ? `${assetTrackerDetails?.humidity?.toFixed(2)}%`
         : "--",
     },
-    { label: "", value: "" },
+    { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
+  ];
+
+  const assetCenterRightSectionDataBLE = [
+    {
+      label: assetsTracking.battery,
+      value: assetTrackerDetails?.battery
+        ? `${assetTrackerDetails?.battery}%`
+        : "--",
+    },
+    {
+      label: assetsTracking.temperature,
+      value: assetTrackerDetails?.temperature
+        ? `${assetTrackerDetails?.temperature?.toFixed(2)}°C`
+        : "--",
+    },
+
+    { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
+    {
+      label: "",
+      value: "",
+    },
+    {
+      label: "",
+      value: "",
+    },
   ];
 
   useEffect(() => {
@@ -571,20 +654,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
     polygonData?.setMap(null);
   };
 
-  // const addressFound = async (LatLng: any) => {
-  //   const geocoder: any = new window.google.maps.Geocoder();
-  //   const location1: any = new window.google.maps.LatLng(LatLng);
-  //   return new Promise(function (resolve, reject) {
-  //     geocoder.geocode({ latLng: location1 }, (results: any, status: any) => {
-  //       if (status === "OK") {
-  //         resolve(results[0].formatted_address);
-  //       } else {
-  //         reject(new Error("Couldnt't find the address " + status));
-  //       }
-  //     });
-  //   });
-  // };
-
   const handleSaveClick = async () => {
     const payload = {
       geofenceType: isCircleEnbled ? "Circular" : "Polygon",
@@ -639,6 +708,16 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const tooltipOfset = screenResolution === "2k" ? [0, 10] : [0, 40];
   const fontSize = screenResolution === "2k" ? [14] : [22];
   const padding = [2];
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
 
   return (
     <>
@@ -700,7 +779,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           </IconButton>
         </div>
 
-        {!assetInfoLoader ? (
+        {!assetInfoLoader && googleMapsApiKeyResponse? (
           <Grid container xs={12} style={{ height: "100%" }}>
             <Grid item xs={12} className={headerStyle}>
               <Grid container xs={3} className={headerTabContainerStyle}>
@@ -760,7 +839,6 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                         ) : (
                                           data?.value
                                         )}
-                                        {/* {data?.value === null ? "--" : data?.value} */}
                                       </div>
                                       <div
                                         className={leftPanelChild2}
@@ -836,10 +914,9 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                               display: "flex",
                               flexDirection: "column",
                               justifyContent: "space-around",
-                              // textAlign: "right",
                             }}
                           >
-                            {assetCenterRightSectionData?.map(
+                            {  (assetTrackerDetails?.tagType === "CATM1_TAG" ? assetCenterRightSectionDataCellular : assetCenterRightSectionDataBLE )?.map(
                               (data: any, index: any) => {
                                 return (
                                   <div
@@ -868,7 +945,14 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                       }}
                                     >
                                       {data?.value}
+                                      {
+                                      data?.range &&
+                                      <span style={{ color : getSignalStrengthColor(data?.range)}}>
+                                        {` (${data?.range})`}
+                                      </span>
+                                    }
                                     </div>
+                                    
                                   </div>
                                 );
                               }
@@ -913,21 +997,21 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                                   </div>
                                   <div className={assetTrackingTitle}>
                                     <div>
-                                      {item?.details?.length > 33 ? (
+                                      {item?.description?.length > 33 ? (
                                         <>
                                           <Tooltip
-                                            tooltipValue={item?.details}
+                                            tooltipValue={item?.description}
                                             placement={"bottom"}
                                             offset={tooltipOfset}
                                             fontSize={fontSize}
                                             padding={padding}
                                           >
                                             {" "}
-                                            {truncateString(item?.details, 33)}
+                                            {truncateString(item?.description, 33)}
                                           </Tooltip>
                                         </>
                                       ) : (
-                                        item?.details
+                                        item?.description
                                       )}
                                     </div>
                                     <div>{item?.timeStamp}</div>
@@ -986,6 +1070,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                       <Map
+                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={[selectedMarker]}

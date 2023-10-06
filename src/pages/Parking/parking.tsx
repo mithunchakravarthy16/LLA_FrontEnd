@@ -38,7 +38,9 @@ import theme from "../../theme/theme";
 import useStyles from "./styles";
 import HC_rounded from "highcharts-rounded-corners";
 import ParkingSlotContainer from "components/ParkingSlotContainer";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 
 HC_rounded(Highcharts);
 
@@ -113,6 +115,7 @@ const Parking: React.FC<any> = (props) => {
     graphTwoHeader,
     electricity,
     lotSelectionIconStyleClose,
+    globeIconSection,
   } = useStyles({
     ...appTheme,
     parkingLotSelectionActive: parkingLotSelectionActive,
@@ -234,6 +237,7 @@ const Parking: React.FC<any> = (props) => {
   const handleParkingLot = (index: number) => {
     setParkingLotIndex(index);
     setParkingLotSelectionActive(false);
+    setMapDefaultView(true);
   };
 
   const [selectedParkingLot, setSelectedParkingLot] = useState<any>(
@@ -248,10 +252,12 @@ const Parking: React.FC<any> = (props) => {
     setParkingLotSelectionActive(true);
     setSelectedNotification("");
     setSearchOpen(false);
+    setMapDefaultView(true);
   };
 
   const handleLotSelctionCloseIcon = () => {
     setParkingLotSelectionActive(false);
+    setMapDefaultView(true);
   };
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -456,9 +462,33 @@ const Parking: React.FC<any> = (props) => {
 
   const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
 
-  const parkingMapUseMeo = useMemo(() => {
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setParkingLotSelectionActive(false);
+    setParkingLotIndex(0);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
+
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  useEffect(()=>{
+    
+    fetchGoogleMapApi((mapApiResponse:string)=>{
+       setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+    })
+  },[])
+
+  const parkingMapUseMemo = useMemo(() => {
     return (
       <Map
+      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
         mapType={mapType}
         setMapType={setMapType}
         markers={dashboardDataList}
@@ -480,6 +510,8 @@ const Parking: React.FC<any> = (props) => {
         setListSelectedMarker={setListSelectedMarker}
         selectedNotificationItem={selectedNotificationItem}
         setSelectedNotificationItem={setSelectedNotificationItem}
+        mapDefaultView={mapDefaultView}
+        setMapDefaultView={setMapDefaultView}
       />
     );
   }, [
@@ -492,11 +524,16 @@ const Parking: React.FC<any> = (props) => {
     liveMarkerList,
     listSelectedMarker,
     selectedNotificationItem,
+    mapDefaultView,
+    assetLiveMarker,
+    googleMapsApiKeyResponse
   ]);
+
+
 
   return (
     <>
-      {isDataLoaded ? (
+      {isDataLoaded && googleMapsApiKeyResponse ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -883,10 +920,16 @@ const Parking: React.FC<any> = (props) => {
                         handleLotSelctionCloseIcon={handleLotSelctionCloseIcon}
                         selectedTheme={selectedTheme}
                       />
+                      <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
 
                       {isDataLoadedLotOverAll ? (
                         parkingLotIndex === 0 ? (
-                          parkingMapUseMeo
+                          parkingMapUseMemo
                         ) : (
                           // </Grid>
                           // true ?
@@ -958,6 +1001,8 @@ const Parking: React.FC<any> = (props) => {
                     setListSelectedMarker={setListSelectedMarker}
                     selectedNotificationItem={selectedNotificationItem}
                     setSelectedNotificationItem={setSelectedNotificationItem}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                   />
                 </Grid>
               </Grid>
