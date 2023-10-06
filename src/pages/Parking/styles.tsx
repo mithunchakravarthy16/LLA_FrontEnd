@@ -566,7 +566,7 @@ const useStyles = makeStyles({
   }),
 
   liveContentValue: (props: any) => ({
-    fontSize: "1.2vw",
+    fontSize: "1vw",
     fontWeight: 500,
     color: props?.palette?.parkingPage?.topPanelTextColor,
     lineHeight: "1vw",

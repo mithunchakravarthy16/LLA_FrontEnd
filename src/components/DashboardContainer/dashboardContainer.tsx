@@ -65,6 +65,7 @@ const DashboardContainer = (props: any) => {
   );
 
   const dispatch = useDispatch();
+  
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
 
@@ -557,6 +558,15 @@ useEffect(()=>{
     }
   }, [count]);
 
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+  const [selectedMarkerLocation, setSelectedMarkerLocation] = useState<any>();
+
+  const handleViewDetails = (data: any) => {
+    setSelectedMarker(data?.tripId);
+    setSelectedMarkerLocation(data);
+    setShowInfoDialogue(true);
+  };
+
   const handleVideoDetails = (event: any, data: any) => {
     event.stopPropagation();
     setShowInfoDialogueVideo(true);
@@ -740,6 +750,12 @@ useEffect(()=>{
       })
     },[])
 
+
+  const [isInfoWindowActive, setIsInfoWindowActive] = useState<boolean>(false);
+  const handleAssetViewDetails = (data: any) => {
+    setIsInfoWindowActive(true);
+    setSelectedMarker(data);
+  };
 
   return (
     <>

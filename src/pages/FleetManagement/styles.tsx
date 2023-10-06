@@ -293,12 +293,11 @@ const useStyles = makeStyles({
 
   liveContentLabel: (props: any) => ({
     fontSize: "0.7vw",
-    // lineHeight : "1vw",
     fontWeight: 500,
+    fontStyle: "italic",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     textTranform: "uppercase",
-    fontStyle : "italic",
     // [muiTheme.breakpoints.up(3839)]: {
     //   fontSize: 20,
     //   lineHeight: "52px",

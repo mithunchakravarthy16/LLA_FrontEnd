@@ -346,32 +346,6 @@ const FlippingCard = (props: any) => {
   // )
 
   const CARD_LIST: any = [
-    {
-      title: "assets_tracking",
-      image:
-        focusedCategory === "asset"
-          ? selectedTheme === "light"
-            ? assetHoverWhite
-            : AssetHover
-          : selectedTheme !== "light"
-          ? assetTracking
-          : assetTrackingLight,
-      category: "asset",
-      translatedTitle: dashboard.assetsTracking,
-    },
-    {
-      title: "fleet_management",
-      image:
-        focusedCategory === "fleet"
-          ? selectedTheme === "light"
-            ? fleetManagementWhite
-            : FleetHover
-          : selectedTheme !== "light"
-          ? fleetManagement
-          : fleetManagementLight,
-      category: "fleet",
-      translatedTitle: dashboard.fleetManagement,
-    },
 
     {
       title: "parking",
@@ -425,6 +399,34 @@ const FlippingCard = (props: any) => {
       category: "lighting",
       translatedTitle: dashboard.lighting,
     },
+    {
+      title: "fleet_management",
+      image:
+        focusedCategory === "fleet"
+          ? selectedTheme === "light"
+            ? fleetManagementWhite
+            : FleetHover
+          : selectedTheme !== "light"
+          ? fleetManagement
+          : fleetManagementLight,
+      category: "fleet",
+      translatedTitle: dashboard.fleetManagement,
+    },
+    {
+      title: "assets_tracking",
+      image:
+        focusedCategory === "asset"
+          ? selectedTheme === "light"
+            ? assetHoverWhite
+            : AssetHover
+          : selectedTheme !== "light"
+          ? assetTracking
+          : assetTrackingLight,
+      category: "asset",
+      translatedTitle: dashboard.assetsTracking,
+    },
+   
+
   ];
 
   return (
