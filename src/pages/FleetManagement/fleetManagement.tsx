@@ -1036,7 +1036,7 @@ const FleetManagement: React.FC<any> = (props) => {
         >
           <img src={llaLoader} width={"10%"} />
         </div>
-      ) : (
+      ) : ( googleMapsApiKeyResponse &&
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
