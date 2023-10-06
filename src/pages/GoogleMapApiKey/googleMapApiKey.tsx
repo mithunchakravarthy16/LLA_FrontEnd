@@ -41,8 +41,7 @@ const GoogleMapApiKey = (props) => {
   const secretPass = process.env.REACT_APP_SECRETPASS;
 
   const handleSubmit = () => {
-    console.log("secretPass", secretPass);
-    console.log("secretPassInputText.current", secretPassInputText.current);
+
     if (secretPassInputText.current === secretPass) {
       const dataEncrypt = CryptoJS.AES.encrypt(
         JSON.stringify(inputText.current),
@@ -52,11 +51,11 @@ const GoogleMapApiKey = (props) => {
       const ref = doc(db, "configuration", "googleMapApi");
       setDoc(ref, { apiKey: dataEncrypt })
         .then((success: any) => {
-          console.log("setDoc successful");
+          
           toast.success("Changes Saved Successfully");
         })
         .catch((error) => {
-          console.log(error);
+          
           toast.error("Oops! Something went wrong");
         });
     } else {

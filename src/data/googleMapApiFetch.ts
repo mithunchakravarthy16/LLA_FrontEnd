@@ -13,8 +13,6 @@ export const fetchGoogleMapApi = (responsDataCallBack: (message: any) => void)=>
           const secretPass = process.env.REACT_APP_SECRETPASS;
           const bytes = CryptoJS.AES.decrypt(dbResponse?.apiKey, secretPass);
           const dataDecrypt = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-         console.log("dataDecrypt", dataDecrypt)
-          console.log("dbResponse.apiKey", dbResponse.apiKey)
           responsDataCallBack(dataDecrypt);
         })
         .catch((error: any) => console.log(error.message));
