@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef  } from "react";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +37,7 @@ import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTracki
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
+import { UseWebSocket } from "websocketServices/useWebsocket";
 import useStyles from "./styles";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 interface DashboardContainerProps {
@@ -220,10 +221,10 @@ const DashboardContainer = (props: any) => {
     }
 
     // const intervalTime = setInterval(() => {
-    //   dispatch(
-    //     getNotificationData({ payLoad: assetPayload, isFromSearch: false })
-    //   );
+    //   dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
     // }, 1 * 60 * 1000);
+
+    
 
     // return () => {
     //   clearInterval(intervalTime);
@@ -245,6 +246,40 @@ const DashboardContainer = (props: any) => {
       ),
     ]
   );
+
+
+
+
+  //---websocket Implementation starts---
+
+const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
+const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] = useState<any>([]);
+
+const clientRef = useRef<any>()
+useEffect(()=>{
+  UseWebSocket((message:any) => {
+    setWebsocketLatestAssetNotification(message)    
+  },
+  (message:any) => {
+    setWebsocketLatestAssetTrackerLive(message);
+  },
+  (clintReference:any)=>{
+    clientRef.current = clintReference
+  },
+  "openWebsocket"  )
+
+  return ()=>{
+    UseWebSocket(() => {},
+    ()=>{},
+    ()=>{},
+    "closeWebsocket",
+    clientRef.current)
+  }
+},[])
+
+//---websocket Implementation ends---
+
+
 
   useEffect(() => {
     setSuccess(false);
@@ -268,6 +303,69 @@ const DashboardContainer = (props: any) => {
       &&
       fleetManagementNotificationResponse?.status === 200
     ) {
+      
+      const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
+      websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
+       websocketLatestAssetNotification?.map((item:any)=>{
+              if(item.notificationType?.toString()?.toLowerCase() === "incident"){
+                if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
+                }
+              }
+
+              if(item.notificationType?.toString()?.toLowerCase() === "events"){
+                if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                  assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
+                }
+              }
+
+              if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
+                if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+                  assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
+                }
+              }
+
+            })
+          }
+
+
+            if(parseInt(page) === 0 && !debounceSearchText){
+              insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
+           }else if(parseInt(page) === 0 && debounceSearchText){
+      
+            const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
+              return (
+                value?.assetName
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.area
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.currentArea
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.trackerId
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.reason
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+                value?.trackerName
+                  ?.toString()
+                  ?.toLowerCase()
+                  .includes(debounceSearchText?.toString()?.toLowerCase()) 
+              );
+            });
+      
+            websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
+      
+           }
+
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
         assetNotificationResponse?.data
@@ -299,11 +397,37 @@ const DashboardContainer = (props: any) => {
         );
       }
     }
-  }, [assetNotificationResponse, searchOpen, fleetManagementNotificationResponse]);
+  }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification, fleetManagementNotificationResponse]);
 
   useEffect(() => {
-    if (assetLiveData) {
-      const updatedLiveData: any = assetLiveData?.map((asset: any) => {
+
+      let updatedLiveTrackerDetails = assetLiveData;
+  
+      if (
+        websocketLatestAssetTrackerLive &&
+        websocketLatestAssetTrackerLive?.length > 0
+      ) {
+        updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+          ?.map((item: any) => {
+            // Check if the item should be replaced
+            let replacement = websocketLatestAssetTrackerLive?.find(
+              (replaceItem:any) => replaceItem.trackerId === item.trackerId
+            );
+            return replacement ? replacement : item;
+          })
+          .concat(
+            websocketLatestAssetTrackerLive?.filter(
+              (replaceItem:any) =>
+                !assetLiveData?.some(
+                  (item: any) => item.trackerId === replaceItem.trackerId
+                )
+            )
+          );
+      } else {
+        updatedLiveTrackerDetails = assetLiveData;
+      }
+
+      const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
         return {
           ...asset,
           location: asset?.currentLocation,
@@ -326,8 +450,8 @@ const DashboardContainer = (props: any) => {
           dashboardNotification?.notifications
         ),
       ]);
-    }
-  }, [assetLiveData]);
+    
+  }, [assetLiveData, websocketLatestAssetTrackerLive]);
 
   useEffect(() => {
     if (searchOpen && selectedNotification !== "") {
@@ -696,7 +820,7 @@ const DashboardContainer = (props: any) => {
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
-              <div className={dashboardRightPanelStyle}>
+              <div className={dashboardRightPanelStyle}>                
                 <Map
                  googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                   markers={mapMarkerArray}

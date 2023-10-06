@@ -1,6 +1,6 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -45,6 +45,7 @@ import {
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
+import { UseWebSocket } from "websocketServices/useWebsocket";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
@@ -301,13 +302,13 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
-      dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+    // const interval = setInterval(() => {
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
@@ -334,15 +335,16 @@ const AssetTracking: React.FC<any> = (props) => {
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
     }
-    const intervalTime = setInterval(() => {
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
-      );
-    }, 1 * 60 * 1000);
 
-    return () => {
-      clearInterval(intervalTime);
-    };
+    // const intervalTime = setInterval(() => {
+    //   dispatch(
+    //     getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+    //   );
+    // }, 1 * 60 * 1000);
+
+    // return () => {
+    //   clearInterval(intervalTime);
+    // };
   }, [debounceSearchText, page, rowsPerPage]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -759,8 +761,135 @@ const AssetTracking: React.FC<any> = (props) => {
     }
   }, [selectedValue]);
 
+  //---websocket Implementation starts---
+
+  const [
+    websocketLatestAssetNotification,
+    setWebsocketLatestAssetNotification,
+  ] = useState<any>([]);
+  const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
+    useState<any>([]);
+  const clientRef = useRef<any>();
+
+
+  useEffect(() => {
+    UseWebSocket(
+      (message:any) => {
+        setWebsocketLatestAssetNotification(message);
+      },
+      (message:any) => {
+        setWebsocketLatestAssetTrackerLive(message);
+      },
+      (clintReference:any) => {
+        clientRef.current = clintReference;
+      },
+      "openWebsocket"
+    );
+
+    return () => {
+      UseWebSocket(
+        () => {},
+        () => {},
+        () => {},
+        "closeWebsocket",
+        clientRef.current
+      );
+    };
+  }, []);
+
+  //---websocket Implementation ends---
+
   useEffect(() => {
     if (assetNotificationList && assetLiveData) {
+      
+
+      const insertWebsocketDataToExisitingNotiData = (
+        websocketLatestAssetNotification: any
+      ) => {
+        websocketLatestAssetNotification &&
+          websocketLatestAssetNotification?.length > 0 &&
+          websocketLatestAssetNotification?.map((item: any) => {
+            if (
+              item.notificationType?.toString()?.toLowerCase() === "incident"
+            ) {
+              if (
+                !assetNotificationResponse?.data?.incidents?.incidentList.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
+                  item
+                );
+              }
+            }
+
+            if (item.notificationType?.toString()?.toLowerCase() === "events") {
+              if (
+                !assetNotificationResponse?.data?.events?.eventsList?.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.events?.eventsList?.unshift(
+                  item
+                );
+              }
+            }
+
+            if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
+              if (
+                !assetNotificationResponse?.data?.alerts?.alertList?.some(
+                  (obj) => obj.assetNotificationId === item.assetNotificationId
+                )
+              ) {
+                assetNotificationResponse?.data?.alerts?.alertList?.unshift(
+                  item
+                );
+              }
+            }
+          });
+      };
+
+      if (parseInt(page) === 0 && !debounceSearchText) {
+        insertWebsocketDataToExisitingNotiData(
+          websocketLatestAssetNotification
+        );
+      } else if (parseInt(page) === 0 && debounceSearchText) {
+        const websocketSearchResult = websocketLatestAssetNotification?.filter(
+          (value: any) => {
+            return (
+              value?.assetName
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.area
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.currentArea
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.trackerId
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.reason
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+              value?.trackerName
+                ?.toString()
+                ?.toLowerCase()
+                .includes(debounceSearchText?.toString()?.toLowerCase())
+            );
+          }
+        );
+
+        websocketSearchResult &&
+          insertWebsocketDataToExisitingNotiData(websocketSearchResult);
+      }
+
+
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
 
@@ -771,8 +900,11 @@ const AssetTracking: React.FC<any> = (props) => {
           title: event?.reason,
           id: event?.assetNotificationId,
           markerId: event?.trackerId,
-          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
-
+          description: `${event?.tagType} ${
+            event?.tagType === "CATM1_TAG" && event?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${event?.gatewayType}`
+          } | ${event?.trackerId}`,
         });
       });
 
@@ -783,8 +915,12 @@ const AssetTracking: React.FC<any> = (props) => {
           title: incidents?.reason,
           id: incidents?.assetNotificationId,
           markerId: incidents?.trackerId,
-          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
-
+          description: `${incidents?.tagType} ${
+            incidents?.tagType === "CATM1_TAG" &&
+            incidents?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${incidents?.gatewayType}`
+          } | ${incidents?.trackerId}`,
         });
       });
 
@@ -795,8 +931,11 @@ const AssetTracking: React.FC<any> = (props) => {
           title: alerts?.reason,
           id: alerts?.assetNotificationId,
           markerId: alerts?.trackerId,
-          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
-
+          description: `${alerts?.tagType} ${
+            alerts?.tagType === "CATM1_TAG" && alerts?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${alerts?.gatewayType}`
+          } | ${alerts?.trackerId}`,
         });
       });
 
@@ -813,6 +952,16 @@ const AssetTracking: React.FC<any> = (props) => {
         return dateB - dateA;
       });
 
+      let uniqueTrackerIds: any = {};
+
+      // const uniqueData = combinedNotifications.filter((item: any) => {
+      //   if (!uniqueTrackerIds[item.trackerId]) {
+      //     uniqueTrackerIds[item.trackerId] = true;
+      //     return true;
+      //   }
+      //   return false;
+      // });
+
       setNotificationArray(combinedNotifications);
 
       setDashboardData(
@@ -822,10 +971,41 @@ const AssetTracking: React.FC<any> = (props) => {
         formatttedDashboardNotification(combinedNotifications, tabIndex)
       );
     }
-  }, [assetNotificationResponse, tabIndex, searchOpen]);
+  }, [
+    assetNotificationResponse,
+    tabIndex,
+    searchOpen,
+    websocketLatestAssetNotification,
+  ]);
 
   useEffect(() => {
-    const updatedLiveData = assetLiveData?.map((asset: any) => {
+    let updatedLiveTrackerDetails = assetLiveData;
+
+    if (
+      websocketLatestAssetTrackerLive &&
+      websocketLatestAssetTrackerLive?.length > 0
+    ) {
+      updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+        ?.map((item: any) => {
+          // Check if the item should be replaced
+          let replacement = websocketLatestAssetTrackerLive?.find(
+            (replaceItem:any) => replaceItem.trackerId === item.trackerId
+          );
+          return replacement ? replacement : item;
+        })
+        .concat(
+          websocketLatestAssetTrackerLive?.filter(
+            (replaceItem:any) =>
+              !assetLiveData?.some(
+                (item: any) => item.trackerId === replaceItem.trackerId
+              )
+          )
+        );
+    } else {
+      updatedLiveTrackerDetails = assetLiveData;
+    }
+
+    const updatedLiveData = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
       return {
         ...asset,
         location: asset?.currentLocation,
@@ -837,13 +1017,16 @@ const AssetTracking: React.FC<any> = (props) => {
             ? asset?.trackerStatus
             : asset?.notificationType,
         markerId: asset?.trackerId,
-        description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
-
+        description: `${asset?.tagType} ${
+          asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
+            ? ` | Cellular`
+            : ` | ${asset?.gatewayType}`
+        } | ${asset?.trackerId}`,
       };
     });
 
     setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData]);
+  }, [assetLiveData, websocketLatestAssetTrackerLive]);
 
   const topPanelListItems: any[] = [
     {
@@ -1194,15 +1377,14 @@ const AssetTracking: React.FC<any> = (props) => {
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
+    useState<string>("");
+
+  useEffect(() => {
+    fetchGoogleMapApi((mapApiResponse: string) => {
+      setGoogleMapsApiKeyResponse(mapApiResponse);
+    });
+  }, []);
 
   return (
     <>
@@ -1498,7 +1680,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <AssetMap
-                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}
