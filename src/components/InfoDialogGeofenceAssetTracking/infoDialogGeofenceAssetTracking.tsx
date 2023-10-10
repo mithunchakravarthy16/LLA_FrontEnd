@@ -27,6 +27,7 @@ import {
   setAssetTrackingCreateGeofence,
 } from "redux/actions/getAssetTrackerDetailAction";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {},
@@ -81,6 +82,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     buttonContainer,
     cancelButtonContainer,
     updateButtonContainer,
+    globeIconSection,
   } = useStyles({
     ...appTheme,
   });
@@ -128,6 +130,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
   const [isPolygonEnbled, setIsPolygonEnbled] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
   useEffect(() => {
     dispatch(getAssetTrackingList({}));
@@ -351,15 +354,18 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     setSuccess(false);
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
+    useState<string>("");
+
+  useEffect(() => {
+    fetchGoogleMapApi((mapApiResponse: string) => {
+      setGoogleMapsApiKeyResponse(mapApiResponse);
+    });
+  }, []);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+  };
 
   return (
     <>
@@ -467,8 +473,14 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                  {/* <img
+                    src={GlobeIconActive}
+                    alt="GlobeIcon Icon"
+                    onClick={onHandleDefaultView}
+                    className={globeIconSection}
+                  /> */}
                   <Map
-                  googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                    googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                     mapType={mapType}
                     setMapType={setMapType}
                     markers={searchSelectedData}
@@ -476,7 +488,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                     currentMarker={""}
                     setCurrentMarker={() => {}}
                     focusedCategory={""}
-                    mapPageName={"Asset Tracking"}
+                    mapPageName={"Asset Tracking InfoDialogue"}
                     setIsMarkerClicked={() => {}}
                     setSelectedNotification={() => {}}
                     setNotificationPanelActive={() => {}}
@@ -502,6 +514,10 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                     selectedTheme={selectedTheme}
                     setMap={setMap}
                     map={map}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
+                    setListSelectedMarker={() => {}}
+                    setSelectedNotificationItem={() => {}}
                   />
                 </Grid>
                 <Grid item xs={12}>
