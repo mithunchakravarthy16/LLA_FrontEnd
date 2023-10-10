@@ -24,7 +24,7 @@ import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
-import GlobeIconActive from "../../assets/globeIcon.svg";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GlobeIconInactive from "../../assets/globeIconInactive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";

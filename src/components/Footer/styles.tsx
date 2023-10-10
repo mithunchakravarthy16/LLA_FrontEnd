@@ -74,6 +74,11 @@ const useStyles = makeStyles(
       alignItems: "center",
       flexDirection: "column",
     }),
+    footerVersion: (props: any) => ({
+      fontSize: "0.7vw",
+      color: "#d3d3d3",
+      marginTop: "8%",
+    }),
     footerIconStyle: (props: any) => ({
       "& img": {
         width: "26vh",
