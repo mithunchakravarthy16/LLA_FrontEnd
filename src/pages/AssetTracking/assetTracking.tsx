@@ -1,6 +1,7 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useContext } from "react";
+import {WebsocketContext } from "../../App";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -53,6 +54,10 @@ import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
+
+  const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
+  
+
   //Analytics Api integration starts here
   const [selectedValue, setSelectedValue] = useState<string>("Today");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
@@ -763,39 +768,39 @@ const AssetTracking: React.FC<any> = (props) => {
 
   //---websocket Implementation starts---
 
-  const [
-    websocketLatestAssetNotification,
-    setWebsocketLatestAssetNotification,
-  ] = useState<any>([]);
-  const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
-    useState<any>([]);
-  const clientRef = useRef<any>();
+  // const [
+  //   websocketLatestAssetNotification,
+  //   setWebsocketLatestAssetNotification,
+  // ] = useState<any>([]);
+  // const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
+  //   useState<any>([]);
+  // const clientRef = useRef<any>();
 
 
-  useEffect(() => {
-    UseWebSocket(
-      (message:any) => {
-        setWebsocketLatestAssetNotification(message);
-      },
-      (message:any) => {
-        setWebsocketLatestAssetTrackerLive(message);
-      },
-      (clintReference:any) => {
-        clientRef.current = clintReference;
-      },
-      "openWebsocket"
-    );
+  // useEffect(() => {
+  //   UseWebSocket(
+  //     (message:any) => {
+  //       setWebsocketLatestAssetNotification(message);
+  //     },
+  //     (message:any) => {
+  //       setWebsocketLatestAssetTrackerLive(message);
+  //     },
+  //     (clintReference:any) => {
+  //       clientRef.current = clintReference;
+  //     },
+  //     "openWebsocket"
+  //   );
 
-    return () => {
-      UseWebSocket(
-        () => {},
-        () => {},
-        () => {},
-        "closeWebsocket",
-        clientRef.current
-      );
-    };
-  }, []);
+  //   return () => {
+  //     UseWebSocket(
+  //       () => {},
+  //       () => {},
+  //       () => {},
+  //       "closeWebsocket",
+  //       clientRef.current
+  //     );
+  //   };
+  // }, []);
 
   //---websocket Implementation ends---
 
