@@ -771,16 +771,15 @@ const AssetTracking: React.FC<any> = (props) => {
     useState<any>([]);
   const clientRef = useRef<any>();
 
-
   useEffect(() => {
     UseWebSocket(
-      (message:any) => {
+      (message: any) => {
         setWebsocketLatestAssetNotification(message);
       },
-      (message:any) => {
+      (message: any) => {
         setWebsocketLatestAssetTrackerLive(message);
       },
-      (clintReference:any) => {
+      (clintReference: any) => {
         clientRef.current = clintReference;
       },
       "openWebsocket"
@@ -801,8 +800,6 @@ const AssetTracking: React.FC<any> = (props) => {
 
   useEffect(() => {
     if (assetNotificationList && assetLiveData) {
-      
-
       const insertWebsocketDataToExisitingNotiData = (
         websocketLatestAssetNotification: any
       ) => {
@@ -888,7 +885,6 @@ const AssetTracking: React.FC<any> = (props) => {
         websocketSearchResult &&
           insertWebsocketDataToExisitingNotiData(websocketSearchResult);
       }
-
 
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
@@ -985,45 +981,51 @@ const AssetTracking: React.FC<any> = (props) => {
       websocketLatestAssetTrackerLive &&
       websocketLatestAssetTrackerLive?.length > 0
     ) {
-      updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
-        ?.map((item: any) => {
-          // Check if the item should be replaced
-          let replacement = websocketLatestAssetTrackerLive?.find(
-            (replaceItem:any) => replaceItem.trackerId === item.trackerId
+      updatedLiveTrackerDetails =
+        assetLiveData &&
+        assetLiveData?.length > 0 &&
+        assetLiveData
+          ?.map((item: any) => {
+            // Check if the item should be replaced
+            let replacement = websocketLatestAssetTrackerLive?.find(
+              (replaceItem: any) => replaceItem.trackerId === item.trackerId
+            );
+            return replacement ? replacement : item;
+          })
+          .concat(
+            websocketLatestAssetTrackerLive?.filter(
+              (replaceItem: any) =>
+                !assetLiveData?.some(
+                  (item: any) => item.trackerId === replaceItem.trackerId
+                )
+            )
           );
-          return replacement ? replacement : item;
-        })
-        .concat(
-          websocketLatestAssetTrackerLive?.filter(
-            (replaceItem:any) =>
-              !assetLiveData?.some(
-                (item: any) => item.trackerId === replaceItem.trackerId
-              )
-          )
-        );
     } else {
       updatedLiveTrackerDetails = assetLiveData;
     }
 
-    const updatedLiveData = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
-      return {
-        ...asset,
-        location: asset?.currentLocation,
-        category: "asset",
-        title: `TR#${asset?.trackerId}`,
-        id: asset?.trackerId,
-        recentMarkerType:
-          asset?.trackerStatus === "Inactive"
-            ? asset?.trackerStatus
-            : asset?.notificationType,
-        markerId: asset?.trackerId,
-        description: `${asset?.tagType} ${
-          asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
-            ? ` | Cellular`
-            : ` | ${asset?.gatewayType}`
-        } | ${asset?.trackerId}`,
-      };
-    });
+    const updatedLiveData =
+      updatedLiveTrackerDetails &&
+      updatedLiveTrackerDetails?.length > 0 &&
+      updatedLiveTrackerDetails?.map((asset: any) => {
+        return {
+          ...asset,
+          location: asset?.currentLocation,
+          category: "asset",
+          title: `TR#${asset?.trackerId}`,
+          id: asset?.trackerId,
+          recentMarkerType:
+            asset?.trackerStatus === "Inactive"
+              ? asset?.trackerStatus
+              : asset?.notificationType,
+          markerId: asset?.trackerId,
+          description: `${asset?.tagType} ${
+            asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${asset?.gatewayType}`
+          } | ${asset?.trackerId}`,
+        };
+      });
 
     setLiveMarkerList(updatedLiveData);
   }, [assetLiveData, websocketLatestAssetTrackerLive]);
@@ -1667,12 +1669,12 @@ const AssetTracking: React.FC<any> = (props) => {
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "57.5%" }}
                     >
-                      {/* <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      /> */}
+                      />
                       <img
                         src={GlobeIconActive}
                         alt="GlobeIcon Icon"

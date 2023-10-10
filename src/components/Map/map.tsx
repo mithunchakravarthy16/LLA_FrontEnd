@@ -131,9 +131,9 @@ const Map: React.FC<any> = (props) => {
     isMarkerClicked,
     setMapType,
     mapType,
-    mapDefaultView, 
+    mapDefaultView,
     setMapDefaultView,
-    googleMapsApiKeyResponse
+    googleMapsApiKeyResponse,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -177,12 +177,10 @@ const Map: React.FC<any> = (props) => {
   const initialDate: any = new Date();
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
 
-
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: googleMapsApiKeyResponse, 
+    googleMapsApiKey: googleMapsApiKeyResponse,
     libraries: libraries,
   });
-
 
   const parkingMapContainerStyle = {
     width: "100%",
@@ -630,9 +628,9 @@ const Map: React.FC<any> = (props) => {
           case "energy":
             return EnergyManagemnetEventIcon;
           case "security":
-            return  SecurityEventIcon;
+            return SecurityEventIcon;
           case "lighting":
-            return  LighteningEventIcon;
+            return LighteningEventIcon;
           case "asset":
             // return (currentMarker === id || assetLiveMarker === id)
             //   ? AssetTrackingEventActiveIcon
@@ -655,7 +653,7 @@ const Map: React.FC<any> = (props) => {
           case "energy":
             return EnergyManagementAlertIcon;
           case "security":
-            return  SecutiryAlertIcon;
+            return SecutiryAlertIcon;
           case "lighting":
             return LighteningAlertIcon;
           case "asset":
@@ -681,7 +679,7 @@ const Map: React.FC<any> = (props) => {
           case "energy":
             return EnergyManagementIncidentIcon;
           case "security":
-            return  SecurityIncidentIcon;
+            return SecurityIncidentIcon;
           case "lighting":
             return LighteningIncidentIcon;
           case "asset":
@@ -927,7 +925,7 @@ const Map: React.FC<any> = (props) => {
   // geofence code -- end
 
   function handleZoomChanged() {
-    console.log("handleZoomChanged", this.getZoom()) //this refers to Google Map instance
+    console.log("handleZoomChanged", this.getZoom()); //this refers to Google Map instance
   }
   // useEffect(() => {
   //   if (
@@ -950,8 +948,13 @@ const Map: React.FC<any> = (props) => {
   // ]);
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
-    setMapDefaultView(false)
-    if (data?.category === "parking" || location?.pathname === "/parking" || data?.category === "energy" || location?.pathname === "/energyManagement") {
+    setMapDefaultView(false);
+    if (
+      data?.category === "parking" ||
+      location?.pathname === "/parking" ||
+      data?.category === "energy" ||
+      location?.pathname === "/energyManagement"
+    ) {
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
       setTabIndex(getTabIndex(data?.notificationType));
@@ -959,7 +962,7 @@ const Map: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-    map?.setZoom(location?.pathname === "/parking" ? 20 : 17)
+    map?.setZoom(location?.pathname === "/parking" ? 20 : 17);
     setAssetLiveMarker(id);
     setListSelectedMarker(id);
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -987,20 +990,22 @@ const Map: React.FC<any> = (props) => {
   };
 
   useEffect(() => {
-    if ((selectedNotification || selectedNotificationItem) ) {
+    if (selectedNotification || selectedNotificationItem) {
       map?.panTo(
         selectedNotificationItem?.currentLocation
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-      map?.setZoom(location?.pathname === "/parking" ? 20 :17)
+      map?.setZoom(location?.pathname === "/parking" ? 20 : 17);
     }
-    if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
-      if(isMarkerClicked) {
-        setSelectedNotification("")
+    if (
+      selectedNotificationItem &&
+      selectedNotificationItem?.category === "asset"
+    ) {
+      if (isMarkerClicked) {
+        setSelectedNotification("");
       }
     }
-
   }, [selectedNotification, selectedNotificationItem]);
 
   const handleMapTypeChanged = () => {
@@ -1010,23 +1015,25 @@ const Map: React.FC<any> = (props) => {
     }
   };
 
-  useEffect(()=>{ 
-    if(window?.google?.maps && mapDefaultView) {
+  useEffect(() => {
+    if (window?.google?.maps && mapDefaultView) {
       const bounds = new window.google.maps.LatLngBounds();
-      liveMarkerList?.forEach((mapMarker:any) => {
-        bounds.extend({lat:parseFloat(mapMarker?.location?.lat),lng:parseFloat(mapMarker?.location?.lng)});
-      })
+      liveMarkerList?.forEach((mapMarker: any) => {
+        bounds.extend({
+          lat: parseFloat(mapMarker?.location?.lat),
+          lng: parseFloat(mapMarker?.location?.lng),
+        });
+      });
       map?.fitBounds(bounds);
       setCurrentMarker("");
       setSelectedNotification("");
       setListSelectedMarker("");
       setIsMarkerClicked(false);
       setAssetLiveMarker("");
-      setSelectedNotificationItem("");    
-      setSelectedMarker("");  
-    }      
-  },[map, mapDefaultView])
-
+      setSelectedNotificationItem("");
+      setSelectedMarker("");
+    }
+  }, [map, mapDefaultView]);
 
   return (
     <>
@@ -1042,6 +1049,9 @@ const Map: React.FC<any> = (props) => {
               ? parkingMapContainerStyle
               : selectedContainerStyle
           }
+          center={
+            mapPageName === "Asset Tracking InfoDialogue" && assetTrackingCenter
+          }
           // center={
           //   location?.pathname === "/home"
           //     ? homePageParkingCenter
@@ -1053,7 +1063,7 @@ const Map: React.FC<any> = (props) => {
           //     ? parkingCenter
           //     : center
           // }
-          // zoom={zoomValue}
+          zoom={mapPageName === "Asset Tracking InfoDialogue" && zoomValue}
           onLoad={setMap}
           options={getMapTypeControls()}
           mapContainerClassName={googleMapStyle}
@@ -1061,7 +1071,9 @@ const Map: React.FC<any> = (props) => {
           onMapTypeIdChanged={handleMapTypeChanged}
           // onClick={()=>{setMapDefaultView(false)}}
           // onDrag={()=>{setMapDefaultView(false)}}
-          onCenterChanged={()=>{setMapDefaultView(false)}}
+          onCenterChanged={() => {
+            setMapDefaultView(false);
+          }}
         >
           <DrawingManager
             drawingMode={
@@ -1116,9 +1128,17 @@ const Map: React.FC<any> = (props) => {
             <MarkerClustererF
               averageCenter
               enableRetinaIcons
-              maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : (selectedNotification || isMarkerClicked) ? 4 :  18}
+              maxZoom={
+                selectedContainerStyle?.is4kDevice
+                  ? 16.2
+                  : selectedNotification || isMarkerClicked
+                  ? 4
+                  : 18
+              }
               gridSize={selectedContainerStyle?.is4kDevice ? 80 : 40}
-              onClick={()=>{setMapDefaultView(false)}}
+              onClick={() => {
+                setMapDefaultView(false);
+              }}
               // styles={[
               //   {
               //     url: MarkerClusterIcon,
