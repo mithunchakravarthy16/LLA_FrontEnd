@@ -43,6 +43,7 @@ const Footer = (props: any) => {
     footerIconStyle,
     footerSectionDasbhoard,
     footerCopyrightsImg,
+    footerVersion,
   } = useStyles({ ...appTheme, footerImage: adminPanelData?.footerImage });
 
   const { footerText } = useTranslation();
@@ -65,6 +66,7 @@ const Footer = (props: any) => {
         <div className={footerIconStyle}>
           <img src={pageName !== "dashboard" ? FooterIcon : ""} />
         </div>
+        <div className={footerVersion}>Version - v2.8</div>
         <div>
           {pageName === "dashboard" ? (
             <>
