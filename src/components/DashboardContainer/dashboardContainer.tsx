@@ -1,6 +1,7 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback, useRef  } from "react";
+import { useState, useEffect, useCallback, useRef, useContext  } from "react";
+import {WebsocketContext } from "../../App";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -46,6 +47,9 @@ interface DashboardContainerProps {
 
 const DashboardContainer = (props: any) => {
   const { setMapType, mapType } = props;
+
+  const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
+console.log("websocketLatestAssetNotification", websocketLatestAssetNotification)
   const navigate = useNavigate();
 
   const adminPanelData = useSelector(
@@ -252,33 +256,32 @@ const DashboardContainer = (props: any) => {
 
   //---websocket Implementation starts---
 
-const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
-const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] = useState<any>([]);
+// const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
+// const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] = useState<any>([]);
 
-const clientRef = useRef<any>()
-useEffect(()=>{
-  UseWebSocket((message:any) => {
-    setWebsocketLatestAssetNotification(message)    
-  },
-  (message:any) => {
-    setWebsocketLatestAssetTrackerLive(message);
-  },
-  (clintReference:any)=>{
-    clientRef.current = clintReference
-  },
-  "openWebsocket"  )
 
-  return ()=>{
-    UseWebSocket(() => {},
-    ()=>{},
-    ()=>{},
-    "closeWebsocket",
-    clientRef.current)
-  }
-},[])
+// useEffect(()=>{
+//   UseWebSocket((message:any) => {
+//     setWebsocketLatestAssetNotification(message)    
+//   },
+//   (message:any) => {
+//     setWebsocketLatestAssetTrackerLive(message);
+//   },
+//   (clintReference:any)=>{
+//     clientRef.current = clintReference
+//   },
+//   "openWebsocket"  )
+
+//   return ()=>{
+//     UseWebSocket(() => {},
+//     ()=>{},
+//     ()=>{},
+//     "closeWebsocket",
+//     clientRef.current)
+//   }
+// },[])
 
 //---websocket Implementation ends---
-
 
 
   useEffect(() => {
@@ -400,7 +403,6 @@ useEffect(()=>{
   }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification]);
 
   useEffect(() => {
-
       let updatedLiveTrackerDetails = assetLiveData;
   
       if (
