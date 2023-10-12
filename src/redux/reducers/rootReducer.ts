@@ -13,7 +13,7 @@ import updateGeofenceReducer from "./updateGeofenceReducer";
 import enableGeofenceReducer from "./enableGeofenceReducer";
 import assetTrackingActiveInActiveAnalyticsReducer from "./assetTrackingActiveInActiveAnalyticsReducer";
 import assetTableReducer from "./assetTableReducer";
-
+import googleMapApiKeyReducer from "./googleMapApiKeyReducer";
 const rootReducer = combineReducers({
   login: loginReducer,
   assetNotification: assetNotificationReducer,
@@ -28,7 +28,8 @@ const rootReducer = combineReducers({
   updateGeofence: updateGeofenceReducer,
   enableGeofence : enableGeofenceReducer,
   assetTrackingActiveInActiveAnalytics: assetTrackingActiveInActiveAnalyticsReducer,
-  assetTable : assetTableReducer
+  assetTable : assetTableReducer,
+  googleMapApiKey : googleMapApiKeyReducer
 });
 
 export default rootReducer;

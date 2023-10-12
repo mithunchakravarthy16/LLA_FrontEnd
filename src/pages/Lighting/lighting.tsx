@@ -32,9 +32,10 @@ import {
 } from "../../assets/lightingTopPanelLightThemeIcons";
 import useStyles from "./styles";
 import Loader from "elements/Loader";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const Parking: React.FC<any> = (props) => {
+  const dispatch = useDispatch();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -295,19 +296,21 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+  //Google Map Api Key Data fetching start here
+useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
-      {!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 && googleMapsApiKeyResponse ?  (
+      {!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 && googleMapApiKeyData ?  (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -640,7 +643,7 @@ const Parking: React.FC<any> = (props) => {
                       style={{ height: "58%" }}
                     >
                       <Map
-                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                      googleMapsApiKeyResponse={googleMapApiKeyData}
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}

@@ -26,7 +26,7 @@ import {
   getAssetTrackingCreateGeofence,
   setAssetTrackingCreateGeofence,
 } from "redux/actions/getAssetTrackerDetailAction";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {},
@@ -351,15 +351,17 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     setSuccess(false);
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+ //Google Map Api Key Data fetching start here
+ useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
@@ -412,9 +414,10 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
             />
           </IconButton>
         </div>
-        {assetsListLoader && !googleMapsApiKeyResponse ? (
+        {assetsListLoader && !googleMapApiKeyData ? (
           <Loader isHundredVh={false} />
         ) : (
+          googleMapApiKeyData &&
           <Grid container xs={12} style={{ height: "100%" }}>
             <Grid item xs={12} className={headerStyle}>
               <div>GEOFENCE</div>
@@ -468,7 +471,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
                   <Map
-                  googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                  googleMapsApiKeyResponse={googleMapApiKeyData}
                     mapType={mapType}
                     setMapType={setMapType}
                     markers={searchSelectedData}

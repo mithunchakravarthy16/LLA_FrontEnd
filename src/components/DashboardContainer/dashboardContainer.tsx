@@ -40,7 +40,9 @@ import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction"
 import CustomTablePagination from "elements/CustomPagination";
 import { UseWebSocket } from "websocketServices/useWebsocket";
 import useStyles from "./styles";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+// @ts-ignore
+import CryptoJS from "crypto-js";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -48,8 +50,16 @@ interface DashboardContainerProps {
 const DashboardContainer = (props: any) => {
   const { setMapType, mapType } = props;
 
+
+
+
+
+ 
+
+
+
+
   const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
-console.log("websocketLatestAssetNotification", websocketLatestAssetNotification)
   const navigate = useNavigate();
 
   const adminPanelData = useSelector(
@@ -69,6 +79,26 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
   );
 
   const dispatch = useDispatch();
+
+//Google Map Api Key Data fetching start here
+useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+  const loadingGoogleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.loadingGoogleMapApiKeyData
+  );
+
+//Google Map Api Key Data fetching ends here
+
+
+
+
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
 
@@ -733,15 +763,6 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-    useEffect(()=>{      
-      fetchGoogleMapApi((mapApiResponse:string)=>{
-         setGoogleMapsApiKeyResponse(mapApiResponse)
-        
-      })
-    },[])
-
 
   return (
     <>
@@ -818,13 +839,13 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader && googleMapsApiKeyResponse? (
+      !overAllAnalyticsLoader && googleMapApiKeyData && !loadingGoogleMapApiKeyData? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>                
                 <Map
-                 googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                 googleMapsApiKeyResponse={googleMapApiKeyData}
                   markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}
