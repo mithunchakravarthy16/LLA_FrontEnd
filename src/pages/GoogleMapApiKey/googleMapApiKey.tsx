@@ -13,9 +13,13 @@ import CryptoJS from "crypto-js";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import useStyles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getGoogleMapPostApi } from "redux/actions/googleMapApiKeyAction";
 
 const GoogleMapApiKey = (props) => {
   const { setMapType, mapType } = props;
+  const dispatch = useDispatch();
+
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const [isHideContent, setIsHideContent] = useState<any>({apiKeyText: false, secretPassText: false});
 
@@ -32,32 +36,29 @@ const GoogleMapApiKey = (props) => {
     secretPassInputText.current = event.target.value;
   };
 
-
-
-
-
-
-
   const secretPass = process.env.REACT_APP_SECRETPASS;
+
 
   const handleSubmit = () => {
 
     if (secretPassInputText.current === secretPass) {
+      const inputTextBackup = inputText.current
       const dataEncrypt = CryptoJS.AES.encrypt(
-        JSON.stringify(inputText.current),
+        (JSON.stringify({inputTextBackup})),
         secretPass
       ).toString();
+      dispatch(getGoogleMapPostApi({dataEncrypt}));
 
-      const ref = doc(db, "configuration", "googleMapApi");
-      setDoc(ref, { apiKey: dataEncrypt })
-        .then((success: any) => {
+      // const ref = doc(db, "configuration", "googleMapApi");
+      // setDoc(ref, { apiKey: dataEncrypt })
+      //   .then((success: any) => {
           
-          toast.success("Changes Saved Successfully");
-        })
-        .catch((error) => {
+      //     toast.success("Changes Saved Successfully");
+      //   })
+      //   .catch((error) => {
           
-          toast.error("Oops! Something went wrong");
-        });
+      //     toast.error("Oops! Something went wrong");
+      //   });
     } else {
       toast.error("Invalid secretPass!");
     }

@@ -32,15 +32,15 @@ const App = () => {
       "openWebsocket"
     );
 
-    return () => {
-      UseWebSocket(
-        () => {},
-        () => {},
-        () => {},
-        "closeWebsocket",
-        clientRef.current
-      );
-    };
+    // return () => {
+    //   UseWebSocket(
+    //     () => {},
+    //     () => {},
+    //     () => {},
+    //     "closeWebsocket",
+    //     clientRef.current
+    //   );
+    // };
   }, []);
 
   return (

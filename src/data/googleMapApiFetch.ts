@@ -5,7 +5,10 @@ import { db } from "services/firebase";
 // @ts-ignore
 import CryptoJS from "crypto-js";
 
-export const fetchGoogleMapApi = (responsDataCallBack: (message: any) => void)=>{
+
+export const fetchGoogleMapApi = (responsDataCallBack: (message: any) => void)=>{ 
+
+
     const manifestCompletedRef = doc(db, "configuration", "googleMapApi");
      getDoc(manifestCompletedRef)
         .then((response: any) => {
