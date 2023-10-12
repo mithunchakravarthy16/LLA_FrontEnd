@@ -22,7 +22,9 @@ import CellularIcon from "assets/assetTableIcons/cellularIcon.png";
 import Tooltip from "elements/Tooltip";
 import { getAssetTable } from "redux/actions/getAssetTableDataAction";
 import moment from "moment";
+import editIcon from "../../assets/editIcon.svg";
 import useStyles from "./styles";
+import EditAssetName from "components/EditAssetName/editAssetName";
 
 const AssetTable: React.FC<any> = (props) => {
   const {} = props;
@@ -64,8 +66,10 @@ const AssetTable: React.FC<any> = (props) => {
     // { title: "Actions", id: 8 },
   ];
 
-
   const [searchValue, setSearchValue] = useState<any>(assetTableResponse);
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [tableIndex, setTableIndex] = useState<any>(0);
 
   useEffect(() => {
     if (assetTableResponse) {
@@ -146,6 +150,11 @@ const AssetTable: React.FC<any> = (props) => {
   const fontSize = [13];
   const padding = [1];
 
+  const toggleDrawer = () => {
+    setOpen(true);
+    setTableIndex(0);
+  };
+
   return (
     <>
       <Grid className={rootContainer}>
@@ -181,8 +190,7 @@ const AssetTable: React.FC<any> = (props) => {
         <Grid style={{ margin: "2vw 5vw", height: "78vh" }}>
           <TableContainer
             className={tableLayoutStyle}
-            style={{ height: "100%" }}
-          >
+            style={{ height: "100%" }}>
             <div>
               <Table stickyHeader>
                 <TableHead style={{ background: "#084476" }}>
@@ -198,7 +206,7 @@ const AssetTable: React.FC<any> = (props) => {
                     searchValue
                       // ?.sort((a, b) => b.index - a.index)
                       .map((item: any, index: number) => {
-                        const testDateUtc  = moment.utc(item?.lastReportedDate);
+                        const testDateUtc = moment.utc(item?.lastReportedDate);
                         const localDate = testDateUtc.local();
                         return (
                           <TableRow
@@ -209,7 +217,11 @@ const AssetTable: React.FC<any> = (props) => {
                             //   handleTableRow(item);
                             // }}
                           >
-                            <TableCell>{item && item?.assetId}</TableCell>
+                            <TableCell>
+                              {item && item?.assetId}
+                              <img src={editIcon} onClick={toggleDrawer} />
+                              <EditAssetName open={open} setOpen={setOpen} />
+                            </TableCell>
                             <TableCell>
                               <div style={{ display: "flex" }}>
                                 <p style={{ width: "1.5vh", height: "1.5vh" }}>
@@ -235,11 +247,11 @@ const AssetTable: React.FC<any> = (props) => {
                             <TableCell>
                               {item && item?.gateWayType
                                 ? item?.gateWayType
-                                : (item?.deviceType === "CATM1_TAG" &&
-                                  !item?.gateWayType)
+                                : item?.deviceType === "CATM1_TAG" &&
+                                  !item?.gateWayType
                                 ? "Cellular"
-                                : (item?.deviceType === "CATM1_TAG" &&
-                                  item?.gateWayType)
+                                : item?.deviceType === "CATM1_TAG" &&
+                                  item?.gateWayType
                                 ? item?.gateWayType
                                 : "--"}
                             </TableCell>
@@ -253,8 +265,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       placement={"bottom"}
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
-                                      padding={padding}
-                                    >
+                                      padding={padding}>
                                       <img
                                         src={TemperatureIcon}
                                         width={"100%"}
@@ -277,8 +288,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
                                       padding={padding}
-                                      pageName={"assetTable"}
-                                    >
+                                      pageName={"assetTable"}>
                                       <img
                                         src={HumidityIcon}
                                         width={"100%"}
@@ -303,8 +313,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
                                       padding={padding}
-                                      pageName={"assetTable"}
-                                    >
+                                      pageName={"assetTable"}>
                                       <img
                                         src={LocationIcon}
                                         width={"100%"}
@@ -325,8 +334,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       placement={"bottom"}
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
-                                      padding={padding}
-                                    >
+                                      padding={padding}>
                                       <img
                                         src={BatteryIcon}
                                         width={"100%"}
@@ -341,9 +349,10 @@ const AssetTable: React.FC<any> = (props) => {
                               </div>
                             </TableCell>
 
-                            <TableCell>{item && item?.lastReported} | {localDate.format("hh:mm:ss A | MMM DD, YYYY")
-                                   
-                            }</TableCell>
+                            <TableCell>
+                              {item && item?.lastReported} |{" "}
+                              {localDate.format("hh:mm:ss A | MMM DD, YYYY")}
+                            </TableCell>
                           </TableRow>
                         );
                       })
