@@ -67,7 +67,7 @@ const Footer = (props: any) => {
         <div className={footerIconStyle}>
           <img src={pageName !== "dashboard" ? FooterIcon : ""} />
         </div>
-        <div className={footerVersion}>Version {packageJson.version}</div>
+       
         <div>
           {pageName === "dashboard" ? (
             <>
@@ -83,7 +83,10 @@ const Footer = (props: any) => {
               )}
             </>
           ) : (
+            <>
+            <div className={footerVersion}>Version {packageJson.version}</div>
             <img className={footerCopyrightsImg} src={FooterCopyrights} />
+            </>
           )}
         </div>
       </div>

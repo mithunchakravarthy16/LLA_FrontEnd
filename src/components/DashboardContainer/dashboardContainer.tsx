@@ -431,29 +431,33 @@ const DashboardContainer = (props: any) => {
       //   updatedLiveTrackerDetails = assetLiveData;
       // }
 
-      const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
-        return {
-          ...asset,
-          location: asset?.currentLocation,
-          category: "asset",
-          title: `TR#${asset?.trackerId}`,
-          id: asset?.assetId,
-          recentMarkerType:
-            asset?.trackerStatus === "Inactive"
-              ? asset?.trackerStatus
-              : asset?.notificationType,
-          markerId: asset?.trackerId,
-          description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+      if(updatedLiveTrackerDetails && assetLiveData ) {
+        const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
+          return {
+            ...asset,
+            location: asset?.currentLocation,
+            category: "asset",
+            title: `TR#${asset?.trackerId}`,
+            id: asset?.assetId,
+            recentMarkerType:
+              asset?.trackerStatus === "Inactive"
+                ? asset?.trackerStatus
+                : asset?.notificationType,
+            markerId: asset?.trackerId,
+            description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+  
+          };
+        });
+  
+        setLiveMarkerList([
+          ...updatedLiveData,
+          ...formatttedDashboardAPINotificaiton(
+            dashboardNotification?.notifications
+          ),
+        ]);
+      }
 
-        };
-      });
 
-      setLiveMarkerList([
-        ...updatedLiveData,
-        ...formatttedDashboardAPINotificaiton(
-          dashboardNotification?.notifications
-        ),
-      ]);
     
   // }, [assetLiveData, websocketLatestAssetTrackerLive]);
 }, [assetLiveData]);

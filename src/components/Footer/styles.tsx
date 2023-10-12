@@ -77,7 +77,8 @@ const useStyles = makeStyles(
     footerVersion: (props: any) => ({
       fontSize: "0.7vw",
       color: "#d3d3d3",
-      arginTop: "7.8%",
+      marginTop: "7.8%",
+      textAlign : "center"
     }),
     footerIconStyle: (props: any) => ({
       "& img": {
