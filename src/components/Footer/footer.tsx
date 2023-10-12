@@ -8,6 +8,7 @@ import useTranslation from "localization/translations";
 import poweredBy from "../../assets/images/powered-by.svg";
 import footerText from "../../assets/footerText.svg";
 import FooterCopyrights from "../../assets/images/copyrightsImg.svg";
+import packageJson from '../../../package.json';
 import useStyles from "./styles";
 
 const Footer = (props: any) => {
@@ -66,7 +67,7 @@ const Footer = (props: any) => {
         <div className={footerIconStyle}>
           <img src={pageName !== "dashboard" ? FooterIcon : ""} />
         </div>
-        <div className={footerVersion}>Version - v2.8</div>
+        <div className={footerVersion}>Version {packageJson.version}</div>
         <div>
           {pageName === "dashboard" ? (
             <>

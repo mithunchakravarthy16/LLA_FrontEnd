@@ -22,14 +22,14 @@ const FleetManagement = React.lazy(() => import("pages/FleetManagement"));
 const AssetTracking = React.lazy(() => import("pages/AssetTracking"));
 
 const VIOT_Routes = (props:any) => {
-  const {setWebsocketLatestAssetTrackerLive, setWebsocketLatestAssetNotification}=props
+  // const {setWebsocketLatestAssetTrackerLive, setWebsocketLatestAssetNotification}=props
   const user = useSelector((state: any) => state.login.loginData);
   const [mapType, setMapType] = useState("roadmap");
-const location = useLocation()
-  useEffect(()=>{
-    setWebsocketLatestAssetTrackerLive([])
-    setWebsocketLatestAssetNotification([])
-  },[location?.pathname])
+// const location = useLocation()
+  // useEffect(()=>{
+  //   setWebsocketLatestAssetTrackerLive([])
+  //   setWebsocketLatestAssetNotification([])
+  // },[location?.pathname])
 
   return useRoutes([
     {

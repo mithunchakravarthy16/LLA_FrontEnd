@@ -48,8 +48,8 @@ interface DashboardContainerProps {
 const DashboardContainer = (props: any) => {
   const { setMapType, mapType } = props;
 
-  const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
-console.log("websocketLatestAssetNotification", websocketLatestAssetNotification)
+//   const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
+// console.log("websocketLatestAssetNotification", websocketLatestAssetNotification)
   const navigate = useNavigate();
 
   const adminPanelData = useSelector(
@@ -184,13 +184,13 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
@@ -224,15 +224,15 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
-    // }, 1 * 60 * 1000);
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    }, 1 * 60 * 1000);
 
     
 
-    // return () => {
-    //   clearInterval(intervalTime);
-    // };
+    return () => {
+      clearInterval(intervalTime);
+    };
   }, [debounceSearchText, page, rowsPerPage]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -307,67 +307,67 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
       // fleetManagementNotificationResponse?.status === 200
     ) {
       
-      const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
-      websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
-       websocketLatestAssetNotification?.map((item:any)=>{
-              if(item.notificationType?.toString()?.toLowerCase() === "incident"){
-                if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
-                }
-              }
+      // const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
+      // websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
+      //  websocketLatestAssetNotification?.map((item:any)=>{
+      //         if(item.notificationType?.toString()?.toLowerCase() === "incident"){
+      //           if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+      //           assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
+      //           }
+      //         }
 
-              if(item.notificationType?.toString()?.toLowerCase() === "events"){
-                if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                  assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
-                }
-              }
+      //         if(item.notificationType?.toString()?.toLowerCase() === "events"){
+      //           if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+      //             assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
+      //           }
+      //         }
 
-              if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
-                if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                  assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
-                }
-              }
+      //         if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
+      //           if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+      //             assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
+      //           }
+      //         }
 
-            })
-          }
+      //       })
+      //     }
 
 
-            if(parseInt(page) === 0 && !debounceSearchText){
-              insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
-           }else if(parseInt(page) === 0 && debounceSearchText){
+      //       if(parseInt(page) === 0 && !debounceSearchText){
+      //         insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
+      //      }else if(parseInt(page) === 0 && debounceSearchText){
       
-            const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
-              return (
-                value?.assetName
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.area
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.currentArea
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.trackerId
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.reason
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.trackerName
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) 
-              );
-            });
+      //       const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
+      //         return (
+      //           value?.assetName
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.area
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.currentArea
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.trackerId
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.reason
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.trackerName
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) 
+      //         );
+      //       });
       
-            websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
+      //       websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
       
-           }
+      //      }
 
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
@@ -400,34 +400,36 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
         );
       }
     }
-  }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification]);
+  }, [assetNotificationResponse, searchOpen]);
+
+  // }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification]);
 
   useEffect(() => {
       let updatedLiveTrackerDetails = assetLiveData;
   
-      if (
-        websocketLatestAssetTrackerLive &&
-        websocketLatestAssetTrackerLive?.length > 0
-      ) {
-        updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
-          ?.map((item: any) => {
-            // Check if the item should be replaced
-            let replacement = websocketLatestAssetTrackerLive?.find(
-              (replaceItem:any) => replaceItem.trackerId === item.trackerId
-            );
-            return replacement ? replacement : item;
-          })
-          .concat(
-            websocketLatestAssetTrackerLive?.filter(
-              (replaceItem:any) =>
-                !assetLiveData?.some(
-                  (item: any) => item.trackerId === replaceItem.trackerId
-                )
-            )
-          );
-      } else {
-        updatedLiveTrackerDetails = assetLiveData;
-      }
+      // if (
+      //   websocketLatestAssetTrackerLive &&
+      //   websocketLatestAssetTrackerLive?.length > 0
+      // ) {
+      //   updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+      //     ?.map((item: any) => {
+      //       // Check if the item should be replaced
+      //       let replacement = websocketLatestAssetTrackerLive?.find(
+      //         (replaceItem:any) => replaceItem.trackerId === item.trackerId
+      //       );
+      //       return replacement ? replacement : item;
+      //     })
+      //     .concat(
+      //       websocketLatestAssetTrackerLive?.filter(
+      //         (replaceItem:any) =>
+      //           !assetLiveData?.some(
+      //             (item: any) => item.trackerId === replaceItem.trackerId
+      //           )
+      //       )
+      //     );
+      // } else {
+      //   updatedLiveTrackerDetails = assetLiveData;
+      // }
 
       const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
         return {
@@ -453,7 +455,9 @@ console.log("websocketLatestAssetNotification", websocketLatestAssetNotification
         ),
       ]);
     
-  }, [assetLiveData, websocketLatestAssetTrackerLive]);
+  // }, [assetLiveData, websocketLatestAssetTrackerLive]);
+}, [assetLiveData]);
+
 
   useEffect(() => {
     if (searchOpen && selectedNotification !== "") {

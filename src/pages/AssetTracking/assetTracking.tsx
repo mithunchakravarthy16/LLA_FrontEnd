@@ -55,7 +55,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
 
-  const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
+  // const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
   
 
   //Analytics Api integration starts here
@@ -808,91 +808,91 @@ const AssetTracking: React.FC<any> = (props) => {
     if (assetNotificationList && assetLiveData) {
       
 
-      const insertWebsocketDataToExisitingNotiData = (
-        websocketLatestAssetNotification: any
-      ) => {
-        websocketLatestAssetNotification &&
-          websocketLatestAssetNotification?.length > 0 &&
-          websocketLatestAssetNotification?.map((item: any) => {
-            if (
-              item.notificationType?.toString()?.toLowerCase() === "incident"
-            ) {
-              if (
-                !assetNotificationResponse?.data?.incidents?.incidentList.some(
-                  (obj) => obj.assetNotificationId === item.assetNotificationId
-                )
-              ) {
-                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
-                  item
-                );
-              }
-            }
+      // const insertWebsocketDataToExisitingNotiData = (
+      //   websocketLatestAssetNotification: any
+      // ) => {
+      //   websocketLatestAssetNotification &&
+      //     websocketLatestAssetNotification?.length > 0 &&
+      //     websocketLatestAssetNotification?.map((item: any) => {
+      //       if (
+      //         item.notificationType?.toString()?.toLowerCase() === "incident"
+      //       ) {
+      //         if (
+      //           !assetNotificationResponse?.data?.incidents?.incidentList.some(
+      //             (obj) => obj.assetNotificationId === item.assetNotificationId
+      //           )
+      //         ) {
+      //           assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
+      //             item
+      //           );
+      //         }
+      //       }
 
-            if (item.notificationType?.toString()?.toLowerCase() === "events") {
-              if (
-                !assetNotificationResponse?.data?.events?.eventsList?.some(
-                  (obj) => obj.assetNotificationId === item.assetNotificationId
-                )
-              ) {
-                assetNotificationResponse?.data?.events?.eventsList?.unshift(
-                  item
-                );
-              }
-            }
+      //       if (item.notificationType?.toString()?.toLowerCase() === "events") {
+      //         if (
+      //           !assetNotificationResponse?.data?.events?.eventsList?.some(
+      //             (obj) => obj.assetNotificationId === item.assetNotificationId
+      //           )
+      //         ) {
+      //           assetNotificationResponse?.data?.events?.eventsList?.unshift(
+      //             item
+      //           );
+      //         }
+      //       }
 
-            if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
-              if (
-                !assetNotificationResponse?.data?.alerts?.alertList?.some(
-                  (obj) => obj.assetNotificationId === item.assetNotificationId
-                )
-              ) {
-                assetNotificationResponse?.data?.alerts?.alertList?.unshift(
-                  item
-                );
-              }
-            }
-          });
-      };
+      //       if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
+      //         if (
+      //           !assetNotificationResponse?.data?.alerts?.alertList?.some(
+      //             (obj) => obj.assetNotificationId === item.assetNotificationId
+      //           )
+      //         ) {
+      //           assetNotificationResponse?.data?.alerts?.alertList?.unshift(
+      //             item
+      //           );
+      //         }
+      //       }
+      //     });
+      // };
 
-      if (parseInt(page) === 0 && !debounceSearchText) {
-        insertWebsocketDataToExisitingNotiData(
-          websocketLatestAssetNotification
-        );
-      } else if (parseInt(page) === 0 && debounceSearchText) {
-        const websocketSearchResult = websocketLatestAssetNotification?.filter(
-          (value: any) => {
-            return (
-              value?.assetName
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.area
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.currentArea
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.trackerId
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.reason
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.trackerName
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase())
-            );
-          }
-        );
+      // if (parseInt(page) === 0 && !debounceSearchText) {
+      //   insertWebsocketDataToExisitingNotiData(
+      //     websocketLatestAssetNotification
+      //   );
+      // } else if (parseInt(page) === 0 && debounceSearchText) {
+      //   const websocketSearchResult = websocketLatestAssetNotification?.filter(
+      //     (value: any) => {
+      //       return (
+      //         value?.assetName
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.area
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.currentArea
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.trackerId
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.reason
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.trackerName
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase())
+      //       );
+      //     }
+      //   );
 
-        websocketSearchResult &&
-          insertWebsocketDataToExisitingNotiData(websocketSearchResult);
-      }
+      //   websocketSearchResult &&
+      //     insertWebsocketDataToExisitingNotiData(websocketSearchResult);
+      // }
 
 
       const { events, incidents, alerts } = assetNotificationList;
@@ -980,35 +980,35 @@ const AssetTracking: React.FC<any> = (props) => {
     assetNotificationResponse,
     tabIndex,
     searchOpen,
-    websocketLatestAssetNotification,
+    // websocketLatestAssetNotification,
   ]);
 
   useEffect(() => {
     let updatedLiveTrackerDetails = assetLiveData;
 
-    if (
-      websocketLatestAssetTrackerLive &&
-      websocketLatestAssetTrackerLive?.length > 0
-    ) {
-      updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
-        ?.map((item: any) => {
-          // Check if the item should be replaced
-          let replacement = websocketLatestAssetTrackerLive?.find(
-            (replaceItem:any) => replaceItem.trackerId === item.trackerId
-          );
-          return replacement ? replacement : item;
-        })
-        .concat(
-          websocketLatestAssetTrackerLive?.filter(
-            (replaceItem:any) =>
-              !assetLiveData?.some(
-                (item: any) => item.trackerId === replaceItem.trackerId
-              )
-          )
-        );
-    } else {
-      updatedLiveTrackerDetails = assetLiveData;
-    }
+    // if (
+    //   websocketLatestAssetTrackerLive &&
+    //   websocketLatestAssetTrackerLive?.length > 0
+    // ) {
+    //   updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+    //     ?.map((item: any) => {
+    //       // Check if the item should be replaced
+    //       let replacement = websocketLatestAssetTrackerLive?.find(
+    //         (replaceItem:any) => replaceItem.trackerId === item.trackerId
+    //       );
+    //       return replacement ? replacement : item;
+    //     })
+    //     .concat(
+    //       websocketLatestAssetTrackerLive?.filter(
+    //         (replaceItem:any) =>
+    //           !assetLiveData?.some(
+    //             (item: any) => item.trackerId === replaceItem.trackerId
+    //           )
+    //       )
+    //     );
+    // } else {
+    //   updatedLiveTrackerDetails = assetLiveData;
+    // }
 
     const updatedLiveData = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
       return {
@@ -1031,7 +1031,9 @@ const AssetTracking: React.FC<any> = (props) => {
     });
 
     setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData, websocketLatestAssetTrackerLive]);
+  }, [assetLiveData, 
+    // websocketLatestAssetTrackerLive
+  ]);
 
   const topPanelListItems: any[] = [
     {

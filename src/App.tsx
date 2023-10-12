@@ -5,47 +5,47 @@ import Routes from "./routes/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, useEffect, useRef, useState } from "react";
-import { UseWebSocket } from "websocketServices/useWebsocket";
-export const WebsocketContext = createContext();
+// import { UseWebSocket } from "websocketServices/useWebsocket";
+// export const WebsocketContext = createContext();
 const App = () => {
 
   console.warn = console.error = console.info = console.debug = () => {};
-  const clientRef = useRef<any>();
-  const [
-    websocketLatestAssetNotification,
-    setWebsocketLatestAssetNotification,
-  ] = useState<any>([]);
-  const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
-    useState<any>([]);
+  // const clientRef = useRef<any>();
+  // const [
+  //   websocketLatestAssetNotification,
+  //   setWebsocketLatestAssetNotification,
+  // ] = useState<any>([]);
+  // const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
+  //   useState<any>([]);
 
-  useEffect(() => {
-    UseWebSocket(
-      (message: any) => {
-        setWebsocketLatestAssetNotification(message);
-      },
-      (message: any) => {
-        setWebsocketLatestAssetTrackerLive(message);
-      },
-      (clintReference: any) => {
-        clientRef.current = clintReference;
-      },
-      "openWebsocket"
-    );
+  // useEffect(() => {
+  //   UseWebSocket(
+  //     (message: any) => {
+  //       setWebsocketLatestAssetNotification(message);
+  //     },
+  //     (message: any) => {
+  //       setWebsocketLatestAssetTrackerLive(message);
+  //     },
+  //     (clintReference: any) => {
+  //       clientRef.current = clintReference;
+  //     },
+  //     "openWebsocket"
+  //   );
 
-    return () => {
-      UseWebSocket(
-        () => {},
-        () => {},
-        () => {},
-        "closeWebsocket",
-        clientRef.current
-      );
-    };
-  }, []);
+  //   return () => {
+  //     UseWebSocket(
+  //       () => {},
+  //       () => {},
+  //       () => {},
+  //       "closeWebsocket",
+  //       clientRef.current
+  //     );
+  //   };
+  // }, []);
 
   return (
     <BrowserRouter>
-      <WebsocketContext.Provider
+      {/* <WebsocketContext.Provider
         value={{
           websocketLatestAssetNotification: websocketLatestAssetNotification,
           websocketLatestAssetTrackerLive: websocketLatestAssetTrackerLive,
@@ -59,7 +59,8 @@ const App = () => {
             setWebsocketLatestAssetTrackerLive
           }
         />
-      </WebsocketContext.Provider>
+      </WebsocketContext.Provider> */}
+      <Routes />
       <ToastContainer
         position="top-center"
         autoClose={3000}
