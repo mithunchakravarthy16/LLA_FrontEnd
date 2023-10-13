@@ -294,7 +294,6 @@ const useStyles = makeStyles({
   liveContentLabel: (props: any) => ({
     fontSize: "0.7vw",
     fontWeight: 500,
-    fontStyle: "italic",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     textTranform: "uppercase",
@@ -612,7 +611,7 @@ const useStyles = makeStyles({
     right: "1vh",
     cursor: "pointer",
     width: "3.5vw",
-    zIndex : 1
+    zIndex: 1,
   }),
 });
 export default useStyles;
