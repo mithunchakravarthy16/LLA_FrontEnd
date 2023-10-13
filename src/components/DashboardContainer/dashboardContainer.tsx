@@ -74,6 +74,7 @@ const DashboardContainer = (props: any) => {
 
 //Google Map Api Key Data fetching start here
 useEffect(()=>{
+  console.log("entered")
   let assetLiveDataPayload: any = {};
   dispatch(getGoogleMapApi(assetLiveDataPayload));
 },[])
@@ -839,7 +840,7 @@ useEffect(()=>{
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader && googleMapApiKeyData && !loadingGoogleMapApiKeyData? (
+      !overAllAnalyticsLoader && googleMapApiKeyData ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
