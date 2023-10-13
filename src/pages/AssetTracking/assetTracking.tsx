@@ -49,7 +49,7 @@ import CustomTablePagination from "elements/CustomPagination";
 import { UseWebSocket } from "websocketServices/useWebsocket";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -1384,18 +1384,21 @@ const AssetTracking: React.FC<any> = (props) => {
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
-    useState<string>("");
+  //Google Map Api Key Data fetching start here
+useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
 
-  useEffect(() => {
-    fetchGoogleMapApi((mapApiResponse: string) => {
-      setGoogleMapsApiKeyResponse(mapApiResponse);
-    });
-  }, []);
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
-      {isDataLoaded && googleMapsApiKeyResponse ? (
+      {isDataLoaded && googleMapApiKeyData ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1687,7 +1690,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <AssetMap
-                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                        googleMapsApiKeyResponse={googleMapApiKeyData}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}

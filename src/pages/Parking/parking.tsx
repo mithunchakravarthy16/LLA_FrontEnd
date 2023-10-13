@@ -40,11 +40,12 @@ import HC_rounded from "highcharts-rounded-corners";
 import ParkingSlotContainer from "components/ParkingSlotContainer";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 HC_rounded(Highcharts);
 
 const Parking: React.FC<any> = (props) => {
+  const dispatch = useDispatch();
   const { mapType, setMapType } = props;
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -475,20 +476,22 @@ const Parking: React.FC<any> = (props) => {
     setSelectedNotificationItem("")
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+  //Google Map Api Key Data fetching start here
+useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   const parkingMapUseMemo = useMemo(() => {
     return (
       <Map
-      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+      googleMapsApiKeyResponse={googleMapApiKeyData}
         mapType={mapType}
         setMapType={setMapType}
         markers={dashboardDataList}
@@ -526,14 +529,14 @@ const Parking: React.FC<any> = (props) => {
     selectedNotificationItem,
     mapDefaultView,
     assetLiveMarker,
-    googleMapsApiKeyResponse
+    googleMapApiKeyData
   ]);
 
 
 
   return (
     <>
-      {isDataLoaded && googleMapsApiKeyResponse ? (
+      {isDataLoaded && googleMapApiKeyData ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>

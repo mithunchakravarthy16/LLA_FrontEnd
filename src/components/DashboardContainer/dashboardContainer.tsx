@@ -40,7 +40,9 @@ import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction"
 import CustomTablePagination from "elements/CustomPagination";
 import { UseWebSocket } from "websocketServices/useWebsocket";
 import useStyles from "./styles";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+// @ts-ignore
+import CryptoJS from "crypto-js";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
@@ -69,6 +71,26 @@ const DashboardContainer = (props: any) => {
   );
 
   const dispatch = useDispatch();
+
+//Google Map Api Key Data fetching start here
+useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+  const loadingGoogleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.loadingGoogleMapApiKeyData
+  );
+
+//Google Map Api Key Data fetching ends here
+
+
+
+
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
 
@@ -741,15 +763,6 @@ const DashboardContainer = (props: any) => {
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-    useEffect(()=>{      
-      fetchGoogleMapApi((mapApiResponse:string)=>{
-         setGoogleMapsApiKeyResponse(mapApiResponse)
-        
-      })
-    },[])
-
 
   return (
     <>
@@ -826,13 +839,13 @@ const DashboardContainer = (props: any) => {
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader && googleMapsApiKeyResponse? (
+      !overAllAnalyticsLoader && googleMapApiKeyData && !loadingGoogleMapApiKeyData? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>                
                 <Map
-                 googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                 googleMapsApiKeyResponse={googleMapApiKeyData}
                   markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}
