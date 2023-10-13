@@ -18,14 +18,17 @@ import HumidityIcon from "assets/assetTableIcons/humidity.svg";
 import LocationIcon from "assets/assetTableIcons/location.svg";
 import BatteryIcon from "assets/assetTableIcons/battery.svg";
 import BluetoothIcon from "assets/assetTableIcons/bluetooth.png";
-import CellularIcon from "assets/assetTableIcons/cellularIcon.png"
+import CellularIcon from "assets/assetTableIcons/cellularIcon.png";
 import Tooltip from "elements/Tooltip";
-import { getAssetTable } from "redux/actions/getAssetTableDataAction";
+import { getAssetTable, setAssetName } from "redux/actions/getAssetTableDataAction";
+import moment from "moment";
+import editIcon from "../../assets/editIcon.svg";
 import useStyles from "./styles";
+import EditAssetName from "components/EditAssetName/editAssetName";
 
 const AssetTable: React.FC<any> = (props) => {
   const {} = props;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     tableLayoutStyle,
@@ -39,102 +42,44 @@ const AssetTable: React.FC<any> = (props) => {
     searchClass,
     rootContainer,
     iconStyleClass,
-    refreshButtonStyle
+    refreshButtonStyle,
   } = useStyles();
 
-  const assetTableResponse = useSelector((state:any)=>state?.assetTable?.assetTableData?.data)
+  const assetTableResponse = useSelector(
+    (state: any) => state?.assetTable?.assetTableData?.data
+  );
+
+
+
+
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     let payload: any = {
-      assetId : ""
+      assetId: "",
     };
     dispatch(getAssetTable(payload));
-  }, []);
+  }, [open]);
 
   const tableHeadData = [
     { title: "Asset", id: 0 },
     { title: "Device", id: 1 },
-    { title: "Sensor Values", id: 2 },
-    { title: "Last Reported", id: 3 },
+    { title: "Gateway Id", id: 2 },
+    { title: "Gateway Type", id: 3 },
+    { title: "Sensor Values", id: 4 },
+    { title: "Last Reported", id: 5 },
     // { title: "Actions", id: 8 },
   ];
 
-  const tableData = [
-    {
-      assetId: "C00403461",
-      deviceId: "08 -11- 2021 11:00 AM - 11:30 AM",
-      sensorValues: {
-        temperature: 24.1,
-        humidity: "",
-        pressure: "",
-        battery: 92,
-      },
-      lastReported: "14 hours ago",
-    },
-    {
-      assetId: "C00403461",
-      deviceId: "08 -11- 2021 11:00 AM - 11:30 AM",
-      sensorValues: {
-        temperature: 24.1,
-        humidity: "",
-        pressure: "",
-        battery: 92,
-      },
-      lastReported: "14 hours ago",
-    },
-    {
-      assetId: "C00403461",
-      deviceId: "08 -11- 2021 11:00 AM - 11:30 AM",
-      sensorValues: {
-        temperature: 24.1,
-        humidity: "",
-        pressure: "",
-        battery: 92,
-      },
-      lastReported: "14 hours ago",
-    },
-    {
-      assetId: "C00403461",
-      deviceId: "08 -11- 2021 11:00 AM - 11:30 AM",
-      sensorValues: {
-        temperature: 24.1,
-        humidity: "",
-        pressure: "",
-        battery: 92,
-      },
-      lastReported: "14 hours ago",
-    },
-    {
-      assetId: "C00403461",
-      deviceId: "08 -11- 2021 11:00 AM - 11:30 AM",
-      sensorValues: {
-        temperature: 24.1,
-        humidity: "",
-        pressure: "",
-        battery: 92,
-      },
-      lastReported: "14 hours ago",
-    },
-    {
-      assetId: "C00403462",
-      deviceId: "08 -11- 2021 11:00 AM - 11:30 AM",
-      sensorValues: {
-        temperature: 24.1,
-        humidity: "",
-        pressure: "",
-        battery: 92,
-      },
-      lastReported: "14 hours ago",
-    },
-  ];
-  
-  const [searchValue, setSearchValue] = useState<any>(assetTableResponse);  
+  const [searchValue, setSearchValue] = useState<any>(assetTableResponse);
 
-  useEffect(()=>{
-    if(assetTableResponse) {
-      setSearchValue(assetTableResponse)
+  const [tableIndex, setTableIndex] = useState<any>(0);
+
+  useEffect(() => {
+    if (assetTableResponse) {
+      setSearchValue(assetTableResponse);
     }
-  },[assetTableResponse])
+  }, [assetTableResponse, open]);
 
   const handleSearch = (searchValue: any) => {
     let searchResult = assetTableResponse?.filter((value: any) => {
@@ -151,79 +96,100 @@ const AssetTable: React.FC<any> = (props) => {
     setSearchValue(searchResult);
   };
 
-    //debouncing start
-    const searchTextRef = useRef<any>("");
+  //debouncing start
+  const searchTextRef = useRef<any>("");
 
-    const delayTime =  1000;
-    const fetchingDataForSearch = (searchValue: any) => {
-      searchTextRef.current = searchValue;
-      let payload = {};
-      if (searchValue) {
-        payload = {
-          assetId: searchValue,
-          
-        };
-      } else {
-        payload = {
-          assetId: "",
-         
-        };
-      }
-      dispatch(
-        getAssetTable(payload)
-      );
-    };
-
-    const debounce = (func: any, delay: any) => {
-      let timeout: any;
-  
-      return (...arg: any) => {
-        const context = this;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          func.apply(context, arg);
-        }, delay);
+  const delayTime = 1000;
+  const fetchingDataForSearch = (searchValue: any) => {
+    searchTextRef.current = searchValue;
+    let payload = {};
+    if (searchValue) {
+      payload = {
+        assetId: searchValue,
       };
+    } else {
+      payload = {
+        assetId: "",
+      };
+    }
+    dispatch(getAssetTable(payload));
+  };
+
+  const debounce = (func: any, delay: any) => {
+    let timeout: any;
+
+    return (...arg: any) => {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func.apply(context, arg);
+      }, delay);
     };
-  
-    const handleSearchtest = useCallback(
-      debounce(fetchingDataForSearch, delayTime),
-      []
-    );
+  };
 
-    const handleCloseIcon = () => {
-      if (searchTextRef.current) {
-        setSearchValue(assetTableResponse);
-      }
-      
-    };
-    //debouncing end
+  const handleSearchtest = useCallback(
+    debounce(fetchingDataForSearch, delayTime),
+    []
+  );
 
+  const handleCloseIcon = () => {
+    if (searchTextRef.current) {
+      setSearchValue(assetTableResponse);
+    }
+  };
+  //debouncing end
 
-    const[isRefreshClicked, setIsRefreshClicked] = useState<boolean>(false)
+  const [isRefreshClicked, setIsRefreshClicked] = useState<boolean>(false);
 
   const onHandleRefreshButton = () => {
     let payload: any = {
-      assetId: ""
+      assetId: "",
     };
     dispatch(getAssetTable(payload));
-    setIsRefreshClicked(true)
-  }
+    setIsRefreshClicked(true);
+  };
 
   // Tooltip Props
   const tooltipOfset = [0, 5];
   const fontSize = [13];
   const padding = [1];
 
+  const[selectedItem, setSelectedItem] = useState<any>();
+
+  const toggleDrawer = (e:any, item:any) => {
+    setSelectedItem(item)
+    setOpen(true);
+    setTableIndex(0);
+  };
+
+  const editResponseName = useSelector(
+    (state: any) => state?.assetTable?.assetNameData);
+
+  useEffect(()=>{
+    
+    if(editResponseName?.status === 200 ) {
+      setTimeout(()=>{
+      dispatch(setAssetName({}))
+      },2000)
+    } 
+  },[editResponseName])
+
+  useEffect(()=>{
+    dispatch(setAssetName({}))
+  },[])
+
+
   return (
     <>
       <Grid className={rootContainer}>
         <Grid>
-          <h1 style={{ textAlign: "center", color : "#084476" }}>Asset Table</h1>
+          <h1 style={{ textAlign: "center", color: "#333333" }}>Asset Table</h1>
         </Grid>
         <Grid className={assetTableHeader} style={{ margin: "1vw 5vw" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h3 style={{ marginRight: "1vw", color : "#084476"  }}>Search By ID</h3>
+            <h3 style={{ marginRight: "1vw", color: "#333333" }}>
+              Search By ID
+            </h3>
             <SearchBox
               searchInput={searchClass}
               placeHolder={"Search"}
@@ -235,19 +201,20 @@ const AssetTable: React.FC<any> = (props) => {
               // searchIsOpen={searchOpen}
               // selectedTheme={selectedTheme}
               notificationPageName={"assetTable"}
-              isRefreshClicked={isRefreshClicked} 
+              isRefreshClicked={isRefreshClicked}
               setIsRefreshClicked={setIsRefreshClicked}
             />
           </div>
           <div className={refreshButtonStyle}>
-          <Button variant="contained" onClick={onHandleRefreshButton}>
-            Refresh
-          </Button>
+            <Button variant="contained" onClick={onHandleRefreshButton}>
+              Refresh
+            </Button>
           </div>
-
         </Grid>
-        <Grid style={{ margin: "2vw 5vw", height : "78vh" }}>
-          <TableContainer className={tableLayoutStyle} style={{height : "100%"}}>
+        <Grid style={{ margin: "2vw 5vw", height: "78vh" }}>
+          <TableContainer
+            className={tableLayoutStyle}
+            style={{ height: "100%" }}>
             <div>
               <Table stickyHeader>
                 <TableHead style={{ background: "#084476" }}>
@@ -263,6 +230,8 @@ const AssetTable: React.FC<any> = (props) => {
                     searchValue
                       // ?.sort((a, b) => b.index - a.index)
                       .map((item: any, index: number) => {
+                        const testDateUtc = moment.utc(item?.lastReportedDate);
+                        const localDate = testDateUtc.local();
                         return (
                           <TableRow
                             hover
@@ -272,13 +241,48 @@ const AssetTable: React.FC<any> = (props) => {
                             //   handleTableRow(item);
                             // }}
                           >
-                            <TableCell>{item && item?.assetId}</TableCell>
                             <TableCell>
-                              <div style={{display:"flex"}}>
-                                <p style={{width : "1.5vh", height : "1.5vh"}}><img src={item?.deviceType === "BLE_TAG" ? BluetoothIcon : CellularIcon} alt="" width={"100%"} height={"100%"} /></p>
-                                <span style={{marginLeft : "0.2vw"}}>{item?.deviceId}</span>
+                              <div style={{ display: "flex", alignItems : "center" }}>
+                              <span style={{ marginRight : "0.2vw" }}> {item && item?.assetId}</span>
+                              <img src={editIcon} onClick={(e)=>toggleDrawer(e, item)} width={"7%"} style={{cursor : "pointer"}} />
+
                               </div>
-                              </TableCell>
+                             
+                            </TableCell>
+                            <TableCell>
+                              <div style={{ display: "flex" }}>
+                                <p style={{ width: "1.5vh", height: "1.5vh" }}>
+                                  <img
+                                    src={
+                                      item?.deviceType === "BLE_TAG"
+                                        ? BluetoothIcon
+                                        : CellularIcon
+                                    }
+                                    alt=""
+                                    width={"100%"}
+                                    height={"100%"}
+                                  />
+                                </p>
+                                <span style={{ marginLeft: "0.2vw" }}>
+                                  TR#{item?.deviceId}
+                                </span>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              {item && item?.gateWayId ? item?.gateWayId : "--"}
+                            </TableCell>
+                            <TableCell>
+                              {item && item?.gateWayType
+                                ? item?.gateWayType
+                                : item?.deviceType === "CATM1_TAG" &&
+                                  !item?.gateWayType
+                                ? "Cellular"
+                                : item?.deviceType === "CATM1_TAG" &&
+                                  item?.gateWayType
+                                ? item?.gateWayType
+                                : "--"}
+                            </TableCell>
+
                             <TableCell>
                               <div className={sensorValues}>
                                 <div className={temperatureIcon}>
@@ -288,8 +292,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       placement={"bottom"}
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
-                                      padding={padding}
-                                    >
+                                      padding={padding}>
                                       <img
                                         src={TemperatureIcon}
                                         width={"100%"}
@@ -298,7 +301,10 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.temperature?.toFixed(2)}
+                                    {item &&
+                                      item?.sensorValues?.temperature?.toFixed(
+                                        2
+                                      )}
                                   </span>
                                 </div>
                                 <div className={humidityIcon}>
@@ -309,8 +315,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
                                       padding={padding}
-                                      pageName={"assetTable"}
-                                    >
+                                      pageName={"assetTable"}>
                                       <img
                                         src={HumidityIcon}
                                         width={"100%"}
@@ -319,7 +324,12 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.humidity === null ? "--" : item?.sensorValues?.humidity?.toFixed(2)}
+                                    {item &&
+                                    item?.sensorValues?.humidity === null
+                                      ? "--"
+                                      : item?.sensorValues?.humidity?.toFixed(
+                                          2
+                                        )}
                                   </span>
                                 </div>
                                 <div className={locationIcon}>
@@ -330,8 +340,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
                                       padding={padding}
-                                      pageName={"assetTable"}
-                                    >
+                                      pageName={"assetTable"}>
                                       <img
                                         src={LocationIcon}
                                         width={"100%"}
@@ -340,7 +349,9 @@ const AssetTable: React.FC<any> = (props) => {
                                     </Tooltip>
                                   </div>
                                   <span className={iconValue}>
-                                    {item && item?.sensorValues?.pressure === 0 ? "--" : item?.sensorValues?.pressure}
+                                    {item && item?.sensorValues?.pressure === 0
+                                      ? "--"
+                                      : item?.sensorValues?.pressure}
                                   </span>
                                 </div>
                                 <div className={batteryIcon}>
@@ -350,8 +361,7 @@ const AssetTable: React.FC<any> = (props) => {
                                       placement={"bottom"}
                                       offset={tooltipOfset}
                                       fontSize={fontSize}
-                                      padding={padding}
-                                    >
+                                      padding={padding}>
                                       <img
                                         src={BatteryIcon}
                                         width={"100%"}
@@ -366,7 +376,10 @@ const AssetTable: React.FC<any> = (props) => {
                               </div>
                             </TableCell>
 
-                            <TableCell>{item && item?.lastReported}</TableCell>
+                            <TableCell>
+                              {item && item?.lastReported} |{" "}
+                              {localDate.format("hh:mm:ss A | MMM DD, YYYY")}
+                            </TableCell>
                           </TableRow>
                         );
                       })
@@ -381,6 +394,8 @@ const AssetTable: React.FC<any> = (props) => {
               </Table>
             </div>
           </TableContainer>
+          <EditAssetName open={open} setOpen={setOpen} assetName = {selectedItem?.assetId} assetType = { selectedItem?.deviceType === "BLE_TAG" ? "UNIT " : "BOX" } deviceId = {selectedItem?.deviceId} />
+
         </Grid>
       </Grid>
     </>

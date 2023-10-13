@@ -98,7 +98,7 @@ const energyManagementData = {
       },
       {
         id: "eng6",
-        title: "Real-time Energy Data Available",
+        title: "Real-Time Energy Data Available",
         area: "Building D",
         entity: "",
         venue: "",
@@ -113,7 +113,7 @@ const energyManagementData = {
       },
       {
         id: "eng7",
-        title: "Energy Audit In-progress",
+        title: "Energy Audit In-Progress",
         area: "Zone A",
         entity: "",
         venue: "",
@@ -324,7 +324,7 @@ const energyManagementData = {
       },
       {
         id: "eng22",
-        title: "Energy-saving Mode Enabled",
+        title: "Energy-Saving Mode Enabled",
         area: "Zone H",
         entity: "",
         venue: "",
@@ -369,7 +369,7 @@ const energyManagementData = {
       },
       {
         id: "eng26",
-        title: "Energy-saving Mode Enabled",
+        title: "Energy-Saving Mode Enabled",
         area: "Zone H",
         entity: "",
         venue: "",
@@ -429,7 +429,7 @@ const energyManagementData = {
       },
       {
         id: "eng30",
-        title: "Energy-saving Mode Enabled",
+        title: "Energy-Saving Mode Enabled",
         area: "Zone H",
         entity: "",
         venue: "",

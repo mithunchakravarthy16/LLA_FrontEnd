@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 
   refreshButtonStyle: () => ({
     "& .MuiButton-root" : {
-      background : "rgb(8, 68, 118) !important"
+      background : "rgb(242, 101, 34) !important"
     }
   }),
   sensorValues: () => ({
@@ -92,7 +92,7 @@ const useStyles = makeStyles({
       padding : "1vw"
     },
     "& .MuiTableCell-head": {
-      background: "#084476",
+      background: "rgb(242, 101, 34)",
       fontSize: "0.9vw",
       color: "#FFFFFF",
       lineHeight: "2vh",
