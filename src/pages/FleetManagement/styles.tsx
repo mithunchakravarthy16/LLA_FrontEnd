@@ -298,7 +298,6 @@ const useStyles = makeStyles({
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
     textTranform: "uppercase",
-    fontStyle : "italic",
     // [muiTheme.breakpoints.up(3839)]: {
     //   fontSize: 20,
     //   lineHeight: "52px",
