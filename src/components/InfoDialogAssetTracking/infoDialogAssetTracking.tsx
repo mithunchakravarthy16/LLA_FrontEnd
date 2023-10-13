@@ -413,7 +413,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const getSignalStrengthColor = (range:any) =>{
     switch(range) {
       case "Good" : return "#78B64B";
-      case "Fair" : return "#FBFB0C";
+      case "Fair" : return "#F8B300";
       case "Low" : return "#EC080A";
       case "Poor" : return "#EC080A";
       default : break
