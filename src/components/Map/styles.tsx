@@ -53,8 +53,8 @@ const useStyles = makeStyles({
         left: props?.mapPageName === "dashboard" && "4vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "38vh !important"
-            : "23vh !important",
+            ? "67vh !important"
+            : "51vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
         left: props?.mapPageName === "dashboard" && "4vw !important",
@@ -63,11 +63,19 @@ const useStyles = makeStyles({
             ? "35vh !important"
             : "28vh !important",
       },
+      [muiTheme.breakpoints.down(1793)]: {
+        left: props?.mapPageName === "dashboard" && "4vw !important",
+
+        top:
+          props?.mapPageName === "dashboard"
+            ? "65vh !important"
+            : "50vh !important",
+      },
       // "& button": {
       //   height: "3vh !important",
       // },
     },
-    "& .gmnoprint": {
+    "& .gmnoprint.gm-bundled-control-on-bottom": {
       position: "absolute !important",
       // right: "2.5vw !important",
       maxWidth: "12vw",
@@ -93,8 +101,8 @@ const useStyles = makeStyles({
         right: props?.mapPageName === "dashboard" && "5.5vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "31vh !important"
-            : "23vh !important",
+            ? "63vh !important"
+            : "46.5vh !important",
       },
       [muiTheme.breakpoints.down(1921)]: {
         right: props?.mapPageName === "dashboard" && "5.8vw !important",
@@ -102,6 +110,14 @@ const useStyles = makeStyles({
           props?.mapPageName === "dashboard"
             ? "31vh !important"
             : "23vh !important",
+      },
+      [muiTheme.breakpoints.down(1793)]: {
+        right: props?.mapPageName === "dashboard" && "5.8vw !important",
+
+        top:
+          props?.mapPageName === "dashboard"
+            ? "63vh !important"
+            : "47vh !important",
       },
     },
     "& .gm-bundled-control": {

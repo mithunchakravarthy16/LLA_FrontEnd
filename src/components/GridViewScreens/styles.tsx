@@ -103,7 +103,7 @@ const useStyles = makeStyles({
 
   subContainer: (props: any) => ({
     height: "100%",
-    display: "flex"
+    display: "flex",
   }),
 
   subContainerScreenFive: (props: any) => ({
@@ -294,8 +294,7 @@ const useStyles = makeStyles({
 
   liveContentLabel: (props: any) => ({
     fontSize: "0.8vw",
-    fontStyle : "italic",
-    textTransform : "uppercase",
+    textTransform: "uppercase",
     fontWeight: 500,
     fontFamily: "HelveticaNeue-Regular",
     [muiTheme.breakpoints.up(3839)]: {
