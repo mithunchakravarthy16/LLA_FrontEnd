@@ -1,5 +1,5 @@
 /** @format */
-
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,15 +29,17 @@ import {
   formatttedDashboardNotificationCount,
 } from "../../utils/utils";
 import energyManagementData from "mockdata/energyManagementData";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import Loader from "elements/Loader";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const Parking: React.FC<any> = (props) => {
-  const dispatch = useDispatch();
+  const { mapType, setMapType } = props;
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
 
+  const dispatch = useDispatch();
   const [selectedTheme, setSelectedTheme] = useState<any>();
   const { dashboard, gridView, parking } = useTranslation();
   const [appTheme, setAppTheme] = useState<any>();
@@ -78,6 +80,7 @@ const Parking: React.FC<any> = (props) => {
     notificationPanelGrid,
     graphTwoHeader,
     screenFiveGraphTitleStyle,
+    globeIconSection,
   } = useStyles(appTheme);
 
   const [selectedValue, setSelectedValue] = useState<any>("Week");
@@ -269,340 +272,403 @@ const Parking: React.FC<any> = (props) => {
     }
   }, []);
 
-  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setIsDataLoaded(!isDataLoaded)
-    },500)
-  },[])
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDataLoaded(!isDataLoaded);
+    }, 500);
+  }, []);
 
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setSelectedNotification("");
+    setSelectedNotificationItem("");
+  };
+  // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
+  //   useState<string>("");
+
+  // useEffect(() => {
+  //   fetchGoogleMapApi((mapApiResponse: string) => {
+  //     setGoogleMapsApiKeyResponse(mapApiResponse);
+  //   });
+  // }, []);
+
   //Google Map Api Key Data fetching start here
-useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
+  useEffect(() => {
+    let assetLiveDataPayload: any = {};
+    dispatch(getGoogleMapApi(assetLiveDataPayload));
+  }, []);
 
   const googleMapApiKeyData = useSelector(
     (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
   );
 
- //Google Map Api Key Data fetching end here 
-
   return (
     <>
-    {
-      !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0  && googleMapApiKeyData ?
-      <Grid container className={rootContainer}>
-        <Grid container className={mainSection}>
-          <Grid item xs={12} alignItems="center" className={pageHeading}>
-            {dashboard.energyManagement}
-          </Grid>
-          <Grid item xs={12} className={bodyContainer}>
-            <Grid
-              container
-              xs={12}
-              className={bodySubContainer}
-              style={{ height: "93vh" }}
-            >
-              <Grid item xs={9} className={bodyLeftContainer}>
-                <Grid container xs={12} className={bodyLeftSubContainer}>
-                  <Grid
-                    item
-                    xs={12}
-                    className={bodyLeftTopPanelContainer}
-                    style={{ height: "29%" }}
-                  >
-                    <Grid
-                      container
-                      xs={12}
-                      className={bodyLeftTopPanelSubContainer}
-                    >
+      {
+        // !loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0  && googleMapsApiKeyResponse ?
+        googleMapApiKeyData ? (
+          <Grid container className={rootContainer}>
+            <Grid container className={mainSection}>
+              <Grid item xs={12} alignItems="center" className={pageHeading}>
+                {dashboard.energyManagement}
+              </Grid>
+              <Grid item xs={12} className={bodyContainer}>
+                <Grid
+                  container
+                  xs={12}
+                  className={bodySubContainer}
+                  style={{ height: "93vh" }}
+                >
+                  <Grid item xs={9} className={bodyLeftContainer}>
+                    <Grid container xs={12} className={bodyLeftSubContainer}>
                       <Grid
                         item
                         xs={12}
-                        className={bodyLeftTopPanelListContainer}
+                        className={bodyLeftTopPanelContainer}
+                        style={{ height: "29%" }}
                       >
-                        <TopPanelListItemContainer
-                          topPanelListItems={topPanelListItems}
-                          percent={topPanelList?.energySaved}
-                          strokeWidth={10}
-                          trailWidth={10}
-                          strokeColor="#92C07E"
-                          // trailColor="#484D52"
-                          trailColor={
-                            appTheme?.palette?.energyMgmtPage
-                              ?.progressTrailColor
-                          }
-                          title={`${gridView.energy} ${gridView.saved}`}
-                          selectedTheme={selectedTheme}
-                          selectedValue={selectedValue}
-                          handleSelect={handleSelect}
-                        />
-                      </Grid>
-                      <Grid item xs={12} style={{ height: "75%" }}>
-                        <Grid container xs={12} style={{ height: "25vh" }}>
-                          <Grid item xs={6} className={graphOneContainer}>
-                            <Grid
-                              container
-                              xs={12}
-                              style={{
-                                height: "100%",
-                                padding: "10px 10px 5px 30px",
-                              }}
-                            >
-                              <Grid
-                                item
-                                xs={12}
-                                className={screenFiveGraphTitleStyle}
-                                style={{ height: "10%" }}
-                              >
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    columnGap: "6px",
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      width: "18px",
-                                      height: "18px",
-                                      borderRadius: "50%",
-                                      backgroundColor: "#BD8C52",
-                                      marginRight: 6,
-                                    }}
-                                  ></div>
-                                  <div
-                                    style={{
-                                      color:
-                                        appTheme?.palette?.energyMgmtPage
-                                          ?.topPanelTextColor,
-                                    }}
-                                  >
-                                    {gridView.electricityConsumption}
-                                  </div>
-                                </div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    columnGap: "6px",
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      width: "18px",
-                                      height: "18px",
-                                      borderRadius: "50%",
-                                      backgroundColor: "#5F3B6C",
-                                      marginRight: 6,
-                                    }}
-                                  ></div>
-                                  <div
-                                    style={{
-                                      color:
-                                        appTheme?.palette?.energyMgmtPage
-                                          ?.topPanelTextColor,
-                                    }}
-                                  >
-                                    HVAC
-                                  </div>
-                                </div>
-                              </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
-                                <Grid
-                                  container
-                                  xs={12}
-                                  style={{ height: "100%" }}
-                                >
-                                  <Grid
-                                    item
-                                    xs={12}
-                                    style={{ height: "21vh", width: "80vw" }}
-                                  >
-                                    <Chart
-                                      // width={selectedWidth?.width}
-                                      // height={selectedWidth?.height}
-                                      containerProps={{
-                                        style: {
-                                          height: "100%",
-                                          width: "100%",
-                                        },
-                                      }}
-                                      isVisible={true}
-                                      graphType={"spline"}
-                                      units={"kWh"}
-                                      isCrosshair={true}
-                                      crossHairLineColor={"#E5FAF6"}
-                                      is4kDevice={selectedWidth?.is4kDevice}
-                                      is3kDevice={selectedWidth?.is3kDevice}
-                                      tooltip={"shared"}
-                                      dataPoints={[
-                                        {
-                                          marker: {
-                                            enabled: false,
-                                          },
-                                          lineColor: "#BD8C52",
-                                          color: "#BD8C52",
-                                          lineWidth:
-                                            selectedWidth?.is4kDevice ||
-                                            selectedWidth?.is3KDevice
-                                              ? 5
-                                              : 2,
-                                          data: [
-                                            0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2, 3,
-                                            4, 8, 6, 6, 8, 7, 6, 5, 3, 1, 2, 0,
-                                          ],
-                                        },
-                                        {
-                                          marker: {
-                                            enabled: false,
-                                          },
-                                          lineColor: "#5F3B6C",
-                                          color: "#5F3B6C",
-                                          lineWidth:
-                                            selectedWidth?.is4kDevice ||
-                                            selectedWidth?.is3KDevice
-                                              ? 5
-                                              : 2,
-                                          data: [
-                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7, 5,
-                                            1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          ],
-                                        },
-                                      ]}
-                                    />
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid />
-                            </Grid>
+                        <Grid
+                          container
+                          xs={12}
+                          className={bodyLeftTopPanelSubContainer}
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                            className={bodyLeftTopPanelListContainer}
+                          >
+                            <TopPanelListItemContainer
+                              topPanelListItems={topPanelListItems}
+                              percent={topPanelList?.energySaved}
+                              strokeWidth={10}
+                              trailWidth={10}
+                              strokeColor="#92C07E"
+                              // trailColor="#484D52"
+                              trailColor={
+                                appTheme?.palette?.energyMgmtPage
+                                  ?.progressTrailColor
+                              }
+                              title={`${gridView.energy} ${gridView.saved}`}
+                              selectedTheme={selectedTheme}
+                              selectedValue={selectedValue}
+                              handleSelect={handleSelect}
+                            />
                           </Grid>
-                          <Grid item xs={6} className={graphTwoContainer}>
-                            <Grid
-                              container
-                              xs={12}
-                              style={{
-                                height: "100%",
-                                padding: "10px 10px 5px 30px",
-                              }}
-                            >
-                              <Grid item xs={12} className={graphTwoHeader}>
-                                {gridView.waterConsumption}
-                              </Grid>
-                              <Grid item xs={12} style={{ height: "90%" }}>
+                          <Grid item xs={12} style={{ height: "75%" }}>
+                            <Grid container xs={12} style={{ height: "25vh" }}>
+                              <Grid item xs={6} className={graphOneContainer}>
                                 <Grid
                                   container
                                   xs={12}
-                                  style={{ height: "100%" }}
+                                  style={{
+                                    height: "100%",
+                                    padding: "10px 10px 5px 30px",
+                                  }}
                                 >
                                   <Grid
                                     item
                                     xs={12}
-                                    style={{ height: "21vh", width: "80vw" }}
+                                    className={screenFiveGraphTitleStyle}
+                                    style={{ height: "10%" }}
                                   >
-                                    <Chart
-                                      // width={selectedWidth?.width}
-                                      // height={selectedWidth?.height}
-                                      containerProps={{
-                                        style: {
-                                          height: "100%",
-                                          width: "100%",
-                                        },
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        columnGap: "6px",
                                       }}
-                                      graphType={"spline"}
-                                      isVisible={true}
-                                      units={"KL"}
-                                      isCrosshair={true}
-                                      crossHairLineColor={"#47A899"}
-                                      is4kDevice={selectedWidth?.is4kDevice}
-                                      dataPoints={[
-                                        {
-                                          marker: {
-                                            enabled: false,
-                                          },
-                                          lineColor: "#47A89990",
-                                          color: "#47A899",
-                                          lineWidth:
-                                            selectedWidth?.is4kDevice ||
-                                            selectedWidth?.is3KDevice
-                                              ? 7
-                                              : 2,
-                                          data: [
-                                            1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7, 5,
-                                            6, 4, 7, 5, 4, 2, 8, 4, 3, 4, 1, 4,
-                                          ],
-                                        },
-                                      ]}
-                                    />
+                                    >
+                                      <div
+                                        style={{
+                                          width: "18px",
+                                          height: "18px",
+                                          borderRadius: "50%",
+                                          backgroundColor: "#BD8C52",
+                                          marginRight: 6,
+                                        }}
+                                      ></div>
+                                      <div
+                                        style={{
+                                          color:
+                                            appTheme?.palette?.energyMgmtPage
+                                              ?.topPanelTextColor,
+                                        }}
+                                      >
+                                        {gridView.electricityConsumption}
+                                      </div>
+                                    </div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        columnGap: "6px",
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          width: "18px",
+                                          height: "18px",
+                                          borderRadius: "50%",
+                                          backgroundColor: "#5F3B6C",
+                                          marginRight: 6,
+                                        }}
+                                      ></div>
+                                      <div
+                                        style={{
+                                          color:
+                                            appTheme?.palette?.energyMgmtPage
+                                              ?.topPanelTextColor,
+                                        }}
+                                      >
+                                        HVAC
+                                      </div>
+                                    </div>
                                   </Grid>
+                                  <Grid item xs={12} style={{ height: "90%" }}>
+                                    <Grid
+                                      container
+                                      xs={12}
+                                      style={{ height: "100%" }}
+                                    >
+                                      <Grid
+                                        item
+                                        xs={12}
+                                        style={{
+                                          height: "21vh",
+                                          width: "80vw",
+                                        }}
+                                      >
+                                        <Chart
+                                          // width={selectedWidth?.width}
+                                          // height={selectedWidth?.height}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
+                                            },
+                                          }}
+                                          isVisible={true}
+                                          graphType={"spline"}
+                                          units={"kWh"}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#E5FAF6"}
+                                          is4kDevice={selectedWidth?.is4kDevice}
+                                          is3kDevice={selectedWidth?.is3kDevice}
+                                          tooltip={"shared"}
+                                          dataPoints={[
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#BD8C52",
+                                              color: "#BD8C52",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 5
+                                                  : 2,
+                                              data: [
+                                                0, 1, 6, 6, 9, 5, 5, 1, 6, 1, 2,
+                                                3, 4, 8, 6, 6, 8, 7, 6, 5, 3, 1,
+                                                2, 0,
+                                              ],
+                                            },
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#5F3B6C",
+                                              color: "#5F3B6C",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 5
+                                                  : 2,
+                                              data: [
+                                                1, 4, 3, 5, 4, 2, 8, 4, 3, 4, 7,
+                                                5, 1, 4, 3, 5, 4, 2, 8, 4, 3, 4,
+                                                1, 4,
+                                              ],
+                                            },
+                                          ]}
+                                        />
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid />
                                 </Grid>
                               </Grid>
-                              <Grid />
+                              <Grid item xs={6} className={graphTwoContainer}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{
+                                    height: "100%",
+                                    padding: "10px 10px 5px 30px",
+                                  }}
+                                >
+                                  <Grid item xs={12} className={graphTwoHeader}>
+                                    {gridView.waterConsumption}
+                                  </Grid>
+                                  <Grid item xs={12} style={{ height: "90%" }}>
+                                    <Grid
+                                      container
+                                      xs={12}
+                                      style={{ height: "100%" }}
+                                    >
+                                      <Grid
+                                        item
+                                        xs={12}
+                                        style={{
+                                          height: "21vh",
+                                          width: "80vw",
+                                        }}
+                                      >
+                                        <Chart
+                                          // width={selectedWidth?.width}
+                                          // height={selectedWidth?.height}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
+                                            },
+                                          }}
+                                          graphType={"spline"}
+                                          isVisible={true}
+                                          units={"KL"}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#47A899"}
+                                          is4kDevice={selectedWidth?.is4kDevice}
+                                          dataPoints={[
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#47A89990",
+                                              color: "#47A899",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 7
+                                                  : 2,
+                                              data: [
+                                                1, 4, 3, 5, 4, 6, 8, 4, 7, 6, 7,
+                                                5, 6, 4, 7, 5, 4, 2, 8, 4, 3, 4,
+                                                1, 4,
+                                              ],
+                                            },
+                                          ]}
+                                        />
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid />
+                                </Grid>
+                              </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className={bodyLeftTopPanelMapContainer}
+                        style={{ height: "58%", position: "relative" }}
+                      >
+                        <img
+                          src={GlobeIconActive}
+                          alt="GlobeIcon Icon"
+                          onClick={onHandleDefaultView}
+                          className={globeIconSection}
+                        />
+                        <Map
+                          googleMapsApiKeyResponse={googleMapApiKeyData}
+                          mapType={mapType}
+                          setMapType={setMapType}
+                          markers={dashboardDataList}
+                          setNotificationPanelActive={
+                            setNotificationPanelActive
+                          }
+                          setSelectedNotification={setSelectedNotification}
+                          marker={selectedNotification}
+                          selectedNotification={selectedNotification}
+                          setTabIndex={setTabIndex}
+                          currentMarker={currentMarker}
+                          setCurrentMarker={setCurrentMarker}
+                          setIsMarkerClicked={setIsMarkerClicked}
+                          mapPageName={"energy"}
+                          selectedTheme={selectedTheme}
+                          setMap={setMap}
+                          map={map}
+                          liveMarkerList={liveMarkerList}
+                          setAssetLiveMarker={setAssetLiveMarker}
+                          listSelectedMarker={listSelectedMarker}
+                          setListSelectedMarker={setListSelectedMarker}
+                          selectedNotificationItem={selectedNotificationItem}
+                          setSelectedNotificationItem={
+                            setSelectedNotificationItem
+                          }
+                          mapDefaultView={mapDefaultView}
+                          setMapDefaultView={setMapDefaultView}
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    className={bodyLeftTopPanelMapContainer}
-                    style={{ height: "58%" }}
-                  >
-                    <Map
-                    googleMapsApiKeyResponse={googleMapApiKeyData}
-                      mapPageName={"energy"}
-                      markers={dashboardDataList}
+                  <Grid item xs={3} className={notificationPanelGrid}>
+                    <NotificationPanel
                       setNotificationPanelActive={setNotificationPanelActive}
-                      setSelectedNotification={setSelectedNotification}
-                      marker={selectedNotification}
+                      dashboardData={dashboardData}
+                      tabIndex={tabIndex}
                       setTabIndex={setTabIndex}
-                      currentMarker={currentMarker}
+                      notificationCount={notificationCount}
+                      selectedNotification={selectedNotification}
+                      setSelectedNotification={setSelectedNotification}
+                      searchOpen={searchOpen}
+                      setSearchOpen={setSearchOpen}
+                      searchValue={searchValue}
+                      setSearchValue={setSearchValue}
                       setCurrentMarker={setCurrentMarker}
+                      notificationPageName={"energy"}
+                      isMarkerClicked={isMarkerClicked}
                       setIsMarkerClicked={setIsMarkerClicked}
                       selectedTheme={selectedTheme}
-                      setMap={setMap}
-                      map={map}
+                      handleExpandListItem={() => {}}
+                      setAssetLiveMarker={setAssetLiveMarker}
+                      liveMarkerList={liveMarkerList}
+                      listSelectedMarker={listSelectedMarker}
+                      setListSelectedMarker={setListSelectedMarker}
+                      selectedNotificationItem={selectedNotificationItem}
+                      setSelectedNotificationItem={setSelectedNotificationItem}
+                      mapDefaultView={mapDefaultView}
+                      setMapDefaultView={setMapDefaultView}
                     />
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={3} className={notificationPanelGrid}>
-                <NotificationPanel
-                  setNotificationPanelActive={setNotificationPanelActive}
-                  dashboardData={dashboardData}
-                  tabIndex={tabIndex}
-                  setTabIndex={setTabIndex}
-                  notificationCount={notificationCount}
-                  selectedNotification={selectedNotification}
-                  setSelectedNotification={setSelectedNotification}
-                  searchOpen={searchOpen}
-                  setSearchOpen={setSearchOpen}
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
-                  setCurrentMarker={setCurrentMarker}
-                  isMarkerClicked={isMarkerClicked}
-                  setIsMarkerClicked={setIsMarkerClicked}
-                  selectedTheme={selectedTheme}
-                  handleExpandListItem={() => {}}
-                />
-              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-      :
-      <Loader isHundredVh = {true}/>
-     }
+        ) : (
+          <Loader isHundredVh={true} />
+        )
+      }
     </>
   );
 };

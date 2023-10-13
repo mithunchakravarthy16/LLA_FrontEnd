@@ -32,13 +32,11 @@ const MapMarker: React.FC<any> = (props) => {
     listSelectedMarker,
     isMarkerClicked,
     selectedNotificationItem,
-    setAssetLiveMarker
+    setAssetLiveMarker,
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   const {} = useStyles(appTheme);
-
-
 
   if (mapMarker?.category === "fleet") {
     return (
@@ -66,7 +64,8 @@ const MapMarker: React.FC<any> = (props) => {
             url: getMarkerIcon(
               mapMarker?.category,
               mapMarker?.notificationType,
-              mapMarker?.id,            ),
+              mapMarker?.id
+            ),
             scaledSize: new window.google.maps.Size(
               window.innerWidth > 3839 || window.innerWidth > 3071
                 ? 160.5
@@ -102,45 +101,69 @@ const MapMarker: React.FC<any> = (props) => {
     );
   }
 
-  if(location?.pathname === "/assetTracking" || mapMarker?.category === "asset") {
+  if (
+    location?.pathname === "/assetTracking" ||
+    mapMarker?.category === "asset"
+  ) {
     return (
       <>
         <Marker
-          clusterer={(listSelectedMarker === "" || selectedNotification === "" || assetLiveMarker === "") ? clusterer : undefined}
+          clusterer={
+            listSelectedMarker === "" ||
+            selectedNotification === "" ||
+            assetLiveMarker === ""
+              ? clusterer
+              : undefined
+          }
           animation={
-            focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
+            focusedCategory === mapMarker?.category &&
+            focusedCategory !== "fleet"
               ? window.google.maps.Animation.BOUNCE
               : undefined
           }
           position={mapMarker?.currentLocation}
-          onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation, mapMarker)}
-          }
+          onClick={() => {
+            handleLiveMarkerIcon(
+              mapMarker?.markerId,
+              mapMarker?.currentLocation,
+              mapMarker
+            );
+          }}
           icon={{
             url: getMarkerIcon(
               mapMarker?.category,
               mapMarker?.recentMarkerType,
               // mapMarker?.recentMarkerType === "Inactive" ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
-              mapMarker?.markerId,
+              mapMarker?.markerId
             ),
             scaledSize: new window.google.maps.Size(
-              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
-              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5,
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5
             ),
           }}
           key={mapMarker?.markerId}
           zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
         />
-  
-        {((assetLiveMarker === mapMarker?.markerId  ) || (listSelectedMarker === mapMarker?.markerId) )  && (
+
+        {(assetLiveMarker === mapMarker?.markerId ||
+          listSelectedMarker === mapMarker?.markerId) && (
           <InfoWindowF
-            position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+            position={
+              mapMarker?.currentLocation
+                ? mapMarker?.currentLocation
+                : mapMarker?.location
+            }
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
           >
             {/* <div>
               {mapMarker?.trackerId}
             </div> */}
             <NotificationListItems
-              data={ [selectedNotificationItem]}
+              data={[selectedNotificationItem]}
               pageName={"markerCallout"}
               handleMarkerClose={handleLiveMarkerClose}
               handleExpandListItem={handleExpandListItem}
@@ -149,8 +172,10 @@ const MapMarker: React.FC<any> = (props) => {
               handleViewDetails={handleViewDetails}
               handleVideoDetails={handleVideoDetails}
               selectedTheme={selectedTheme}
-              markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
-              isMarkerClicked = {isMarkerClicked}
+              markerType={
+                assetLiveMarker === mapMarker?.markerId && "assetLiveMarker"
+              }
+              isMarkerClicked={isMarkerClicked}
               setAssetLiveMarker={setAssetLiveMarker}
             />
           </InfoWindowF>
@@ -159,44 +184,69 @@ const MapMarker: React.FC<any> = (props) => {
     );
   }
 
-  if(location?.pathname === "/parking" || mapMarker?.category === "parking") {
+  if (location?.pathname === "/parking" || mapMarker?.category === "parking") {
     return (
       <>
         <Marker
-          clusterer={(selectedNotificationItem === "" || assetLiveMarker === "" ) ? clusterer : undefined}
+          clusterer={
+            selectedNotificationItem === "" || assetLiveMarker === ""
+              ? clusterer
+              : undefined
+          }
           animation={
-            focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
+            focusedCategory === mapMarker?.category &&
+            focusedCategory !== "fleet"
               ? window.google.maps.Animation.BOUNCE
               : undefined
-          }position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
-          onClick={() =>{ handleLiveMarkerIcon(mapMarker?.id, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
           }
+          position={
+            mapMarker?.currentLocation
+              ? mapMarker?.currentLocation
+              : mapMarker?.location
+          }
+          onClick={() => {
+            handleLiveMarkerIcon(
+              mapMarker?.id,
+              mapMarker?.currentLocation
+                ? mapMarker?.currentLocation
+                : mapMarker?.location,
+              mapMarker
+            );
+          }}
           icon={{
             url: getMarkerIcon(
               mapMarker?.category,
-             mapMarker?.notificationType,
+              mapMarker?.notificationType,
               mapMarker?.id,
               mapMarker
             ),
             scaledSize: new window.google.maps.Size(
-              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
-              window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5,
+              window.innerWidth > 3839 || window.innerWidth > 3071
+                ? 160.5
+                : 60.5
             ),
           }}
           key={mapMarker?.id}
           zIndex={listSelectedMarker === mapMarker?.id ? 1000 : 100}
         />
-  
-        {(assetLiveMarker === mapMarker?.id) && (
+
+        {assetLiveMarker === mapMarker?.id && (
           <InfoWindowF
-            position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
+            position={
+              mapMarker?.currentLocation
+                ? mapMarker?.currentLocation
+                : mapMarker?.location
+            }
             options={{ pixelOffset: new google.maps.Size(0, -20) }}
           >
             {/* <div>
               {mapMarker?.trackerId}
             </div> */}
             <NotificationListItems
-              data={ [mapMarker]}
+              data={[mapMarker]}
               pageName={"markerCallout"}
               handleMarkerClose={handleLiveMarkerClose}
               handleExpandListItem={handleExpandListItem}
@@ -205,8 +255,10 @@ const MapMarker: React.FC<any> = (props) => {
               handleViewDetails={handleViewDetails}
               handleVideoDetails={handleVideoDetails}
               selectedTheme={selectedTheme}
-              markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
-              isMarkerClicked = {isMarkerClicked}
+              markerType={
+                assetLiveMarker === mapMarker?.markerId && "assetLiveMarker"
+              }
+              isMarkerClicked={isMarkerClicked}
             />
           </InfoWindowF>
         )}
@@ -214,62 +266,80 @@ const MapMarker: React.FC<any> = (props) => {
     );
   }
 
-  // return (
-  //   <>
-  //     <Marker
-  //       clusterer={(listSelectedMarker === "" || assetLiveMarker === "") ? clusterer : undefined}
-  //       position={selectedNotificationItem?.currentLocation ? selectedNotificationItem?.currentLocation : selectedNotificationItem?.location}
-  //       onClick={() =>{ handleLiveMarkerIcon(mapMarker?.markerId, mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location, mapMarker)}
-  //       }
-  //       animation={
-  //         focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
-  //           ? window.google.maps.Animation.BOUNCE
-  //           : undefined
-  //       }
-  //       icon={{
-  //         url: getMarkerIcon(
-  //           mapMarker?.category,
-  //           // mapMarker?.recentMarkerType,
-  //           mapMarker?.recentMarkerType === "Inactive" ? mapMarker?.recentMarkerType : mapMarker?.notificationType,
-  //           mapMarker?.markerId,
-  //         ),
-  //         scaledSize: new window.google.maps.Size(
-  //           window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
-  //           window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
-  //         ),
-  //       }}
-  //       key={mapMarker?.markerId}
-  //       zIndex={listSelectedMarker === mapMarker?.markerId ? 1000 : 100}
-  //     />
+  return (
+    <>
+      <Marker
+        clusterer={
+          selectedNotificationItem === "" || assetLiveMarker === ""
+            ? clusterer
+            : undefined
+        }
+        animation={
+          focusedCategory === mapMarker?.category && focusedCategory !== "fleet"
+            ? window.google.maps.Animation.BOUNCE
+            : undefined
+        }
+        position={
+          mapMarker?.currentLocation
+            ? mapMarker?.currentLocation
+            : mapMarker?.location
+        }
+        onClick={() => {
+          handleLiveMarkerIcon(
+            mapMarker?.id,
+            mapMarker?.currentLocation
+              ? mapMarker?.currentLocation
+              : mapMarker?.location,
+            mapMarker
+          );
+        }}
+        icon={{
+          url: getMarkerIcon(
+            mapMarker?.category,
+            mapMarker?.notificationType,
+            mapMarker?.id,
+            mapMarker
+          ),
+          scaledSize: new window.google.maps.Size(
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5,
+            window.innerWidth > 3839 || window.innerWidth > 3071 ? 160.5 : 60.5
+          ),
+        }}
+        key={mapMarker?.id}
+        zIndex={listSelectedMarker === mapMarker?.id ? 1000 : 100}
+      />
 
-  //     {(listSelectedMarker === mapMarker?.id || currentMarker === mapMarker?.id) && (
-  //       <InfoWindowF
-  //         position={mapMarker?.currentLocation ? mapMarker?.currentLocation : mapMarker?.location}
-  //         options={{ pixelOffset: new google.maps.Size(0, -20) }}
-  //       >
-  //         {/* <div>
-  //           {mapMarker?.trackerId}
-  //         </div> */}
-  //         <NotificationListItems
-  //           data={ [mapMarker]}
-  //           pageName={"markerCallout"}
-  //           handleMarkerClose={handleLiveMarkerClose}
-  //           handleExpandListItem={handleExpandListItem}
-  //           handleAssetViewDetails={handleAssetViewDetails}
-  //           mapPageName={mapPageName}
-  //           handleViewDetails={handleViewDetails}
-  //           handleVideoDetails={handleVideoDetails}
-  //           selectedTheme={selectedTheme}
-  //           markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
-  //           isMarkerClicked = {isMarkerClicked}
-  //         />
-  //       </InfoWindowF>
-  //     )}
-  //   </>
-  // );
-
-
- 
+      {assetLiveMarker === mapMarker?.id && (
+        <InfoWindowF
+          position={
+            mapMarker?.currentLocation
+              ? mapMarker?.currentLocation
+              : mapMarker?.location
+          }
+          options={{ pixelOffset: new google.maps.Size(0, -20) }}
+        >
+          {/* <div>
+              {mapMarker?.trackerId}
+            </div> */}
+          <NotificationListItems
+            data={[mapMarker]}
+            pageName={"markerCallout"}
+            handleMarkerClose={handleLiveMarkerClose}
+            handleExpandListItem={handleExpandListItem}
+            handleAssetViewDetails={handleAssetViewDetails}
+            mapPageName={mapPageName}
+            handleViewDetails={handleViewDetails}
+            handleVideoDetails={handleVideoDetails}
+            selectedTheme={selectedTheme}
+            markerType={
+              assetLiveMarker === mapMarker?.markerId && "assetLiveMarker"
+            }
+            isMarkerClicked={isMarkerClicked}
+          />
+        </InfoWindowF>
+      )}
+    </>
+  );
 };
 
 export default MapMarker;

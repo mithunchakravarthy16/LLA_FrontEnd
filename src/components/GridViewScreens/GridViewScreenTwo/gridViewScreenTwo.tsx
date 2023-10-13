@@ -160,13 +160,14 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/energyManagement");
-        }}>
+        }}
+      >
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}>
-
+          className={gridContainers}
+        >
           {/* ---previously commented starts here--- */}
           {/* <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
@@ -188,12 +189,11 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
           </Grid> */}
           {/* ---previously commented ends here--- */}
 
-
-          {/* <Grid item xs={12} className={subContainer}>
+          <Grid item xs={12} className={subContainer}>
             <Grid container xs={9} className={childSubContainer}>
-            <Grid item xs={12} className={containerTitle}>
-            {dashboard.energyManagement}
-          </Grid>
+              <Grid item xs={12} className={containerTitle}>
+                {dashboard.energyManagement}
+              </Grid>
               <Grid item xs={12} className={childSubContainer}>
                 <Grid container xs={12} className={childSubContainer}>
                   <Grid item xs={12}>
@@ -303,75 +303,72 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              
             </Grid>
 
-            
-                <Grid
-                  container
-                  xs={3}
-                  alignItems="center"
-                  textAlign="center"
-                  className={lastweekContainer}>
-                  <Grid item xs={12} className={lastweekTitleStyle}>
-                    <div
-                      style={{
-                        background:
-                          appTheme?.palette?.gridViewComponentCommonStyle
-                            ?.todayTitleBgColor,
-                            padding: "2.5% 10%",
-                            borderRadius : "0.3vw",
-                            fontSize : "0.8vw",
-                            fontWeight : 500
-                      }}>
-                      {gridView.today}
+            <Grid
+              container
+              xs={3}
+              alignItems="center"
+              textAlign="center"
+              className={lastweekContainer}
+            >
+              <Grid item xs={12} className={lastweekTitleStyle}>
+                <div
+                  style={{
+                    background:
+                      appTheme?.palette?.gridViewComponentCommonStyle
+                        ?.todayTitleBgColor,
+                    padding: "2.5% 10%",
+                    borderRadius: "0.3vw",
+                    fontSize: "0.8vw",
+                    fontWeight: 500,
+                  }}
+                >
+                  {gridView.today}
+                </div>
+              </Grid>
+              <Grid item xs={12} className={lastweekBodyContainer}>
+                <Grid container xs={12} className={lastweekBodySubContainer}>
+                  <Grid
+                    item
+                    xs={12}
+                    className={rightListItemStyle}
+                    direction="column"
+                  >
+                    <div className={listItemValueStyle}>300kWh</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.energy}</p> <p>{gridView.consumption}</p>
                     </div>
                   </Grid>
-                  <Grid item xs={12} className={lastweekBodyContainer}>
-                    <Grid
-                      container
-                      xs={12}
-                      className={lastweekBodySubContainer}>
-                      <Grid
-                        item
-                        xs={12}
-                        className={rightListItemStyle}
-                        direction="column">
-                        <div className={listItemValueStyle}>300kWh</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.energy}</p> <p>{gridView.consumption}</p>
-                        </div>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        direction="column"
-                        className={rightListItemStyle}>
-                        <div className={listItemValueStyle}>30%</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.energy}</p> <p>{gridView.saved}</p>
-                        </div>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        direction="column"
-                        className={rightListItemStyleLastChild}>
-                        <div className={listItemValueStyle}>$500</div>
-                        <div className={listItemLabelStyle}>
-                          <p>{gridView.cost}</p> <p>{gridView.saved}</p>
-                        </div>
-                      </Grid>
-                    </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    className={rightListItemStyle}
+                  >
+                    <div className={listItemValueStyle}>30%</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.energy}</p> <p>{gridView.saved}</p>
+                    </div>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    className={rightListItemStyleLastChild}
+                  >
+                    <div className={listItemValueStyle}>$500</div>
+                    <div className={listItemLabelStyle}>
+                      <p>{gridView.cost}</p> <p>{gridView.saved}</p>
+                    </div>
                   </Grid>
                 </Grid>
-              
-          </Grid> */}
+              </Grid>
+            </Grid>
+          </Grid>
 
-
-
-      {/* //-----developer mode starts here---// */}
-          <Grid item xs={12} className={containerTitle}>
+          {/* //-----developer mode starts here---// */}
+          {/* <Grid item xs={12} className={containerTitle}>
             {dashboard.energyManagement}
           </Grid>
           <Grid
@@ -386,10 +383,8 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
             }}
           >
             Development In Progress...
-          </Grid>
-        {/* //-----developer mode ends here---// */}  
-
-        
+          </Grid> */}
+          {/* //-----developer mode ends here---// */}
         </Grid>
       </Grid>
     </>

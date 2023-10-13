@@ -6,8 +6,7 @@ import AdminPanel from "pages/AdminPanel";
 import AdminPanelLogin from "pages/AdminPanelLogin";
 import Loader from "elements/Loader";
 import GoogleMapApiKey from "pages/GoogleMapApiKey";
-import AssetTable from "pages/AssetTable"
-
+import AssetTable from "pages/AssetTable";
 
 const Login = React.lazy(() => import("pages/Login"));
 const DashBoard = React.lazy(() => import("pages/DashBoard"));
@@ -21,11 +20,11 @@ const Security = React.lazy(() => import("pages/Security"));
 const FleetManagement = React.lazy(() => import("pages/FleetManagement"));
 const AssetTracking = React.lazy(() => import("pages/AssetTracking"));
 
-const VIOT_Routes = (props:any) => {
+const VIOT_Routes = (props: any) => {
   // const {setWebsocketLatestAssetTrackerLive, setWebsocketLatestAssetNotification}=props
   const user = useSelector((state: any) => state.login.loginData);
   const [mapType, setMapType] = useState("roadmap");
-// const location = useLocation()
+  // const location = useLocation()
   // useEffect(()=>{
   //   setWebsocketLatestAssetTrackerLive([])
   //   setWebsocketLatestAssetNotification([])
@@ -96,7 +95,7 @@ const VIOT_Routes = (props:any) => {
           path: "energyManagement",
           element: (
             <Suspense fallback={<Loader />}>
-              <EnergyManagement />
+              <EnergyManagement setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },
@@ -136,7 +135,7 @@ const VIOT_Routes = (props:any) => {
           path: "googleMapApiKey",
           element: (
             <Suspense fallback={<Loader />}>
-              <GoogleMapApiKey/>
+              <GoogleMapApiKey />
             </Suspense>
           ),
         },

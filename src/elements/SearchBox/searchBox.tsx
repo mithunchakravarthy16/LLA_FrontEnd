@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIconImg from "../../assets/searchIcon.svg";
 import closeIconBox from "../../assets/closeIconBox.svg";
 import SearchIconDark from "../../assets/searchIconDark.svg";
-import CloseIconDark from "../../assets/closeIconBoxDark.svg"
+import CloseIconDark from "../../assets/closeIconBoxDark.svg";
 //@ts-ignore
 import CloseIcon from "@mui/icons-material/Close";
 import theme from "../../theme/theme";
@@ -33,7 +33,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     page,
     rowsPerPage,
     isRefreshClicked,
-    setIsRefreshClicked
+    setIsRefreshClicked,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -64,7 +64,10 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleClose = () => {
     setSearchValue("");
-    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch("");
+    (notificationPageName === "parking" ||
+      notificationPageName === "assetTable" ||
+      notificationPageName === "energy") &&
+      handleSearch("");
     // handleSearchtest("")
     setIcon("search");
     if (
@@ -84,19 +87,22 @@ const INF_SearchBox: React.FC<any> = (props) => {
     }
   };
 
-  useEffect(()=>{
-    if(isRefreshClicked && notificationPageName === "assetTable") {
+  useEffect(() => {
+    if (isRefreshClicked && notificationPageName === "assetTable") {
       setSearchValue("");
-      setIsRefreshClicked(false)
+      setIsRefreshClicked(false);
     }
-  },[isRefreshClicked])
+  }, [isRefreshClicked]);
 
   const handleInput = (event: any) => {
     setSearchValue(event.target.value);
     if (event.target.value.length > 0) {
       setIcon("cancel");
     }
-    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch(event.target.value);
+    (notificationPageName === "parking" ||
+      notificationPageName === "assetTable" ||
+      notificationPageName === "energy") &&
+      handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
@@ -118,7 +124,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
   useEffect(() => {
     setSearchValue("");
     if (
-      notificationPageName === "dashboard"||
+      notificationPageName === "dashboard" ||
       notificationPageName === "asset"
     ) {
       setDebounceSearchText("");
@@ -128,13 +134,16 @@ const INF_SearchBox: React.FC<any> = (props) => {
   useEffect(() => {
     setSearchValue("");
     setIcon("search");
-    notificationPageName === "parking" || notificationPageName === "assetTable" && handleSearch("");
+    (notificationPageName === "parking" ||
+      notificationPageName === "assetTable" ||
+      notificationPageName === "energy") &&
+      handleSearch("");
     // handleSearchtest("")
   }, [tabIndex]);
 
-  useEffect(()=>{
+  useEffect(() => {
     textInput.current.focus();
-  },[disabled])
+  }, [disabled]);
 
   return (
     <>
@@ -163,7 +172,11 @@ const INF_SearchBox: React.FC<any> = (props) => {
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
               {icon === "search" ? (
                 <img
-                  src={notificationPageName === "assetTable" ? SearchIconDark :SearchIconImg}
+                  src={
+                    notificationPageName === "assetTable"
+                      ? SearchIconDark
+                      : SearchIconImg
+                  }
                   onClick={handleSearchFocus}
                   // onChange={handleInput}
                   // sx={{ color: fontColor }}
@@ -172,7 +185,11 @@ const INF_SearchBox: React.FC<any> = (props) => {
                 // <SearchIcon></SearchIcon>
                 // <CloseIcon onClick={handleClose} sx={{ fill: fontColor }} />
                 <img
-                  src={notificationPageName === "assetTable" ? CloseIconDark :closeIconBox}
+                  src={
+                    notificationPageName === "assetTable"
+                      ? CloseIconDark
+                      : closeIconBox
+                  }
                   onClick={handleClose}
                   style={{ fill: fontColor }}
                 />
