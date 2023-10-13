@@ -39,8 +39,13 @@ const useStyles = makeStyles(
           },
         },
         "& .MuiOutlinedInput-notchedOutline": {
-          color: "#FBCEBC",
+          borderColor: "#fff",
           // border: `1px solid #FBCEBC !important`,
+        },
+        "&:hover": {
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white !important",
+          },
         },
       },
 
