@@ -91,7 +91,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 380,
-        height: 110,
+        height: 80,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1679) {
@@ -160,14 +160,12 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/energyManagement");
-        }}
-      >
+        }}>
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}
-        >
+          className={gridContainers}>
           {/* ---previously commented starts here--- */}
           {/* <Grid item xs={12}>
             <div className={horizantalDataGridStyle}>
@@ -310,8 +308,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
               xs={3}
               alignItems="center"
               textAlign="center"
-              className={lastweekContainer}
-            >
+              className={lastweekContainer}>
               <Grid item xs={12} className={lastweekTitleStyle}>
                 <div
                   style={{
@@ -322,8 +319,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     borderRadius: "0.3vw",
                     fontSize: "0.8vw",
                     fontWeight: 500,
-                  }}
-                >
+                  }}>
                   {gridView.today}
                 </div>
               </Grid>
@@ -333,8 +329,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     item
                     xs={12}
                     className={rightListItemStyle}
-                    direction="column"
-                  >
+                    direction="column">
                     <div className={listItemValueStyle}>300kWh</div>
                     <div className={listItemLabelStyle}>
                       <p>{gridView.energy}</p> <p>{gridView.consumption}</p>
@@ -344,8 +339,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     item
                     xs={12}
                     direction="column"
-                    className={rightListItemStyle}
-                  >
+                    className={rightListItemStyle}>
                     <div className={listItemValueStyle}>30%</div>
                     <div className={listItemLabelStyle}>
                       <p>{gridView.energy}</p> <p>{gridView.saved}</p>
@@ -355,8 +349,7 @@ const GridViewScreenTwo: React.FC<any> = (props) => {
                     item
                     xs={12}
                     direction="column"
-                    className={rightListItemStyleLastChild}
-                  >
+                    className={rightListItemStyleLastChild}>
                     <div className={listItemValueStyle}>$500</div>
                     <div className={listItemLabelStyle}>
                       <p>{gridView.cost}</p> <p>{gridView.saved}</p>

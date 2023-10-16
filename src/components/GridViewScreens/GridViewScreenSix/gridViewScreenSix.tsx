@@ -114,7 +114,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
     } else if (window.innerWidth > 1791) {
       setSelectedWidth({
         width: 490,
-        height: 290,
+        height: 230,
         is4kDevice: false,
       });
     } else if (window.innerWidth > 1535) {
@@ -165,14 +165,12 @@ const GridViewScreenSix: React.FC<any> = (props) => {
         className={gridStyles}
         onClick={() => {
           handleClick("/assetTracking");
-        }}
-      >
+        }}>
         <Grid
           container
           xs={12}
           alignContent="space-between"
-          className={gridContainers}
-        >
+          className={gridContainers}>
           <Grid item xs={12} className={containerTitleTwo}>
             <div>{dashboard.assetsTracking}</div>
             <div
@@ -185,8 +183,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
                 fontSize: "0.8vw",
                 fontWeight: 500,
                 marginRight: "4%",
-              }}
-            >
+              }}>
               {gridView.today}
             </div>
           </Grid>
