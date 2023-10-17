@@ -175,6 +175,9 @@ const SideBar = (props: SideBarProps) => {
   }, [location]);
 
   const handleClick = (event: any, id: number, path: string, title: string) => {
+    if (id === 2 || id === 3) {
+      return;
+    }
     setActivePage(id);
     navigate(path);
     localStorage.setItem("tabIndex", JSON.stringify(id));
@@ -249,16 +252,14 @@ const SideBar = (props: SideBarProps) => {
                 onClick={(event) =>
                   handleClick(event, item.id, item.path, item?.title)
                 }
-                key={index}
-              >
+                key={index}>
                 <Tooltip
                   tooltipValue={item?.title}
                   placement={"right"}
                   offset={tooltipOfset}
                   fontSize={fontSize}
                   padding={padding}
-                  marginTop={activePage === item.id}
-                >
+                  marginTop={activePage === item.id}>
                   <img src={item.image} />
                 </Tooltip>
               </div>
@@ -283,16 +284,14 @@ const SideBar = (props: SideBarProps) => {
             className={customMenu}
             anchorEl={anchorElUser}
             open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
+            onClose={handleCloseUserMenu}>
             {menuOptions &&
               menuOptions.length > 0 &&
               menuOptions.map((menuOptions) => (
                 <MenuItem
                   id="demo-customized-menu"
                   key={menuOptions}
-                  onClick={() => handleCloseUserMenu(menuOptions)}
-                >
+                  onClick={() => handleCloseUserMenu(menuOptions)}>
                   <div className={logoutSection}>
                     {menuOptions && menuOptions === dashboard.logout ? (
                       <img className={logoutImg} src={Logout} alt="Logout" />

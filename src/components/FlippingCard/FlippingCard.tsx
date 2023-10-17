@@ -135,7 +135,6 @@ const Card = ({
     energy_management: {
       values: [
         {
-          // label: "Development In Progress",
           label: dashboard?.runningUnits,
           value: 20,
           suffix: "",

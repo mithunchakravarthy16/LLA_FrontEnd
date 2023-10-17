@@ -1,6 +1,7 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useContext } from "react";
+import {WebsocketContext } from "../../App";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -48,11 +49,15 @@ import CustomTablePagination from "elements/CustomPagination";
 import { UseWebSocket } from "websocketServices/useWebsocket";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
+
+  // const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
+  
+
   //Analytics Api integration starts here
   const [selectedValue, setSelectedValue] = useState<string>("Today");
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
@@ -763,128 +768,131 @@ const AssetTracking: React.FC<any> = (props) => {
 
   //---websocket Implementation starts---
 
-  const [
-    websocketLatestAssetNotification,
-    setWebsocketLatestAssetNotification,
-  ] = useState<any>([]);
-  const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
-    useState<any>([]);
-  const clientRef = useRef<any>();
+  // const [
+  //   websocketLatestAssetNotification,
+  //   setWebsocketLatestAssetNotification,
+  // ] = useState<any>([]);
+  // const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] =
+  //   useState<any>([]);
+  // const clientRef = useRef<any>();
 
-  useEffect(() => {
-    UseWebSocket(
-      (message: any) => {
-        setWebsocketLatestAssetNotification(message);
-      },
-      (message: any) => {
-        setWebsocketLatestAssetTrackerLive(message);
-      },
-      (clintReference: any) => {
-        clientRef.current = clintReference;
-      },
-      "openWebsocket"
-    );
 
-    return () => {
-      UseWebSocket(
-        () => {},
-        () => {},
-        () => {},
-        "closeWebsocket",
-        clientRef.current
-      );
-    };
-  }, []);
+  // useEffect(() => {
+  //   UseWebSocket(
+  //     (message:any) => {
+  //       setWebsocketLatestAssetNotification(message);
+  //     },
+  //     (message:any) => {
+  //       setWebsocketLatestAssetTrackerLive(message);
+  //     },
+  //     (clintReference:any) => {
+  //       clientRef.current = clintReference;
+  //     },
+  //     "openWebsocket"
+  //   );
+
+  //   return () => {
+  //     UseWebSocket(
+  //       () => {},
+  //       () => {},
+  //       () => {},
+  //       "closeWebsocket",
+  //       clientRef.current
+  //     );
+  //   };
+  // }, []);
 
   //---websocket Implementation ends---
 
   useEffect(() => {
     if (assetNotificationList && assetLiveData) {
-      const insertWebsocketDataToExisitingNotiData = (
-        websocketLatestAssetNotification: any
-      ) => {
-        websocketLatestAssetNotification &&
-          websocketLatestAssetNotification?.length > 0 &&
-          websocketLatestAssetNotification?.map((item: any) => {
-            if (
-              item.notificationType?.toString()?.toLowerCase() === "incident"
-            ) {
-              if (
-                !assetNotificationResponse?.data?.incidents?.incidentList.some(
-                  (obj) => obj.assetNotificationId === item.assetNotificationId
-                )
-              ) {
-                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
-                  item
-                );
-              }
-            }
+      
 
-            if (item.notificationType?.toString()?.toLowerCase() === "events") {
-              if (
-                !assetNotificationResponse?.data?.events?.eventsList?.some(
-                  (obj) => obj.assetNotificationId === item.assetNotificationId
-                )
-              ) {
-                assetNotificationResponse?.data?.events?.eventsList?.unshift(
-                  item
-                );
-              }
-            }
+      // const insertWebsocketDataToExisitingNotiData = (
+      //   websocketLatestAssetNotification: any
+      // ) => {
+      //   websocketLatestAssetNotification &&
+      //     websocketLatestAssetNotification?.length > 0 &&
+      //     websocketLatestAssetNotification?.map((item: any) => {
+      //       if (
+      //         item.notificationType?.toString()?.toLowerCase() === "incident"
+      //       ) {
+      //         if (
+      //           !assetNotificationResponse?.data?.incidents?.incidentList.some(
+      //             (obj) => obj.assetNotificationId === item.assetNotificationId
+      //           )
+      //         ) {
+      //           assetNotificationResponse?.data?.incidents?.incidentList?.unshift(
+      //             item
+      //           );
+      //         }
+      //       }
 
-            if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
-              if (
-                !assetNotificationResponse?.data?.alerts?.alertList?.some(
-                  (obj) => obj.assetNotificationId === item.assetNotificationId
-                )
-              ) {
-                assetNotificationResponse?.data?.alerts?.alertList?.unshift(
-                  item
-                );
-              }
-            }
-          });
-      };
+      //       if (item.notificationType?.toString()?.toLowerCase() === "events") {
+      //         if (
+      //           !assetNotificationResponse?.data?.events?.eventsList?.some(
+      //             (obj) => obj.assetNotificationId === item.assetNotificationId
+      //           )
+      //         ) {
+      //           assetNotificationResponse?.data?.events?.eventsList?.unshift(
+      //             item
+      //           );
+      //         }
+      //       }
 
-      if (parseInt(page) === 0 && !debounceSearchText) {
-        insertWebsocketDataToExisitingNotiData(
-          websocketLatestAssetNotification
-        );
-      } else if (parseInt(page) === 0 && debounceSearchText) {
-        const websocketSearchResult = websocketLatestAssetNotification?.filter(
-          (value: any) => {
-            return (
-              value?.assetName
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.area
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.currentArea
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.trackerId
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.reason
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-              value?.trackerName
-                ?.toString()
-                ?.toLowerCase()
-                .includes(debounceSearchText?.toString()?.toLowerCase())
-            );
-          }
-        );
+      //       if (item.notificationType?.toString()?.toLowerCase() === "alerts") {
+      //         if (
+      //           !assetNotificationResponse?.data?.alerts?.alertList?.some(
+      //             (obj) => obj.assetNotificationId === item.assetNotificationId
+      //           )
+      //         ) {
+      //           assetNotificationResponse?.data?.alerts?.alertList?.unshift(
+      //             item
+      //           );
+      //         }
+      //       }
+      //     });
+      // };
 
-        websocketSearchResult &&
-          insertWebsocketDataToExisitingNotiData(websocketSearchResult);
-      }
+      // if (parseInt(page) === 0 && !debounceSearchText) {
+      //   insertWebsocketDataToExisitingNotiData(
+      //     websocketLatestAssetNotification
+      //   );
+      // } else if (parseInt(page) === 0 && debounceSearchText) {
+      //   const websocketSearchResult = websocketLatestAssetNotification?.filter(
+      //     (value: any) => {
+      //       return (
+      //         value?.assetName
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.area
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.currentArea
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.trackerId
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.reason
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //         value?.trackerName
+      //           ?.toString()
+      //           ?.toLowerCase()
+      //           .includes(debounceSearchText?.toString()?.toLowerCase())
+      //       );
+      //     }
+      //   );
+
+      //   websocketSearchResult &&
+      //     insertWebsocketDataToExisitingNotiData(websocketSearchResult);
+      // }
 
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
@@ -971,38 +979,35 @@ const AssetTracking: React.FC<any> = (props) => {
     assetNotificationResponse,
     tabIndex,
     searchOpen,
-    websocketLatestAssetNotification,
+    // websocketLatestAssetNotification,
   ]);
 
   useEffect(() => {
     let updatedLiveTrackerDetails = assetLiveData;
 
-    if (
-      websocketLatestAssetTrackerLive &&
-      websocketLatestAssetTrackerLive?.length > 0
-    ) {
-      updatedLiveTrackerDetails =
-        assetLiveData &&
-        assetLiveData?.length > 0 &&
-        assetLiveData
-          ?.map((item: any) => {
-            // Check if the item should be replaced
-            let replacement = websocketLatestAssetTrackerLive?.find(
-              (replaceItem: any) => replaceItem.trackerId === item.trackerId
-            );
-            return replacement ? replacement : item;
-          })
-          .concat(
-            websocketLatestAssetTrackerLive?.filter(
-              (replaceItem: any) =>
-                !assetLiveData?.some(
-                  (item: any) => item.trackerId === replaceItem.trackerId
-                )
-            )
-          );
-    } else {
-      updatedLiveTrackerDetails = assetLiveData;
-    }
+    // if (
+    //   websocketLatestAssetTrackerLive &&
+    //   websocketLatestAssetTrackerLive?.length > 0
+    // ) {
+    //   updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+    //     ?.map((item: any) => {
+    //       // Check if the item should be replaced
+    //       let replacement = websocketLatestAssetTrackerLive?.find(
+    //         (replaceItem:any) => replaceItem.trackerId === item.trackerId
+    //       );
+    //       return replacement ? replacement : item;
+    //     })
+    //     .concat(
+    //       websocketLatestAssetTrackerLive?.filter(
+    //         (replaceItem:any) =>
+    //           !assetLiveData?.some(
+    //             (item: any) => item.trackerId === replaceItem.trackerId
+    //           )
+    //       )
+    //     );
+    // } else {
+    //   updatedLiveTrackerDetails = assetLiveData;
+    // }
 
     const updatedLiveData =
       updatedLiveTrackerDetails &&
@@ -1028,7 +1033,9 @@ const AssetTracking: React.FC<any> = (props) => {
       });
 
     setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData, websocketLatestAssetTrackerLive]);
+  }, [assetLiveData, 
+    // websocketLatestAssetTrackerLive
+  ]);
 
   const topPanelListItems: any[] = [
     {
@@ -1379,18 +1386,21 @@ const AssetTracking: React.FC<any> = (props) => {
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
-    useState<string>("");
+  //Google Map Api Key Data fetching start here
+useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
 
-  useEffect(() => {
-    fetchGoogleMapApi((mapApiResponse: string) => {
-      setGoogleMapsApiKeyResponse(mapApiResponse);
-    });
-  }, []);
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
-      {isDataLoaded && googleMapsApiKeyResponse ? (
+      {isDataLoaded && googleMapApiKeyData ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1682,7 +1692,7 @@ const AssetTracking: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <AssetMap
-                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                        googleMapsApiKeyResponse={googleMapApiKeyData}
                         mapType={mapType}
                         setMapType={setMapType}
                         markers={mapMarkerArrayList}

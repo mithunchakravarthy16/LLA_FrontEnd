@@ -47,7 +47,10 @@ import updateGeofence from "redux/actions/updateGeofenceAction";
 import { handleEnableGeofence } from "./handlers/enableGeofence";
 import { handleUpdateGeofence } from "./handlers/updateGeofence";
 import assetTable from "redux/actions/getAssetTableDataAction";
-import { handleAssetTableData } from "./handlers/getAssetTable";
+import { handleAssetTableData, handleAssetName } from "./handlers/getAssetTable";
+import googleMapApiKey from "redux/actions/googleMapApiKeyAction";
+import { handleGoogleMapApi, handleGoogleMapApiPost } from "./handlers/googleMapApi";
+
 
 export default function* rootSaga() {
   yield all([
@@ -77,7 +80,10 @@ export default function* rootSaga() {
     watchAssetTrackingUpdateGeofence(),
     watchAssetTrackingGridViewAnalyticsData(),
     watchAssetLiveLocation(),
-    watchAssetTableData()
+    watchAssetTableData(),
+    watchAssetNameData(),
+    watchGoogleMapApiData(),
+    watchGoogleMapApiDataPost()
   ]);
 }
 
@@ -249,5 +255,23 @@ export function* watchAssetLiveLocation() {
 export function* watchAssetTableData() {
   yield takeLatest(
     assetTable.GET_ASSET_TABLE, handleAssetTableData
+  )
+}
+export function* watchAssetNameData() {
+  yield takeLatest(
+    assetTable.GET_ASSET_NAME, handleAssetName
+  )
+}
+
+
+export function* watchGoogleMapApiData() {
+  yield takeLatest(
+    googleMapApiKey.GET_GOOGLE_MAP_API, handleGoogleMapApi
+  )
+}
+
+export function* watchGoogleMapApiDataPost() {
+  yield takeLatest(
+    googleMapApiKey.GET_GOOGLE_MAP_API_POST, handleGoogleMapApiPost
   )
 }

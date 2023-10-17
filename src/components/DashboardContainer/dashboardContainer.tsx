@@ -1,6 +1,7 @@
 /** @format */
 //@ts-nocheck
-import { useState, useEffect, useCallback, useRef  } from "react";
+import { useState, useEffect, useCallback, useRef, useContext  } from "react";
+import {WebsocketContext } from "../../App";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +25,7 @@ import FlippingCard from "components/FlippingCard/FlippingCard";
 import NotificationActiveIcon from "../../assets/NotificationActive.svg";
 import LightThemeNotificationIcon from "../../assets/lightThemeNotificationIcon.svg";
 import LightThemeNotificationIconActive from "../../assets/lightThemeNotificationIconActive.svg";
-import GlobeIconActive from "../../assets/globeIcon.svg";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GlobeIconInactive from "../../assets/globeIconInactive.svg";
 import NotificationIcon from "../../assets/notificationIcon.svg";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
@@ -39,13 +40,18 @@ import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction"
 import CustomTablePagination from "elements/CustomPagination";
 import { UseWebSocket } from "websocketServices/useWebsocket";
 import useStyles from "./styles";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+// @ts-ignore
+import CryptoJS from "crypto-js";
 interface DashboardContainerProps {
   handleviewDetails?: any;
 }
 
 const DashboardContainer = (props: any) => {
   const { setMapType, mapType } = props;
+
+//   const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
+// console.log("websocketLatestAssetNotification", websocketLatestAssetNotification)
   const navigate = useNavigate();
 
   const adminPanelData = useSelector(
@@ -66,6 +72,27 @@ const DashboardContainer = (props: any) => {
 
   const dispatch = useDispatch();
   
+
+//Google Map Api Key Data fetching start here
+useEffect(()=>{
+  console.log("entered")
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+  const loadingGoogleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.loadingGoogleMapApiKeyData
+  );
+
+//Google Map Api Key Data fetching ends here
+
+
+
+
 
   const [selectedTheme, setSelectedTheme] = useState<any>();
 
@@ -181,13 +208,13 @@ const DashboardContainer = (props: any) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
@@ -221,15 +248,15 @@ const DashboardContainer = (props: any) => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
     }
 
-    // const intervalTime = setInterval(() => {
-    //   dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
-    // }, 1 * 60 * 1000);
+    const intervalTime = setInterval(() => {
+      dispatch(getNotificationData({ payLoad: assetPayload, isFromSearch: false }));
+    }, 1 * 60 * 1000);
 
     
 
-    // return () => {
-    //   clearInterval(intervalTime);
-    // };
+    return () => {
+      clearInterval(intervalTime);
+    };
   }, [debounceSearchText, page, rowsPerPage]);
 
   const [dashboardNotificationList, setDashboardNotificationList] =
@@ -253,33 +280,32 @@ const DashboardContainer = (props: any) => {
 
   //---websocket Implementation starts---
 
-const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
-const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] = useState<any>([]);
+// const [websocketLatestAssetNotification, setWebsocketLatestAssetNotification] = useState<any>([])
+// const [websocketLatestAssetTrackerLive, setWebsocketLatestAssetTrackerLive] = useState<any>([]);
 
-const clientRef = useRef<any>()
-useEffect(()=>{
-  UseWebSocket((message:any) => {
-    setWebsocketLatestAssetNotification(message)    
-  },
-  (message:any) => {
-    setWebsocketLatestAssetTrackerLive(message);
-  },
-  (clintReference:any)=>{
-    clientRef.current = clintReference
-  },
-  "openWebsocket"  )
 
-  return ()=>{
-    UseWebSocket(() => {},
-    ()=>{},
-    ()=>{},
-    "closeWebsocket",
-    clientRef.current)
-  }
-},[])
+// useEffect(()=>{
+//   UseWebSocket((message:any) => {
+//     setWebsocketLatestAssetNotification(message)    
+//   },
+//   (message:any) => {
+//     setWebsocketLatestAssetTrackerLive(message);
+//   },
+//   (clintReference:any)=>{
+//     clientRef.current = clintReference
+//   },
+//   "openWebsocket"  )
+
+//   return ()=>{
+//     UseWebSocket(() => {},
+//     ()=>{},
+//     ()=>{},
+//     "closeWebsocket",
+//     clientRef.current)
+//   }
+// },[])
 
 //---websocket Implementation ends---
-
 
 
   useEffect(() => {
@@ -305,67 +331,67 @@ useEffect(()=>{
       fleetManagementNotificationResponse?.status === 200
     ) {
       
-      const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
-      websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
-       websocketLatestAssetNotification?.map((item:any)=>{
-              if(item.notificationType?.toString()?.toLowerCase() === "incident"){
-                if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
-                }
-              }
+      // const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
+      // websocketLatestAssetNotification && websocketLatestAssetNotification?.length > 0 &&
+      //  websocketLatestAssetNotification?.map((item:any)=>{
+      //         if(item.notificationType?.toString()?.toLowerCase() === "incident"){
+      //           if(!assetNotificationResponse?.data?.incidents?.incidentList.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+      //           assetNotificationResponse?.data?.incidents?.incidentList?.unshift(item) 
+      //           }
+      //         }
 
-              if(item.notificationType?.toString()?.toLowerCase() === "events"){
-                if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                  assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
-                }
-              }
+      //         if(item.notificationType?.toString()?.toLowerCase() === "events"){
+      //           if(!assetNotificationResponse?.data?.events?.eventsList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+      //             assetNotificationResponse?.data?.events?.eventsList?.unshift(item) 
+      //           }
+      //         }
 
-              if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
-                if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
-                  assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
-                }
-              }
+      //         if(item.notificationType?.toString()?.toLowerCase() === "alerts"){
+      //           if(!assetNotificationResponse?.data?.alerts?.alertList?.some((obj) => obj.assetNotificationId === item.assetNotificationId)){
+      //             assetNotificationResponse?.data?.alerts?.alertList?.unshift(item) 
+      //           }
+      //         }
 
-            })
-          }
+      //       })
+      //     }
 
 
-            if(parseInt(page) === 0 && !debounceSearchText){
-              insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
-           }else if(parseInt(page) === 0 && debounceSearchText){
+      //       if(parseInt(page) === 0 && !debounceSearchText){
+      //         insertWebsocketDataToExisitingNotiData(websocketLatestAssetNotification)
+      //      }else if(parseInt(page) === 0 && debounceSearchText){
       
-            const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
-              return (
-                value?.assetName
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.area
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.currentArea
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.trackerId
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.reason
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) ||
-                value?.trackerName
-                  ?.toString()
-                  ?.toLowerCase()
-                  .includes(debounceSearchText?.toString()?.toLowerCase()) 
-              );
-            });
+      //       const websocketSearchResult = websocketLatestAssetNotification?.filter((value: any) => {
+      //         return (
+      //           value?.assetName
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.area
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.currentArea
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.trackerId
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.reason
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) ||
+      //           value?.trackerName
+      //             ?.toString()
+      //             ?.toLowerCase()
+      //             .includes(debounceSearchText?.toString()?.toLowerCase()) 
+      //         );
+      //       });
       
-            websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
+      //       websocketSearchResult && insertWebsocketDataToExisitingNotiData(websocketSearchResult)
       
-           }
+      //      }
 
       setSuccess(false);
       const assetNotiData: any = formatttedAssetAPINotification(
@@ -398,34 +424,59 @@ useEffect(()=>{
         );
       }
     }
-  }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification, fleetManagementNotificationResponse]);
+  }, [assetNotificationResponse, searchOpen, fleetManagementNotificationResponse]);
 
   useEffect(() => {
-
       let updatedLiveTrackerDetails = assetLiveData;
   
-      if (
-        websocketLatestAssetTrackerLive &&
-        websocketLatestAssetTrackerLive?.length > 0
-      ) {
-        updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
-          ?.map((item: any) => {
-            // Check if the item should be replaced
-            let replacement = websocketLatestAssetTrackerLive?.find(
-              (replaceItem:any) => replaceItem.trackerId === item.trackerId
-            );
-            return replacement ? replacement : item;
-          })
-          .concat(
-            websocketLatestAssetTrackerLive?.filter(
-              (replaceItem:any) =>
-                !assetLiveData?.some(
-                  (item: any) => item.trackerId === replaceItem.trackerId
-                )
-            )
-          );
-      } else {
-        updatedLiveTrackerDetails = assetLiveData;
+      // if (
+      //   websocketLatestAssetTrackerLive &&
+      //   websocketLatestAssetTrackerLive?.length > 0
+      // ) {
+      //   updatedLiveTrackerDetails = assetLiveData && assetLiveData?.length > 0 && assetLiveData
+      //     ?.map((item: any) => {
+      //       // Check if the item should be replaced
+      //       let replacement = websocketLatestAssetTrackerLive?.find(
+      //         (replaceItem:any) => replaceItem.trackerId === item.trackerId
+      //       );
+      //       return replacement ? replacement : item;
+      //     })
+      //     .concat(
+      //       websocketLatestAssetTrackerLive?.filter(
+      //         (replaceItem:any) =>
+      //           !assetLiveData?.some(
+      //             (item: any) => item.trackerId === replaceItem.trackerId
+      //           )
+      //       )
+      //     );
+      // } else {
+      //   updatedLiveTrackerDetails = assetLiveData;
+      // }
+
+      if(updatedLiveTrackerDetails && assetLiveData ) {
+        const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
+          return {
+            ...asset,
+            location: asset?.currentLocation,
+            category: "asset",
+            title: `TR#${asset?.trackerId}`,
+            id: asset?.assetId,
+            recentMarkerType:
+              asset?.trackerStatus === "Inactive"
+                ? asset?.trackerStatus
+                : asset?.notificationType,
+            markerId: asset?.trackerId,
+            description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+  
+          };
+        });
+  
+        setLiveMarkerList([
+          ...updatedLiveData,
+          ...formatttedDashboardAPINotificaiton(
+            dashboardNotification?.notifications
+          ),
+        ]);
       }
 
       if(updatedLiveTrackerDetails) {
@@ -457,7 +508,9 @@ useEffect(()=>{
 
 
     
-  }, [assetLiveData, websocketLatestAssetTrackerLive]);
+  // }, [assetLiveData, websocketLatestAssetTrackerLive]);
+}, [assetLiveData]);
+
 
   useEffect(() => {
     if (searchOpen && selectedNotification !== "") {
@@ -746,15 +799,6 @@ useEffect(()=>{
     setDebounceSearchText("");
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-    useEffect(()=>{      
-      fetchGoogleMapApi((mapApiResponse:string)=>{
-         setGoogleMapsApiKeyResponse(mapApiResponse)
-        
-      })
-    },[])
-
 
   return (
     <>
@@ -831,13 +875,13 @@ useEffect(()=>{
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader && googleMapsApiKeyResponse? (
+      !overAllAnalyticsLoader && googleMapApiKeyData ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>
               <div className={dashboardRightPanelStyle}>                
                 <Map
-                 googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                 googleMapsApiKeyResponse={googleMapApiKeyData}
                   markers={mapMarkerArray}
                   setNotificationPanelActive={setNotificationPanelActive}
                   setSelectedNotification={setSelectedNotification}

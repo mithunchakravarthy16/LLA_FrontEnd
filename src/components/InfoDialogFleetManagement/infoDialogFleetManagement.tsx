@@ -50,7 +50,7 @@ import {
 import { formattedViolationsList, getFormattedAddress } from "utils/utils";
 import Loader from "elements/Loader";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
-import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {
@@ -635,15 +635,17 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  useEffect(()=>{
-    
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-    })
-  },[])
+ //Google Map Api Key Data fetching start here
+ useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
@@ -704,7 +706,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         </Snackbar>
       )}
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        {selectedMarkerLocation?.tripStatus !== "Live" && loader && !googleMapsApiKeyResponse ? (
+        {selectedMarkerLocation?.tripStatus !== "Live" && loader && !googleMapApiKeyData ? (
           <Loader />
         ) : (
           <>
@@ -822,7 +824,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                     <Grid style={{ height: "100%" }} item xs={12}>
                       {tabIndex === 0 ? ( googleMapsApiKeyResponse && 
                         <TripDetailsMap
-                        googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                        googleMapsApiKeyResponse={googleMapApiKeyData}
                           markers={[selectedMarkerLocation]}
                           marker={selectedMarkerLocation?.id}
                           currentMarker={selectedMarkerLocation}

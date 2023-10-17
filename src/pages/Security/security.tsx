@@ -34,10 +34,12 @@ import Chart from "elements/Chart";
 import Loader from "elements/Loader";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+
 
 const Security: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
-
+  const dispatch = useDispatch();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
   );
@@ -324,22 +326,34 @@ const Security: React.FC<any> = (props) => {
     setSelectedNotificationItem("")
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
   
-  useEffect(()=>{
+  // useEffect(()=>{
     
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
+  //   fetchGoogleMapApi((mapApiResponse:string)=>{
+  //      setGoogleMapsApiKeyResponse(mapApiResponse)
       
-    })
-  },[])
+  //   })
+  // },[])
+
+  
+ //Google Map Api Key Data fetching start here
+ useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
-      {
-      // !loaderAdminGetConfigData &&
-      // isDataLoaded && appTheme &&
-       googleMapsApiKeyResponse &&
+      {!loaderAdminGetConfigData &&
+      isDataLoaded &&
+      appTheme && googleMapApiKeyData &&
       Object.keys(appTheme).length > 0 ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
@@ -633,7 +647,7 @@ const Security: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <Map
-                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                      googleMapsApiKeyResponse={googleMapApiKeyData}
                         mapPageName={"security"}
                         mapType={mapType}
                         setMapType={setMapType}
