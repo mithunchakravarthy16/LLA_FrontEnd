@@ -15,12 +15,10 @@ export const setAssetTable = (assetTableData:any) =>({
     assetTableData
 })
 
-
 export const getAssetName = (payload:any) =>({
     type : "GET_ASSET_NAME",
     payload : payload
 })
-
 export const setAssetName = (assetNameData:any) =>({
     type : "SET_ASSET_NAME",
     assetNameData

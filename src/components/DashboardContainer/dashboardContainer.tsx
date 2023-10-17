@@ -75,7 +75,6 @@ const DashboardContainer = (props: any) => {
 
 //Google Map Api Key Data fetching start here
 useEffect(()=>{
-  console.log("entered")
   let assetLiveDataPayload: any = {};
   dispatch(getGoogleMapApi(assetLiveDataPayload));
 },[])
@@ -228,7 +227,7 @@ useEffect(()=>{
     };
     if (!debounceSearchText) {
       const fleetPayload: any = {};
-      dispatch(setFleetManagementNotificationData({}));
+      // dispatch(setFleetManagementNotificationData({}));
       dispatch(getFleetManagementNotificationData(fleetPayload));
       dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
       setSuccess(false);
@@ -309,6 +308,7 @@ useEffect(()=>{
 
 
   useEffect(() => {
+
     setSuccess(false);
     if (
       fleetManagementNotificationResponse?.status === 500 ||
@@ -316,13 +316,13 @@ useEffect(()=>{
       fleetManagementNotificationResponse?.status === 400 ||
       fleetManagementNotificationResponse?.status === 409 ||
       fleetManagementNotificationResponse?.status === 413 ||
-      fleetManagementNotificationResponse?.status === 410 ||
-      fleetManagementTripDetailsResponse?.status === 500 ||
-      fleetManagementTripDetailsResponse?.status === 404 ||
-      fleetManagementTripDetailsResponse?.status === 400 ||
-      fleetManagementTripDetailsResponse?.status === 409 ||
-      fleetManagementTripDetailsResponse?.status === 413 ||
-      fleetManagementTripDetailsResponse?.status === 410
+      fleetManagementNotificationResponse?.status === 410 
+      // fleetManagementTripDetailsResponse?.status === 500 ||
+      // fleetManagementTripDetailsResponse?.status === 404 ||
+      // fleetManagementTripDetailsResponse?.status === 400 ||
+      // fleetManagementTripDetailsResponse?.status === 409 ||
+      // fleetManagementTripDetailsResponse?.status === 413 ||
+      // fleetManagementTripDetailsResponse?.status === 410
     ) {
       setSuccess(true);
     } else if (
@@ -403,6 +403,7 @@ useEffect(()=>{
       const fleetNotiData: any = formatttedFleetAPINotification(
         fleetManagementNotificationResponse?.data
       );
+  
       if (
         assetNotiData &&
         assetNotiData?.length > 0 &&
@@ -871,11 +872,12 @@ useEffect(()=>{
         </Snackbar>
       )}
       {Object.keys(assetNotificationResponse).length > 0 &&
-      !loaderFleetManagementNotification &&
+      Object.keys(fleetManagementNotificationResponse).length > 0 &&
+      // !loaderFleetManagementNotification &&
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader && googleMapApiKeyData ? (
+       googleMapApiKeyData ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>

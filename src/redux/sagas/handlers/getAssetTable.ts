@@ -2,7 +2,7 @@ import { put } from "redux-saga/effects";
 import assetTableData from "mockdata/assetTableData";
 import { setAssetName, setAssetTable } from "redux/actions/getAssetTableDataAction";
 import fetchAPIServices from "../../../services/fetchAPIServices";
-import { getAllDeviceDetailApi, editAssetNameApi } from "../../../services/endPoints";
+import { getAllDeviceDetailApi, editAssetNameApi  } from "../../../services/endPoints";
 
 export function* handleAssetTableData(action: any): any {
   try {

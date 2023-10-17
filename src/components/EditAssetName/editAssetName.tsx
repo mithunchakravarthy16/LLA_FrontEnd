@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import closeIcon from "../../assets/close-icon.svg";
-import TextField from "elements/TextField";
+import { TextField } from "@mui/material";
 import Select from "elements/Select";
 import Drawer from "@mui/material/Drawer";
 import { IconButton, Button } from "@mui/material";
-import { useDispatch, useSelector } from 'react-redux';
 import { getAssetName, setAssetName } from "redux/actions/getAssetTableDataAction";
 import useStyles from "./styles";
 
@@ -109,7 +109,7 @@ const EditAssetName = (props: any) => {
            
             <div style={{ display: "flex", justifyContent: "right" }}>
               <div className={addOperationButton}>
-                <Button variant="outlined">Cancel</Button>
+                <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
                 <Button variant="contained"  onClick = {handleSubmitButton}>Save</Button>
               </div>
             </div>
