@@ -3,6 +3,9 @@ import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles(
   () => ({
+    rootContainer : () => ({
+      fontFamily: "HelveticaNeue-Regular",
+    }),
     buttonSection: () => ({
       display: "flex",
       alignItems: "center",
@@ -39,7 +42,7 @@ const useStyles = makeStyles(
       },
     }),
     addOperation: () => ({
-      fontFamily: `'Open Sans', sans-serif`,
+      // fontFamily: `'Open Sans', sans-serif`,
       fontSize: "0.9vw",
       fontWeight: 600,
       color: "rgb(51, 51, 51)",
@@ -102,7 +105,7 @@ const useStyles = makeStyles(
       },
     }),
     fieldTitle: () => ({
-      fontFamily: `'Open Sans', sans-serif`,
+      // fontFamily: `'Open Sans', sans-serif`,
       fontSize: "0.7000000000000001vw",
       fontWeight: 400,
       color: "rgba(144, 144, 144, 1)",
