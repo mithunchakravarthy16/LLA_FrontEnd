@@ -36,8 +36,8 @@ const useStyles = makeStyles({
         left: props?.mapPageName === "dashboard" && "2.6vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "38vh !important"
-            : "29vh !important",
+            ? "73vh !important"
+            : "59vh !important",
         "& button": {
           height: "2.8vh !important",
         },
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
         left: props?.mapPageName === "dashboard" && "2.6vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "39vh !important"
+            ? "75.5vh !important"
             : "29vh !important",
       },
       [muiTheme.breakpoints.down(2049)]: {
@@ -60,8 +60,8 @@ const useStyles = makeStyles({
         left: props?.mapPageName === "dashboard" && "4vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "35vh !important"
-            : "28vh !important",
+            ? "64vh !important"
+            : "50vh !important",
       },
       [muiTheme.breakpoints.down(1793)]: {
         left: props?.mapPageName === "dashboard" && "4vw !important",
@@ -87,14 +87,14 @@ const useStyles = makeStyles({
         right: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "36vh !important"
+            ? "72vh !important"
             : "26vh !important",
       },
       [muiTheme.breakpoints.down(3073)]: {
         right: props?.mapPageName === "dashboard" && "3.5vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "37vh !important"
+            ? "75vh !important"
             : "27vh !important",
       },
       [muiTheme.breakpoints.down(2049)]: {
@@ -108,8 +108,8 @@ const useStyles = makeStyles({
         right: props?.mapPageName === "dashboard" && "5.8vw !important",
         top:
           props?.mapPageName === "dashboard"
-            ? "31vh !important"
-            : "23vh !important",
+            ? "61vh !important"
+            : "46.8vh !important",
       },
       [muiTheme.breakpoints.down(1793)]: {
         right: props?.mapPageName === "dashboard" && "5.8vw !important",
