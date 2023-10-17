@@ -229,7 +229,7 @@ const useStyles = makeStyles({
     right: "1vh",
     cursor: "pointer",
     width: "3.5vw",
-    zIndex : 1
+    zIndex: 1,
   }),
 });
 export default useStyles;

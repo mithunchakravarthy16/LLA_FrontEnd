@@ -1,4 +1,5 @@
 /** @format */
+//@ts-nocheck
 
 import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
@@ -252,6 +253,12 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: " center",
     height: "100%",
+    "& :nth-child(3)": {
+      pointerEvents: "none !important",
+    },
+    "& :nth-child(4)": {
+      pointerEvents: "none !important",
+    },
   }),
   menuIconList: (props: any) => ({
     cursor: "pointer",

@@ -3,7 +3,6 @@ import { assetTable } from "../actions/getAssetTableDataAction";
 const initialState = {
   assetTableData: {},
   assetNameData : {}
-
 };
 
 export default (state = initialState, action: any) => {

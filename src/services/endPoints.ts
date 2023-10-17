@@ -55,6 +55,11 @@ const SUB_URL = {
   //Asset Table API
   getAllDeviceDetailURL : "/api/sensyon/tracker/v1/getAllDeviceDetails",
   editAssetTableAssetName : "/api/sensyon/tagntrac/v1/provisionAsset",
+
+
+  getGoogleMapApiUrl: "/api/sensyon/admin/getAPIKey",
+
+  getTrackerDetailPostUrl: "/api/sensyon/admin/updateAPIKey",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -80,3 +85,5 @@ export const getAssetGridViewAnalyticsApi = `${BASE_URL.baseUrl}${SUB_URL.getAss
 export const getTrackerLiveDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerLiveDetailUrl}`;
 export const getAllDeviceDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getAllDeviceDetailURL}`;
 export const editAssetNameApi = `${BASE_URL.baseUrl}${SUB_URL.editAssetTableAssetName}`;
+export const getGoogleMapApi = `${BASE_URL.baseUrl}${SUB_URL.getGoogleMapApiUrl}`;
+export const getGoogleMapPostApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailPostUrl}`;

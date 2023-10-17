@@ -200,7 +200,7 @@ const useStyles = makeStyles({
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(2049)]: {
-      // fontSize: 15,
+      fontSize: 14,
       lineHeight: "26px",
     },
     [muiTheme.breakpoints.down(1921)]: {
@@ -267,7 +267,6 @@ const useStyles = makeStyles({
       lineHeight: "13px",
     },
   }),
-
   listItemSubTitle: (props: any) => ({
     // fontSize: 14,
     fontSize: "0.7vw",

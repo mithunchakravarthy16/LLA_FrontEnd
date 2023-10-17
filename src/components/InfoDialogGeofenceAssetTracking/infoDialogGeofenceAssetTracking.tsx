@@ -28,6 +28,7 @@ import {
 } from "redux/actions/getAssetTrackerDetailAction";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const DialogWrapper = styled(Dialog)(({ appTheme }: { appTheme: any }) => ({
   "& .MuiDialogContent-root": {},
@@ -354,18 +355,17 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
     setSuccess(false);
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
-    useState<string>("");
+ //Google Map Api Key Data fetching start here
+ useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
 
-  useEffect(() => {
-    fetchGoogleMapApi((mapApiResponse: string) => {
-      setGoogleMapsApiKeyResponse(mapApiResponse);
-    });
-  }, []);
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
 
-  const onHandleDefaultView = () => {
-    setMapDefaultView(true);
-  };
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
@@ -418,9 +418,10 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
             />
           </IconButton>
         </div>
-        {assetsListLoader && !googleMapsApiKeyResponse ? (
+        {assetsListLoader && !googleMapApiKeyData ? (
           <Loader isHundredVh={false} />
         ) : (
+          googleMapApiKeyData &&
           <Grid container xs={12} style={{ height: "100%" }}>
             <Grid item xs={12} className={headerStyle}>
               <div>GEOFENCE</div>
@@ -480,7 +481,7 @@ const InfoDialogGeofenceAssetTracking: React.FC<any> = (props) => {
                     className={globeIconSection}
                   /> */}
                   <Map
-                    googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                  googleMapsApiKeyResponse={googleMapApiKeyData}
                     mapType={mapType}
                     setMapType={setMapType}
                     markers={searchSelectedData}

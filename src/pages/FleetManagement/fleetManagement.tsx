@@ -47,6 +47,7 @@ import {
 import moment from "moment";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 const FleetManagement: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
@@ -894,15 +895,26 @@ const FleetManagement: React.FC<any> = (props) => {
     setSelectedNotificationItem("")
   };
 
-  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
   
-  useEffect(()=>{
+  // useEffect(()=>{
     
-    fetchGoogleMapApi((mapApiResponse:string)=>{
-       setGoogleMapsApiKeyResponse(mapApiResponse)
+  //   fetchGoogleMapApi((mapApiResponse:string)=>{
+  //      setGoogleMapsApiKeyResponse(mapApiResponse)
       
-    })
-  },[])
+  //   })
+  // },[])
+ //Google Map Api Key Data fetching start here
+ useEffect(()=>{
+  let assetLiveDataPayload: any = {};
+  dispatch(getGoogleMapApi(assetLiveDataPayload));
+},[])
+
+  const googleMapApiKeyData = useSelector(
+    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
+  );
+
+ //Google Map Api Key Data fetching end here 
 
   return (
     <>
@@ -1024,7 +1036,7 @@ const FleetManagement: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {(notificationsLoader || overAllAnalyticsLoader || analyticsLoader) && !googleMapsApiKeyResponse ? (
+      {(notificationsLoader || overAllAnalyticsLoader || analyticsLoader) && !googleMapApiKeyData ? (
         <div
           style={{
             width: "100%",
@@ -1036,7 +1048,7 @@ const FleetManagement: React.FC<any> = (props) => {
         >
           <img src={llaLoader} width={"10%"} />
         </div>
-      ) : ( googleMapsApiKeyResponse &&
+      ) : (googleMapApiKeyData &&
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -1503,7 +1515,7 @@ const FleetManagement: React.FC<any> = (props) => {
                         className={globeIconSection}
                       />
                       <FleetMap
-                      googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                      googleMapsApiKeyResponse={googleMapApiKeyData}
                         mapPageName={"fleet"}
                         markers={notificationArray}
                         setNotificationPanelActive={setNotificationPanelActive}
