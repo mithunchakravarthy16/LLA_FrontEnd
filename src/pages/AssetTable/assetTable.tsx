@@ -20,7 +20,7 @@ import BatteryIcon from "assets/assetTableIcons/battery.svg";
 import BluetoothIcon from "assets/assetTableIcons/bluetooth.png";
 import CellularIcon from "assets/assetTableIcons/cellularIcon.png";
 import Tooltip from "elements/Tooltip";
-import { getAssetTable } from "redux/actions/getAssetTableDataAction";
+import { getAssetTable, setAssetName } from "redux/actions/getAssetTableDataAction";
 import moment from "moment";
 import editIcon from "../../assets/editIcon.svg";
 import useStyles from "./styles";
@@ -49,12 +49,17 @@ const AssetTable: React.FC<any> = (props) => {
     (state: any) => state?.assetTable?.assetTableData?.data
   );
 
+
+
+
+  const [open, setOpen] = useState<boolean>(false);
+
   useEffect(() => {
     let payload: any = {
       assetId: "",
     };
     dispatch(getAssetTable(payload));
-  }, []);
+  }, [open]);
 
   const tableHeadData = [
     { title: "Asset", id: 0 },
@@ -68,14 +73,13 @@ const AssetTable: React.FC<any> = (props) => {
 
   const [searchValue, setSearchValue] = useState<any>(assetTableResponse);
 
-  const [open, setOpen] = useState<boolean>(false);
   const [tableIndex, setTableIndex] = useState<any>(0);
 
   useEffect(() => {
     if (assetTableResponse) {
       setSearchValue(assetTableResponse);
     }
-  }, [assetTableResponse]);
+  }, [assetTableResponse, open]);
 
   const handleSearch = (searchValue: any) => {
     let searchResult = assetTableResponse?.filter((value: any) => {
@@ -150,10 +154,30 @@ const AssetTable: React.FC<any> = (props) => {
   const fontSize = [13];
   const padding = [1];
 
-  const toggleDrawer = () => {
+  const[selectedItem, setSelectedItem] = useState<any>();
+
+  const toggleDrawer = (e:any, item:any) => {
+    setSelectedItem(item)
     setOpen(true);
     setTableIndex(0);
   };
+
+  const editResponseName = useSelector(
+    (state: any) => state?.assetTable?.assetNameData);
+
+  useEffect(()=>{
+    
+    if(editResponseName?.status === 200 ) {
+      setTimeout(()=>{
+      dispatch(setAssetName({}))
+      },2000)
+    } 
+  },[editResponseName])
+
+  useEffect(()=>{
+    dispatch(setAssetName({}))
+  },[])
+
 
   return (
     <>
@@ -218,9 +242,12 @@ const AssetTable: React.FC<any> = (props) => {
                             // }}
                           >
                             <TableCell>
-                              {item && item?.assetId}
-                              <img src={editIcon} onClick={toggleDrawer} />
-                              <EditAssetName open={open} setOpen={setOpen} />
+                              <div style={{ display: "flex", alignItems : "center" }}>
+                              <span style={{ marginRight : "0.2vw" }}> {item && item?.assetId}</span>
+                              <img src={editIcon} onClick={(e)=>toggleDrawer(e, item)} width={"7%"} style={{cursor : "pointer"}} />
+
+                              </div>
+                             
                             </TableCell>
                             <TableCell>
                               <div style={{ display: "flex" }}>
@@ -237,7 +264,7 @@ const AssetTable: React.FC<any> = (props) => {
                                   />
                                 </p>
                                 <span style={{ marginLeft: "0.2vw" }}>
-                                  {item?.deviceId}
+                                  TR#{item?.deviceId}
                                 </span>
                               </div>
                             </TableCell>
@@ -367,6 +394,8 @@ const AssetTable: React.FC<any> = (props) => {
               </Table>
             </div>
           </TableContainer>
+          <EditAssetName open={open} setOpen={setOpen} assetName = {selectedItem?.assetId} assetType = { selectedItem?.deviceType === "BLE_TAG" ? "UNIT " : "BOX" } deviceId = {selectedItem?.deviceId} />
+
         </Grid>
       </Grid>
     </>

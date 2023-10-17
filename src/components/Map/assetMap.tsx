@@ -447,18 +447,6 @@ const AssetMap: React.FC<any> = (props) => {
     }
   }, [window.innerWidth, window.innerHeight]);
 
-  const [zoomValue, setZoomValue] = useState(
-    selectedContainerStyle?.is4kDevice
-      ? 16.2
-      : selectedContainerStyle?.is3kDevice
-      ? 16.2
-      : selectedContainerStyle?.is4kDevice && location?.pathname !== "/home"
-      ? 16
-      : location?.pathname === "/parking"
-      ? 17
-      : 17
-  );
-
   useEffect(() => {
     setAssetLiveMarker(marker);
     const selectMarker = markers?.find((item: any) => item.id === marker);
