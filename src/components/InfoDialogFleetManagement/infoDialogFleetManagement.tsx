@@ -822,7 +822,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                     style={{ height: "100%", padding: "0 1%" }}
                   >
                     <Grid style={{ height: "100%" }} item xs={12}>
-                      {tabIndex === 0 ? ( googleMapsApiKeyResponse && 
+                      {tabIndex === 0 ? ( googleMapApiKeyData && 
                         <TripDetailsMap
                         googleMapsApiKeyResponse={googleMapApiKeyData}
                           markers={[selectedMarkerLocation]}
