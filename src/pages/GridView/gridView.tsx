@@ -199,7 +199,7 @@ const GridView: React.FC<any> = (props) => {
             />
             {/* Grid 5 */}
             <GridViewScreenFive
-              handleClick={() => {}}
+              handleClick={handleClick}
               selectedTheme={selectedTheme}
               fleetManagementResponse={fleetManagementResponse}
             />

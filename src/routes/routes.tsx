@@ -103,7 +103,7 @@ const VIOT_Routes = (props: any) => {
           path: "security",
           element: (
             <Suspense fallback={<Loader />}>
-              <Security />
+              <Security setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },
@@ -111,7 +111,7 @@ const VIOT_Routes = (props: any) => {
           path: "lighting",
           element: (
             <Suspense fallback={<Loader />}>
-              <Lighting />
+              <Lighting setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },
@@ -119,7 +119,7 @@ const VIOT_Routes = (props: any) => {
           path: "fleetManagement",
           element: (
             <Suspense fallback={<Loader />}>
-              <FleetManagement />
+              <FleetManagement setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },

@@ -168,10 +168,13 @@ const FleetNotificationPanel = (props: any) => {
     setSelectedNotification("");
   };
 
-  const handleExpandListItem = useCallback((param: any) => {
-    setSelectedNotification(selectedNotification === param ? "" : param);
-    props.handleExpandListItem(param);
-  }, []);
+  const handleExpandListItem = useCallback(
+    (param: any) => {
+      setSelectedNotification(selectedNotification === param ? "" : param);
+      props.handleExpandListItem(param);
+    },
+    [selectedNotification]
+  );
 
   const refs =
     searchValue && searchValue.length > 0

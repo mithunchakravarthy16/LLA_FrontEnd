@@ -92,6 +92,10 @@ const FleetMap: React.FC<any> = (props) => {
     handleMarkerCancel,
     handleMarkerIconClick,
     googleMapsApiKeyResponse,
+    mapDefaultView,
+    setMapDefaultView,
+    mapType,
+    setMapType,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -124,6 +128,10 @@ const FleetMap: React.FC<any> = (props) => {
     googleMapsApiKey: googleMapsApiKeyResponse,
     libraries: libraries,
   });
+
+  useEffect(() => {
+    map?.setMapTypeId(mapType);
+  }, [map, mapType]);
 
   const parkingMapContainerStyle = {
     width: "100%",
@@ -483,18 +491,19 @@ const FleetMap: React.FC<any> = (props) => {
           : 15
       );
       map?.panTo(markers[index]?.location);
-    } else {
-      map?.panTo(fleetManagementCenter);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 15
-          : 15
-      );
     }
+    // else {
+    //   map?.panTo(fleetManagementCenter);
+    //   map?.setZoom(
+    //     selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
+    //       ? 16.2
+    //       : (selectedContainerStyle?.is4kDevice ||
+    //           selectedContainerStyle?.is3kDevice) &&
+    //         location?.pathname !== "/home"
+    //       ? 15
+    //       : 15
+    //   );
+    // }
   }, [currentMarker, markers]);
 
   const getMapTypeControls = () => {
@@ -639,6 +648,7 @@ const FleetMap: React.FC<any> = (props) => {
     location: any,
     tripId: any
   ) => {
+    setMapDefaultView(false);
     setIsMarkerClicked(true);
     setNotificationPanelActive(true);
     setTabIndex(getTabIndex(type));
@@ -703,7 +713,6 @@ const FleetMap: React.FC<any> = (props) => {
   }, [markers, marker]);
 
   const liveMarkerMovement = useMemo(() => {
-    // dataPoints?.length > 0 && map?.setZoom(12);
     return (
       <>
         {dataPoints &&
@@ -774,17 +783,31 @@ const FleetMap: React.FC<any> = (props) => {
         )}
       </>
     );
-  }, [dataPoints, mapPageName, map]);
+  }, [dataPoints, mapPageName, map, googleMapsApiKeyResponse]);
 
-  // const liveMarkerPosition = useMemo(() => {
-  //   return dataPoints?.length > 0
-  //     ? map?.panTo(dataPoints && dataPoints[dataPoints.length - 1])
-  //     : location?.pathname === "/home"
-  //     ? defaultCenter
-  //     : !dataPoints && mapPageName === "fleet"
-  //     ? fleetManagementCenter
-  //     : center;
-  // }, [dataPoints, map, mapPageName, location]);
+  useEffect(() => {
+    if (window?.google?.maps && mapDefaultView) {
+      const bounds = new window.google.maps.LatLngBounds();
+      markers?.forEach((mapMarker: any) => {
+        bounds.extend({
+          lat: parseFloat(mapMarker?.location?.lat),
+          lng: parseFloat(mapMarker?.location?.lng),
+        });
+      });
+      map?.fitBounds(bounds);
+      setCurrentMarker("");
+      setSelectedNotification("");
+      setSelectedMarker("");
+      setIsMarkerClicked(false);
+    }
+  }, [map, mapDefaultView]);
+
+  const handleMapTypeChanged = () => {
+    if (map) {
+      const newMapType = map.getMapTypeId();
+      setMapType(newMapType);
+    }
+  };
 
   return (
     <>
@@ -794,141 +817,88 @@ const FleetMap: React.FC<any> = (props) => {
             <GoogleMap
               mapContainerStyle={parkingMapContainerStyle}
               center={
-                dataPoints?.length > 0
-                  ? map.panTo(dataPoints && dataPoints[dataPoints.length - 1])
-                  : fleetManagementCenter
+                dataPoints?.length > 0 &&
+                map.panTo(dataPoints && dataPoints[dataPoints.length - 1])
               }
-              zoom={zoomValue}
+              zoom={dataPoints?.length > 0 && zoomValue}
               onLoad={setMap}
               options={getMapTypeControls()}
               mapContainerClassName={googleMapStyle}
               onZoomChanged={handleZoomChanged}
+              onMapTypeIdChanged={handleMapTypeChanged}
+              onCenterChanged={() => {
+                setMapDefaultView(false);
+              }}
             >
-              {marker === "" ? (
-                <MarkerClustererF
-                  averageCenter
-                  enableRetinaIcons
-                  maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-                  gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
-                >
-                  {(clusterer: any) => (
-                    <div>
-                      {markers?.map((singleMarker: any) => {
-                        // if (!window.google) return null;
-                        if (
-                          singleMarker?.tripStatus === "Live" &&
-                          singleMarker?.tripId &&
-                          singleMarker?.reason &&
-                          currentMarker !== singleMarker?.id
-                        ) {
-                          return (
-                            <>
-                              <MapMarker
-                                mapMarker={singleMarker}
-                                toggleInfoWindow={toggleInfoWindow}
-                                handleMarkerClose={handleMarkerClose}
-                                handleExpandListItem={handleExpandListItem}
-                                getMarkerIcon={getMarkerIcon}
-                                currentMarker={currentMarker}
-                                focusedCategory={focusedCategory}
-                                clusterer={clusterer}
-                                location={singleMarker?.location}
-                                handleAssetViewDetails={handleAssetViewDetails}
-                                mapPageName={mapPageName}
-                                selectedTheme={selectedTheme}
-                                handleViewDetails={handleViewDetails}
-                                handleVideoDetails={handleVideoDetails}
-                              />
-                            </>
-                          );
-                        } else if (
-                          singleMarker?.category !== "fleet" &&
-                          location?.pathname !== "/fleetManagement"
-                        ) {
-                          return (
-                            <>
-                              <MapMarker
-                                mapMarker={singleMarker}
-                                toggleInfoWindow={toggleInfoWindow}
-                                handleMarkerClose={handleMarkerClose}
-                                handleExpandListItem={handleExpandListItem}
-                                getMarkerIcon={getMarkerIcon}
-                                currentMarker={currentMarker}
-                                focusedCategory={focusedCategory}
-                                clusterer={clusterer}
-                                location={singleMarker?.location}
-                                handleAssetViewDetails={handleAssetViewDetails}
-                                mapPageName={mapPageName}
-                                handleViewDetails={handleViewDetails}
-                                handleVideoDetails={handleVideoDetails}
-                                selectedTheme={selectedTheme}
-                              />
-                            </>
-                          );
-                        }
-                      })}
-                    </div>
-                  )}
-                </MarkerClustererF>
-              ) : (
-                <div>
-                  {markers?.map((singleMarker: any) => {
-                    // if (!window.google) return null;
-                    if (
-                      singleMarker?.tripStatus === "Live" &&
-                      singleMarker?.tripId &&
-                      singleMarker?.reason &&
-                      currentMarker !== singleMarker?.id
-                    ) {
-                      return (
-                        <>
-                          <MapMarker
-                            mapMarker={singleMarker}
-                            toggleInfoWindow={toggleInfoWindow}
-                            handleMarkerClose={handleMarkerClose}
-                            handleExpandListItem={handleExpandListItem}
-                            getMarkerIcon={getMarkerIcon}
-                            currentMarker={currentMarker}
-                            focusedCategory={focusedCategory}
-                            // clusterer={clusterer}
-                            location={singleMarker?.location}
-                            handleAssetViewDetails={handleAssetViewDetails}
-                            mapPageName={mapPageName}
-                            selectedTheme={selectedTheme}
-                            handleViewDetails={handleViewDetails}
-                            handleVideoDetails={handleVideoDetails}
-                          />
-                        </>
-                      );
-                    } else if (
-                      singleMarker?.category !== "fleet" &&
-                      location?.pathname !== "/fleetManagement"
-                    ) {
-                      return (
-                        <>
-                          <MapMarker
-                            mapMarker={singleMarker}
-                            toggleInfoWindow={toggleInfoWindow}
-                            handleMarkerClose={handleMarkerClose}
-                            handleExpandListItem={handleExpandListItem}
-                            getMarkerIcon={getMarkerIcon}
-                            currentMarker={currentMarker}
-                            focusedCategory={focusedCategory}
-                            // clusterer={clusterer}
-                            location={singleMarker?.location}
-                            handleAssetViewDetails={handleAssetViewDetails}
-                            mapPageName={mapPageName}
-                            handleViewDetails={handleViewDetails}
-                            handleVideoDetails={handleVideoDetails}
-                            selectedTheme={selectedTheme}
-                          />
-                        </>
-                      );
-                    }
-                  })}
-                  {liveMarkerMovement}
-                </div>
-              )}
+              <MarkerClustererF
+                averageCenter
+                enableRetinaIcons
+                maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
+                gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
+                onCenterChanged={() => {
+                  setMapDefaultView(false);
+                }}
+              >
+                {(clusterer: any) => (
+                  <div>
+                    {markers?.map((singleMarker: any) => {
+                      // if (!window.google) return null;
+                      if (
+                        singleMarker?.tripStatus === "Live" &&
+                        singleMarker?.tripId &&
+                        singleMarker?.reason &&
+                        currentMarker !== singleMarker?.id
+                      ) {
+                        return (
+                          <>
+                            <MapMarker
+                              mapMarker={singleMarker}
+                              toggleInfoWindow={toggleInfoWindow}
+                              handleMarkerClose={handleMarkerClose}
+                              handleExpandListItem={handleExpandListItem}
+                              getMarkerIcon={getMarkerIcon}
+                              currentMarker={currentMarker}
+                              focusedCategory={focusedCategory}
+                              clusterer={clusterer}
+                              location={singleMarker?.location}
+                              handleAssetViewDetails={handleAssetViewDetails}
+                              mapPageName={mapPageName}
+                              selectedTheme={selectedTheme}
+                              handleViewDetails={handleViewDetails}
+                              handleVideoDetails={handleVideoDetails}
+                            />
+                          </>
+                        );
+                      } else if (
+                        singleMarker?.category !== "fleet" &&
+                        location?.pathname !== "/fleetManagement"
+                      ) {
+                        return (
+                          <>
+                            <MapMarker
+                              mapMarker={singleMarker}
+                              toggleInfoWindow={toggleInfoWindow}
+                              handleMarkerClose={handleMarkerClose}
+                              handleExpandListItem={handleExpandListItem}
+                              getMarkerIcon={getMarkerIcon}
+                              currentMarker={currentMarker}
+                              focusedCategory={focusedCategory}
+                              clusterer={clusterer}
+                              location={singleMarker?.location}
+                              handleAssetViewDetails={handleAssetViewDetails}
+                              mapPageName={mapPageName}
+                              handleViewDetails={handleViewDetails}
+                              handleVideoDetails={handleVideoDetails}
+                              selectedTheme={selectedTheme}
+                            />
+                          </>
+                        );
+                      }
+                    })}
+                  </div>
+                )}
+              </MarkerClustererF>
+              {liveMarkerMovement}
             </GoogleMap>
           ),
         [
@@ -936,6 +906,10 @@ const FleetMap: React.FC<any> = (props) => {
           markers,
           currentMarker,
           liveMarkerMovement,
+          googleMapsApiKeyResponse,
+          isLoaded,
+          // mapDefaultView,
+          map,
           // liveMarkerPosition,
         ]
       )}

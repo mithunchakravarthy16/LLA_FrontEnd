@@ -45,9 +45,12 @@ import {
   setFleetManagementLiveTrip,
 } from "redux/actions/fleetManagementNotificationActions";
 import moment from "moment";
-import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 
 const FleetManagement: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
+
   const navigate = useNavigate();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -110,6 +113,7 @@ const FleetManagement: React.FC<any> = (props) => {
     driveDot,
     driveDotOne,
     graphTitle,
+    globeIconSection,
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -122,9 +126,13 @@ const FleetManagement: React.FC<any> = (props) => {
     // return () => {
     //   clearInterval(timer);
     // };
-     dispatch(getFleetManagementNotificationData(payload));
+    dispatch(getFleetManagementNotificationData(payload));
   }, []);
-  const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({format:"hh:mm A", tickInterval1: 8, tickInterval2: 12})
+  const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
+    format: "hh:mm A",
+    tickInterval1: 8,
+    tickInterval2: 12,
+  });
   useEffect(() => {
     // dispatch(
     //   getFleetManagementOverAllTripDetails({
@@ -153,35 +161,53 @@ const FleetManagement: React.FC<any> = (props) => {
 
     switch (selectedValue) {
       case "Today":
-        dispatch(getFleetManagementOverAllTripDetails({type: "Day"}));
-        dispatch(getFleetManagementAnalyticsData({type: "Day"}));
-        setSelectedGraphFormat({format:"hh:mm A", tickInterval1: 8, tickInterval2: 12});
+        dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+        dispatch(getFleetManagementAnalyticsData({ type: "Day" }));
+        setSelectedGraphFormat({
+          format: "hh:mm A",
+          tickInterval1: 8,
+          tickInterval2: 12,
+        });
         break;
-  
+
       case "Week":
-        dispatch(getFleetManagementOverAllTripDetails({type: "Weekly"}));
-        dispatch(getFleetManagementAnalyticsData({type: "Weekly"}));
-        setSelectedGraphFormat({format:"MM/DD", tickInterval1: 1, tickInterval2: 2});
+        dispatch(getFleetManagementOverAllTripDetails({ type: "Weekly" }));
+        dispatch(getFleetManagementAnalyticsData({ type: "Weekly" }));
+        setSelectedGraphFormat({
+          format: "MM/DD",
+          tickInterval1: 1,
+          tickInterval2: 2,
+        });
         break;
-  
+
       case "Month":
-        dispatch(getFleetManagementOverAllTripDetails({type: "Monthly"}));
-        dispatch(getFleetManagementAnalyticsData({type: "Monthly"}));
-        setSelectedGraphFormat({format:"MM/DD", tickInterval1: 6, tickInterval2: 10});
+        dispatch(getFleetManagementOverAllTripDetails({ type: "Monthly" }));
+        dispatch(getFleetManagementAnalyticsData({ type: "Monthly" }));
+        setSelectedGraphFormat({
+          format: "MM/DD",
+          tickInterval1: 6,
+          tickInterval2: 10,
+        });
         break;
-  
+
       case "Year":
-        dispatch(getFleetManagementOverAllTripDetails({type: "Yearly"}));
-        dispatch(getFleetManagementAnalyticsData({type: "Yearly"}));
-        setSelectedGraphFormat({format:"MMM/YY", tickInterval1: 2, tickInterval2: 6});
+        dispatch(getFleetManagementOverAllTripDetails({ type: "Yearly" }));
+        dispatch(getFleetManagementAnalyticsData({ type: "Yearly" }));
+        setSelectedGraphFormat({
+          format: "MMM/YY",
+          tickInterval1: 2,
+          tickInterval2: 6,
+        });
         break;
       default:
-        dispatch(getFleetManagementOverAllTripDetails({type: "Day"}));
-        dispatch(getFleetManagementAnalyticsData({type: "Day"}));
-        setSelectedGraphFormat({format:"hh:mm A", tickInterval1: 6, tickInterval2: 8});
+        dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+        dispatch(getFleetManagementAnalyticsData({ type: "Day" }));
+        setSelectedGraphFormat({
+          format: "hh:mm A",
+          tickInterval1: 6,
+          tickInterval2: 8,
+        });
     }
-
-  
   }, [selectedValue]);
 
   const fleetManagementNotificationResponse = useSelector(
@@ -251,7 +277,9 @@ const FleetManagement: React.FC<any> = (props) => {
       fleetManagementAnalyticsResponse?.data?.trips?.map((item: any) => {
         // data?.push([new Date(item?.node)?.getTime(), item?.count]);
         data?.push(item?.count);
-        tripsDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
+        tripsDataXaxis?.push(
+          moment(item?.node).format(selectedGraphFormat?.format)
+        );
       });
       fleetManagementAnalyticsResponse?.data?.distanceTravelled?.map(
         (item: any) => {
@@ -260,7 +288,9 @@ const FleetManagement: React.FC<any> = (props) => {
           //   item?.count,
           // ]);
           distanceTravelledData?.push(item?.count);
-          distanceTravelledDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
+          distanceTravelledDataXaxis?.push(
+            moment(item?.node).format(selectedGraphFormat?.format)
+          );
         }
       );
       fleetManagementAnalyticsResponse?.data?.drivingHours?.map((item: any) => {
@@ -268,21 +298,19 @@ const FleetManagement: React.FC<any> = (props) => {
         const hours = totalMinutes / 60;
         // hourData?.push([new Date(item?.node)?.getTime(), hours]);
         hourData?.push(hours);
-        hourDataXaxi?.push(moment(item?.node).format(selectedGraphFormat?.format));
-
+        hourDataXaxi?.push(
+          moment(item?.node).format(selectedGraphFormat?.format)
+        );
       });
       fleetManagementAnalyticsResponse?.data?.idleHours?.map((item: any) => {
         const totalMinutes = item?.count / 60;
         const hours = totalMinutes / 60;
         // idlData?.push([new Date(item?.node)?.getTime(), hours]);
         idlData?.push(hours);
-        idlDataXaxis?.push(moment(item?.node).format(selectedGraphFormat?.format));
+        idlDataXaxis?.push(
+          moment(item?.node).format(selectedGraphFormat?.format)
+        );
       });
-
-
-
-
-
 
       if (fleetManagementTripDetailsResponse?.data?.idleHours) {
         const totalMinutes = Math.floor(
@@ -306,10 +334,10 @@ const FleetManagement: React.FC<any> = (props) => {
       setTripsData(data);
       setTripsDataXaxis(tripsDataXaxis);
       setDistanceData(distanceTravelledData);
-      setDistanceDataXaxis(distanceTravelledDataXaxis)
+      setDistanceDataXaxis(distanceTravelledDataXaxis);
       setIdleData(idlData);
       setHoursData(hourData);
-      setIdleHoursXaxisData(idlDataXaxis)
+      setIdleHoursXaxisData(idlDataXaxis);
     }
   }, [fleetManagementAnalyticsResponse, selectedGraphFormat]);
 
@@ -875,17 +903,21 @@ const FleetManagement: React.FC<any> = (props) => {
     setTripName(null);
   };
 
- //Google Map Api Key Data fetching start here
- useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
-  const googleMapApiKeyData = useSelector(
-    (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
-  );
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setSearchOpen(false);
+  };
 
- //Google Map Api Key Data fetching end here 
+  const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] =
+    useState<string>("");
+
+  useEffect(() => {
+    fetchGoogleMapApi((mapApiResponse: string) => {
+      setGoogleMapsApiKeyResponse(mapApiResponse);
+    });
+  }, []);
 
   return (
     <>
@@ -1007,7 +1039,8 @@ const FleetManagement: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {(notificationsLoader || overAllAnalyticsLoader || analyticsLoader) && !googleMapApiKeyData ? (
+      {(notificationsLoader || overAllAnalyticsLoader || analyticsLoader) &&
+      !googleMapsApiKeyResponse ? (
         <div
           style={{
             width: "100%",
@@ -1019,515 +1052,546 @@ const FleetManagement: React.FC<any> = (props) => {
         >
           <img src={llaLoader} width={"10%"} />
         </div>
-      ) : (googleMapApiKeyData &&
-        <Grid container className={rootContainer}>
-          <Grid container className={mainSection}>
-            <Grid item xs={12} alignItems="center" className={pageHeading}>
-              {dashboard.fleetManagement}
-            </Grid>
-            <Grid item xs={12} className={bodyContainer}>
-              <Grid
-                container
-                xs={12}
-                className={bodySubContainer}
-                style={{ height: "93vh" }}
-              >
-                <Grid item xs={9} className={bodyLeftContainer}>
-                  <Grid container xs={12} className={bodyLeftSubContainer}>
-                    <Grid
-                      item
-                      xs={12}
-                      className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}
-                    >
+      ) : (
+        googleMapsApiKeyResponse && (
+          <Grid container className={rootContainer}>
+            <Grid container className={mainSection}>
+              <Grid item xs={12} alignItems="center" className={pageHeading}>
+                {dashboard.fleetManagement}
+              </Grid>
+              <Grid item xs={12} className={bodyContainer}>
+                <Grid
+                  container
+                  xs={12}
+                  className={bodySubContainer}
+                  style={{ height: "93vh" }}
+                >
+                  <Grid item xs={9} className={bodyLeftContainer}>
+                    <Grid container xs={12} className={bodyLeftSubContainer}>
                       <Grid
-                        container
+                        item
                         xs={12}
-                        className={bodyLeftTopPanelSubContainer}
+                        className={bodyLeftTopPanelContainer}
+                        style={{ height: "29%" }}
                       >
                         <Grid
-                          item
+                          container
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}
+                          className={bodyLeftTopPanelSubContainer}
                         >
-                          <TopPanelListItemContainer
-                            topPanelListItems={topPanelListItems}
-                            percent={
-                              fleetManagementTripDetailsResponse?.data
-                                ?.safetyScore
-                                ? Math.floor(
-                                    fleetManagementTripDetailsResponse?.data
-                                      ?.safetyScore
-                                  )
-                                : 0
-                            }
-                            strokeWidth={10}
-                            trailWidth={10}
-                            strokeColor="
+                          <Grid
+                            item
+                            xs={12}
+                            className={bodyLeftTopPanelListContainer}
+                          >
+                            <TopPanelListItemContainer
+                              topPanelListItems={topPanelListItems}
+                              percent={
+                                fleetManagementTripDetailsResponse?.data
+                                  ?.safetyScore
+                                  ? Math.floor(
+                                      fleetManagementTripDetailsResponse?.data
+                                        ?.safetyScore
+                                    )
+                                  : 0
+                              }
+                              strokeWidth={10}
+                              trailWidth={10}
+                              strokeColor="
                           #92C07E"
-                            trailColor={
-                              appTheme?.palette?.fleetManagementPage
-                                ?.progressBarBg
-                            }
-                            title={fleetManagement.safetyScore}
-                            selectedTheme={selectedTheme}
-                            selectedValue={selectedValue}
-                            handleSelect={handleSelect}
-                            pageName={"fleet"}
-                          />
-                        </Grid>
-                        <Grid item xs={12} style={{ height: "70%" }}>
-                          <Grid container xs={12} style={{ height: "25vh" }}>
-                            <Grid item xs={6} className={graphOneContainer}>
-                              <Grid
-                                container
-                                xs={12}
-                                style={{
-                                  height: "100%",
-                                  padding: "10px 10px 5px 30px",
-                                }}
-                              >
-                                <Grid item xs={12} style={{ height: "10%" }}>
-                                  <div className={graphTitle}>
-                                    {gridView.trips}
-                                  </div>
-                                </Grid>
+                              trailColor={
+                                appTheme?.palette?.fleetManagementPage
+                                  ?.progressBarBg
+                              }
+                              title={fleetManagement.safetyScore}
+                              selectedTheme={selectedTheme}
+                              selectedValue={selectedValue}
+                              handleSelect={handleSelect}
+                              pageName={"fleet"}
+                            />
+                          </Grid>
+                          <Grid item xs={12} style={{ height: "70%" }}>
+                            <Grid container xs={12} style={{ height: "25vh" }}>
+                              <Grid item xs={6} className={graphOneContainer}>
                                 <Grid
-                                  item
+                                  container
                                   xs={12}
-                                  className={graphContainerHeaderOne}
-                                  style={{ height: "90%" }}
+                                  style={{
+                                    height: "100%",
+                                    padding: "10px 10px 5px 30px",
+                                  }}
                                 >
+                                  <Grid item xs={12} style={{ height: "10%" }}>
+                                    <div className={graphTitle}>
+                                      {gridView.trips}
+                                    </div>
+                                  </Grid>
                                   <Grid
-                                    container
+                                    item
                                     xs={12}
-                                    style={{ height: "100%" }}
+                                    className={graphContainerHeaderOne}
+                                    style={{ height: "90%" }}
                                   >
                                     <Grid
-                                      item
-                                      xs={9}
-                                      style={{ height: "21vh", width: "80vw" }}
+                                      container
+                                      xs={12}
+                                      style={{ height: "100%" }}
                                     >
-                                      <Chart
-                                        // width={selectedWidth?.width}
-                                        // height={selectedWidth?.height}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
+                                      <Grid
+                                        item
+                                        xs={9}
+                                        style={{
+                                          height: "21vh",
+                                          width: "80vw",
                                         }}
-                                        graphType={"areaspline"}
-                                        isVisible={true}
-                                        units={""}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#6B70AB90"}
-                                        // is4kDevice={selectedWidth?.is4kDevice}
-                                        // is2kDevice={selectedWidth?.is2kDevice}
-                                        pageName={"FleetManagement"}                                        
-                                        tickInterval={selectedGraphFormat?.tickInterval1}                                         
-                                        xAxisArray={tripsDataXaxis}
-                                        // tickInterval={2}
-                                       selectedValue={selectedValue}
-                                        dataPoints={[
-                                          {
-                                            marker: {
-                                              enabled: false,
+                                      >
+                                        <Chart
+                                          // width={selectedWidth?.width}
+                                          // height={selectedWidth?.height}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
                                             },
-                                            lineColor: "#6B70AB",
-                                            color: "#6B70AB",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            fillColor: {
-                                              linearGradient: [0, 0, 0, 200],
-                                              stops: [
-                                                [
-                                                  0,
-                                                  Highcharts.color("#6B70AB")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.6
+                                          }}
+                                          graphType={"areaspline"}
+                                          isVisible={true}
+                                          units={""}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#6B70AB90"}
+                                          // is4kDevice={selectedWidth?.is4kDevice}
+                                          // is2kDevice={selectedWidth?.is2kDevice}
+                                          pageName={"FleetManagement"}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval1
+                                          }
+                                          xAxisArray={tripsDataXaxis}
+                                          // tickInterval={2}
+                                          selectedValue={selectedValue}
+                                          dataPoints={[
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#6B70AB",
+                                              color: "#6B70AB",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              fillColor: {
+                                                linearGradient: [0, 0, 0, 200],
+                                                stops: [
+                                                  [
+                                                    0,
+                                                    Highcharts.color("#6B70AB")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.6
+                                                            : 0.5
                                                           : 0.5
-                                                        : 0.5
-                                                    )
-                                                    .get("rgba"),
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    0.5,
+                                                    Highcharts.color("#6B70AB")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.5
+                                                            : 0.4
+                                                          : 0.3
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    1,
+                                                    Highcharts.color("#6B70AB")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.15
+                                                            : 0.07
+                                                          : 0.02
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
                                                 ],
-                                                [
-                                                  0.5,
-                                                  Highcharts.color("#6B70AB")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.5
-                                                          : 0.4
-                                                        : 0.3
-                                                    )
-                                                    .get("rgba"),
-                                                ],
-                                                [
-                                                  1,
-                                                  Highcharts.color("#6B70AB")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.15
-                                                          : 0.07
-                                                        : 0.02
-                                                    )
-                                                    .get("rgba"),
-                                                ],
-                                              ],
+                                              },
+                                              data: tripsData,
                                             },
-                                            data: tripsData,
-                                          },
-                                        ]}
-                                      />
+                                          ]}
+                                        />
+                                      </Grid>
+                                      <Grid
+                                        item
+                                        xs={3}
+                                        style={{
+                                          height: "100%",
+                                          padding: "2%",
+                                        }}
+                                      >
+                                        <div className={liveContainer}>
+                                          <div className={liveImgStyle}>
+                                            <img
+                                              // width={
+                                              //   selectedWidth?.is4kDevice
+                                              //     ? 109
+                                              //     : 50
+                                              // }
+                                              // height={
+                                              //   selectedWidth?.is4kDevice
+                                              //     ? 49
+                                              //     : 30
+                                              // }
+                                              width={"100%"}
+                                              height={"100%"}
+                                              src={LiveImg}
+                                            />
+                                          </div>
+                                          <div className={liveContentLeftStyle}>
+                                            <div className={liveContentValue}>
+                                              {fleetManagementTripDetailsResponse
+                                                ?.data?.totalLiveVehicles
+                                                ? fleetManagementTripDetailsResponse
+                                                    ?.data?.totalLiveVehicles
+                                                : 0}
+                                            </div>
+                                            <div className={liveContentLabel}>
+                                              {gridView.vehicles}
+                                            </div>
+                                          </div>
+                                          <div className={liveContentStyle}>
+                                            <div className={liveContentValue}>
+                                              {fleetManagementTripDetailsResponse
+                                                ?.data?.totalCompletedTrip
+                                                ? fleetManagementTripDetailsResponse
+                                                    ?.data?.totalCompletedTrip
+                                                : 0}
+                                            </div>
+                                            <div className={liveContentLabel}>
+                                              {gridView.trips}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </Grid>
                                     </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid item xs={3} className={graphTwoContainer}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{
+                                    height: "100%",
+                                    padding: "10px 10px 5px 30px",
+                                  }}
+                                >
+                                  <Grid item xs={12} style={{ height: "10%" }}>
+                                    <div className={graphTitle}>
+                                      {" "}
+                                      {fleetManagement.distanceTravelled}
+                                    </div>
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    className={graphContainerHeaderTwo}
+                                    style={{ height: "90%" }}
+                                  >
                                     <Grid
-                                      item
-                                      xs={3}
+                                      container
+                                      xs={12}
+                                      style={{ height: "100%" }}
+                                    >
+                                      <Grid
+                                        item
+                                        xs={12}
+                                        style={{
+                                          height: "21vh",
+                                          width: "80vw",
+                                        }}
+                                      >
+                                        <Chart
+                                          // width={selectedWidth?.width1}
+                                          // height={selectedWidth?.height1}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
+                                            },
+                                          }}
+                                          graphType={"area"}
+                                          isVisible={true}
+                                          units={""}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#712C7D90"}
+                                          // is4kDevice={selectedWidth?.is4kDevice}
+                                          // is2kDevice={selectedWidth?.is2kDevice}
+                                          pageName={"FleetManagement"}
+                                          // tickInterval={0}
+                                          selectedValue={selectedValue}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval2
+                                          }
+                                          xAxisArray={distanceDataXaxis}
+                                          dataPoints={[
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#712C7D",
+                                              color: "#712C7D",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              fillColor: {
+                                                linearGradient: [0, 0, 0, 200],
+                                                stops: [
+                                                  [
+                                                    0,
+                                                    Highcharts.color("#712C7D")
+                                                      .setOpacity(0.5)
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    0.5,
+                                                    Highcharts.color("#712C7D")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? 0.4
+                                                          : 0.3
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
+                                                  [
+                                                    1,
+                                                    Highcharts.color("#712C7D")
+                                                      .setOpacity(
+                                                        selectedWidth?.is4kDevice ||
+                                                          selectedWidth?.is3KDevice
+                                                          ? selectedTheme ===
+                                                            "light"
+                                                            ? 0.16
+                                                            : 0.07
+                                                          : 0.02
+                                                      )
+                                                      .get("rgba"),
+                                                  ],
+                                                ],
+                                              },
+                                              data: distanceData,
+                                            },
+                                          ]}
+                                        />
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid />
+                                </Grid>
+                              </Grid>
+                              <Grid item xs={3} className={graphTwoContainer}>
+                                <Grid
+                                  container
+                                  xs={12}
+                                  style={{
+                                    height: "100%",
+                                    padding: "10px 10px 5px 10px",
+                                  }}
+                                >
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    className={screenFiveGraphTitleStyle}
+                                    style={{ height: "10%" }}
+                                  >
+                                    <div
                                       style={{
-                                        height: "100%",
-                                        padding: "2%",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        columnGap: "6px",
                                       }}
                                     >
-                                      <div className={liveContainer}>
-                                        <div className={liveImgStyle}>
-                                          <img
-                                            width={
-                                              selectedWidth?.is4kDevice
-                                                ? 109
-                                                : 50
-                                            }
-                                            height={
-                                              selectedWidth?.is4kDevice
-                                                ? 49
-                                                : 30
-                                            }
-                                            src={LiveImg}
-                                          />
-                                        </div>
-                                        <div className={liveContentLeftStyle}>
-                                          <div className={liveContentValue}>
-                                            {fleetManagementTripDetailsResponse
-                                              ?.data?.totalLiveVehicles
-                                              ? fleetManagementTripDetailsResponse
-                                                  ?.data?.totalLiveVehicles
-                                              : 0}
-                                          </div>
-                                          <div className={liveContentLabel}>
-                                            {gridView.vehicles}
-                                          </div>
-                                        </div>
-                                        <div className={liveContentStyle}>
-                                          <div className={liveContentValue}>
-                                            {fleetManagementTripDetailsResponse
-                                              ?.data?.totalCompletedTrip
-                                              ? fleetManagementTripDetailsResponse
-                                                  ?.data?.totalCompletedTrip
-                                              : 0}
-                                          </div>
-                                          <div className={liveContentLabel}>
-                                            {gridView.trips}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </Grid>
+                                      <div className={driveDot}></div>
+                                      <div>{fleetManagement.driveHrs}</div>
+                                    </div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        columnGap: "6px",
+                                      }}
+                                    >
+                                      <div className={driveDotOne}></div>
+                                      <div>{fleetManagement.idleHrs}</div>
+                                    </div>
                                   </Grid>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item xs={3} className={graphTwoContainer}>
-                              <Grid
-                                container
-                                xs={12}
-                                style={{
-                                  height: "100%",
-                                  padding: "10px 10px 5px 30px",
-                                }}
-                              >
-                                <Grid item xs={12} style={{ height: "10%" }}>
-                                  <div className={graphTitle}>
-                                    {" "}
-                                    {fleetManagement.distanceTravelled}
-                                  </div>
-                                </Grid>
-                                <Grid
-                                  item
-                                  xs={12}
-                                  className={graphContainerHeaderTwo}
-                                  style={{ height: "90%" }}
-                                >
                                   <Grid
-                                    container
+                                    item
                                     xs={12}
-                                    style={{ height: "100%" }}
+                                    className={graphContainerHeaderThree}
+                                    style={{ height: "90%" }}
                                   >
                                     <Grid
-                                      item
+                                      container
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}
+                                      style={{ height: "100%" }}
                                     >
-                                      <Chart
-                                        // width={selectedWidth?.width1}
-                                        // height={selectedWidth?.height1}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
+                                      <Grid
+                                        item
+                                        xs={12}
+                                        style={{
+                                          height: "21vh",
+                                          width: "80vw",
                                         }}
-                                        graphType={"area"}
-                                        isVisible={true}
-                                        units={""}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#712C7D90"}
-                                        // is4kDevice={selectedWidth?.is4kDevice}
-                                        // is2kDevice={selectedWidth?.is2kDevice}
-                                        pageName={"FleetManagement"}
-                                        // tickInterval={0}
-                                         selectedValue={selectedValue}
-                                        tickInterval={selectedGraphFormat?.tickInterval2}                                         
-                                        xAxisArray={distanceDataXaxis}
-                                        dataPoints={[
-                                          {
-                                            marker: {
-                                              enabled: false,
+                                      >
+                                        <Chart
+                                          // width={selectedWidth?.width1}
+                                          // height={selectedWidth?.height1}
+                                          containerProps={{
+                                            style: {
+                                              height: "100%",
+                                              width: "100%",
                                             },
-                                            lineColor: "#712C7D",
-                                            color: "#712C7D",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            fillColor: {
-                                              linearGradient: [0, 0, 0, 200],
-                                              stops: [
-                                                [
-                                                  0,
-                                                  Highcharts.color("#712C7D")
-                                                    .setOpacity(0.5)
-                                                    .get("rgba"),
-                                                ],
-                                                [
-                                                  0.5,
-                                                  Highcharts.color("#712C7D")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? 0.4
-                                                        : 0.3
-                                                    )
-                                                    .get("rgba"),
-                                                ],
-                                                [
-                                                  1,
-                                                  Highcharts.color("#712C7D")
-                                                    .setOpacity(
-                                                      selectedWidth?.is4kDevice ||
-                                                        selectedWidth?.is3KDevice
-                                                        ? selectedTheme ===
-                                                          "light"
-                                                          ? 0.16
-                                                          : 0.07
-                                                        : 0.02
-                                                    )
-                                                    .get("rgba"),
-                                                ],
-                                              ],
+                                          }}
+                                          isVisible={true}
+                                          graphType={"spline"}
+                                          units={"Hrs"}
+                                          isCrosshair={true}
+                                          crossHairLineColor={"#E5FAF6"}
+                                          // is4kDevice={selectedWidth?.is4kDevice}
+                                          // is2kDevice={selectedWidth?.is2kDevice}
+                                          tooltip={"shared"}
+                                          pageName={"FleetManagement"}
+                                          selectedValue={selectedValue}
+                                          tickInterval={
+                                            selectedGraphFormat?.tickInterval2
+                                          }
+                                          xAxisArray={idleHoursXaxisData}
+                                          dataPoints={[
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#73B35A",
+                                              color: "#73B35A",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              data: hoursData,
                                             },
-                                            data: distanceData,
-                                          },
-                                        ]}
-                                      />
+                                            {
+                                              marker: {
+                                                enabled: false,
+                                              },
+                                              lineColor: "#6B70AB",
+                                              color: "#6B70AB",
+                                              lineWidth:
+                                                selectedWidth?.is4kDevice ||
+                                                selectedWidth?.is3KDevice
+                                                  ? 4
+                                                  : 2,
+                                              data: idleData,
+                                            },
+                                          ]}
+                                        />
+                                      </Grid>
                                     </Grid>
                                   </Grid>
+                                  <Grid />
                                 </Grid>
-                                <Grid />
-                              </Grid>
-                            </Grid>
-                            <Grid item xs={3} className={graphTwoContainer}>
-                              <Grid
-                                container
-                                xs={12}
-                                style={{
-                                  height: "100%",
-                                  padding: "10px 10px 5px 10px",
-                                }}
-                              >
-                                <Grid
-                                  item
-                                  xs={12}
-                                  className={screenFiveGraphTitleStyle}
-                                  style={{ height: "10%" }}
-                                >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      columnGap: "6px",
-                                    }}
-                                  >
-                                    <div className={driveDot}></div>
-                                    <div>{fleetManagement.driveHrs}</div>
-                                  </div>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      columnGap: "6px",
-                                    }}
-                                  >
-                                    <div className={driveDotOne}></div>
-                                    <div>{fleetManagement.idleHrs}</div>
-                                  </div>
-                                </Grid>
-                                <Grid
-                                  item
-                                  xs={12}
-                                  className={graphContainerHeaderThree}
-                                  style={{ height: "90%" }}
-                                >
-                                  <Grid
-                                    container
-                                    xs={12}
-                                    style={{ height: "100%" }}
-                                  >
-                                    <Grid
-                                      item
-                                      xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}
-                                    >
-                                      <Chart
-                                        // width={selectedWidth?.width1}
-                                        // height={selectedWidth?.height1}
-                                        containerProps={{
-                                          style: {
-                                            height: "100%",
-                                            width: "100%",
-                                          },
-                                        }}
-                                        isVisible={true}
-                                        graphType={"spline"}
-                                        units={"Hrs"}
-                                        isCrosshair={true}
-                                        crossHairLineColor={"#E5FAF6"}
-                                        // is4kDevice={selectedWidth?.is4kDevice}
-                                        // is2kDevice={selectedWidth?.is2kDevice}
-                                        tooltip={"shared"}
-                                        pageName={"FleetManagement"}
-                                       selectedValue={selectedValue}
-                                        tickInterval={selectedGraphFormat?.tickInterval2}                                         
-                                        xAxisArray={idleHoursXaxisData}
-                                        dataPoints={[
-                                          {
-                                            marker: {
-                                              enabled: false,
-                                            },
-                                            lineColor: "#73B35A",
-                                            color: "#73B35A",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            data: hoursData,
-                                          },
-                                          {
-                                            marker: {
-                                              enabled: false,
-                                            },
-                                            lineColor: "#6B70AB",
-                                            color: "#6B70AB",
-                                            lineWidth:
-                                              selectedWidth?.is4kDevice ||
-                                              selectedWidth?.is3KDevice
-                                                ? 4
-                                                : 2,
-                                            data: idleData,
-                                          },
-                                        ]}
-                                      />
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                                <Grid />
                               </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" }}
-                    >
-                      <FleetMap
-                      googleMapsApiKeyResponse={googleMapApiKeyData}
-                        mapPageName={"fleet"}
-                        markers={notificationArray}
-                        setNotificationPanelActive={setNotificationPanelActive}
-                        setSelectedNotification={setSelectedNotification}
-                        marker={selectedNotification}
-                        setTabIndex={setTabIndex}
-                        currentMarker={currentMarker}
-                        setCurrentMarker={setCurrentMarker}
-                        setIsMarkerClicked={setIsMarkerClicked}
-                        handleViewDetails={handleViewDetails}
-                        handleVideoDetails={handleVideoDetails}
-                        selectedTheme={selectedTheme}
-                        setMap={setMap}
-                        map={map}
-                        dataPoints={
-                          fleetManagementTripDetailsData?.data?.gpsDTOs
-                        }
-                        handleMarkerIconClick={handleMarkerIconClick}
-                        handleMarkerCancel={handleMarkerCancel}
-                      />
+                      <Grid
+                        item
+                        xs={12}
+                        className={bodyLeftTopPanelMapContainer}
+                        style={{ height: "59%", position: "relative" }}
+                      >
+                        <img
+                          src={GlobeIconActive}
+                          alt="GlobeIcon Icon"
+                          onClick={onHandleDefaultView}
+                          className={globeIconSection}
+                        />
+                        <FleetMap
+                          googleMapsApiKeyResponse={googleMapsApiKeyResponse}
+                          mapPageName={"fleet"}
+                          markers={notificationArray}
+                          setNotificationPanelActive={
+                            setNotificationPanelActive
+                          }
+                          setSelectedNotification={setSelectedNotification}
+                          marker={selectedNotification}
+                          setTabIndex={setTabIndex}
+                          currentMarker={currentMarker}
+                          setCurrentMarker={setCurrentMarker}
+                          setIsMarkerClicked={setIsMarkerClicked}
+                          handleViewDetails={handleViewDetails}
+                          handleVideoDetails={handleVideoDetails}
+                          selectedTheme={selectedTheme}
+                          setMap={setMap}
+                          map={map}
+                          dataPoints={
+                            fleetManagementTripDetailsData?.data?.gpsDTOs
+                          }
+                          handleMarkerIconClick={handleMarkerIconClick}
+                          handleMarkerCancel={handleMarkerCancel}
+                          mapType={mapType}
+                          setMapType={setMapType}
+                          mapDefaultView={mapDefaultView}
+                          setMapDefaultView={setMapDefaultView}
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-                <Grid item xs={3} className={notificationPanelGrid}>
-                  <FleetNotificationPanel
-                    setNotificationPanelActive={setNotificationPanelActive}
-                    dashboardData={dashboardData}
-                    tabIndex={tabIndex}
-                    setTabIndex={setTabIndex}
-                    notificationCount={notificationCount}
-                    selectedNotification={selectedNotification}
-                    setSelectedNotification={setSelectedNotification}
-                    searchOpen={searchOpen}
-                    setSearchOpen={setSearchOpen}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    setCurrentMarker={setCurrentMarker}
-                    handleViewDetails={handleViewDetails}
-                    handleVideoDetails={handleVideoDetails}
-                    isMarkerClicked={isMarkerClicked}
-                    setIsMarkerClicked={setIsMarkerClicked}
-                    selectedTheme={selectedTheme}
-                    handleExpandListItem={handleExpandListItem}
-                  />
+                  <Grid item xs={3} className={notificationPanelGrid}>
+                    <FleetNotificationPanel
+                      setNotificationPanelActive={setNotificationPanelActive}
+                      dashboardData={dashboardData}
+                      tabIndex={tabIndex}
+                      setTabIndex={setTabIndex}
+                      notificationCount={notificationCount}
+                      selectedNotification={selectedNotification}
+                      setSelectedNotification={setSelectedNotification}
+                      searchOpen={searchOpen}
+                      setSearchOpen={setSearchOpen}
+                      searchValue={searchValue}
+                      setSearchValue={setSearchValue}
+                      setCurrentMarker={setCurrentMarker}
+                      handleViewDetails={handleViewDetails}
+                      handleVideoDetails={handleVideoDetails}
+                      isMarkerClicked={isMarkerClicked}
+                      setIsMarkerClicked={setIsMarkerClicked}
+                      selectedTheme={selectedTheme}
+                      handleExpandListItem={handleExpandListItem}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        )
       )}
       {showInfoDialogue && (
         <InfoDialogFleetManagement
