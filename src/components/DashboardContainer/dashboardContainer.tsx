@@ -163,6 +163,14 @@ useEffect(()=>{
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+
+  //  const interval = setInterval(()=>{
+  //     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+  //   },60*1000)
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
   }, []);
 
   useEffect(() => {
