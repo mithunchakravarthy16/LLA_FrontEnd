@@ -25,6 +25,14 @@ const GridView: React.FC<any> = (props) => {
 
   useEffect(() => {
     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+
+    // const interval = setInterval(()=>{
+    //   dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+    // },60*1000)
+
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   const adminPanelData = useSelector(

@@ -10,6 +10,7 @@ import useTranslation from "localization/translations";
 import { useDispatch, useSelector } from "react-redux";
 import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import moment from "moment";
+import Loader from "elements/Loader";
 
 const GridViewScreenSix: React.FC<any> = (props) => {
   const { handleClick, selectedTheme } = props;
@@ -159,6 +160,7 @@ const GridViewScreenSix: React.FC<any> = (props) => {
   return (
     <>
       {/* Grid 6 */}
+      {/* {assetTrackingGridViewAnalyticsDataResponse && Object.keys(assetTrackingGridViewAnalyticsDataResponse).length > 0  ? */}
       <Grid
         item
         xs={4}
@@ -317,6 +319,10 @@ const GridViewScreenSix: React.FC<any> = (props) => {
           </Grid> */}
         </Grid>
       </Grid>
+      {/* : (
+        <Loader isHundredVh={false} />
+      )
+} */}
     </>
   );
 };
