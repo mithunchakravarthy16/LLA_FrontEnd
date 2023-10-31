@@ -47,10 +47,6 @@ import {
 import moment from "moment";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
-<<<<<<< HEAD
-=======
-import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
->>>>>>> 106edc03ebc265de568c0c53c84883a0bcef6cb1
 
 const FleetManagement: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
@@ -117,11 +113,7 @@ const FleetManagement: React.FC<any> = (props) => {
     driveDot,
     driveDotOne,
     graphTitle,
-<<<<<<< HEAD
     globeIconSection,
-=======
-    globeIconSection
->>>>>>> 106edc03ebc265de568c0c53c84883a0bcef6cb1
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -911,39 +903,7 @@ const FleetManagement: React.FC<any> = (props) => {
     setTripName(null);
   };
 
-<<<<<<< HEAD
   const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
-=======
-  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
-  const [selectedNotificationItem, setSelectedNotificationItem] =
-    useState<any>("");
-  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardData);
-  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
-  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
-  const onHandleDefaultView = () => {
-    setMapDefaultView(true);
-    setListSelectedMarker("");
-    setAssetLiveMarker("");
-    setSearchOpen(false);
-    setSelectedNotification("");
-    setSelectedNotificationItem("")
-  };
-
-  // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
-  // useEffect(()=>{
-    
-  //   fetchGoogleMapApi((mapApiResponse:string)=>{
-  //      setGoogleMapsApiKeyResponse(mapApiResponse)
-      
-  //   })
-  // },[])
- //Google Map Api Key Data fetching start here
- useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
->>>>>>> 106edc03ebc265de568c0c53c84883a0bcef6cb1
 
   const onHandleDefaultView = () => {
     setMapDefaultView(true);
@@ -1466,7 +1426,6 @@ const FleetManagement: React.FC<any> = (props) => {
                                         columnGap: "6px",
                                       }}
                                     >
-<<<<<<< HEAD
                                       <div className={driveDot}></div>
                                       <div>{fleetManagement.driveHrs}</div>
                                     </div>
@@ -1481,52 +1440,6 @@ const FleetManagement: React.FC<any> = (props) => {
                                       <div className={driveDotOne}></div>
                                       <div>{fleetManagement.idleHrs}</div>
                                     </div>
-=======
-                                      <div className={liveContainer}>
-                                        <div className={liveImgStyle}>
-                                          <img
-                                            // width={
-                                            //   selectedWidth?.is4kDevice
-                                            //     ? 109
-                                            //     : 50
-                                            // }
-                                            // height={
-                                            //   selectedWidth?.is4kDevice
-                                            //     ? 49
-                                            //     : 30
-                                            // }
-                                            width={"100%"}
-                                            height={"100%"}
-                                            src={LiveImg}
-                                          />
-                                        </div>
-                                        <div className={liveContentLeftStyle}>
-                                          <div className={liveContentValue}>
-                                            {fleetManagementTripDetailsResponse
-                                              ?.data?.totalLiveVehicles
-                                              ? fleetManagementTripDetailsResponse
-                                                  ?.data?.totalLiveVehicles
-                                              : 0}
-                                          </div>
-                                          <div className={liveContentLabel}>
-                                            {gridView.vehicles}
-                                          </div>
-                                        </div>
-                                        <div className={liveContentStyle}>
-                                          <div className={liveContentValue}>
-                                            {fleetManagementTripDetailsResponse
-                                              ?.data?.totalCompletedTrip
-                                              ? fleetManagementTripDetailsResponse
-                                                  ?.data?.totalCompletedTrip
-                                              : 0}
-                                          </div>
-                                          <div className={liveContentLabel}>
-                                            {gridView.trips}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </Grid>
->>>>>>> 106edc03ebc265de568c0c53c84883a0bcef6cb1
                                   </Grid>
                                   <Grid
                                     item
@@ -1609,7 +1522,6 @@ const FleetManagement: React.FC<any> = (props) => {
                           </Grid>
                         </Grid>
                       </Grid>
-<<<<<<< HEAD
                       <Grid
                         item
                         xs={12}
@@ -1651,54 +1563,6 @@ const FleetManagement: React.FC<any> = (props) => {
                           setMapDefaultView={setMapDefaultView}
                         />
                       </Grid>
-=======
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "59%" , position : "relative"}}
-                    >
-                       <img
-                        src={GlobeIconActive}
-                        alt="GlobeIcon Icon"
-                        onClick={onHandleDefaultView}
-                        className={globeIconSection}
-                      />
-                      <FleetMap
-                      googleMapsApiKeyResponse={googleMapApiKeyData}
-                        mapPageName={"fleet"}
-                        markers={notificationArray}
-                        setNotificationPanelActive={setNotificationPanelActive}
-                        setSelectedNotification={setSelectedNotification}
-                        marker={selectedNotification}
-                        setTabIndex={setTabIndex}
-                        currentMarker={currentMarker}
-                        setCurrentMarker={setCurrentMarker}
-                        setIsMarkerClicked={setIsMarkerClicked}
-                        handleViewDetails={handleViewDetails}
-                        handleVideoDetails={handleVideoDetails}
-                        selectedTheme={selectedTheme}
-                        setMap={setMap}
-                        map={map}
-                        dataPoints={
-                          fleetManagementTripDetailsData?.data?.gpsDTOs
-                        }
-                        handleMarkerIconClick={handleMarkerIconClick}
-                        handleMarkerCancel={handleMarkerCancel}
-                        mapType = {mapType}
-                        setMapType={setMapType}
-                        selectedNotification={selectedNotification}
-                        liveMarkerList={liveMarkerList}
-                        setAssetLiveMarker={setAssetLiveMarker}
-                        listSelectedMarker={listSelectedMarker}
-                        setListSelectedMarker={setListSelectedMarker}
-                        selectedNotificationItem={selectedNotificationItem}
-                        setSelectedNotificationItem={setSelectedNotificationItem}
-                        mapDefaultView={mapDefaultView}
-                        setMapDefaultView={setMapDefaultView}
-                      />
->>>>>>> 106edc03ebc265de568c0c53c84883a0bcef6cb1
                     </Grid>
                   </Grid>
                   <Grid item xs={3} className={notificationPanelGrid}>
