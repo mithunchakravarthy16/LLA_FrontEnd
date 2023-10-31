@@ -10,11 +10,9 @@ export default (state = initialState, action: any) => {
     case assetTable.SET_ASSET_TABLE:
       const { assetTableData } = action;
       return { ...state, assetTableData };
-
-    case assetTable.SET_ASSET_NAME :
-      const { assetNameData } = action;
-      return { ...state, assetNameData};
-
+      case assetTable.SET_ASSET_NAME :
+        const { assetNameData } = action;
+        return { ...state, assetNameData};
     default:
       return state;
   }

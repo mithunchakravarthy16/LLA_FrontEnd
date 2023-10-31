@@ -811,8 +811,8 @@ const FleetMap: React.FC<any> = (props) => {
 
   return (
     <>
-      {useMemo(
-        () =>
+      {
+      // useMemo(        () =>
           isLoaded && (
             <GoogleMap
               mapContainerStyle={parkingMapContainerStyle}
@@ -900,6 +900,7 @@ const FleetMap: React.FC<any> = (props) => {
               </MarkerClustererF>
               {liveMarkerMovement}
             </GoogleMap>
+<<<<<<< HEAD
           ),
         [
           mapPageName,
@@ -912,6 +913,16 @@ const FleetMap: React.FC<any> = (props) => {
           map,
           // liveMarkerPosition,
         ]
+=======
+        //   ),
+        // [
+        //   mapPageName,
+        //   markers,
+        //   currentMarker,
+        //   liveMarkerMovement,
+        //   // liveMarkerPosition,
+        // ]
+>>>>>>> 106edc03ebc265de568c0c53c84883a0bcef6cb1
       )}
     </>
   );

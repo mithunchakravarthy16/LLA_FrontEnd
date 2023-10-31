@@ -155,66 +155,66 @@ const Card = ({
     security: {
       values: [
         {
-          label: "Development In Progress",
+          // label: "Development In Progress",
 
-          // label: dashboard.cameras,
-          // value: 10,
-          // suffix: "",
+          label: dashboard.cameras,
+          value: 10,
+          suffix: "",
         },
-        // {
-        //   type: "splitter",
-        // },
-        // {
-        //   label: dashboard.alerts,
-        //   value: 50,
-        //   suffix: "",
-        // },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard.alerts,
+          value: 50,
+          suffix: "",
+        },
       ],
-      // noteLabel: dashboard?.securityNoteLabel,
-      // noteValue: "20",
-      // noteDifference: "+",
+      noteLabel: dashboard?.securityNoteLabel,
+      noteValue: "20",
+      noteDifference: "+",
     },
     lighting: {
       values: [
         {
-          label: "Development In Progress",
-          // label: dashboard?.smartLights,
-          // value: 10,
-          // suffix: "",
+          // label: "Development In Progress",
+          label: dashboard?.smartLights,
+          value: 10,
+          suffix: "",
         },
-        // {
-        //   type: "splitter",
-        // },
-        // {
-        //   label: dashboard?.alertsText,
-        //   value: 30,
-        //   suffix: "",
-        // },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard?.alertsText,
+          value: 30,
+          suffix: "",
+        },
       ],
-      // noteLabel: dashboard?.electricityNoteLabel,
-      // noteValue: "16kW",
-      // noteDifference: "-",
+      noteLabel: dashboard?.electricityNoteLabel,
+      noteValue: "16kW",
+      noteDifference: "-",
     },
     fleet_management: {
       values: [
         {
-          label: "Development In Progress",
-          // label: dashboard?.fleet,
-          // value: fleetManagementTripDetailsResponse?.data?.totalLiveVehicles,
-          // suffix: "",
+          // label: "Development In Progress",
+          label: dashboard?.fleet,
+          value: fleetManagementTripDetailsResponse?.data?.totalLiveVehicles,
+          suffix: "",
         },
-        // {
-        //   type: "splitter",
-        // },
-        // {
-        //   label: dashboard?.violations,
-        //   value: fleetManagementTripDetailsResponse?.data?.totalViolations,
-        //   suffix: "",
-        // },
+        {
+          type: "splitter",
+        },
+        {
+          label: dashboard?.violations,
+          value: fleetManagementTripDetailsResponse?.data?.totalViolations,
+          suffix: "",
+        },
       ],
-      // noteLabel: dashboard?.tripsNoteLabel,
-      // noteValue: fleetManagementTripDetailsResponse?.data?.totalCompletedTrip,
-      // noteDifference: "+",
+      noteLabel: dashboard?.tripsNoteLabel,
+      noteValue: fleetManagementTripDetailsResponse?.data?.totalCompletedTrip,
+      noteDifference: "+",
     },
     assets_tracking: {
       values: [
@@ -345,32 +345,6 @@ const FlippingCard = (props: any) => {
   // )
 
   const CARD_LIST: any = [
-    {
-      title: "assets_tracking",
-      image:
-        focusedCategory === "asset"
-          ? selectedTheme === "light"
-            ? assetHoverWhite
-            : AssetHover
-          : selectedTheme !== "light"
-          ? assetTracking
-          : assetTrackingLight,
-      category: "asset",
-      translatedTitle: dashboard.assetsTracking,
-    },
-    {
-      title: "fleet_management",
-      image:
-        focusedCategory === "fleet"
-          ? selectedTheme === "light"
-            ? fleetManagementWhite
-            : FleetHover
-          : selectedTheme !== "light"
-          ? fleetManagement
-          : fleetManagementLight,
-      category: "fleet",
-      translatedTitle: dashboard.fleetManagement,
-    },
 
     {
       title: "parking",
@@ -424,6 +398,34 @@ const FlippingCard = (props: any) => {
       category: "lighting",
       translatedTitle: dashboard.lighting,
     },
+    {
+      title: "fleet_management",
+      image:
+        focusedCategory === "fleet"
+          ? selectedTheme === "light"
+            ? fleetManagementWhite
+            : FleetHover
+          : selectedTheme !== "light"
+          ? fleetManagement
+          : fleetManagementLight,
+      category: "fleet",
+      translatedTitle: dashboard.fleetManagement,
+    },
+    {
+      title: "assets_tracking",
+      image:
+        focusedCategory === "asset"
+          ? selectedTheme === "light"
+            ? assetHoverWhite
+            : AssetHover
+          : selectedTheme !== "light"
+          ? assetTracking
+          : assetTrackingLight,
+      category: "asset",
+      translatedTitle: dashboard.assetsTracking,
+    },
+   
+
   ];
 
   return (

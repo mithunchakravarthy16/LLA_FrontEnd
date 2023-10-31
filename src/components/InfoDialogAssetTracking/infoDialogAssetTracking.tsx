@@ -157,8 +157,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: event?.reason,
           details: `${event?.trackerName} | ${event?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
-          description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
-
+          description: `${event?.tagType} ${
+            event?.tagType === "CATM1_TAG" && event?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${event?.gatewayType}`
+          } | ${event?.trackerId}`,
         });
       });
 
@@ -170,8 +173,12 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: incidents?.reason,
           details: `${incidents?.trackerName} | ${incidents?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
-          description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`
-
+          description: `${incidents?.tagType} ${
+            incidents?.tagType === "CATM1_TAG" &&
+            incidents?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${incidents?.gatewayType}`
+          } | ${incidents?.trackerId}`,
         });
       });
 
@@ -184,8 +191,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
           title: alerts?.reason,
           details: `${alerts?.trackerName} | ${alerts?.assetName}`,
           timeStamp: localDate?.format("MM-DD-YYYY | HH:mm A"),
-          description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`
-
+          description: `${alerts?.tagType} ${
+            alerts?.tagType === "CATM1_TAG" && alerts?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${alerts?.gatewayType}`
+          } | ${alerts?.trackerId}`,
         });
       });
 
@@ -198,55 +208,57 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
       //Priority Sorting, If time is same
 
-         const reasonPriority : any = {
-          "Tracker Added": 1,
-          "Out of Geofence": 2
-        };
-  
-        const notificationPriorityTestArray : any = [
-          {
-              "assetNotificationId": "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
-              "notificationType": "Events",
-              "reason": "Tracker Added",
-              "notificationDate": "2023-09-26T13:34:23.948",
-              "title": "Tracker Added",
-              "timeStamp" : "2023-09-26T13:34:23.948"
-          },
-          {
-              "assetNotificationId": "4decf676-067e-468e-aaed-e9b6b8ec0b59",
-              "notificationType": "Incident",
-              "reason": "Out of Geofence",
-              "notificationDate": "2023-09-26T13:34:23.948",
-              "title": "Out of Geofence",
-              "timeStamp" : "2023-09-26T13:34:23.948"
-          },
-          {
-              "assetNotificationId": "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
-              "notificationType": "Events",
-              "reason": "High Humidity",
-              "notificationDate": "2023-09-26T13:34:23.948",
-              "title": "High Humidity",
-              "timeStamp" : "2023-09-26T13:34:23.948"
-          },
-      ]
-  
-        const prioritizedNotificationList : any  =  combinedNotifications?.sort((a:any, b:any) => {
+      const reasonPriority: any = {
+        "Tracker Added": 1,
+        "Out of Geofence": 2,
+      };
+
+      const notificationPriorityTestArray: any = [
+        {
+          assetNotificationId: "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
+          notificationType: "Events",
+          reason: "Tracker Added",
+          notificationDate: "2023-09-26T13:34:23.948",
+          title: "Tracker Added",
+          timeStamp: "2023-09-26T13:34:23.948",
+        },
+        {
+          assetNotificationId: "4decf676-067e-468e-aaed-e9b6b8ec0b59",
+          notificationType: "Incident",
+          reason: "Out of Geofence",
+          notificationDate: "2023-09-26T13:34:23.948",
+          title: "Out of Geofence",
+          timeStamp: "2023-09-26T13:34:23.948",
+        },
+        {
+          assetNotificationId: "411772b0-83d8-4a1c-a8fd-00e5475b4cdc",
+          notificationType: "Events",
+          reason: "High Humidity",
+          notificationDate: "2023-09-26T13:34:23.948",
+          title: "High Humidity",
+          timeStamp: "2023-09-26T13:34:23.948",
+        },
+      ];
+
+      const prioritizedNotificationList: any = combinedNotifications?.sort(
+        (a: any, b: any) => {
           const dateA: Date = new Date(a?.notificationDate);
           const dateB: Date = new Date(b?.notificationDate);
           const dateComparison: number = dateA.getTime() - dateB.getTime();
-        
+
           if (dateComparison === 0) {
             // If notificationDate is equal, prioritize by reason
             const reasonA = reasonPriority[a?.reason] || 3; // Default to 3 if reason not in priority map
             const reasonB = reasonPriority[b?.reason] || 3;
-        
+
             return reasonA - reasonB;
           }
-        
+
           return dateComparison;
-        });
-        const reversedArray = prioritizedNotificationList.reverse()
-        
+        }
+      );
+      const reversedArray = prioritizedNotificationList.reverse();
+
       setInfoNotificationList(reversedArray);
     }
   }, [assetTrackerDetails]);
@@ -275,6 +287,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
   const [isPolygonEnbled, setIsPolygonEnbled] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
   useEffect(() => {
     if (assetTrackerDetails?.geofenceResponseDTO) {
@@ -344,7 +357,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
 
   const tabsList = [
     { name: assetsTracking.assetDetails, val: 0 },
-    // { name: assetsTracking.GEOFENCE, val: 1 },
+    { name: assetsTracking.GEOFENCE, val: 1 },
   ];
 
   const handleHeaderTab = (index: number) => {
@@ -418,7 +431,7 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
       case "Poor" : return "#EC080A";
       default : break
     }
-  }
+  };
 
   const assetCenterRightSectionDataCellular = [
     {
@@ -434,12 +447,16 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         : "--",
     },
     {
-      label:  assetsTracking.humidity,
+      label: assetsTracking.humidity,
       value: assetTrackerDetails?.humidity
         ? `${assetTrackerDetails?.humidity?.toFixed(2)}%`
         : "--",
     },
-    { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
+    {
+      label: "Signal Strength",
+      value: `${assetTrackerDetails?.signalValue}dBm`,
+      range: assetTrackerDetails?.signalStrength,
+    },
   ];
 
   const assetCenterRightSectionDataBLE = [
@@ -456,7 +473,11 @@ const InfoDialogAssetTracking: React.FC<any> = (props) => {
         : "--",
     },
 
-    { label: "Signal Strength", value: `${assetTrackerDetails?.signalValue}dBm`, range: assetTrackerDetails?.signalStrength },
+    {
+      label: "Signal Strength",
+      value: `${assetTrackerDetails?.signalValue}dBm`,
+      range: assetTrackerDetails?.signalStrength,
+    },
     {
       label: "",
       value: "",
@@ -918,47 +939,52 @@ useEffect(()=>{
                               justifyContent: "space-around",
                             }}
                           >
-                            {  (assetTrackerDetails?.tagType === "CATM1_TAG" ? assetCenterRightSectionDataCellular : assetCenterRightSectionDataBLE )?.map(
-                              (data: any, index: any) => {
-                                return (
+                            {(assetTrackerDetails?.tagType === "CATM1_TAG"
+                              ? assetCenterRightSectionDataCellular
+                              : assetCenterRightSectionDataBLE
+                            )?.map((data: any, index: any) => {
+                              return (
+                                <div
+                                  key={index}
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    lineHeight: "44px",
+                                  }}
+                                >
                                   <div
-                                    key={index}
                                     style={{
-                                      display: "flex",
-                                      justifyContent: "space-between",
-                                      width: "100%",
-                                      lineHeight: "44px",
+                                      width: "50%",
+                                      color: "#808080",
                                     }}
                                   >
-                                    <div
-                                      style={{
-                                        width: "50%",
-                                        color: "#808080",
-                                      }}
-                                    >
-                                      {data?.label}
-                                    </div>
-                                    <div
-                                      style={{
-                                        width: "50%",
-                                        color:
-                                          appTheme?.palette?.assetTrackingPage
-                                            ?.topPanelTextColor,
-                                      }}
-                                    >
-                                      {data?.value}
-                                      {
-                                      data?.range &&
-                                      <span style={{ color : getSignalStrengthColor(data?.range)}}>
+                                    {data?.label}
+                                  </div>
+                                  <div
+                                    style={{
+                                      width: "50%",
+                                      color:
+                                        appTheme?.palette?.assetTrackingPage
+                                          ?.topPanelTextColor,
+                                    }}
+                                  >
+                                    {data?.value}
+                                    {data?.range && (
+                                      <span
+                                        style={{
+                                          color: getSignalStrengthColor(
+                                            data?.range
+                                          ),
+                                        }}
+                                      >
                                         {` (${data?.range})`}
                                       </span>
-                                    }
-                                    </div>
-                                    
+                                    )}
                                   </div>
-                                );
-                              }
-                            )}
+                                </div>
+                              );
+                            })}
                           </div>
                         </Grid>
                         <Grid className={assetInfoLeftPanelBottom}>
@@ -1009,7 +1035,10 @@ useEffect(()=>{
                                             padding={padding}
                                           >
                                             {" "}
-                                            {truncateString(item?.description, 33)}
+                                            {truncateString(
+                                              item?.description,
+                                              33
+                                            )}
                                           </Tooltip>
                                         </>
                                       ) : (
@@ -1080,7 +1109,7 @@ useEffect(()=>{
                         currentMarker={""}
                         setCurrentMarker={() => {}}
                         focusedCategory={""}
-                        mapPageName={"Asset Tracking"}
+                        mapPageName={"Asset Tracking InfoDialogue"}
                         setIsMarkerClicked={() => {}}
                         setSelectedNotification={() => {}}
                         setNotificationPanelActive={() => {}}
@@ -1106,6 +1135,10 @@ useEffect(()=>{
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
+                        setListSelectedMarker={() => {}}
+                        setSelectedNotificationItem={() => {}}
                       />
                     </Grid>
                   </Grid>

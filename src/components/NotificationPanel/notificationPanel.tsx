@@ -1,4 +1,5 @@
 /** @format */
+//@ts-nocheck
 
 import { useState, useEffect, createRef, useCallback, useRef } from "react";
 import Tabs from "elements/Tabs";

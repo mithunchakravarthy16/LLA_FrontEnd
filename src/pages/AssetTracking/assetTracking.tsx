@@ -56,7 +56,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
 
   // const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
-  
+
 
   //Analytics Api integration starts here
   const [selectedValue, setSelectedValue] = useState<string>("Today");
@@ -96,6 +96,30 @@ const AssetTracking: React.FC<any> = (props) => {
         dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
         setSelectedGraphFormat({ format: "MM/DD", tickInterval: 1 });
     }
+    // let interval;
+    // if (selectedValue === "Today" || selectedValue === "Week") {
+    //   interval = setInterval(() => {
+    //     dispatch(
+    //       getAssetTrackingActiveInActiveAnalyticsData(
+    //         selectedValue === "Today" ? "Day" : "Weekly"
+    //       )
+    //     );
+    //     dispatch(
+    //       getAssetTrackingIncidentsAnalyticsData(
+    //         selectedValue === "Today" ? "Day" : "Weekly"
+    //       )
+    //     );
+    //     dispatch(
+    //       getOverallTrackerDetail(selectedValue === "Today" ? "Day" : "Weekly")
+    //     );
+    //   }, 60 * 1000);
+    // } else {
+    //   clearInterval(interval);
+    // }
+
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, [selectedValue]);
 
   const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
@@ -806,7 +830,7 @@ const AssetTracking: React.FC<any> = (props) => {
 
   useEffect(() => {
     if (assetNotificationList && assetLiveData) {
-      
+
 
       // const insertWebsocketDataToExisitingNotiData = (
       //   websocketLatestAssetNotification: any
@@ -893,7 +917,6 @@ const AssetTracking: React.FC<any> = (props) => {
       //   websocketSearchResult &&
       //     insertWebsocketDataToExisitingNotiData(websocketSearchResult);
       // }
-
 
       const { events, incidents, alerts } = assetNotificationList;
       const combinedNotifications: any = [];
@@ -1010,28 +1033,31 @@ const AssetTracking: React.FC<any> = (props) => {
     //   updatedLiveTrackerDetails = assetLiveData;
     // }
 
-    const updatedLiveData = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
-      return {
-        ...asset,
-        location: asset?.currentLocation,
-        category: "asset",
-        title: `TR#${asset?.trackerId}`,
-        id: asset?.trackerId,
-        recentMarkerType:
-          asset?.trackerStatus === "Inactive"
-            ? asset?.trackerStatus
-            : asset?.notificationType,
-        markerId: asset?.trackerId,
-        description: `${asset?.tagType} ${
-          asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
-            ? ` | Cellular`
-            : ` | ${asset?.gatewayType}`
-        } | ${asset?.trackerId}`,
-      };
-    });
+    const updatedLiveData =
+      updatedLiveTrackerDetails &&
+      updatedLiveTrackerDetails?.length > 0 &&
+      updatedLiveTrackerDetails?.map((asset: any) => {
+        return {
+          ...asset,
+          location: asset?.currentLocation,
+          category: "asset",
+          title: `TR#${asset?.trackerId}`,
+          id: asset?.trackerId,
+          recentMarkerType:
+            asset?.trackerStatus === "Inactive"
+              ? asset?.trackerStatus
+              : asset?.notificationType,
+          markerId: asset?.trackerId,
+          description: `${asset?.tagType} ${
+            asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
+              ? ` | Cellular`
+              : ` | ${asset?.gatewayType}`
+          } | ${asset?.trackerId}`,
+        };
+      });
 
     setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData, 
+  }, [assetLiveData,
     // websocketLatestAssetTrackerLive
   ]);
 
@@ -1385,16 +1411,16 @@ const AssetTracking: React.FC<any> = (props) => {
   };
 
   //Google Map Api Key Data fetching start here
-useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
+  useEffect(()=>{
+    let assetLiveDataPayload: any = {};
+    dispatch(getGoogleMapApi(assetLiveDataPayload));
+  },[])
 
   const googleMapApiKeyData = useSelector(
     (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
   );
 
- //Google Map Api Key Data fetching end here 
+  //Google Map Api Key Data fetching end here
 
   return (
     <>
@@ -1483,9 +1509,14 @@ useEffect(()=>{
                                       xs={12}
                                       style={{ height: "21vh", width: "80vw" }}
                                     >
-                                      {!loaderAssetTrackingAnalyticsResponse &&
-                                      !loaderExtAnalytics ? (
-                                        <Chart
+                                      {
+                                      // assetTrackingIncidentsAnalyticsResponse &&
+                                      // Object.keys(
+                                      //   assetTrackingIncidentsAnalyticsResponse
+                                      // ).length > 0 ? (
+                                        !loaderAssetTrackingAnalyticsResponse &&
+                                        !loaderExtAnalytics ?
+                                        (<Chart
                                           containerProps={{
                                             style: {
                                               height: "100%",
@@ -1575,9 +1606,14 @@ useEffect(()=>{
                                       xs={12}
                                       style={{ height: "21vh", width: "80vw" }}
                                     >
-                                      {!loaderAssetTrackingAnalyticsResponse &&
-                                      !loaderExtAnalytics ? (
-                                        <Chart
+                                      {
+                                      // assetTrackingIncidentsAnalyticsResponse &&
+                                      // Object.keys(
+                                      //   assetTrackingIncidentsAnalyticsResponse
+                                      // ).length > 0 ? (
+                                        !loaderAssetTrackingAnalyticsResponse &&
+                                        !loaderExtAnalytics ?
+                                        (<Chart
                                           containerProps={{
                                             style: {
                                               height: "100%",
@@ -1677,12 +1713,12 @@ useEffect(()=>{
                       className={bodyLeftTopPanelMapContainer}
                       style={{ height: "57.5%" }}
                     >
-                      {/* <img
+                      <img
                         src={GeofenceIcon}
                         className={geofenceIconStyle}
                         alt="GeofenceIcon"
                         onClick={handleAssetInfoWindow}
-                      /> */}
+                      />
                       <img
                         src={GlobeIconActive}
                         alt="GlobeIcon Icon"

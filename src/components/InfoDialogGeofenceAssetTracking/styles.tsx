@@ -161,6 +161,13 @@ const useStyles = makeStyles(() => ({
       },
     },
   }),
+  globeIconSection: (props: any) => ({
+    position: "absolute",
+    top: "1.2vw",
+    right: "4.5vw",
+    cursor: "pointer",
+    width: "2.5vw",
+  }),
 }));
 
 export default useStyles;

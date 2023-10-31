@@ -109,7 +109,7 @@ const EditAssetName = (props: any) => {
            
             <div style={{ display: "flex", justifyContent: "right" }}>
               <div className={addOperationButton}>
-                <Button variant="outlined">Cancel</Button>
+                <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
                 <Button variant="contained"  onClick = {handleSubmitButton}>Save</Button>
               </div>
             </div>

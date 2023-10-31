@@ -25,6 +25,14 @@ const GridView: React.FC<any> = (props) => {
 
   useEffect(() => {
     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+
+    // const interval = setInterval(()=>{
+    //   dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+    // },60*1000)
+
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   const adminPanelData = useSelector(
@@ -187,9 +195,8 @@ const GridView: React.FC<any> = (props) => {
           </Alert>
         </Snackbar>
       )}
-      {loaderAssetTrackingGridViewAnalytics ? (
-        <Loader isHundredVh={true} />
-      ) : (
+      {!loaderAssetTrackingGridViewAnalytics &&
+      !loaderFleetManagementNotification ? (
         <div className={rootContainer}>
           <Grid container className={mainSection}>
             {/* Grid 6 */}
@@ -218,17 +225,32 @@ const GridView: React.FC<any> = (props) => {
 
             {/* Grid 3 */}
             <GridViewScreenThree
-              handleClick={() => {}}
+              handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
 
             {/* Grid 4 */}
             <GridViewScreenFour
-              handleClick={() => {}}
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+            />
+
+            {/* Grid 5 */}
+            <GridViewScreenFive
+              handleClick={handleClick}
+              selectedTheme={selectedTheme}
+              fleetManagementResponse={fleetManagementResponse}
+            />
+
+            {/* Grid 6 */}
+            <GridViewScreenSix
+              handleClick={handleClick}
               selectedTheme={selectedTheme}
             />
           </Grid>
         </div>
+      ) : (
+        <Loader isHundredVh={true} />
       )}
     </>
   );

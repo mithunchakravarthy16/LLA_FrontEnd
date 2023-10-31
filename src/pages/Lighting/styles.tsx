@@ -418,5 +418,13 @@ const useStyles = makeStyles({
       lineHeight: "18px",
     },
   }),
+  globeIconSection: (props: any) => ({
+    position: "absolute",
+    top: "0.4vw",
+    right: "1vh",
+    cursor: "pointer",
+    width: "3.5vw",
+    zIndex : 1
+  }),
 });
 export default useStyles;

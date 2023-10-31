@@ -71,10 +71,10 @@ const DashboardContainer = (props: any) => {
   );
 
   const dispatch = useDispatch();
+  
 
 //Google Map Api Key Data fetching start here
 useEffect(()=>{
-  console.log("entered")
   let assetLiveDataPayload: any = {};
   dispatch(getGoogleMapApi(assetLiveDataPayload));
 },[])
@@ -163,6 +163,14 @@ useEffect(()=>{
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+//assetAnalytics api for every 1 mins
+  //  const interval = setInterval(()=>{
+  //     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+  //   },60*1000)
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
   }, []);
 
   useEffect(() => {
@@ -228,8 +236,8 @@ useEffect(()=>{
     if (!debounceSearchText) {
       const fleetPayload: any = {};
       // dispatch(setFleetManagementNotificationData({}));
-      // dispatch(getFleetManagementNotificationData(fleetPayload));
-      // dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
+      dispatch(getFleetManagementNotificationData(fleetPayload));
+      dispatch(getFleetManagementOverAllTripDetails({ type: "Day" }));
       setSuccess(false);
       let assetPayload: any = {
         filterText: "",
@@ -308,6 +316,7 @@ useEffect(()=>{
 
 
   useEffect(() => {
+
     setSuccess(false);
     if (
       fleetManagementNotificationResponse?.status === 500 ||
@@ -315,19 +324,19 @@ useEffect(()=>{
       fleetManagementNotificationResponse?.status === 400 ||
       fleetManagementNotificationResponse?.status === 409 ||
       fleetManagementNotificationResponse?.status === 413 ||
-      fleetManagementNotificationResponse?.status === 410 ||
-      fleetManagementTripDetailsResponse?.status === 500 ||
-      fleetManagementTripDetailsResponse?.status === 404 ||
-      fleetManagementTripDetailsResponse?.status === 400 ||
-      fleetManagementTripDetailsResponse?.status === 409 ||
-      fleetManagementTripDetailsResponse?.status === 413 ||
-      fleetManagementTripDetailsResponse?.status === 410
+      fleetManagementNotificationResponse?.status === 410 
+      // fleetManagementTripDetailsResponse?.status === 500 ||
+      // fleetManagementTripDetailsResponse?.status === 404 ||
+      // fleetManagementTripDetailsResponse?.status === 400 ||
+      // fleetManagementTripDetailsResponse?.status === 409 ||
+      // fleetManagementTripDetailsResponse?.status === 413 ||
+      // fleetManagementTripDetailsResponse?.status === 410
     ) {
       setSuccess(true);
     } else if (
-      assetNotificationResponse 
-      // &&
-      // fleetManagementNotificationResponse?.status === 200
+      assetNotificationResponse
+      &&
+      fleetManagementNotificationResponse?.status === 200
     ) {
       
       // const insertWebsocketDataToExisitingNotiData = (websocketLatestAssetNotification:any)=>{     
@@ -402,16 +411,17 @@ useEffect(()=>{
       const fleetNotiData: any = formatttedFleetAPINotification(
         fleetManagementNotificationResponse?.data
       );
+  
       if (
         assetNotiData &&
-        assetNotiData?.length > 0
-        // fleetNotiData &&
-        // fleetNotiData?.length > 0
+        assetNotiData?.length > 0 &&
+        fleetNotiData &&
+        fleetNotiData?.length > 0
       ) {
         const consolidatedData = [
           ...assetNotiData,
           ...dashboardNotiData,
-          // ...fleetNotiData,
+          ...fleetNotiData,
         ];
 
         const consolidatedDataNextPage = [...assetNotiData];
@@ -423,9 +433,7 @@ useEffect(()=>{
         );
       }
     }
-  }, [assetNotificationResponse, searchOpen]);
-
-  // }, [assetNotificationResponse, searchOpen, websocketLatestAssetNotification]);
+  }, [assetNotificationResponse, searchOpen, fleetManagementNotificationResponse]);
 
   useEffect(() => {
       let updatedLiveTrackerDetails = assetLiveData;
@@ -478,6 +486,33 @@ useEffect(()=>{
             dashboardNotification?.notifications
           ),
         ]);
+      }
+
+      if(updatedLiveTrackerDetails) {
+        const updatedLiveData: any = updatedLiveTrackerDetails && updatedLiveTrackerDetails?.length > 0 && updatedLiveTrackerDetails?.map((asset: any) => {
+          return {
+            ...asset,
+            location: asset?.currentLocation,
+            category: "asset",
+            title: `TR#${asset?.trackerId}`,
+            id: asset?.assetId,
+            recentMarkerType:
+              asset?.trackerStatus === "Inactive"
+                ? asset?.trackerStatus
+                : asset?.notificationType,
+            markerId: asset?.trackerId,
+            description : `${asset?.tagType} ${(asset?.tagType === "CATM1_TAG" &&  asset?.gatewayType === null) ? ` | Cellular` : ` | ${asset?.gatewayType}`} | ${asset?.trackerId}`
+  
+          };
+        });
+  
+        setLiveMarkerList([
+          ...updatedLiveData,
+          ...formatttedDashboardAPINotificaiton(
+            dashboardNotification?.notifications
+          ),
+        ]);
+        
       }
 
 
@@ -589,6 +624,15 @@ useEffect(()=>{
       navigate("/login");
     }
   }, [count]);
+
+  const [showInfoDialogue, setShowInfoDialogue] = useState<boolean>(false);
+  const [selectedMarkerLocation, setSelectedMarkerLocation] = useState<any>();
+
+  const handleViewDetails = (data: any) => {
+    setSelectedMarker(data?.tripId);
+    setSelectedMarkerLocation(data);
+    setShowInfoDialogue(true);
+  };
 
   const handleVideoDetails = (event: any, data: any) => {
     event.stopPropagation();
@@ -836,11 +880,12 @@ useEffect(()=>{
         </Snackbar>
       )}
       {Object.keys(assetNotificationResponse).length > 0 &&
-      !loaderFleetManagementNotification &&
+      Object.keys(fleetManagementNotificationResponse).length > 0 &&
+      // !loaderFleetManagementNotification &&
       // !loaderFleetManagementNotification &&
       // !loaderAdminGetConfigData &&
       // !loaderAdminGetConfigData &&
-      !overAllAnalyticsLoader && googleMapApiKeyData ? (
+       googleMapApiKeyData ? (
         <Grid container xs={12}>
           <Grid item xs={12}>
             <Grid item xs={12}>

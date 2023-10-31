@@ -32,10 +32,13 @@ import securityData from "mockdata/securityData";
 import Highcharts from "highcharts";
 import Chart from "elements/Chart";
 import Loader from "elements/Loader";
+import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
 
-const Parking: React.FC<any> = (props) => {
+const Security: React.FC<any> = (props) => {
+  const { mapType, setMapType } = props;
   const dispatch = useDispatch();
   const adminPanelData = useSelector(
     (state: any) => state?.adminPanel?.getConfigData?.data?.body
@@ -92,6 +95,7 @@ const Parking: React.FC<any> = (props) => {
     legendColorBox,
     legendText,
     graphTitle,
+    globeIconSection
   } = useStyles(appTheme);
 
   const [selectedValue, setSelectedValue] = useState<any>("Week");
@@ -307,6 +311,32 @@ const Parking: React.FC<any> = (props) => {
     (state: any) => state?.adminPanel?.loadingGetConfigData
   );
 
+  const [listSelectedMarker, setListSelectedMarker] = useState<any>("");
+  const [selectedNotificationItem, setSelectedNotificationItem] =
+    useState<any>("");
+  const [liveMarkerList, setLiveMarkerList] = useState<any>(dashboardDataList);
+  const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
+  const onHandleDefaultView = () => {
+    setMapDefaultView(true);
+    setListSelectedMarker("");
+    setAssetLiveMarker("");
+    setSearchOpen(false);
+    setSelectedNotification("");
+    setSelectedNotificationItem("")
+  };
+
+  // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
+  
+  // useEffect(()=>{
+    
+  //   fetchGoogleMapApi((mapApiResponse:string)=>{
+  //      setGoogleMapsApiKeyResponse(mapApiResponse)
+      
+  //   })
+  // },[])
+
+  
  //Google Map Api Key Data fetching start here
  useEffect(()=>{
   let assetLiveDataPayload: any = {};
@@ -609,14 +639,23 @@ const Parking: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "58%" }}>
+                      style={{ height: "58%", position : "relative"  }}>
+                         <img
+                        src={GlobeIconActive}
+                        alt="GlobeIcon Icon"
+                        onClick={onHandleDefaultView}
+                        className={globeIconSection}
+                      />
                       <Map
                       googleMapsApiKeyResponse={googleMapApiKeyData}
                         mapPageName={"security"}
+                        mapType={mapType}
+                        setMapType={setMapType}
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
                         marker={selectedNotification}
+                        selectedNotification={selectedNotification}
                         setTabIndex={setTabIndex}
                         currentMarker={currentMarker}
                         setCurrentMarker={setCurrentMarker}
@@ -624,6 +663,14 @@ const Parking: React.FC<any> = (props) => {
                         selectedTheme={selectedTheme}
                         setMap={setMap}
                         map={map}
+                        liveMarkerList={liveMarkerList}
+                        setAssetLiveMarker={setAssetLiveMarker}
+                        listSelectedMarker={listSelectedMarker}
+                        setListSelectedMarker={setListSelectedMarker}
+                        selectedNotificationItem={selectedNotificationItem}
+                        setSelectedNotificationItem={setSelectedNotificationItem}
+                        mapDefaultView={mapDefaultView}
+                        setMapDefaultView={setMapDefaultView}
                       />
                     </Grid>
                   </Grid>
@@ -646,6 +693,16 @@ const Parking: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
+                      notificationPageName={"security"}
+                      setAssetLiveMarker={setAssetLiveMarker}
+                      liveMarkerList={liveMarkerList}
+                      listSelectedMarker={listSelectedMarker}
+                      setListSelectedMarker={setListSelectedMarker}
+                      selectedNotificationItem={selectedNotificationItem}
+                      setSelectedNotificationItem={setSelectedNotificationItem}
+                      mapDefaultView={mapDefaultView}
+                      setMapDefaultView={setMapDefaultView}
+
                   />
                 </Grid>
               </Grid>
@@ -659,4 +716,4 @@ const Parking: React.FC<any> = (props) => {
   );
 };
 
-export default Parking;
+export default Security;

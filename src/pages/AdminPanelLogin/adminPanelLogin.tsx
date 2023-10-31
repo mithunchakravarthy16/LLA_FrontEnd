@@ -24,8 +24,7 @@ const AdminPanelLogin = () => {
   const { yourEmail, passwordTItle, loginNowButton } = useTranslation();
 
   const user = useSelector((state: any) => state.adminLogin.adminLoginData);
-  
-  
+
   const [selectedTheme, setSelectedTheme] = useState(
     JSON.parse(localStorage.getItem("theme")!)
   );
@@ -73,10 +72,14 @@ const AdminPanelLogin = () => {
   } = useStyles(appTheme);
 
   useEffect(() => {
-    if (user && user?.userName && user?.currentRoleType === "ADMIN") { 
+    if (
+      user &&
+      user?.data?.userName &&
+      user?.data?.currentRoleType === "ADMIN"
+    ) {
       // localStorage.setItem("user", JSON.stringify({ role: "ADMIN" }));
       navigate("/adminPanel");
-    }else if((user && user.message) || user){
+    } else if ((user && user.data?.message) || user) {
       setInCorrectCredentials(true);
     }
   }, [user]);
@@ -95,13 +98,8 @@ const AdminPanelLogin = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      userid: Yup.string()
-        .min(2, "Mininum 2 characters")
-        .required("Please Enter Username"),
-      password: Yup.string()
-        .min(2, "Mininum 2 characters")
-        .max(20, "Maximum 20 characters")
-        .required("Please Enter Password"),
+      userid: Yup.string().required("Please Enter Username"),
+      password: Yup.string().required("Please Enter Password"),
     }),
     onSubmit: (values) => {
       // if (
@@ -109,13 +107,12 @@ const AdminPanelLogin = () => {
       //   values?.password === "Mikeross@2023#"
       // ) {
 
-        let payload = {
-          userName: values.userid,
-          passWord: values.password,
-        };
-        dispatch(getAdminUserLogin(payload));
-        setInCorrectCredentials(false);
-
+      let payload = {
+        userName: values.userid,
+        passWord: values.password,
+      };
+      dispatch(getAdminUserLogin(payload));
+      setInCorrectCredentials(false);
 
       // } else {
       //   setInCorrectCredentials(true);
@@ -138,7 +135,8 @@ const AdminPanelLogin = () => {
           container
           direction="row"
           justifyContent="center"
-          alignItems="center">
+          alignItems="center"
+        >
           <Grid
             item
             xs={12}
@@ -146,7 +144,8 @@ const AdminPanelLogin = () => {
             md={12}
             lg={12}
             xl={12}
-            className={loginBannerSection}>
+            className={loginBannerSection}
+          >
             <div className={innerPaddingBox}>
               <div className={formSection}>
                 <div className={llaLogoSection}>

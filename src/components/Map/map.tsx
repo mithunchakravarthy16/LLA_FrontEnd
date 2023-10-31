@@ -962,7 +962,7 @@ const Map: React.FC<any> = (props) => {
     }
     setSelectedNotificationItem(data);
     setIsMarkerClicked(true);
-    map?.setZoom(location?.pathname === "/parking" ? 20 : 17);
+    map?.setZoom(location?.pathname === "/parking" ? 17 : 17);
     setAssetLiveMarker(id);
     setListSelectedMarker(id);
     // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
@@ -996,7 +996,7 @@ const Map: React.FC<any> = (props) => {
           ? selectedNotificationItem?.currentLocation
           : selectedNotificationItem?.location
       );
-      map?.setZoom(location?.pathname === "/parking" ? 20 : 17);
+      map?.setZoom(location?.pathname === "/parking" ? 17 : 17);
     }
     if (
       selectedNotificationItem &&

@@ -293,7 +293,6 @@ const useStyles = makeStyles({
 
   liveContentLabel: (props: any) => ({
     fontSize: "0.7vw",
-    // lineHeight : "1vw",
     fontWeight: 500,
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.fleetManagementPage?.topPanelTextColor,
