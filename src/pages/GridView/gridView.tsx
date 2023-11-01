@@ -199,18 +199,6 @@ const GridView: React.FC<any> = (props) => {
       !loaderFleetManagementNotification ? (
         <div className={rootContainer}>
           <Grid container className={mainSection}>
-            {/* Grid 6 */}
-            <GridViewScreenSix
-              handleClick={handleClick}
-              selectedTheme={selectedTheme}
-            />
-            {/* Grid 5 */}
-            <GridViewScreenFive
-              handleClick={handleClick}
-              selectedTheme={selectedTheme}
-              fleetManagementResponse={fleetManagementResponse}
-            />
-
             {/* Gride 1 */}
             <GridViewScreenOne
               handleClick={handleClick}

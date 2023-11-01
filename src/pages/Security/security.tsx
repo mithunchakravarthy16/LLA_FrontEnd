@@ -36,7 +36,6 @@ import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 
-
 const Security: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
   const dispatch = useDispatch();
@@ -95,7 +94,7 @@ const Security: React.FC<any> = (props) => {
     legendColorBox,
     legendText,
     graphTitle,
-    globeIconSection
+    globeIconSection,
   } = useStyles(appTheme);
 
   const [selectedValue, setSelectedValue] = useState<any>("Week");
@@ -323,38 +322,34 @@ const Security: React.FC<any> = (props) => {
     setAssetLiveMarker("");
     setSearchOpen(false);
     setSelectedNotification("");
-    setSelectedNotificationItem("")
+    setSelectedNotificationItem("");
   };
 
   // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
+
   // useEffect(()=>{
-    
+
   //   fetchGoogleMapApi((mapApiResponse:string)=>{
   //      setGoogleMapsApiKeyResponse(mapApiResponse)
-      
+
   //   })
   // },[])
 
-  
- //Google Map Api Key Data fetching start here
- useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
+  //Google Map Api Key Data fetching start here
+  useEffect(() => {
+    let assetLiveDataPayload: any = {};
+    dispatch(getGoogleMapApi(assetLiveDataPayload));
+  }, []);
 
   const googleMapApiKeyData = useSelector(
     (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
   );
 
- //Google Map Api Key Data fetching end here 
+  //Google Map Api Key Data fetching end here
 
   return (
     <>
-      {!loaderAdminGetConfigData &&
-      isDataLoaded &&
-      appTheme && googleMapApiKeyData &&
-      Object.keys(appTheme).length > 0 ? (
+      {googleMapApiKeyData ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -365,22 +360,26 @@ const Security: React.FC<any> = (props) => {
                 container
                 xs={12}
                 className={bodySubContainer}
-                style={{ height: "93vh" }}>
+                style={{ height: "93vh" }}
+              >
                 <Grid item xs={9} className={bodyLeftContainer}>
                   <Grid container xs={12} className={bodyLeftSubContainer}>
                     <Grid
                       item
                       xs={12}
                       className={bodyLeftTopPanelContainer}
-                      style={{ height: "29%" }}>
+                      style={{ height: "29%" }}
+                    >
                       <Grid
                         container
                         xs={12}
-                        className={bodyLeftTopPanelSubContainer}>
+                        className={bodyLeftTopPanelSubContainer}
+                      >
                         <Grid
                           item
                           xs={12}
-                          className={bodyLeftTopPanelListContainer}>
+                          className={bodyLeftTopPanelListContainer}
+                        >
                           <TopPanelListItemContainer
                             topPanelListItems={topPanelListItems}
                             percent={topPanelList?.issuesResolved}
@@ -406,7 +405,8 @@ const Security: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 30px",
-                                }}>
+                                }}
+                              >
                                 <Grid item xs={12} style={{ height: "10%" }}>
                                   <div className={graphTitle}>
                                     {security.security}
@@ -416,11 +416,13 @@ const Security: React.FC<any> = (props) => {
                                   <Grid
                                     container
                                     xs={12}
-                                    style={{ height: "100%" }}>
+                                    style={{ height: "100%" }}
+                                  >
                                     <Grid
                                       item
                                       xs={12}
-                                      style={{ height: "21vh", width: "80vw" }}>
+                                      style={{ height: "21vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width}
                                         // height={selectedWidth?.height}
@@ -521,7 +523,8 @@ const Security: React.FC<any> = (props) => {
                                 style={{
                                   height: "100%",
                                   padding: "10px 10px 5px 30px",
-                                }}>
+                                }}
+                              >
                                 <Grid item xs={12} style={{ height: "100%" }}>
                                   <Grid
                                     container
@@ -530,12 +533,14 @@ const Security: React.FC<any> = (props) => {
                                       height: "100%",
                                       display: "flex",
                                       alignItems: "center",
-                                    }}>
+                                    }}
+                                  >
                                     <Grid
                                       item
                                       direction="column"
                                       xs={5}
-                                      style={{ height: "23vh", width: "80vw" }}>
+                                      style={{ height: "23vh", width: "80vw" }}
+                                    >
                                       <Chart
                                         // width={selectedWidth?.width1}
                                         // height={selectedWidth?.height1}
@@ -611,16 +616,19 @@ const Security: React.FC<any> = (props) => {
                                         width: "80vw",
                                         paddingLeft: "5vw",
                                       }}
-                                      className={pieChartLegendContainer}>
+                                      className={pieChartLegendContainer}
+                                    >
                                       {PIECHART_LEGEND.map((legend) => (
                                         <div
-                                          className={legendIdentifierContainer}>
+                                          className={legendIdentifierContainer}
+                                        >
                                           <div
                                             className={legendColorBox}
                                             style={{
                                               backgroundColor:
                                                 legend.background,
-                                            }}></div>
+                                            }}
+                                          ></div>
                                           <div className={legendText}>
                                             {legend.name}
                                           </div>
@@ -639,15 +647,16 @@ const Security: React.FC<any> = (props) => {
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "58%", position : "relative"  }}>
-                         <img
+                      style={{ height: "58%", position: "relative" }}
+                    >
+                      <img
                         src={GlobeIconActive}
                         alt="GlobeIcon Icon"
                         onClick={onHandleDefaultView}
                         className={globeIconSection}
                       />
                       <Map
-                      googleMapsApiKeyResponse={googleMapApiKeyData}
+                        googleMapsApiKeyResponse={googleMapApiKeyData}
                         mapPageName={"security"}
                         mapType={mapType}
                         setMapType={setMapType}
@@ -668,7 +677,9 @@ const Security: React.FC<any> = (props) => {
                         listSelectedMarker={listSelectedMarker}
                         setListSelectedMarker={setListSelectedMarker}
                         selectedNotificationItem={selectedNotificationItem}
-                        setSelectedNotificationItem={setSelectedNotificationItem}
+                        setSelectedNotificationItem={
+                          setSelectedNotificationItem
+                        }
                         mapDefaultView={mapDefaultView}
                         setMapDefaultView={setMapDefaultView}
                       />
@@ -693,16 +704,15 @@ const Security: React.FC<any> = (props) => {
                     setIsMarkerClicked={setIsMarkerClicked}
                     selectedTheme={selectedTheme}
                     handleExpandListItem={() => {}}
-                      notificationPageName={"security"}
-                      setAssetLiveMarker={setAssetLiveMarker}
-                      liveMarkerList={liveMarkerList}
-                      listSelectedMarker={listSelectedMarker}
-                      setListSelectedMarker={setListSelectedMarker}
-                      selectedNotificationItem={selectedNotificationItem}
-                      setSelectedNotificationItem={setSelectedNotificationItem}
-                      mapDefaultView={mapDefaultView}
-                      setMapDefaultView={setMapDefaultView}
-
+                    notificationPageName={"security"}
+                    setAssetLiveMarker={setAssetLiveMarker}
+                    liveMarkerList={liveMarkerList}
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                   />
                 </Grid>
               </Grid>
