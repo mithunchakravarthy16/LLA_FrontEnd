@@ -1,6 +1,6 @@
 export const BASE_IP = {
-  // aws: process.env.REACT_APP_BASE_URL,
-  aws : process.env.REACT_APP_TEST_URL
+  aws: process.env.REACT_APP_BASE_URL,
+  // aws : process.env.REACT_APP_TEST_URL
 };
 
 export const BASE_URL = {
@@ -49,13 +49,12 @@ const SUB_URL = {
   getAssetListUrl: "/api/sensyon/tracker/v1/getAssetList",
   getAssetGridViewAnalyticsUrl:
     "/api/sensyon/asset_analytics/v1/getAssetAnalytics",
-    getTrackerLiveDetailUrl : "/api/sensyon/tracker/v1/getTrackerLiveDetail",
+  getTrackerLiveDetailUrl: "/api/sensyon/tracker/v1/getTrackerLiveDetail",
   // Asset Tracking Api's -- End
 
   //Asset Table API
-  getAllDeviceDetailURL : "/api/sensyon/tracker/v1/getAllDeviceDetails",
-  editAssetTableAssetName : "/api/sensyon/tagntrac/v1/provisionAsset",
-
+  getAllDeviceDetailURL: "/api/sensyon/tracker/v1/getAllDeviceDetails",
+  editAssetTableAssetName: "/api/sensyon/tagntrac/v1/provisionAsset",
 
   getGoogleMapApiUrl: "/api/sensyon/admin/getAPIKey",
 

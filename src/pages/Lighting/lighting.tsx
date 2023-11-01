@@ -93,7 +93,7 @@ const Parking: React.FC<any> = (props) => {
     aqiCircleStyle,
     graphTwoHeader,
     electricity,
-    globeIconSection
+    globeIconSection,
   } = useStyles(appTheme);
 
   const topPanelListItems: any[] = [
@@ -290,11 +290,11 @@ const Parking: React.FC<any> = (props) => {
 
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setIsDataLoaded(!isDataLoaded)
-    },500)
-  },[])
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDataLoaded(!isDataLoaded);
+    }, 500);
+  }, []);
 
   const loaderAdminGetConfigData = useSelector(
     (state: any) => state?.adminPanel?.loadingGetConfigData
@@ -312,35 +312,34 @@ const Parking: React.FC<any> = (props) => {
     setAssetLiveMarker("");
     setSearchOpen(false);
     setSelectedNotification("");
-    setSelectedNotificationItem("")
+    setSelectedNotificationItem("");
   };
 
   // const [googleMapsApiKeyResponse, setGoogleMapsApiKeyResponse] = useState<string>("")
-  
+
   // useEffect(()=>{
-    
+
   //   fetchGoogleMapApi((mapApiResponse:string)=>{
   //      setGoogleMapsApiKeyResponse(mapApiResponse)
-      
+
   //   })
   // },[])
 
-
   //Google Map Api Key Data fetching start here
-useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
+  useEffect(() => {
+    let assetLiveDataPayload: any = {};
+    dispatch(getGoogleMapApi(assetLiveDataPayload));
+  }, []);
 
   const googleMapApiKeyData = useSelector(
     (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
   );
 
- //Google Map Api Key Data fetching end here 
+  //Google Map Api Key Data fetching end here
 
   return (
     <>
-      {!loaderAdminGetConfigData && isDataLoaded && appTheme && Object.keys(appTheme).length > 0 && googleMapApiKeyData ?  (
+      {googleMapApiKeyData ? (
         <Grid container className={rootContainer}>
           <Grid container className={mainSection}>
             <Grid item xs={12} alignItems="center" className={pageHeading}>
@@ -670,16 +669,16 @@ useEffect(()=>{
                       item
                       xs={12}
                       className={bodyLeftTopPanelMapContainer}
-                      style={{ height: "58%", position : "relative"  }}
+                      style={{ height: "58%", position: "relative" }}
                     >
-                         <img
+                      <img
                         src={GlobeIconActive}
                         alt="GlobeIcon Icon"
                         onClick={onHandleDefaultView}
                         className={globeIconSection}
                       />
                       <Map
-                      googleMapsApiKeyResponse={googleMapApiKeyData}
+                        googleMapsApiKeyResponse={googleMapApiKeyData}
                         markers={dashboardDataList}
                         setNotificationPanelActive={setNotificationPanelActive}
                         setSelectedNotification={setSelectedNotification}
@@ -698,12 +697,13 @@ useEffect(()=>{
                         listSelectedMarker={listSelectedMarker}
                         setListSelectedMarker={setListSelectedMarker}
                         selectedNotificationItem={selectedNotificationItem}
-                        setSelectedNotificationItem={setSelectedNotificationItem}
+                        setSelectedNotificationItem={
+                          setSelectedNotificationItem
+                        }
                         mapDefaultView={mapDefaultView}
                         setMapDefaultView={setMapDefaultView}
                         mapType={mapType}
-                      setMapType={setMapType}
-
+                        setMapType={setMapType}
                       />
                     </Grid>
                   </Grid>
@@ -728,13 +728,13 @@ useEffect(()=>{
                     handleExpandListItem={() => {}}
                     notificationPageName={"lighting"}
                     setAssetLiveMarker={setAssetLiveMarker}
-                  liveMarkerList={liveMarkerList}
-                  listSelectedMarker={listSelectedMarker}
-                  setListSelectedMarker={setListSelectedMarker}
-                  selectedNotificationItem={selectedNotificationItem}
-                  setSelectedNotificationItem={setSelectedNotificationItem}
-                  mapDefaultView={mapDefaultView}
-                  setMapDefaultView={setMapDefaultView}
+                    liveMarkerList={liveMarkerList}
+                    listSelectedMarker={listSelectedMarker}
+                    setListSelectedMarker={setListSelectedMarker}
+                    selectedNotificationItem={selectedNotificationItem}
+                    setSelectedNotificationItem={setSelectedNotificationItem}
+                    mapDefaultView={mapDefaultView}
+                    setMapDefaultView={setMapDefaultView}
                   />
                 </Grid>
               </Grid>

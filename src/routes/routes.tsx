@@ -95,7 +95,7 @@ const VIOT_Routes = (props: any) => {
           path: "energyManagement",
           element: (
             <Suspense fallback={<Loader />}>
-              <EnergyManagement setMapType={setMapType} mapType={mapType}/>
+              <EnergyManagement setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },
@@ -103,7 +103,7 @@ const VIOT_Routes = (props: any) => {
           path: "security",
           element: (
             <Suspense fallback={<Loader />}>
-              <Security setMapType={setMapType} mapType={mapType}/>
+              <Security setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },
@@ -111,7 +111,7 @@ const VIOT_Routes = (props: any) => {
           path: "lighting",
           element: (
             <Suspense fallback={<Loader />}>
-              <Lighting setMapType={setMapType} mapType={mapType}/>
+              <Lighting setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },
@@ -119,7 +119,7 @@ const VIOT_Routes = (props: any) => {
           path: "fleetManagement",
           element: (
             <Suspense fallback={<Loader />}>
-              <FleetManagement setMapType={setMapType} mapType={mapType}/>
+              <FleetManagement setMapType={setMapType} mapType={mapType} />
             </Suspense>
           ),
         },

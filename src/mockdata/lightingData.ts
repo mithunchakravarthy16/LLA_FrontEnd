@@ -14,8 +14,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75555358586086,
-          lng: -105.01657322197286,
+          lat: 9.012339057804061,
+          lng: -79.47665814208264,
         },
       },
       {
@@ -29,8 +29,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75729624533388,
-          lng: -104.9895572496697,
+          lat: 9.01253100827048,
+          lng: -79.47658000143186,
         },
       },
       {
@@ -44,8 +44,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75932453116013,
-          lng: -105.01244836237774,
+          lat: 9.012471306148246,
+          lng: -79.47645784174911,
         },
       },
       {
@@ -59,8 +59,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75986730174264,
-          lng: -105.00059403615393,
+          lat: 9.012808532307957,
+          lng: -79.4764119968662,
         },
       },
       {
@@ -74,8 +74,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75181100420289,
-          lng: -105.01129637456289,
+          lat: 9.013118726033703,
+          lng: -79.47612871661019,
         },
       },
       {
@@ -89,8 +89,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75515362500666,
-          lng: -104.99609756758628,
+          lat: 9.013611386108172,
+          lng: -79.47570927025225,
         },
       },
       {
@@ -105,8 +105,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.749147447458455,
-          lng: -105.00751795284174,
+          lat: 9.013444462951556,
+          lng: -79.47549236244147,
         },
       },
       {
@@ -120,8 +120,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75181100420289,
-          lng: -105.00847214637164,
+          lat: 9.013646527815519,
+          lng: -79.47572637654648,
         },
       },
       {
@@ -135,8 +135,8 @@ const lightingData = {
         notificationType: "Events",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.755314112781264,
-          lng: -105.0013163832604,
+          lat: 9.013778984994607,
+          lng: -79.47578248518732,
         },
       },
       {
@@ -150,8 +150,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.755724996944544,
-          lng: -105.0073944803513,
+          lat: 9.013515422202774,
+          lng: -79.47554026006107,
         },
       },
       {
@@ -165,8 +165,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.754096574426356,
-          lng: -104.99524286694944,
+          lat: 9.012950031312087,
+          lng: -79.47579712394808,
         },
       },
       {
@@ -180,8 +180,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.76123809694557,
-          lng: -105.00263788550286,
+          lat: 9.012748759453942,
+          lng: -79.47590201481266,
         },
       },
       {
@@ -195,8 +195,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.758410381562285,
-          lng: -104.99914476116105,
+          lat: 9.012736919929392,
+          lng: -79.47611779030552,
         },
       },
       {
@@ -210,8 +210,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.758267544591504,
-          lng: -104.98829377916307,
+          lat: 9.013222340118126,
+          lng: -79.47606084955046,
         },
       },
       {
@@ -225,8 +225,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.749982493422706,
-          lng: -104.99238147786095,
+          lat: 9.012846435516755,
+          lng: -79.47587204599422,
         },
       },
       {
@@ -240,8 +240,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.7519538545636,
-          lng: -105.00639113612544,
+          lat: 9.012257418858626,
+          lng: -79.47595595868589,
         },
       },
       {
@@ -255,8 +255,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.755724996944544,
-          lng: -105.0059452053584,
+          lat: 9.012810916951514,
+          lng: -79.47588703040344,
         },
       },
       {
@@ -270,8 +270,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75263953217147,
-          lng: -104.99134097273785,
+          lat: 9.012118304208366,
+          lng: -79.47606384643593,
         },
       },
       {
@@ -285,8 +285,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.7519824246002,
-          lng: -105.00928968611122,
+          lat: 9.011869673677204,
+          lng: -79.47630959074725,
         },
       },
       {
@@ -300,8 +300,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.74963757446337,
-          lng: -105.0282019436024,
+          lat: 9.01215678272765,
+          lng: -79.4758480709431,
         },
       },
       {
@@ -315,8 +315,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.721761171764804,
-          lng: -105.0139690453071,
+          lat: 9.013018108509902,
+          lng: -79.47580012083357,
         },
       },
       {
@@ -330,8 +330,8 @@ const lightingData = {
         notificationType: "Incident",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.72278858360459,
-          lng: -105.02156913649932,
+          lat: 9.012390613641395,
+          lng: -79.47658230699516,
         },
       },
       {
@@ -345,8 +345,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75809613983553,
-          lng: -104.99754684257915,
+          lat: 9.012014708174505,
+          lng: -79.47630359698356,
         },
       },
       {
@@ -361,8 +361,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.753039507624166,
-          lng: -104.9947226143879,
+          lat: 9.012032467496711,
+          lng: -79.47597693686244,
         },
       },
       {
@@ -376,8 +376,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75458224832903,
-          lng: -105.00449593036554,
+          lat: 9.012032467496711,
+          lng: -79.47610280589993,
         },
       },
       {
@@ -393,8 +393,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75432512727771,
-          lng: -105.00505334382431,
+          lat: 9.01220710078516,
+          lng: -79.47654334753116,
         },
       },
       {
@@ -410,8 +410,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75677237845138,
-          lng: -104.99989373019561,
+          lat: 9.011837114904507,
+          lng: -79.47603687449934,
         },
       },
       {
@@ -427,8 +427,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75978160140874,
-          lng: -104.99776980796267,
+          lat: 9.012651083341776,
+          lng: -79.47594996492583,
         },
       },
       {
@@ -443,8 +443,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75838685085751,
-          lng: -105.00005180275836,
+          lat: 9.012026547722744,
+          lng: -79.47632457515647,
         },
       },
       {
@@ -460,8 +460,8 @@ const lightingData = {
         notificationType: "Alerts",
         timeStamp: "09:41 AM",
         location: {
-          lat: 39.75722374013964,
-          lng: -105.00077442018811,
+          lat: 9.012008788400246,
+          lng: -79.47626164063773,
         },
       },
     ],
