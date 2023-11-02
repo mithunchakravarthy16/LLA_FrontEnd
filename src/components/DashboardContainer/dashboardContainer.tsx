@@ -1,7 +1,7 @@
 /** @format */
 //@ts-nocheck
 import { useState, useEffect, useCallback, useRef, useContext  } from "react";
-import {WebsocketContext } from "../../App";
+// import {WebsocketContext } from "../../App";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
