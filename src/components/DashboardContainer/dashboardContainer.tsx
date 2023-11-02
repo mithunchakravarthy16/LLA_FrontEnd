@@ -1,7 +1,7 @@
 /** @format */
 //@ts-nocheck
 import { useState, useEffect, useCallback, useRef, useContext  } from "react";
-import {WebsocketContext } from "../../App";
+// import {WebsocketContext } from "../../App";
 import Map from "components/Map";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ import { getAssetTrackingGridViewAnalyticsData } from "redux/actions/assetTracki
 import InfoDialogAssetTracking from "components/InfoDialogAssetTracking";
 import { getAssetLiveLocation } from "redux/actions/getAssetTrackerDetailAction";
 import CustomTablePagination from "elements/CustomPagination";
-import { UseWebSocket } from "websocketServices/useWebsocket";
+// import { UseWebSocket } from "websocketServices/useWebsocket";
 import useStyles from "./styles";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
 // @ts-ignore
@@ -162,15 +162,15 @@ useEffect(()=>{
 
   useEffect(() => {
     dispatch(getAdminPanelConfigData({ isPreview: "N", isDefault: "N" }));
-    dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+    // dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
 //assetAnalytics api for every 1 mins
-  //  const interval = setInterval(()=>{
-  //     dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
-  //   },60*1000)
+   const interval = setInterval(()=>{
+      dispatch(getAssetTrackingGridViewAnalyticsData("Day"));
+    },60*1000)
 
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {
@@ -213,7 +213,7 @@ useEffect(()=>{
 
   useEffect(() => {
     let assetLiveDataPayload: any = {};
-    dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
     const interval = setInterval(() => {
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
