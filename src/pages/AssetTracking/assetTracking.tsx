@@ -27,6 +27,7 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
   formattedOverallNotificationCount,
+  formatttedAssetTrackerTabNotification,
 } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
@@ -50,6 +51,7 @@ import CustomTablePagination from "elements/CustomPagination";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+import assetTrackersTabSampleApiData from "mockdata/assetTrackersTabSampleApiData";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
@@ -65,6 +67,7 @@ const AssetTracking: React.FC<any> = (props) => {
     tickInterval: 1,
   });
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mainTabIndex, setMainTabIndex] = useState<number>(0)
 
   useEffect(() => {
     switch (selectedValue) {
@@ -829,7 +832,7 @@ const AssetTracking: React.FC<any> = (props) => {
   //---websocket Implementation ends---
 
   useEffect(() => {
-    if (assetNotificationList && assetLiveData) {
+    if (assetNotificationList && assetLiveData && mainTabIndex === 1) {
 
 
       // const insertWebsocketDataToExisitingNotiData = (
@@ -998,11 +1001,66 @@ const AssetTracking: React.FC<any> = (props) => {
       setSearchValue(
         formatttedDashboardNotification(combinedNotifications, tabIndex)
       );
+    }else if(mainTabIndex === 0 && assetTrackersTabSampleApiData){
+      const { cellularTags, bleTags } = assetTrackersTabSampleApiData;
+      const combinedNotifications: any = [];
+
+      cellularTags?.forEach((tag: any, index: number) => {
+        combinedNotifications.push({
+          ...tag,
+          tagType: "cellularTags",
+          category: "asset",
+          title: tag?.trackerName,
+          id: tag?.assetId,
+          markerId: tag?.trackerId,
+          description: tag?.area,
+          currentLocation: tag?.location,
+          recentMarkerType: tag?.trackerStatus === "Inactive"
+              ? tag?.trackerStatus
+              : tag?.notificationType,
+            
+        });
+      });
+
+      bleTags?.forEach((tag: any, index: number) => {
+        combinedNotifications.push({
+          ...tag,
+          tagType: "bleTags",
+          category: "asset",
+          title: tag?.trackerName,
+          id: tag?.assetId,
+          markerId: tag?.trackerId,
+          description: tag?.area,
+          currentLocation: tag?.location,
+          recentMarkerType: tag?.trackerStatus === "Inactive"
+              ? tag?.trackerStatus
+              : tag?.notificationType,
+        });
+      });
+
+      combinedNotifications.sort((a: any, b: any) => {
+        const dateA: any = new Date(a.lastUpdated);
+        const dateB: any = new Date(b.lastUpdated);
+
+        return dateB - dateA;
+      });
+
+      setNotificationArray(combinedNotifications);
+      setLiveMarkerList(combinedNotifications);
+
+      setDashboardData(
+        formatttedAssetTrackerTabNotification(combinedNotifications, tabIndex)
+      );
+      setSearchValue(
+        formatttedAssetTrackerTabNotification(combinedNotifications, tabIndex)
+      );
+
     }
   }, [
     assetNotificationResponse,
     tabIndex,
     searchOpen,
+    mainTabIndex
     // websocketLatestAssetNotification,
   ]);
 
@@ -1032,7 +1090,7 @@ const AssetTracking: React.FC<any> = (props) => {
     // } else {
     //   updatedLiveTrackerDetails = assetLiveData;
     // }
-
+if(mainTabIndex === 1){
     const updatedLiveData =
       updatedLiveTrackerDetails &&
       updatedLiveTrackerDetails?.length > 0 &&
@@ -1057,7 +1115,8 @@ const AssetTracking: React.FC<any> = (props) => {
       });
 
     setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData,
+    }
+  }, [assetLiveData,mainTabIndex
     // websocketLatestAssetTrackerLive
   ]);
 
@@ -1402,12 +1461,13 @@ const AssetTracking: React.FC<any> = (props) => {
   const [mapDefaultView, setMapDefaultView] = useState<boolean>(true);
 
   const onHandleDefaultView = () => {
+  
     setMapDefaultView(true);
     setNotificationPanelActive(false);
     setListSelectedMarker("");
     setAssetLiveMarker("");
     setSearchOpen(false);
-    setDebounceSearchText("");
+    setDebounceSearchText("");    
   };
 
   //Google Map Api Key Data fetching start here
@@ -1421,6 +1481,24 @@ const AssetTracking: React.FC<any> = (props) => {
   );
 
   //Google Map Api Key Data fetching end here
+
+  const mainTabsNameList = [
+    {tabName: "TRACKERS", value: 0},
+    {tabName: "NITIFICATION", value: 1}
+  ];
+
+  const handleMainTabs = (index:number)=>{
+    onHandleDefaultView()
+    setMainTabIndex(index)
+    
+  }
+
+  useEffect(()=>{
+    setTabIndex(mainTabIndex === 0 ? 0 : 1)
+    setSelectedNotification("")
+    
+  },[mainTabIndex])
+
 
   return (
     <>
@@ -1756,11 +1834,31 @@ const AssetTracking: React.FC<any> = (props) => {
                         selectedNotification={selectedNotification}
                         mapDefaultView={mapDefaultView}
                         setMapDefaultView={setMapDefaultView}
+                        selectedAssetMainTab={mainTabIndex === 0 ? "trackers" : "notification"}
+                        
                       />
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item xs={3} className={notificationPanelGrid}>
+                  <div style={{display: "flex", margin: "0.6vw 1vw", padding: "0.2vw", background: "#FFFFFF", borderRadius: "0.2vw", color: "#7C7777"}}>
+                    {
+                      mainTabsNameList?.map((items:any, index: number)=>(
+                        <div 
+                        style={{
+                          flex: 1,
+                          textAlign: "center",
+                          padding: "0.8vw 0",
+                          background: mainTabIndex === index && "#F1624C",
+                          borderRadius: "0.2vw",
+                          cursor: "pointer",
+                          color: mainTabIndex === index && "#FFFFFF"}}
+                          onClick={()=>handleMainTabs(index)}
+                        >{items?.tabName}</div>
+                      ))
+                    }
+                 
+                  </div>                  
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}
@@ -1795,6 +1893,7 @@ const AssetTracking: React.FC<any> = (props) => {
                     mapDefaultView={mapDefaultView}
                     setMapDefaultView={setMapDefaultView}
                     setPage={setPage}
+                    selectedAssetMainTab={mainTabIndex === 0 ? "trackers" : "notification"}
                   />
                   {!loaderAssetNotificationResponse && (
                     <div style={{ margin: "-5px 20px 0 20px" }}>

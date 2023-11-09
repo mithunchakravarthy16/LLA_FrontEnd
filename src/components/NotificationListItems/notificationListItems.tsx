@@ -31,6 +31,7 @@ const NotificationListItems = (props: any) => {
     notificationPageName,
     selectedTheme,
     markerType,
+    selectedAssetMainTab,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -115,7 +116,8 @@ const NotificationListItems = (props: any) => {
                   handleExpandListItem(item?.id, item?.markerId, item)
                 }
                 ref={refs && refs[item?.id]}
-                key={item?.id}>
+                key={item?.id}
+              >
                 {selectedNotification === item?.id ||
                 pageName === "markerCallout" ? (
                   <div className={expandedListItems}>
@@ -123,12 +125,14 @@ const NotificationListItems = (props: any) => {
                       <div className={listItemCallout}>
                         <div
                           className={listItemTitle}
-                          style={{ marginBottom: "0 !important" }}>
+                          style={{ marginBottom: "0 !important" }}
+                        >
                           {item?.title}
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={handleMarkerClose}>
+                          onClick={handleMarkerClose}
+                        >
                           <img
                             src={
                               selectedTheme === "light"
@@ -189,7 +193,8 @@ const NotificationListItems = (props: any) => {
                   onClick={() =>
                     handleExpandListItem(item?.id, item?.markerId, item)
                   }
-                  ref={refs && refs[item?.id]}>
+                  ref={refs && refs[item?.id]}
+                >
                   {selectedNotification === item?.id ||
                   pageName === "markerCallout" ? (
                     <div className={expandedListItems}>
@@ -197,7 +202,8 @@ const NotificationListItems = (props: any) => {
                         <>
                           <div
                             className={markerCloseIcon1}
-                            onClick={handleMarkerClose}>
+                            onClick={handleMarkerClose}
+                          >
                             <img
                               src={
                                 selectedTheme === "light"
@@ -212,7 +218,8 @@ const NotificationListItems = (props: any) => {
                             <div className={listItemTitle}>{item?.title}</div>
                             <div
                               className={markerVideoIcon}
-                              onClick={(e: any) => handleVideoDetails(e, data)}>
+                              onClick={(e: any) => handleVideoDetails(e, data)}
+                            >
                               <img
                                 src={
                                   selectedTheme === "light"
@@ -229,7 +236,8 @@ const NotificationListItems = (props: any) => {
                         <div className={defaultListItem}>
                           <div className={listItemTitle}>{item?.title}</div>
                           <div
-                            onClick={(e: any) => handleVideoDetails(e, data)}>
+                            onClick={(e: any) => handleVideoDetails(e, data)}
+                          >
                             <img
                               src={
                                 selectedTheme === "light"
@@ -256,7 +264,8 @@ const NotificationListItems = (props: any) => {
                         <div className={buttonStyle}>
                           <Button
                             variant="contained"
-                            handleClick={() => handleViewDetails(data)}>
+                            handleClick={() => handleViewDetails(data)}
+                          >
                             {viewDetails}
                           </Button>
                         </div>
@@ -275,7 +284,8 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={(e: any) => handleVideoDetails(e, data)}>
+                          onClick={(e: any) => handleVideoDetails(e, data)}
+                        >
                           <img
                             src={
                               selectedTheme === "light"
@@ -306,7 +316,10 @@ const NotificationListItems = (props: any) => {
                 </div>
               );
             }
-          } else if (item?.category === "asset") {
+          } else if (
+            item?.category === "asset" &&
+            selectedAssetMainTab !== "trackers"
+          ) {
             const testDateUtc = moment.utc(item?.notificationDate);
             const localDate = testDateUtc.local();
             {
@@ -316,7 +329,8 @@ const NotificationListItems = (props: any) => {
                   onClick={() =>
                     handleExpandListItem(item?.id, item?.markerId, item)
                   }
-                  ref={refs && refs[item?.id]}>
+                  ref={refs && refs[item?.id]}
+                >
                   {selectedNotification === item?.id ||
                   pageName === "markerCallout" ? (
                     <div className={expandedListItems}>
@@ -325,7 +339,8 @@ const NotificationListItems = (props: any) => {
                           <div className={listItemTitle}>{item?.title}</div>
                           <div
                             className={markerCloseIcon}
-                            onClick={handleMarkerClose}>
+                            onClick={handleMarkerClose}
+                          >
                             <img
                               src={
                                 selectedTheme === "light"
@@ -342,7 +357,7 @@ const NotificationListItems = (props: any) => {
                       )}
                       {item?.area && (
                         <div className={expandedListItemRow2}>
-                          {item?.area?.length > 50 ? (
+                          {item?.area?.length > 47 ? (
                             <>
                               <Tooltip
                                 tooltipValue={item?.area}
@@ -350,9 +365,10 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
-                                {truncateString(item?.area, 50)}
+                                {truncateString(item?.area, 47)}
                               </Tooltip>
                             </>
                           ) : (
@@ -363,7 +379,7 @@ const NotificationListItems = (props: any) => {
                       {markerType === "assetLiveMarker" ? (
                         <>
                           <div className={expandedListItemRow2}>
-                            {item?.currentArea?.length > 50 ? (
+                            {item?.currentArea?.length > 47 ? (
                               <>
                                 <Tooltip
                                   tooltipValue={item?.currentArea}
@@ -371,9 +387,10 @@ const NotificationListItems = (props: any) => {
                                   offset={[0, 10]}
                                   fontSize={[14]}
                                   padding={[2]}
-                                  pageName={"markerCallout"}>
+                                  pageName={"markerCallout"}
+                                >
                                   {" "}
-                                  {truncateString(item?.currentArea, 50)}
+                                  {truncateString(item?.currentArea, 47)}
                                 </Tooltip>
                               </>
                             ) : (
@@ -389,7 +406,8 @@ const NotificationListItems = (props: any) => {
                                   offset={[0, 10]}
                                   fontSize={[14]}
                                   padding={[2]}
-                                  pageName={"markerCallout"}>
+                                  pageName={"markerCallout"}
+                                >
                                   {" "}
                                   {truncateString(item?.description, 45)}
                                 </Tooltip>
@@ -409,7 +427,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.description, 45)}
                               </Tooltip>
@@ -432,7 +451,8 @@ const NotificationListItems = (props: any) => {
                             variant="contained"
                             handleClick={() =>
                               handleAssetViewDetails(item, markerType)
-                            }>
+                            }
+                          >
                             {viewDetails}
                           </Button>
                         </div>
@@ -456,7 +476,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.description, 37)}
                               </Tooltip>
@@ -474,6 +495,118 @@ const NotificationListItems = (props: any) => {
                 </div>
               );
             }
+          } else if (
+            item?.category === "asset" &&
+            selectedAssetMainTab === "trackers"
+          ) {
+            const testDateUtc = moment.utc(item?.lastUpdated);
+            const localDate = testDateUtc.local();
+            {
+              return (
+                <div
+                  className={rootContainer}
+                  onClick={() =>
+                    handleExpandListItem(item?.id, item?.markerId, item)
+                  }
+                  ref={refs && refs[item?.id]}
+                >
+                  {selectedNotification === item?.id ||
+                  pageName === "markerCallout" ? (
+                    <div className={expandedListItems}>
+                      {pageName === "markerCallout" ? (
+                        <div className={listItemCallout}>
+                          <div className={listItemTitle}>{item?.title}</div>
+                          <div
+                            className={markerCloseIcon}
+                            onClick={handleMarkerClose}
+                          >
+                            <img
+                              src={
+                                selectedTheme === "light"
+                                  ? CalloutCloaseIcon
+                                  : CloseIcon
+                              }
+                              width={selectedWidth?.is4kDevice ? 40 : 20}
+                              height={selectedWidth?.is4kDevice ? 40 : 20}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={listItemTitle}>{item?.title}</div>
+                      )}
+
+                      {item?.description && (
+                        <div className={expandedListItemRow2}>
+                          {item?.description?.length > 47 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.description}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.description, 47)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.description
+                          )}
+                        </div>
+                      )}
+
+                      <div className={expandedListItemRow4}>
+                        <div className={buttonStyle}>
+                          <Button
+                            variant="contained"
+                            handleClick={() =>
+                              handleAssetViewDetails(item, markerType)
+                            }
+                          >
+                            {viewDetails}
+                          </Button>
+                        </div>
+                        <div className={timeStampStyle}>
+                          {localDate.format("MM-DD-YYYY | HH:mm A")}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={collapsedListItems}>
+                      <div className={collapsedListItemTitle}>
+                        {item?.title}
+                      </div>
+                      <div className={collapsedlistItemRow2}>
+                        <div className={collapsedListItemSubTitle}>
+                          {item?.description?.length > 47 ? (
+                            <>
+                              <Tooltip
+                                tooltipValue={item?.description}
+                                placement={"bottom"}
+                                offset={[0, 10]}
+                                fontSize={[14]}
+                                padding={[2]}
+                                // pageName={"markerCallout"}
+                              >
+                                {" "}
+                                {truncateString(item?.description, 47)}
+                              </Tooltip>
+                            </>
+                          ) : (
+                            item?.description
+                          )}
+                        </div>
+                        {/* <div className={collapsedTimeStampStyle}>
+                          {localDate.format("MM-DD-YYYY | HH:mm A")}
+                        </div> */}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            }
           } else {
             return (
               <div
@@ -481,7 +614,8 @@ const NotificationListItems = (props: any) => {
                 onClick={() =>
                   handleExpandListItem(item?.id, item?.markerId, item)
                 }
-                ref={refs && refs[item?.id]}>
+                ref={refs && refs[item?.id]}
+              >
                 {selectedNotification === item?.id ||
                 pageName === "markerCallout" ? (
                   <div className={expandedListItems}>
@@ -496,7 +630,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.title, 30)}
                               </Tooltip>
@@ -507,7 +642,8 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={handleMarkerClose}>
+                          onClick={handleMarkerClose}
+                        >
                           <img
                             src={
                               selectedTheme === "light"

@@ -197,9 +197,9 @@ const useStyles = makeStyles({
           },
         },
         "&.Mui-selected": {
-          color: `${props?.palette?.notification?.eventColor} !important`,
+          color: props?.selectedAssetMainTab === "trackers" ? "#712C7D !important" : `${props?.palette?.notification?.eventColor} !important`,
           "& .count": {
-            background: `${props?.palette?.notification?.eventColor} !important`,
+            background: props?.selectedAssetMainTab === "trackers" ? "#712C7D !important" : `${props?.palette?.notification?.eventColor} !important`,
             color: `${props?.palette?.notification?.listItemContent} !important`,
           },
         },
@@ -327,7 +327,7 @@ const useStyles = makeStyles({
     "& .MuiTabs-root .MuiTabs-indicator": {
       background:
         props?.tabIndex === 0
-          ? `${props?.palette?.notification?.eventColor} !important`
+          ? props?.selectedAssetMainTab === "trackers" ? "#712C7D !important" : `${props?.palette?.notification?.eventColor} !important`
           : props?.tabIndex === 1
           ? `${props?.palette?.notification?.incidentColor} !important`
           : `${props?.palette?.notification?.oprAlertColor} !important`,
@@ -342,8 +342,8 @@ const useStyles = makeStyles({
   }),
   searchClass: (props: any) => ({
     border: `1px solid ${props?.palette?.notification?.listItemBorder}`,
-    background: props?.palette?.notification?.listItemBg,
-    color: props?.palette?.notification?.lightGrey3,
+    background: "#fff",
+    color: "#808080",
     borderRadius: 6,
     height: "48px",
     [muiTheme.breakpoints.up(3839)]: {

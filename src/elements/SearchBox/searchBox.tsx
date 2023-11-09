@@ -4,6 +4,10 @@ import IconButton from "@mui/material/IconButton";
 //@ts-ignore
 // import SearchIcon from "@mui/icons-material/Search";
 import SearchIconImg from "../../assets/searchIcon.svg";
+
+import assetSearchIconImg from "../../assets/assetSearchIcon.svg";
+
+
 import closeIconBox from "../../assets/closeIconBox.svg";
 import SearchIconDark from "../../assets/searchIconDark.svg";
 import CloseIconDark from "../../assets/closeIconBoxDark.svg";
@@ -98,7 +102,10 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setSearchValue(event.target.value);
     if (event.target.value.length > 0) {
       setIcon("cancel");
+    }else{
+      setIcon("search");
     }
+    
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
       notificationPageName === "energy") &&
@@ -147,7 +154,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   return (
     <>
-      <div className={searchInput}>
+      <div className={searchInput} style={{border: notificationPageName === "asset" && borderColor}}>
         <InputBase
           disabled={disabled ? disabled : false}
           fullWidth
@@ -175,7 +182,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
                   src={
                     notificationPageName === "assetTable"
                       ? SearchIconDark
-                      : SearchIconImg
+                      : notificationPageName === "asset" ? assetSearchIconImg : SearchIconImg
                   }
                   onClick={handleSearchFocus}
                   // onChange={handleInput}
