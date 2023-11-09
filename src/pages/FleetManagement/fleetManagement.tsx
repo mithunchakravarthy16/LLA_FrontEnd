@@ -37,22 +37,22 @@ import {
   setFleetManagementNotificationData,
   setFleetManagementOverAllTripDetails,
   setFleetManagementAnalyticsData,
+  getFleetManagementTripDetails,
+  setFleetManagementTripDetails,
+  getFleetManagementLiveTrip,
+  setFleetManagementLiveTrip,
+  getFleetManagementCompletedTrips,
 } from "redux/actions/fleetManagementNotificationActions";
 import useStyles from "./styles";
 import InfoDialogFleetManagement from "components/InfoDialogFleetManagement";
 import InfoDialogFleetVideo from "components/InfoDialogFleetVideo";
 import { getUserLogout, setUserLogin } from "redux/actions/loginActions";
-import {
-  getFleetManagementTripDetails,
-  setFleetManagementTripDetails,
-  getFleetManagementLiveTrip,
-  setFleetManagementLiveTrip,
-} from "redux/actions/fleetManagementNotificationActions";
 import moment from "moment";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import FleetNotificationPanelNew from "components/FleetNotificationPanelNew";
 import fleetTripsData from "mockdata/fleetManagementNewData";
+import CustomTablePagination from "elements/CustomPagination";
 
 const FleetManagement: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
@@ -120,6 +120,8 @@ const FleetManagement: React.FC<any> = (props) => {
     driveDotOne,
     graphTitle,
     globeIconSection,
+    pageNumSection,
+    customPagination,
   } = useStyles(appTheme);
 
   const dispatch = useDispatch();
@@ -216,6 +218,12 @@ const FleetManagement: React.FC<any> = (props) => {
     }
   }, [selectedValue]);
 
+  const fleetManagementCompletedTripsResponse = useSelector(
+    (state: any) =>
+      state.fleetManagementNotification.fleetManagementCompletedTripsData
+  );
+
+  console.log("res", fleetManagementCompletedTripsResponse);
   const fleetManagementNotificationResponse = useSelector(
     (state: any) =>
       state.fleetManagementNotification.fleetManagementNotificationData
@@ -898,35 +906,237 @@ const FleetManagement: React.FC<any> = (props) => {
   const [tripsNotificationCount, setTripsNotificationCount] = useState<any>();
   const [dashboardMapTripsData, setDashboardMapTripsData] = useState<any>();
   const [tripsSearchValue, setTripsSearchValue] = useState<any>();
+  const [page, setPage] = useState<any>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<any>(50);
+  const [searchPageNo, setSearchPageNo] = useState<any>();
+  const [paginationTotalCount, setPaginationTotalCount] = useState<any>();
+  const [debounceSearchText, setDebounceSearchText] = useState<any>("");
 
   useEffect(() => {
     setDashboardTripsData(
-      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+      formattedFleetTripsNotification(
+        fleetManagementCompletedTripsResponse?.data,
+        tripsTabIndex
+      )
     );
     setDashboardMapTripsData(
-      formattedMapFleetTripsNotification(fleetTripsData, tripsTabIndex)
+      formattedMapFleetTripsNotification(
+        fleetManagementCompletedTripsResponse?.data,
+        tripsTabIndex
+      )
     );
     setTripsNotificationCount([
-      fleetTripsData?.liveTrips?.length,
-      fleetTripsData?.deviceDTO?.length,
-      fleetTripsData?.completedTrips?.length,
+      fleetManagementCompletedTripsResponse?.data?.liveTrips?.count,
+      fleetManagementCompletedTripsResponse?.data?.deviceDTOs?.count,
+      fleetManagementCompletedTripsResponse?.data?.completedTrips?.count,
     ]);
     setTripsSearchValue(
-      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+      formattedFleetTripsNotification(
+        fleetManagementCompletedTripsResponse?.data,
+        tripsTabIndex
+      )
     );
-  }, [fleetTripsData]);
+  }, [fleetManagementCompletedTripsResponse?.data]);
 
   useEffect(() => {
     setDashboardTripsData(
-      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+      formattedFleetTripsNotification(
+        fleetManagementCompletedTripsResponse?.data,
+        tripsTabIndex
+      )
     );
     setDashboardMapTripsData(
-      formattedMapFleetTripsNotification(fleetTripsData, tripsTabIndex)
+      formattedMapFleetTripsNotification(
+        fleetManagementCompletedTripsResponse?.data,
+        tripsTabIndex
+      )
     );
     setTripsSearchValue(
-      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+      formattedFleetTripsNotification(
+        fleetManagementCompletedTripsResponse?.data,
+        tripsTabIndex
+      )
     );
   }, [tripsTabIndex]);
+
+  //Pagination
+
+  // const [totalRecords, setTotalRecords] = useState<any>(
+  //   formattedOverallNotificationCount(
+  //     assetNotificationResponse && assetNotificationResponse?.data,
+  //     assetNotificationResponse?.data,
+  //     "asset"
+  //   )
+  // );
+
+  //Pagination End
+
+  useEffect(() => {
+    if (searchPageNo) {
+      setPage(0);
+      const fleetPayload = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tripsTabIndex === 0
+            ? "Live"
+            : tripsTabIndex === 1
+            ? "Devices"
+            : "Completed",
+      };
+      console.log("11");
+      dispatch(getFleetManagementCompletedTrips({ payLoad: fleetPayload }));
+    }
+  }, [tripsTabIndex]);
+
+  useEffect(() => {
+    let fleetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
+      notificationType:
+        tripsTabIndex === 0
+          ? "Live"
+          : tripsTabIndex === 1
+          ? "Devices"
+          : "Completed",
+    };
+    if (!debounceSearchText) {
+      fleetPayload = {
+        filterText: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tripsTabIndex === 0
+            ? "Live"
+            : tripsTabIndex === 1
+            ? "Devices"
+            : "Completed",
+      };
+      console.log("1");
+      dispatch(getFleetManagementCompletedTrips({ payLoad: fleetPayload }));
+    }
+  }, [debounceSearchText, page, rowsPerPage]);
+
+  // PAGINATION
+
+  const handleChangePage = (newPage: any) => {
+    // setPage((newPage === NaN || newPage === undefined || newPage === "") ? 0 : (parseInt(newPage) - 1) );
+  };
+
+  const handleChangeRowsPerPage = (data: any) => {
+    setRowsPerPage(data);
+    setSearchPageNo("");
+    setPage(0);
+    let fleetPayload: any = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(data),
+      notificationType:
+        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+    };
+    dispatch(
+      getFleetManagementCompletedTrips({
+        payLoad: fleetPayload,
+      })
+    );
+  };
+
+  const handleNextChange = () => {
+    let fleetPayload: any = {};
+    if (page >= 0) {
+      fleetPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(page) + 1,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+    }
+    dispatch(
+      getFleetManagementCompletedTrips({
+        payLoad: fleetPayload,
+      })
+    );
+    setPage(page + 1);
+    setSearchPageNo("");
+  };
+
+  const handlePreviousChange = () => {
+    let fleetPayload: any = {};
+    if (page > 0) {
+      fleetPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+    }
+    dispatch(
+      getFleetManagementCompletedTrips({
+        payLoad: fleetPayload,
+      })
+    );
+    setPage(page - 1);
+  };
+  const handlePageNoChange = (value: any, keyName: any) => {
+    let fleetPayload: any = {};
+    if (page >= 0 && value !== "" && keyName === "Enter") {
+      setSearchPageNo(parseInt(value));
+      setPage(parseInt(value) - 1);
+      fleetPayload = {
+        filterText: "",
+        pageNo: parseInt(value) - 1,
+        pageSize: parseInt(rowsPerPage),
+        notificationType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      };
+      dispatch(
+        getFleetManagementCompletedTrips({
+          payLoad: fleetPayload,
+        })
+      );
+      // setSearchPageNo("");
+    }
+  };
+
+  // useEffect(() => {
+  //   if (assetNotificationResponse) {
+  //     setTotalRecords(
+  //       formattedOverallNotificationCount(
+  //         assetNotificationResponse?.data,
+  //         assetNotificationResponse?.data,
+  //         "asset"
+  //       )
+  //     );
+  //     let countArray = formattedOverallNotificationCount(
+  //       assetNotificationResponse?.data,
+  //       assetNotificationResponse?.data,
+  //       "asset"
+  //     );
+  //     let newArray: any = [];
+  //     if (countArray && countArray?.length > 0) {
+  //       switch (tabIndex) {
+  //         case 0:
+  //           newArray = countArray[0];
+  //           break;
+  //         case 1:
+  //           newArray = countArray[1];
+  //           break;
+  //         case 2:
+  //           newArray = countArray[2];
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     }
+  //     setPaginationTotalCount(newArray);
+  //   }
+  // }, [assetNotificationResponse, tabIndex]);
+
+  // PAGINATION ENDS
 
   return (
     <>
@@ -1632,6 +1842,28 @@ const FleetManagement: React.FC<any> = (props) => {
                       tripsSearchValue={tripsSearchValue}
                       setTripsSearchValue={setTripsSearchValue}
                     />
+                    {!notificationsLoader && (
+                      <div style={{ margin: "-5px 20px 0 20px" }}>
+                        <CustomTablePagination
+                          rowsPerPageOptions={[50, 100, 200, 500]}
+                          count={
+                            paginationTotalCount === 0
+                              ? 1
+                              : paginationTotalCount
+                          }
+                          rowsPerPage={rowsPerPage}
+                          page={page}
+                          onPageChange={handleChangePage}
+                          onRowsPerPageChange={handleChangeRowsPerPage}
+                          handleNextChange={handleNextChange}
+                          handlePreviousChange={handlePreviousChange}
+                          onPageNoChange={handlePageNoChange}
+                          value={searchPageNo}
+                          pageNumclassName={pageNumSection}
+                          reportsPaginationclassName={customPagination}
+                        />
+                      </div>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>

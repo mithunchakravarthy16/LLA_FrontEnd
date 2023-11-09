@@ -450,13 +450,15 @@ const FleetMap: React.FC<any> = (props) => {
   useEffect(() => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
-      map?.setZoom(
-        selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
-          ? 16.2
-          : 18
-      );
+
       if (index > 0) {
         map?.panTo(markers[index]?.location);
+        map?.setZoom(
+          selectedContainerStyle?.is4kDevice ||
+            selectedContainerStyle?.is3kDevice
+            ? 16.2
+            : 18
+        );
       }
     }
     // else {

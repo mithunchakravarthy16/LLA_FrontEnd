@@ -379,7 +379,7 @@ export const formattedFleetTripsNotification = (data: any, index: number) => {
     const combinedNotifications: any = [];
 
     if (index === 0) {
-      data?.liveTrips?.forEach((liveTrip: any) => {
+      data?.liveTrips?.tripDTO?.forEach((liveTrip: any) => {
         combinedNotifications.push({
           ...liveTrip,
           category: "fleet",
@@ -390,18 +390,18 @@ export const formattedFleetTripsNotification = (data: any, index: number) => {
         });
       });
     } else if (index === 1) {
-      data?.deviceDTO?.forEach((liveTrip: any) => {
+      data?.deviceDTOs?.deviceDto?.forEach((liveTrip: any) => {
         combinedNotifications.push({
           ...liveTrip,
           category: "fleet",
-          id: liveTrip?.tripId,
+          id: liveTrip?.deviceId,
           // currentTimeStamp: moment
           //   .utc(event?.notificationDate)
           //   .format("MM-DD-YYYY | HH:mm A"),
         });
       });
     } else if (index === 2) {
-      data?.completedTrips?.forEach((liveTrip: any) => {
+      data?.completedTrips?.tripDTO?.forEach((liveTrip: any) => {
         combinedNotifications.push({
           ...liveTrip,
           category: "fleet",
@@ -424,7 +424,7 @@ export const formattedMapFleetTripsNotification = (
     const combinedNotifications: any = [];
 
     if (index === 0 || index === 1) {
-      data?.liveTrips?.forEach((liveTrip: any) => {
+      data?.liveTrips?.tripDTO?.forEach((liveTrip: any) => {
         combinedNotifications.push({
           ...liveTrip,
           category: "fleet",
@@ -435,7 +435,7 @@ export const formattedMapFleetTripsNotification = (
         });
       });
     } else if (index === 2) {
-      data?.completedTrips?.forEach((liveTrip: any) => {
+      data?.completedTrips?.tripDTO?.forEach((liveTrip: any) => {
         combinedNotifications.push({
           ...liveTrip,
           category: "fleet",

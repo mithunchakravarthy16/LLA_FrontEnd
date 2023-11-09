@@ -605,7 +605,7 @@ const NotificationListItems = (props: any) => {
                       </div>
                       <div className={collapsedlistItemRow2}>
                         <div className={collapsedListItemSubTitle}>
-                          {item?.description?.length > 37 ? (
+                          {item?.description?.length > 25 ? (
                             <>
                               <Tooltip
                                 tooltipValue={item?.description}
@@ -616,7 +616,7 @@ const NotificationListItems = (props: any) => {
                                 pageName={"markerCallout"}
                               >
                                 {" "}
-                                {truncateString(item?.description, 37)}
+                                {truncateString(item?.description, 25)}
                               </Tooltip>
                             </>
                           ) : (
