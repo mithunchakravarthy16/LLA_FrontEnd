@@ -101,7 +101,7 @@ const useStyles = makeStyles({
     // fontSize: 20,
     fontSize: "0.9vw",
     letterSpacing: "0.5px",
-    marginBottom: "3%",
+    marginBottom: props?.pageName !== "markerCallout" && props?.selectedAssetMainTab !== "trackers" ? "3%" : "unset",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.notification?.listItemContent,
     [muiTheme.breakpoints.up(3839)]: {
@@ -436,6 +436,8 @@ const useStyles = makeStyles({
     },
   }),
   markerCloseIcon: (props: any) => ({
+    display: "flex",
+    columnGap: "1vw",
     margin: "4px 0px 0px 0px",
     fontSize: 13,
     padding: "0px 0px 0px 15px",
@@ -450,7 +452,8 @@ const useStyles = makeStyles({
   listItemCallout: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
-    // alignItems: "center",
+    alignItems: "center",
+    marginBottom: "3%",
   }),
   defaultListItem: (props: any) => ({
     display: "flex",

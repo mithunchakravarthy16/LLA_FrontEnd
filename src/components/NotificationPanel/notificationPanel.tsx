@@ -12,7 +12,7 @@ import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
 import { useDispatch } from "react-redux";
-import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
+import { getNotificationData, getAssetTrackersListData } from "redux/actions/getAllAssertNotificationAction";
 import useStyles from "./styles";
 import Loader from "elements/Loader";
 
@@ -51,7 +51,8 @@ const NotificationPanel = (props: any) => {
     mapDefaultView, 
     setMapDefaultView,
     setPage,
-    selectedAssetMainTab
+    selectedAssetMainTab,
+    mainTabIndex
   } = props;
   const dispatch = useDispatch();
 
@@ -136,14 +137,12 @@ const NotificationPanel = (props: any) => {
     {
       name: "CELLULAR TAGS",
       val: 0,
-      count:
-        6,
+      count: notificationCount && notificationCount[0],
     },
     {
       name: "BLE TAGS",
       val: 1,
-      count:
-        6,
+      count: notificationCount && notificationCount[1],
     },
   ];
 
@@ -238,7 +237,7 @@ const NotificationPanel = (props: any) => {
   };
   //debouncing start
   const delayTime = notificationPageName === "asset" ? 500 : 500;
-  const fetchingDataForSearch = (searchValue: any, tabIndex: number, searchBoxPageNo : any, searchBoxRowsPerPage:any) => {
+  const fetchingDataForSearch = (searchValue: any, tabIndex: number, searchBoxPageNo : any, searchBoxRowsPerPage:any, mainTabIndex:any) => {
     searchTextRef.current = searchValue;
     let assetPayload = {};
     if (searchValue) {
@@ -257,10 +256,22 @@ const NotificationPanel = (props: any) => {
         pageNo: 0,
         pageSize: parseInt(searchBoxRowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
     }
-    dispatch(
+    mainTabIndex === 0 && dispatch(
+      getAssetTrackersListData({ payLoad: assetPayload, isFromSearch: true })
+    );
+
+    mainTabIndex === 1 && dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setDebounceSearchText(searchValue);
@@ -406,6 +417,7 @@ const NotificationPanel = (props: any) => {
                 disabled={loaderAssetNotificationResponse}
                 page={page}
                 rowsPerPage={rowsPerPage}
+                mainTabIndex={mainTabIndex}
               />
             ) : (
               notificationText

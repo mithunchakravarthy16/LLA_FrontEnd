@@ -10,6 +10,7 @@ import FleetManagementCloseIcon from "../../assets/fleetManagementCloseIcon.svg"
 import CalloutCloaseIcon from "../../assets/calloutCloaseIcon.svg";
 import FleetCalloutCloseIcon from "../../assets/fleetCalloutCloseIcon.svg";
 import VideoLightIcon from "../../assets/videoLightIcon.svg";
+import assetTrackersActiveStatusIcon from "../../assets/assetTrackersActiveStatusIcon.svg";
 import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
 import moment from "moment";
@@ -74,6 +75,7 @@ const NotificationListItems = (props: any) => {
     pageName: pageName,
     mapPageName: mapPageName,
     notificationPageName: notificationPageName,
+    selectedAssetMainTab: selectedAssetMainTab
   });
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
@@ -512,27 +514,59 @@ const NotificationListItems = (props: any) => {
                 >
                   {selectedNotification === item?.id ||
                   pageName === "markerCallout" ? (
-                    <div className={expandedListItems}>
+                    <div
+                      className={expandedListItems}
+                      style={{
+                        padding: pageName === "markerCallout" && "2% 4% 4% 4%",
+                      }}
+                    >
                       {pageName === "markerCallout" ? (
                         <div className={listItemCallout}>
                           <div className={listItemTitle}>{item?.title}</div>
+
                           <div
                             className={markerCloseIcon}
                             onClick={handleMarkerClose}
                           >
-                            <img
-                              src={
-                                selectedTheme === "light"
-                                  ? CalloutCloaseIcon
-                                  : CloseIcon
-                              }
-                              width={selectedWidth?.is4kDevice ? 40 : 20}
-                              height={selectedWidth?.is4kDevice ? 40 : 20}
-                            />
+                            <div>
+                              <img
+                                src={assetTrackersActiveStatusIcon}
+                                width={selectedWidth?.is4kDevice ? 140 : 70}
+                                height={selectedWidth?.is4kDevice ? 50 : 30}
+                              />
+                            </div>
+                            <div
+                              style={{ display: "flex", alignItems: "center" }}
+                            >
+                              <img
+                                src={
+                                  selectedTheme === "light"
+                                    ? CalloutCloaseIcon
+                                    : CloseIcon
+                                }
+                                width={selectedWidth?.is4kDevice ? 40 : 20}
+                                height={selectedWidth?.is4kDevice ? 40 : 20}
+                              />
+                            </div>
                           </div>
                         </div>
                       ) : (
-                        <div className={listItemTitle}>{item?.title}</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: "2%",
+                          }}
+                        >
+                          <div className={listItemTitle}>{item?.title}</div>
+                          <div>
+                            <img
+                              src={assetTrackersActiveStatusIcon}
+                              width={selectedWidth?.is4kDevice ? 140 : 70}
+                              height={selectedWidth?.is4kDevice ? 50 : 30}
+                            />
+                          </div>
+                        </div>
                       )}
 
                       {item?.description && (
@@ -556,6 +590,11 @@ const NotificationListItems = (props: any) => {
                           )}
                         </div>
                       )}
+                      <div className={expandedListItemRow3}>
+                        {pageName === "markerCallout"
+                          ? item?.assetName
+                          : `Asset ID - ${item?.assetName}`}
+                      </div>
 
                       <div className={expandedListItemRow4}>
                         <div className={buttonStyle}>

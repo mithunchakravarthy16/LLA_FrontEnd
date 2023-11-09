@@ -406,3 +406,16 @@ export const formattedOverallNotificationCount = (
     return count;
   }
 };
+
+export const formattedOverallAssetTrackersCount = (apiData: any) => {
+  if (apiData && apiData !== undefined) {
+    let count: any = [];
+    const {bleTags, cellularTags}= apiData
+      let bleTagsCount = bleTags?.count;
+      let cellularCount = cellularTags?.count;
+      
+      count = [ cellularCount, bleTagsCount];
+    
+    return count;
+  }
+};

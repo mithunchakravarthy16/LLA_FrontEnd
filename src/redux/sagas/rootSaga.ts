@@ -6,7 +6,7 @@ import adminLogin from "../actions/adminLoginActions";
 import assetNotification from "redux/actions/getAllAssertNotificationAction";
 import fleetManagementNotification from "redux/actions/fleetManagementNotificationActions";
 import assetTrackingActiveInActiveAnalytics from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
-import { handleAssetNotification } from "./handlers/getAllAssertNotification";
+import { handleAssetNotification, handleAssetTrackersListData } from "./handlers/getAllAssertNotification";
 import assetActiveInactiveTracker from "redux/actions/getActiveInactiveTrackerCount";
 import { handleActiveInactiveTracker } from "./handlers/getActiveInactiveTrackerCount";
 import assetIncidentCount from "redux/actions/getAllIncidentCount";
@@ -83,7 +83,8 @@ export default function* rootSaga() {
     watchAssetTableData(),
     watchAssetNameData(),
     watchGoogleMapApiData(),
-    watchGoogleMapApiDataPost()
+    watchGoogleMapApiDataPost(),
+    watchAssetTrackersListData()
   ]);
 }
 
@@ -273,5 +274,11 @@ export function* watchGoogleMapApiData() {
 export function* watchGoogleMapApiDataPost() {
   yield takeLatest(
     googleMapApiKey.GET_GOOGLE_MAP_API_POST, handleGoogleMapApiPost
+  )
+}
+
+export function* watchAssetTrackersListData() {
+  yield takeLatest(
+    assetNotification.GET_ASSET_TRACKERS_LIST, handleAssetTrackersListData
   )
 }

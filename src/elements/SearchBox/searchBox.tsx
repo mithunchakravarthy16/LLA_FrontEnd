@@ -38,6 +38,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     rowsPerPage,
     isRefreshClicked,
     setIsRefreshClicked,
+    mainTabIndex
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -114,7 +115,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
     ) {
-      handleSearchtest(event.target.value, tabIndex, page, rowsPerPage);
+      handleSearchtest(event.target.value, tabIndex, page, rowsPerPage, mainTabIndex);
     }
   };
   const handleSearchFocus = () => {
