@@ -20,44 +20,11 @@ import MapMarker from "components/Marker";
 import customMapStyles from "./customMapStyles";
 import customLightThemeMapStyles from "./customLightThemeMapStyles";
 import theme from "../../theme/theme";
-import appData from "../../data/appData";
-import NotificationListItems from "components/NotificationListItems";
-import ParkingEventIcon from "../../assets/markers/Parking-green.svg";
-import ParkingIncidentIcon from "../../assets/markers/Parking-red.svg";
-import ParkingAlertIcon from "../../assets/markers/Parking-orange.svg";
-import EnergyManagemnetEventIcon from "../../assets/markers/energyManagementEvent.svg";
-import EnergyManagementIncidentIcon from "../../assets/markers/Energy management-red.svg";
-import EnergyManagementAlertIcon from "../../assets/markers/Energy management-orange.svg";
-import SecurityEventIcon from "../../assets/markers/Security-green.svg";
-import SecurityIncidentIcon from "../../assets/markers/Security-red.svg";
-import SecutiryAlertIcon from "../../assets/markers/Security-orange.svg";
-import LighteningEventIcon from "../../assets/markers/Lighting-green.svg";
-import LighteningIncidentIcon from "../../assets/markers/Lighting-red.svg";
-import LighteningAlertIcon from "../../assets/markers/Lighting-orange.svg";
-import AssetTrackingEventIcon from "../../assets/markers/Assets Tracking-green.svg";
-import AssetTrackingIncidentIcon from "../../assets/markers/Assets Tracking-red.svg";
-import AssetTrackingAlertIcon from "../../assets/markers/Assets Tracking-orange.svg";
-import EnergyManagementEventActiveIcon from "../../assets/selectedMarkers/energyManagementActiveGreen.svg";
-import EnergyManagementIncidentActiveIcon from "../../assets/selectedMarkers/Energy management-red.svg";
-import EnergyManagementAlertActiveIcon from "../../assets/selectedMarkers/Energy management-orange.svg";
-import ParkingEventActiveIcon from "../../assets/selectedMarkers/Parking-green.svg";
-import ParkingIncidentActiveIcon from "../../assets/selectedMarkers/Parking-red.svg";
-import ParkingAlertActiveIcon from "../../assets/selectedMarkers/Parking-orange.svg";
-import AssetTrackingEventActiveIcon from "../../assets/selectedMarkers/Assets Tracking-green.svg";
-import AssetTrackingIncidentActiveIcon from "../../assets/selectedMarkers/Assets Tracking-red.svg";
-import AssetTrackingAlertActiveIcon from "../../assets/selectedMarkers/Assets Tracking-orange.svg";
-import SecurityEventActiveIcon from "../../assets/selectedMarkers/Security-green.svg";
-import SecurityIncidentActiveIcon from "../../assets/selectedMarkers/Security-red.svg";
-import SecurityAlertActiveIcon from "../../assets/selectedMarkers/Security-orange.svg";
-import LightenEventActiveIcon from "../../assets/selectedMarkers/Lighting-green.svg";
-import LightenIncidentActiveIcon from "../../assets/selectedMarkers/Lighting-red.svg";
-import LightenAlertActiveIcon from "../../assets/selectedMarkers/Lighting-orange.svg";
 import FleetEventIcon from "../../assets/markers/Fleet_event.svg";
 import FleetIncidentIcon from "../../assets/markers/Fleet_incident.svg";
 import FleetAlertIcon from "../../assets/markers/Fleet_alerts.svg";
-import FleetHoverIcon from "../../assets/markers/fleetHoverNew.gif";
-import MarkerClusterIcon from "../../assets/markerClusterIcon.png";
 import routeSourceIcon from "assets/sourceIcon.svg";
+import CompletedTripIcon from "assets/markers/completedTrip.svg";
 import useStyles from "./styles";
 
 const fleetManagementCenter = {
@@ -96,6 +63,8 @@ const FleetMap: React.FC<any> = (props) => {
     setMapDefaultView,
     mapType,
     setMapType,
+    tabMainIndex,
+    tripsTabIndex,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -484,13 +453,11 @@ const FleetMap: React.FC<any> = (props) => {
       map?.setZoom(
         selectedContainerStyle?.is4kDevice || selectedContainerStyle?.is3kDevice
           ? 16.2
-          : (selectedContainerStyle?.is4kDevice ||
-              selectedContainerStyle?.is3kDevice) &&
-            location?.pathname !== "/home"
-          ? 15
-          : 15
+          : 18
       );
-      map?.panTo(markers[index]?.location);
+      if (index > 0) {
+        map?.panTo(markers[index]?.location);
+      }
     }
     // else {
     //   map?.panTo(fleetManagementCenter);
@@ -535,99 +502,52 @@ const FleetMap: React.FC<any> = (props) => {
   const getMarkerIcon = (
     category: string,
     notificationCategory: string,
-    id: string
+    id: string,
+    tripStatus
   ) => {
     switch (notificationCategory) {
       case "Events": {
         switch (category) {
-          case "parking":
-            return currentMarker === id
-              ? ParkingEventActiveIcon
-              : ParkingEventIcon;
-          case "energy":
-            return currentMarker === id
-              ? EnergyManagementEventActiveIcon
-              : EnergyManagemnetEventIcon;
-          case "security":
-            return currentMarker === id
-              ? SecurityEventActiveIcon
-              : SecurityEventIcon;
-          case "lighting":
-            return currentMarker === id
-              ? LightenEventActiveIcon
-              : LighteningEventIcon;
-          case "asset":
-            return currentMarker === id
-              ? AssetTrackingEventActiveIcon
-              : AssetTrackingEventIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetEventIcon : FleetEventIcon;
-            return currentMarker === id ? FleetEventIcon : FleetEventIcon;
+            return tripStatus === "Live"
+              ? currentMarker === id
+                ? FleetEventIcon
+                : FleetEventIcon
+              : CompletedTripIcon;
           default:
-            return ParkingEventIcon;
+            return FleetEventIcon;
         }
       }
       case "Alerts": {
         switch (category) {
-          case "parking":
-            return currentMarker === id
-              ? ParkingAlertActiveIcon
-              : ParkingAlertIcon;
-          case "energy":
-            return currentMarker === id
-              ? EnergyManagementAlertActiveIcon
-              : EnergyManagementAlertIcon;
-          case "security":
-            return currentMarker === id
-              ? SecurityAlertActiveIcon
-              : SecutiryAlertIcon;
-          case "lighting":
-            return currentMarker === id
-              ? LightenAlertActiveIcon
-              : LighteningAlertIcon;
-          case "asset":
-            return currentMarker === id
-              ? AssetTrackingAlertActiveIcon
-              : AssetTrackingAlertIcon;
           case "fleet":
             // return focusedCategory === "fleet" ? FleetHoverIcon : currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
-            return currentMarker === id ? FleetAlertIcon : FleetAlertIcon;
+            return tripStatus === "Live"
+              ? currentMarker === id
+                ? FleetAlertIcon
+                : FleetAlertIcon
+              : CompletedTripIcon;
           default:
-            return ParkingAlertIcon;
+            return FleetAlertIcon;
         }
         break;
       }
       case "Incident": {
         switch (category) {
-          case "parking":
-            return currentMarker === id
-              ? ParkingIncidentActiveIcon
-              : ParkingIncidentIcon;
-          case "energy":
-            return currentMarker === id
-              ? EnergyManagementIncidentActiveIcon
-              : EnergyManagementIncidentIcon;
-          case "security":
-            return currentMarker === id
-              ? SecurityIncidentActiveIcon
-              : SecurityIncidentIcon;
-          case "lighting":
-            return currentMarker === id
-              ? LightenIncidentActiveIcon
-              : LighteningIncidentIcon;
-          case "asset":
-            return currentMarker === id
-              ? AssetTrackingIncidentActiveIcon
-              : AssetTrackingIncidentIcon;
           case "fleet":
             //return focusedCategory === "fleet" ? FleetHoverIcon :  currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
-            return currentMarker === id ? FleetIncidentIcon : FleetIncidentIcon;
+            return tripStatus === "Live"
+              ? currentMarker === id
+                ? FleetIncidentIcon
+                : FleetIncidentIcon
+              : CompletedTripIcon;
           default:
-            return ParkingIncidentIcon;
+            return FleetIncidentIcon;
         }
       }
       default:
-        return ParkingIncidentIcon;
+        return FleetIncidentIcon;
     }
   };
 
@@ -682,25 +602,14 @@ const FleetMap: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSelectedMarker("");
-  }, [tabIndex]);
+    setCurrentMarker("");
+    setSelectedNotification("");
+  }, [tabIndex, tabMainIndex, tripsTabIndex]);
 
   let lineSymbol = {
     path: "M 0,-1 0,1",
     strokeOpacity: 10,
     scale: 4,
-  };
-
-  const icon1 = {
-    url: FleetEventIcon,
-    scaledSize:
-      window.google &&
-      window.google.maps &&
-      new window.google.maps.Size(60, 60),
-    anchor:
-      window.google &&
-      window.google.maps &&
-      new window.google.maps.Point(30, 30),
-    scale: 0.7,
   };
 
   function handleZoomChanged() {
@@ -809,6 +718,51 @@ const FleetMap: React.FC<any> = (props) => {
     }
   };
 
+  // trips code
+
+  const TripsMarker = useMemo(() => {
+    return (
+      <MarkerClustererF
+        averageCenter
+        enableRetinaIcons
+        maxZoom={
+          selectedContainerStyle?.is4kDevice ? 16.2 : currentMarker ? 6 : 17
+        }
+        gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
+        onCenterChanged={() => {
+          setMapDefaultView(false);
+        }}
+      >
+        {(clusterer: any) => (
+          <div>
+            {markers?.map((singleMarker: any) => {
+              // if (!window.google) return null;
+              return (
+                <MapMarker
+                  mapMarker={singleMarker}
+                  toggleInfoWindow={toggleInfoWindow}
+                  handleMarkerClose={handleMarkerClose}
+                  handleExpandListItem={handleExpandListItem}
+                  getMarkerIcon={getMarkerIcon}
+                  currentMarker={currentMarker}
+                  focusedCategory={focusedCategory}
+                  clusterer={clusterer}
+                  location={singleMarker?.location}
+                  handleAssetViewDetails={handleAssetViewDetails}
+                  mapPageName={mapPageName}
+                  selectedTheme={selectedTheme}
+                  handleViewDetails={handleViewDetails}
+                  handleVideoDetails={handleVideoDetails}
+                  tripsTabIndex={tripsTabIndex}
+                />
+              );
+            })}
+          </div>
+        )}
+      </MarkerClustererF>
+    );
+  }, [markers, tabMainIndex, tripsTabIndex, currentMarker]);
+
   return (
     <>
       {useMemo(
@@ -830,74 +784,78 @@ const FleetMap: React.FC<any> = (props) => {
                 setMapDefaultView(false);
               }}
             >
-              <MarkerClustererF
-                averageCenter
-                enableRetinaIcons
-                maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
-                gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
-                onCenterChanged={() => {
-                  setMapDefaultView(false);
-                }}
-              >
-                {(clusterer: any) => (
-                  <div>
-                    {markers?.map((singleMarker: any) => {
-                      // if (!window.google) return null;
-                      if (
-                        singleMarker?.tripStatus === "Live" &&
-                        singleMarker?.tripId &&
-                        singleMarker?.reason &&
-                        currentMarker !== singleMarker?.id
-                      ) {
-                        return (
-                          <>
-                            <MapMarker
-                              mapMarker={singleMarker}
-                              toggleInfoWindow={toggleInfoWindow}
-                              handleMarkerClose={handleMarkerClose}
-                              handleExpandListItem={handleExpandListItem}
-                              getMarkerIcon={getMarkerIcon}
-                              currentMarker={currentMarker}
-                              focusedCategory={focusedCategory}
-                              clusterer={clusterer}
-                              location={singleMarker?.location}
-                              handleAssetViewDetails={handleAssetViewDetails}
-                              mapPageName={mapPageName}
-                              selectedTheme={selectedTheme}
-                              handleViewDetails={handleViewDetails}
-                              handleVideoDetails={handleVideoDetails}
-                            />
-                          </>
-                        );
-                      } else if (
-                        singleMarker?.category !== "fleet" &&
-                        location?.pathname !== "/fleetManagement"
-                      ) {
-                        return (
-                          <>
-                            <MapMarker
-                              mapMarker={singleMarker}
-                              toggleInfoWindow={toggleInfoWindow}
-                              handleMarkerClose={handleMarkerClose}
-                              handleExpandListItem={handleExpandListItem}
-                              getMarkerIcon={getMarkerIcon}
-                              currentMarker={currentMarker}
-                              focusedCategory={focusedCategory}
-                              clusterer={clusterer}
-                              location={singleMarker?.location}
-                              handleAssetViewDetails={handleAssetViewDetails}
-                              mapPageName={mapPageName}
-                              handleViewDetails={handleViewDetails}
-                              handleVideoDetails={handleVideoDetails}
-                              selectedTheme={selectedTheme}
-                            />
-                          </>
-                        );
-                      }
-                    })}
-                  </div>
-                )}
-              </MarkerClustererF>
+              {tabMainIndex === 0 ? (
+                TripsMarker
+              ) : (
+                <MarkerClustererF
+                  averageCenter
+                  enableRetinaIcons
+                  maxZoom={selectedContainerStyle?.is4kDevice ? 16.2 : 15}
+                  gridSize={selectedContainerStyle?.is4kDevice ? 80 : 50}
+                  onCenterChanged={() => {
+                    setMapDefaultView(false);
+                  }}
+                >
+                  {(clusterer: any) => (
+                    <div>
+                      {markers?.map((singleMarker: any) => {
+                        // if (!window.google) return null;
+                        if (
+                          singleMarker?.tripStatus === "Live" &&
+                          singleMarker?.tripId &&
+                          singleMarker?.reason &&
+                          currentMarker !== singleMarker?.id
+                        ) {
+                          return (
+                            <>
+                              <MapMarker
+                                mapMarker={singleMarker}
+                                toggleInfoWindow={toggleInfoWindow}
+                                handleMarkerClose={handleMarkerClose}
+                                handleExpandListItem={handleExpandListItem}
+                                getMarkerIcon={getMarkerIcon}
+                                currentMarker={currentMarker}
+                                focusedCategory={focusedCategory}
+                                clusterer={clusterer}
+                                location={singleMarker?.location}
+                                handleAssetViewDetails={handleAssetViewDetails}
+                                mapPageName={mapPageName}
+                                selectedTheme={selectedTheme}
+                                handleViewDetails={handleViewDetails}
+                                handleVideoDetails={handleVideoDetails}
+                              />
+                            </>
+                          );
+                        } else if (
+                          singleMarker?.category !== "fleet" &&
+                          location?.pathname !== "/fleetManagement"
+                        ) {
+                          return (
+                            <>
+                              <MapMarker
+                                mapMarker={singleMarker}
+                                toggleInfoWindow={toggleInfoWindow}
+                                handleMarkerClose={handleMarkerClose}
+                                handleExpandListItem={handleExpandListItem}
+                                getMarkerIcon={getMarkerIcon}
+                                currentMarker={currentMarker}
+                                focusedCategory={focusedCategory}
+                                clusterer={clusterer}
+                                location={singleMarker?.location}
+                                handleAssetViewDetails={handleAssetViewDetails}
+                                mapPageName={mapPageName}
+                                handleViewDetails={handleViewDetails}
+                                handleVideoDetails={handleVideoDetails}
+                                selectedTheme={selectedTheme}
+                              />
+                            </>
+                          );
+                        }
+                      })}
+                    </div>
+                  )}
+                </MarkerClustererF>
+              )}
               {liveMarkerMovement}
             </GoogleMap>
           ),
@@ -910,6 +868,8 @@ const FleetMap: React.FC<any> = (props) => {
           isLoaded,
           // mapDefaultView,
           map,
+          tabMainIndex,
+          tripsTabIndex,
           // liveMarkerPosition,
         ]
       )}

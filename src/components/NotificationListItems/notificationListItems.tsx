@@ -14,6 +14,8 @@ import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
 import moment from "moment";
 import Tooltip from "elements/Tooltip";
+import CompletedTripSourceIcon from "assets/markers/completedTripSource.svg";
+import CompletedTripDestinationIcon from "assets/markers/completedTripDestination.svg";
 import useTranslation from "localization/translations";
 
 const NotificationListItems = (props: any) => {
@@ -31,6 +33,7 @@ const NotificationListItems = (props: any) => {
     notificationPageName,
     selectedTheme,
     markerType,
+    tripsTabIndex,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -115,7 +118,8 @@ const NotificationListItems = (props: any) => {
                   handleExpandListItem(item?.id, item?.markerId, item)
                 }
                 ref={refs && refs[item?.id]}
-                key={item?.id}>
+                key={item?.id}
+              >
                 {selectedNotification === item?.id ||
                 pageName === "markerCallout" ? (
                   <div className={expandedListItems}>
@@ -123,12 +127,14 @@ const NotificationListItems = (props: any) => {
                       <div className={listItemCallout}>
                         <div
                           className={listItemTitle}
-                          style={{ marginBottom: "0 !important" }}>
+                          style={{ marginBottom: "0 !important" }}
+                        >
                           {item?.title}
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={handleMarkerClose}>
+                          onClick={handleMarkerClose}
+                        >
                           <img
                             src={
                               selectedTheme === "light"
@@ -189,120 +195,264 @@ const NotificationListItems = (props: any) => {
                   onClick={() =>
                     handleExpandListItem(item?.id, item?.markerId, item)
                   }
-                  ref={refs && refs[item?.id]}>
-                  {selectedNotification === item?.id ||
-                  pageName === "markerCallout" ? (
-                    <div className={expandedListItems}>
-                      {pageName === "markerCallout" ? (
-                        <>
-                          <div
-                            className={markerCloseIcon1}
-                            onClick={handleMarkerClose}>
-                            <img
-                              src={
-                                selectedTheme === "light"
-                                  ? FleetCalloutCloseIcon
-                                  : FleetManagementCloseIcon
-                              }
-                              width={selectedWidth?.is4kDevice ? 20 : 10}
-                              height={selectedWidth?.is4kDevice ? 20 : 10}
-                            />
-                          </div>
-                          <div className={listItemCallout}>
-                            <div className={listItemTitle}>{item?.title}</div>
+                  ref={refs && refs[item?.id]}
+                >
+                  {tripsTabIndex === 0 &&
+                    (selectedNotification === item?.id ||
+                    pageName === "markerCallout" ? (
+                      <div className={expandedListItems}>
+                        {pageName === "markerCallout" ? (
+                          <>
                             <div
-                              className={markerVideoIcon}
-                              onClick={(e: any) => handleVideoDetails(e, data)}>
+                              className={markerCloseIcon1}
+                              onClick={handleMarkerClose}
+                            >
                               <img
                                 src={
                                   selectedTheme === "light"
-                                    ? VideoLightListIcon
-                                    : VideoIcon
+                                    ? FleetCalloutCloseIcon
+                                    : FleetManagementCloseIcon
                                 }
-                                width={selectedWidth?.is4kDevice ? 55 : 20}
-                                height={selectedWidth?.is4kDevice ? 55 : 20}
+                                width={selectedWidth?.is4kDevice ? 20 : 10}
+                                height={selectedWidth?.is4kDevice ? 20 : 10}
                               />
                             </div>
+                            <div className={listItemCallout}>
+                              <div
+                                className={listItemTitle}
+                              >{`Trip ID - ${item?.tripId}`}</div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className={defaultListItem}>
+                            <div
+                              className={listItemTitle}
+                            >{`Trip ID - ${item?.tripId}`}</div>
                           </div>
-                        </>
-                      ) : (
-                        <div className={defaultListItem}>
-                          <div className={listItemTitle}>{item?.title}</div>
-                          <div
-                            onClick={(e: any) => handleVideoDetails(e, data)}>
-                            <img
-                              src={
-                                selectedTheme === "light"
-                                  ? VideoLightListIcon
-                                  : VideoIcon
-                              }
-                              width={selectedWidth?.is4kDevice ? 55 : 20}
-                              height={selectedWidth?.is4kDevice ? 55 : 20}
-                            />
-                          </div>
-                        </div>
-                      )}
-                      <div className={expandedListItemRow2}>
-                        {truncateString(item?.area, 45)}
-                      </div>
-                      <div className={expandedListItemRow3}>
-                        {`Vehicle#${
-                          item?.vehicleId ? item?.vehicleId : ""
-                        } | Driver-${
-                          item?.driverName ? item?.driverName : ""
-                        } | Trip#${item?.tripId ? item?.tripId : ""}`}
-                      </div>
-                      <div className={expandedListItemRow4}>
-                        <div className={buttonStyle}>
-                          <Button
-                            variant="contained"
-                            handleClick={() => handleViewDetails(data)}>
-                            {viewDetails}
-                          </Button>
-                        </div>
-                        <div className={timeStampStyle}>
-                          {moment(item?.notificationDate).format(
-                            "MM-DD-YYYY | HH:mm A"
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className={collapsedListItems}>
-                      <div className={defaultListItem}>
-                        <div className={collapsedListItemTitle}>
-                          {item?.title}
-                        </div>
-                        <div
-                          className={markerCloseIcon}
-                          onClick={(e: any) => handleVideoDetails(e, data)}>
-                          <img
-                            src={
-                              selectedTheme === "light"
-                                ? VideoLightIcon
-                                : VideoIcon
-                            }
-                            width={selectedWidth?.is4kDevice ? 55 : 20}
-                            height={selectedWidth?.is4kDevice ? 55 : 20}
-                          />
-                        </div>
-                      </div>
-                      <div className={collapsedlistItemRow2}>
-                        <div className={collapsedListItemSubTitle}>
+                        )}
+                        <div className={expandedListItemRow3}>
                           {`Vehicle#${
                             item?.vehicleId ? item?.vehicleId : ""
-                          } , Driver-${
+                          } | Driver-${
                             item?.driverName ? item?.driverName : ""
                           }`}
                         </div>
-                        <div className={collapsedTimeStampStyle}>
-                          {moment(item?.notificationDate).format(
-                            "MM-DD-YYYY | HH:mm A"
-                          )}
+                        <div className={expandedListItemRow2}>
+                          {/* {`Lat:${location?.lat}, Lng:${location?.lng}`} */}{" "}
+                          {truncateString(item?.source, 45)}
+                        </div>
+                        <div className={expandedListItemRow4}>
+                          <div className={buttonStyle}>
+                            <Button
+                              variant="contained"
+                              handleClick={() => handleViewDetails(item)}
+                            >
+                              {viewDetails}
+                            </Button>
+                          </div>
+                          <div className={timeStampStyle}>
+                            {moment(item?.notificationDate).format(
+                              "MM-DD-YYYY | HH:mm A"
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className={collapsedListItems}>
+                        <div className={defaultListItem}>
+                          <div
+                            className={collapsedListItemTitle}
+                          >{`Trip ID - ${item?.tripId}`}</div>
+                        </div>
+                        <div className={collapsedlistItemRow2}>
+                          <div className={collapsedListItemSubTitle}>
+                            {`Vehicle#${
+                              item?.vehicleId ? item?.vehicleId : ""
+                            } , Driver-${
+                              item?.driverName ? item?.driverName : ""
+                            }`}
+                          </div>
+                          <div className={collapsedTimeStampStyle}>
+                            {moment(item?.notificationDate).format(
+                              "MM-DD-YYYY | HH:mm A"
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  {tripsTabIndex === 1 &&
+                    (selectedNotification === item?.id ||
+                    pageName === "markerCallout" ? (
+                      <div className={expandedListItems}>
+                        {pageName === "markerCallout" ? (
+                          <>
+                            <div
+                              className={markerCloseIcon1}
+                              onClick={handleMarkerClose}
+                            >
+                              <img
+                                src={
+                                  selectedTheme === "light"
+                                    ? FleetCalloutCloseIcon
+                                    : FleetManagementCloseIcon
+                                }
+                                width={selectedWidth?.is4kDevice ? 20 : 10}
+                                height={selectedWidth?.is4kDevice ? 20 : 10}
+                              />
+                            </div>
+                            <div className={listItemCallout}>
+                              <div className={listItemTitle}>{`Device id - ${
+                                item?.deviceName ? item?.deviceName : ""
+                              }`}</div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className={defaultListItem}>
+                            <div className={listItemTitle}>{`Device id - ${
+                              item?.deviceName ? item?.deviceName : ""
+                            }`}</div>
+                          </div>
+                        )}
+                        <div className={expandedListItemRow3}>
+                          {`Status - ${
+                            item?.deviceStatus ? item?.deviceStatus : ""
+                          }`}
+                        </div>
+                        {/* <div className={expandedListItemRow4}>
+                          <div className={timeStampStyle}>
+                            {moment(item?.notificationDate).format(
+                              "MM-DD-YYYY | HH:mm A"
+                            )}
+                          </div>
+                        </div> */}
+                      </div>
+                    ) : (
+                      <div className={collapsedListItems}>
+                        <div className={defaultListItem}>
+                          <div
+                            className={collapsedListItemTitle}
+                          >{`Device id - ${item?.deviceName}`}</div>
+                        </div>
+                        <div className={collapsedlistItemRow2}>
+                          <div className={collapsedListItemSubTitle}>
+                            {`Status - ${
+                              item?.deviceStatus ? item?.deviceStatus : ""
+                            }`}
+                          </div>
+                          <div className={collapsedTimeStampStyle}>
+                            {moment(item?.notificationDate).format(
+                              "MM-DD-YYYY | HH:mm A"
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  {tripsTabIndex === 2 &&
+                    (selectedNotification === item?.id ||
+                    pageName === "markerCallout" ? (
+                      <div className={expandedListItems}>
+                        {pageName === "markerCallout" ? (
+                          <>
+                            <div
+                              className={markerCloseIcon1}
+                              onClick={handleMarkerClose}
+                            >
+                              <img
+                                src={
+                                  selectedTheme === "light"
+                                    ? FleetCalloutCloseIcon
+                                    : FleetManagementCloseIcon
+                                }
+                                width={selectedWidth?.is4kDevice ? 20 : 10}
+                                height={selectedWidth?.is4kDevice ? 20 : 10}
+                              />
+                            </div>
+                            <div className={listItemCallout}>
+                              <div
+                                className={listItemTitle}
+                              >{`Trip ID - ${item?.tripId}`}</div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className={defaultListItem}>
+                            <div
+                              className={listItemTitle}
+                            >{`Trip ID - ${item?.tripId}`}</div>
+                          </div>
+                        )}
+                        {/* <div className={expandedListItemRow2}>
+                    {truncateString(item?.area, 45)}
+                  </div> */}
+                        <div className={expandedListItemRow3}>
+                          {`Vehicle#${
+                            item?.vehicleId ? item?.vehicleId : ""
+                          } | Driver-${
+                            item?.driverName ? item?.driverName : ""
+                          }`}
+                        </div>
+                        <div>
+                          <div style={{ display: "flex" }}>
+                            <span>
+                              <img
+                                src={CompletedTripSourceIcon}
+                                height={selectedWidth?.is4kDevice ? 20 : 20}
+                                width={selectedWidth?.is4kDevice ? 20 : 20}
+                              />
+                            </span>
+                            <span>{item?.source ? item?.source : ""}</span>
+                          </div>
+                          <div style={{ display: "flex" }}>
+                            <span>
+                              <img
+                                src={CompletedTripDestinationIcon}
+                                height={selectedWidth?.is4kDevice ? 20 : 30}
+                                width={selectedWidth?.is4kDevice ? 20 : 30}
+                              />
+                            </span>
+                            <span>
+                              {item?.destination ? item?.destination : ""}
+                            </span>
+                          </div>
+                        </div>
+                        <div className={expandedListItemRow4}>
+                          <div className={buttonStyle}>
+                            <Button
+                              variant="contained"
+                              handleClick={() => handleViewDetails(item)}
+                            >
+                              {viewDetails}
+                            </Button>
+                          </div>
+                          <div className={timeStampStyle}>
+                            {moment(item?.notificationDate).format(
+                              "MM-DD-YYYY | HH:mm A"
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className={collapsedListItems}>
+                        <div className={defaultListItem}>
+                          <div
+                            className={collapsedListItemTitle}
+                          >{`Trip ID - ${item?.tripId}`}</div>
+                        </div>
+                        <div className={collapsedlistItemRow2}>
+                          <div className={collapsedListItemSubTitle}>
+                            {`Vehicle#${
+                              item?.vehicleId ? item?.vehicleId : ""
+                            } , Driver-${
+                              item?.driverName ? item?.driverName : ""
+                            }`}
+                          </div>
+                          <div className={collapsedTimeStampStyle}>
+                            {moment(item?.notificationDate).format(
+                              "MM-DD-YYYY | HH:mm A"
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                 </div>
               );
             }
@@ -316,7 +466,8 @@ const NotificationListItems = (props: any) => {
                   onClick={() =>
                     handleExpandListItem(item?.id, item?.markerId, item)
                   }
-                  ref={refs && refs[item?.id]}>
+                  ref={refs && refs[item?.id]}
+                >
                   {selectedNotification === item?.id ||
                   pageName === "markerCallout" ? (
                     <div className={expandedListItems}>
@@ -325,7 +476,8 @@ const NotificationListItems = (props: any) => {
                           <div className={listItemTitle}>{item?.title}</div>
                           <div
                             className={markerCloseIcon}
-                            onClick={handleMarkerClose}>
+                            onClick={handleMarkerClose}
+                          >
                             <img
                               src={
                                 selectedTheme === "light"
@@ -350,7 +502,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.area, 50)}
                               </Tooltip>
@@ -371,7 +524,8 @@ const NotificationListItems = (props: any) => {
                                   offset={[0, 10]}
                                   fontSize={[14]}
                                   padding={[2]}
-                                  pageName={"markerCallout"}>
+                                  pageName={"markerCallout"}
+                                >
                                   {" "}
                                   {truncateString(item?.currentArea, 50)}
                                 </Tooltip>
@@ -389,7 +543,8 @@ const NotificationListItems = (props: any) => {
                                   offset={[0, 10]}
                                   fontSize={[14]}
                                   padding={[2]}
-                                  pageName={"markerCallout"}>
+                                  pageName={"markerCallout"}
+                                >
                                   {" "}
                                   {truncateString(item?.description, 45)}
                                 </Tooltip>
@@ -409,7 +564,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.description, 45)}
                               </Tooltip>
@@ -432,7 +588,8 @@ const NotificationListItems = (props: any) => {
                             variant="contained"
                             handleClick={() =>
                               handleAssetViewDetails(item, markerType)
-                            }>
+                            }
+                          >
                             {viewDetails}
                           </Button>
                         </div>
@@ -456,7 +613,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.description, 37)}
                               </Tooltip>
@@ -481,7 +639,8 @@ const NotificationListItems = (props: any) => {
                 onClick={() =>
                   handleExpandListItem(item?.id, item?.markerId, item)
                 }
-                ref={refs && refs[item?.id]}>
+                ref={refs && refs[item?.id]}
+              >
                 {selectedNotification === item?.id ||
                 pageName === "markerCallout" ? (
                   <div className={expandedListItems}>
@@ -496,7 +655,8 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}>
+                                pageName={"markerCallout"}
+                              >
                                 {" "}
                                 {truncateString(item?.title, 30)}
                               </Tooltip>
@@ -507,7 +667,8 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={handleMarkerClose}>
+                          onClick={handleMarkerClose}
+                        >
                           <img
                             src={
                               selectedTheme === "light"

@@ -33,6 +33,7 @@ const MapMarker: React.FC<any> = (props) => {
     isMarkerClicked,
     selectedNotificationItem,
     setAssetLiveMarker,
+    tripsTabIndex,
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -64,7 +65,8 @@ const MapMarker: React.FC<any> = (props) => {
             url: getMarkerIcon(
               mapMarker?.category,
               mapMarker?.notificationType,
-              mapMarker?.id
+              mapMarker?.id,
+              mapMarker?.tripStatus
             ),
             scaledSize: new window.google.maps.Size(
               window.innerWidth > 3839 || window.innerWidth > 3071
@@ -94,6 +96,7 @@ const MapMarker: React.FC<any> = (props) => {
               handleVideoDetails={handleVideoDetails}
               notificationPageName={mapPageName}
               selectedTheme={selectedTheme}
+              tripsTabIndex={tripsTabIndex}
             />
           </InfoWindowF>
         )}

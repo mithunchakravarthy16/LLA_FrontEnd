@@ -22,7 +22,11 @@ import Highcharts from "highcharts";
 import TopPanelListItemContainer from "components/TopPanelListItemContainer";
 import FleetMap from "components/Map/fleetMap";
 import FleetNotificationPanel from "components/FleetNotificationPanel";
-import { formatttedDashboardNotification } from "../../utils/utils";
+import {
+  formatttedDashboardNotification,
+  formattedFleetTripsNotification,
+  formattedMapFleetTripsNotification,
+} from "../../utils/utils";
 import { LiveImg } from "assets/gridViewIcons";
 import Chart from "elements/Chart";
 import theme from "../../theme/theme";
@@ -47,6 +51,8 @@ import {
 import moment from "moment";
 import { fetchGoogleMapApi } from "data/googleMapApiFetch";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
+import FleetNotificationPanelNew from "components/FleetNotificationPanelNew";
+import fleetTripsData from "mockdata/fleetManagementNewData";
 
 const FleetManagement: React.FC<any> = (props) => {
   const { mapType, setMapType } = props;
@@ -417,42 +423,6 @@ const FleetManagement: React.FC<any> = (props) => {
           return { ...value, index: index + 1 };
         }
       );
-
-      //
-      // const updatedArray: any = [];
-      // combinedNotifications?.length > 0 &&
-      //   combinedNotifications?.forEach(async (item: any, index: number) => {
-      //     if (
-      //       item?.location?.lat &&
-      //       item?.location?.lng &&
-      //       window.google &&
-      //       window.google.maps
-      //     ) {
-      //       let address: any = "";
-      //       const geocoder: any = new window.google.maps.Geocoder();
-      //       const location1: any = new window.google.maps.LatLng(
-      //         item?.location?.lat,
-      //         item?.location?.lng
-      //       );
-      //       await geocoder.geocode(
-      //         { latLng: location1 },
-      //         (results: any, status: any) => {
-      //           if (status === "OK" && results[0]) {
-      //             address = results[0].formatted_address;
-      //           } else {
-      //             console.error("Geocode failure: " + status);
-      //             return false;
-      //           }
-      //           updatedArray.push({
-      //             ...item,
-      //             index: index,
-      //             area: address,
-      //           });
-      //         }
-      //       );
-      //       setNotificationArray([...updatedArray]);
-      //     }
-      //   });
       setNotificationArray(dataValue);
     }
   }, [fleetManagementNotificationResponse, fleetManagementTripDetailsData]);
@@ -514,7 +484,7 @@ const FleetManagement: React.FC<any> = (props) => {
     useState<boolean>(false);
   const [currentMarker, setCurrentMarker] = useState<any>("");
   const [isMarkerClicked, setIsMarkerClicked] = useState<boolean>(false);
-  const [searchValue, setSearchValue] = useState<any>(
+  const [searchNotificationsValue, setSearchNoticationsValue] = useState<any>(
     formatttedDashboardNotification(notificationArray, tabIndex)
   );
 
@@ -540,7 +510,7 @@ const FleetManagement: React.FC<any> = (props) => {
     setDashboardData(
       formatttedDashboardNotification(notificationArray, tabIndex)
     );
-    setSearchValue(
+    setSearchNoticationsValue(
       formatttedDashboardNotification(notificationArray, tabIndex)
     );
   }, [notificationArray, tabIndex]);
@@ -854,14 +824,16 @@ const FleetManagement: React.FC<any> = (props) => {
     }
   };
 
+  const handleTripsExpandListItem = () => {};
+
   const handleMarkerIconClick = (id: any) => {
     const obj = notificationArray?.find((item: any) => item.tripId === id);
-    if (obj.tripStatus === "Live" && obj?.reason && obj?.tripId) {
+    if (obj?.tripStatus === "Live" && obj?.reason && obj?.tripId) {
       dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
       setTripId(obj?.tripId);
       setTripName(null);
     } else if (
-      obj.tripStatus === "Live" &&
+      obj?.tripStatus === "Live" &&
       obj?.reason &&
       obj?.tripId &&
       obj?.tripName === "Dummy_TR#109041"
@@ -918,6 +890,43 @@ const FleetManagement: React.FC<any> = (props) => {
       setGoogleMapsApiKeyResponse(mapApiResponse);
     });
   }, []);
+
+  //  Fleet trips
+  const [tabMainIndex, setTabMainIndex] = useState<any>(0);
+  const [tripsTabIndex, setTripsTabIndex] = useState<any>(0);
+  const [dashboardTripsData, setDashboardTripsData] = useState<any>();
+  const [tripsNotificationCount, setTripsNotificationCount] = useState<any>();
+  const [dashboardMapTripsData, setDashboardMapTripsData] = useState<any>();
+  const [tripsSearchValue, setTripsSearchValue] = useState<any>();
+
+  useEffect(() => {
+    setDashboardTripsData(
+      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+    );
+    setDashboardMapTripsData(
+      formattedMapFleetTripsNotification(fleetTripsData, tripsTabIndex)
+    );
+    setTripsNotificationCount([
+      fleetTripsData?.liveTrips?.length,
+      fleetTripsData?.deviceDTO?.length,
+      fleetTripsData?.completedTrips?.length,
+    ]);
+    setTripsSearchValue(
+      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+    );
+  }, [fleetTripsData]);
+
+  useEffect(() => {
+    setDashboardTripsData(
+      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+    );
+    setDashboardMapTripsData(
+      formattedMapFleetTripsNotification(fleetTripsData, tripsTabIndex)
+    );
+    setTripsSearchValue(
+      formattedFleetTripsNotification(fleetTripsData, tripsTabIndex)
+    );
+  }, [tripsTabIndex]);
 
   return (
     <>
@@ -1537,7 +1546,11 @@ const FleetManagement: React.FC<any> = (props) => {
                         <FleetMap
                           googleMapsApiKeyResponse={googleMapsApiKeyResponse}
                           mapPageName={"fleet"}
-                          markers={notificationArray}
+                          markers={
+                            tabMainIndex === 0
+                              ? dashboardMapTripsData
+                              : notificationArray
+                          }
                           setNotificationPanelActive={
                             setNotificationPanelActive
                           }
@@ -1561,12 +1574,14 @@ const FleetManagement: React.FC<any> = (props) => {
                           setMapType={setMapType}
                           mapDefaultView={mapDefaultView}
                           setMapDefaultView={setMapDefaultView}
+                          tabMainIndex={tabMainIndex}
+                          tripsTabIndex={tripsTabIndex}
                         />
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={3} className={notificationPanelGrid}>
-                    <FleetNotificationPanel
+                    {/* <FleetNotificationPanel
                       setNotificationPanelActive={setNotificationPanelActive}
                       dashboardData={dashboardData}
                       tabIndex={tabIndex}
@@ -1585,6 +1600,37 @@ const FleetManagement: React.FC<any> = (props) => {
                       setIsMarkerClicked={setIsMarkerClicked}
                       selectedTheme={selectedTheme}
                       handleExpandListItem={handleExpandListItem}
+                    /> */}
+
+                    <FleetNotificationPanelNew
+                      setNotificationPanelActive={setNotificationPanelActive}
+                      dashboardData={
+                        tabMainIndex === 0 ? dashboardTripsData : dashboardData
+                      }
+                      tabIndex={tabIndex}
+                      setTabIndex={setTabIndex}
+                      notificationCount={notificationCount}
+                      selectedNotification={selectedNotification}
+                      setSelectedNotification={setSelectedNotification}
+                      searchOpen={searchOpen}
+                      setSearchOpen={setSearchOpen}
+                      searchNotificationsValue={searchNotificationsValue}
+                      setSearchNoticationsValue={setSearchNoticationsValue}
+                      setCurrentMarker={setCurrentMarker}
+                      handleViewDetails={handleViewDetails}
+                      handleVideoDetails={handleVideoDetails}
+                      isMarkerClicked={isMarkerClicked}
+                      setIsMarkerClicked={setIsMarkerClicked}
+                      selectedTheme={selectedTheme}
+                      handleExpandListItem={handleExpandListItem}
+                      tabMainIndex={tabMainIndex}
+                      setTabMainIndex={setTabMainIndex}
+                      tripsTabIndex={tripsTabIndex}
+                      setTripsTabIndex={setTripsTabIndex}
+                      tripsNotificationCount={tripsNotificationCount}
+                      handleTripsExpandListItem={handleTripsExpandListItem}
+                      tripsSearchValue={tripsSearchValue}
+                      setTripsSearchValue={setTripsSearchValue}
                     />
                   </Grid>
                 </Grid>
