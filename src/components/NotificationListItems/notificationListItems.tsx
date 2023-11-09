@@ -71,6 +71,8 @@ const NotificationListItems = (props: any) => {
     collapsedListItemSubTitle,
     collapsedTimeStampStyle,
     markerVideoIcon,
+    sourceContent,
+    sourceContentImg,
   } = useStyles({
     ...appTheme,
     pageName: pageName,
@@ -118,8 +120,7 @@ const NotificationListItems = (props: any) => {
                   handleExpandListItem(item?.id, item?.markerId, item)
                 }
                 ref={refs && refs[item?.id]}
-                key={item?.id}
-              >
+                key={item?.id}>
                 {selectedNotification === item?.id ||
                 pageName === "markerCallout" ? (
                   <div className={expandedListItems}>
@@ -127,14 +128,12 @@ const NotificationListItems = (props: any) => {
                       <div className={listItemCallout}>
                         <div
                           className={listItemTitle}
-                          style={{ marginBottom: "0 !important" }}
-                        >
+                          style={{ marginBottom: "0 !important" }}>
                           {item?.title}
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={handleMarkerClose}
-                        >
+                          onClick={handleMarkerClose}>
                           <img
                             src={
                               selectedTheme === "light"
@@ -195,8 +194,7 @@ const NotificationListItems = (props: any) => {
                   onClick={() =>
                     handleExpandListItem(item?.id, item?.markerId, item)
                   }
-                  ref={refs && refs[item?.id]}
-                >
+                  ref={refs && refs[item?.id]}>
                   {tripsTabIndex === 0 &&
                     (selectedNotification === item?.id ||
                     pageName === "markerCallout" ? (
@@ -205,8 +203,7 @@ const NotificationListItems = (props: any) => {
                           <>
                             <div
                               className={markerCloseIcon1}
-                              onClick={handleMarkerClose}
-                            >
+                              onClick={handleMarkerClose}>
                               <img
                                 src={
                                   selectedTheme === "light"
@@ -219,15 +216,17 @@ const NotificationListItems = (props: any) => {
                             </div>
                             <div className={listItemCallout}>
                               <div
-                                className={listItemTitle}
-                              >{`Trip ID - ${item?.tripId}`}</div>
+                                className={
+                                  listItemTitle
+                                }>{`Trip ID - ${item?.tripId}`}</div>
                             </div>
                           </>
                         ) : (
                           <div className={defaultListItem}>
                             <div
-                              className={listItemTitle}
-                            >{`Trip ID - ${item?.tripId}`}</div>
+                              className={
+                                listItemTitle
+                              }>{`Trip ID - ${item?.tripId}`}</div>
                           </div>
                         )}
                         <div className={expandedListItemRow3}>
@@ -245,8 +244,7 @@ const NotificationListItems = (props: any) => {
                           <div className={buttonStyle}>
                             <Button
                               variant="contained"
-                              handleClick={() => handleViewDetails(item)}
-                            >
+                              handleClick={() => handleViewDetails(item)}>
                               {viewDetails}
                             </Button>
                           </div>
@@ -261,8 +259,9 @@ const NotificationListItems = (props: any) => {
                       <div className={collapsedListItems}>
                         <div className={defaultListItem}>
                           <div
-                            className={collapsedListItemTitle}
-                          >{`Trip ID - ${item?.tripId}`}</div>
+                            className={
+                              collapsedListItemTitle
+                            }>{`Trip ID - ${item?.tripId}`}</div>
                         </div>
                         <div className={collapsedlistItemRow2}>
                           <div className={collapsedListItemSubTitle}>
@@ -288,8 +287,7 @@ const NotificationListItems = (props: any) => {
                           <>
                             <div
                               className={markerCloseIcon1}
-                              onClick={handleMarkerClose}
-                            >
+                              onClick={handleMarkerClose}>
                               <img
                                 src={
                                   selectedTheme === "light"
@@ -330,8 +328,9 @@ const NotificationListItems = (props: any) => {
                       <div className={collapsedListItems}>
                         <div className={defaultListItem}>
                           <div
-                            className={collapsedListItemTitle}
-                          >{`Device id - ${item?.deviceName}`}</div>
+                            className={
+                              collapsedListItemTitle
+                            }>{`Device id - ${item?.deviceName}`}</div>
                         </div>
                         <div className={collapsedlistItemRow2}>
                           <div className={collapsedListItemSubTitle}>
@@ -355,8 +354,7 @@ const NotificationListItems = (props: any) => {
                           <>
                             <div
                               className={markerCloseIcon1}
-                              onClick={handleMarkerClose}
-                            >
+                              onClick={handleMarkerClose}>
                               <img
                                 src={
                                   selectedTheme === "light"
@@ -369,15 +367,17 @@ const NotificationListItems = (props: any) => {
                             </div>
                             <div className={listItemCallout}>
                               <div
-                                className={listItemTitle}
-                              >{`Trip ID - ${item?.tripId}`}</div>
+                                className={
+                                  listItemTitle
+                                }>{`Trip ID - ${item?.tripId}`}</div>
                             </div>
                           </>
                         ) : (
                           <div className={defaultListItem}>
                             <div
-                              className={listItemTitle}
-                            >{`Trip ID - ${item?.tripId}`}</div>
+                              className={
+                                listItemTitle
+                              }>{`Trip ID - ${item?.tripId}`}</div>
                           </div>
                         )}
                         {/* <div className={expandedListItemRow2}>
@@ -391,25 +391,37 @@ const NotificationListItems = (props: any) => {
                           }`}
                         </div>
                         <div>
-                          <div style={{ display: "flex" }}>
-                            <span>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: "16px",
+                            }}>
+                            <span className={sourceContentImg}>
                               <img
                                 src={CompletedTripSourceIcon}
                                 height={selectedWidth?.is4kDevice ? 20 : 20}
                                 width={selectedWidth?.is4kDevice ? 20 : 20}
                               />
                             </span>
-                            <span>{item?.source ? item?.source : ""}</span>
+                            <span className={sourceContent}>
+                              {item?.source ? item?.source : ""}
+                            </span>
                           </div>
-                          <div style={{ display: "flex" }}>
-                            <span>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: "16px",
+                            }}>
+                            <span className={sourceContentImg}>
                               <img
                                 src={CompletedTripDestinationIcon}
-                                height={selectedWidth?.is4kDevice ? 20 : 30}
-                                width={selectedWidth?.is4kDevice ? 20 : 30}
+                                height={selectedWidth?.is4kDevice ? 20 : 20}
+                                width={selectedWidth?.is4kDevice ? 20 : 20}
                               />
                             </span>
-                            <span>
+                            <span className={sourceContent}>
                               {item?.destination ? item?.destination : ""}
                             </span>
                           </div>
@@ -418,8 +430,7 @@ const NotificationListItems = (props: any) => {
                           <div className={buttonStyle}>
                             <Button
                               variant="contained"
-                              handleClick={() => handleViewDetails(item)}
-                            >
+                              handleClick={() => handleViewDetails(item)}>
                               {viewDetails}
                             </Button>
                           </div>
@@ -434,8 +445,9 @@ const NotificationListItems = (props: any) => {
                       <div className={collapsedListItems}>
                         <div className={defaultListItem}>
                           <div
-                            className={collapsedListItemTitle}
-                          >{`Trip ID - ${item?.tripId}`}</div>
+                            className={
+                              collapsedListItemTitle
+                            }>{`Trip ID - ${item?.tripId}`}</div>
                         </div>
                         <div className={collapsedlistItemRow2}>
                           <div className={collapsedListItemSubTitle}>
@@ -466,8 +478,7 @@ const NotificationListItems = (props: any) => {
                   onClick={() =>
                     handleExpandListItem(item?.id, item?.markerId, item)
                   }
-                  ref={refs && refs[item?.id]}
-                >
+                  ref={refs && refs[item?.id]}>
                   {selectedNotification === item?.id ||
                   pageName === "markerCallout" ? (
                     <div className={expandedListItems}>
@@ -476,8 +487,7 @@ const NotificationListItems = (props: any) => {
                           <div className={listItemTitle}>{item?.title}</div>
                           <div
                             className={markerCloseIcon}
-                            onClick={handleMarkerClose}
-                          >
+                            onClick={handleMarkerClose}>
                             <img
                               src={
                                 selectedTheme === "light"
@@ -502,8 +512,7 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}
-                              >
+                                pageName={"markerCallout"}>
                                 {" "}
                                 {truncateString(item?.area, 50)}
                               </Tooltip>
@@ -524,8 +533,7 @@ const NotificationListItems = (props: any) => {
                                   offset={[0, 10]}
                                   fontSize={[14]}
                                   padding={[2]}
-                                  pageName={"markerCallout"}
-                                >
+                                  pageName={"markerCallout"}>
                                   {" "}
                                   {truncateString(item?.currentArea, 50)}
                                 </Tooltip>
@@ -543,8 +551,7 @@ const NotificationListItems = (props: any) => {
                                   offset={[0, 10]}
                                   fontSize={[14]}
                                   padding={[2]}
-                                  pageName={"markerCallout"}
-                                >
+                                  pageName={"markerCallout"}>
                                   {" "}
                                   {truncateString(item?.description, 45)}
                                 </Tooltip>
@@ -564,8 +571,7 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}
-                              >
+                                pageName={"markerCallout"}>
                                 {" "}
                                 {truncateString(item?.description, 45)}
                               </Tooltip>
@@ -588,8 +594,7 @@ const NotificationListItems = (props: any) => {
                             variant="contained"
                             handleClick={() =>
                               handleAssetViewDetails(item, markerType)
-                            }
-                          >
+                            }>
                             {viewDetails}
                           </Button>
                         </div>
@@ -613,8 +618,7 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}
-                              >
+                                pageName={"markerCallout"}>
                                 {" "}
                                 {truncateString(item?.description, 25)}
                               </Tooltip>
@@ -639,8 +643,7 @@ const NotificationListItems = (props: any) => {
                 onClick={() =>
                   handleExpandListItem(item?.id, item?.markerId, item)
                 }
-                ref={refs && refs[item?.id]}
-              >
+                ref={refs && refs[item?.id]}>
                 {selectedNotification === item?.id ||
                 pageName === "markerCallout" ? (
                   <div className={expandedListItems}>
@@ -655,8 +658,7 @@ const NotificationListItems = (props: any) => {
                                 offset={[0, 10]}
                                 fontSize={[14]}
                                 padding={[2]}
-                                pageName={"markerCallout"}
-                              >
+                                pageName={"markerCallout"}>
                                 {" "}
                                 {truncateString(item?.title, 30)}
                               </Tooltip>
@@ -667,8 +669,7 @@ const NotificationListItems = (props: any) => {
                         </div>
                         <div
                           className={markerCloseIcon}
-                          onClick={handleMarkerClose}
-                        >
+                          onClick={handleMarkerClose}>
                           <img
                             src={
                               selectedTheme === "light"

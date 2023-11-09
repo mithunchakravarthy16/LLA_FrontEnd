@@ -66,6 +66,8 @@ const FleetNotificationTripsListItems = (props: any) => {
     collapsedListItemSubTitle,
     collapsedTimeStampStyle,
     markerVideoIcon,
+    sourceContent,
+    sourceContentImg,
   } = useStyles({
     ...appTheme,
     pageName: pageName,
@@ -108,8 +110,7 @@ const FleetNotificationTripsListItems = (props: any) => {
           <div
             className={rootContainer}
             onClick={() => handleTripsExpandListItem(item?.id)}
-            ref={refs && refs[item?.id]}
-          >
+            ref={refs && refs[item?.id]}>
             {tripsTabIndex === 0 &&
               (selectedNotification === item?.id ||
               pageName === "markerCallout" ? (
@@ -118,8 +119,7 @@ const FleetNotificationTripsListItems = (props: any) => {
                     <>
                       <div
                         className={markerCloseIcon1}
-                        onClick={handleMarkerClose}
-                      >
+                        onClick={handleMarkerClose}>
                         <img
                           src={
                             selectedTheme === "light"
@@ -132,15 +132,17 @@ const FleetNotificationTripsListItems = (props: any) => {
                       </div>
                       <div className={listItemCallout}>
                         <div
-                          className={listItemTitle}
-                        >{`Trip ID - ${item?.tripId}`}</div>
+                          className={
+                            listItemTitle
+                          }>{`Trip ID - ${item?.tripId}`}</div>
                       </div>
                     </>
                   ) : (
                     <div className={defaultListItem}>
                       <div
-                        className={listItemTitle}
-                      >{`Trip ID - ${item?.tripId}`}</div>
+                        className={
+                          listItemTitle
+                        }>{`Trip ID - ${item?.tripId}`}</div>
                     </div>
                   )}
                   <div className={expandedListItemRow3}>
@@ -155,8 +157,7 @@ const FleetNotificationTripsListItems = (props: any) => {
                     <div className={buttonStyle}>
                       <Button
                         variant="contained"
-                        handleClick={() => handleViewDetails(item)}
-                      >
+                        handleClick={() => handleViewDetails(item)}>
                         {viewDetails}
                       </Button>
                     </div>
@@ -171,8 +172,9 @@ const FleetNotificationTripsListItems = (props: any) => {
                 <div className={collapsedListItems}>
                   <div className={defaultListItem}>
                     <div
-                      className={collapsedListItemTitle}
-                    >{`Trip ID - ${item?.tripId}`}</div>
+                      className={
+                        collapsedListItemTitle
+                      }>{`Trip ID - ${item?.tripId}`}</div>
                   </div>
                   <div className={collapsedlistItemRow2}>
                     <div className={collapsedListItemSubTitle}>
@@ -200,8 +202,7 @@ const FleetNotificationTripsListItems = (props: any) => {
                     <>
                       <div
                         className={markerCloseIcon1}
-                        onClick={handleMarkerClose}
-                      >
+                        onClick={handleMarkerClose}>
                         <img
                           src={
                             selectedTheme === "light"
@@ -219,8 +220,9 @@ const FleetNotificationTripsListItems = (props: any) => {
                   ) : (
                     <div className={defaultListItem}>
                       <div
-                        className={listItemTitle}
-                      >{`Device id - ${item?.deviceName}`}</div>
+                        className={
+                          listItemTitle
+                        }>{`Device id - ${item?.deviceName}`}</div>
                     </div>
                   )}
                   <div className={expandedListItemRow3}>
@@ -231,8 +233,9 @@ const FleetNotificationTripsListItems = (props: any) => {
                 <div className={collapsedListItems}>
                   <div className={defaultListItem}>
                     <div
-                      className={collapsedListItemTitle}
-                    >{`Device id - ${item?.deviceName}`}</div>
+                      className={
+                        collapsedListItemTitle
+                      }>{`Device id - ${item?.deviceName}`}</div>
                   </div>
                   <div className={collapsedlistItemRow2}>
                     <div className={collapsedListItemSubTitle}>
@@ -256,8 +259,7 @@ const FleetNotificationTripsListItems = (props: any) => {
                     <>
                       <div
                         className={markerCloseIcon1}
-                        onClick={handleMarkerClose}
-                      >
+                        onClick={handleMarkerClose}>
                         <img
                           src={
                             selectedTheme === "light"
@@ -275,8 +277,9 @@ const FleetNotificationTripsListItems = (props: any) => {
                   ) : (
                     <div className={defaultListItem}>
                       <div
-                        className={listItemTitle}
-                      >{`Trip ID - ${item?.tripId}`}</div>
+                        className={
+                          listItemTitle
+                        }>{`Trip ID - ${item?.tripId}`}</div>
                     </div>
                   )}
                   {/* <div className={expandedListItemRow2}>
@@ -288,33 +291,46 @@ const FleetNotificationTripsListItems = (props: any) => {
                     } | Driver-${item?.driverName ? item?.driverName : ""}`}
                   </div>
                   <div>
-                    <div style={{ display: "flex" }}>
-                      <span>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: "30px",
+                      }}>
+                      <span className={sourceContentImg}>
                         <img
                           src={CompletedTripSourceIcon}
                           height={selectedWidth?.is4kDevice ? 20 : 20}
                           width={selectedWidth?.is4kDevice ? 20 : 20}
                         />
                       </span>
-                      <span>{item?.source ? item?.source : ""}</span>
+                      <span className={sourceContent}>
+                        {item?.source ? item?.source : ""}
+                      </span>
                     </div>
-                    <div style={{ display: "flex" }}>
-                      <span>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: "16px",
+                      }}>
+                      <span className={sourceContentImg}>
                         <img
                           src={CompletedTripDestinationIcon}
-                          height={selectedWidth?.is4kDevice ? 20 : 30}
-                          width={selectedWidth?.is4kDevice ? 20 : 30}
+                          height={selectedWidth?.is4kDevice ? 20 : 20}
+                          width={selectedWidth?.is4kDevice ? 20 : 20}
                         />
                       </span>
-                      <span>{item?.destination ? item?.destination : ""}</span>
+                      <span className={sourceContent}>
+                        {item?.destination ? item?.destination : ""}
+                      </span>
                     </div>
                   </div>
                   <div className={expandedListItemRow4}>
                     <div className={buttonStyle}>
                       <Button
                         variant="contained"
-                        handleClick={() => handleViewDetails(item)}
-                      >
+                        handleClick={() => handleViewDetails(item)}>
                         {viewDetails}
                       </Button>
                     </div>
@@ -329,8 +345,9 @@ const FleetNotificationTripsListItems = (props: any) => {
                 <div className={collapsedListItems}>
                   <div className={defaultListItem}>
                     <div
-                      className={collapsedListItemTitle}
-                    >{`Trip ID - ${item?.tripId}`}</div>
+                      className={
+                        collapsedListItemTitle
+                      }>{`Trip ID - ${item?.tripId}`}</div>
                   </div>
                   <div className={collapsedlistItemRow2}>
                     <div className={collapsedListItemSubTitle}>

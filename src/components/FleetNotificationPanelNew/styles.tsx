@@ -466,14 +466,14 @@ const useStyles = makeStyles({
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 684px)"
-          : "calc(100vh - 511px)",
+          : "calc(100vh - 600px)",
     },
 
     [muiTheme.breakpoints.down(3073)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 624px)"
-          : "calc(100vh - 461px)",
+          : "calc(100vh - 549px)",
     },
     [muiTheme.breakpoints.down(2561)]: {
       height:
@@ -485,19 +485,19 @@ const useStyles = makeStyles({
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 450px)"
-          : "calc(100vh - 333px)",
+          : "calc(100vh - 456px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 432px)"
-          : "calc(100vh - 293px)",
+          : "calc(100vh - 412px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 410px)"
-          : "calc(100vh - 300px)",
+          : "calc(100vh - 430px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       height:
