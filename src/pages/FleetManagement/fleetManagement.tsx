@@ -957,7 +957,7 @@ const FleetManagement: React.FC<any> = (props) => {
         tripsTabIndex
       )
     );
-  }, [tripsTabIndex]);
+  }, [fleetManagementCompletedTripsResponse, tripsTabIndex]);
 
   //Pagination
 
@@ -985,7 +985,6 @@ const FleetManagement: React.FC<any> = (props) => {
             ? "Devices"
             : "Completed",
       };
-      console.log("11");
       dispatch(getFleetManagementCompletedTrips({ payLoad: fleetPayload }));
     }
   }, [tripsTabIndex]);
@@ -1101,40 +1100,6 @@ const FleetManagement: React.FC<any> = (props) => {
       // setSearchPageNo("");
     }
   };
-
-  // useEffect(() => {
-  //   if (assetNotificationResponse) {
-  //     setTotalRecords(
-  //       formattedOverallNotificationCount(
-  //         assetNotificationResponse?.data,
-  //         assetNotificationResponse?.data,
-  //         "asset"
-  //       )
-  //     );
-  //     let countArray = formattedOverallNotificationCount(
-  //       assetNotificationResponse?.data,
-  //       assetNotificationResponse?.data,
-  //       "asset"
-  //     );
-  //     let newArray: any = [];
-  //     if (countArray && countArray?.length > 0) {
-  //       switch (tabIndex) {
-  //         case 0:
-  //           newArray = countArray[0];
-  //           break;
-  //         case 1:
-  //           newArray = countArray[1];
-  //           break;
-  //         case 2:
-  //           newArray = countArray[2];
-  //           break;
-  //         default:
-  //           break;
-  //       }
-  //     }
-  //     setPaginationTotalCount(newArray);
-  //   }
-  // }, [assetNotificationResponse, tabIndex]);
 
   // PAGINATION ENDS
 
@@ -1847,9 +1812,16 @@ const FleetManagement: React.FC<any> = (props) => {
                         <CustomTablePagination
                           rowsPerPageOptions={[50, 100, 200, 500]}
                           count={
-                            paginationTotalCount === 0
-                              ? 1
-                              : paginationTotalCount
+                            tabMainIndex === 0
+                              ? tripsTabIndex === 0
+                                ? fleetManagementCompletedTripsResponse?.data
+                                    ?.liveTrips?.count
+                                : tripsTabIndex === 1
+                                ? fleetManagementCompletedTripsResponse?.data
+                                    ?.deviceDTOs?.count
+                                : fleetManagementCompletedTripsResponse?.data
+                                    ?.completedTrips?.count
+                              : 0
                           }
                           rowsPerPage={rowsPerPage}
                           page={page}
