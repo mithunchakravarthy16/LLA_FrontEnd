@@ -71,7 +71,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setSearchValue("");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security") && 
       handleSearch("");
     // handleSearchtest("")
     setIcon("search");
@@ -109,7 +109,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security") &&
       handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
@@ -144,7 +144,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setIcon("search");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security") &&
       handleSearch("");
     // handleSearchtest("")
   }, [tabIndex]);
