@@ -1067,9 +1067,7 @@ const AssetTracking: React.FC<any> = (props) => {
           recentMarkerType:
             tag?.trackerStatus === "Inactive"
               ? tag?.trackerStatus
-              : tag?.notificationType
-              ? tag?.notificationType
-              : "Events",
+              : tag?.notificationType,
         });
       });
 
@@ -1088,9 +1086,8 @@ const AssetTracking: React.FC<any> = (props) => {
           recentMarkerType:
             tag?.trackerStatus === "Inactive"
               ? tag?.trackerStatus
-              : tag?.notificationType
-              ? tag?.notificationType
-              : "Events",
+              : tag?.notificationType,
+              
         });
       });
 

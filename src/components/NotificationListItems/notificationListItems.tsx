@@ -11,6 +11,7 @@ import CalloutCloaseIcon from "../../assets/calloutCloaseIcon.svg";
 import FleetCalloutCloseIcon from "../../assets/fleetCalloutCloseIcon.svg";
 import VideoLightIcon from "../../assets/videoLightIcon.svg";
 import assetTrackersActiveStatusIcon from "../../assets/assetTrackersActiveStatusIcon.svg";
+import assetTrackersInactiveStatusIcon from "../../assets/assetTrackersInactiveStatusIcon.svg";
 import VideoLightListIcon from "../../assets/videoLightList.svg";
 import useStyles from "./styles";
 import moment from "moment";
@@ -530,7 +531,7 @@ const NotificationListItems = (props: any) => {
                           >
                             <div>
                               <img
-                                src={assetTrackersActiveStatusIcon}
+                                src={item?.trackerStatus === "Active" ? assetTrackersActiveStatusIcon : assetTrackersInactiveStatusIcon}
                                 width={selectedWidth?.is4kDevice ? 140 : 70}
                                 height={selectedWidth?.is4kDevice ? 50 : 30}
                               />
@@ -561,7 +562,7 @@ const NotificationListItems = (props: any) => {
                           <div className={listItemTitle}>{item?.title}</div>
                           <div>
                             <img
-                              src={assetTrackersActiveStatusIcon}
+                              src={item?.trackerStatus === "Active" ? assetTrackersActiveStatusIcon : assetTrackersInactiveStatusIcon}
                               width={selectedWidth?.is4kDevice ? 140 : 70}
                               height={selectedWidth?.is4kDevice ? 50 : 30}
                             />
