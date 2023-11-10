@@ -1,0 +1,2 @@
+import FleetNotificationTripsListItems from "./fleetNotificationTripsListItems";
+export default FleetNotificationTripsListItems;

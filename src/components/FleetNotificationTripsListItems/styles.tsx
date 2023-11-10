@@ -4,24 +4,6 @@ import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
-  sourceContentImg: (props: any) => ({
-    position: "relative",
-    "&::before": {
-      content: `''`,
-      position: "absolute",
-      left: 9,
-      top: 19,
-      width: 1,
-      height: 44,
-      background: "transparent",
-      borderLeft: "1px dashed #fff",
-    },
-  }),
-  sourceContent: (props: any) => ({
-    fontSize: 10,
-    margin: "6px auto auto 10px",
-    lineHeight: "9px",
-  }),
   rootContainer: (props: any) => ({
     minWidth: props?.pageName === "markerCallout" ? "350px" : "380px",
     paddingRight: props?.pageName === "markerCallout" ? "" : "10px",
@@ -53,6 +35,7 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 290 : 186,
     },
   }),
+
   collapsedListItems: (props: any) => {
     return {
       background: props.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
@@ -157,6 +140,24 @@ const useStyles = makeStyles({
     color: props?.palette?.notification?.collapsedListItemTextColor,
   }),
 
+  sourceContentImg: (props: any) => ({
+    position: "relative",
+    "&::before": {
+      content: `''`,
+      position: "absolute",
+      left: 9,
+      top: 19,
+      width: 1,
+      height: 44,
+      background: "transparent",
+      borderLeft: "1px dashed #fff",
+    },
+  }),
+  sourceContent: (props: any) => ({
+    fontSize: 10,
+    margin: "6px auto auto 10px",
+    lineHeight: "9px",
+  }),
   collapsedListItemTitle: (props: any) => ({
     fontSize: 18,
     letterSpacing: "0.5px",

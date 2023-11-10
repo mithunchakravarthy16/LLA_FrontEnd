@@ -21,6 +21,8 @@ export const fleetManagementNotification = {
   SET_FLEET_MANAGEMENT_OVER_SPEEDING: "SET_FLEET_MANAGEMENT_OVER_SPEEDING",
   GET_FLEET_MANAGEMENT_LIVE_TRIP: "GET_FLEET_MANAGEMENT_LIVE_TRIP",
   SET_FLEET_MANAGEMENT_LIVE_TRIP: "SET_FLEET_MANAGEMENT_LIVE_TRIP",
+  GET_FLEET_MANAGEMENT_COMPLETED_TRIP: "GET_FLEET_MANAGEMENT_COMPLETED_TRIP",
+  SET_FLEET_MANAGEMENT_COMPLETED_TRIP: "SET_FLEET_MANAGEMENT_COMPLETED_TRIP",
 };
 
 export const getFleetManagementNotificationData = (payload: any) => ({
@@ -123,6 +125,18 @@ export const getFleetManagementLiveTrip = (payload: any) => ({
 export const setFleetManagementLiveTrip = (fleetManagementLiveTrip: any) => ({
   type: fleetManagementNotification.SET_FLEET_MANAGEMENT_LIVE_TRIP,
   fleetManagementLiveTrip,
+});
+
+export const getFleetManagementCompletedTrips = (payload: any) => ({
+  type: fleetManagementNotification.GET_FLEET_MANAGEMENT_COMPLETED_TRIP,
+  payload: payload,
+});
+
+export const setFleetManagementCompletedTrips = (
+  fleetManagementCompletedTripsData: any
+) => ({
+  type: fleetManagementNotification.SET_FLEET_MANAGEMENT_COMPLETED_TRIP,
+  fleetManagementCompletedTripsData,
 });
 
 export default fleetManagementNotification;

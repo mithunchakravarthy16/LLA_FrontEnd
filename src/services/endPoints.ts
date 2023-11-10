@@ -59,6 +59,7 @@ const SUB_URL = {
   getGoogleMapApiUrl: "/api/sensyon/admin/getAPIKey",
 
   getTrackerDetailPostUrl: "/api/sensyon/admin/updateAPIKey",
+  getCompletedTripsUrl: "/api/sensyon/trips/v1/getTripCompleteList",
 };
 
 export const loginApi = `${BASE_URL.baseUrl}${SUB_URL.loginUrl}`;
@@ -86,3 +87,4 @@ export const getAllDeviceDetailApi = `${BASE_URL.baseUrl}${SUB_URL.getAllDeviceD
 export const editAssetNameApi = `${BASE_URL.baseUrl}${SUB_URL.editAssetTableAssetName}`;
 export const getGoogleMapApi = `${BASE_URL.baseUrl}${SUB_URL.getGoogleMapApiUrl}`;
 export const getGoogleMapPostApi = `${BASE_URL.baseUrl}${SUB_URL.getTrackerDetailPostUrl}`;
+export const getCompletedTripsApi = `${BASE_URL.baseUrl}${SUB_URL.getCompletedTripsUrl}`;
