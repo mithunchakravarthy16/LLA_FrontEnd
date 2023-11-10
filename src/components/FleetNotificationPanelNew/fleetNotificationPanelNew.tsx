@@ -35,6 +35,7 @@ const FleetNotificationPanelNew = (props: any) => {
     tripsNotificationCount,
     tripsSearchValue,
     setTripsSearchValue,
+    handleMarkerCancel,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -286,20 +287,21 @@ const FleetNotificationPanelNew = (props: any) => {
     setTripsTabIndex(0);
     setTabIndex(1);
     setSelectedNotification("");
+    handleMarkerCancel();
   };
 
   const handleTripsTabs = (index: number) => {
     setTripsTabIndex(index);
     setSelectedNotification("");
+    handleMarkerCancel();
   };
 
-  const handleTripsExpandListItem = useCallback(
-    (param: any) => {
-      setSelectedNotification(selectedNotification === param ? "" : param);
-      props.handleTripsExpandListItem(param);
-    },
-    [selectedNotification]
-  );
+  const handleTripsExpandListItem = (param: any) => {
+    setSelectedNotification(selectedNotification === param ? "" : param);
+    props.handleTripsExpandListItem(
+      selectedNotification === param ? "" : param
+    );
+  };
 
   const handleTripsSearch = (searchText: any) => {
     const tabData = dashboardData;

@@ -31,8 +31,11 @@ import {
 export function* handleFleetManagementNotification(action: any): any {
   try {
     yield put(setLoaderNotificationData());
-    const { fetchData } = fetchAPIServices;
-    const response = yield fetchData(getFleetNotificationApi);
+    const { fetchPostData } = fetchAPIServices;
+    const response = yield fetchPostData(
+      getFleetNotificationApi,
+      action.payload
+    );
     if (response) {
       yield put(setFleetManagementNotificationData(response));
     } else {

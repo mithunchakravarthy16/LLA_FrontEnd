@@ -451,7 +451,7 @@ const FleetMap: React.FC<any> = (props) => {
     if (currentMarker) {
       const index = markers.findIndex((marker) => marker.id === currentMarker);
 
-      if (index > 0) {
+      if (index >= 0) {
         map?.panTo(markers[index]?.location);
         map?.setZoom(
           selectedContainerStyle?.is4kDevice ||
