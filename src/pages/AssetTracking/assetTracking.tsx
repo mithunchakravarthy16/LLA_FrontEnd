@@ -46,7 +46,7 @@ import {
   getAssetTrackingIncidentsAnalyticsData,
 } from "redux/actions/assetTrackingActiveInActiveAnalyticsAction";
 import CustomTablePagination from "elements/CustomPagination";
-import { UseWebSocket } from "websocketServices/useWebsocket";
+// import { UseWebSocket } from "websocketServices/useWebsocket";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
@@ -96,30 +96,30 @@ const AssetTracking: React.FC<any> = (props) => {
         dispatch(getAssetTrackingIncidentsAnalyticsData("Weekly"));
         setSelectedGraphFormat({ format: "MM/DD", tickInterval: 1 });
     }
-    // let interval;
-    // if (selectedValue === "Today" || selectedValue === "Week") {
-    //   interval = setInterval(() => {
-    //     dispatch(
-    //       getAssetTrackingActiveInActiveAnalyticsData(
-    //         selectedValue === "Today" ? "Day" : "Weekly"
-    //       )
-    //     );
-    //     dispatch(
-    //       getAssetTrackingIncidentsAnalyticsData(
-    //         selectedValue === "Today" ? "Day" : "Weekly"
-    //       )
-    //     );
-    //     dispatch(
-    //       getOverallTrackerDetail(selectedValue === "Today" ? "Day" : "Weekly")
-    //     );
-    //   }, 60 * 1000);
-    // } else {
-    //   clearInterval(interval);
-    // }
+    let interval;
+    if (selectedValue === "Today" || selectedValue === "Week") {
+      interval = setInterval(() => {
+        dispatch(
+          getAssetTrackingActiveInActiveAnalyticsData(
+            selectedValue === "Today" ? "Day" : "Weekly"
+          )
+        );
+        dispatch(
+          getAssetTrackingIncidentsAnalyticsData(
+            selectedValue === "Today" ? "Day" : "Weekly"
+          )
+        );
+        dispatch(
+          getOverallTrackerDetail(selectedValue === "Today" ? "Day" : "Weekly")
+        );
+      }, 60 * 1000);
+    } else {
+      clearInterval(interval);
+    }
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    return () => {
+      clearInterval(interval);
+    };
   }, [selectedValue]);
 
   const assetTrackingActiveInActiveAnalyticsResponse = useSelector(
@@ -331,13 +331,13 @@ const AssetTracking: React.FC<any> = (props) => {
     let assetLiveDataPayload: any = {};
     dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    // const interval = setInterval(() => {
-    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    // }, 10 * 1000);
+    const interval = setInterval(() => {
+      dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    }, 10 * 1000);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
@@ -365,15 +365,15 @@ const AssetTracking: React.FC<any> = (props) => {
       );
     }
 
-    // const intervalTime = setInterval(() => {
-    //   dispatch(
-    //     getNotificationData({ payLoad: assetPayload, isFromSearch: false })
-    //   );
-    // }, 1 * 60 * 1000);
+    const intervalTime = setInterval(() => {
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+      );
+    }, 1 * 60 * 1000);
 
-    // return () => {
-    //   clearInterval(intervalTime);
-    // };
+    return () => {
+      clearInterval(intervalTime);
+    };
   }, [debounceSearchText, page, rowsPerPage]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
