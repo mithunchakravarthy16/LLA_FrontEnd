@@ -49,6 +49,10 @@ export default (state = initialState, action: any) => {
     case fleetManagementNotification.SET_FLEET_MANAGEMENT_COMPLETED_TRIP:
       const { fleetManagementCompletedTripsData } = action;
       return { ...state, fleetManagementCompletedTripsData };
+    case fleetManagementNotification.SHOW_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP:
+      return { ...state, loadingFleetManagementCompletedTripsData: true };
+    case fleetManagementNotification.HIDE_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP:
+      return { ...state, loadingFleetManagementCompletedTripsData: false };
     default:
       return state;
   }

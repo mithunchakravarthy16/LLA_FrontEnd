@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Grid, Alert, Snackbar, Typography, Link } from "@mui/material";
@@ -267,6 +267,12 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const loader = useSelector(
     (state: any) => state.fleetManagementNotification?.loadingTripDetails
+  );
+
+  const loadingFleetManagementCompletedTripsData = useSelector(
+    (state: any) =>
+      state?.fleetManagementNotification
+        ?.loadingFleetManagementCompletedTripsData
   );
 
   const [notificationArray, setNotificationArray] = useState<any>([]);
@@ -995,44 +1001,19 @@ const FleetManagement: React.FC<any> = (props) => {
   //Pagination
 
   useEffect(() => {
-    if (searchPageNo) {
-      setPage(0);
-      const fleetPayload = {
-        filterText: "",
-        pageNo: 0,
-        pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tripsTabIndex === 0
-            ? "Live"
-            : tripsTabIndex === 1
-            ? "Devices"
-            : "Completed",
-      };
-      dispatch(getFleetManagementCompletedTrips({ payLoad: fleetPayload }));
-    }
-  }, [tripsTabIndex]);
-
-  useEffect(() => {
-    let fleetPayload: any = {
-      filterText: debounceSearchText,
-      pageNo: parseInt(page),
-      pageSize: parseInt(rowsPerPage),
-      notificationType:
-        tripsTabIndex === 0
-          ? "Live"
-          : tripsTabIndex === 1
-          ? "Devices"
-          : "Completed",
-    };
     if (!debounceSearchText) {
-      fleetPayload = {
+      let fleetPayload = {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
         notificationType: "",
       };
-      console.log("1");
-      dispatch(getFleetManagementCompletedTrips({ payLoad: fleetPayload }));
+      dispatch(
+        getFleetManagementCompletedTrips({
+          payLoad: fleetPayload,
+          isFromSearch: true,
+        })
+      );
     }
   }, [debounceSearchText, rowsPerPage]);
 
@@ -1050,16 +1031,18 @@ const FleetManagement: React.FC<any> = (props) => {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
-      notificationType:
-        tripsTabIndex === 0
+      notificationType: debounceSearchText
+        ? tripsTabIndex === 0
           ? "Live"
           : tripsTabIndex === 1
           ? "Devices"
-          : "Completed",
+          : "Completed"
+        : "",
     };
     dispatch(
       getFleetManagementCompletedTrips({
         payLoad: fleetPayload,
+        isFromSearch: true,
       })
     );
   };
@@ -1071,12 +1054,19 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType: "",
+        notificationType: debounceSearchText
+          ? tripsTabIndex === 0
+            ? "Live"
+            : tripsTabIndex === 1
+            ? "Devices"
+            : "Completed"
+          : "",
       };
     }
     dispatch(
       getFleetManagementCompletedTrips({
         payLoad: fleetPayload,
+        isFromSearch: true,
       })
     );
     setPage(page + 1);
@@ -1090,16 +1080,23 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType: debounceSearchText
+          ? tripsTabIndex === 0
+            ? "Live"
+            : tripsTabIndex === 1
+            ? "Devices"
+            : "Completed"
+          : "",
       };
     }
     dispatch(
       getFleetManagementCompletedTrips({
         payLoad: fleetPayload,
+        isFromSearch: true,
       })
     );
     setPage(page - 1);
+    setSearchPageNo("");
   };
 
   const handlePageNoChange = (value: any, keyName: any) => {
@@ -1111,12 +1108,18 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType: debounceSearchText
+          ? tripsTabIndex === 0
+            ? "Live"
+            : tripsTabIndex === 1
+            ? "Devices"
+            : "Completed"
+          : "",
       };
       dispatch(
         getFleetManagementCompletedTrips({
           payLoad: fleetPayload,
+          isFromSearch: true,
         })
       );
       // setSearchPageNo("");
@@ -1124,6 +1127,76 @@ const FleetManagement: React.FC<any> = (props) => {
   };
 
   // PAGINATION ENDS
+
+  //debouncing start
+  const delayTime = 500;
+  const fetchingDataForSearch = (
+    searchValue: any,
+    tabIndex: number,
+    searchBoxPageNo: any,
+    searchBoxRowsPerPage: any,
+    mainTabIndex: any
+  ) => {
+    // searchTextRef.current = searchValue;
+    let assetPayload = {};
+    if (searchValue) {
+      setPage(0);
+      assetPayload = {
+        filterText: searchValue,
+        pageNo: 0,
+        pageSize: parseInt(searchBoxRowsPerPage),
+        notificationType:
+          tripsTabIndex === 0
+            ? "Live"
+            : tripsTabIndex === 1
+            ? "Devices"
+            : "Completed",
+      };
+    } else {
+      setPage(0);
+      assetPayload = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: parseInt(searchBoxRowsPerPage),
+        notificationType: "",
+      };
+    }
+    tabMainIndex === 0 &&
+      dispatch(
+        getFleetManagementCompletedTrips({
+          payLoad: assetPayload,
+          isFromSearch: true,
+        })
+      );
+
+    tabMainIndex === 1 &&
+      dispatch(
+        getFleetManagementNotificationData({
+          payLoad: assetPayload,
+          // isFromSearch: true,
+        })
+      );
+    setDebounceSearchText(searchValue);
+  };
+
+  const debounce = (func: any, delay: any) => {
+    let timeout: any;
+
+    return (...arg: any) => {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func.apply(context, arg);
+      }, delay);
+    };
+  };
+
+  const handleSearchtest = useCallback(
+    debounce(fetchingDataForSearch, delayTime),
+    []
+  );
+
+  //debouncing end
 
   return (
     <>
@@ -1829,8 +1902,15 @@ const FleetManagement: React.FC<any> = (props) => {
                       tripsSearchValue={tripsSearchValue}
                       setTripsSearchValue={setTripsSearchValue}
                       handleMarkerCancel={handleMarkerCancel}
+                      handleSearchtest={handleSearchtest}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      setDebounceSearchText={setDebounceSearchText}
+                      loadingFleetManagementCompletedTripsData={
+                        loadingFleetManagementCompletedTripsData
+                      }
                     />
-                    {
+                    {!loadingFleetManagementCompletedTripsData && (
                       <div style={{ margin: "-5px 20px 0 20px" }}>
                         <CustomTablePagination
                           rowsPerPageOptions={[50, 100, 200, 500]}
@@ -1858,7 +1938,7 @@ const FleetManagement: React.FC<any> = (props) => {
                           reportsPaginationclassName={customPagination}
                         />
                       </div>
-                    }
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
