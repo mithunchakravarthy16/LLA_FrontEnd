@@ -12,7 +12,7 @@ import CloseIcon from "../../assets/closeIcon.svg";
 import theme from "../../theme/theme";
 import useTranslation from "localization/translations";
 import { useDispatch } from "react-redux";
-import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
+import { getNotificationData, getAssetTrackersListData } from "redux/actions/getAllAssertNotificationAction";
 import useStyles from "./styles";
 import Loader from "elements/Loader";
 
@@ -50,7 +50,9 @@ const NotificationPanel = (props: any) => {
     rowsPerPage,
     mapDefaultView, 
     setMapDefaultView,
-    setPage
+    setPage,
+    selectedAssetMainTab,
+    mainTabIndex
   } = props;
   const dispatch = useDispatch();
 
@@ -86,6 +88,7 @@ const NotificationPanel = (props: any) => {
     ...appTheme,
     tabIndex: tabIndex,
     notificationPageName: notificationPageName,
+    selectedAssetMainTab: selectedAssetMainTab
   });
 
   const {
@@ -127,6 +130,19 @@ const NotificationPanel = (props: any) => {
           : searchOpen && tabIndex === 2
           ? searchValue?.length
           : notificationCount && notificationCount[2],
+    },
+  ];
+
+  const assetTabsList = [
+    {
+      name: "CELLULAR TAGS",
+      val: 0,
+      count: notificationCount && notificationCount[0],
+    },
+    {
+      name: "BLE TAGS",
+      val: 1,
+      count: notificationCount && notificationCount[1],
     },
   ];
 
@@ -221,7 +237,7 @@ const NotificationPanel = (props: any) => {
   };
   //debouncing start
   const delayTime = notificationPageName === "asset" ? 500 : 500;
-  const fetchingDataForSearch = (searchValue: any, tabIndex: number, searchBoxPageNo : any, searchBoxRowsPerPage:any) => {
+  const fetchingDataForSearch = (searchValue: any, tabIndex: number, searchBoxPageNo : any, searchBoxRowsPerPage:any, mainTabIndex:any) => {
     searchTextRef.current = searchValue;
     let assetPayload = {};
     if (searchValue) {
@@ -240,10 +256,22 @@ const NotificationPanel = (props: any) => {
         pageNo: 0,
         pageSize: parseInt(searchBoxRowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
     }
-    dispatch(
+    mainTabIndex === 0 && dispatch(
+      getAssetTrackersListData({ payLoad: assetPayload, isFromSearch: true })
+    );
+
+    mainTabIndex === 1 && dispatch(
       getNotificationData({ payLoad: assetPayload, isFromSearch: true })
     );
     setDebounceSearchText(searchValue);
@@ -370,15 +398,15 @@ const NotificationPanel = (props: any) => {
     <>
       <div className={notificationRootContainer}>
         <div className={notificationHeader}>
-          <div className={notificationTitle}>
-            {searchOpen ? (
+          <div className={notificationTitle} style={{width: notificationPageName === "asset" && "100%"}}>
+            {searchOpen || notificationPageName === "asset" ? (
               <SearchBox
                 searchInput={searchClass}
                 placeHolder={searchText}
                 handleSearch={handleSearch}
                 borderRadius={2}
-                borderColor={`1px solid ${appTheme?.palette?.notification?.listItemBorder}`}
-                fontColor={appTheme?.palette?.notification?.colorWhite}
+                borderColor={notificationPageName === "asset" ? "1px solid #808080" : `1px solid ${appTheme?.palette?.notification?.listItemBorder}`}
+                fontColor={notificationPageName === "asset" ? "#808080" : appTheme?.palette?.notification?.colorWhite}
                 tabIndex={tabIndex}
                 handleCloseIcon={handleCloseIcon}
                 searchIsOpen={searchOpen}
@@ -389,12 +417,15 @@ const NotificationPanel = (props: any) => {
                 disabled={loaderAssetNotificationResponse}
                 page={page}
                 rowsPerPage={rowsPerPage}
+                mainTabIndex={mainTabIndex}
               />
             ) : (
               notificationText
             )}
           </div>
-          <div className={notificationIconSection}>
+          {
+            notificationPageName !== "asset" &&
+            <div className={notificationIconSection}>
             <img
               className={notificationSearchIcon}
               src={
@@ -410,11 +441,13 @@ const NotificationPanel = (props: any) => {
               onClick={searchOpen ? handleSearchCloseIcon : handleSearchIcon}
             />
           </div>
+          }
+          
         </div>
-        <div className={tabSection}>
+        <div className={tabSection}> 
           <Tabs
             initialIndex={tabIndex}
-            tabsList={tabsList}
+            tabsList={notificationPageName === "asset" && selectedAssetMainTab === "trackers" ? assetTabsList : tabsList}
             handleTabs={handleTabs}
             dashboardNotificationClassName={customNotificationTabs}
             pageName={"dashboard"}
@@ -437,6 +470,7 @@ const NotificationPanel = (props: any) => {
                   notificationPageName={notificationPageName}
                   selectedTheme={selectedTheme}
                   isMarkerClicked={isMarkerClicked}
+                  selectedAssetMainTab={selectedAssetMainTab}
                 />
               ) : (
                 <div className={noResultFoundClass}>{noResultFound}</div>
@@ -456,6 +490,7 @@ const NotificationPanel = (props: any) => {
               notificationPageName={notificationPageName}
               selectedTheme={selectedTheme}
               isMarkerClicked={isMarkerClicked}
+              
             />
           ) : (
             <div className={noResultFoundClass}>{noResultFound}</div>

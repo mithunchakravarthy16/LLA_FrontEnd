@@ -197,9 +197,15 @@ const useStyles = makeStyles({
           },
         },
         "&.Mui-selected": {
-          color: `${props?.palette?.notification?.eventColor} !important`,
+          color:
+            props?.selectedAssetMainTab === "trackers"
+              ? "#712C7D !important"
+              : `${props?.palette?.notification?.eventColor} !important`,
           "& .count": {
-            background: `${props?.palette?.notification?.eventColor} !important`,
+            background:
+              props?.selectedAssetMainTab === "trackers"
+                ? "#712C7D !important"
+                : `${props?.palette?.notification?.eventColor} !important`,
             color: `${props?.palette?.notification?.listItemContent} !important`,
           },
         },
@@ -327,7 +333,9 @@ const useStyles = makeStyles({
     "& .MuiTabs-root .MuiTabs-indicator": {
       background:
         props?.tabIndex === 0
-          ? `${props?.palette?.notification?.eventColor} !important`
+          ? props?.selectedAssetMainTab === "trackers"
+            ? "#712C7D !important"
+            : `${props?.palette?.notification?.eventColor} !important`
           : props?.tabIndex === 1
           ? `${props?.palette?.notification?.incidentColor} !important`
           : `${props?.palette?.notification?.oprAlertColor} !important`,
@@ -342,8 +350,8 @@ const useStyles = makeStyles({
   }),
   searchClass: (props: any) => ({
     border: `1px solid ${props?.palette?.notification?.listItemBorder}`,
-    background: props?.palette?.notification?.listItemBg,
-    color: props?.palette?.notification?.lightGrey3,
+    background: "#fff",
+    color: "#808080",
     borderRadius: 6,
     height: "48px",
     [muiTheme.breakpoints.up(3839)]: {
@@ -463,14 +471,14 @@ const useStyles = makeStyles({
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 684px)"
-          : "calc(100vh - 511px)",
+          : "calc(100vh - 741px)",
     },
 
     [muiTheme.breakpoints.down(3073)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 624px)"
-          : "calc(100vh - 461px)",
+          : "calc(100vh - 661px)",
     },
     [muiTheme.breakpoints.down(2561)]: {
       height:
@@ -484,21 +492,21 @@ const useStyles = makeStyles({
           ? "calc(100vh - 450px)"
           : props?.notificationPageName === "parking"
           ? "calc(100vh - 342px)"
-          : "calc(100vh - 392px)",
+          : "calc(100vh - 460px)",
     },
     [muiTheme.breakpoints.down(1921)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 433px)"
           : props?.notificationPageName === "asset"
-          ? "calc(100vh - 342px)"
+          ? "calc(100vh - 415px)"
           : "calc(100vh - 293px)",
     },
     [muiTheme.breakpoints.down(1793)]: {
       height:
         props?.notificationPageName === "dashboard"
           ? "calc(100vh - 410px)"
-          : "calc(100vh - 358px)",
+          : "calc(100vh - 430px)",
     },
     [muiTheme.breakpoints.down(1681)]: {
       height:

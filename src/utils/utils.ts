@@ -54,6 +54,53 @@ export const formatttedDashboardNotification = (
   }
 };
 
+export const formatttedAssetTrackerTabNotification = (
+  data: any,
+  tabIndex: number
+) => {
+  if (data && data !== undefined) {
+    const sortedNotifications = data?.sort((a: any, b: any) => {
+      if (
+        moment(a?.lastUpdated, "MM-DD-YYYY | HH:mm A").isBefore(
+          moment(b?.lastUpdated, "MM-DD-YYYY | HH:mm A")
+        )
+      )
+        return 1;
+      else if (
+        moment(b?.lastUpdated, "MM-DD-YYYY | HH:mm A").isBefore(
+          moment(a?.lastUpdated, "MM-DD-YYYY | HH:mm A")
+        )
+      )
+        return -1;
+      else return 0;
+    });
+
+    let cellularTagsArray: any = [];
+    let bleTagsArray: any = [];
+  
+    sortedNotifications?.map((value: any, index: number) => {
+      if (value?.tagType === "cellularTags") {
+        cellularTagsArray?.push({
+          ...value,
+          markerId: value?.category === "asset" ? value?.trackerId : value?.id,
+        });
+      } else if (value?.tagType === "bleTags") {
+        bleTagsArray?.push({
+          ...value,
+          markerId: value?.category === "asset" ? value?.trackerId : value?.id,
+        });
+      } 
+    });
+
+    switch (tabIndex) {
+      case 0:
+        return cellularTagsArray;
+      case 1:
+        return bleTagsArray;
+    }
+  }
+};
+
 export const formatttedParkingNotification = (data: any, tabIndex: number) => {
   if (data && data !== undefined) {
     const sortedNotifications = data?.sort((a: any, b: any) => {
@@ -372,6 +419,18 @@ export const formattedOverallNotificationCount = (
   }
 };
 
+export const formattedOverallAssetTrackersCount = (apiData: any) => {
+  if (apiData && apiData !== undefined) {
+    let count: any = [];
+    const {bleTags, cellularTags}= apiData
+      let bleTagsCount = bleTags?.count;
+      let cellularCount = cellularTags?.count;
+      
+      count = [ cellularCount, bleTagsCount];
+    
+    return count;
+  }
+}
 // fleet trips
 
 export const formattedFleetTripsNotification = (data: any, index: number) => {

@@ -4,6 +4,10 @@ import IconButton from "@mui/material/IconButton";
 //@ts-ignore
 // import SearchIcon from "@mui/icons-material/Search";
 import SearchIconImg from "../../assets/searchIcon.svg";
+
+import assetSearchIconImg from "../../assets/assetSearchIcon.svg";
+
+
 import closeIconBox from "../../assets/closeIconBox.svg";
 import SearchIconDark from "../../assets/searchIconDark.svg";
 import CloseIconDark from "../../assets/closeIconBoxDark.svg";
@@ -35,6 +39,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     rowsPerPage,
     isRefreshClicked,
     setIsRefreshClicked,
+    mainTabIndex,
     tabMainIndex,
     tripsTabIndex,
     setTSearchValue,
@@ -73,8 +78,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     tabMainIndex === 1 && setSearchNoticationsValue("");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" ||
-      notificationPageName === "FleetManagement") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") && 
       handleSearch("");
     // handleSearchtest("")
     setIcon("search");
@@ -108,17 +112,19 @@ const INF_SearchBox: React.FC<any> = (props) => {
     tabMainIndex === 1 && setSearchNoticationsValue(event.target.value);
     if (event.target.value.length > 0) {
       setIcon("cancel");
+    }else{
+      setIcon("search");
     }
+    
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" ||
-      notificationPageName === "FleetManagement") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") &&
       handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
       notificationPageName === "asset"
     ) {
-      handleSearchtest(event.target.value, tabIndex, page, rowsPerPage);
+      handleSearchtest(event.target.value, tabIndex, page, rowsPerPage, mainTabIndex);
     }
   };
   const handleSearchFocus = () => {
@@ -149,8 +155,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setIcon("search");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" ||
-      notificationPageName === "FleetManagement") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") &&
       handleSearch("");
     // handleSearchtest("")
   }, [tabIndex, tabMainIndex, tripsTabIndex]);
@@ -161,7 +166,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   return (
     <>
-      <div className={searchInput}>
+      <div className={searchInput} style={{border: notificationPageName === "asset" && borderColor}}>
         <InputBase
           disabled={disabled ? disabled : false}
           fullWidth
@@ -189,6 +194,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
                   src={
                     notificationPageName === "assetTable"
                       ? SearchIconDark
+                      : notificationPageName === "asset" ? assetSearchIconImg 
                       : notificationPageName === "FleetManagement"
                       ? SearchIconNew
                       : SearchIconImg

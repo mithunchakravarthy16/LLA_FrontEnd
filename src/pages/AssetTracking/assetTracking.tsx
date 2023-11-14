@@ -1,7 +1,7 @@
 /** @format */
 //@ts-nocheck
 import { useState, useEffect, useCallback, useRef, useContext } from "react";
-import {WebsocketContext } from "../../App";
+import { WebsocketContext } from "../../App";
 import Grid from "@mui/material/Grid";
 import {
   AssetTrackedIcon,
@@ -27,9 +27,14 @@ import {
   formatttedDashboardNotification,
   formatttedDashboardNotificationCount,
   formattedOverallNotificationCount,
+  formatttedAssetTrackerTabNotification,
+  formattedOverallAssetTrackersCount,
 } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { getNotificationData } from "redux/actions/getAllAssertNotificationAction";
+import {
+  getNotificationData,
+  getAssetTrackersListData,
+} from "redux/actions/getAllAssertNotificationAction";
 import { getAssetActiveInactiveTracker } from "redux/actions/getActiveInactiveTrackerCount";
 import { getAssetIncidentCount } from "redux/actions/getAllIncidentCount";
 import { getOverallTrackerDetail } from "redux/actions/getOverAllTrackerdetail";
@@ -50,13 +55,13 @@ import CustomTablePagination from "elements/CustomPagination";
 import GlobeIconActive from "../../assets/globeCircleIcon.svg";
 import GeofenceIcon from "../../assets/GeofenceIcon.svg";
 import { getGoogleMapApi } from "redux/actions/googleMapApiKeyAction";
+import assetTrackersTabSampleApiData from "mockdata/assetTrackersTabSampleApiData";
 
 const AssetTracking: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const { mapType, setMapType } = props;
 
   // const {websocketLatestAssetNotification, websocketLatestAssetTrackerLive} = useContext(WebsocketContext);
-
 
   //Analytics Api integration starts here
   const [selectedValue, setSelectedValue] = useState<string>("Today");
@@ -65,6 +70,7 @@ const AssetTracking: React.FC<any> = (props) => {
     tickInterval: 1,
   });
   const [assetLiveMarker, setAssetLiveMarker] = useState<any>("");
+  const [mainTabIndex, setMainTabIndex] = useState<number>(0);
 
   useEffect(() => {
     switch (selectedValue) {
@@ -147,6 +153,10 @@ const AssetTracking: React.FC<any> = (props) => {
   );
   const assetNotificationList = assetNotificationResponse?.data;
 
+  const assetTrackersListResponse = useSelector(
+    (state: any) => state?.assetNotification?.assetTrackersListData?.data
+  );
+
   const loaderAssetNotificationResponse = useSelector(
     (state: any) => state?.assetNotification?.loadingAssetNotificationData
   );
@@ -154,7 +164,7 @@ const AssetTracking: React.FC<any> = (props) => {
   const overallAssetDetails = useSelector(
     (state: any) => state?.assetOverallTrackerDetails?.overallTrackerDetail
   );
-
+ 
   const [loaderExtAnalytics, setLoaderExtAnalytics] = useState<boolean>(true);
   useEffect(() => {
     setLoaderExtAnalytics(true);
@@ -328,28 +338,53 @@ const AssetTracking: React.FC<any> = (props) => {
     let enableGeofencePayload: any = {};
     dispatch(getEnableGeofence(enableGeofencePayload));
 
-    let assetLiveDataPayload: any = {};
-    dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // let assetLiveDataPayload: any = {};
+    // dispatch(getAssetLiveLocation(assetLiveDataPayload));
 
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
+
+    //   dispatch(getAssetLiveLocation(assetLiveDataPayload));
+    // }, 10 * 1000);
+
+    // return () => {
+    //   clearInterval(interval);
+    // };
+  }, []);
+
+  useEffect(() => {
+    let interval;
+    if (mainTabIndex === 1) {
+      let assetLiveDataPayload: any = {};
       dispatch(getAssetLiveLocation(assetLiveDataPayload));
-    }, 10 * 1000);
+      interval = setInterval(() => {
+        dispatch(getAssetLiveLocation(assetLiveDataPayload));
+      }, 10 * 1000);
+    } else {
+      clearInterval(interval);
+    }
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [mainTabIndex]);
 
   const [debounceSearchText, setDebounceSearchText] = useState<any>("");
-  const [tabIndex, setTabIndex] = useState<any>(1);
+  const [tabIndex, setTabIndex] = useState<any>(0);
 
   useEffect(() => {
     let assetPayload: any = {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(rowsPerPage),
-      notificationType:
-        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+      notificationType: mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
     };
     if (!debounceSearchText) {
       assetPayload = {
@@ -357,24 +392,42 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
 
-      dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-      );
+      mainTabIndex === 1 &&
+        dispatch(
+          getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+        );
     }
 
-    const intervalTime = setInterval(() => {
+    mainTabIndex === 0 &&
       dispatch(
-        getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+        getAssetTrackersListData({ payLoad: assetPayload, isFromSearch: false })
       );
-    }, 1 * 60 * 1000);
+    let intervalTime;
+    if (mainTabIndex === 1) {
+      intervalTime = setInterval(() => {
+        dispatch(
+          getNotificationData({ payLoad: assetPayload, isFromSearch: false })
+        );
+      }, 1 * 60 * 1000);
+    } else {
+      clearInterval(intervalTime);
+    }
 
     return () => {
       clearInterval(intervalTime);
     };
-  }, [debounceSearchText, page, rowsPerPage]);
+  }, [debounceSearchText, page, rowsPerPage, mainTabIndex]);
 
   const [selectedWidth, setSelectedWidth] = useState<any>();
 
@@ -800,7 +853,6 @@ const AssetTracking: React.FC<any> = (props) => {
   //   useState<any>([]);
   // const clientRef = useRef<any>();
 
-
   // useEffect(() => {
   //   UseWebSocket(
   //     (message:any) => {
@@ -829,9 +881,7 @@ const AssetTracking: React.FC<any> = (props) => {
   //---websocket Implementation ends---
 
   useEffect(() => {
-    if (assetNotificationList && assetLiveData) {
-
-
+    if (assetNotificationList && assetLiveData && mainTabIndex === 1) {
       // const insertWebsocketDataToExisitingNotiData = (
       //   websocketLatestAssetNotification: any
       // ) => {
@@ -998,11 +1048,72 @@ const AssetTracking: React.FC<any> = (props) => {
       setSearchValue(
         formatttedDashboardNotification(combinedNotifications, tabIndex)
       );
+    } else if (mainTabIndex === 0 && assetTrackersListResponse) {
+      const { cellularTags, bleTags } = assetTrackersListResponse;
+      const combinedNotifications: any = [];
+
+      cellularTags?.tagDto?.forEach((tag: any, index: number) => {
+        combinedNotifications.push({
+          ...tag,
+          tagType: "cellularTags",
+          category: "asset",
+          title: tag?.trackerName,
+          id: tag?.assetId,
+          markerId: tag?.trackerId,
+          description: tag?.area
+            ? tag?.area
+            : "1605-1555 Wynkoop St, Denver, CO 80202, USA",
+          currentLocation: tag?.location,
+          recentMarkerType:
+            tag?.trackerStatus === "Inactive"
+              ? tag?.trackerStatus
+              : tag?.notificationType,
+        });
+      });
+
+      bleTags?.tagDto?.forEach((tag: any, index: number) => {
+        combinedNotifications.push({
+          ...tag,
+          tagType: "bleTags",
+          category: "asset",
+          title: tag?.trackerName,
+          id: tag?.assetId,
+          markerId: tag?.trackerId,
+          description: tag?.area
+            ? tag?.area
+            : "1605-1555 Wynkoop St, Denver, CO 80202, USA",
+          currentLocation: tag?.location,
+          recentMarkerType:
+            tag?.trackerStatus === "Inactive"
+              ? tag?.trackerStatus
+              : tag?.notificationType,
+              
+        });
+      });
+
+      combinedNotifications.sort((a: any, b: any) => {
+        const dateA: any = new Date(a.lastUpdated);
+        const dateB: any = new Date(b.lastUpdated);
+
+        return dateB - dateA;
+      });
+
+      setNotificationArray(combinedNotifications);
+      setLiveMarkerList(combinedNotifications);
+
+      setDashboardData(
+        formatttedAssetTrackerTabNotification(combinedNotifications, tabIndex)
+      );
+      setSearchValue(
+        formatttedAssetTrackerTabNotification(combinedNotifications, tabIndex)
+      );
     }
   }, [
     assetNotificationResponse,
     tabIndex,
     searchOpen,
+    mainTabIndex,
+    assetTrackersListResponse,
     // websocketLatestAssetNotification,
   ]);
 
@@ -1032,32 +1143,35 @@ const AssetTracking: React.FC<any> = (props) => {
     // } else {
     //   updatedLiveTrackerDetails = assetLiveData;
     // }
+    if (mainTabIndex === 1) {
+      const updatedLiveData =
+        updatedLiveTrackerDetails &&
+        updatedLiveTrackerDetails?.length > 0 &&
+        updatedLiveTrackerDetails?.map((asset: any) => {
+          return {
+            ...asset,
+            location: asset?.currentLocation,
+            category: "asset",
+            title: `TR#${asset?.trackerId}`,
+            id: asset?.trackerId,
+            recentMarkerType:
+              asset?.trackerStatus === "Inactive"
+                ? asset?.trackerStatus
+                : asset?.notificationType,
+            markerId: asset?.trackerId,
+            description: `${asset?.tagType} ${
+              asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
+                ? ` | Cellular`
+                : ` | ${asset?.gatewayType}`
+            } | ${asset?.trackerId}`,
+          };
+        });
 
-    const updatedLiveData =
-      updatedLiveTrackerDetails &&
-      updatedLiveTrackerDetails?.length > 0 &&
-      updatedLiveTrackerDetails?.map((asset: any) => {
-        return {
-          ...asset,
-          location: asset?.currentLocation,
-          category: "asset",
-          title: `TR#${asset?.trackerId}`,
-          id: asset?.trackerId,
-          recentMarkerType:
-            asset?.trackerStatus === "Inactive"
-              ? asset?.trackerStatus
-              : asset?.notificationType,
-          markerId: asset?.trackerId,
-          description: `${asset?.tagType} ${
-            asset?.tagType === "CATM1_TAG" && asset?.gatewayType === null
-              ? ` | Cellular`
-              : ` | ${asset?.gatewayType}`
-          } | ${asset?.trackerId}`,
-        };
-      });
-
-    setLiveMarkerList(updatedLiveData);
-  }, [assetLiveData,
+      setLiveMarkerList(updatedLiveData);
+    }
+  }, [
+    assetLiveData,
+    mainTabIndex,
     // websocketLatestAssetTrackerLive
   ]);
 
@@ -1275,8 +1389,18 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: parseInt(0),
         pageSize: parseInt(rowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
+
+      dispatch(getAssetTrackersListData({ payLoad: "", isFromSearch: false }));
 
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
@@ -1299,11 +1423,26 @@ const AssetTracking: React.FC<any> = (props) => {
       pageNo: parseInt(page),
       pageSize: parseInt(data),
       notificationType:
-        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+          ? tabIndex === 0
+            ? "Events"
+            : tabIndex === 1
+            ? "Incident"
+            : "Alerts"
+          : tabIndex === 0
+          ? "CATM1_TAG"
+          : "BLE_TAG",
     };
-    dispatch(
-      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-    );
+
+    mainTabIndex === 0 &&
+      dispatch(
+        getAssetTrackersListData({ payLoad: assetPayload, isFromSearch: true })
+      );
+
+    mainTabIndex === 1 &&
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
   };
 
   const handleNextChange = () => {
@@ -1314,12 +1453,26 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
     }
-    dispatch(
-      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-    );
+    mainTabIndex === 0 &&
+      dispatch(
+        getAssetTrackersListData({ payLoad: assetPayload, isFromSearch: true })
+      );
+
+    mainTabIndex === 1 &&
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
     setPage(page + 1);
     setSearchPageNo("");
   };
@@ -1332,12 +1485,27 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
     }
-    dispatch(
-      getNotificationData({ payLoad: assetPayload, isFromSearch: true })
-    );
+
+    mainTabIndex === 0 &&
+      dispatch(
+        getAssetTrackersListData({ payLoad: assetPayload, isFromSearch: true })
+      );
+
+    mainTabIndex === 1 &&
+      dispatch(
+        getNotificationData({ payLoad: assetPayload, isFromSearch: true })
+      );
     setPage(page - 1);
   };
   const handlePageNoChange = (value: any, keyName: any) => {
@@ -1350,8 +1518,18 @@ const AssetTracking: React.FC<any> = (props) => {
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
         notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        mainTabIndex === 1
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : tabIndex === 0
+        ? "CATM1_TAG"
+        : "BLE_TAG",
       };
+      dispatch(getAssetTrackersListData({ payLoad: "", isFromSearch: false }));
+
       dispatch(
         getNotificationData({ payLoad: assetPayload, isFromSearch: true })
       );
@@ -1360,7 +1538,7 @@ const AssetTracking: React.FC<any> = (props) => {
   };
 
   useEffect(() => {
-    if (assetNotificationResponse) {
+    if (assetNotificationResponse && mainTabIndex === 1) {
       setTotalRecords(
         formattedOverallNotificationCount(
           assetNotificationResponse?.data,
@@ -1390,8 +1568,35 @@ const AssetTracking: React.FC<any> = (props) => {
         }
       }
       setPaginationTotalCount(newArray);
+    } else if (assetTrackersListResponse && mainTabIndex === 0) {
+      setTotalRecords(
+        formattedOverallAssetTrackersCount(assetTrackersListResponse)
+      );
+      let countArray = formattedOverallAssetTrackersCount(
+        assetTrackersListResponse
+      );
+      let newArray: any = [];
+      if (countArray && countArray?.length > 0) {
+        switch (tabIndex) {
+          case 0:
+            newArray = countArray[0];
+            break;
+          case 1:
+            newArray = countArray[1];
+            break;
+          default:
+            newArray = 6;
+            break;
+        }
+      }
+      setPaginationTotalCount(newArray);
     }
-  }, [assetNotificationResponse, tabIndex]);
+  }, [
+    assetNotificationResponse,
+    tabIndex,
+    assetTrackersListResponse,
+    mainTabIndex,
+  ]);
 
   // PAGINATION ENDS
 
@@ -1411,16 +1616,31 @@ const AssetTracking: React.FC<any> = (props) => {
   };
 
   //Google Map Api Key Data fetching start here
-  useEffect(()=>{
+  useEffect(() => {
     let assetLiveDataPayload: any = {};
     dispatch(getGoogleMapApi(assetLiveDataPayload));
-  },[])
+  }, []);
 
   const googleMapApiKeyData = useSelector(
     (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
   );
 
   //Google Map Api Key Data fetching end here
+
+  const mainTabsNameList = [
+    { tabName: "TRACKERS", value: 0 },
+    { tabName: "NITIFICATION", value: 1 },
+  ];
+
+  const handleMainTabs = (index: number) => {
+    onHandleDefaultView();
+    setMainTabIndex(index);
+  };
+
+  useEffect(() => {
+    setTabIndex(mainTabIndex === 0 ? 0 : 1);
+    setSelectedNotification("");
+  }, [mainTabIndex]);
 
   return (
     <>
@@ -1510,65 +1730,68 @@ const AssetTracking: React.FC<any> = (props) => {
                                       style={{ height: "21vh", width: "80vw" }}
                                     >
                                       {
-                                      // assetTrackingIncidentsAnalyticsResponse &&
-                                      // Object.keys(
-                                      //   assetTrackingIncidentsAnalyticsResponse
-                                      // ).length > 0 ? (
+                                        // assetTrackingIncidentsAnalyticsResponse &&
+                                        // Object.keys(
+                                        //   assetTrackingIncidentsAnalyticsResponse
+                                        // ).length > 0 ? (
                                         !loaderAssetTrackingAnalyticsResponse &&
-                                        !loaderExtAnalytics ?
-                                        (<Chart
-                                          containerProps={{
-                                            style: {
-                                              height: "100%",
-                                              width: "100%",
-                                            },
-                                          }}
-                                          pageName={"assetTracking"}
-                                          tickInterval={
-                                            selectedGraphFormat?.tickInterval
-                                          }
-                                          xAxisArray={
-                                            activeInactiveAnalyticsXaxisData
-                                          }
-                                          isVisible={true}
-                                          graphType={"spline"}
-                                          units={""}
-                                          isCrosshair={true}
-                                          crossHairLineColor={"#E5FAF6"}
-                                          is4kDevice={selectedWidth?.is4kDevice}
-                                          selectedValue={selectedValue}
-                                          dataPoints={[
-                                            {
-                                              data: activeAnalyticsData,
-                                              marker: {
-                                                enabled: false,
+                                        !loaderExtAnalytics ? (
+                                          <Chart
+                                            containerProps={{
+                                              style: {
+                                                height: "100%",
+                                                width: "100%",
                                               },
-                                              lineColor: "#25796D",
-                                              color: "#25796D",
-                                              lineWidth:
-                                                selectedWidth?.is4kDevice ||
-                                                selectedWidth?.is3KDevice
-                                                  ? 4
-                                                  : 2,
-                                            },
-                                            {
-                                              data: inActiveAnalyticsData,
-                                              marker: {
-                                                enabled: false,
+                                            }}
+                                            pageName={"assetTracking"}
+                                            tickInterval={
+                                              selectedGraphFormat?.tickInterval
+                                            }
+                                            xAxisArray={
+                                              activeInactiveAnalyticsXaxisData
+                                            }
+                                            isVisible={true}
+                                            graphType={"spline"}
+                                            units={""}
+                                            isCrosshair={true}
+                                            crossHairLineColor={"#E5FAF6"}
+                                            is4kDevice={
+                                              selectedWidth?.is4kDevice
+                                            }
+                                            selectedValue={selectedValue}
+                                            dataPoints={[
+                                              {
+                                                data: activeAnalyticsData,
+                                                marker: {
+                                                  enabled: false,
+                                                },
+                                                lineColor: "#25796D",
+                                                color: "#25796D",
+                                                lineWidth:
+                                                  selectedWidth?.is4kDevice ||
+                                                  selectedWidth?.is3KDevice
+                                                    ? 4
+                                                    : 2,
                                               },
-                                              lineColor: "#D25A5A",
-                                              color: "#D25A5A",
-                                              lineWidth:
-                                                selectedWidth?.is4kDevice ||
-                                                selectedWidth?.is3KDevice
-                                                  ? 4
-                                                  : 2,
-                                            },
-                                          ]}
-                                        />
-                                      ) : (
-                                        <Loader isHundredVh={false} />
-                                      )}
+                                              {
+                                                data: inActiveAnalyticsData,
+                                                marker: {
+                                                  enabled: false,
+                                                },
+                                                lineColor: "#D25A5A",
+                                                color: "#D25A5A",
+                                                lineWidth:
+                                                  selectedWidth?.is4kDevice ||
+                                                  selectedWidth?.is3KDevice
+                                                    ? 4
+                                                    : 2,
+                                              },
+                                            ]}
+                                          />
+                                        ) : (
+                                          <Loader isHundredVh={false} />
+                                        )
+                                      }
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1607,95 +1830,106 @@ const AssetTracking: React.FC<any> = (props) => {
                                       style={{ height: "21vh", width: "80vw" }}
                                     >
                                       {
-                                      // assetTrackingIncidentsAnalyticsResponse &&
-                                      // Object.keys(
-                                      //   assetTrackingIncidentsAnalyticsResponse
-                                      // ).length > 0 ? (
+                                        // assetTrackingIncidentsAnalyticsResponse &&
+                                        // Object.keys(
+                                        //   assetTrackingIncidentsAnalyticsResponse
+                                        // ).length > 0 ? (
                                         !loaderAssetTrackingAnalyticsResponse &&
-                                        !loaderExtAnalytics ?
-                                        (<Chart
-                                          containerProps={{
-                                            style: {
-                                              height: "100%",
-                                              width: "100%",
-                                            },
-                                          }}
-                                          pageName={"assetTracking"}
-                                          tickInterval={
-                                            selectedGraphFormat?.tickInterval
-                                          }
-                                          xAxisArray={
-                                            incidentsAnalyticsDataXaxisData
-                                          }
-                                          graphType={"areaspline"}
-                                          isVisible={true}
-                                          units={""}
-                                          isCrosshair={true}
-                                          crossHairLineColor={"#EE3E35"}
-                                          is4kDevice={selectedWidth?.is4kDevice}
-                                          selectedValue={selectedValue}
-                                          dataPoints={[
-                                            {
-                                              data: incidentsAnalyticsData,
+                                        !loaderExtAnalytics ? (
+                                          <Chart
+                                            containerProps={{
+                                              style: {
+                                                height: "100%",
+                                                width: "100%",
+                                              },
+                                            }}
+                                            pageName={"assetTracking"}
+                                            tickInterval={
+                                              selectedGraphFormat?.tickInterval
+                                            }
+                                            xAxisArray={
+                                              incidentsAnalyticsDataXaxisData
+                                            }
+                                            graphType={"areaspline"}
+                                            isVisible={true}
+                                            units={""}
+                                            isCrosshair={true}
+                                            crossHairLineColor={"#EE3E35"}
+                                            is4kDevice={
+                                              selectedWidth?.is4kDevice
+                                            }
+                                            selectedValue={selectedValue}
+                                            dataPoints={[
+                                              {
+                                                data: incidentsAnalyticsData,
 
-                                              marker: {
-                                                enabled: false,
-                                              },
-                                              lineColor: "#EE3E35",
-                                              color: "#EE3E35",
-                                              lineWidth:
-                                                selectedWidth?.is4kDevice ||
-                                                selectedWidth?.is3KDevice
-                                                  ? 4
-                                                  : 2,
-                                              fillColor: {
-                                                linearGradient: [0, 0, 0, 200],
-                                                stops: [
-                                                  [
-                                                    0,
-                                                    Highcharts.color("#C3362F")
-                                                      .setOpacity(0.5)
-                                                      .get("rgba"),
+                                                marker: {
+                                                  enabled: false,
+                                                },
+                                                lineColor: "#EE3E35",
+                                                color: "#EE3E35",
+                                                lineWidth:
+                                                  selectedWidth?.is4kDevice ||
+                                                  selectedWidth?.is3KDevice
+                                                    ? 4
+                                                    : 2,
+                                                fillColor: {
+                                                  linearGradient: [
+                                                    0, 0, 0, 200,
                                                   ],
-                                                  [
-                                                    0.5,
-                                                    Highcharts.color("#C3362F")
-                                                      .setOpacity(
-                                                        selectedWidth?.is4kDevice ||
-                                                          selectedWidth?.is3KDevice
-                                                          ? selectedTheme ===
-                                                            "light"
-                                                            ? 0.4
+                                                  stops: [
+                                                    [
+                                                      0,
+                                                      Highcharts.color(
+                                                        "#C3362F"
+                                                      )
+                                                        .setOpacity(0.5)
+                                                        .get("rgba"),
+                                                    ],
+                                                    [
+                                                      0.5,
+                                                      Highcharts.color(
+                                                        "#C3362F"
+                                                      )
+                                                        .setOpacity(
+                                                          selectedWidth?.is4kDevice ||
+                                                            selectedWidth?.is3KDevice
+                                                            ? selectedTheme ===
+                                                              "light"
+                                                              ? 0.4
+                                                              : 0.3
                                                             : 0.3
-                                                          : 0.3
+                                                        )
+                                                        .get("rgba"),
+                                                    ],
+                                                    [
+                                                      1,
+                                                      Highcharts.color(
+                                                        "#C3362F"
                                                       )
-                                                      .get("rgba"),
+                                                        .setOpacity(
+                                                          selectedWidth?.is4kDevice ||
+                                                            selectedWidth?.is3KDevice
+                                                            ? selectedTheme ===
+                                                              "light"
+                                                              ? 0.14
+                                                              : 0.06
+                                                            : selectedTheme ===
+                                                              "light"
+                                                            ? 0.01
+                                                            : 0.02
+                                                        )
+                                                        .get("rgba"),
+                                                    ],
                                                   ],
-                                                  [
-                                                    1,
-                                                    Highcharts.color("#C3362F")
-                                                      .setOpacity(
-                                                        selectedWidth?.is4kDevice ||
-                                                          selectedWidth?.is3KDevice
-                                                          ? selectedTheme ===
-                                                            "light"
-                                                            ? 0.14
-                                                            : 0.06
-                                                          : selectedTheme ===
-                                                            "light"
-                                                          ? 0.01
-                                                          : 0.02
-                                                      )
-                                                      .get("rgba"),
-                                                  ],
-                                                ],
+                                                },
                                               },
-                                            },
-                                          ]}
-                                        />
-                                      ) : (
-                                        <Loader isHundredVh={false} />
-                                      )}
+                                            ]}
+                                          />
+                                        ) : (
+                                          <Loader isHundredVh={false} />
+                                        )
+                                      }
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -1756,11 +1990,41 @@ const AssetTracking: React.FC<any> = (props) => {
                         selectedNotification={selectedNotification}
                         mapDefaultView={mapDefaultView}
                         setMapDefaultView={setMapDefaultView}
+                        selectedAssetMainTab={
+                          mainTabIndex === 0 ? "trackers" : "notification"
+                        }
                       />
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item xs={3} className={notificationPanelGrid}>
+                  <div
+                    style={{
+                      display: "flex",
+                      margin: "0.6vw 1vw",
+                      padding: "0.2vw",
+                      background: "#FFFFFF",
+                      borderRadius: "0.2vw",
+                      color: "#7C7777",
+                    }}
+                  >
+                    {mainTabsNameList?.map((items: any, index: number) => (
+                      <div
+                        style={{
+                          flex: 1,
+                          textAlign: "center",
+                          padding: "0.8vw 0",
+                          background: mainTabIndex === index && "#F1624C",
+                          borderRadius: "0.2vw",
+                          cursor: "pointer",
+                          color: mainTabIndex === index && "#FFFFFF",
+                        }}
+                        onClick={() => handleMainTabs(index)}
+                      >
+                        {items?.tabName}
+                      </div>
+                    ))}
+                  </div>
                   <NotificationPanel
                     setNotificationPanelActive={setNotificationPanelActive}
                     dashboardData={dashboardData}
@@ -1795,6 +2059,10 @@ const AssetTracking: React.FC<any> = (props) => {
                     mapDefaultView={mapDefaultView}
                     setMapDefaultView={setMapDefaultView}
                     setPage={setPage}
+                    selectedAssetMainTab={
+                      mainTabIndex === 0 ? "trackers" : "notification"
+                    }
+                    mainTabIndex={mainTabIndex}
                   />
                   {!loaderAssetNotificationResponse && (
                     <div style={{ margin: "-5px 20px 0 20px" }}>
