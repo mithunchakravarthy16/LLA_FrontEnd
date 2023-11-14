@@ -1031,7 +1031,6 @@ const FleetManagement: React.FC<any> = (props) => {
         pageSize: parseInt(rowsPerPage),
         notificationType: "",
       };
-      console.log("1");
       dispatch(getFleetManagementCompletedTrips({ payLoad: fleetPayload }));
     }
   }, [debounceSearchText, rowsPerPage]);
@@ -1050,12 +1049,7 @@ const FleetManagement: React.FC<any> = (props) => {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
-      notificationType:
-        tripsTabIndex === 0
-          ? "Live"
-          : tripsTabIndex === 1
-          ? "Devices"
-          : "Completed",
+      notificationType: "",
     };
     dispatch(
       getFleetManagementCompletedTrips({
@@ -1090,8 +1084,7 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType: "",
       };
     }
     dispatch(
@@ -1111,8 +1104,7 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType:
-          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+        notificationType: "",
       };
       dispatch(
         getFleetManagementCompletedTrips({
