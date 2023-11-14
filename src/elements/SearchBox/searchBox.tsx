@@ -7,7 +7,6 @@ import SearchIconImg from "../../assets/searchIcon.svg";
 
 import assetSearchIconImg from "../../assets/assetSearchIcon.svg";
 
-
 import closeIconBox from "../../assets/closeIconBox.svg";
 import SearchIconDark from "../../assets/searchIconDark.svg";
 import CloseIconDark from "../../assets/closeIconBoxDark.svg";
@@ -42,8 +41,6 @@ const INF_SearchBox: React.FC<any> = (props) => {
     mainTabIndex,
     tabMainIndex,
     tripsTabIndex,
-    setTSearchValue,
-    setSearchNoticationsValue,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -74,17 +71,17 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleClose = () => {
     setSearchValue("");
-    tabMainIndex === 0 && setTSearchValue("");
-    tabMainIndex === 1 && setSearchNoticationsValue("");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") && 
+      notificationPageName === "energy" ||
+      notificationPageName === "lighting" ||
+      notificationPageName === "security") &&
       handleSearch("");
-    // handleSearchtest("")
     setIcon("search");
     if (
       notificationPageName === "dashboard" ||
-      notificationPageName === "asset"
+      notificationPageName === "asset" ||
+      notificationPageName === "FleetManagement"
     ) {
       setDebounceSearchText("");
     }
@@ -108,23 +105,30 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleInput = (event: any) => {
     setSearchValue(event.target.value);
-    tabMainIndex === 0 && setTSearchValue(event.target.value);
-    tabMainIndex === 1 && setSearchNoticationsValue(event.target.value);
     if (event.target.value.length > 0) {
       setIcon("cancel");
-    }else{
+    } else {
       setIcon("search");
     }
-    
+
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") &&
+      notificationPageName === "energy" ||
+      notificationPageName === "lighting" ||
+      notificationPageName === "security") &&
       handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
-      notificationPageName === "asset"
+      notificationPageName === "asset" ||
+      notificationPageName === "FleetManagement"
     ) {
-      handleSearchtest(event.target.value, tabIndex, page, rowsPerPage, mainTabIndex);
+      handleSearchtest(
+        event.target.value,
+        tabIndex,
+        page,
+        rowsPerPage,
+        mainTabIndex
+      );
     }
   };
   const handleSearchFocus = () => {
@@ -142,7 +146,8 @@ const INF_SearchBox: React.FC<any> = (props) => {
     setSearchValue("");
     if (
       notificationPageName === "dashboard" ||
-      notificationPageName === "asset"
+      notificationPageName === "asset" ||
+      notificationPageName === "FleetManagement"
     ) {
       setDebounceSearchText("");
     }
@@ -150,14 +155,13 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSearchValue("");
-    tabMainIndex === 0 && setTSearchValue("");
-    tabMainIndex === 1 && setSearchNoticationsValue("");
     setIcon("search");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") &&
+      notificationPageName === "energy" ||
+      notificationPageName === "lighting" ||
+      notificationPageName === "security") &&
       handleSearch("");
-    // handleSearchtest("")
   }, [tabIndex, tabMainIndex, tripsTabIndex]);
 
   useEffect(() => {
@@ -166,7 +170,10 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   return (
     <>
-      <div className={searchInput} style={{border: notificationPageName === "asset" && borderColor}}>
+      <div
+        className={searchInput}
+        style={{ border: notificationPageName === "asset" && borderColor }}
+      >
         <InputBase
           disabled={disabled ? disabled : false}
           fullWidth
@@ -194,7 +201,8 @@ const INF_SearchBox: React.FC<any> = (props) => {
                   src={
                     notificationPageName === "assetTable"
                       ? SearchIconDark
-                      : notificationPageName === "asset" ? assetSearchIconImg 
+                      : notificationPageName === "asset"
+                      ? assetSearchIconImg
                       : notificationPageName === "FleetManagement"
                       ? SearchIconNew
                       : SearchIconImg

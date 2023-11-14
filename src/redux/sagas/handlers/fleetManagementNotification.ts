@@ -15,6 +15,8 @@ import {
   setFleetManagementOverspeeding,
   setFleetManagementLiveTrip,
   setFleetManagementCompletedTrips,
+  setLoaderFleetManagementCompletedTrips,
+  hideLoaderFleetManagementCompletedTrips,
 } from "redux/actions/fleetManagementNotificationActions";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
@@ -135,7 +137,9 @@ export function* handleFleetManagementLiveTrip(action: any): any {
 
 export function* handleFleetManagementCompletedTrips(action: any): any {
   try {
-    yield put(setLoaderNotificationData());
+    if (action.isFromSearch) {
+      yield put(setLoaderFleetManagementCompletedTrips());
+    }
     const { fetchPostData } = fetchAPIServices;
     const response = yield fetchPostData(getCompletedTripsApi, action.payload);
     if (response) {
@@ -143,9 +147,9 @@ export function* handleFleetManagementCompletedTrips(action: any): any {
     } else {
       yield put(setFleetManagementCompletedTrips({}));
     }
-    yield put(hideLoaderNotificationData());
+    yield put(hideLoaderFleetManagementCompletedTrips());
   } catch (error) {
-    yield put(hideLoaderNotificationData());
+    yield put(hideLoaderFleetManagementCompletedTrips());
     console.log(error);
   }
 }

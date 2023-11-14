@@ -23,6 +23,10 @@ export const fleetManagementNotification = {
   SET_FLEET_MANAGEMENT_LIVE_TRIP: "SET_FLEET_MANAGEMENT_LIVE_TRIP",
   GET_FLEET_MANAGEMENT_COMPLETED_TRIP: "GET_FLEET_MANAGEMENT_COMPLETED_TRIP",
   SET_FLEET_MANAGEMENT_COMPLETED_TRIP: "SET_FLEET_MANAGEMENT_COMPLETED_TRIP",
+  SHOW_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP:
+    "SHOW_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP",
+  HIDE_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP:
+    "Hide_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP",
 };
 
 export const getFleetManagementNotificationData = (payload: any) => ({
@@ -129,7 +133,8 @@ export const setFleetManagementLiveTrip = (fleetManagementLiveTrip: any) => ({
 
 export const getFleetManagementCompletedTrips = (payload: any) => ({
   type: fleetManagementNotification.GET_FLEET_MANAGEMENT_COMPLETED_TRIP,
-  payload: payload,
+  payload: payload.payLoad,
+  isFromSearch: payload.isFromSearch,
 });
 
 export const setFleetManagementCompletedTrips = (
@@ -137,6 +142,14 @@ export const setFleetManagementCompletedTrips = (
 ) => ({
   type: fleetManagementNotification.SET_FLEET_MANAGEMENT_COMPLETED_TRIP,
   fleetManagementCompletedTripsData,
+});
+
+export const setLoaderFleetManagementCompletedTrips = () => ({
+  type: fleetManagementNotification.SHOW_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP,
+});
+
+export const hideLoaderFleetManagementCompletedTrips = () => ({
+  type: fleetManagementNotification.HIDE_LOADER_FLEET_MANAGEMENT_COMPLETED_TRIP,
 });
 
 export default fleetManagementNotification;
