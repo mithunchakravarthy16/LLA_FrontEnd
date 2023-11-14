@@ -32,7 +32,8 @@ const AssetMarker: React.FC<any> = (props) => {
     listSelectedMarker,
     isMarkerClicked,
     selectedNotificationItem,
-    setAssetLiveMarker
+    setAssetLiveMarker,
+    selectedAssetMainTab
   } = props;
 
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
@@ -87,6 +88,7 @@ const AssetMarker: React.FC<any> = (props) => {
             markerType = {assetLiveMarker === mapMarker?.markerId && "assetLiveMarker" }
             isMarkerClicked = {isMarkerClicked}
             setAssetLiveMarker={setAssetLiveMarker}
+            selectedAssetMainTab={selectedAssetMainTab}
           />
         </InfoWindowF>
       )}

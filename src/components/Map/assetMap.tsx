@@ -74,7 +74,8 @@ const AssetMap: React.FC<any> = (props) => {
     selectedNotification,
     mapDefaultView, 
     setMapDefaultView,
-    googleMapsApiKeyResponse
+    googleMapsApiKeyResponse,
+    selectedAssetMainTab,
   } = props;
 
   // const [selectedTheme, setSelectedTheme] = useState(
@@ -588,6 +589,15 @@ const AssetMap: React.FC<any> = (props) => {
     }
   };
 
+  const getAssetTrackersTabIndex = (type: string) => {
+    switch (type) {
+      case "cellularTags":
+        return 0;
+      case "bleTags":
+        return 1;
+    }
+  };
+
   const handleMarkerClose = () => {
     setAssetLiveMarker("");
     setIsMarkerClicked(false);
@@ -640,19 +650,52 @@ const AssetMap: React.FC<any> = (props) => {
 
   const handleLiveMarkerIcon = (id: any, location: any, data: any) => {
     setMapDefaultView(false)
-    if (data?.category === "parking" || location?.pathname === "/parking") {
+    if (data?.category === "parking" || location?.pathname === "/parking" ) {
       setNotificationPanelActive(true);
       setListSelectedMarker(id);
       setTabIndex(getTabIndex(data?.notificationType));
       setSelectedNotification(id);
     }
-    setSelectedNotificationItem(data);
-    setIsMarkerClicked(true);
-    map?.setZoom(18)
-    setAssetLiveMarker(id);
-    setListSelectedMarker(id)
-    // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
-    map?.panTo(location);
+
+    if(selectedAssetMainTab === "trackers"){
+      setSelectedNotification(selectedNotification === data?.id ? "" : data?.id );
+      if(selectedNotification === data?.id){
+        setCurrentMarker("");
+    setSelectedNotification("");
+    setListSelectedMarker("");
+    setIsMarkerClicked(false);
+    setAssetLiveMarker("");
+    setSelectedNotificationItem("");
+    // map?.panTo(
+    //    center
+    // );
+    // map?.setZoom(selectedContainerStyle?.is4kDevice ? 16.2 : 17);
+    setSelectedMarker("");
+
+      }else{
+        setNotificationPanelActive(true);
+        setListSelectedMarker(id);
+        setTabIndex(getAssetTrackersTabIndex(data?.tagType));
+        setSelectedNotificationItem(data);
+       setIsMarkerClicked(true);
+       map?.setZoom(18)
+       setAssetLiveMarker(id);
+      // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
+       map?.panTo(location);
+      }
+      
+      
+    }else{
+      setSelectedNotificationItem(data);
+      setIsMarkerClicked(true);
+      map?.setZoom(18)
+      setAssetLiveMarker(id);
+      setListSelectedMarker(id)
+      // setAssetLiveMarker(assetLiveMarker === id ? "" : id);
+      map?.panTo(location);
+    }
+   
+    
   };
 
   const handleLiveMarkerClose = () => {
@@ -678,7 +721,7 @@ const AssetMap: React.FC<any> = (props) => {
       );
       map?.setZoom(17)
     }
-    if(selectedNotificationItem && selectedNotificationItem?.category === "asset"){
+    if(selectedNotificationItem && selectedNotificationItem?.category === "asset" && selectedAssetMainTab !== "trackers"){
       if(isMarkerClicked) {
         setSelectedNotification("")
       }
@@ -772,6 +815,7 @@ const AssetMap: React.FC<any> = (props) => {
                         listSelectedMarker={listSelectedMarker}
                         isMarkerClicked={isMarkerClicked}
                         selectedNotificationItem={selectedNotificationItem}
+                        selectedAssetMainTab={selectedAssetMainTab}
                       />
                     </>
                   );
