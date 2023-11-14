@@ -7,7 +7,12 @@ import useTranslation from "localization/translations";
 import useStyles from "./styles";
 
 const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
-  const { selectedTheme, violationListItems } = props;
+  const {
+    selectedTheme,
+    violationListItems,
+    handleClickVideo,
+    selectedVideoId,
+  } = props;
   const [appTheme, setAppTheme] = useState(theme?.defaultTheme);
   // const [selectedTheme, setSelectedTheme] = useState(
   //   JSON.parse(localStorage.getItem("theme")!)
@@ -56,12 +61,31 @@ const FleetInfoDialogueViolationContainer: React.FC<any> = (props) => {
                     padding: "5% 4%",
                     border: "1px solid #808080",
                     borderRadius: "5px",
+                    cursor: "pointer",
                     background:
-                      appTheme?.palette?.fleetManagementPage?.violationListBg,
+                      selectedVideoId === item?.id
+                        ? "#616161"
+                        : appTheme?.palette?.fleetManagementPage
+                            ?.violationListBg,
                   }}
+                  onClick={() => handleClickVideo(item)}
                 >
-                  <div className={listItemTitle}>{item?.title}</div>
-                  <div className={listItemDescription}>{`Vehicle#${
+                  <div
+                    className={listItemTitle}
+                    style={{
+                      color:
+                        selectedVideoId === item?.id ? "#FFFFFF" : "#808080",
+                    }}
+                  >
+                    {item?.title}
+                  </div>
+                  <div
+                    className={listItemDescription}
+                    style={{
+                      color:
+                        selectedVideoId === item?.id ? "#FFFFFF" : "#808080",
+                    }}
+                  >{`Vehicle#${
                     item?.vehicleId ? item?.vehicleId : ""
                   }, Driver - ${
                     item?.driverName ? item?.driverName : ""

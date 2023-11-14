@@ -4,24 +4,6 @@ import { makeStyles } from "@mui/styles";
 import muiTheme from "../../theme/muiTheme";
 
 const useStyles = makeStyles({
-  sourceContentImg: (props: any) => ({
-    position: "relative",
-    "&::before": {
-      content: `''`,
-      position: "absolute",
-      left: 9,
-      top: 19,
-      width: 1,
-      height: 44,
-      background: "transparent",
-      borderLeft: "1px dashed #fff",
-    },
-  }),
-  sourceContent: (props: any) => ({
-    fontSize: 10,
-    margin: "6px auto auto 10px",
-    lineHeight: "9px",
-  }),
   rootContainer: (props: any) => ({
     minWidth: props?.pageName === "markerCallout" ? "350px" : "380px",
     paddingRight: props?.pageName === "markerCallout" ? "" : "10px",
@@ -53,6 +35,7 @@ const useStyles = makeStyles({
       minWidth: props?.pageName === "markerCallout" ? 290 : 186,
     },
   }),
+
   collapsedListItems: (props: any) => {
     return {
       background: props.palette?.notification?.listItemBorder, //rgba(7, 48, 77, 0.8)
@@ -119,7 +102,7 @@ const useStyles = makeStyles({
     // fontSize: 20,
     fontSize: "0.9vw",
     letterSpacing: "0.5px",
-    marginBottom: props?.pageName !== "markerCallout" && props?.selectedAssetMainTab !== "trackers" ? "3%" : "unset",
+    marginBottom: "3%",
     fontFamily: "HelveticaNeue-Regular",
     color: props?.palette?.notification?.listItemContent,
     [muiTheme.breakpoints.up(3839)]: {
@@ -157,6 +140,24 @@ const useStyles = makeStyles({
     color: props?.palette?.notification?.collapsedListItemTextColor,
   }),
 
+  sourceContentImg: (props: any) => ({
+    position: "relative",
+    "&::before": {
+      content: `''`,
+      position: "absolute",
+      left: 9,
+      top: 19,
+      width: 1,
+      height: 44,
+      background: "transparent",
+      borderLeft: "1px dashed #fff",
+    },
+  }),
+  sourceContent: (props: any) => ({
+    fontSize: 10,
+    margin: "6px auto auto 10px",
+    lineHeight: "9px",
+  }),
   collapsedListItemTitle: (props: any) => ({
     fontSize: 18,
     letterSpacing: "0.5px",
@@ -454,8 +455,6 @@ const useStyles = makeStyles({
     },
   }),
   markerCloseIcon: (props: any) => ({
-    display: "flex",
-    columnGap: "1vw",
     margin: "4px 0px 0px 0px",
     fontSize: 13,
     padding: "0px 0px 0px 15px",
@@ -470,8 +469,7 @@ const useStyles = makeStyles({
   listItemCallout: (props: any) => ({
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "3%",
+    // alignItems: "center",
   }),
   defaultListItem: (props: any) => ({
     display: "flex",

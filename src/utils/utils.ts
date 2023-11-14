@@ -228,7 +228,11 @@ export const formatttedAssetAPINotification = (data: any) => {
         id: event?.assetNotificationId,
         markerId: event?.id,
         currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
-        description : `${event?.tagType} ${(event?.tagType === "CATM1_TAG" &&  event?.gatewayType === null) ? ` | Cellular` : ` | ${event?.gatewayType}`} | ${event?.trackerId}`
+        description: `${event?.tagType} ${
+          event?.tagType === "CATM1_TAG" && event?.gatewayType === null
+            ? ` | Cellular`
+            : ` | ${event?.gatewayType}`
+        } | ${event?.trackerId}`,
       });
     });
 
@@ -242,7 +246,11 @@ export const formatttedAssetAPINotification = (data: any) => {
         id: incidents?.assetNotificationId,
         markerId: incidents?.id,
         currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
-        description : `${incidents?.tagType} ${(incidents?.tagType === "CATM1_TAG" &&  incidents?.gatewayType === null) ? ` | Cellular` : ` | ${incidents?.gatewayType}`} | ${incidents?.trackerId}`                    
+        description: `${incidents?.tagType} ${
+          incidents?.tagType === "CATM1_TAG" && incidents?.gatewayType === null
+            ? ` | Cellular`
+            : ` | ${incidents?.gatewayType}`
+        } | ${incidents?.trackerId}`,
       });
     });
 
@@ -255,7 +263,11 @@ export const formatttedAssetAPINotification = (data: any) => {
         title: alerts?.reason,
         id: alerts?.assetNotificationId,
         currentTimeStamp: localDate.format("MM-DD-YYYY | h:mm A"),
-        description : `${alerts?.tagType} ${(alerts?.tagType === "CATM1_TAG" &&  alerts?.gatewayType === null) ? ` | Cellular` : ` | ${alerts?.gatewayType}`} | ${alerts?.trackerId}`                    
+        description: `${alerts?.tagType} ${
+          alerts?.tagType === "CATM1_TAG" && alerts?.gatewayType === null
+            ? ` | Cellular`
+            : ` | ${alerts?.gatewayType}`
+        } | ${alerts?.trackerId}`,
       });
     });
 
@@ -417,5 +429,82 @@ export const formattedOverallAssetTrackersCount = (apiData: any) => {
       count = [ cellularCount, bleTagsCount];
     
     return count;
+  }
+}
+// fleet trips
+
+export const formattedFleetTripsNotification = (data: any, index: number) => {
+  if (data) {
+    const combinedNotifications: any = [];
+
+    if (index === 0) {
+      data?.liveTrips?.tripDTO?.forEach((liveTrip: any) => {
+        combinedNotifications.push({
+          ...liveTrip,
+          category: "fleet",
+          id: liveTrip?.tripId,
+          // currentTimeStamp: moment
+          //   .utc(event?.notificationDate)
+          //   .format("MM-DD-YYYY | HH:mm A"),
+        });
+      });
+    } else if (index === 1) {
+      data?.deviceDTOs?.deviceDto?.forEach((liveTrip: any) => {
+        combinedNotifications.push({
+          ...liveTrip,
+          category: "fleet",
+          id: liveTrip?.deviceId,
+          // currentTimeStamp: moment
+          //   .utc(event?.notificationDate)
+          //   .format("MM-DD-YYYY | HH:mm A"),
+        });
+      });
+    } else if (index === 2) {
+      data?.completedTrips?.tripDTO?.forEach((liveTrip: any) => {
+        combinedNotifications.push({
+          ...liveTrip,
+          category: "fleet",
+          id: liveTrip?.tripId,
+          // currentTimeStamp: moment
+          //   .utc(event?.notificationDate)
+          //   .format("MM-DD-YYYY | HH:mm A"),
+        });
+      });
+    }
+    return combinedNotifications;
+  }
+};
+
+export const formattedMapFleetTripsNotification = (
+  data: any,
+  index: number
+) => {
+  if (data) {
+    const combinedNotifications: any = [];
+
+    if (index === 0 || index === 1) {
+      data?.liveTrips?.tripDTO?.forEach((liveTrip: any) => {
+        combinedNotifications.push({
+          ...liveTrip,
+          category: "fleet",
+          id: liveTrip?.tripId,
+          // currentTimeStamp: moment
+          //   .utc(event?.notificationDate)
+          //   .format("MM-DD-YYYY | HH:mm A"),
+        });
+      });
+    } else if (index === 2) {
+      data?.completedTrips?.tripDTO?.forEach((liveTrip: any) => {
+        combinedNotifications.push({
+          ...liveTrip,
+          category: "fleet",
+          id: liveTrip?.tripId,
+          // currentTimeStamp: moment
+          //   .utc(event?.notificationDate)
+          //   .format("MM-DD-YYYY | HH:mm A"),
+        });
+      });
+    }
+    return combinedNotifications;
   }
 };

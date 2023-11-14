@@ -1,6 +1,6 @@
 /** @format */
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
@@ -182,34 +182,6 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
       });
       setPoints(data);
     }
-    // const updatedArray: any = [];
-    // fleetManagementTripDetailsResponse?.data?.routeDtos?.forEach(
-    //   async (item: any, index: number) => {
-    //     let address: any = "";
-    //     const geocoder: any = new window.google.maps.Geocoder();
-    //     const location1: any = new window.google.maps.LatLng(
-    //       item?.location?.lat,
-    //       item?.location?.lng
-    //     );
-    //     await geocoder.geocode(
-    //       { latLng: location1 },
-    //       (results: any, status: any) => {
-    //         if (status === "OK" && results[0]) {
-    //           address = results[0].formatted_address;
-    //         } else {
-    //           console.error("Geocode failure: " + status);
-    //           return false;
-    //         }
-    //         updatedArray.push({
-    //           ...item,
-    //           index: index,
-    //           area: address,
-    //         });
-    //       }
-    //     );
-    //     setRoutes([...updatedArray]);
-    //   }
-    // );
 
     if (fleetManagementTripDetailsResponse?.data?.totalTime) {
       if (
@@ -231,11 +203,11 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
 
   const [open, setOpen] = useState(!false);
 
-  useEffect(()=>{
-    if(selectedMarker && pageName === "dashboard"){
+  useEffect(() => {
+    if (selectedMarker && pageName === "dashboard") {
       dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
-    }    
-  },[selectedMarker])
+    }
+  }, [selectedMarker]);
 
   useEffect(() => {
     if (selectedMarkerLocation?.tripStatus !== "Live") {
@@ -257,7 +229,10 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
   const handleClose = () => {
     setOpen(!open);
     setShowInfoDialogue(false);
-    dispatch(setFleetManagementTripDetails({}));
+    setSelectedVideoName("");
+    setSelectedVideo("");
+    setSelectedVideoId("");
+    // dispatch(setFleetManagementTripDetails({}));
   };
 
   const tabsList = [
@@ -430,8 +405,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
           ? `${
               fleetManagementTripDetailsResponse?.data?.vehicleDetail
                 ?.currentTripSpeed
-                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail
-                    ?.currentTripSpeed
+                ? fleetManagementTripDetailsResponse?.data?.vehicleDetail?.currentTripSpeed?.toFixed(
+                    2
+                  )
                 : 0
             }Kph`
           : fleetManagementTripDetailsResponse?.data?.driverDetail?.driverStatus
@@ -635,17 +611,80 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
     dispatch(getFleetManagementTripDetails({ tripId: selectedMarker }));
   };
 
- //Google Map Api Key Data fetching start here
- useEffect(()=>{
-  let assetLiveDataPayload: any = {};
-  dispatch(getGoogleMapApi(assetLiveDataPayload));
-},[])
+  //Google Map Api Key Data fetching start here
+  useEffect(() => {
+    let assetLiveDataPayload: any = {};
+    dispatch(getGoogleMapApi(assetLiveDataPayload));
+  }, []);
 
   const googleMapApiKeyData = useSelector(
     (state: any) => state?.googleMapApiKey?.googleMapApiKeyData
   );
 
- //Google Map Api Key Data fetching end here 
+  //Google Map Api Key Data fetching end here
+  const [selectedVideo, setSelectedVideo] = useState<any>();
+  const [selectedVideoName, setSelectedVideoName] = useState<any>();
+  const [selectedVideoId, setSelectedVideoId] = useState<any>();
+
+  const handleClickVideo = (data) => {
+    setSelectedVideoName(data?.title);
+    setSelectedVideo(data?.videoUrl);
+    setSelectedVideoId(data?.id);
+  };
+
+  useEffect(() => {
+    if (selectedMarkerLocation?.tripStatus === "Finish") {
+      setSelectedVideoId(violations && violations[0]?.id);
+    } else {
+      setSelectedVideoId(null);
+    }
+  }, [violations]);
+
+  const completedVideosPlayer = useMemo(() => {
+    return (
+      <>
+        <Grid item xs={12}>
+          <div>
+            <div
+              style={{
+                color: "#6BA044",
+                fontSize: "0.9vw",
+                fontFamily: "HelveticaNeue-Regular",
+              }}
+            >
+              {selectedVideoName
+                ? selectedVideoName
+                : violations && violations[0]?.title}
+            </div>
+            <div style={{}} />
+          </div>
+        </Grid>
+        <Grid item xs={12} height={"87%"} paddingTop={1}>
+          {selectedMarkerLocation?.tripStatus === "Finish" &&
+            (selectedVideo || (violations && violations[0]?.videoUrl) ? (
+              <ReactPlayer
+                muted
+                playing
+                loop={true}
+                controls={true}
+                url={selectedVideo ? selectedVideo : violations[0]?.videoUrl}
+                width="100%"
+                height="100%"
+              />
+            ) : (
+              <div className={noVideoPreview}>No Video Content Available</div>
+            ))}
+        </Grid>
+      </>
+    );
+  }, [
+    selectedMarkerLocation,
+    selectedVideo,
+    violations,
+    fleetManagementTripDetailsResponse,
+    tabIndex,
+    selectedVideoName,
+  ]);
 
   return (
     <>
@@ -706,7 +745,9 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
         </Snackbar>
       )}
       <DialogWrapper open={open} sx={{ top: "0px" }} appTheme={appTheme}>
-        {selectedMarkerLocation?.tripStatus !== "Live" && loader && !googleMapApiKeyData ? (
+        {selectedMarkerLocation?.tripStatus !== "Live" &&
+        loader &&
+        !googleMapApiKeyData ? (
           <Loader />
         ) : (
           <>
@@ -818,29 +859,32 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                   </Grid>
                   <Grid
                     item
-                    xs={6.7}
+                    xs={tabIndex !== 1 ? 9.7 : 6.7}
                     style={{ height: "100%", padding: "0 1%" }}
                   >
                     <Grid style={{ height: "100%" }} item xs={12}>
-                      {tabIndex === 0 ? ( googleMapApiKeyData && 
-                        <TripDetailsMap
-                        googleMapsApiKeyResponse={googleMapApiKeyData}
-                          markers={[selectedMarkerLocation]}
-                          marker={selectedMarkerLocation?.id}
-                          currentMarker={selectedMarkerLocation}
-                          setCurrentMarker={() => {}}
-                          focusedCategory={""}
-                          mapPageName={"fleetManagement"}
-                          setIsMarkerClicked={setIsMarkerClicked}
-                          setSelectedNotification={() => {}}
-                          setNotificationPanelActive={() => {}}
-                          setTabIndex={() => {}}
-                          selectedTheme={selectedTheme}
-                          dataPoints={points}
-                          tripStatus={
-                            fleetManagementTripDetailsResponse?.data?.tripStatus
-                          }
-                        />
+                      {tabIndex === 0 ? (
+                        googleMapApiKeyData && (
+                          <TripDetailsMap
+                            googleMapsApiKeyResponse={googleMapApiKeyData}
+                            markers={[selectedMarkerLocation]}
+                            marker={selectedMarkerLocation?.id}
+                            currentMarker={selectedMarkerLocation}
+                            setCurrentMarker={() => {}}
+                            focusedCategory={""}
+                            mapPageName={"fleetManagement"}
+                            setIsMarkerClicked={setIsMarkerClicked}
+                            setSelectedNotification={() => {}}
+                            setNotificationPanelActive={() => {}}
+                            setTabIndex={() => {}}
+                            selectedTheme={selectedTheme}
+                            dataPoints={points}
+                            tripStatus={
+                              fleetManagementTripDetailsResponse?.data
+                                ?.tripStatus
+                            }
+                          />
+                        )
                       ) : tabIndex === 1 ? (
                         <Grid container xs={12} style={{ height: "100%" }}>
                           <Grid item xs={12} style={{ height: "13%" }}>
@@ -896,55 +940,67 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                           </Grid>
                           <Grid item xs={12} paddingTop={1} height={"87%"}>
                             <Grid container xs={12} height={"100%"}>
-                              <Grid
-                                item
-                                xs={12}
-                                height={"13%"}
-                                display={"flex"}
-                                alignItems={"center"}
-                              >
-                                <Tabs
-                                  initialIndex={cameraTabIndex}
-                                  tabsList={camTabsList}
-                                  handleTabs={handleTabs}
-                                  dashboardNotificationClassName={
-                                    customNotificationTabs
-                                  }
-                                  pageName={"fleetInfoDialogue"}
-                                />
-                              </Grid>
-                              <Grid item xs={12} height={"87%"} paddingTop={1}>
-                                {
-                                  // @ts-ignore
-                                }
-                                {(
-                                  cameraTabIndex === 0
-                                    ? fleetManagementTripDetailsResponse?.data
-                                        ?.videoUrl1
-                                    : fleetManagementTripDetailsResponse?.data
-                                        ?.videoUrl2
-                                ) ? (
-                                  <ReactPlayer
-                                    muted
-                                    playing
-                                    loop={true}
-                                    controls={true}
-                                    url={
+                              {selectedMarkerLocation?.tripStatus ===
+                                "Finish" && completedVideosPlayer}
+                              {selectedMarkerLocation?.tripStatus ===
+                                "Live" && (
+                                <>
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    height={"13%"}
+                                    display={"flex"}
+                                    alignItems={"center"}
+                                  >
+                                    <Tabs
+                                      initialIndex={cameraTabIndex}
+                                      tabsList={camTabsList}
+                                      handleTabs={handleTabs}
+                                      dashboardNotificationClassName={
+                                        customNotificationTabs
+                                      }
+                                      pageName={"fleetInfoDialogue"}
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    height={"87%"}
+                                    paddingTop={1}
+                                  >
+                                    {
+                                      // @ts-ignore
+                                    }
+                                    {(
                                       cameraTabIndex === 0
                                         ? fleetManagementTripDetailsResponse
                                             ?.data?.videoUrl1
                                         : fleetManagementTripDetailsResponse
                                             ?.data?.videoUrl2
-                                    }
-                                    width="100%"
-                                    height="100%"
-                                  />
-                                ) : (
-                                  <div className={noVideoPreview}>
-                                    No Video Content Available
-                                  </div>
-                                )}
-                              </Grid>
+                                    ) ? (
+                                      <ReactPlayer
+                                        muted
+                                        playing
+                                        loop={true}
+                                        controls={true}
+                                        url={
+                                          cameraTabIndex === 0
+                                            ? fleetManagementTripDetailsResponse
+                                                ?.data?.videoUrl1
+                                            : fleetManagementTripDetailsResponse
+                                                ?.data?.videoUrl2
+                                        }
+                                        width="100%"
+                                        height="100%"
+                                      />
+                                    ) : (
+                                      <div className={noVideoPreview}>
+                                        No Video Content Available
+                                      </div>
+                                    )}
+                                  </Grid>
+                                </>
+                              )}
                             </Grid>
                           </Grid>
                         </Grid>
@@ -1022,7 +1078,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                 justifyContent: "center",
                               }}
                             >
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1066,7 +1122,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1108,7 +1164,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1147,7 +1203,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1193,7 +1249,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1232,7 +1288,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1274,7 +1330,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1312,7 +1368,7 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                                   }
                                 />
                               </Grid>
-                              <Grid item>
+                              <Grid item xs={3}>
                                 <CircularProgressBar
                                   selectedTheme={selectedTheme}
                                   radius={getSpeedometerDimensions().radius}
@@ -1359,22 +1415,26 @@ const InfoDialogFleetManagement: React.FC<any> = (props) => {
                       )}
                     </Grid>
                   </Grid>
-                  <Grid
-                    item
-                    xs={3}
-                    style={{
-                      height: "100%",
-                      border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
-                      background:
-                        appTheme?.palette?.fleetManagementPage?.violationBg,
-                      padding: "1% 0% 1% 1%",
-                    }}
-                  >
-                    <FleetInfoDialogueViolationContainer
-                      violationListItems={violations}
-                      selectedTheme={selectedTheme}
-                    />
-                  </Grid>
+                  {tabIndex === 1 && (
+                    <Grid
+                      item
+                      xs={3}
+                      style={{
+                        height: "100%",
+                        border: `1px solid ${appTheme?.palette?.fleetManagementPage?.listItemsBorder}`,
+                        background:
+                          appTheme?.palette?.fleetManagementPage?.violationBg,
+                        padding: "1% 0% 1% 1%",
+                      }}
+                    >
+                      <FleetInfoDialogueViolationContainer
+                        violationListItems={violations}
+                        selectedTheme={selectedTheme}
+                        handleClickVideo={handleClickVideo}
+                        selectedVideoId={selectedVideoId}
+                      />
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

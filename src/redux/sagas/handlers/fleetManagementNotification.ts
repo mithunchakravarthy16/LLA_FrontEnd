@@ -14,6 +14,7 @@ import {
   hideLoaderOverAllAnalytics,
   setFleetManagementOverspeeding,
   setFleetManagementLiveTrip,
+  setFleetManagementCompletedTrips,
 } from "redux/actions/fleetManagementNotificationActions";
 import fetchAPIServices from "../../../services/fetchAPIServices";
 import {
@@ -23,14 +24,18 @@ import {
   getAnalyticsApi,
   getOverSpeedingApi,
   getCoordinatesApi,
+  getCompletedTripsApi,
 } from "../../../services/endPoints";
 // import fleetManagementResponse from "mockdata/fleetManagementAPI";
 
 export function* handleFleetManagementNotification(action: any): any {
   try {
     yield put(setLoaderNotificationData());
-    const { fetchData } = fetchAPIServices;
-    const response = yield fetchData(getFleetNotificationApi);
+    const { fetchPostData } = fetchAPIServices;
+    const response = yield fetchPostData(
+      getFleetNotificationApi,
+      action.payload
+    );
     if (response) {
       yield put(setFleetManagementNotificationData(response));
     } else {
@@ -124,6 +129,23 @@ export function* handleFleetManagementLiveTrip(action: any): any {
       yield put(setFleetManagementLiveTrip({}));
     }
   } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleFleetManagementCompletedTrips(action: any): any {
+  try {
+    yield put(setLoaderNotificationData());
+    const { fetchPostData } = fetchAPIServices;
+    const response = yield fetchPostData(getCompletedTripsApi, action.payload);
+    if (response) {
+      yield put(setFleetManagementCompletedTrips(response));
+    } else {
+      yield put(setFleetManagementCompletedTrips({}));
+    }
+    yield put(hideLoaderNotificationData());
+  } catch (error) {
+    yield put(hideLoaderNotificationData());
     console.log(error);
   }
 }

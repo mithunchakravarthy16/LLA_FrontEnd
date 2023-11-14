@@ -15,6 +15,7 @@ import CloseIconDark from "../../assets/closeIconBoxDark.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import theme from "../../theme/theme";
 import { useState, useEffect } from "react";
+import SearchIconNew from "assets/searchNew.svg";
 
 const INF_SearchBox: React.FC<any> = (props) => {
   const {
@@ -38,7 +39,11 @@ const INF_SearchBox: React.FC<any> = (props) => {
     rowsPerPage,
     isRefreshClicked,
     setIsRefreshClicked,
-    mainTabIndex
+    mainTabIndex,
+    tabMainIndex,
+    tripsTabIndex,
+    setTSearchValue,
+    setSearchNoticationsValue,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -69,9 +74,11 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleClose = () => {
     setSearchValue("");
+    tabMainIndex === 0 && setTSearchValue("");
+    tabMainIndex === 1 && setSearchNoticationsValue("");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security") && 
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") && 
       handleSearch("");
     // handleSearchtest("")
     setIcon("search");
@@ -101,6 +108,8 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   const handleInput = (event: any) => {
     setSearchValue(event.target.value);
+    tabMainIndex === 0 && setTSearchValue(event.target.value);
+    tabMainIndex === 1 && setSearchNoticationsValue(event.target.value);
     if (event.target.value.length > 0) {
       setIcon("cancel");
     }else{
@@ -109,7 +118,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") &&
       handleSearch(event.target.value);
     if (
       notificationPageName === "dashboard" ||
@@ -141,13 +150,15 @@ const INF_SearchBox: React.FC<any> = (props) => {
 
   useEffect(() => {
     setSearchValue("");
+    tabMainIndex === 0 && setTSearchValue("");
+    tabMainIndex === 1 && setSearchNoticationsValue("");
     setIcon("search");
     (notificationPageName === "parking" ||
       notificationPageName === "assetTable" ||
-      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security") &&
+      notificationPageName === "energy" || notificationPageName === "lighting" || notificationPageName === "security" || notificationPageName === "FleetManagement") &&
       handleSearch("");
     // handleSearchtest("")
-  }, [tabIndex]);
+  }, [tabIndex, tabMainIndex, tripsTabIndex]);
 
   useEffect(() => {
     textInput.current.focus();
@@ -183,7 +194,10 @@ const INF_SearchBox: React.FC<any> = (props) => {
                   src={
                     notificationPageName === "assetTable"
                       ? SearchIconDark
-                      : notificationPageName === "asset" ? assetSearchIconImg : SearchIconImg
+                      : notificationPageName === "asset" ? assetSearchIconImg 
+                      : notificationPageName === "FleetManagement"
+                      ? SearchIconNew
+                      : SearchIconImg
                   }
                   onClick={handleSearchFocus}
                   // onChange={handleInput}
@@ -196,6 +210,8 @@ const INF_SearchBox: React.FC<any> = (props) => {
                   src={
                     notificationPageName === "assetTable"
                       ? CloseIconDark
+                      : notificationPageName === "FleetManagement"
+                      ? SearchIconNew
                       : closeIconBox
                   }
                   onClick={handleClose}
