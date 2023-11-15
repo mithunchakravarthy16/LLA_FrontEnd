@@ -32,7 +32,10 @@ import {
 
 export function* handleFleetManagementNotification(action: any): any {
   try {
-    yield put(setLoaderNotificationData());
+    if (action.isFromSearch) {
+      yield put(setLoaderNotificationData());
+    }
+
     const { fetchPostData } = fetchAPIServices;
     const response = yield fetchPostData(
       getFleetNotificationApi,

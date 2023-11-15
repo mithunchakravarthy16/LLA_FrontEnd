@@ -31,7 +31,8 @@ export const fleetManagementNotification = {
 
 export const getFleetManagementNotificationData = (payload: any) => ({
   type: fleetManagementNotification.GET_FLEET_MANAGEMENT_NOTIFICATION,
-  payload: payload,
+  payload: payload.payLoad,
+  isFromSearch: payload.isFromSearch,
 });
 
 export const setFleetManagementNotificationData = (

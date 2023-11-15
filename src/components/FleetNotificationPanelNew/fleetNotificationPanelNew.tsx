@@ -19,8 +19,6 @@ const FleetNotificationPanelNew = (props: any) => {
     selectedNotification,
     setSelectedNotification,
     searchOpen,
-    setSearchOpen,
-    searchNotificationsValue,
     setSearchNoticationsValue,
     notificationPageName,
     isMarkerClicked,
@@ -42,6 +40,7 @@ const FleetNotificationPanelNew = (props: any) => {
     page,
     setDebounceSearchText,
     loadingFleetManagementCompletedTripsData,
+    apiResponse,
   } = props;
 
   const [appTheme, setAppTheme] = useState<any>();
@@ -87,31 +86,22 @@ const FleetNotificationPanelNew = (props: any) => {
     searchText,
     noResultFound,
   } = useTranslation();
-  const [tSearchValue, setTSearchValue] = useState<any>("");
+
   const tabsList = [
     {
       name: eventText,
       val: 0,
-      count:
-        searchNotificationsValue?.length > 0 && tabIndex === 0
-          ? searchNotificationsValue?.length
-          : notificationCount && notificationCount[0],
+      count: apiResponse?.data?.events?.totalCount,
     },
     {
       name: incidentText,
       val: 1,
-      count:
-        searchNotificationsValue?.length > 0 && tabIndex === 1
-          ? searchNotificationsValue?.length
-          : notificationCount && notificationCount[1],
+      count: apiResponse?.data?.incidents?.totalCount,
     },
     {
       name: oprAlertText,
       val: 1,
-      count:
-        searchNotificationsValue?.length > 0 && tabIndex === 2
-          ? searchNotificationsValue?.length
-          : notificationCount && notificationCount[2],
+      count: apiResponse?.data?.alerts?.totalCount,
     },
   ];
 
@@ -128,56 +118,7 @@ const FleetNotificationPanelNew = (props: any) => {
 
   const handleTabs = (index: number) => {
     setTabIndex(index);
-    // setSearchOpen(false);
     setSelectedNotification("");
-    // setSelectedRefId("");
-  };
-
-  // const handleSearchIcon = () => {
-  //   setSearchOpen(true);
-  // };
-
-  const handleSearch = (searchText: any) => {
-    const tabData = dashboardData;
-    let searchResult = tabData?.filter((value: any) => {
-      return (
-        value?.title
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.area
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.subTitle
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.trackerId
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.assetId
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.entity
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.venue
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase()) ||
-        value?.equipment
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchText?.toString()?.toLowerCase())
-      );
-    });
-    setSearchNoticationsValue(searchResult);
-    // setSearchOpen(true);
-    // setSelectedNotification("");
   };
 
   const handleCloseIcon = () => {
@@ -185,19 +126,10 @@ const FleetNotificationPanelNew = (props: any) => {
     setSelectedNotification("");
   };
 
-  // const handleSearchCloseIcon = () => {
-  //   setSearchOpen(false);
-  //   setSearchNoticationsValue(dashboardData);
-  //   setSelectedNotification("");
-  // };
-
-  const handleExpandListItem = useCallback(
-    (param: any) => {
-      setSelectedNotification(selectedNotification === param ? "" : param);
-      props.handleExpandListItem(param);
-    },
-    [selectedNotification]
-  );
+  const handleExpandListItem = (param: any) => {
+    setSelectedNotification(selectedNotification === param ? "" : param);
+    props.handleExpandListItem(selectedNotification === param ? "" : param);
+  };
 
   const refs =
     tripsSearchValue && tripsSearchValue?.length > 0
@@ -229,31 +161,19 @@ const FleetNotificationPanelNew = (props: any) => {
     }
   }, [refs, selectedNotification]);
 
-  // useEffect(() => {
-  //   if (!searchOpen) {
-  //     setSearchNoticationsValue(dashboardData);
-  //   }
-  //   if (searchOpen) {
-  //     setSelectedNotification("");
-  //     setIsMarkerClicked(false);
-  //   }
-  // }, [searchOpen]);
-
   useEffect(() => {
-    if (searchNotificationsValue?.length === 0) {
+    if (tripsSearchValue?.length === 0) {
       setSelectedNotification("");
     }
-  }, [searchNotificationsValue]);
+  }, [tripsSearchValue]);
 
   useEffect(() => {
     if (isMarkerClicked) {
-      setSearchOpen(false);
       setSearchNoticationsValue(dashboardData);
     }
   }, [isMarkerClicked]);
 
   useEffect(() => {
-    setSearchOpen(false);
     setSearchNoticationsValue(dashboardData);
   }, [tabIndex]);
 
@@ -263,32 +183,19 @@ const FleetNotificationPanelNew = (props: any) => {
     {
       name: "LIVE",
       val: 0,
-      count:
-        tSearchValue?.length > 0 && tripsTabIndex === 0
-          ? tripsSearchValue?.length
-          : tripsNotificationCount && tripsNotificationCount[0],
+      count: apiResponse?.data?.liveTrips?.count,
     },
     {
       name: "DEVICES",
       val: 1,
-      count:
-        tSearchValue?.length > 0 && tripsTabIndex === 1
-          ? tripsSearchValue?.length
-          : tripsNotificationCount && tripsNotificationCount[1],
+      count: apiResponse?.data?.deviceDTOs?.count,
     },
     {
       name: "COMPLETED",
       val: 1,
-      count:
-        tSearchValue?.length > 0 && tripsTabIndex === 2
-          ? tripsSearchValue?.length
-          : tripsNotificationCount && tripsNotificationCount[2],
+      count: apiResponse?.data?.completedTrips?.count,
     },
   ];
-
-  // useEffect(() => {
-  //   setTripsSearchValue(dashboardData);
-  // }, [dashboardData]);
 
   const handleMainTabs = (index: number) => {
     setTabMainIndex(index);
@@ -302,7 +209,6 @@ const FleetNotificationPanelNew = (props: any) => {
   const handleTripsTabs = (index: number) => {
     setTripsTabIndex(index);
     setSelectedNotification("");
-    setDebounceSearchText("");
     handleMarkerCancel();
   };
 
@@ -332,7 +238,7 @@ const FleetNotificationPanelNew = (props: any) => {
               <SearchBox
                 searchInput={searchClass}
                 placeHolder={searchText}
-                handleSearch={handleSearch}
+                handleSearch={() => {}}
                 borderRadius={2}
                 borderColor={`1px solid ${appTheme?.palette?.notification?.listItemBorder}`}
                 fontColor={appTheme?.palette?.notification?.colorWhite}
@@ -341,8 +247,11 @@ const FleetNotificationPanelNew = (props: any) => {
                 searchIsOpen={searchOpen}
                 selectedTheme={selectedTheme}
                 notificationPageName={"FleetManagement"}
-                tabMainIndex={tabMainIndex}
-                setSearchNoticationsValue={setSearchNoticationsValue}
+                handleSearchtest={handleSearchtest}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                mainTabIndex={tabMainIndex}
+                setDebounceSearchText={setDebounceSearchText}
               />
             ) : (
               <SearchBox
@@ -378,21 +287,24 @@ const FleetNotificationPanelNew = (props: any) => {
               />
             </div>
             <div className={notificationListItemSection}>
-              {searchNotificationsValue &&
-              searchNotificationsValue?.length > 0 ? (
-                <FleetNotificationListItems
-                  data={searchNotificationsValue}
-                  handleExpandListItem={handleExpandListItem}
-                  selectedNotification={selectedNotification}
-                  refs={refs}
-                  handleViewDetails={handleViewDetails}
-                  handleAssetViewDetails={handleAssetViewDetails}
-                  handleVideoDetails={handleVideoDetails}
-                  notificationPageName={notificationPageName}
-                  selectedTheme={selectedTheme}
-                />
+              {!loadingFleetManagementCompletedTripsData ? (
+                tripsSearchValue && tripsSearchValue?.length > 0 ? (
+                  <FleetNotificationListItems
+                    data={tripsSearchValue}
+                    handleExpandListItem={handleExpandListItem}
+                    selectedNotification={selectedNotification}
+                    refs={refs}
+                    handleViewDetails={handleViewDetails}
+                    handleAssetViewDetails={handleAssetViewDetails}
+                    handleVideoDetails={handleVideoDetails}
+                    notificationPageName={notificationPageName}
+                    selectedTheme={selectedTheme}
+                  />
+                ) : (
+                  <div className={noResultFoundClass}>{noResultFound}</div>
+                )
               ) : (
-                <div className={noResultFoundClass}>{noResultFound}</div>
+                <Loader isHundredVh={false} imgWidth={"20%"} />
               )}
             </div>
           </>

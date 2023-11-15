@@ -425,6 +425,7 @@ const useStyles = makeStyles({
       fontSize: "24px",
       lineHeight: "52px",
       fontFamily: "HelveticaNeue-Regular",
+      color: "#808080 !important",
       [muiTheme.breakpoints.up(3839)]: {
         fontSize: "30px",
         lineHeight: "52px",
