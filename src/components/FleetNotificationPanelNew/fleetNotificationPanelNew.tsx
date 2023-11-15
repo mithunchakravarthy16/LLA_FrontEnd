@@ -86,7 +86,7 @@ const FleetNotificationPanelNew = (props: any) => {
     searchText,
     noResultFound,
   } = useTranslation();
-  const [tSearchValue, setTSearchValue] = useState<any>("");
+
   const tabsList = [
     {
       name: eventText,
@@ -126,13 +126,10 @@ const FleetNotificationPanelNew = (props: any) => {
     setSelectedNotification("");
   };
 
-  const handleExpandListItem = useCallback(
-    (param: any) => {
-      setSelectedNotification(selectedNotification === param ? "" : param);
-      props.handleExpandListItem(param);
-    },
-    [selectedNotification]
-  );
+  const handleExpandListItem = (param: any) => {
+    setSelectedNotification(selectedNotification === param ? "" : param);
+    props.handleExpandListItem(selectedNotification === param ? "" : param);
+  };
 
   const refs =
     tripsSearchValue && tripsSearchValue?.length > 0
@@ -200,10 +197,6 @@ const FleetNotificationPanelNew = (props: any) => {
     },
   ];
 
-  // useEffect(() => {
-  //   setTripsSearchValue(dashboardData);
-  // }, [dashboardData]);
-
   const handleMainTabs = (index: number) => {
     setTabMainIndex(index);
     setTripsTabIndex(0);
@@ -216,7 +209,6 @@ const FleetNotificationPanelNew = (props: any) => {
   const handleTripsTabs = (index: number) => {
     setTripsTabIndex(index);
     setSelectedNotification("");
-    setDebounceSearchText("");
     handleMarkerCancel();
   };
 

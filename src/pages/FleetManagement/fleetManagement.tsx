@@ -241,7 +241,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const notificationsLoader = useSelector(
     (state: any) => state.fleetManagementNotification?.loadingNotificationData
   );
-  console.log("notificationsLoader", notificationsLoader);
+
   const overAllAnalyticsLoader = useSelector(
     (state: any) => state.fleetManagementNotification?.loadingOverAllAnalytics
   );
@@ -829,10 +829,16 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const handleExpandListItem = (id: any) => {
     const obj = dashboardData?.find((item: any) => item.id === id);
-    if (obj?.tripStatus === "Live" && obj?.reason && obj?.tripId) {
-      dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
-      setTripId(obj?.tripId);
+    if (id) {
+      if (obj?.tripStatus === "Live" && obj?.reason && obj?.tripId) {
+        dispatch(getFleetManagementTripDetails({ tripId: obj?.tripId }));
+        setTripId(obj?.tripId);
+      } else {
+        setTripId(null);
+      }
     } else {
+      dispatch(setFleetManagementLiveTrip({}));
+      dispatch(setFleetManagementTripDetails({}));
       setTripId(null);
     }
   };
@@ -1016,6 +1022,32 @@ const FleetManagement: React.FC<any> = (props) => {
       );
     }
   }, []);
+
+  useEffect(() => {
+    if (debounceSearchText) {
+      let fleetPayload = {
+        filterText: "",
+        pageNo: parseInt(page),
+        pageSize: parseInt(rowsPerPage),
+        filterType: "",
+      };
+      tabMainIndex === 0 &&
+        dispatch(
+          getFleetManagementCompletedTrips({
+            payLoad: fleetPayload,
+            isFromSearch: true,
+          })
+        );
+      tabMainIndex === 1 &&
+        dispatch(
+          getFleetManagementNotificationData({
+            payLoad: fleetPayload,
+            isFromSearch: true,
+          })
+        );
+      setDebounceSearchText("");
+    }
+  }, [tripsTabIndex, tabIndex]);
 
   // PAGINATION
 
