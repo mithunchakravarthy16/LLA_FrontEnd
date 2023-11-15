@@ -7,7 +7,7 @@ import SearchIconImg from "../../assets/searchIcon.svg";
 
 import assetSearchIconImg from "../../assets/assetSearchIcon.svg";
 
-import closeIconBox from "../../assets/closeIconBox.svg";
+import closeIconBox from "../../assets/closeIcon.svg";
 import SearchIconDark from "../../assets/searchIconDark.svg";
 import CloseIconDark from "../../assets/closeIconBoxDark.svg";
 //@ts-ignore
@@ -172,8 +172,7 @@ const INF_SearchBox: React.FC<any> = (props) => {
     <>
       <div
         className={searchInput}
-        style={{ border: notificationPageName === "asset" && borderColor }}
-      >
+        style={{ border: notificationPageName === "asset" && borderColor }}>
         <InputBase
           disabled={disabled ? disabled : false}
           fullWidth
