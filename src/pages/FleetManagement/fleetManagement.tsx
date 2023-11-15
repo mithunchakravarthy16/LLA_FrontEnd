@@ -125,23 +125,17 @@ const FleetManagement: React.FC<any> = (props) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    let payload: any = {};
-    // const timer = setInterval(() => {
-    //   dispatch(getFleetManagementNotificationData(payload));
-    // }, 10000);
-    // return () => {
-    //   clearInterval(timer);
-    // };
-    const fleetPayload = {
-      filterText: "",
-      pageNo: 0,
-      pageSize: parseInt(rowsPerPage),
-      notificationType:
-        tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
-    };
-    dispatch(getFleetManagementNotificationData({ payLoad: fleetPayload }));
-  }, []);
+  // useEffect(() => {
+  //   const fleetPayload = {
+  //     filterText: "",
+  //     pageNo: 0,
+  //     pageSize: parseInt(rowsPerPage),
+  //     filterType:
+  //       tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
+  //   };
+  //   dispatch(getFleetManagementNotificationData({ payLoad: fleetPayload }));
+  // }, []);
+
   const [selectedGraphFormat, setSelectedGraphFormat] = useState<any>({
     format: "hh:mm A",
     tickInterval1: 8,
@@ -247,7 +241,7 @@ const FleetManagement: React.FC<any> = (props) => {
   const notificationsLoader = useSelector(
     (state: any) => state.fleetManagementNotification?.loadingNotificationData
   );
-
+  console.log("notificationsLoader", notificationsLoader);
   const overAllAnalyticsLoader = useSelector(
     (state: any) => state.fleetManagementNotification?.loadingOverAllAnalytics
   );
@@ -1006,7 +1000,7 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(page),
         pageSize: parseInt(rowsPerPage),
-        notificationType: "",
+        filterType: "",
       };
       dispatch(
         getFleetManagementCompletedTrips({
@@ -1014,8 +1008,14 @@ const FleetManagement: React.FC<any> = (props) => {
           isFromSearch: true,
         })
       );
+      dispatch(
+        getFleetManagementNotificationData({
+          payLoad: fleetPayload,
+          isFromSearch: true,
+        })
+      );
     }
-  }, [debounceSearchText, rowsPerPage]);
+  }, []);
 
   // PAGINATION
 
@@ -1031,7 +1031,7 @@ const FleetManagement: React.FC<any> = (props) => {
       filterText: debounceSearchText,
       pageNo: parseInt(page),
       pageSize: parseInt(data),
-      notificationType: debounceSearchText
+      filterType: debounceSearchText
         ? tripsTabIndex === 0
           ? "Live"
           : tripsTabIndex === 1
@@ -1039,22 +1039,44 @@ const FleetManagement: React.FC<any> = (props) => {
           : "Completed"
         : "",
     };
-    dispatch(
-      getFleetManagementCompletedTrips({
-        payLoad: fleetPayload,
-        isFromSearch: true,
-      })
-    );
+    let fleetNotificationPayload = {
+      filterText: debounceSearchText,
+      pageNo: parseInt(page),
+      pageSize: parseInt(rowsPerPage),
+      filterType: debounceSearchText
+        ? tabIndex === 0
+          ? "Events"
+          : tabIndex === 1
+          ? "Incident"
+          : "Alerts"
+        : "",
+    };
+    tabMainIndex === 0 &&
+      dispatch(
+        getFleetManagementCompletedTrips({
+          payLoad: fleetPayload,
+          isFromSearch: true,
+        })
+      );
+
+    tabMainIndex === 1 &&
+      dispatch(
+        getFleetManagementNotificationData({
+          payLoad: fleetNotificationPayload,
+          isFromSearch: true,
+        })
+      );
   };
 
   const handleNextChange = () => {
     let fleetPayload: any = {};
+    let fleetNotificationPayload: any = {};
     if (page >= 0) {
       fleetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(page) + 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType: debounceSearchText
+        filterType: debounceSearchText
           ? tripsTabIndex === 0
             ? "Live"
             : tripsTabIndex === 1
@@ -1062,25 +1084,46 @@ const FleetManagement: React.FC<any> = (props) => {
             : "Completed"
           : "",
       };
+      fleetNotificationPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(page) + 1,
+        pageSize: parseInt(rowsPerPage),
+        filterType: debounceSearchText
+          ? tabIndex === 0
+            ? "Events"
+            : tabIndex === 1
+            ? "Incident"
+            : "Alerts"
+          : "",
+      };
     }
-    dispatch(
-      getFleetManagementCompletedTrips({
-        payLoad: fleetPayload,
-        isFromSearch: true,
-      })
-    );
+    tabMainIndex === 0 &&
+      dispatch(
+        getFleetManagementCompletedTrips({
+          payLoad: fleetPayload,
+          isFromSearch: true,
+        })
+      );
+    tabMainIndex === 1 &&
+      dispatch(
+        getFleetManagementNotificationData({
+          payLoad: fleetNotificationPayload,
+          isFromSearch: true,
+        })
+      );
     setPage(page + 1);
     setSearchPageNo("");
   };
 
   const handlePreviousChange = () => {
     let fleetPayload: any = {};
+    let fleetNotificationPayload: any = {};
     if (page > 0) {
       fleetPayload = {
         filterText: debounceSearchText,
         pageNo: parseInt(page) - 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType: debounceSearchText
+        filterType: debounceSearchText
           ? tripsTabIndex === 0
             ? "Live"
             : tripsTabIndex === 1
@@ -1088,19 +1131,40 @@ const FleetManagement: React.FC<any> = (props) => {
             : "Completed"
           : "",
       };
+      fleetNotificationPayload = {
+        filterText: debounceSearchText,
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+        filterType: debounceSearchText
+          ? tabIndex === 0
+            ? "Events"
+            : tabIndex === 1
+            ? "Incident"
+            : "Alerts"
+          : "",
+      };
     }
-    dispatch(
-      getFleetManagementCompletedTrips({
-        payLoad: fleetPayload,
-        isFromSearch: true,
-      })
-    );
+    tabMainIndex === 0 &&
+      dispatch(
+        getFleetManagementCompletedTrips({
+          payLoad: fleetPayload,
+          isFromSearch: true,
+        })
+      );
+    tabMainIndex === 1 &&
+      dispatch(
+        getFleetManagementNotificationData({
+          payLoad: fleetNotificationPayload,
+          isFromSearch: true,
+        })
+      );
     setPage(page - 1);
     setSearchPageNo("");
   };
 
   const handlePageNoChange = (value: any, keyName: any) => {
     let fleetPayload: any = {};
+    let fleetNotificationPayload: any = {};
     if (page >= 0 && value !== "" && keyName === "Enter") {
       setSearchPageNo(parseInt(value));
       setPage(parseInt(value) - 1);
@@ -1108,7 +1172,7 @@ const FleetManagement: React.FC<any> = (props) => {
         filterText: "",
         pageNo: parseInt(value) - 1,
         pageSize: parseInt(rowsPerPage),
-        notificationType: debounceSearchText
+        filterType: debounceSearchText
           ? tripsTabIndex === 0
             ? "Live"
             : tripsTabIndex === 1
@@ -1116,12 +1180,32 @@ const FleetManagement: React.FC<any> = (props) => {
             : "Completed"
           : "",
       };
-      dispatch(
-        getFleetManagementCompletedTrips({
-          payLoad: fleetPayload,
-          isFromSearch: true,
-        })
-      );
+      fleetNotificationPayload = {
+        filterText: "",
+        pageNo: parseInt(page) - 1,
+        pageSize: parseInt(rowsPerPage),
+        filterType: debounceSearchText
+          ? tabIndex === 0
+            ? "Events"
+            : tabIndex === 1
+            ? "Incident"
+            : "Alerts"
+          : "",
+      };
+      tabMainIndex === 0 &&
+        dispatch(
+          getFleetManagementCompletedTrips({
+            payLoad: fleetPayload,
+            isFromSearch: true,
+          })
+        );
+      tabMainIndex === 1 &&
+        dispatch(
+          getFleetManagementNotificationData({
+            payLoad: fleetNotificationPayload,
+            isFromSearch: true,
+          })
+        );
       // setSearchPageNo("");
     }
   };
@@ -1138,42 +1222,52 @@ const FleetManagement: React.FC<any> = (props) => {
     mainTabIndex: any
   ) => {
     // searchTextRef.current = searchValue;
-    let assetPayload = {};
+    let fleetPayload = {};
+    let fleetNotificationPayload: any = {};
     if (searchValue) {
       setPage(0);
-      assetPayload = {
+      fleetPayload = {
         filterText: searchValue,
         pageNo: 0,
         pageSize: parseInt(searchBoxRowsPerPage),
-        notificationType:
-          tripsTabIndex === 0
-            ? "Live"
-            : tripsTabIndex === 1
-            ? "Devices"
-            : "Completed",
+        filterType:
+          tabIndex === 0 ? "Live" : tabIndex === 1 ? "Devices" : "Completed",
+      };
+      fleetNotificationPayload = {
+        filterText: searchValue,
+        pageNo: 0,
+        pageSize: parseInt(searchBoxRowsPerPage),
+        filterType:
+          tabIndex === 0 ? "Events" : tabIndex === 1 ? "Incident" : "Alerts",
       };
     } else {
       setPage(0);
-      assetPayload = {
+      fleetPayload = {
         filterText: "",
         pageNo: 0,
         pageSize: parseInt(searchBoxRowsPerPage),
-        notificationType: "",
+        filterType: "",
+      };
+      fleetNotificationPayload = {
+        filterText: "",
+        pageNo: 0,
+        pageSize: parseInt(searchBoxRowsPerPage),
+        filterType: "",
       };
     }
-    tabMainIndex === 0 &&
+    mainTabIndex === 0 &&
       dispatch(
         getFleetManagementCompletedTrips({
-          payLoad: assetPayload,
+          payLoad: fleetPayload,
           isFromSearch: true,
         })
       );
 
-    tabMainIndex === 1 &&
+    mainTabIndex === 1 &&
       dispatch(
         getFleetManagementNotificationData({
-          payLoad: assetPayload,
-          // isFromSearch: true,
+          payLoad: fleetNotificationPayload,
+          isFromSearch: true,
         })
       );
     setDebounceSearchText(searchValue);
@@ -1851,27 +1945,6 @@ const FleetManagement: React.FC<any> = (props) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={3} className={notificationPanelGrid}>
-                    {/* <FleetNotificationPanel
-                      setNotificationPanelActive={setNotificationPanelActive}
-                      dashboardData={dashboardData}
-                      tabIndex={tabIndex}
-                      setTabIndex={setTabIndex}
-                      notificationCount={notificationCount}
-                      selectedNotification={selectedNotification}
-                      setSelectedNotification={setSelectedNotification}
-                      searchOpen={searchOpen}
-                      setSearchOpen={setSearchOpen}
-                      searchValue={searchValue}
-                      setSearchValue={setSearchValue}
-                      setCurrentMarker={setCurrentMarker}
-                      handleViewDetails={handleViewDetails}
-                      handleVideoDetails={handleVideoDetails}
-                      isMarkerClicked={isMarkerClicked}
-                      setIsMarkerClicked={setIsMarkerClicked}
-                      selectedTheme={selectedTheme}
-                      handleExpandListItem={handleExpandListItem}
-                    /> */}
-
                     <FleetNotificationPanelNew
                       setNotificationPanelActive={setNotificationPanelActive}
                       dashboardData={
@@ -1884,7 +1957,7 @@ const FleetManagement: React.FC<any> = (props) => {
                       setSelectedNotification={setSelectedNotification}
                       searchOpen={searchOpen}
                       setSearchOpen={setSearchOpen}
-                      searchNotificationsValue={searchNotificationsValue}
+                      // searchNotificationsValue={searchNotificationsValue}
                       setSearchNoticationsValue={setSearchNoticationsValue}
                       setCurrentMarker={setCurrentMarker}
                       handleViewDetails={handleViewDetails}
@@ -1899,7 +1972,11 @@ const FleetManagement: React.FC<any> = (props) => {
                       setTripsTabIndex={setTripsTabIndex}
                       tripsNotificationCount={tripsNotificationCount}
                       handleTripsExpandListItem={handleTripsExpandListItem}
-                      tripsSearchValue={tripsSearchValue}
+                      tripsSearchValue={
+                        tabMainIndex === 0
+                          ? tripsSearchValue
+                          : searchNotificationsValue
+                      }
                       setTripsSearchValue={setTripsSearchValue}
                       handleMarkerCancel={handleMarkerCancel}
                       handleSearchtest={handleSearchtest}
@@ -1907,10 +1984,18 @@ const FleetManagement: React.FC<any> = (props) => {
                       page={page}
                       setDebounceSearchText={setDebounceSearchText}
                       loadingFleetManagementCompletedTripsData={
-                        loadingFleetManagementCompletedTripsData
+                        tabMainIndex === 0
+                          ? loadingFleetManagementCompletedTripsData
+                          : notificationsLoader
+                      }
+                      apiResponse={
+                        tabMainIndex === 0
+                          ? fleetManagementCompletedTripsResponse
+                          : fleetManagementNotificationResponse
                       }
                     />
-                    {!loadingFleetManagementCompletedTripsData && (
+                    {(!loadingFleetManagementCompletedTripsData ||
+                      !notificationsLoader) && (
                       <div style={{ margin: "-5px 20px 0 20px" }}>
                         <CustomTablePagination
                           rowsPerPageOptions={[50, 100, 200, 500]}
@@ -1924,7 +2009,14 @@ const FleetManagement: React.FC<any> = (props) => {
                                     ?.deviceDTOs?.count
                                 : fleetManagementCompletedTripsResponse?.data
                                     ?.completedTrips?.count
-                              : 0
+                              : tabIndex === 0
+                              ? fleetManagementNotificationResponse?.data
+                                  ?.events?.totalCount
+                              : tabIndex === 1
+                              ? fleetManagementNotificationResponse?.data
+                                  ?.incidents?.totalCount
+                              : fleetManagementNotificationResponse?.data
+                                  ?.alerts?.totalCount
                           }
                           rowsPerPage={rowsPerPage}
                           page={page}
